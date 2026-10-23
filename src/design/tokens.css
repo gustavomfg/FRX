@@ -1,0 +1,110 @@
+/*
+ * FRX — design tokens
+ * Toda cor, raio e duração da interface nasce aqui. Temas e acentos
+ * futuros só precisam redefinir estas variáveis.
+ */
+
+:root,
+[data-theme='frx-dark'] {
+  /* Superfícies */
+  --frx-bg: #101011;
+  --frx-surface: #1b1b1d;
+  --frx-raised: #252528;
+  --frx-overlay: #2e2e32;
+  --frx-scrim: rgb(8 8 9 / 0.72);
+
+  /* Texto */
+  --frx-text: #f5f5f2;
+  --frx-text-2: #a0a0a5;
+  --frx-text-3: #6c6c72;
+  --frx-text-inverse: #101011;
+
+  /* Bordas — quase invisíveis */
+  --frx-line: rgb(245 245 242 / 0.06);
+  --frx-line-2: rgb(245 245 242 / 0.11);
+  --frx-line-3: rgb(245 245 242 / 0.2);
+
+  /* Acento (padrão: amarelo manteiga) */
+  --frx-accent: #f1c66a;
+  --frx-accent-strong: #f6d68f;
+  --frx-accent-ink: #1c1609;
+  --frx-accent-soft: rgb(241 198 106 / 0.12);
+  --frx-accent-line: rgb(241 198 106 / 0.32);
+
+  /* Estados — reservados, sempre acompanhados de ícone + texto */
+  --frx-good: #9fce9b;
+  --frx-good-soft: rgb(159 206 155 / 0.12);
+  --frx-caution: #e8a35f;
+  --frx-caution-soft: rgb(232 163 95 / 0.13);
+  --frx-bad: #e57a6e;
+  --frx-bad-soft: rgb(229 122 110 / 0.13);
+  --frx-adjust: #f1c66a; /* status "pede ajustes" — independe do acento */
+  --frx-adjust-soft: rgb(241 198 106 / 0.12);
+  --frx-info: #94bfdc;
+  --frx-info-soft: rgb(148 191 220 / 0.12);
+
+  /* Gráficos */
+  --frx-chart-base: #8a8a90;
+  --frx-chart-grid: rgb(245 245 242 / 0.06);
+
+  /* Mascote (paleta curta do Pim) */
+  --pim-body: #f5f5f2;
+  --pim-shade: #c4c4bf;
+  --pim-ink: #141415;
+  --pim-hat: var(--frx-accent);
+  --pim-hat-shade: color-mix(in oklab, var(--frx-accent) 72%, #5a3d10);
+  --pim-cheek: #eaa39a;
+  --pim-metal: #a0a0a5;
+  --pim-glass: #94bfdc;
+
+  /* Forma */
+  --frx-radius-xs: 4px;
+  --frx-radius-sm: 7px;
+  --frx-radius-md: 10px;
+  --frx-radius-lg: 14px;
+  --frx-radius-xl: 20px;
+
+  /* Movimento */
+  --frx-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --frx-ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+  --frx-dur-fast: 120ms;
+  --frx-dur: 200ms;
+  --frx-dur-slow: 380ms;
+
+  color-scheme: dark;
+}
+
+/* Acentos alternativos (estrutura para temas futuros) */
+[data-accent='menta'] {
+  --frx-accent: #9ed6b4;
+  --frx-accent-strong: #b9e4c9;
+  --frx-accent-ink: #0d1a12;
+  --frx-accent-soft: rgb(158 214 180 / 0.12);
+  --frx-accent-line: rgb(158 214 180 / 0.32);
+}
+[data-accent='coral'] {
+  --frx-accent: #f0957e;
+  --frx-accent-strong: #f5b09e;
+  --frx-accent-ink: #1e0e0a;
+  --frx-accent-soft: rgb(240 149 126 / 0.12);
+  --frx-accent-line: rgb(240 149 126 / 0.32);
+}
+[data-accent='ceu'] {
+  --frx-accent: #92c4ea;
+  --frx-accent-strong: #b3d6f1;
+  --frx-accent-ink: #0a141c;
+  --frx-accent-soft: rgb(146 196 234 / 0.12);
+  --frx-accent-line: rgb(146 196 234 / 0.32);
+}
+
+/* Intensidade de animação */
+[data-motion='calm'] {
+  --frx-dur-fast: 90ms;
+  --frx-dur: 150ms;
+  --frx-dur-slow: 240ms;
+}
+[data-motion='off'] {
+  --frx-dur-fast: 0ms;
+  --frx-dur: 0ms;
+  --frx-dur-slow: 0ms;
+}

@@ -1,0 +1,44 @@
+{
+  "name": "frx",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "FRX — Play. Fix. Repeat. Gerenciador de compatibilidade e otimização de jogos no Linux (protótipo front-end).",
+  "scripts": {
+    "dev": "tauri dev",
+    "dev:web": "vite",
+    "build": "tauri build",
+    "build:web": "tsc --noEmit -p . && vite build",
+    "build:appimage": "tauri build --bundles appimage",
+    "build:deb": "tauri build --bundles deb",
+    "build:rpm": "tauri build --bundles rpm",
+    "build:arch": "tauri build --no-bundle && cd packaging/arch && makepkg -f --noconfirm",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p .",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource/silkscreen": "^5.3.0",
+    "@tauri-apps/api": "^2.12.4",
+    "lucide-react": "^1.61.0",
+    "motion": "^14.6.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@tauri-apps/cli": "^2.12.4",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}

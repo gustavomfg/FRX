@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+@import './design/tokens.css';
+
+@theme inline {
+  --color-bg: var(--frx-bg);
+  --color-surface: var(--frx-surface);
+  --color-raised: var(--frx-raised);
+  --color-overlay: var(--frx-overlay);
+  --color-fg: var(--frx-text);
+  --color-fg-2: var(--frx-text-2);
+  --color-fg-3: var(--frx-text-3);
+  --color-inverse: var(--frx-text-inverse);
+  --color-line: var(--frx-line);
+  --color-line-2: var(--frx-line-2);
+  --color-line-3: var(--frx-line-3);
+  --color-accent: var(--frx-accent);
+  --color-accent-strong: var(--frx-accent-strong);
+  --color-accent-ink: var(--frx-accent-ink);
+  --color-accent-soft: var(--frx-accent-soft);
+  --color-accent-line: var(--frx-accent-line);
+  --color-good: var(--frx-good);
+  --color-good-soft: var(--frx-good-soft);
+  --color-caution: var(--frx-caution);
+  --color-caution-soft: var(--frx-caution-soft);
+  --color-bad: var(--frx-bad);
+  --color-bad-soft: var(--frx-bad-soft);
+  --color-info: var(--frx-info);
+  --color-info-soft: var(--frx-info-soft);
+
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  --font-pixel: 'Silkscreen', ui-monospace, monospace;
+
+  --radius-xs: var(--frx-radius-xs);
+  --radius-sm: var(--frx-radius-sm);
+  --radius-md: var(--frx-radius-md);
+  --radius-lg: var(--frx-radius-lg);
+  --radius-xl: var(--frx-radius-xl);
+
+  --ease-frx: var(--frx-ease);
+  --ease-spring: var(--frx-ease-spring);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    background: var(--frx-bg);
+    color: var(--frx-text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    font-feature-settings: 'ss01', 'cv11';
+    overflow: hidden;
+  }
+  ::selection {
+    background: var(--frx-accent);
+    color: var(--frx-accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--frx-accent);
+    outline-offset: 2px;
+    border-radius: var(--frx-radius-xs);
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--frx-line-3) transparent;
+  }
+}
+
+@layer components {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+  .pixelated {
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+  }
+  /* Rótulo pequeno em fonte pixel — usado com parcimônia */
+  .eyebrow {
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--frx-text-3);
+    line-height: 1;
+  }
+  .hairline {
+    border-color: var(--frx-line);
+  }
+  /* Grade de pontos discreta, evoca uma tela LCD */
+  .dotgrid {
+    background-image: radial-gradient(var(--frx-line-2) 1px, transparent 1px);
+    background-size: 12px 12px;
+  }
+  .ease-frx {
+    transition-timing-function: var(--frx-ease);
+  }
+}
+
+/* Animações utilitárias (CSS puro = barato) */
+@keyframes frx-blink {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.2;
+  }
+}
+@keyframes frx-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes frx-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes frx-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.anim-twinkle {
+  animation: frx-twinkle 3.2s steps(4) infinite;
+}
+.anim-pulse-dot {
+  animation: frx-pulse-dot 1.6s steps(2) infinite;
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--frx-raised);
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(245 245 242 / 0.05), transparent);
+  animation: frx-shimmer 1.4s var(--frx-ease) infinite;
+}
+[data-motion='off'] .anim-twinkle,
+[data-motion='off'] .anim-pulse-dot,
+[data-motion='off'] .skeleton::after {
+  animation: none;
+}
