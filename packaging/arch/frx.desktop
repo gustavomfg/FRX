@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=FRX
+GenericName=Gerenciador de compatibilidade de jogos
+Comment=Play. Fix. Repeat.
+Exec=frx
+Icon=frx
+Terminal=false
+Categories=Game;Utility;
+Keywords=proton;wine;steam;jogos;games;compatibilidade;
+StartupWMClass=frx
+StartupNotify=true

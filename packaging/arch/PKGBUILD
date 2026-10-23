@@ -1,0 +1,30 @@
+# Pacote nativo para Arch Linux e derivados (CachyOS, EndeavourOS, Manjaro…).
+#
+# Empacota o binário gerado por `tauri build`. Use pelo script do projeto:
+#   npm run build:arch
+# que compila o app (sem bundles) e então roda `makepkg` nesta pasta.
+# Instalação: sudo pacman -U packaging/arch/frx-bin-*.pkg.tar.zst
+
+pkgname=frx-bin
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="FRX — Play. Fix. Repeat. Gerenciador de compatibilidade e otimização de jogos no Linux (demo)"
+arch=('x86_64')
+url="https://github.com/"
+license=('LicenseRef-proprietary')
+depends=('webkit2gtk-4.1' 'gtk3' 'hicolor-icon-theme')
+provides=('frx')
+conflicts=('frx')
+options=('!strip' '!debug')
+
+_root="$(realpath "$startdir/../..")"
+
+package() {
+  install -Dm755 "$_root/src-tauri/target/release/frx" "$pkgdir/usr/bin/frx"
+  install -Dm644 "$startdir/frx.desktop" "$pkgdir/usr/share/applications/frx.desktop"
+  for size in 32 64 128 256 512; do
+    install -Dm644 "$_root/src-tauri/icons/${size}x${size}.png" \
+      "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/frx.png"
+  done
+  install -Dm644 "$_root/packaging/icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/frx.svg"
+}
