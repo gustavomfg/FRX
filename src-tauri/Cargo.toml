@@ -1,0 +1,28 @@
+[package]
+name = "frx"
+version = "0.1.0"
+description = "FRX — Play. Fix. Repeat. Gerenciador de compatibilidade e otimização de jogos no Linux."
+authors = ["FRX"]
+license = "UNLICENSED"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+# O sufixo evita conflito de nomes entre a lib e o binário no Cargo.
+name = "frx_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
