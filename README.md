@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="docs/assets/pim.gif" width="144" height="120" alt="Pim acenando para dar boas-vindas ao FRX">
+  <br>
+  <strong>Olá! Bem-vindo ao FRX.</strong>
+</p>
+
 # FRX — Play. Fix. Repeat.
 
 **FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
@@ -198,12 +204,6 @@ src/
 - **Símbolo:** um direcional (d-pad) em pixel art que também é um "+" de primeiros socorros: jogar e consertar no mesmo gesto.
 - **Pim:** o mascote original, um marshmallow de gorro amarelo-manteiga. Ele é desenhado proceduralmente numa grade de 24×20 (`mascot/sprites.ts`) e renderizado como SVG nítido (um `<path>` por cor). Tem 10 poses: acenando, descansando, investigando com a lupa, consertando com a chave, observando, comemorando, preocupado, em dúvida e outras.
 - **Capas:** cada jogo fictício recebe uma cena pixelada gerada em SVG a partir de uma semente fixa (`GameArt.tsx`), sem assets de terceiros.
-
-<p align="center">
-  <img src="docs/assets/pim.gif" width="192" height="160" alt="Pim acenando, investigando com uma lupa, consertando com uma chave e comemorando">
-</p>
-
-O GIF usa os sprites originais de [`src/mascot/sprites.ts`](src/mascot/sprites.ts), com as cores do tema padrão e os tempos do app (8 ticks por segundo). [Ver imagem estática do Pim](docs/assets/pim.png).
 
 ## Movimento e acessibilidade
 
