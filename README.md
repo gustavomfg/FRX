@@ -1,8 +1,16 @@
 # FRX — Play. Fix. Repeat.
 
-Protótipo de front-end do **FRX**, um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
+**FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
 
-> **Modo demonstrativo.** Tudo nesta etapa é simulado: jogos, estúdios, hardware, problemas, fontes, correções e benchmarks são fictícios. Nenhum arquivo é lido ou alterado, nada é baixado e nenhum comando é executado.
+**Versão 0.2.0:** no app desktop, o FRX detecta os jogos instalados pela Steam e pesquisa correções conhecidas em fontes públicas. Tudo é **somente leitura**: nenhuma correção é aplicada, nenhum script de terceiros é executado e nenhum arquivo da Steam, de prefixo ou de jogo é modificado.
+
+> Aplicar e reverter correções, além do Performance Lab, continuam **demonstrativos** e são sinalizados como tal na interface. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo com dados fictícios. As duas fontes de dados nunca se misturam.
+
+## Prévia
+
+![Tela inicial do FRX com biblioteca, Fix Packs, comparação de FPS e o mascote Pim](docs/assets/frx-home.png)
+
+*Captura da interface v0.2 em modo demonstrativo. Jogos, hardware e resultados exibidos nesta imagem são fictícios.*
 
 ## Como executar
 
@@ -10,7 +18,7 @@ O FRX é um **aplicativo desktop Linux** feito com **Tauri 2** (Rust) e uma inte
 
 ### Dependências de compilação
 
-- Node 20+ (testado com Node 24) e npm
+- Node 20.19+ ou 22.12+ (testado com Node 24) e npm
 - Rust estável (testado com 1.97) via [rustup](https://rustup.rs)
 - Bibliotecas do sistema para o WebKitGTK:
 
@@ -31,17 +39,21 @@ npm run build          # binário de release + AppImage, .deb e .rpm
 npm run build:appimage # só o AppImage
 npm run build:arch     # pacote nativo do pacman (Arch/CachyOS)
 npm run dev:web        # apenas a interface no navegador, em http://localhost:1420
+npm run build:web      # verifica o TypeScript e compila a interface
 npm run typecheck
+npm test               # testes do front-end (Vitest)
+(cd src-tauri && cargo test)            # testes do Rust (com fixtures, sem rede)
+(cd src-tauri && cargo fmt --check && cargo clippy --all-targets)
 ```
 
 Onde ficam os artefatos:
 
 ```
 src-tauri/target/release/frx                                   binário
-src-tauri/target/release/bundle/appimage/FRX_0.1.0_amd64.AppImage
-src-tauri/target/release/bundle/deb/FRX_0.1.0_amd64.deb
-src-tauri/target/release/bundle/rpm/FRX-0.1.0-1.x86_64.rpm
-packaging/arch/frx-bin-0.1.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
+src-tauri/target/release/bundle/appimage/FRX_0.2.0_amd64.AppImage
+src-tauri/target/release/bundle/deb/FRX_0.2.0_amd64.deb
+src-tauri/target/release/bundle/rpm/FRX-0.2.0-1.x86_64.rpm
+packaging/arch/frx-bin-0.2.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
 ```
 
 Na build de release, a interface (`dist/`) é **embutida no binário** e servida pelo protocolo interno do Tauri. Não é preciso um servidor Vite. O Vite só é usado em `npm run dev`, pela `devUrl` `http://localhost:1420`.
@@ -56,12 +68,83 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 
 ### Ponte TypeScript ↔ Rust
 
-- **Rust:** `src-tauri/src/commands.rs` expõe os comandos `app_info` (versão, kernel, distro e sessão, só leitura) e `ping`.
-- **TypeScript:** `src/services/platform.ts` chama esses comandos com `invoke` quando roda dentro do Tauri. No navegador, cai em um substituto demonstrativo.
-- **Na interface:** o resultado aparece em **Configurações → Sobre → Execução**.
-- **Permissões:** `src-tauri/capabilities/default.json` libera só o núcleo do Tauri. A CSP restringe scripts, estilos, fontes e imagens aos arquivos do próprio app.
+| Comando | Para que serve |
+| --- | --- |
+| `scan_installed_games` | Varre a Steam (assíncrono) e salva o resultado em cache |
+| `get_installed_games` | Última varredura salva, para mostrar a biblioteca na hora |
+| `get_system_profile` | Distribuição, kernel, sessão, CPU, RAM, GPUs, driver e versão |
+| `get_game_art` | Capa, banner ou cabeçalho do jogo, com cache local |
+| `search_game_fixes` | Pesquisa correções de um AppID em todos os provedores |
+| `get_cached_fix_reports` | Relatórios salvos, funciona sem conexão |
+| `get_fix_providers`, `clear_fix_cache`, `get_cache_size` | Configurações de fontes e de cache |
+| `app_info`, `ping` | Informações do app e teste da ponte |
 
-As futuras funções nativas (detecção de jogos, aplicação de correções, benchmarks) devem entrar como novos comandos em `commands.rs`, com funções correspondentes em `platform.ts`.
+- **TypeScript:** `src/services/{games,fixes,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/library.tsx` e `src/state/fixes.tsx`.
+- **Tipos:** os modelos do Rust (`steam/models.rs`, `fixes/models.rs`) estão espelhados em `src/types/steam.ts` e `src/types/fixes.ts`.
+- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri e o `opener`, mas só para os domínios das fontes (GitHub, ProtonDB, Steam e Open Wine Components). O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
+
+## Detecção de jogos (Steam)
+
+- **Onde procura:** caminhos conhecidos da Steam — nativa (`~/.local/share/Steam`, `~/.steam/root`, `~/.steam/steam`, `$XDG_DATA_HOME/Steam`, `~/.steam/debian-installation`), Flatpak (`~/.var/app/com.valvesoftware.Steam/…`) e Snap. Links simbólicos são resolvidos, para que caminhos equivalentes não dupliquem a mesma instalação.
+- **Outra pasta:** `FRX_STEAM_ROOT=/caminho` adiciona uma raiz específica à busca.
+- **Como encontra as bibliotecas:** lê `libraryfolders.vdf` (formatos novo e antigo) com um parser KeyValues de verdade, sem regex. Nada é varrido recursivamente.
+- **Bibliotecas fora do ar:** uma biblioteca desmontada aparece como **indisponível**, e uma sem permissão como **inacessível**. Os jogos declarados nelas continuam listados, como "Indisponível".
+- **Manifestos:** cada `appmanifest_*.acf` vira um jogo com estado **Instalado**, **Incompleto** (baixando ou atualizando), **Indisponível** (a pasta sumiu) ou **Desconhecido**, conforme os `StateFlags` e a existência da pasta.
+- **Ferramentas não são jogos:** Proton, Steam Linux Runtime e Steamworks Redistributables são separados da biblioteca.
+- **Proton:**
+  - a ferramenta **por jogo** (`config.vdf → CompatToolMapping[appid]`) e o **padrão global** (`CompatToolMapping["0"]`) são lidos separadamente e nunca confundidos;
+  - a ferramenta da **última execução** vem de `compatdata/<appid>/config_info`, e a versão do prefixo, de `compatdata/<appid>/version`;
+  - as ferramentas personalizadas vêm de `compatibilitytools.d` (do usuário e do sistema, como em `/usr/share/steam/compatibilitytools.d`);
+  - quando não dá para saber, o valor fica `null`; nada é inventado.
+- **Tempo de jogo:** lido do `localconfig.vdf` do último usuário que entrou na Steam.
+- **Hardware:** vem de `/sys/class/drm` (fabricante, modelo via `pci.ids`, módulo do driver e versão), `/proc` e `/etc/os-release`. Funciona com qualquer fabricante, sem `nvidia-smi` e sem sudo.
+- **Capas:** primeiro o cache local da própria Steam (`appcache/librarycache`), depois a CDN pública da Steam. Ficam em `~/.cache/io.frx.FRX/art`. Um 404 é lembrado por 7 dias, e sem rede aparece a arte pixelada provisória.
+
+## Descoberta de correções
+
+Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independente, e adicionar uma fonte é criar um módulo e chamá-lo em `fixes::search`.
+
+| Provedor | Estado | Como funciona |
+| --- | --- | --- |
+| **UMU-Protonfixes** | Ativo | Baixa `gamefixes-steam/<appid>.py` e `gamefixes-umu/umu-<appid>.py` **como texto** e resolve links simbólicos do git. Faz uma análise estática limitada (`pyscan.rs`): docstrings, chamadas `util.*` com argumentos literais e `os.environ`. **Nunca executa nem importa o script.** O que não é reconhecido marca a análise como parcial ou não verificada. |
+| **UMU Database** | Ativo | CSV público, usado para confirmar o UMU ID e os nomes do jogo em outras lojas. |
+| **GitHub** | Ativo | API REST pública. Busca issues com o **AppID no título** em `ValveSoftware/Proton`, `Open-Wine-Components/umu-protonfixes` e `GloriousEggroll/proton-ge-custom`, lê os comentários mais recentes e as notas de versão oficiais. Usa User-Agent próprio, ETag, timeouts, limite de tamanho e bloqueio temporário ao atingir o rate limit (10 buscas/min e 60 consultas/h sem token). `FRX_GITHUB_TOKEN` no ambiente aumenta o limite; o token nunca vai para o front-end. |
+| **ProtonDB** | **Desativado** | Não há API pública oficial. O FRX não usa endpoints internos nem raspa o site; só abre a página do jogo no navegador. |
+
+**Graus de confiança** (nunca atribuídos por popularidade):
+
+| Grau | Quando é usado |
+| --- | --- |
+| **Verificada** | Declaração verificável de mantenedores: notas oficiais de versão que citam o jogo, ou um comentário de membro do repositório dizendo que o problema foi corrigido. |
+| **Curada** | Arquivo do UMU-Protonfixes, um repositório revisado. Isso não significa que foi testada no seu PC. |
+| **Relato da comunidade** | O mesmo ajuste citado de forma favorável em pelo menos 2 comentários distintos, com mais menções a favor do que contra. |
+| **Não verificada / experimental** | Menção única, contestada, ou conteúdo que não pôde ser interpretado. |
+
+**Compatibilidade** — cada descoberta é comparada com a GPU principal e com a ferramenta do jogo:
+
+| Estado | Significado |
+| --- | --- |
+| **Compatível** | Nada na fonte impede o uso no seu hardware. |
+| **Incompatível** | A fonte é exclusiva de outro fabricante de GPU. |
+| **Desconhecida** | Faltam dados para decidir; nunca é escondida por isso. |
+| **Já incluída** | A ferramenta configurada (GE-Proton, proton-cachyos…) já traz o mesmo arquivo do UMU-Protonfixes. |
+
+**Agrupamento:** menções da comunidade só se juntam quando citam exatamente o mesmo ajuste normalizado (mesma variável e valor, mesmo componente ou mesma opção de inicialização). Se esse ajuste também está num script do UMU-Protonfixes, as menções viram fontes adicionais dele. Toda origem continua listada.
+
+**Cache:** fica em `~/.cache/io.frx.FRX/` (biblioteca, capas, respostas das fontes e relatórios).
+- **Validade:** configurável em Configurações (6 h a 7 dias).
+- **Atualização:** "Pesquisar de novo" força uma consulta nova, com revalidação por ETag.
+- **Sem conexão:** usa o último dado salvo e o marca como **desatualizado**; ele não vale como confirmação atual.
+
+## Segurança
+
+- Nenhum comando externo, script de terceiros, download de DLL, alteração de prefixo, de opções de inicialização ou de arquivos da Steam, e nenhum pedido de sudo.
+- Todo conteúdo da internet é tratado como não confiável:
+  - o cliente HTTP só aceita HTTPS para uma lista fechada de hosts, inclusive em redirecionamentos, e limita o tamanho das respostas;
+  - o JSON malformado é descartado;
+  - de comentários só se extraem padrões estreitos, e linhas com `;`, `|`, `&&` ou `$(` são descartadas;
+  - textos externos são exibidos como texto, nunca como HTML.
+- Os links externos são validados duas vezes: no TypeScript e na capability do `opener`.
 
 ### Atalhos
 
@@ -79,23 +162,33 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 ## Estrutura
 
 ```
-src-tauri/                camada nativa (Rust): lib.rs, commands.rs, tauri.conf.json, capabilities/, icons/
+src-tauri/src/
+  commands/                comandos Tauri: app, games, system, fixes
+  steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata
+  fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
+    providers/             umu (protonfixes + database), github, protondb (desativado)
+  system/                  perfil e GPUs via /proc e /sys
+  cache/  art.rs  net.rs   cache em arquivos, capas, cliente HTTP restrito
 packaging/               ícone-fonte (SVG/PNG) e pacote Arch (PKGBUILD + .desktop)
+docs/assets/             captura da interface e animação do Pim para este README
 src/
   app/routes.ts            navegação principal
   layouts/                 AppShell, Sidebar, CommandPalette, Page
-  pages/                   Home, Library, GameDetail, FixPacks, Performance, Settings, NotFound
+  pages/                   Home/RealHome, Library, GameDetail/SteamGameDetail, FixPacks/FindingsPage,
+                           Performance, Settings, NotFound
   components/
     ui/                    Button, controles, Dialog, Toasts, status, contadores, estados vazios
-    game/                  GameArt (capas pixeladas geradas), GameCard/GameRow
-    fix/                   FixFlowDialog (aplicar/reverter), ChangeList, fontes
+    game/                  GameArt, CoverImage, GameCard/GameRow, estado da instalação e avisos
+    fix/                   FindingCard, FixFlowDialog (demo), ChangeList, fontes
     perf/                  CompareHero, MetricChart, vereditos
     brand/                 Logo (símbolo d-pad + wordmark)
   design/tokens.css        design tokens (cores, raios, movimento, acentos)
   mascot/                  Pim: sprites procedurais, relógio compartilhado, componente
   data/                    dados demonstrativos (jogos, problemas, fix packs, benchmarks…)
-  services/                demo.ts (simulações com latência) e platform.ts (ponte futura)
-  state/                   store (reducer + contexto), preferências de movimento, seletores
+  services/                games, fixes, native (invoke), opener, platform e demo.ts (simulações)
+  state/                   store, library (Steam real × demo), fixes (relatórios), movimento, seletores
+  hooks/                   useGameArt
+  test/                    fixtures e testes de integração da ponte IPC (Vitest + mockIPC)
   types/                   tipos de domínio
 ```
 
@@ -106,6 +199,12 @@ src/
 - **Pim:** o mascote original, um marshmallow de gorro amarelo-manteiga. Ele é desenhado proceduralmente numa grade de 24×20 (`mascot/sprites.ts`) e renderizado como SVG nítido (um `<path>` por cor). Tem 10 poses: acenando, descansando, investigando com a lupa, consertando com a chave, observando, comemorando, preocupado, em dúvida e outras.
 - **Capas:** cada jogo fictício recebe uma cena pixelada gerada em SVG a partir de uma semente fixa (`GameArt.tsx`), sem assets de terceiros.
 
+<p align="center">
+  <img src="docs/assets/pim.gif" width="192" height="160" alt="Pim acenando, investigando com uma lupa, consertando com uma chave e comemorando">
+</p>
+
+O GIF usa os sprites originais de [`src/mascot/sprites.ts`](src/mascot/sprites.ts), com as cores do tema padrão e os tempos do app (8 ticks por segundo). [Ver imagem estática do Pim](docs/assets/pim.png).
+
 ## Movimento e acessibilidade
 
 - Um único relógio de 8 Hz anima todos os sprites e pausa quando a janela fica oculta ou quando nenhum Pim está visível.
@@ -114,16 +213,17 @@ src/
 - Status de compatibilidade, risco e severidade nunca dependem só da cor: sempre vêm com glifo pixelado e texto.
 - Nos gráficos, "antes" é tracejado e "depois" é sólido, com legenda e tooltip.
 
-## O que é simulado
+## O que é real e o que ainda é simulado
 
-| Área | Comportamento atual | Futuro (Tauri) |
+| Área | No app desktop (v0.2) | No navegador |
 | --- | --- | --- |
-| Biblioteca | 12 jogos fictícios em `data/games.ts` | Detecção em Steam/GOG/Epic/Heroic |
-| Sistema | Perfil fixo em `data/system.ts` | Leitura real de GPU, driver, kernel e Proton |
-| Análise | Etapas com atraso (`services/demo.ts`) | Consulta a ProtonDB, GitHub, UMU-Protonfixes |
-| Fix Packs | Aplicar e reverter só alteram o estado da interface; um pacote (anti-cheat do Ashen Choir) falha de propósito na primeira tentativa para demonstrar o estado de erro | Escrita real com backup e rollback |
-| Benchmarks | Amostras geradas por PRNG; o veredito considera a variação entre passadas (melhora, regressão, estável, inconclusivo) | Captura via MangoHud ou similar |
-| Sensores | Temperatura e consumo simulados | Dependem do suporte do driver |
-| Persistência | Só as preferências (localStorage). Correções e benchmarks voltam ao estado inicial ao recarregar ou em "Reiniciar dados da demo" | Banco local |
+| Biblioteca | **Real:** jogos da Steam detectados pelo Rust | 12 jogos fictícios |
+| Sistema | **Real:** /proc, /sys, os-release | Perfil fictício |
+| Capas | **Reais:** cache da Steam ou CDN pública, com cache local | Arte pixelada gerada |
+| Correções | **Descoberta real** (UMU-Protonfixes, UMU Database, GitHub). Aplicar fica desabilitado, com aviso "em breve" | Fix Packs fictícios com aplicar e reverter simulados |
+| Performance Lab | Demonstrativo (marcado como tal) | Demonstrativo |
+| Persistência | Cache local + preferências | Só preferências (localStorage) |
+
+Em Configurações → Dados e fontes, a opção "Usar dados demonstrativos" troca o app desktop para a demonstração, útil para testes.
 
 O app usa `HashRouter` e caminhos relativos (`base: './'`) para funcionar empacotado.
