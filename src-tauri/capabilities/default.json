@@ -1,7 +1,20 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Permissões da janela principal do FRX. Apenas o núcleo do Tauri e os comandos próprios do app.",
+  "description": "Permissões da janela principal do FRX: núcleo do Tauri, comandos próprios (somente leitura) e abertura de links externos apenas para as fontes citadas.",
   "windows": ["main"],
-  "permissions": ["core:default"]
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        { "url": "https://github.com/*" },
+        { "url": "https://raw.githubusercontent.com/*" },
+        { "url": "https://www.protondb.com/*" },
+        { "url": "https://store.steampowered.com/app/*" },
+        { "url": "https://steamdb.info/app/*" },
+        { "url": "https://openwinecomponents.org/*" }
+      ]
+    }
+  ]
 }

@@ -1,7 +1,6 @@
-//! Comandos expostos ao front-end via `invoke`.
+//! Comandos gerais do app (informações e teste da ponte IPC).
 //!
-//! Todos são somente leitura. Os comandos reais (detecção de jogos,
-//! aplicação de correções, benchmarks) entrarão aqui em etapas futuras.
+//! Somente leitura.
 
 use serde::Serialize;
 
@@ -45,7 +44,9 @@ pub fn ping(message: String) -> String {
 }
 
 fn read_trimmed(path: &str) -> Option<String> {
-    std::fs::read_to_string(path).ok().map(|s| s.trim().to_owned())
+    std::fs::read_to_string(path)
+        .ok()
+        .map(|s| s.trim().to_owned())
 }
 
 fn os_release_pretty_name() -> Option<String> {
