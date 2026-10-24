@@ -25,7 +25,7 @@ export interface AppInfo {
   desktop: string | null
 }
 
-const APP_VERSION = '0.1.0'
+export const APP_VERSION = '0.2.0'
 
 const browserInfo: AppInfo = {
   name: 'FRX',
@@ -61,5 +61,5 @@ export function ping(message: string) {
 
 export const platform = {
   mode: 'demo' as const,
-  version: `${APP_VERSION}-demo`,
+  version: APP_VERSION,
 }

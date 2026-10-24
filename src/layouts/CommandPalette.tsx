@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { CornerDownLeft, Search, Wrench } from 'lucide-react'
 import { NAV } from '@/app/routes'
-import { games } from '@/data/games'
+import { useLibrary } from '@/state/library'
+import { CoverImage } from '@/components/game/CoverImage'
 import { fixPacks } from '@/data/fixpacks'
 import { GameArt } from '@/components/game/GameArt'
 import { Kbd } from '@/components/ui/Controls'
@@ -23,6 +24,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const [index, setIndex] = useState(0)
   const navigate = useNavigate()
   const input = useRef<HTMLInputElement>(null)
+  const { games, mode } = useLibrary()
 
   const all = useMemo<Entry[]>(
     () => [
@@ -35,13 +37,15 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
         to: `/biblioteca/${g.id}`,
         icon: (
           <span className="block size-5 overflow-hidden rounded-[4px]">
-            <GameArt art={g.cover} variant="thumb" />
+            {g.origin === 'steam' ? <CoverImage game={g} kind="header" variant="thumb" /> : <GameArt art={g.cover} variant="thumb" />}
           </span>
         ),
       })),
-      ...fixPacks.map((f) => ({ id: f.id, group: 'Fix Packs' as const, label: f.name, hint: games.find((g) => g.id === f.gameId)?.title, to: `/correcoes?pack=${f.id}`, icon: <Wrench className="size-4 text-fg-3" /> })),
+      ...(mode === 'demo'
+        ? fixPacks.map((f) => ({ id: f.id, group: 'Fix Packs' as const, label: f.name, hint: games.find((g) => g.id === f.gameId)?.title, to: `/correcoes?pack=${f.id}`, icon: <Wrench className="size-4 text-fg-3" /> }))
+        : []),
     ],
-    [],
+    [games, mode],
   )
 
   const results = useMemo(() => {

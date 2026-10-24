@@ -22,6 +22,8 @@ export const DEFAULT_SETTINGS: Settings = {
   backupRetentionDays: 30,
   tempUnit: 'C',
   compactSidebar: false,
+  useDemoData: false,
+  fixCacheHours: 24,
 }
 
 const SETTINGS_KEY = 'frx.settings.v1'

@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 import { fixPacks } from '@/data/fixpacks'
 import { games } from '@/data/games'
+import type { Game } from '@/types'
 import { useAppState } from './store'
+import { useFixReports } from './fixes'
+import { isRelevant } from '@/lib/findings'
 
 export function useGameFixes(gameId: string | undefined) {
   const { fixStates } = useAppState()
@@ -25,4 +28,12 @@ export function useAttention() {
       ),
     [fixStates],
   )
+}
+
+/** Quantidade exibida no selo do cartão: correções demo ou descobertas reais (em cache). */
+export function useGameFixCount(game: Game) {
+  const { fixStates } = useAppState()
+  const { reports } = useFixReports()
+  if (game.origin === 'steam') return reports[game.id]?.findings.filter((f) => isRelevant(f) && f.kind !== 'report').length ?? 0
+  return game.fixPackIds.filter((id) => fixStates[id] === 'disponivel').length
 }

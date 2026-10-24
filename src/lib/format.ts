@@ -2,7 +2,13 @@ const dateFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short
 const timeFmt = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' })
 const fullFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 
-export const fmtDate = (iso: string) => dateFmt.format(new Date(iso)).replace('.', '')
+const dateYearFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
+
+/** Data curta; inclui o ano quando não é o ano corrente. */
+export const fmtDate = (iso: string) => {
+  const d = new Date(iso)
+  return (d.getFullYear() === new Date().getFullYear() ? dateFmt : dateYearFmt).format(d).replace('.', '')
+}
 export const fmtTime = (iso: string) => timeFmt.format(new Date(iso))
 export const fmtDateTime = (iso: string) => fullFmt.format(new Date(iso)).replace('.', '')
 

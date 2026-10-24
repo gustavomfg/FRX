@@ -7,7 +7,7 @@ import type { Game } from '@/types'
 
 export const ago = (hours: number) => new Date(Date.now() - hours * 3600_000).toISOString()
 
-export const games: Game[] = [
+export const games: Game[] = ([
   {
     id: 'ferrous-drift',
     title: 'Ferrous Drift',
@@ -233,6 +233,6 @@ export const games: Game[] = [
     issueIds: ['tide-controller'],
     fixPackIds: ['fp-tide-input'],
   },
-]
+] as Omit<Game, 'origin'>[]).map((g) => ({ ...g, origin: 'demo' as const }))
 
 export const gameById = (id: string | undefined) => games.find((g) => g.id === id)

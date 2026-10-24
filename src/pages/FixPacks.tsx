@@ -18,10 +18,17 @@ import { GameArt } from '@/components/game/GameArt'
 import { Mascot } from '@/mascot/Mascot'
 import type { FixPack } from '@/types'
 import { cn } from '@/lib/cn'
+import { useLibrary } from '@/state/library'
+import { FindingsPage } from './FindingsPage'
 
 type StateFilter = 'todas' | 'disponivel' | 'aplicado'
 
 export function FixPacksPage() {
+  const { mode } = useLibrary()
+  return mode === 'real' ? <FindingsPage /> : <DemoFixPacks />
+}
+
+function DemoFixPacks() {
   const [params, setParams] = useSearchParams()
   const { fixStates } = useAppState()
   const { available, applied } = useFixSummary()

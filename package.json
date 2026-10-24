@@ -1,9 +1,9 @@
 {
   "name": "frx",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
-  "description": "FRX — Play. Fix. Repeat. Gerenciador de compatibilidade e otimização de jogos no Linux (protótipo front-end).",
+  "description": "FRX — Play. Fix. Repeat. Gerenciador de compatibilidade de jogos no Linux, com detecção da Steam e descoberta de correções.",
   "scripts": {
     "dev": "tauri dev",
     "dev:web": "vite",
@@ -15,7 +15,8 @@
     "build:arch": "tauri build --no-bundle && cd packaging/arch && makepkg -f --noconfirm",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p .",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "test": "vitest run"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
@@ -23,6 +24,7 @@
     "@fontsource-variable/geist-mono": "^5.3.0",
     "@fontsource/silkscreen": "^5.3.0",
     "@tauri-apps/api": "^2.12.4",
+    "@tauri-apps/plugin-opener": "^2.7.2",
     "lucide-react": "^1.61.0",
     "motion": "^14.6.0",
     "react": "^19.3.1",
@@ -37,8 +39,10 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "happy-dom": "^21.0.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vitest": "^3.2.7"
   }
 }

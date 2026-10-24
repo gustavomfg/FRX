@@ -6,13 +6,35 @@ import { DemoTag } from '@/components/ui/Status'
 import { Kbd } from '@/components/ui/Controls'
 import { useDispatch, useFixSummary, useSettings } from '@/state/store'
 import { systemInfo } from '@/data/system'
+import { useLibrary } from '@/state/library'
+import { useFixReports } from '@/state/fixes'
+import { SourceTag } from '@/components/game/LibraryNotices'
 import { cn } from '@/lib/cn'
+import { isRelevant } from '@/lib/findings'
 
 export function Sidebar({ narrow }: { narrow: boolean }) {
   const settings = useSettings()
   const dispatch = useDispatch()
   const { available } = useFixSummary()
+  const { reports } = useFixReports()
   const compact = narrow || settings.compactSidebar
+  const { mode, system } = useLibrary()
+  const real = mode === 'real'
+  const fixBadge = real
+    ? Object.values(reports).reduce((n, r) => n + r.findings.filter((f) => isRelevant(f) && f.kind !== 'report').length, 0)
+    : available.length
+  const gpu = system?.primaryGpu
+  const sysRows: [string, string][] = real
+    ? [
+        ['GPU', gpu?.name ?? gpu?.vendor.toUpperCase() ?? '—'],
+        ['Driver', gpu ? [gpu.driver, gpu.driverVersion].filter(Boolean).join(' ') || '—' : '—'],
+        ['Kernel', system?.kernel ?? '—'],
+      ]
+    : [
+        ['GPU', systemInfo.gpu],
+        ['Driver', systemInfo.driver.split(' (')[0]],
+        ['Proton', systemInfo.defaultProton],
+      ]
 
   return (
     <aside
@@ -23,7 +45,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
     >
       <div className={cn('flex h-16 items-center', compact ? 'justify-center' : 'justify-between px-5')}>
         <Logo compact={compact} />
-        {!compact && <DemoTag />}
+        {!compact && (real ? <SourceTag>v0.2</SourceTag> : <DemoTag />)}
       </div>
 
       <nav aria-label="Principal" className={cn('mt-3 flex flex-col gap-0.5', compact ? 'px-2.5' : 'px-3')}>
@@ -56,9 +78,9 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
                 {!compact && (
                   <>
                     <span className="flex-1 truncate">{item.label}</span>
-                    {item.to === '/correcoes' && available.length > 0 && (
-                      <span className="tnum rounded-[4px] bg-accent-soft px-1.5 font-mono text-[11px] leading-[18px] text-accent" aria-label={`${available.length} disponíveis`}>
-                        {available.length}
+                    {item.to === '/correcoes' && fixBadge > 0 && (
+                      <span className="tnum rounded-[4px] bg-accent-soft px-1.5 font-mono text-[11px] leading-[18px] text-accent" aria-label={`${fixBadge} ${real ? 'descobertas' : 'disponíveis'}`}>
+                        {fixBadge}
                       </span>
                     )}
                   </>
@@ -72,20 +94,16 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
       <div className="mt-auto">
         {!compact && (
           <div className="mx-5 mb-4 border-t border-line pt-4">
-            <div className="eyebrow mb-2.5">Sistema · demo</div>
+            <div className="eyebrow mb-2.5">{real ? 'Sistema' : 'Sistema · demo'}</div>
             <dl className="space-y-1 text-[12px]">
-              <div className="flex justify-between gap-2">
-                <dt className="text-fg-3">GPU</dt>
-                <dd className="truncate text-fg-2">{systemInfo.gpu}</dd>
-              </div>
-              <div className="flex justify-between gap-2">
-                <dt className="text-fg-3">Driver</dt>
-                <dd className="truncate text-fg-2">{systemInfo.driver.split(' (')[0]}</dd>
-              </div>
-              <div className="flex justify-between gap-2">
-                <dt className="text-fg-3">Proton</dt>
-                <dd className="truncate text-fg-2">{systemInfo.defaultProton}</dd>
-              </div>
+              {sysRows.map(([k, v]) => (
+                <div key={k} className="flex justify-between gap-2">
+                  <dt className="text-fg-3">{k}</dt>
+                  <dd className="truncate text-fg-2" title={v}>
+                    {v}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
         )}

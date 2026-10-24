@@ -16,22 +16,26 @@ export interface CoverArt {
 export interface Game {
   id: string
   title: string
-  studio: string
-  genre: string
-  year: number
-  sizeGb: number
-  playtimeH: number
-  lastPlayed: string // ISO
+  /** Origem dos dados: fictício (navegador/demo) ou detectado na Steam. */
+  origin: 'demo' | 'steam'
+  studio?: string
+  genre?: string
+  year?: number
+  sizeGb?: number
+  playtimeH?: number
+  lastPlayed?: string // ISO
   store: 'Steam' | 'GOG' | 'Epic' | 'Local'
-  runner: 'Proton' | 'Wine' | 'Nativo'
+  runner: 'Proton' | 'Wine' | 'Nativo' | 'Desconhecido'
   protonVersion: string
   status: CompatStatus
   /** Resumo agregado (fictício) de relatos da comunidade. */
-  communityReports: number
+  communityReports?: number
   launchOptions?: string
   cover: CoverArt
   issueIds: string[]
   fixPackIds: string[]
+  /** Dados reais da instalação (apenas quando origin === 'steam'). */
+  steam?: import('./steam').InstalledGame
 }
 
 export type Severity = 'baixa' | 'media' | 'alta'
@@ -128,6 +132,8 @@ export interface BenchmarkRun {
 
 export interface Activity {
   id: string
+  /** Eventos fictícios da demonstração — ocultos quando o app usa dados reais. */
+  demo?: boolean
   at: string
   kind: 'scan' | 'fix' | 'revert' | 'benchmark' | 'analise' | 'erro'
   text: string
@@ -162,4 +168,8 @@ export interface Settings {
   backupRetentionDays: 7 | 30 | 90
   tempUnit: 'C' | 'F'
   compactSidebar: boolean
+  /** No app desktop, usa a biblioteca fictícia em vez da Steam real. */
+  useDemoData: boolean
+  /** Validade do cache de correções, em horas. */
+  fixCacheHours: 6 | 24 | 72 | 168
 }

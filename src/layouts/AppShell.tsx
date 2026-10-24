@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/Toasts'
 import { NAV } from '@/app/routes'
 import { useMotionAttribute } from '@/state/motion'
 import { useDispatch, useSettings } from '@/state/store'
+import { useLibrary } from '@/state/library'
 import { games } from '@/data/games'
 
 function useNarrow(breakpoint = 1100) {
@@ -27,18 +28,20 @@ export function AppShell() {
   const main = useRef<HTMLElement>(null)
   const [palette, setPalette] = useState(false)
   const { scanOnStartup } = useSettings()
+  const { mode } = useLibrary()
   const dispatch = useDispatch()
 
   // "Verificar a biblioteca ao abrir" — varredura simulada, uma vez por sessão.
   const scanned = useRef(false)
   useEffect(() => {
-    if (!scanOnStartup || scanned.current) return
+    // No modo real a varredura é feita pelo LibraryProvider; o aviso simulado só existe na demo.
+    if (mode !== 'demo' || !scanOnStartup || scanned.current) return
     const t = setTimeout(() => {
       scanned.current = true
       dispatch({ type: 'toast', toast: { tone: 'info', title: 'Biblioteca verificada', body: `${games.length} jogos encontrados · simulado` } })
     }, 1200)
     return () => clearTimeout(t)
-  }, [scanOnStartup, dispatch])
+  }, [mode, scanOnStartup, dispatch])
 
   useEffect(() => {
     main.current?.scrollTo({ top: 0 })

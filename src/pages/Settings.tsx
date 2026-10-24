@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Check, Lock, RotateCcw, Trash2 } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { Segmented, Select, Toggle } from '@/components/ui/Controls'
 import { Button } from '@/components/ui/Button'
 import { DemoTag } from '@/components/ui/Status'
+import { SourceTag } from '@/components/game/LibraryNotices'
 import { Logo } from '@/components/brand/Logo'
 import { Mascot } from '@/mascot/Mascot'
 import type { Pose } from '@/mascot/sprites'
@@ -11,6 +12,11 @@ import { useDispatch, useSettings, useToast } from '@/state/store'
 import { useMotion, useSystemReducedMotion } from '@/state/motion'
 import { platform } from '@/services/platform'
 import { useAppInfo } from '@/services/useAppInfo'
+import { isTauri } from '@/services/platform'
+import { clearFixCache, getCacheSize, getFixProviders } from '@/services/fixes'
+import { useLibrary } from '@/state/library'
+import { useFixReports } from '@/state/fixes'
+import type { ProviderInfo } from '@/types/fixes'
 import type { Settings } from '@/types'
 import { cn } from '@/lib/cn'
 
@@ -45,6 +51,7 @@ export function SettingsPage() {
   const effective = useMotion()
   const set = (patch: Partial<Settings>) => dispatch({ type: 'settings', patch })
   const info = useAppInfo()
+  const realMode = useLibrary().mode === 'real'
 
   return (
     <Page narrow>
@@ -158,7 +165,7 @@ export function SettingsPage() {
       </Section>
 
       <Section title="Geral">
-        <Toggle label="Verificar a biblioteca ao abrir" description="Procura jogos novos ou removidos ao iniciar (simulado)." checked={s.scanOnStartup} onChange={(v) => set({ scanOnStartup: v })} />
+        <Toggle label="Verificar a biblioteca ao abrir" description="Procura jogos novos ou removidos ao iniciar o FRX." checked={s.scanOnStartup} onChange={(v) => set({ scanOnStartup: v })} />
         <Divider />
         <Toggle
           label="Confirmar antes de aplicar correções"
@@ -196,6 +203,8 @@ export function SettingsPage() {
         </Row>
       </Section>
 
+      <DataSection />
+
       <Section title="Sobre">
         <div className="flex items-start gap-5">
           <div className="grid size-16 shrink-0 place-items-center rounded-lg border border-line bg-surface">
@@ -205,11 +214,13 @@ export function SettingsPage() {
             <div className="flex items-center gap-2">
               <span className="font-display text-[22px] font-bold tracking-[-0.04em]">FRX</span>
               <span className="font-mono text-[12px] text-fg-3">{platform.version}</span>
-              <DemoTag>Modo demonstrativo</DemoTag>
+              {realMode ? <SourceTag>Somente leitura</SourceTag> : <DemoTag>Modo demonstrativo</DemoTag>}
             </div>
             <p className="mt-0.5 font-pixel text-[10px] tracking-[0.08em] text-accent uppercase">Play. Fix. Repeat.</p>
             <p className="mt-3 text-[13.5px] text-fg-2">
-              Gerenciador de compatibilidade e otimização de jogos para Linux. Esta versão é um protótipo de interface: jogos, sistema, problemas, correções e medições são fictícios.
+              {realMode
+                ? 'Gerenciador de compatibilidade e otimização de jogos para Linux. Esta versão detecta seus jogos da Steam e pesquisa correções conhecidas em fontes públicas — sem alterar nada no sistema.'
+                : 'Gerenciador de compatibilidade e otimização de jogos para Linux. Este é o modo demonstrativo: jogos, sistema, problemas, correções e medições são fictícios.'}
             </p>
             {info && (
               <p className="mt-3 text-[12.5px] text-fg-3">
@@ -222,7 +233,17 @@ export function SettingsPage() {
               </p>
             )}
             <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[12.5px] text-fg-3">
-              {['Nenhum arquivo é lido ou alterado', 'Nenhum download é feito', 'Nenhum comando é executado', 'Benchmarks são gerados por simulação', 'Fontes (ProtonDB, GitHub…) são ilustrativas', 'Apenas preferências ficam salvas'].map((t) => (
+              {(realMode
+                ? [
+                    'Lê bibliotecas e manifestos da Steam sem alterá-los',
+                    'Não modifica prefixos, opções de inicialização nem jogos',
+                    'Scripts de terceiros nunca são executados',
+                    'Fontes: UMU-Protonfixes, UMU Database e GitHub',
+                    'Aplicar correções e o Performance Lab ainda são demonstrativos',
+                    'Cache local em ~/.cache/io.frx.FRX',
+                  ]
+                : ['Nenhum arquivo é lido ou alterado', 'Nenhum download é feito', 'Nenhum comando é executado', 'Benchmarks são gerados por simulação', 'Fontes (ProtonDB, GitHub…) são ilustrativas', 'Apenas preferências ficam salvas']
+              ).map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="size-1 bg-fg-3" aria-hidden />
                   {t}
@@ -286,4 +307,85 @@ function Row({ label, description, children }: { label: string; description?: Re
 
 function Divider() {
   return <div className="h-px bg-line" aria-hidden />
+}
+
+function DataSection() {
+  const s = useSettings()
+  const dispatch = useDispatch()
+  const toast = useToast()
+  const { mode } = useLibrary()
+  const fixes = useFixReports()
+  const [providers, setProviders] = useState<ProviderInfo[]>([])
+  const [size, setSize] = useState<number | null>(null)
+  const native = isTauri()
+
+  useEffect(() => {
+    if (!native) return
+    getFixProviders().then(setProviders).catch(() => {})
+    getCacheSize().then(setSize).catch(() => {})
+  }, [native])
+
+  return (
+    <Section title="Dados e fontes" description="Onde o FRX busca jogos e correções, e quanto tempo guarda as respostas.">
+      <Toggle
+        label="Usar dados demonstrativos"
+        description={native ? 'Troca a biblioteca real da Steam pela biblioteca fictícia, para testes. Os dois conjuntos nunca se misturam.' : 'No navegador o FRX sempre usa a demonstração.'}
+        checked={mode === 'demo'}
+        disabled={!native}
+        onChange={(v) => dispatch({ type: 'settings', patch: { useDemoData: v } })}
+      />
+      <Divider />
+      <Row label="Validade do cache de correções" description="Depois desse prazo, os resultados aparecem como desatualizados até uma nova pesquisa.">
+        <Select
+          label="Validade do cache"
+          hideLabel
+          value={String(s.fixCacheHours) as '6' | '24' | '72' | '168'}
+          onChange={(v) => dispatch({ type: 'settings', patch: { fixCacheHours: Number(v) as Settings['fixCacheHours'] } })}
+          options={[
+            { value: '6', label: '6 horas' },
+            { value: '24', label: '1 dia' },
+            { value: '72', label: '3 dias' },
+            { value: '168', label: '7 dias' },
+          ]}
+        />
+      </Row>
+      {native && (
+        <>
+          <Row label="Cache local" description={size == null ? 'Calculando…' : `${(size / 1024 / 1024).toFixed(1)} MB em capas, biblioteca e respostas das fontes.`}>
+            <Button
+              size="sm"
+              variant="outline"
+              icon={<Trash2 className="size-3.5" />}
+              onClick={() =>
+                clearFixCache()
+                  .then(() => fixes.reload())
+                  .then(() => getCacheSize().then(setSize))
+                  .then(() => toast({ tone: 'info', title: 'Cache de correções limpo', body: 'As próximas pesquisas consultam as fontes de novo.' }))
+                  .catch((e) => toast({ tone: 'error', title: 'Não foi possível limpar o cache', body: String(e?.message ?? e) }))
+              }
+            >
+              Limpar correções em cache
+            </Button>
+          </Row>
+          <div>
+            <p className="mb-2 text-[14px] font-medium">Provedores</p>
+            <ul className="divide-y divide-line rounded-lg border border-line">
+              {providers.map((p) => (
+                <li key={p.id} className="flex items-start gap-3 px-4 py-3">
+                  <span className="mt-1.5 size-1.5 shrink-0" style={{ background: p.enabled ? 'var(--frx-good)' : 'var(--frx-text-3)' }} aria-hidden />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[13.5px] text-fg">
+                      {p.name} <span className="text-[12px] text-fg-3">· {p.enabled ? 'ativo' : 'desativado'}</span>
+                    </p>
+                    <p className="text-[12.5px] text-fg-2">{p.description}</p>
+                    {p.reason && <p className="mt-1 text-[12px] text-fg-3">{p.reason}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
+    </Section>
+  )
 }

@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { AppStoreProvider } from '@/state/store'
+import { LibraryProvider } from '@/state/library'
+import { FixReportsProvider } from '@/state/fixes'
 import { AppShell } from '@/layouts/AppShell'
 import { HomePage } from '@/pages/Home'
 import { LibraryPage } from '@/pages/Library'
@@ -16,26 +18,30 @@ const PerformancePage = lazy(() => import('@/pages/Performance').then((m) => ({ 
 export function App() {
   return (
     <AppStoreProvider>
-      <HashRouter>
-        <Routes>
-          <Route element={<AppShell />}>
-            <Route index element={<HomePage />} />
-            <Route path="biblioteca" element={<LibraryPage />} />
-            <Route path="biblioteca/:gameId" element={<GameDetailPage />} />
-            <Route path="correcoes" element={<FixPacksPage />} />
-            <Route
-              path="performance"
-              element={
-                <Suspense fallback={<div className="m-10 h-[320px] rounded-xl skeleton" aria-label="Carregando Performance Lab" />}>
-                  <PerformancePage />
-                </Suspense>
-              }
-            />
-            <Route path="configuracoes" element={<SettingsPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
+      <LibraryProvider>
+        <FixReportsProvider>
+          <HashRouter>
+            <Routes>
+              <Route element={<AppShell />}>
+                <Route index element={<HomePage />} />
+                <Route path="biblioteca" element={<LibraryPage />} />
+                <Route path="biblioteca/:gameId" element={<GameDetailPage />} />
+                <Route path="correcoes" element={<FixPacksPage />} />
+                <Route
+                  path="performance"
+                  element={
+                    <Suspense fallback={<div className="m-10 h-[320px] rounded-xl skeleton" aria-label="Carregando Performance Lab" />}>
+                      <PerformancePage />
+                    </Suspense>
+                  }
+                />
+                <Route path="configuracoes" element={<SettingsPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </HashRouter>
+        </FixReportsProvider>
+      </LibraryProvider>
     </AppStoreProvider>
   )
 }

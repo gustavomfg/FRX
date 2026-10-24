@@ -1,9 +1,8 @@
 import { useMemo, useRef, useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { LayoutGrid, List, Search, X } from 'lucide-react'
+import { LayoutGrid, List, RefreshCw, Search, X } from 'lucide-react'
 import { Page } from '@/layouts/Page'
-import { games } from '@/data/games'
 import { GameCard, GameRow } from '@/components/game/GameCard'
 import { Segmented, Select, Kbd } from '@/components/ui/Controls'
 import { STATUS_META, StatusDot } from '@/components/ui/Status'
@@ -11,22 +10,33 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { Button } from '@/components/ui/Button'
 import { Mascot } from '@/mascot/Mascot'
 import { DemoTag } from '@/components/ui/Status'
+import { LibraryNotices, SourceTag } from '@/components/game/LibraryNotices'
 import { useAppState } from '@/state/store'
-import type { CompatStatus } from '@/types'
+import { useLibrary } from '@/state/library'
+import { useFixReports } from '@/state/fixes'
+import { INSTALL_LABEL } from '@/lib/steamGame'
+import { fmtRelative } from '@/lib/format'
+import type { CompatStatus, Game } from '@/types'
+import type { InstallationStatus } from '@/types/steam'
 import { cn } from '@/lib/cn'
 
 type Sort = 'recentes' | 'nome' | 'status' | 'tempo'
 type View = 'grid' | 'list'
-type StatusFilter = CompatStatus | 'todos'
+type StatusFilter = CompatStatus | InstallationStatus | 'todos'
 type FixFilter = 'todos' | 'com-correcoes'
-type RunnerFilter = 'todos' | 'Proton' | 'Wine' | 'Nativo'
+type RunnerFilter = 'todos' | Game['runner']
 
 const STATUS_RANK: Record<CompatStatus, number> = { problematico: 0, ajustes: 1, 'nao-testado': 2, jogavel: 3, perfeito: 4 }
+const INSTALL_RANK: Record<InstallationStatus, number> = { unavailable: 0, incomplete: 1, unknown: 2, installed: 3 }
+const statusOf = (g: Game): string => g.steam?.installationStatus ?? g.status
 const VIEW_KEY = 'frx.library.view'
 
 export function LibraryPage() {
   const [params, setParams] = useSearchParams()
   const { fixStates } = useAppState()
+  const { games, mode, phase, scan, rescan, fromCache } = useLibrary()
+  const { reports } = useFixReports()
+  const real = mode === 'real'
   const [q, setQ] = useState(params.get('q') ?? '')
   const [status, setStatus] = useState<StatusFilter>((params.get('status') as StatusFilter) ?? 'todos')
   const [fixFilter, setFixFilter] = useState<FixFilter>('todos')
@@ -72,25 +82,29 @@ export function LibraryPage() {
   const result = useMemo(() => {
     const s = q.trim().toLowerCase()
     const list = games.filter((g) => {
-      if (s && !`${g.title} ${g.studio} ${g.genre} ${g.protonVersion}`.toLowerCase().includes(s)) return false
-      if (status !== 'todos' && g.status !== status) return false
+      if (s && !`${g.title} ${g.studio ?? ''} ${g.genre ?? ''} ${g.protonVersion} ${g.id}`.toLowerCase().includes(s)) return false
+      if (status !== 'todos' && statusOf(g) !== status) return false
       if (runner !== 'todos' && g.runner !== runner) return false
-      if (fixFilter === 'com-correcoes' && !g.fixPackIds.some((id) => fixStates[id] === 'disponivel')) return false
+      if (fixFilter === 'com-correcoes') {
+        const has = g.origin === 'steam' ? (reports[g.id]?.findings.length ?? 0) > 0 : g.fixPackIds.some((id) => fixStates[id] === 'disponivel')
+        if (!has) return false
+      }
       return true
     })
     return list.sort((a, b) => {
       if (sort === 'nome') return a.title.localeCompare(b.title, 'pt-BR')
-      if (sort === 'status') return STATUS_RANK[a.status] - STATUS_RANK[b.status]
-      if (sort === 'tempo') return b.playtimeH - a.playtimeH
-      return +new Date(b.lastPlayed) - +new Date(a.lastPlayed)
+      if (sort === 'status')
+        return a.steam && b.steam ? INSTALL_RANK[a.steam.installationStatus] - INSTALL_RANK[b.steam.installationStatus] : STATUS_RANK[a.status] - STATUS_RANK[b.status]
+      if (sort === 'tempo') return (b.playtimeH ?? 0) - (a.playtimeH ?? 0)
+      return (b.lastPlayed ? +new Date(b.lastPlayed) : 0) - (a.lastPlayed ? +new Date(a.lastPlayed) : 0)
     })
-  }, [q, status, runner, fixFilter, sort, fixStates])
+  }, [q, status, runner, fixFilter, sort, fixStates, games, reports])
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { todos: games.length }
-    for (const g of games) c[g.status] = (c[g.status] ?? 0) + 1
+    for (const g of games) c[statusOf(g)] = (c[statusOf(g)] ?? 0) + 1
     return c
-  }, [])
+  }, [games])
 
   const filtersActive = q || status !== 'todos' || runner !== 'todos' || fixFilter !== 'todos'
   const clear = () => {
@@ -100,7 +114,11 @@ export function LibraryPage() {
     setFixFilter('todos')
   }
 
-  const statusChips: StatusFilter[] = ['todos', 'perfeito', 'jogavel', 'ajustes', 'problematico', 'nao-testado']
+  const statusChips: StatusFilter[] = real
+    ? ['todos', ...(['installed', 'incomplete', 'unavailable', 'unknown'] as const).filter((s) => counts[s])]
+    : ['todos', 'perfeito', 'jogavel', 'ajustes', 'problematico', 'nao-testado']
+  const busy = phase === 'scanning' || phase === 'loading'
+  const libCount = scan?.libraries.filter((l) => l.status === 'available').length ?? 0
 
   return (
     <Page>
@@ -108,16 +126,32 @@ export function LibraryPage() {
         <div>
           <div className="flex items-center gap-2">
             <p className="eyebrow">Biblioteca</p>
-            <DemoTag />
+            {real ? <SourceTag /> : <DemoTag />}
           </div>
           <h1 className="mt-3 font-display text-[36px] leading-none font-bold tracking-[-0.04em]">Seus jogos</h1>
           <p className="mt-2 text-[14px] text-fg-2">
-            {games.length} jogos de Steam, GOG, Epic e instalações locais (dados fictícios).
+            {real ? (
+              scan?.status === 'no-steam' ? (
+                'Nenhuma instalação da Steam encontrada neste usuário.'
+              ) : (
+                <>
+                  {games.length} jogo{games.length === 1 ? '' : 's'} da Steam em {libCount} biblioteca{libCount === 1 ? '' : 's'}
+                  {scan && <span className="text-fg-3"> · verificado {fmtRelative(scan.scannedAt)}{fromCache && busy ? ' (atualizando…)' : ''}</span>}
+                </>
+              )
+            ) : (
+              `${games.length} jogos de Steam, GOG, Epic e instalações locais (dados fictícios).`
+            )}
           </p>
         </div>
         <div className="flex items-end gap-6">
           {/* O Pim cochila na prateleira, de olho nos jogos */}
           <Shelf />
+          {real && (
+            <Button variant="outline" icon={<RefreshCw className={cn('size-4', busy && 'animate-spin')} />} onClick={() => void rescan()} disabled={busy} aria-live="polite">
+              {busy ? 'Verificando…' : 'Atualizar biblioteca'}
+            </Button>
+          )}
           <Segmented<View>
           label="Modo de visualização"
           value={view}
@@ -163,6 +197,7 @@ export function LibraryPage() {
               { value: 'Proton', label: 'Proton' },
               { value: 'Wine', label: 'Wine' },
               { value: 'Nativo', label: 'Nativo' },
+              ...(real ? [{ value: 'Desconhecido' as const, label: 'Não identificada' }] : []),
             ]}
           />
           <Select<Sort>
@@ -177,7 +212,7 @@ export function LibraryPage() {
             ]}
           />
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-1.5" role="group" aria-label="Filtrar por compatibilidade">
+        <div className="mt-3 flex flex-wrap items-center gap-1.5" role="group" aria-label={real ? 'Filtrar por estado da instalação' : 'Filtrar por compatibilidade'}>
           {statusChips.map((s) => {
             const active = status === s
             return (
@@ -190,8 +225,8 @@ export function LibraryPage() {
                   active ? 'border-accent-line bg-accent-soft text-fg' : 'border-line text-fg-2 hover:border-line-2 hover:text-fg',
                 )}
               >
-                {s !== 'todos' && <StatusDot status={s} />}
-                {s === 'todos' ? 'Todos' : STATUS_META[s].label}
+                {s !== 'todos' && s in STATUS_META && <StatusDot status={s as CompatStatus} />}
+                {s === 'todos' ? 'Todos' : s in STATUS_META ? STATUS_META[s as CompatStatus].label : INSTALL_LABEL[s as InstallationStatus]}
                 <span className="tnum font-mono text-[11px] text-fg-3">{counts[s] ?? 0}</span>
               </button>
             )
@@ -205,7 +240,7 @@ export function LibraryPage() {
               fixFilter === 'com-correcoes' ? 'border-accent-line bg-accent-soft text-fg' : 'border-line text-fg-2 hover:border-line-2 hover:text-fg',
             )}
           >
-            Com correções disponíveis
+            {real ? 'Com correções descobertas' : 'Com correções disponíveis'}
           </button>
           {filtersActive && (
             <button onClick={clear} className="ml-auto text-[12.5px] text-fg-3 underline-offset-4 hover:text-fg hover:underline">
@@ -219,8 +254,28 @@ export function LibraryPage() {
         {result.length} jogos encontrados
       </p>
 
+      {real && <LibraryNotices />}
+
       <div className="mt-6">
-        {result.length === 0 ? (
+        {real && games.length === 0 ? (
+          phase === 'loading' || (phase === 'scanning' && !scan) ? (
+            <LibrarySkeleton />
+          ) : scan?.status === 'no-steam' ? (
+            <EmptyState
+              pose="confused"
+              title="A Steam não foi encontrada"
+              body="Procuramos nas instalações nativa, Flatpak e Snap. Abra a Steam pelo menos uma vez e tente de novo — ou use FRX_STEAM_ROOT para indicar outra pasta."
+              action={<Button onClick={() => void rescan()} icon={<RefreshCw className="size-4" />}>Procurar novamente</Button>}
+            />
+          ) : phase === 'error' ? null : (
+            <EmptyState
+              pose="sleep"
+              title="Nenhum jogo instalado"
+              body="A Steam está aqui, mas nenhuma biblioteca disponível tem jogos instalados. Ferramentas como Proton e Steam Linux Runtime não entram na lista."
+              action={<Button onClick={() => void rescan()} icon={<RefreshCw className="size-4" />}>Atualizar</Button>}
+            />
+          )
+        ) : result.length === 0 ? (
           <EmptyState
             pose="confused"
             title="Nenhum jogo por aqui"
@@ -247,7 +302,7 @@ export function LibraryPage() {
               <span />
               <span>Jogo</span>
               <span>Proton / Wine</span>
-              <span>Compatibilidade</span>
+              <span>{real ? 'Instalação' : 'Compatibilidade'}</span>
               <span>Correções</span>
               <span className="text-right">Jogado</span>
             </div>
@@ -275,5 +330,19 @@ function Shelf() {
         <rect x={17} y={1} width={1} height={1} style={{ fill: 'var(--frx-line-2)' }} />
       </svg>
     </div>
+  )
+}
+
+function LibrarySkeleton() {
+  return (
+    <ul className="grid grid-cols-[repeat(auto-fill,minmax(176px,1fr))] gap-x-5 gap-y-7" aria-label="Carregando biblioteca">
+      {Array.from({ length: 6 }, (_, i) => (
+        <li key={i}>
+          <div className="skeleton aspect-[3/4] rounded-lg" />
+          <div className="skeleton mt-3 h-3 w-2/3 rounded-full" />
+          <div className="skeleton mt-2 h-3 w-1/3 rounded-full" />
+        </li>
+      ))}
+    </ul>
   )
 }

@@ -14,10 +14,17 @@ import { useAttention } from '@/state/selectors'
 import { fmtPct, fmtRelative, greeting } from '@/lib/format'
 import type { Activity, CompatStatus } from '@/types'
 import { cn } from '@/lib/cn'
+import { useLibrary } from '@/state/library'
+import { RealHome } from './RealHome'
 
 const STATUS_ORDER: CompatStatus[] = ['perfeito', 'jogavel', 'ajustes', 'problematico', 'nao-testado']
 
 export function HomePage() {
+  const { mode } = useLibrary()
+  return mode === 'real' ? <RealHome /> : <DemoHome />
+}
+
+function DemoHome() {
   const navigate = useNavigate()
   const attention = useAttention()
   const { available, applied } = useFixSummary()
@@ -234,7 +241,7 @@ function ScanButton() {
   )
 }
 
-function SummaryColumn({ eyebrow, to, cta, children }: { eyebrow: string; to: string; cta: string; children: React.ReactNode }) {
+export function SummaryColumn({ eyebrow, to, cta, children }: { eyebrow: string; to: string; cta: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col px-7 py-6 first:pl-0 last:pr-0">
       <div className="eyebrow mb-4">{eyebrow}</div>
@@ -247,7 +254,7 @@ function SummaryColumn({ eyebrow, to, cta, children }: { eyebrow: string; to: st
   )
 }
 
-function BigNumber({ value, label, aside }: { value: number; label: string; aside?: string }) {
+export function BigNumber({ value, label, aside }: { value: number; label: string; aside?: string }) {
   return (
     <div className="flex items-baseline gap-3">
       <span className="tnum font-display text-[40px] leading-none font-bold tracking-[-0.04em]">{value}</span>
@@ -279,7 +286,7 @@ function StatusDistribution() {
   )
 }
 
-function Sparkline({ before, after }: { before: number[]; after: number[] }) {
+export function Sparkline({ before, after }: { before: number[]; after: number[] }) {
   const W = 260
   const H = 54
   const max = Math.max(...before, ...after) * 1.05

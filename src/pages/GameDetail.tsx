@@ -10,7 +10,6 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { SourceChip, SourceIcon } from '@/components/fix/SourceIcon'
 import { useFixFlow } from '@/components/fix/useFixFlow'
 import { Mascot } from '@/mascot/Mascot'
-import { gameById } from '@/data/games'
 import { issueById } from '@/data/issues'
 import { systemInfo } from '@/data/system'
 import { compareRuns } from '@/data/benchmarks'
@@ -21,23 +20,28 @@ import { ANALYZE_STEPS, analyzeGame } from '@/services/demo'
 import { fmtDateTime, fmtNum, fmtPct, fmtRelative } from '@/lib/format'
 import type { Game, Issue, SourceKind } from '@/types'
 import { cn } from '@/lib/cn'
+import { InfoBlock, InfoRow } from '@/components/game/InfoBlock'
+import { SteamGameDetail } from './SteamGameDetail'
+import { useLibrary } from '@/state/library'
 
 export function GameDetailPage() {
   const { gameId } = useParams()
-  const game = gameById(gameId)
+  const library = useLibrary()
+  const game = library.byId(gameId)
   const navigate = useNavigate()
   if (!game)
     return (
       <Page>
         <EmptyState
           pose="confused"
-          title="Jogo não encontrado"
-          body="Talvez ele tenha sido desinstalado — ou nunca existiu nesta demonstração."
+          title={library.phase === 'loading' ? 'Carregando biblioteca…' : 'Jogo não encontrado'}
+          body={library.phase === 'loading' ? undefined : 'Talvez ele tenha sido desinstalado ou movido para uma biblioteca indisponível.'}
           action={<Button onClick={() => navigate('/biblioteca')}>Voltar à biblioteca</Button>}
           className="min-h-[70vh]"
         />
       </Page>
     )
+  if (game.origin === 'steam') return <SteamGameDetail key={game.id} game={game} />
   return <GameDetail key={game.id} game={game} />
 }
 
@@ -116,10 +120,10 @@ function GameDetail({ game }: { game: Game }) {
       {/* Fatos rápidos */}
       <dl className="mt-6 grid grid-cols-5 divide-x divide-line border-y border-line">
         {[
-          ['Tempo de jogo', `${game.playtimeH} h`],
-          ['Última sessão', fmtRelative(game.lastPlayed)],
-          ['Tamanho', `${fmtNum(game.sizeGb, 1)} GB`],
-          ['Relatos (demo)', fmtNum(game.communityReports)],
+          ['Tempo de jogo', `${game.playtimeH ?? 0} h`],
+          ['Última sessão', game.lastPlayed ? fmtRelative(game.lastPlayed) : '—'],
+          ['Tamanho', `${fmtNum(game.sizeGb ?? 0, 1)} GB`],
+          ['Relatos (demo)', fmtNum(game.communityReports ?? 0)],
           ['Correções', packs.length ? `${applied.length} de ${packs.length} aplicadas` : 'Nenhuma necessária'],
         ].map(([k, v]) => (
           <div key={k} className="px-5 py-4 first:pl-0">
@@ -435,28 +439,5 @@ function IssueRow({ issue, resolved }: { issue: Issue; resolved: boolean }) {
         )}
       </AnimatePresence>
     </li>
-  )
-}
-
-function InfoBlock({ title, children, tag }: { title: string; children: React.ReactNode; tag?: boolean }) {
-  return (
-    <section>
-      <div className="mb-2 flex items-center justify-between">
-        <h3 className="eyebrow">{title}</h3>
-        {tag && <DemoTag />}
-      </div>
-      <div className="divide-y divide-line border-t border-line">{children}</div>
-    </section>
-  )
-}
-
-function InfoRow({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="flex items-center justify-between gap-4 py-2 text-[13px]">
-      <span className="shrink-0 text-fg-3">{k}</span>
-      <span className="truncate text-right text-fg" title={v}>
-        {v}
-      </span>
-    </div>
   )
 }
