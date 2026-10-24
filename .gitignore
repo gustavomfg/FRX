@@ -1,9 +1,23 @@
-node_modules
-dist
-.DS_Store
-*.local
+# Dependências e arquivos gerados
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Configurações locais e variáveis de ambiente
 .idea/
 .claude/
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+
+# Capturas temporárias e sessões do Playwright
+.playwright-cli/
+output/playwright/
+
+# Artefatos de empacotamento do Arch Linux
 packaging/arch/pkg/
 packaging/arch/src/
 packaging/arch/*.pkg.tar.*
