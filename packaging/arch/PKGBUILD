@@ -6,11 +6,11 @@
 # Instalação: sudo pacman -U packaging/arch/frx-bin-*.pkg.tar.zst
 
 pkgname=frx-bin
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
-pkgdesc="FRX — Play. Fix. Repeat. Gerenciador de compatibilidade e otimização de jogos no Linux (demo)"
+pkgdesc="FRX — Play. Fix. Repeat. Gerenciador de compatibilidade de jogos no Linux"
 arch=('x86_64')
-url="https://github.com/"
+url="https://github.com/gustavomfg/FRX"
 license=('LicenseRef-proprietary')
 depends=('webkit2gtk-4.1' 'gtk3' 'hicolor-icon-theme')
 provides=('frx')
