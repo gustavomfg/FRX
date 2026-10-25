@@ -6,7 +6,7 @@
  * grade 24×20, para que cada pose reaproveite a mesma anatomia pixel a pixel.
  */
 
-export type PixelKey = 'W' | 'S' | 'K' | 'Y' | 'H' | 'P' | 'M' | 'G' | 'A' | 'T'
+export type PixelKey = 'W' | 'S' | 'K' | 'Y' | 'H' | 'P' | 'M' | 'G' | 'A' | 'T' | 'R'
 
 export const PIXEL_COLORS: Record<PixelKey, string> = {
   W: 'var(--pim-body)',
@@ -19,6 +19,7 @@ export const PIXEL_COLORS: Record<PixelKey, string> = {
   G: 'var(--pim-glass)',
   A: 'var(--frx-accent-strong)',
   T: 'var(--frx-text-3)',
+  R: 'var(--frx-bad)',
 }
 
 export const GRID_W = 24
@@ -31,8 +32,8 @@ export type Grid = (PixelKey | null)[][]
 type Eyes = 'open' | 'closed' | 'left' | 'right' | 'up' | 'down' | 'happy'
 type Mouth = 'smile' | 'neutral' | 'open' | 'frown' | 'o'
 type Arms = 'down' | 'waveA' | 'waveB' | 'up' | 'hold' | 'holdUp'
-type Prop = 'magnifier' | 'magnifierLow' | 'wrenchUp' | 'wrenchDown' | null
-type Fx = 'z1' | 'z2' | 'z3' | 'sparkA' | 'sparkB' | 'sweatA' | 'sweatB' | 'question' | 'questionDim' | 'note'
+type Prop = 'magnifier' | 'magnifierLow' | 'wrenchUp' | 'wrenchDown' | 'clipboardA' | 'clipboardB' | 'chartA' | 'chartB' | null
+type Fx = 'z1' | 'z2' | 'z3' | 'sparkA' | 'sparkB' | 'sweatA' | 'sweatB' | 'question' | 'questionDim' | 'note' | 'rec'
 
 export interface FrameSpec {
   eyes?: Eyes
@@ -112,7 +113,33 @@ function magnifier(cy: number): [number, number, PixelKey][] {
   return out
 }
 
+/** Prancheta segurada à direita; `lines` = quantas linhas já foram "escritas". */
+function clipboard(lines: number): [number, number, PixelKey][] {
+  const out: [number, number, PixelKey][] = [[16, 7, 'M'], [17, 7, 'M']]
+  for (let y = 8; y <= 13; y++)
+    for (let x = 15; x <= 18; x++) {
+      const border = x === 15 || x === 18 || y === 8 || y === 13
+      out.push([x, y, border ? 'H' : 'W'])
+    }
+  ;[10, 12].slice(0, lines).forEach((y) => out.push([16, y, 'T'], [17, y, 'T']))
+  return out
+}
+
+/** Mini gráfico em moldura, com a linha em acento. */
+function chart(shift: number): [number, number, PixelKey][] {
+  const out: [number, number, PixelKey][] = []
+  for (let y = 4; y <= 10; y++)
+    for (let x = 14; x <= 19; x++) if (x === 14 || x === 19 || y === 4 || y === 10) out.push([x, y, 'M'])
+  const line = [9, 8, 8, 6].map((v, i) => [15 + i, Math.max(5, v - (i === shift ? 1 : 0))] as const)
+  line.forEach(([x, y]) => out.push([x, y, 'A']))
+  return out
+}
+
 const PROPS: Record<Exclude<Prop, null>, [number, number, PixelKey][]> = {
+  clipboardA: clipboard(1),
+  clipboardB: clipboard(2),
+  chartA: chart(1),
+  chartB: chart(2),
   magnifier: magnifier(8),
   magnifierLow: magnifier(9),
   wrenchUp: [
@@ -136,6 +163,7 @@ const FX: Record<Fx, [number, number, PixelKey][]> = {
   question: [[16, 0, 'A'], [17, 0, 'A'], [18, 1, 'A'], [17, 2, 'A'], [17, 4, 'A']],
   questionDim: [[16, 0, 'T'], [17, 0, 'T'], [18, 1, 'T'], [17, 2, 'T'], [17, 4, 'T']],
   note: [[17, 2, 'A'], [17, 3, 'A'], [17, 4, 'A'], [18, 2, 'A'], [16, 4, 'A']],
+  rec: [[-3, 2, 'R'], [-2, 2, 'R'], [-3, 3, 'R'], [-2, 3, 'R']],
 }
 
 function zed(x: number, y: number, c: PixelKey): [number, number, PixelKey][] {
@@ -184,6 +212,9 @@ export type Pose =
   | 'worried'
   | 'confused'
   | 'sleep'
+  | 'prepare'
+  | 'record'
+  | 'analyze'
 
 export const POSES: Record<Pose, { frames: FrameSpec[]; ticks: number[] }> = {
   idle: {
@@ -265,6 +296,31 @@ export const POSES: Record<Pose, { frames: FrameSpec[]; ticks: number[] }> = {
       { sitting: true, eyes: 'closed', fx: ['z3'] },
     ],
     ticks: [8, 8, 8],
+  },
+  prepare: {
+    frames: [
+      { eyes: 'right', mouth: 'neutral', arms: 'hold', prop: 'clipboardA' },
+      { eyes: 'right', mouth: 'neutral', arms: 'hold', prop: 'clipboardB' },
+      { eyes: 'closed', mouth: 'neutral', arms: 'hold', prop: 'clipboardB' },
+    ],
+    ticks: [8, 10, 1],
+  },
+  record: {
+    frames: [
+      { mouth: 'smile', fx: ['rec'] },
+      { mouth: 'smile', dy: 1, fx: ['rec'] },
+      { mouth: 'smile' },
+      { mouth: 'smile', eyes: 'closed' },
+    ],
+    ticks: [4, 4, 4, 1],
+  },
+  analyze: {
+    frames: [
+      { eyes: 'right', mouth: 'o', arms: 'holdUp', prop: 'chartA' },
+      { eyes: 'right', mouth: 'neutral', arms: 'holdUp', prop: 'chartB' },
+      { eyes: 'up', mouth: 'neutral', arms: 'holdUp', prop: 'chartB' },
+    ],
+    ticks: [6, 6, 4],
   },
 }
 

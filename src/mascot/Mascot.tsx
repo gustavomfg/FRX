@@ -29,6 +29,9 @@ const POSE_LABEL: Record<Pose, string> = {
   worried: 'Pim preocupado',
   confused: 'Pim em dúvida',
   sleep: 'Pim dormindo',
+  prepare: 'Pim preparando o benchmark com uma prancheta',
+  record: 'Pim acompanhando a gravação',
+  analyze: 'Pim examinando um gráfico',
 }
 
 function frameAt(pose: Pose, t: number) {
