@@ -8,9 +8,9 @@
 
 **FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
 
-**Versão 0.2.0:** no app desktop, o FRX detecta os jogos instalados pela Steam e pesquisa correções conhecidas em fontes públicas. Tudo é **somente leitura**: nenhuma correção é aplicada, nenhum script de terceiros é executado e nenhum arquivo da Steam, de prefixo ou de jogo é modificado.
+**Versão 0.3.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções conhecidas e mede o desempenho com logs reais do **MangoHud**. O Performance Lab importa CSVs, prepara capturas por jogo, guarda o histórico e compara sessões. Nenhuma correção é aplicada, nenhum script de terceiros é executado e nenhum arquivo da Steam, de prefixo ou de jogo é modificado.
 
-> Aplicar e reverter correções, além do Performance Lab, continuam **demonstrativos** e são sinalizados como tal na interface. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo com dados fictícios. As duas fontes de dados nunca se misturam.
+> Aplicar e reverter Fix Packs continuam **demonstrativos**. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo com dados fictícios. No desktop, o Performance Lab usa exclusivamente os logs importados ou capturados; as duas fontes de dados nunca se misturam.
 
 ## Prévia
 
@@ -36,6 +36,8 @@ O FRX é um **aplicativo desktop Linux** feito com **Tauri 2** (Rust) e uma inte
 
 Opcionais: `libappindicator-gtk3` (bandeja do sistema, ainda não usada) e `fuse2` (para abrir o AppImage sem extraí-lo; sem ele, use `APPIMAGE_EXTRACT_AND_RUN=1`).
 
+Para **capturar** benchmarks, instale o MangoHud e a biblioteca da arquitetura do jogo. No Arch/CachyOS: `sudo pacman -S --needed mangohud lib32-mangohud`. O FRX apenas mostra essa orientação; não instala pacotes. A captura foi validada com MangoHud **0.8.4**, Vulkan, NVIDIA RTX 4060 e Hyprland/Wayland. A importação de logs existentes funciona mesmo sem MangoHud instalado.
+
 ### Comandos
 
 ```bash
@@ -56,10 +58,10 @@ Onde ficam os artefatos:
 
 ```
 src-tauri/target/release/frx                                   binário
-src-tauri/target/release/bundle/appimage/FRX_0.2.0_amd64.AppImage
-src-tauri/target/release/bundle/deb/FRX_0.2.0_amd64.deb
-src-tauri/target/release/bundle/rpm/FRX-0.2.0-1.x86_64.rpm
-packaging/arch/frx-bin-0.2.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
+src-tauri/target/release/bundle/appimage/FRX_0.3.0_amd64.AppImage
+src-tauri/target/release/bundle/deb/FRX_0.3.0_amd64.deb
+src-tauri/target/release/bundle/rpm/FRX-0.3.0-1.x86_64.rpm
+packaging/arch/frx-bin-0.3.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
 ```
 
 Na build de release, a interface (`dist/`) é **embutida no binário** e servida pelo protocolo interno do Tauri. Não é preciso um servidor Vite. O Vite só é usado em `npm run dev`, pela `devUrl` `http://localhost:1420`.
@@ -84,10 +86,38 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 | `get_cached_fix_reports` | Relatórios salvos, funciona sem conexão |
 | `get_fix_providers`, `clear_fix_cache`, `get_cache_size` | Configurações de fontes e de cache |
 | `app_info`, `ping` | Informações do app e teste da ponte |
+| `detect_mangohud` | Executável, versão, camadas Vulkan e bibliotecas de 32/64 bits |
+| `import_benchmark`, `list_benchmark_sessions`, `get_benchmark_session` | Importação, histórico persistente e séries temporais |
+| `compare_benchmark_sessions`, `update_benchmark_session`, `delete_benchmark_session`, `export_benchmark_session` | Comparação e gerenciamento de sessões |
+| `prepare_benchmark`, `start_capture`, `get_capture_status`, `capture_logging`, `finish_capture`, `cancel_capture`, `reset_capture` | Captura assistida e controle do MangoHud |
 
-- **TypeScript:** `src/services/{games,fixes,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/library.tsx` e `src/state/fixes.tsx`.
-- **Tipos:** os modelos do Rust (`steam/models.rs`, `fixes/models.rs`) estão espelhados em `src/types/steam.ts` e `src/types/fixes.ts`.
-- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri e o `opener`, mas só para os domínios das fontes (GitHub, ProtonDB, Steam e Open Wine Components). O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
+- **TypeScript:** `src/services/{games,fixes,performance,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/{library,fixes,performance}.tsx`; a captura continua ao navegar entre páginas.
+- **Tipos:** os modelos do Rust estão espelhados em `src/types/{steam,fixes,performance}.ts`.
+- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri, os diálogos nativos de abrir/salvar e o `opener` para os domínios das fontes e `steam://rungameid/*`. O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
+
+## Performance Lab: primeiro benchmark
+
+1. Execute `npm install` e `npm run dev` para abrir o **app desktop**.
+2. Abra a **Biblioteca**, selecione um jogo e clique em **Medir desempenho**, ou acesse **Performance Lab** pela barra lateral.
+3. Para um CSV já existente, escolha **Importar benchmark**, selecione o log principal do MangoHud (não o `_summary.csv`), confira o jogo e as condições e confirme a importação.
+4. Com o jogo fechado, clique em **Nova sessão**. Escolha jogo, duração, início automático ou manual, HUD e condições do teste. Clique em **Preparar sessão**. Se mudar a duração ou o HUD entre sessões, reabra o jogo para carregar a nova configuração.
+5. Na Steam, abra **Propriedades → Geral → Opções de inicialização** do jogo. Confira e cole a linha mostrada pelo FRX. **O FRX não altera essas opções.** Variáveis, aspas e wrappers comuns, como `gamescope`, são preservados. Linhas com operadores de shell ou substituição de comandos são recusadas em vez de reescritas; nesse caso, use a importação manual.
+6. Clique em **Já colei — aguardar o jogo** e abra o jogo. No modo automático, espere o atraso configurado. No manual, use **Iniciar gravação agora** ou `Shift esquerdo + F2` no jogo. Com o HUD oculto, o início automático depende da conexão ao socket do MangoHud.
+7. Ao terminar, o FRX processa o CSV e salva a sessão. **Parar e analisar** encerra antecipadamente pelo socket; **Descartar** para a gravação e não salva uma sessão. Se o jogo fechar durante a captura, os dados disponíveis são analisados com aviso de interrupção.
+8. No histórico, marque duas sessões diferentes como **Antes** e **Depois**. Use o mesmo trecho, resolução, preset e duração para uma comparação útil. Você também pode renomear, excluir e exportar sessões.
+
+Depois de capturar, a configuração própria do FRX volta ao repouso, sem gravação automática. Remova a linha do FRX das opções da Steam quando não quiser mais usar o MangoHud por esse fluxo.
+
+### Dados e metodologia
+
+- Configurações por jogo: `~/.local/share/io.frx.FRX/mangohud/<appid>.conf`. A configuração global do MangoHud nunca é alterada.
+- Logs de captura: `~/.local/share/io.frx.FRX/captures/<appid>/`. Histórico persistente: `~/.local/share/io.frx.FRX/benchmarks/sessions/<id>/`, com `raw.csv`, `meta.json` e `series.json`. Os caminhos seguem `XDG_DATA_HOME` quando definido.
+- CSVs de texto de até **256 MiB**; resumos, arquivos binários, caminhos especiais e cabeçalhos inválidos são recusados com mensagem explicativa.
+- Capturas por quadro usam `log_interval=0`. FPS médio = quadros ÷ soma dos frametimes. **1% low** e **0,1% low** = inverso da média dos piores 1%/0,1% dos frametimes; exigem pelo menos 100/1.000 quadros. Em logs periódicos, os lows são estimativas e aparecem identificados.
+- Gráficos usam séries reduzidas dos dados reais, preservando os picos. As estatísticas usam as amostras originais. Sensores ausentes ficam como “—”.
+- Capturas curtas, amostras inválidas, lacunas, interrupções e diferenças de GPU, resolução, preset ou ferramenta geram avisos. Uma melhoria observada não prova que um Fix Pack causou a diferença.
+- A captura espera até 15 minutos pelo início. Logs sem crescimento têm tratamento de interrupção; sessões anteriores e `_summary.csv` nunca são confundidos com uma nova captura.
+- A comunicação de controle usa um socket abstrato Linux. Sandboxes sem namespace de rede compartilhado podem impedir o controle; a detecção do CSV e a importação continuam sendo alternativas. A variante Flatpak é orientada na interface, mas precisa ser validada no ambiente do usuário.
 
 ## Detecção de jogos (Steam)
 
@@ -144,7 +174,7 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 
 ## Segurança
 
-- Nenhum comando externo, script de terceiros, download de DLL, alteração de prefixo, de opções de inicialização ou de arquivos da Steam, e nenhum pedido de sudo.
+- Nenhum script de terceiros, download de DLL, alteração de prefixo, de opções de inicialização ou de arquivos da Steam, e nenhum pedido de sudo. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout; o jogo só é aberto pela Steam quando solicitado pelo usuário.
 - Todo conteúdo da internet é tratado como não confiável:
   - o cliente HTTP só aceita HTTPS para uma lista fechada de hosts, inclusive em redirecionamentos, e limita o tamanho das respostas;
   - o JSON malformado é descartado;
@@ -169,7 +199,8 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 
 ```
 src-tauri/src/
-  commands/                comandos Tauri: app, games, system, fixes
+  commands/                comandos Tauri: app, games, system, fixes, performance
+  performance/             parser, metrics, comparison, persistence, detection, capture, models
   steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
     providers/             umu (protonfixes + database), github, protondb (desativado)
@@ -181,18 +212,19 @@ src/
   app/routes.ts            navegação principal
   layouts/                 AppShell, Sidebar, CommandPalette, Page
   pages/                   Home/RealHome, Library, GameDetail/SteamGameDetail, FixPacks/FindingsPage,
-                           Performance, Settings, NotFound
+                           Performance/RealPerformance, Settings, NotFound
   components/
     ui/                    Button, controles, Dialog, Toasts, status, contadores, estados vazios
     game/                  GameArt, CoverImage, GameCard/GameRow, estado da instalação e avisos
     fix/                   FindingCard, FixFlowDialog (demo), ChangeList, fontes
     perf/                  CompareHero, MetricChart, vereditos
+    performance/           captura, importação, histórico, gráficos e comparação reais
     brand/                 Logo (símbolo d-pad + wordmark)
   design/tokens.css        design tokens (cores, raios, movimento, acentos)
   mascot/                  Pim: sprites procedurais, relógio compartilhado, componente
   data/                    dados demonstrativos (jogos, problemas, fix packs, benchmarks…)
-  services/                games, fixes, native (invoke), opener, platform e demo.ts (simulações)
-  state/                   store, library (Steam real × demo), fixes (relatórios), movimento, seletores
+  services/                games, fixes, performance, native (invoke), opener, platform e demo.ts
+  state/                   store, library (Steam real × demo), fixes, performance, movimento, seletores
   hooks/                   useGameArt
   test/                    fixtures e testes de integração da ponte IPC (Vitest + mockIPC)
   types/                   tipos de domínio
@@ -202,7 +234,7 @@ src/
 
 - **Tokens:** todas as cores vivem em `src/design/tokens.css` e são expostas ao Tailwind via `@theme inline` (`bg-surface`, `text-fg-2`, `text-accent`…). Os acentos alternativos (`menta`, `coral`, `ceu`) já funcionam em Configurações; novos temas só precisam redefinir as variáveis sob `[data-theme='…']`.
 - **Símbolo:** um direcional (d-pad) em pixel art que também é um "+" de primeiros socorros: jogar e consertar no mesmo gesto.
-- **Pim:** o mascote original, um marshmallow de gorro amarelo-manteiga. Ele é desenhado proceduralmente numa grade de 24×20 (`mascot/sprites.ts`) e renderizado como SVG nítido (um `<path>` por cor). Tem 10 poses: acenando, descansando, investigando com a lupa, consertando com a chave, observando, comemorando, preocupado, em dúvida e outras.
+- **Pim:** o mascote original, um marshmallow de gorro amarelo-manteiga. Ele é desenhado proceduralmente numa grade de 24×20 (`mascot/sprites.ts`) e renderizado como SVG nítido (um `<path>` por cor). Tem 13 poses, incluindo acenar, descansar, investigar, consertar, observar, comemorar, preparar, gravar e analisar benchmarks.
 - **Capas:** cada jogo fictício recebe uma cena pixelada gerada em SVG a partir de uma semente fixa (`GameArt.tsx`), sem assets de terceiros.
 
 ## Movimento e acessibilidade
@@ -215,14 +247,14 @@ src/
 
 ## O que é real e o que ainda é simulado
 
-| Área | No app desktop (v0.2) | No navegador |
+| Área | No app desktop (v0.3) | No navegador |
 | --- | --- | --- |
 | Biblioteca | **Real:** jogos da Steam detectados pelo Rust | 12 jogos fictícios |
 | Sistema | **Real:** /proc, /sys, os-release | Perfil fictício |
 | Capas | **Reais:** cache da Steam ou CDN pública, com cache local | Arte pixelada gerada |
 | Correções | **Descoberta real** (UMU-Protonfixes, UMU Database, GitHub). Aplicar fica desabilitado, com aviso "em breve" | Fix Packs fictícios com aplicar e reverter simulados |
-| Performance Lab | Demonstrativo (marcado como tal) | Demonstrativo |
-| Persistência | Cache local + preferências | Só preferências (localStorage) |
+| Performance Lab | **Real:** logs MangoHud, captura assistida, histórico e comparação | Demonstrativo |
+| Persistência | Cache local, benchmarks no diretório de dados e preferências | Só preferências (localStorage) |
 
 Em Configurações → Dados e fontes, a opção "Usar dados demonstrativos" troca o app desktop para a demonstração, útil para testes.
 
