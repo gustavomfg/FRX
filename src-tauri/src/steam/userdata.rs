@@ -36,6 +36,22 @@ pub fn playtime_minutes(root: &Path) -> HashMap<String, u64> {
     out
 }
 
+/// Opções de inicialização atuais do jogo na Steam (somente leitura).
+pub fn launch_options(root: &Path, app_id: &str) -> Option<String> {
+    let account = most_recent_account(root)?;
+    let file = root
+        .join("userdata")
+        .join(account.to_string())
+        .join("config/localconfig.vdf");
+    let text = read_text(&file).ok()?;
+    let doc = vdf::parse(&text).ok()?;
+    let apps = doc.path(&["UserLocalConfigStore", "Software", "Valve", "Steam", "apps"])?;
+    apps.get(app_id)?
+        .str_at("LaunchOptions")
+        .map(|s| s.trim().to_owned())
+        .filter(|s| !s.is_empty())
+}
+
 fn most_recent_account(root: &Path) -> Option<u64> {
     let text = read_text(&root.join("config/loginusers.vdf")).ok()?;
     let doc = vdf::parse(&text).ok()?;
@@ -66,11 +82,16 @@ mod tests {
         std::fs::create_dir_all(&cfg).unwrap();
         std::fs::write(
             cfg.join("localconfig.vdf"),
-            r#""UserLocalConfigStore" { "Software" { "Valve" { "Steam" { "apps" { "200260" { "Playtime" "125" } "7" { "Playtime" "0" } } } } } }"#,
+            r#""UserLocalConfigStore" { "Software" { "Valve" { "Steam" { "apps" { "200260" { "Playtime" "125" "LaunchOptions" "PROTON_LOG=1 %command%" } "7" { "Playtime" "0" } } } } } }"#,
         )
         .unwrap();
         let p = playtime_minutes(root);
         assert_eq!(p.get("200260"), Some(&125));
         assert!(!p.contains_key("7"));
+        assert_eq!(
+            launch_options(root, "200260").as_deref(),
+            Some("PROTON_LOG=1 %command%")
+        );
+        assert_eq!(launch_options(root, "7"), None);
     }
 }

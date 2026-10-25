@@ -1,0 +1,559 @@
+//! Comparação entre duas sessões ("antes" e "depois").
+//!
+//! O veredito é conservador: diferenças dentro da variação natural da
+//! sessão viram "diferença pequena" ou "inconclusivo". Nunca atribuímos a
+//! mudança a uma correção específica — só descrevemos o que foi medido.
+
+use serde::{Deserialize, Serialize};
+
+use super::models::*;
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum Better {
+    Higher,
+    Lower,
+    Neutral,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct CompareRow {
+    pub key: String,
+    pub label: String,
+    pub unit: String,
+    pub before: f64,
+    pub after: f64,
+    pub abs_diff: f64,
+    /// `None` quando a base é zero ou próxima disso (porcentagem enganosa).
+    pub pct_diff: Option<f64>,
+    pub better: Better,
+    /// "improved" | "worsened" | "same" — só para métricas com direção definida.
+    pub direction: String,
+    pub estimated: bool,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum VerdictKind {
+    Improvement,
+    Regression,
+    SmallDifference,
+    Inconclusive,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Verdict {
+    pub kind: VerdictKind,
+    pub avg_delta_pct: Option<f64>,
+    pub low1_delta_pct: Option<f64>,
+    /// Variação natural estimada (em % do FPS médio de referência).
+    pub noise_pct: Option<f64>,
+    pub reasons: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Difference {
+    pub field: String,
+    pub label: String,
+    pub before: Option<String>,
+    pub after: Option<String>,
+    /// `true` quando a diferença compromete uma comparação controlada.
+    pub major: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Comparability {
+    pub controlled: bool,
+    pub differences: Vec<Difference>,
+    pub notes: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct ComparisonResult {
+    pub before_id: String,
+    pub after_id: String,
+    pub rows: Vec<CompareRow>,
+    pub verdict: Verdict,
+    pub comparability: Comparability,
+}
+
+/// Número com vírgula decimal, como o resto da interface.
+fn br(v: f64, digits: usize) -> String {
+    format!("{v:.digits$}").replace('.', ",")
+}
+
+fn br_signed(v: f64) -> String {
+    format!("{}{}", if v >= 0.0 { "+" } else { "−" }, br(v.abs(), 1))
+}
+
+/// Diferença percentual segura.
+pub fn pct(before: f64, after: f64) -> Option<f64> {
+    (before.abs() > 1e-9 && before.is_finite() && after.is_finite())
+        .then(|| (after - before) / before.abs() * 100.0)
+}
+
+fn row(
+    key: &str,
+    label: &str,
+    unit: &str,
+    before: Option<f64>,
+    after: Option<f64>,
+    better: Better,
+    estimated: bool,
+) -> Option<CompareRow> {
+    let (b, a) = (before?, after?);
+    let pct_diff = pct(b, a);
+    let rel = pct_diff.unwrap_or(0.0);
+    let direction = match better {
+        Better::Neutral => "same",
+        _ if rel.abs() < 1.0 => "same",
+        Better::Higher if a > b => "improved",
+        Better::Lower if a < b => "improved",
+        _ => "worsened",
+    };
+    Some(CompareRow {
+        key: key.into(),
+        label: label.into(),
+        unit: unit.into(),
+        before: b,
+        after: a,
+        abs_diff: a - b,
+        pct_diff,
+        better,
+        direction: direction.into(),
+        estimated,
+    })
+}
+
+/// Variação natural do FPS médio (em %), a partir do desvio por segundo.
+/// Erro-padrão × 2 para compensar a autocorrelação entre segundos vizinhos.
+fn noise_pct(s: &SessionStats) -> Option<f64> {
+    let sd = s.stability.per_second_fps_stdev?;
+    let avg = s.fps.avg?;
+    let n = s.stability.seconds.max(1) as f64;
+    Some(2.0 * sd / n.sqrt() / avg * 100.0)
+}
+
+pub fn compare(before: &SessionMeta, after: &SessionMeta) -> ComparisonResult {
+    let (b, a) = (&before.stats, &after.stats);
+    let est = b.fps.lows_estimated || a.fps.lows_estimated;
+    let mut rows: Vec<CompareRow> = [
+        row(
+            "fpsAvg",
+            "FPS médio",
+            "FPS",
+            b.fps.avg,
+            a.fps.avg,
+            Better::Higher,
+            false,
+        ),
+        row(
+            "fpsLow1",
+            "1% low",
+            "FPS",
+            b.fps.low1,
+            a.fps.low1,
+            Better::Higher,
+            est,
+        ),
+        row(
+            "fpsLow01",
+            "0,1% low",
+            "FPS",
+            b.fps.low01,
+            a.fps.low01,
+            Better::Higher,
+            est,
+        ),
+        row(
+            "fpsMedian",
+            "FPS mediano",
+            "FPS",
+            b.fps.median,
+            a.fps.median,
+            Better::Higher,
+            false,
+        ),
+        row(
+            "ftAvg",
+            "Frametime médio",
+            "ms",
+            b.frametime.avg,
+            a.frametime.avg,
+            Better::Lower,
+            false,
+        ),
+        row(
+            "ftP99",
+            "Frametime P99",
+            "ms",
+            b.frametime.p99,
+            a.frametime.p99,
+            Better::Lower,
+            est,
+        ),
+        row(
+            "ftStdev",
+            "Variação do frametime (desvio)",
+            "ms",
+            b.frametime.stdev,
+            a.frametime.stdev,
+            Better::Lower,
+            false,
+        ),
+        row(
+            "spikesPerMin",
+            "Picos por minuto",
+            "/min",
+            b.stability.spikes_per_min,
+            a.stability.spikes_per_min,
+            Better::Lower,
+            b.mode == CaptureMode::Periodic || a.mode == CaptureMode::Periodic,
+        ),
+    ]
+    .into_iter()
+    .flatten()
+    .collect();
+    let res = |s: &SessionStats, m: Metric| s.resources.get(&m).map(|r| r.avg);
+    for (m, label, better) in [
+        (Metric::CpuLoad, "Uso de CPU", Better::Neutral),
+        (Metric::GpuLoad, "Uso de GPU", Better::Neutral),
+        (Metric::Vram, "VRAM", Better::Neutral),
+        (Metric::Ram, "RAM", Better::Neutral),
+        (Metric::GpuTemp, "Temperatura da GPU", Better::Lower),
+        (Metric::CpuTemp, "Temperatura da CPU", Better::Lower),
+        (Metric::GpuPower, "Consumo da GPU", Better::Neutral),
+        (Metric::CpuPower, "Consumo da CPU", Better::Neutral),
+    ] {
+        if let Some(r) = row(
+            &format!("{m:?}"),
+            label,
+            m.unit(),
+            res(b, m),
+            res(a, m),
+            better,
+            false,
+        ) {
+            rows.push(r);
+        }
+    }
+
+    let comparability = comparability(before, after);
+    let verdict = verdict(before, after, &comparability);
+    ComparisonResult {
+        before_id: before.id.clone(),
+        after_id: after.id.clone(),
+        rows,
+        verdict,
+        comparability,
+    }
+}
+
+fn verdict(before: &SessionMeta, after: &SessionMeta, comp: &Comparability) -> Verdict {
+    let (b, a) = (&before.stats, &after.stats);
+    let avg = match (b.fps.avg, a.fps.avg) {
+        (Some(x), Some(y)) => pct(x, y),
+        _ => None,
+    };
+    let low1 = match (b.fps.low1, a.fps.low1) {
+        (Some(x), Some(y)) => pct(x, y),
+        _ => None,
+    };
+    let noise = match (noise_pct(b), noise_pct(a)) {
+        (Some(x), Some(y)) => Some((x * x + y * y).sqrt()),
+        (Some(x), None) | (None, Some(x)) => Some(x),
+        _ => None,
+    };
+    let mut reasons = Vec::new();
+    let threshold = noise.unwrap_or(0.0).max(3.0);
+
+    let unsuitable = [before, after]
+        .iter()
+        .any(|s| s.quality.level == QualityLevel::Unsuitable);
+    let kind = if unsuitable {
+        reasons.push(
+            "Ao menos uma sessão não tem qualidade suficiente para comparação (veja os avisos)."
+                .into(),
+        );
+        VerdictKind::Inconclusive
+    } else if let Some(d) = avg {
+        let low_bad = low1.is_some_and(|l| l <= -threshold.max(5.0));
+        let low_good = low1.is_some_and(|l| l >= threshold.max(5.0));
+        if d.abs() < threshold {
+            if low_bad {
+                reasons.push(
+                    "FPS médio parecido, mas o 1% low caiu: a sessão “depois” teve mais quedas."
+                        .into(),
+                );
+                VerdictKind::Regression
+            } else if low_good {
+                reasons.push(
+                    "FPS médio parecido, mas o 1% low subiu: menos quedas na sessão “depois”."
+                        .into(),
+                );
+                VerdictKind::Improvement
+            } else {
+                reasons.push(format!(
+                    "A diferença no FPS médio ({}%) está dentro da variação esperada (±{}%).",
+                    br_signed(d),
+                    br(threshold, 1)
+                ));
+                VerdictKind::SmallDifference
+            }
+        } else if d > 0.0 && low_bad {
+            reasons.push("Sinais mistos: FPS médio maior, mas 1% low menor.".into());
+            VerdictKind::Inconclusive
+        } else if d < 0.0 && low_good {
+            reasons.push("Sinais mistos: FPS médio menor, mas 1% low maior.".into());
+            VerdictKind::Inconclusive
+        } else if d > 0.0 {
+            reasons.push(format!(
+                "FPS médio {d:+.1}%, acima da variação esperada (±{threshold:.1}%)."
+            ));
+            VerdictKind::Improvement
+        } else {
+            reasons.push(format!(
+                "FPS médio {d:+.1}%, além da variação esperada (±{threshold:.1}%)."
+            ));
+            VerdictKind::Regression
+        }
+    } else {
+        reasons.push("Faltam dados de FPS em uma das sessões.".into());
+        VerdictKind::Inconclusive
+    };
+    if !comp.controlled && kind != VerdictKind::Inconclusive {
+        reasons.push("As condições dos testes não são iguais; trate o resultado como indicativo, não como prova.".into());
+    }
+    if noise.is_none() {
+        reasons.push("Não foi possível estimar a variação natural (sessões curtas); usamos o limite mínimo de 3%.".into());
+    }
+    Verdict {
+        kind,
+        avg_delta_pct: avg,
+        low1_delta_pct: low1,
+        noise_pct: noise,
+        reasons,
+    }
+}
+
+fn comparability(before: &SessionMeta, after: &SessionMeta) -> Comparability {
+    let mut differences = Vec::new();
+    let mut notes = Vec::new();
+    let (cb, ca) = (&before.conditions, &after.conditions);
+    let mut field =
+        |key: &str, label: &str, x: &Option<String>, y: &Option<String>, major: bool| {
+            if let (Some(a), Some(b)) = (x, y) {
+                if a.trim() != b.trim() {
+                    differences.push(Difference {
+                        field: key.into(),
+                        label: label.into(),
+                        before: Some(a.clone()),
+                        after: Some(b.clone()),
+                        major,
+                    });
+                }
+            }
+        };
+    field("appId", "Jogo (AppID)", &before.app_id, &after.app_id, true);
+    field("gpu", "GPU", &cb.gpu, &ca.gpu, true);
+    field(
+        "resolution",
+        "Resolução",
+        &cb.resolution,
+        &ca.resolution,
+        true,
+    );
+    field("preset", "Preset gráfico", &cb.preset, &ca.preset, true);
+    field(
+        "fpsLimit",
+        "Limite de FPS",
+        &cb.fps_limit,
+        &ca.fps_limit,
+        true,
+    );
+    field("proton", "Proton", &cb.proton, &ca.proton, false);
+    field("driver", "Driver", &cb.driver, &ca.driver, false);
+    field("kernel", "Kernel", &cb.kernel, &ca.kernel, false);
+    field(
+        "cpuScheduler",
+        "Governador da CPU",
+        &cb.cpu_scheduler,
+        &ca.cpu_scheduler,
+        false,
+    );
+    if let (Some(x), Some(y)) = (cb.vsync, ca.vsync) {
+        if x != y {
+            differences.push(Difference {
+                field: "vsync".into(),
+                label: "VSync".into(),
+                before: Some(on_off(x)),
+                after: Some(on_off(y)),
+                major: true,
+            });
+        }
+    }
+    let (b, a) = (&before.stats, &after.stats);
+    if b.mode != a.mode {
+        differences.push(Difference {
+            field: "mode".into(),
+            label: "Modo de captura".into(),
+            before: Some(mode_label(b.mode)),
+            after: Some(mode_label(a.mode)),
+            major: true,
+        });
+    }
+    let ratio = if b.duration_s > 0.0 && a.duration_s > 0.0 {
+        (b.duration_s / a.duration_s).max(a.duration_s / b.duration_s)
+    } else {
+        1.0
+    };
+    if ratio > 2.0 {
+        differences.push(Difference {
+            field: "duration".into(),
+            label: "Duração".into(),
+            before: Some(format!("{:.0} s", b.duration_s)),
+            after: Some(format!("{:.0} s", a.duration_s)),
+            major: ratio > 4.0,
+        });
+    }
+    let missing = [
+        cb.resolution.is_none() || ca.resolution.is_none(),
+        cb.preset.is_none() || ca.preset.is_none(),
+    ];
+    if missing.iter().any(|m| *m) {
+        notes.push("Resolução ou preset não informados em alguma sessão; não dá para confirmar que os testes usaram as mesmas configurações gráficas.".into());
+    }
+    notes.push("Para uma comparação justa, repita o mesmo trecho do jogo, com as mesmas configurações e a mesma duração.".into());
+    let controlled = !differences.iter().any(|d| d.major);
+    Comparability {
+        controlled,
+        differences,
+        notes,
+    }
+}
+
+fn on_off(b: bool) -> String {
+    if b {
+        "ligado".into()
+    } else {
+        "desligado".into()
+    }
+}
+
+fn mode_label(m: CaptureMode) -> String {
+    match m {
+        CaptureMode::PerFrame => "por quadro".into(),
+        CaptureMode::Periodic => "amostras periódicas".into(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::metrics::analyze;
+    use super::super::parser::{fixtures::per_frame, parse};
+    use super::*;
+
+    pub fn session(id: &str, fts: &[f64]) -> SessionMeta {
+        let a = analyze(&parse(per_frame(fts, 90.0).as_bytes()).unwrap());
+        SessionMeta {
+            schema_version: SCHEMA_VERSION,
+            analysis_version: ANALYSIS_VERSION,
+            id: id.into(),
+            app_id: Some("200260".into()),
+            game_name: Some("Batman".into()),
+            label: id.into(),
+            notes: String::new(),
+            created_at: "2026-10-24T00:00:00Z".into(),
+            captured_at: None,
+            source: SessionSource::Import,
+            original_name: None,
+            original_path: None,
+            raw_hash: id.into(),
+            raw_bytes: 0,
+            format: LogFormat::MangohudV1,
+            mangohud_version: None,
+            conditions: Conditions {
+                resolution: Some("1920x1080".into()),
+                preset: Some("Alto".into()),
+                ..Default::default()
+            },
+            stats: a.stats,
+            quality: a.quality,
+            fix_ids: vec![],
+        }
+    }
+
+    /// Frametimes com leve oscilação determinística em torno de `base`.
+    fn wobble(base: f64, n: usize) -> Vec<f64> {
+        (0..n)
+            .map(|i| base * (1.0 + 0.03 * ((i as f64) / 7.0).sin()))
+            .collect()
+    }
+
+    #[test]
+    fn improvement_is_detected_with_correct_percentages() {
+        let b = session("a", &wobble(20.0, 3000)); // ~50 FPS
+        let a = session("b", &wobble(1000.0 / 112.0, 6720)); // ~112 FPS, mesma duração
+        let r = compare(&b, &a);
+        assert_eq!(r.verdict.kind, VerdictKind::Improvement, "{:?}", r.verdict);
+        let avg = r.rows.iter().find(|x| x.key == "fpsAvg").unwrap();
+        assert!((avg.pct_diff.unwrap() - 124.0).abs() < 1.0, "{:?}", avg);
+        assert_eq!(avg.direction, "improved");
+        let ft = r.rows.iter().find(|x| x.key == "ftAvg").unwrap();
+        assert_eq!(ft.direction, "improved", "frametime menor é melhor");
+        assert!(r.comparability.controlled);
+    }
+
+    #[test]
+    fn regression_and_small_difference() {
+        let b = session("a", &wobble(10.0, 6000));
+        let worse = session("b", &wobble(12.5, 4800));
+        assert_eq!(compare(&b, &worse).verdict.kind, VerdictKind::Regression);
+        let same = session("c", &wobble(10.1, 5940));
+        assert_eq!(
+            compare(&b, &same).verdict.kind,
+            VerdictKind::SmallDifference
+        );
+    }
+
+    #[test]
+    fn unsuitable_sessions_are_inconclusive_and_conditions_are_flagged() {
+        let b = session("a", &wobble(10.0, 6000));
+        let tiny = session("b", &wobble(5.0, 200));
+        assert_eq!(compare(&b, &tiny).verdict.kind, VerdictKind::Inconclusive);
+
+        let mut other = session("c", &wobble(8.0, 7500));
+        other.conditions.resolution = Some("2560x1440".into());
+        let r = compare(&b, &other);
+        assert!(!r.comparability.controlled);
+        assert!(r
+            .comparability
+            .differences
+            .iter()
+            .any(|d| d.field == "resolution"));
+        assert!(r.verdict.reasons.iter().any(|x| x.contains("condições")));
+    }
+
+    #[test]
+    fn missing_metadata_does_not_block() {
+        let mut b = session("a", &wobble(10.0, 6000));
+        let mut a = session("b", &wobble(9.0, 6600));
+        b.conditions = Conditions::default();
+        a.conditions = Conditions::default();
+        let r = compare(&b, &a);
+        assert!(r.comparability.controlled);
+        assert!(!r.comparability.notes.is_empty());
+    }
+
+    #[test]
+    fn percentage_is_safe() {
+        assert_eq!(pct(0.0, 10.0), None);
+        assert_eq!(pct(50.0, 112.0).map(|p| p.round()), Some(124.0));
+        assert_eq!(pct(100.0, 87.0).map(|p| p.round()), Some(-13.0));
+    }
+}

@@ -1,7 +1,7 @@
 //! Camada nativa do FRX.
 //!
-//! Esta versão detecta jogos da Steam e pesquisa correções conhecidas em
-//! fontes públicas. É **somente leitura**: nenhuma correção é aplicada,
+//! Esta versão detecta jogos da Steam, pesquisa correções conhecidas em
+//! fontes públicas e registra benchmarks reais com o MangoHud. É **somente leitura**: nenhuma correção é aplicada,
 //! nenhum arquivo de jogo, prefixo ou configuração da Steam é modificado e
 //! nenhum script de terceiros é executado.
 
@@ -10,6 +10,7 @@ mod cache;
 mod commands;
 mod fixes;
 mod net;
+mod performance;
 mod steam;
 mod system;
 mod time;
@@ -23,15 +24,29 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_dialog::init())
+        .on_window_event(|window, event| {
+            if matches!(event, tauri::WindowEvent::CloseRequested { .. }) {
+                window.state::<AppCtx>().perf.capture.shutdown();
+            }
+        })
         .setup(|app| {
             let cache_dir = app.path().app_cache_dir()?;
             std::fs::create_dir_all(&cache_dir)?;
             let fetcher = net::ReqwestFetcher::new().map_err(|e| format!("cliente HTTP: {e}"))?;
+            let data_dir = app.path().app_data_dir()?;
+            std::fs::create_dir_all(&data_dir)?;
+            let perf = commands::performance::PerfCtx {
+                store: performance::persistence::Store::new(data_dir.join("benchmarks")),
+                data_dir,
+                capture: Default::default(),
+            };
             app.manage(AppCtx {
                 cache: cache::Cache::new(cache_dir),
                 fetcher,
                 scan_lock: Default::default(),
                 fixes: Default::default(),
+                perf,
             });
             Ok(())
         })
@@ -47,6 +62,21 @@ pub fn run() {
             commands::fixes::get_fix_providers,
             commands::fixes::clear_fix_cache,
             commands::fixes::get_cache_size,
+            commands::performance::detect_mangohud,
+            commands::performance::import_benchmark,
+            commands::performance::list_benchmark_sessions,
+            commands::performance::get_benchmark_session,
+            commands::performance::compare_benchmark_sessions,
+            commands::performance::update_benchmark_session,
+            commands::performance::delete_benchmark_session,
+            commands::performance::export_benchmark_session,
+            commands::performance::get_capture_status,
+            commands::performance::prepare_benchmark,
+            commands::performance::start_capture,
+            commands::performance::capture_logging,
+            commands::performance::finish_capture,
+            commands::performance::cancel_capture,
+            commands::performance::reset_capture,
         ])
         .run(tauri::generate_context!())
         .expect("erro ao iniciar o FRX");
