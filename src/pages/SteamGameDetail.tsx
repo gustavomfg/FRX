@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { ArrowLeft, ExternalLink, RefreshCw, ScanSearch, Wifi } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, Wifi } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
@@ -28,6 +28,7 @@ const ORDER: Record<FixFinding['confidence'], number> = { verified: 0, curated: 
 
 /** Detalhes de um jogo real detectado na Steam. Mesmo desenho da página demonstrativa. */
 export function SteamGameDetail({ game }: { game: Game }) {
+  const navigate = useNavigate()
   const s = game.steam!
   const c = s.compatibility
   const { system } = useLibrary()
@@ -79,6 +80,9 @@ export function SteamGameDetail({ game }: { game: Game }) {
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
+              <Button variant="secondary" icon={<Gauge className="size-4" />} onClick={() => navigate(`/performance?game=${game.id}`)}>
+                Medir desempenho
+              </Button>
               <Button variant="secondary" icon={<ExternalLink className="size-4" />} onClick={() => open(`https://www.protondb.com/app/${s.appId}`)}>
                 ProtonDB
               </Button>

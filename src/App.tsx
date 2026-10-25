@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import { AppStoreProvider } from '@/state/store'
 import { LibraryProvider } from '@/state/library'
 import { FixReportsProvider } from '@/state/fixes'
+import { PerformanceProvider } from '@/state/performance'
 import { AppShell } from '@/layouts/AppShell'
 import { HomePage } from '@/pages/Home'
 import { LibraryPage } from '@/pages/Library'
@@ -20,6 +21,7 @@ export function App() {
     <AppStoreProvider>
       <LibraryProvider>
         <FixReportsProvider>
+          <PerformanceProvider>
           <HashRouter>
             <Routes>
               <Route element={<AppShell />}>
@@ -40,6 +42,7 @@ export function App() {
               </Route>
             </Routes>
           </HashRouter>
+          </PerformanceProvider>
         </FixReportsProvider>
       </LibraryProvider>
     </AppStoreProvider>

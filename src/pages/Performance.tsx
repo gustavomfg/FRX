@@ -19,6 +19,8 @@ import { useAppState, useDispatch, useSettings, useToast } from '@/state/store'
 import { fmtDateTime, fmtNum, fmtPct } from '@/lib/format'
 import type { BenchmarkRun, MetricSample } from '@/types'
 import { cn } from '@/lib/cn'
+import { useLibrary } from '@/state/library'
+import { RealPerformanceLab } from './RealPerformance'
 
 const EXAMPLES = [
   { game: 'ferrous-drift', verdict: 'melhora' as const },
@@ -28,6 +30,11 @@ const EXAMPLES = [
 ]
 
 export function PerformancePage() {
+  const { mode } = useLibrary()
+  return mode === 'real' ? <RealPerformanceLab /> : <DemoPerformance />
+}
+
+function DemoPerformance() {
   const [params, setParams] = useSearchParams()
   const { benchmarks, fixStates } = useAppState()
   const dispatch = useDispatch()

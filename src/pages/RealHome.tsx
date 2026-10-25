@@ -4,18 +4,17 @@ import { ArrowRight, Gamepad2, RefreshCw, ScanSearch } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { Mascot } from '@/mascot/Mascot'
 import { Button } from '@/components/ui/Button'
-import { DemoTag } from '@/components/ui/Status'
 import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { ConfidencePill } from '@/components/fix/FindingCard'
-import { ActivityList, BigNumber, Sparkline, SummaryColumn } from './Home'
-import { compareRuns } from '@/data/benchmarks'
+import { ActivityList, BigNumber, SummaryColumn } from './Home'
 import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
+import { usePerformance } from '@/state/performance'
 import { useAppState } from '@/state/store'
 import { INSTALL_LABEL } from '@/lib/steamGame'
-import { fmtNum, fmtPct, fmtRelative, greeting } from '@/lib/format'
+import { fmtNum, fmtRelative, greeting } from '@/lib/format'
 import type { InstallationStatus } from '@/types/steam'
 import { cn } from '@/lib/cn'
 import { isRelevant } from '@/lib/findings'
@@ -33,7 +32,8 @@ export function RealHome() {
   const navigate = useNavigate()
   const { games, scan, phase, rescan, system } = useLibrary()
   const { reports } = useFixReports()
-  const { activity, benchmarks } = useAppState()
+  const { activity } = useAppState()
+  const { sessions } = usePerformance()
   const busy = phase === 'scanning' || phase === 'loading'
   const today = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date())
 
@@ -46,10 +46,7 @@ export function RealHome() {
     [reports],
   )
   const gamesWithFindings = new Set(findings.map(({ f }) => f.gameAppId)).size
-  const lastComparison = useMemo(() => {
-    const fd = benchmarks.filter((b) => b.gameId === 'ferrous-drift')
-    return fd.length >= 2 ? compareRuns(fd[0], fd[fd.length - 1]) : null
-  }, [benchmarks])
+  const latest = sessions[0]
   const realActivity = activity.filter((a) => !a.demo)
 
   return (
@@ -165,16 +162,15 @@ export function RealHome() {
         </SummaryColumn>
 
         <SummaryColumn eyebrow="Performance Lab" to="/performance" cta="Abrir Performance Lab">
-          {lastComparison && (
+          {latest ? (
             <>
               <div className="flex items-baseline gap-3">
-                <span className="tnum font-display text-[40px] leading-none font-bold tracking-[-0.04em] text-fg">{fmtPct(lastComparison.deltaPct)}</span>
-                <DemoTag />
+                <span className="tnum font-display text-[40px] leading-none font-bold tracking-[-0.04em] text-fg">{latest.stats.fps.avg == null ? '—' : fmtNum(latest.stats.fps.avg, 1)}</span>
+                <span className="text-[13px] text-fg-2">FPS médio</span>
               </div>
-              <p className="mt-1.5 text-[12.5px] text-fg-3">Exemplo simulado · medições reais chegam em uma versão futura</p>
-              <Sparkline before={lastComparison.before.samples.map((s) => s.fps)} after={lastComparison.after.samples.map((s) => s.fps)} />
+              <p className="mt-1.5 text-[12.5px] text-fg-3">{latest.gameName ?? latest.label} · {sessions.length} sessão{sessions.length === 1 ? '' : 's'} registrada{sessions.length === 1 ? '' : 's'}</p>
             </>
-          )}
+          ) : <p className="mt-5 text-[13px] text-fg-3">Nenhum benchmark ainda. Importe um log ou prepare uma captura com o MangoHud.</p>}
         </SummaryColumn>
       </section>
 

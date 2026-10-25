@@ -239,7 +239,7 @@ export function SettingsPage() {
                     'Não modifica prefixos, opções de inicialização nem jogos',
                     'Scripts de terceiros nunca são executados',
                     'Fontes: UMU-Protonfixes, UMU Database e GitHub',
-                    'Aplicar correções e o Performance Lab ainda são demonstrativos',
+                    'Benchmarks reais: importação e captura assistida com MangoHud',
                     'Cache local em ~/.cache/io.frx.FRX',
                   ]
                 : ['Nenhum arquivo é lido ou alterado', 'Nenhum download é feito', 'Nenhum comando é executado', 'Benchmarks são gerados por simulação', 'Fontes (ProtonDB, GitHub…) são ilustrativas', 'Apenas preferências ficam salvas']

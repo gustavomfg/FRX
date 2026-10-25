@@ -104,7 +104,7 @@ export function CompareHero({ c, gameTitle }: { c: Comparison; gameTitle: string
   )
 }
 
-function BarPair({
+export function BarPair({
   label,
   unit,
   before,

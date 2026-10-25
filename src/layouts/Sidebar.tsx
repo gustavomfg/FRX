@@ -45,7 +45,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
     >
       <div className={cn('flex h-16 items-center', compact ? 'justify-center' : 'justify-between px-5')}>
         <Logo compact={compact} />
-        {!compact && (real ? <SourceTag>v0.2</SourceTag> : <DemoTag />)}
+        {!compact && (real ? <SourceTag>v0.3</SourceTag> : <DemoTag />)}
       </div>
 
       <nav aria-label="Principal" className={cn('mt-3 flex flex-col gap-0.5', compact ? 'px-2.5' : 'px-3')}>

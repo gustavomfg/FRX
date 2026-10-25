@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react'
 import type { Activity, BenchmarkRun, FixHistoryEntry, FixState, Settings } from '@/types'
 import { fixPacks } from '@/data/fixpacks'
 import { seedBenchmarks } from '@/data/benchmarks'
@@ -189,7 +189,8 @@ export function useFixSummary() {
   }, [fixStates])
 }
 
+/** Identidade estável: seguro em listas de dependências de efeitos. */
 export function useToast() {
   const dispatch = useDispatch()
-  return (toast: Omit<Toast, 'id'>) => dispatch({ type: 'toast', toast })
+  return useCallback((toast: Omit<Toast, 'id'>) => dispatch({ type: 'toast', toast }), [dispatch])
 }

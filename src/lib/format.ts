@@ -26,7 +26,7 @@ export function fmtRelative(iso: string, now = Date.now()) {
 }
 
 export const fmtNum = (n: number, digits = 0) =>
-  n.toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+  (Object.is(n, -0) || Math.abs(n) < 0.5 * 10 ** -digits ? 0 : n).toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits })
 
 export const fmtPct = (n: number, digits = 0) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${fmtNum(Math.abs(n), digits)}%`
 
