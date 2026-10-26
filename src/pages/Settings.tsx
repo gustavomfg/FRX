@@ -169,14 +169,14 @@ export function SettingsPage() {
         <Divider />
         <Toggle
           label="Confirmar antes de aplicar correções"
-          description="Mostra um passo extra de confirmação com o resumo do backup."
+          description={realMode ? 'No app desktop, o Fix Engine sempre pede confirmação depois da prévia. Esta opção vale para a demonstração.' : 'Mostra um passo extra de confirmação com o resumo do backup.'}
           checked={s.confirmBeforeApply}
           onChange={(v) => set({ confirmBeforeApply: v })}
         />
         <Divider />
         <Toggle label="Barra lateral compacta" description="Mostra apenas ícones. Também é ativada automaticamente em janelas estreitas." checked={s.compactSidebar} onChange={(v) => set({ compactSidebar: v })} />
         <Divider />
-        <Row label="Manter backups por">
+        <Row label="Manter backups por" description={realMode ? 'O Fix Engine guarda o backup de cada operação enquanto ela estiver no histórico, para o rollback continuar possível. Esta opção vale para a demonstração.' : undefined}>
           <Select
             label="Retenção de backups"
             hideLabel
@@ -214,12 +214,12 @@ export function SettingsPage() {
             <div className="flex items-center gap-2">
               <span className="font-display text-[22px] font-bold tracking-[-0.04em]">FRX</span>
               <span className="font-mono text-[12px] text-fg-3">{platform.version}</span>
-              {realMode ? <SourceTag>Somente leitura</SourceTag> : <DemoTag>Modo demonstrativo</DemoTag>}
+              {realMode ? <SourceTag>Fix Engine</SourceTag> : <DemoTag>Modo demonstrativo</DemoTag>}
             </div>
             <p className="mt-0.5 font-pixel text-[10px] tracking-[0.08em] text-accent uppercase">Play. Fix. Repeat.</p>
             <p className="mt-3 text-[13.5px] text-fg-2">
               {realMode
-                ? 'Gerenciador de compatibilidade e otimização de jogos para Linux. Esta versão detecta seus jogos da Steam e pesquisa correções conhecidas em fontes públicas — sem alterar nada no sistema.'
+                ? 'Gerenciador de compatibilidade e otimização de jogos para Linux. Esta versão detecta seus jogos da Steam, pesquisa correções conhecidas em fontes públicas, mede o desempenho com o MangoHud e aplica receitas revisadas com prévia, backup e rollback. Nada muda sem sua confirmação.'
                 : 'Gerenciador de compatibilidade e otimização de jogos para Linux. Este é o modo demonstrativo: jogos, sistema, problemas, correções e medições são fictícios.'}
             </p>
             {info && (

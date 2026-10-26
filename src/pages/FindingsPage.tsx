@@ -1,11 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { ArrowUpRight, RefreshCw, ScanSearch } from 'lucide-react'
+import { ArrowUpRight, RefreshCw, ScanSearch, TriangleAlert } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { CoverImage } from '@/components/game/CoverImage'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { CompatPill, ConfidencePill, FindingCard, ProviderStatusList } from '@/components/fix/FindingCard'
+import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
+import { RecipesPanel, useRecipes } from '@/components/fix/RecipesPanel'
+import { OperationHistory } from '@/components/fix/OperationHistory'
+import { SmartPacksPanel } from '@/components/smart/SmartPacksPanel'
+import { useAssessments } from '@/components/fix/useAssessments'
+import { DYN_STATUS } from '@/components/fix/engineMeta'
 import { CATEGORY } from '@/components/fix/findingMeta'
 import { Button } from '@/components/ui/Button'
 import { Segmented, Select } from '@/components/ui/Controls'
@@ -13,16 +19,19 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { Mascot } from '@/mascot/Mascot'
 import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
+import { useFixEngine } from '@/state/fixEngine'
 import { isRelevant } from '@/lib/findings'
 import { fmtRelative } from '@/lib/format'
 import type { FixFinding } from '@/types/fixes'
 import { cn } from '@/lib/cn'
 
 type Filter = 'relevantes' | 'todas'
+type View = 'descobertas' | 'smart' | 'receitas' | 'historico'
 
 /**
- * Fix Packs com dados reais: descobertas de todas as pesquisas já feitas.
- * Mesmo layout de lista + detalhe da versão demonstrativa.
+ * Fix Packs com dados reais. Três visões: descobertas (informativas, de
+ * fontes públicas), receitas do catálogo local (as únicas aplicáveis) e o
+ * histórico do Fix Engine. Mesmo layout de lista + detalhe da versão demo.
  */
 export function FindingsPage() {
   const [params, setParams] = useSearchParams()
@@ -32,6 +41,10 @@ export function FindingsPage() {
   const [bulk, setBulk] = useState<{ done: number; total: number } | null>(null)
   const cancel = useRef(false)
   const gameFilter = params.get('game') ?? 'todos'
+  const view = (params.get('view') as View | null) ?? 'descobertas'
+  const engine = useFixEngine()
+  const [target, setTarget] = useState<ApplyTarget | null>(null)
+  const steamGames = games.filter((g) => g.origin === 'steam')
 
   const all = useMemo(() => {
     const list: { f: FixFinding; game: string }[] = []
@@ -53,6 +66,10 @@ export function FindingsPage() {
   const searched = Object.keys(fixes.reports).length
   const report = selected ? fixes.reports[selected.f.gameAppId] : undefined
   const selectedGame = selected ? games.find((g) => g.id === selected.f.gameAppId) : undefined
+  const { recipes } = useRecipes(view === 'descobertas' && selected ? selected.f.gameAppId : null, false)
+  const recipeFor = (id: string) => recipes.find((r) => r.relatedFindings.includes(id)) ?? null
+  const analysis = useAssessments(view === 'descobertas' && selected ? selected.f.gameAppId : null)
+  const attention = engine.operations.filter((o) => o.state === 'recovery-required' || o.state === 'requires-manual-step')
 
   const update = (patch: Record<string, string | null>) => {
     const next = new URLSearchParams(params)
@@ -82,11 +99,11 @@ export function FindingsPage() {
         <div>
           <div className="flex items-center gap-2">
             <p className="eyebrow">Fix Packs</p>
-            <SourceTag>Descobertas</SourceTag>
+            <SourceTag>{view === 'receitas' ? 'Catálogo local' : view === 'historico' ? 'Fix Engine' : view === 'smart' ? 'Smart Packs' : 'Descobertas'}</SourceTag>
           </div>
           <h1 className="mt-3 font-display text-[36px] leading-none font-bold tracking-[-0.04em]">Correções</h1>
           <p className="mt-2 max-w-xl text-[14px] text-fg-2">
-            Correções conhecidas encontradas em fontes públicas, com a origem de cada uma. Nesta versão nada é aplicado ao sistema.
+            O FRX analisa cada descoberta e gera a correção quando reconhece uma ação segura e reversível. Nada é aplicado sem prévia, confirmação, backup e rollback.
           </p>
         </div>
         <div className="flex items-end gap-4">
@@ -104,7 +121,31 @@ export function FindingsPage() {
         </div>
       </header>
 
+      {attention.length > 0 && (
+        <button
+          onClick={() => update({ view: 'historico' })}
+          className="mt-6 flex w-full items-center gap-3 rounded-md border border-caution/25 bg-caution-soft px-4 py-2.5 text-left text-[13px] text-caution"
+        >
+          <TriangleAlert className="size-4 shrink-0" aria-hidden />
+          {attention.length} operaç{attention.length === 1 ? 'ão precisa' : 'ões precisam'} da sua atenção (passo manual ou recuperação). Nada disso conta como aplicado até o FRX conferir no disco.
+        </button>
+      )}
+
       <div className="mt-7 flex items-center gap-3 border-b border-line pb-4">
+        <Segmented<View>
+          label="Visão"
+          size="sm"
+          value={view}
+          onChange={(v) => update({ view: v === 'descobertas' ? null : v, finding: null })}
+          options={[
+            { value: 'descobertas', label: 'Descobertas' },
+            { value: 'smart', label: 'Smart Packs' },
+            { value: 'receitas', label: 'Receitas do FRX' },
+            { value: 'historico', label: `Histórico${engine.operations.length ? ` · ${engine.operations.length}` : ''}` },
+          ]}
+        />
+        {view === 'descobertas' && (
+        <>
         <Segmented<Filter>
           label="Filtrar descobertas"
           size="sm"
@@ -134,9 +175,34 @@ export function FindingsPage() {
             )
           )}
         </div>
+        </>
+        )}
       </div>
 
-      {searched === 0 ? (
+      {view === 'smart' ? (
+        <>
+          <div className="mt-5 flex items-center gap-3">
+            <Select
+              label="Jogo"
+              value={gameFilter !== 'todos' ? gameFilter : steamGames[0]?.id ?? 'todos'}
+              onChange={(v) => update({ game: v })}
+              options={steamGames.length ? steamGames.map((g) => ({ value: g.id, label: g.title })) : [{ value: 'todos', label: 'Nenhum jogo da Steam' }]}
+            />
+          </div>
+          <SmartPacksPanel appId={gameFilter !== 'todos' ? gameFilter : steamGames[0]?.id ?? null} onAct={setTarget} />
+        </>
+      ) : view === 'receitas' ? (
+        <RecipesPanel
+          games={games}
+          appId={gameFilter !== 'todos' ? gameFilter : steamGames.length === 1 ? steamGames[0].id : null}
+          recipeId={params.get('recipe')}
+          onSelect={(p) => update({ ...(p.game !== undefined ? { game: p.game || null, recipe: null } : {}), ...(p.recipe ? { recipe: p.recipe } : {}) })}
+          onAct={setTarget}
+          onShowFinding={(id, appId) => update({ view: null, game: appId, finding: id, recipe: null })}
+        />
+      ) : view === 'historico' ? (
+        <OperationHistory onAct={setTarget} />
+      ) : searched === 0 ? (
         <EmptyState
           pose={bulk ? 'inspect' : 'idle'}
           title={bulk ? 'Pesquisando correções…' : 'Nenhuma pesquisa ainda'}
@@ -172,6 +238,7 @@ export function FindingsPage() {
                       <span className="block truncate text-[13.5px] font-medium text-fg">{f.title}</span>
                       <span className="block truncate text-[12px] text-fg-3">
                         {game} · {CATEGORY[f.category]}
+                        {analysis.byFinding[f.id]?.class === 'applicable' && <span className="text-good"> · {DYN_STATUS[analysis.byFinding[f.id].status].label.toLowerCase()}</span>}
                       </span>
                     </span>
                     <ConfidencePill finding={f} />
@@ -214,13 +281,23 @@ export function FindingsPage() {
                 </div>
                 {report && <ProviderStatusList providers={report.providers} />}
                 <ul>
-                  <FindingCard key={selected.f.id} finding={selected.f} defaultOpen />
+                  <FindingCard
+                    key={selected.f.id}
+                    finding={selected.f}
+                    defaultOpen
+                    recipe={recipeFor(selected.f.id)}
+                    onOpenRecipe={(r) => update({ view: 'receitas', game: selected.f.gameAppId, recipe: r.id, finding: null })}
+                    assessment={analysis.byFinding[selected.f.id] ?? null}
+                    analyzing={analysis.loading}
+                    onApply={(a) => setTarget({ kind: 'apply', recipeId: a.recipeId!, appId: a.appId, title: a.recipe?.title ?? selected.f.title })}
+                  />
                 </ul>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       )}
+      {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
     </Page>
   )
 }

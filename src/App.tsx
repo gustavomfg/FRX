@@ -4,6 +4,7 @@ import { AppStoreProvider } from '@/state/store'
 import { LibraryProvider } from '@/state/library'
 import { FixReportsProvider } from '@/state/fixes'
 import { PerformanceProvider } from '@/state/performance'
+import { FixEngineProvider } from '@/state/fixEngine'
 import { AppShell } from '@/layouts/AppShell'
 import { HomePage } from '@/pages/Home'
 import { LibraryPage } from '@/pages/Library'
@@ -21,6 +22,7 @@ export function App() {
     <AppStoreProvider>
       <LibraryProvider>
         <FixReportsProvider>
+          <FixEngineProvider>
           <PerformanceProvider>
           <HashRouter>
             <Routes>
@@ -43,6 +45,7 @@ export function App() {
             </Routes>
           </HashRouter>
           </PerformanceProvider>
+          </FixEngineProvider>
         </FixReportsProvider>
       </LibraryProvider>
     </AppStoreProvider>

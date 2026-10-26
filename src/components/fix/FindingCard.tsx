@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { ChevronDown, ExternalLink, FlaskConical, Lock, Package, Rocket, SquareTerminal, KeyRound, FileCode2, Layers, CircleHelp, ThumbsDown, ThumbsUp } from 'lucide-react'
+import { Check, ChevronDown, ExternalLink, FlaskConical, Lock, Package, ShieldCheck, Rocket, SquareTerminal, KeyRound, FileCode2, Layers, CircleHelp, ThumbsDown, ThumbsUp, Wrench, X } from 'lucide-react'
 import type { FixAction, FixFinding, ProviderStatus } from '@/types/fixes'
+import type { Assessment, RecipeView } from '@/types/fixEngine'
+import { DYN_STATUS, EVIDENCE, TRUST } from './engineMeta'
+import { Mascot } from '@/mascot/Mascot'
+import { useFixEngine } from '@/state/fixEngine'
 import { SourceIcon } from './SourceIcon'
 import { CATEGORY, COMPATIBILITY, CONFIDENCE, PROVIDER_STATE } from './findingMeta'
 import { Button } from '@/components/ui/Button'
@@ -62,11 +66,33 @@ function useOpen() {
 }
 
 /**
- * Uma descoberta de correção. Apenas leitura: a aplicação automática fica
- * desabilitada até existir o sistema de backup e validação.
+ * Uma descoberta de correção. O texto da descoberta nunca é executado: o
+ * gerador dinâmico do núcleo (`assessment`) diz se há uma receita aplicável —
+ * gerada ou do catálogo — e o botão abre a prévia do Fix Engine. Sem análise
+ * (modo demonstrativo), o cartão só leva à receita revisada relacionada.
  */
-export function FindingCard({ finding, defaultOpen = false }: { finding: FixFinding; defaultOpen?: boolean }) {
+export function FindingCard({
+  finding,
+  defaultOpen = false,
+  recipe,
+  onOpenRecipe,
+  assessment,
+  analyzing,
+  onApply,
+}: {
+  finding: FixFinding
+  defaultOpen?: boolean
+  recipe?: RecipeView | null
+  onOpenRecipe?: (r: RecipeView) => void
+  assessment?: Assessment | null
+  analyzing?: boolean
+  onApply?: (a: Assessment) => void
+}) {
   const [open, setOpen] = useState(defaultOpen)
+  const engine = useFixEngine()
+  const applied = !!assessment?.recipeId && engine.applied.some((a) => a.appId === finding.gameAppId && a.recipeId === assessment.recipeId)
+  const dyn = assessment ? DYN_STATUS[assessment.status] : null
+  const canApply = !!assessment && assessment.class === 'applicable' && !!assessment.recipeId && !!onApply && !applied
   const openUrl = useOpen()
   const id = `finding-${finding.id}`
   const dim = finding.compatibility === 'incompatible'
@@ -86,6 +112,11 @@ export function FindingCard({ finding, defaultOpen = false }: { finding: FixFind
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConfidencePill finding={finding} />
             <CompatPill finding={finding} />
+            {dyn && (
+              <Pill color={applied ? 'var(--frx-good)' : dyn.color} soft={applied ? 'var(--frx-good-soft)' : dyn.soft} title={assessment?.reasons[0]}>
+                {applied ? 'Correção aplicada' : dyn.label}
+              </Pill>
+            )}
             <span className="text-[12px] text-fg-3">{CATEGORY[finding.category]}</span>
             <span className="flex items-center gap-1.5 text-[12px] text-fg-3">
               {[...new Set(finding.sources.map((s) => s.provider))].map((p) => (
@@ -134,6 +165,14 @@ export function FindingCard({ finding, defaultOpen = false }: { finding: FixFind
                   </ul>
                 </div>
               )}
+
+              {analyzing && !assessment && (
+                <div className="flex items-center gap-3 text-[12.5px] text-fg-2" aria-live="polite">
+                  <Mascot pose="inspect" scale={2} />
+                  Analisando a correção e preparando o Fix Pack…
+                </div>
+              )}
+              {assessment && dyn && <AnalysisBlock a={assessment} applied={applied} />}
 
               {(finding.requirements.gpuVendor || finding.requirements.protonVersions.length > 0) && (
                 <dl className="flex flex-wrap gap-x-6 gap-y-1 text-[12.5px]">
@@ -186,17 +225,92 @@ export function FindingCard({ finding, defaultOpen = false }: { finding: FixFind
 
               <div className="flex items-center justify-between gap-4 border-t border-line pt-4">
                 <span className="text-[12px] text-fg-3">Consultado {fmtRelative(finding.retrievedAt)}</span>
-                <span title="A aplicação automática chega em uma versão futura, com backup e reversão.">
-                  <Button size="sm" variant="secondary" disabled icon={<Lock className="size-3.5" />}>
-                    Aplicar · em breve
+                {applied ? (
+                  <span className="inline-flex items-center gap-1.5 text-[12.5px] text-good">
+                    <Check className="size-3.5" strokeWidth={2.5} aria-hidden /> Correção aplicada · backup disponível
+                  </span>
+                ) : canApply ? (
+                  <Button size="sm" variant="primary" icon={<Wrench className="size-3.5" />} onClick={() => onApply!(assessment!)}>
+                    Aplicar correção
                   </Button>
-                </span>
+                ) : assessment && dyn ? (
+                  <span title={assessment.reasons[0]}>
+                    <Button size="sm" variant="secondary" disabled icon={<Lock className="size-3.5" />}>
+                      {dyn.action}
+                    </Button>
+                  </span>
+                ) : recipe?.executable && onOpenRecipe ? (
+                  <Button size="sm" variant="secondary" icon={<ShieldCheck className="size-3.5" />} onClick={() => onOpenRecipe(recipe)}>
+                    Ver receita revisada
+                  </Button>
+                ) : (
+                  <span title={recipe ? 'Existe uma receita para este ajuste, mas ela ainda não foi revisada pelo FRX.' : 'O FRX só aplica receitas revisadas do catálogo local. Esta descoberta serve como referência.'}>
+                    <Button size="sm" variant="secondary" disabled icon={<Lock className="size-3.5" />}>
+                      {recipe ? 'Receita candidata · só consulta' : 'Sem receita revisada'}
+                    </Button>
+                  </span>
+                )}
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </li>
+  )
+}
+
+/** O que o gerador dinâmico concluiu: estado, motivo, evidência e ações reconhecidas. */
+function AnalysisBlock({ a, applied }: { a: Assessment; applied: boolean }) {
+  const dyn = DYN_STATUS[a.status]
+  const generated = a.status === 'generated'
+  return (
+    <div>
+      <div className="eyebrow mb-2.5">Análise do FRX</div>
+      <div className="space-y-3 rounded-md border border-line bg-bg/50 px-3.5 py-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <Pill color={applied ? 'var(--frx-good)' : dyn.color} soft={applied ? 'var(--frx-good-soft)' : dyn.soft}>
+            {applied ? 'Correção aplicada' : dyn.label}
+          </Pill>
+          {generated && (
+            <Pill color={TRUST.generated.color} soft={TRUST.generated.soft} title={TRUST.generated.help}>
+              <Wrench className="size-3" aria-hidden /> Receita gerada automaticamente
+            </Pill>
+          )}
+          {a.status === 'reviewed' && (
+            <Pill color={TRUST.reviewed.color} soft={TRUST.reviewed.soft} title={TRUST.reviewed.help}>
+              <ShieldCheck className="size-3" aria-hidden /> Receita revisada do FRX
+            </Pill>
+          )}
+          {a.experimental && (
+            <span className="inline-flex h-6 items-center gap-1 rounded-xs bg-caution-soft px-2 text-[12px] font-medium text-caution">
+              <FlaskConical className="size-3" aria-hidden /> Experimental
+            </span>
+          )}
+          <span className="text-[12px] text-fg-3" title={a.evidenceNote}>
+            {EVIDENCE[a.evidence]}
+          </span>
+        </div>
+        <ul className="space-y-1 text-[12.5px] text-fg-2">
+          {a.reasons.map((r) => (
+            <li key={r}>{r}</li>
+          ))}
+        </ul>
+        {a.actions.length > 0 && (
+          <ul className="space-y-1.5 border-t border-line pt-3">
+            {a.actions.map((x, i) => (
+              <li key={i} className="flex items-start gap-2.5 text-[12.5px]">
+                <span className={cn('mt-[3px] grid size-3.5 shrink-0 place-items-center rounded-[3px]', x.supported ? 'bg-good-soft text-good' : 'bg-raised text-fg-3')} aria-label={x.supported ? 'suportada' : 'não suportada'}>
+                  {x.supported ? <Check className="size-2.5" strokeWidth={3} /> : <X className="size-2.5" strokeWidth={3} />}
+                </span>
+                <code className="shrink-0 font-mono text-[12px] text-fg">{x.raw}</code>
+                <span className="min-w-0 flex-1 text-fg-3">{x.note}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {a.reevaluated && <p className="text-[11.5px] text-fg-3">{a.reevaluated}</p>}
+      </div>
+    </div>
   )
 }
 

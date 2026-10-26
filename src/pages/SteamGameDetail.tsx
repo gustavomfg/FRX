@@ -1,18 +1,23 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, Wifi } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, ShieldCheck, Wifi } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
 import { InfoBlock, InfoRow } from '@/components/game/InfoBlock'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { FindingCard, ProviderStatusList } from '@/components/fix/FindingCard'
+import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
+import { OperationHistory } from '@/components/fix/OperationHistory'
+import { useRecipes } from '@/components/fix/RecipesPanel'
+import { useAssessments } from '@/components/fix/useAssessments'
 import { Button } from '@/components/ui/Button'
 import { Segmented } from '@/components/ui/Controls'
 import { Mascot } from '@/mascot/Mascot'
 import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
+import { useFixEngine } from '@/state/fixEngine'
 import { useToast } from '@/state/store'
 import { openExternal } from '@/services/opener'
 import { TOOL_SOURCE_LABEL, toolLabel } from '@/lib/steamGame'
@@ -20,6 +25,7 @@ import { fmtDateTime, fmtNum, fmtRelative } from '@/lib/format'
 import type { Game } from '@/types'
 import type { FixFinding } from '@/types/fixes'
 import { cn } from '@/lib/cn'
+import { useSmartPacks } from '@/components/smart/SmartPacksPanel'
 import { isRelevant } from '@/lib/findings'
 
 type FindingFilter = 'relevantes' | 'todas'
@@ -38,6 +44,16 @@ export function SteamGameDetail({ game }: { game: Game }) {
   const searching = !!fixes.searching[game.id]
   const error = fixes.errors[game.id]
   const [filter, setFilter] = useState<FindingFilter>('relevantes')
+  const engine = useFixEngine()
+  const [target, setTarget] = useState<ApplyTarget | null>(null)
+  const { recipes, checks } = useRecipes(game.id)
+  const applicable = recipes.filter((r) => {
+    const c = checks[r.id]
+    return r.executable && typeof c === 'object' && (c.status === 'ready' || c.status === 'requires-manual-step')
+  }).length
+  const applied = engine.applied.filter((a) => a.appId === game.id)
+  const analysis = useAssessments(game.id)
+  const generated = new Set(Object.values(analysis.byFinding).filter((a) => a.status === 'generated').map((a) => a.recipeId)).size
 
   const findings = useMemo(() => {
     const list = [...(report?.findings ?? [])].sort((a, b) => {
@@ -127,7 +143,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
                       {report.stale && <span className="text-caution"> · desatualizado</span>}
                     </>
                   ) : (
-                    'Descoberta somente leitura em UMU-Protonfixes e GitHub. Nada é aplicado ao sistema.'
+                    'Descoberta somente leitura em UMU-Protonfixes e GitHub. Descobertas nunca são executadas.'
                   )}
                 </p>
               </div>
@@ -195,7 +211,16 @@ export function SteamGameDetail({ game }: { game: Game }) {
                 ) : (
                   <ul className="space-y-3">
                     {findings.map((f, i) => (
-                      <FindingCard key={f.id} finding={f} defaultOpen={i === 0 && findings.length <= 2} />
+                      <FindingCard
+                        key={f.id}
+                        finding={f}
+                        defaultOpen={i === 0 && findings.length <= 2}
+                        recipe={recipes.find((r) => r.relatedFindings.includes(f.id)) ?? null}
+                        onOpenRecipe={(r) => navigate(`/correcoes?view=receitas&game=${game.id}&recipe=${r.id}`)}
+                        assessment={analysis.byFinding[f.id] ?? null}
+                        analyzing={analysis.loading}
+                        onApply={(a) => setTarget({ kind: 'apply', recipeId: a.recipeId!, appId: game.id, title: a.recipe?.title ?? f.title })}
+                      />
                     ))}
                   </ul>
                 )}
@@ -262,15 +287,56 @@ export function SteamGameDetail({ game }: { game: Game }) {
             </InfoBlock>
           )}
 
-          <section className="rounded-lg border border-line bg-surface p-5">
-            <h3 className="text-[14px] font-medium">Aplicação de correções</h3>
+          {engine.available && <SmartPacksSummary appId={game.id} onOpen={() => navigate(`/correcoes?view=smart&game=${game.id}`)} />}
+
+          <section className="rounded-lg border border-line bg-surface p-5" aria-labelledby="fix-engine">
+            <h3 id="fix-engine" className="flex items-center gap-2 text-[14px] font-medium">
+              <ShieldCheck className="size-4 text-fg-3" aria-hidden /> Correções do FRX
+            </h3>
             <p className="mt-2 text-[12.5px] text-fg-2">
-              Nesta versão o FRX só descobre e organiza correções. Aplicar, criar backup e reverter chegam em uma versão futura — nada é alterado no seu prefixo ou na Steam.
+              {engine.available
+                ? `${applied.length ? `${applied.length} aplicada${applied.length === 1 ? '' : 's'}` : 'Nenhuma aplicada'} · ${applicable} receita${applicable === 1 ? '' : 's'} revisada${applicable === 1 ? '' : 's'} aplicáve${applicable === 1 ? 'l' : 'is'} agora${generated ? ` · ${generated} gerada${generated === 1 ? '' : 's'} a partir das descobertas` : ''}. Tudo passa por prévia, backup e pode ser desfeito.`
+                : 'Disponível no app desktop.'}
             </p>
-            {report && <p className="mt-3 text-[11.5px] text-fg-3">Relatório gerado em {fmtDateTime(report.retrievedAt)}.</p>}
+            <div className="mt-4">
+              <OperationHistory appId={game.id} onAct={setTarget} compact />
+            </div>
+            <Button size="sm" variant="outline" className="mt-4" onClick={() => navigate(`/correcoes?view=receitas&game=${game.id}`)}>
+              Ver receitas para este jogo
+            </Button>
+            {report && <p className="mt-3 text-[11.5px] text-fg-3">Relatório de descobertas gerado em {fmtDateTime(report.retrievedAt)}.</p>}
           </section>
         </aside>
       </div>
+      {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
     </Page>
+  )
+}
+
+/** Resumo dos Smart Packs do jogo (perfil equilibrado), com atalho para a análise completa. */
+function SmartPacksSummary({ appId, onOpen }: { appId: string; onOpen: () => void }) {
+  const { report, loading } = useSmartPacks(appId, 'balanced')
+  // Pacotes (sem o baseline) por grupo; em “não recomendados” entram também as descobertas fora dos pacotes.
+  const count = (t: string) => report?.ranking.entries.filter((e) => e.tier === t && e.packId !== report.baselineId).length ?? 0
+  return (
+    <section className="rounded-lg border border-line bg-surface p-5" aria-labelledby="smart-packs">
+      <h3 id="smart-packs" className="flex items-center gap-2 text-[14px] font-medium">
+        <Mascot pose={loading && !report ? 'analyze' : report?.ranking.winner ? 'celebrate' : 'inspect'} scale={2} /> Smart Packs
+      </h3>
+      {report ? (
+        <>
+          <p className="mt-2 text-[12.5px] text-fg-2">{report.ranking.summary}</p>
+          <p className="mt-1 text-[12px] text-fg-3">
+            {count('measured')} no ranking medido · {count('candidate')} para testar · {count('not-recommended')} não recomendado{count('not-recommended') === 1 ? '' : 's'}
+          </p>
+          {report.ranking.nextTest && <p className="mt-2 text-[12px] text-fg-2">Próximo teste: {report.ranking.nextTest.reason}</p>}
+        </>
+      ) : (
+        <p className="mt-2 text-[12.5px] text-fg-3">{loading ? 'Analisando combinações…' : 'Pesquise correções para montar os pacotes.'}</p>
+      )}
+      <Button size="sm" variant="outline" className="mt-4" onClick={onOpen}>
+        Abrir Smart Packs
+      </Button>
+    </section>
   )
 }

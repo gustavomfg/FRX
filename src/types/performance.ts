@@ -2,6 +2,7 @@
  * Performance Lab — espelho de `src-tauri/src/performance/{models,comparison,capture,detection}.rs`.
  * Todos os números vêm de logs reais do MangoHud; nada aqui é gerado.
  */
+import type { ActiveFixRef } from './fixEngine'
 
 export type Metric =
   | 'fps'
@@ -154,6 +155,10 @@ export interface SessionMeta {
   stats: SessionStats
   quality: Quality
   fixIds: string[]
+  /** Correções do FRX confirmadas no disco durante a captura assistida (`null` = não registrado). */
+  activeFixes?: ActiveFixRef[] | null
+  /** Configuração do FRX na captura como Smart Pack (ausente em sessões antigas). */
+  smartPack?: import('./smartPacks').PackSnapshot | null
 }
 
 export interface Session {

@@ -55,6 +55,13 @@ export function SessionHero({ meta, pose = 'observe' }: { meta: SessionMeta; pos
               ['Capturada', meta.capturedAt ? fmtDateTime(meta.capturedAt) : fmtDateTime(meta.createdAt)],
               ['Proton', meta.conditions.proton ?? '—'],
               ['GPU · driver', [meta.conditions.gpu, meta.conditions.driver].filter(Boolean).join(' · ') || '—'],
+              ['Correções do FRX', meta.activeFixes == null ? 'Não registrado' : meta.activeFixes.length ? meta.activeFixes.map((f) => `${f.title} v${f.recipeVersion}`).join(', ') : 'Nenhuma'],
+              [
+                'Smart Pack',
+                meta.smartPack == null
+                  ? 'Não registrado'
+                  : `${meta.smartPack.env.length ? meta.smartPack.env.map((e) => `${e.key}=${e.value}`).join(' ') : 'Baseline (nenhuma variável do FRX)'}${meta.smartPack.source === 'declared' ? ' · declarado por você' : meta.smartPack.verified ? ' · conferido' : ' · não conferido'}`,
+              ],
             ].map(([k, v]) => (
               <div key={k} className="flex justify-between gap-4 border-b border-line pb-1.5">
                 <dt className="shrink-0 text-fg-3">{k}</dt>
