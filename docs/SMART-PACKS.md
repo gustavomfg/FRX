@@ -146,6 +146,61 @@ Nenhum perfil reduz a qualidade gráfica: as receitas só definem variáveis do 
 
 Os estados são `candidate`, `ready`, `conflict`, `testing`, `applied`, `verified`, `failed`, `partially_recovered`, `rolled_back` e `unsupported`. Eles descrevem execução e verificação, nunca ganho de FPS. A tabela completa está em `lifecycle.rs`.
 
+## Testar desempenho (detecção automática de resultados)
+
+**O que faltava.** O ranking só usava sessões já capturadas e só dava conclusões com 2 sessões de cada lado. O botão do card apenas abria o Performance Lab, sem ligar a captura ao pacote nem trazer o resultado de volta. Assim, alguém podia aplicar um pacote, jogar e desfazer sem que o FRX medisse nada.
+
+**Fluxo guiado** (`src/components/smart/PackTest.tsx`), no botão **Testar desempenho** de cada pacote aplicável. No baseline, o botão é **Capturar referência**.
+
+1. **Referência sem correções.**
+   - Se não houver sessão de baseline comparável, o FRX oferece capturá-la.
+   - Se houver correções ativas, oferece primeiro **Restaurar configuração anterior**: um passo a passo, cada passo com prévia e confirmação.
+   - É possível seguir sem referência; nesse caso, o resultado será “Sem referência para comparar”.
+2. **Aplicar o pacote**: mostra as variáveis e abre a prévia do Fix Engine. Nada é gravado sem confirmação. Com a Steam aberta, vale o modo manual de sempre.
+3. **Capturar**: abre a captura existente do Performance Lab, já preenchida com o rótulo do teste e as condições da referência (resolução, preset, limite de FPS, VSync).
+   - A captura dura só o tempo escolhido, sem monitoramento contínuo.
+   - Com início manual, a gravação começa quando você chega ao trecho jogável (pelo FRX ou Shift esquerdo + F2), sem medir menus.
+   - O jogo é aberto pela Steam com o mecanismo existente.
+4. **Resultado automático**: quando a captura termina, o FRX analisa o log, associa a sessão à configuração ativa e compara com a referência, sem nenhuma ação manual.
+
+**Associação automática.** No fim de toda captura assistida, `smart_packs::benchmark::tag_assisted` grava na sessão:
+- as correções do FRX ativas e conferidas no disco (`activeFixes`);
+- o Smart Pack equivalente (`smartPack`: variáveis, receitas, operações, `verified`).
+
+O pacote é identificado pelas variáveis, então a sessão pertence ao pacote realmente ativo, seja qual for o caminho de aplicação.
+
+**Avaliação** (`smart_packs/evaluation.rs`, comando `evaluate_benchmark_session`). A mesma metodologia do ranking (medianas, limiares, comparabilidade) compara o pacote com a referência e produz:
+
+| Situação | Conclusão |
+|---|---|
+| 1 sessão em algum lado | **preliminar**: “Indício de regressão — recomendado repetir o teste”, “Indício de melhoria…”, “Sem diferença significativa detectada (preliminar)” |
+| ≥ 2 sessões comparáveis de cada lado | “Regressão de desempenho medida”, “Melhoria de desempenho medida” ou “Sem diferença significativa detectada” |
+| FPS médio e 1% low em direções opostas | “Resultado inconclusivo” |
+| condições diferentes da referência, qualidade insuficiente ou configuração desconhecida | “Não foi possível determinar a diferença” |
+| sem baseline | “Sem referência para comparar” |
+
+Cada conclusão traz:
+- valores absolutos (referência → pacote), diferença absoluta e percentual, e o limiar usado, para FPS médio, 1% low, 0,1% low, frametime P99 e picos/min;
+- o número de sessões de cada lado;
+- as limitações, entre elas a de que cenas diferentes também mudam o FPS;
+- o próximo passo (“faltam N sessões…”);
+- o efeito no ranking.
+
+Uma captura só nunca comprova uma regressão. Com 1 sessão, o limiar é a variação natural dentro da sessão, e o resultado é só indicativo.
+
+**Onde aparece:**
+- no próprio fluxo, ao terminar a captura;
+- no topo de Smart Packs (“Último teste”);
+- no estado de cada card: Aguardando baseline, Pronto para teste, Capturando desempenho, Analisando resultados, ou o resultado (com “· preliminar” quando for o caso);
+- no Performance Lab, na sessão (“Smart Pack · resultado”), com a conclusão atual do pacote, que usa todas as sessões comparáveis.
+
+**Consequências no ranking:**
+- *Preliminar com regressão*: o pacote fica no fim dos candidatos, com “Regressão indicativa — repita para confirmar”, e **não entra em combinações** até ser repetido.
+- *Regressão comprovada (2 × 2)*: o pacote vai para **não recomendados** nos perfis em que a métrica piorou e nunca é vencedor.
+- O histórico de medições e o histórico do ranking são preservados.
+
+**Restauração.** Quando a conclusão indica regressão e o pacote ainda está ativo, aparece **Restaurar configuração anterior**. O botão abre a troca para o baseline: desfazer cada operação, com a prévia do rollback e confirmação. Nada é revertido automaticamente.
+
 ## Persistência
 
 `fix-engine/smart-packs/<appid>.json` (pasta 0700, arquivo 0600, gravação atômica) guarda:

@@ -92,7 +92,7 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 | `prepare_benchmark`, `start_capture`, `get_capture_status`, `capture_logging`, `finish_capture`, `cancel_capture`, `reset_capture` | Captura assistida e controle do MangoHud |
 | `get_fix_engine_status`, `list_fix_recipes`, `get_fix_recipe`, `check_fix_compatibility` | Catálogo local e compatibilidade (somente leitura) |
 | `analyze_fix_findings` | Gerador dinâmico: categoria, motivo e receita gerada de cada descoberta (não grava no jogo) |
-| `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack` | Smart Packs: composição, ranking por perfil, comparação, troca passo a passo e declaração de sessões antigas |
+| `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack`, `evaluate_benchmark_session` | Smart Packs: composição, ranking por perfil, comparação, troca passo a passo e declaração de sessões antigas |
 | `prepare_fix_plan`, `apply_fix_plan` | Prévia (dry-run) e aplicação do plano confirmado: só `planId` + `fingerprint` |
 | `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | Histórico, estado real conferido no disco e passos manuais |
 | `prepare_fix_rollback`, `rollback_fix` | Prévia e execução do rollback |
@@ -199,6 +199,7 @@ Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX mont
 - Pacotes de várias receitas são aplicados pelo Fix Engine como **uma** operação, com um backup e um rollback.
 - Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.
 - Cada captura assistida registra o pacote ativo. Sessões antigas podem ser declaradas.
+- **Testar desempenho** guia referência → aplicar → capturar e, ao fim da captura, compara sozinho com a referência: melhoria, regressão, sem diferença ou inconclusivo, marcado como *preliminar* enquanto houver poucas sessões. Com regressão, oferece restaurar a configuração anterior.
 
 Detalhes: [`docs/SMART-PACKS.md`](docs/SMART-PACKS.md). Validação: [`docs/VALIDACAO-SMART-PACKS.md`](docs/VALIDACAO-SMART-PACKS.md).
 

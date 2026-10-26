@@ -136,3 +136,78 @@ O binário de release foi gerado pelos pacotes acima.
 3. Capture **duas** sessões com o pacote, no mesmo trecho.
 4. Volte a Smart Packs: o pacote entra no ranking medido como melhora, sem diferença ou regressão, com os limiares usados.
 5. **Restaurar estado anterior** desfaz a correção.
+
+## Correção: detecção automática de resultados (26/10/2026)
+
+**Causa da regressão não aparecer.** Esta investigação foi feita só em leitura dos dados reais.
+- Uma correção foi aplicada e posteriormente revertida.
+- `benchmarks/sessions/` estava vazio: nenhuma captura foi feita com o pacote nem sem ele.
+- Sem medição, o FRX não tinha o que comparar. O botão do card só abria o Performance Lab, sem fluxo, sem associação e sem trazer o resultado de volta.
+- Mesmo com capturas, uma comparação 1 × 1 aparecia só como texto de candidato, sem destaque.
+
+**Implementado:**
+- o fluxo “Testar desempenho”;
+- a avaliação automática por sessão (`evaluate_benchmark_session`);
+- a associação na captura (`tag_assisted`);
+- resultados preliminares e comprovados;
+- o estado de teste nos cards, o “Último teste” e o resultado no Performance Lab;
+- “Restaurar configuração anterior” a partir do resultado;
+- o bloqueio de combinações com indício de regressão.
+
+Os detalhes estão em [`SMART-PACKS.md`](SMART-PACKS.md#testar-desempenho-detecção-automática-de-resultados).
+
+### Verificações
+
+| Comando | Resultado |
+|---|---|
+| `cargo fmt --check` | ok |
+| `cargo clippy --all-targets -- -D warnings` | ok |
+| `cargo test` | **213 aprovados**, 6 ignorados (antes: 209 e 5) |
+| `npm test` | **40 aprovados** (antes: 36) |
+| `npm run build` | ok: AppImage 110,04 MiB, .deb e .rpm 4,31 MiB |
+
+**Testes novos:**
+- Rust (`smart_packs/tests.rs::acceptance`):
+  - 1 × 1 vira regressão preliminar, com valores absolutos e percentuais e limiar pela variação natural;
+  - 2 × 2 vira regressão comprovada e “não recomendado” nos perfis desempenho e equilibrado;
+  - referência, sem baseline, condições diferentes, sem diferença, sinais mistos e configuração desconhecida;
+  - indício de regressão bloqueia combinações.
+- Front-end:
+  - fluxo sem referência, com captura pré-preenchida;
+  - captura concluída (evento real `frx://capture`) analisada sozinha, com valores, “Preliminar” e “Restaurar” que abre a troca para o baseline;
+  - “Último teste” e estado do card;
+  - resultado no Performance Lab.
+
+### Teste de aceitação — Batman (fixtures identificadas)
+
+Comando: `cargo test acceptance_test_performance_batman -- --ignored --nocapture`.
+
+As entradas são uma cópia do `localconfig.vdf` real numa Steam em tempdir e logs MangoHud **de fixture** de 60 s. Os logs foram gerados a partir da sua observação informal (referência ≈ 95 FPS, `PROTON_NO_D3D11=1` ≈ 55 FPS) e processados pelo mesmo caminho da captura assistida. Não são benchmarks reais.
+
+| Etapa | Resultado |
+|---|---|
+| Referência 1 | “Referência (baseline) registrada”, próximo passo: capturar mais uma |
+| Aplicar pacote → captura 1 | associada sozinha ao pacote; **“Indício de regressão — recomendado repetir o teste”**: FPS médio 94,5 → 54,7 (−42,1%, limiar ±3,0%), 1% low 62,5 → 36,4 (−41,7%); faltam 1 + 1 sessões; ranking: candidato “Regressão indicativa” |
+| Captura 2 do pacote, restauração e referência 2 | rollback byte a byte; **“Regressão de desempenho medida”**: FPS médio 93,0 → 55,8 (−40,0%, limiar ±3,8%), 1% low 61,9 → 37,1 (−40,1%), P99 12,1 → 20,1 ms; **não recomendado** em desempenho e equilibrado, sem vencedor |
+
+### App Tauri isolado
+
+O app usou cópias: Steam em scratchpad, `FRX_DEV_PROC_ROOT` e as sessões de fixture acima no histórico isolado.
+
+1. **Smart Packs com 1 + 1 sessão:** “Último teste” mostra “Regressão observada · Preliminar” com a tabela referência × pacote × diferença × limiar. O card mostra “Regressão observada · preliminar”.
+2. **Testar desempenho:** etapas com a referência já concluída → “Revisar e aplicar” → prévia → aplicado na cópia. O wizard avançou sozinho para “Capturar com o MangoHud”. “Preparar captura” abriu a captura com o aviso do teste e o rótulo “Smart Pack · Desativar Direct3D 11”. O jogo não foi aberto.
+3. **Com as sessões de repetição:** “Regressão de desempenho medida”, o efeito “vai para não recomendados” e “Restaurar configuração anterior”.
+4. **Restaurar:** diálogo “remove `PROTON_NO_D3D11=1`” → Desfazer → “Desfeita e verificada”. A cópia voltou ao hash original. O pacote está em “Não recomendados”.
+5. **Performance Lab:** a sessão do pacote mostra “Smart Pack · resultado”, com a conclusão e o atalho para Smart Packs.
+6. **Ajuste encontrado:** o rótulo “2 sessãoões” foi corrigido para “2 sessões”.
+
+### Dados reais
+
+- Nenhuma escrita na Steam real nem no histórico real.
+- A Steam atualizou seus próprios dados antes desta validação. As opções de inicialização do jogo permaneceram intactas.
+
+### Limites
+
+- Nenhuma captura real foi feita nesta validação: os números de desempenho são de fixtures.
+- O FRX não reconhece o trecho do jogo; a comparação assume o mesmo trecho e as mesmas configurações, e isso aparece em todo resultado.
+- A conclusão no Performance Lab é a avaliação atual do pacote, com todas as sessões comparáveis, não só a sessão aberta.
