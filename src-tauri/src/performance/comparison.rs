@@ -361,6 +361,7 @@ pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Compar
         };
     field("appId", "Jogo (AppID)", &before.app_id, &after.app_id, true);
     field("gpu", "GPU", &cb.gpu, &ca.gpu, true);
+    field("cpu", "CPU", &cb.cpu, &ca.cpu, true);
     field(
         "resolution",
         "Resolução",

@@ -142,6 +142,41 @@ impl FixEngine {
     /// Receita do catálogo ou gerada. Uma receita gerada é sempre refeita a
     /// partir das descobertas do cache e revalidada — nunca lida do registro.
     pub fn resolve(&self, id: &str, game: &GameCtx) -> Result<Recipe, String> {
+        if id == format!("frx.capture.{}", game.app_id) {
+            let data = self
+                .root
+                .parent()
+                .ok_or("Pasta de dados do FRX indisponível")?;
+            let config = data.join("mangohud").join(format!("{}.conf", game.app_id));
+            let mut recipe = self.recipe("frx.diagnostics.proton-log")?.clone();
+            recipe.id = id.to_owned();
+            recipe.title = "Preparar MangoHud para este jogo (Vulkan)".into();
+            recipe.summary = "Ativa a camada Vulkan e a configuração própria do FRX, preservando as opções existentes.".into();
+            recipe.description = "Preparação da captura com prévia, backup e rollback. Feche a Steam e o jogo para aplicar pelo FRX. Não altera a configuração global do MangoHud.".into();
+            recipe.scope.app_ids = vec![game.app_id.clone()];
+            recipe.scope.requires_proton = false;
+            recipe.actions = vec![
+                RecipeAction::SetLaunchEnv {
+                    key: "MANGOHUD".into(),
+                    value: "1".into(),
+                },
+                RecipeAction::SetLaunchEnv {
+                    key: "MANGOHUD_CONFIGFILE".into(),
+                    value: config.to_string_lossy().into_owned(),
+                },
+            ];
+            recipe.related_keys.clear();
+            recipe.sources = vec![RecipeSource {
+                label: "MangoHud — configuração da camada Vulkan".into(),
+                url: "https://github.com/flightlessmango/MangoHud".into(),
+            }];
+            recipe.review = Some(Review { by: "FRX".into(), at: "2026-10-26".into(), notes: "Preparação interna restrita à configuração gerada pelo FRX; não vem de descobertas.".into() });
+            recipe.effects = vec![
+                "Habilita o MangoHud em jogos Vulkan e nas traduções Vulkan do Proton.".into(),
+            ];
+            recipe.side_effects = vec!["Jogos OpenGL podem precisar do wrapper mangohud; a configuração automática suporta Vulkan.".into()];
+            return Ok(recipe);
+        }
         if let Some(r) = self.catalog.get(id) {
             return Ok(r.clone());
         }
@@ -250,7 +285,7 @@ impl FixEngine {
         let mut v: Vec<ActiveFixRef> = self
             .applied(Some(app_id))
             .into_iter()
-            .filter(|a| a.effective == Effective::Active)
+            .filter(|a| a.effective == Effective::Active && !is_capture_setup(&a.recipe_id))
             .map(|a| ActiveFixRef {
                 recipe_id: a.recipe_id,
                 recipe_version: a.recipe_version,
@@ -1034,4 +1069,10 @@ pub fn related(r: &Recipe, f: &FixFinding) -> bool {
 
 pub fn data_root(app_data: &Path) -> PathBuf {
     app_data.join("fix-engine")
+}
+
+/// Preparação técnica do MangoHud; não é uma correção nem integra Smart Packs.
+pub fn is_capture_setup(id: &str) -> bool {
+    id.strip_prefix("frx.capture.")
+        .is_some_and(crate::art::valid_app_id)
 }

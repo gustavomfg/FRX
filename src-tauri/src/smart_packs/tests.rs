@@ -874,10 +874,7 @@ mod acceptance {
         let s = vec![obs("b1", &[], 95.0, 70.0), obs("d1", &d3d11(), 94.0, 69.0)];
         let e = eval(&s, "synthetic-d1");
         assert_eq!(e.verdict, EvalVerdict::NoDifference);
-        assert_eq!(
-            e.headline,
-            "Sem diferença significativa detectada (preliminar)"
-        );
+        assert_eq!(e.headline, "Sem diferença relevante detectada (preliminar)");
         // Sinais mistos: inconclusivo.
         let s = vec![obs("b1", &[], 95.0, 40.0), obs("d1", &d3d11(), 60.0, 70.0)];
         assert_eq!(eval(&s, "synthetic-d1").verdict, EvalVerdict::Inconclusive);
@@ -902,5 +899,106 @@ mod acceptance {
         singles.insert("a".into(), (Outcome::Regression, Outcome::NoDifference));
         let c = compose(APP, &[strong, other], &singles, Limits::default());
         assert!(c.packs.iter().all(|p| p.kind != PackKind::Combination));
+    }
+
+    #[test]
+    fn synthetic_interrupted_and_unverified_sessions_never_supply_real_evidence() {
+        use crate::performance::models::{Issue, SessionSource, Severity};
+        for variant in 0..3 {
+            let mut bad = obs("d1", &d3d11(), 180.0, 100.0);
+            match variant {
+                0 => bad.source = SessionSource::Synthetic,
+                1 => bad.quality.issues.push(Issue::new(
+                    Severity::Warning,
+                    "interrupted",
+                    "interrompida",
+                )),
+                _ => bad.smart_pack.as_mut().unwrap().verified = false,
+            }
+            let sessions = vec![obs("b1", &[], 95.0, 70.0), obs("b2", &[], 95.0, 70.0), bad];
+            let e = eval(&sessions, "synthetic-d1");
+            assert_eq!(e.verdict, EvalVerdict::NotComparable, "variant {variant}");
+            assert_eq!(e.pack_sessions, 0);
+            assert!(ranked(&world(sessions), Profile::Performance)
+                .winner
+                .is_none());
+        }
+    }
+
+    #[test]
+    fn software_context_changes_exclude_sessions_without_destroying_the_evidence() {
+        for field in ["proton", "driver", "kernel"] {
+            let mut baseline = obs("b1", &[], 95.0, 70.0);
+            baseline.conditions.proton = Some("Proton A".into());
+            baseline.conditions.driver = Some("Driver A".into());
+            baseline.conditions.kernel = Some("Kernel A".into());
+            let mut pack = obs("d1", &d3d11(), 150.0, 100.0);
+            pack.conditions = baseline.conditions.clone();
+            match field {
+                "proton" => pack.conditions.proton = Some("Proton B".into()),
+                "driver" => pack.conditions.driver = Some("Driver B".into()),
+                _ => pack.conditions.kernel = Some("Kernel B".into()),
+            }
+            let sessions = vec![baseline, pack];
+            let e = eval(&sessions, "synthetic-d1");
+            assert_eq!(e.verdict, EvalVerdict::NotComparable, "{field}");
+            assert_eq!(sessions.len(), 2);
+        }
+    }
+
+    #[test]
+    fn measured_improvement_and_frametime_tradeoffs_are_reported_honestly() {
+        let mut sessions = vec![
+            obs("b1", &[], 100.0, 50.0),
+            obs("b2", &[], 100.0, 50.0),
+            obs("d1", &d3d11(), 120.0, 60.0),
+            obs("d2", &d3d11(), 120.0, 60.0),
+        ];
+        let e = eval(&sessions, "synthetic-d2");
+        assert_eq!(e.verdict, EvalVerdict::Improvement);
+        assert!(!e.preliminary);
+        assert!(ranked(&world(sessions.clone()), Profile::Performance)
+            .winner
+            .is_some());
+        for m in &mut sessions[2..] {
+            m.stats.frametime.p99 = Some(60.0);
+        }
+        let e = eval(&sessions, "synthetic-d2");
+        assert_eq!(e.verdict, EvalVerdict::Inconclusive);
+        assert!(e
+            .deltas
+            .iter()
+            .any(|d| d.metric == "ftP99" && d.outcome == Outcome::Regression));
+        assert!(!e.ranking_effect.contains("sem diferença"));
+        assert!(ranked(&world(sessions), Profile::Balanced).winner.is_none());
+    }
+
+    #[test]
+    fn stutters_from_zero_are_not_hidden_by_an_undefined_percentage() {
+        let mut sessions = vec![
+            obs("b1", &[], 100.0, 50.0),
+            obs("b2", &[], 100.0, 50.0),
+            obs("d1", &d3d11(), 120.0, 60.0),
+            obs("d2", &d3d11(), 120.0, 60.0),
+        ];
+        for (i, m) in sessions.iter_mut().enumerate() {
+            m.stats.stability.spikes_per_min = Some(if i < 2 { 0.0 } else { 5.0 });
+        }
+        let e = eval(&sessions, "synthetic-d2");
+        assert_eq!(e.verdict, EvalVerdict::Inconclusive);
+        let spikes = e
+            .deltas
+            .iter()
+            .find(|d| d.metric == "spikesPerMin")
+            .unwrap();
+        assert_eq!(
+            (spikes.before, spikes.after, spikes.percentage_available),
+            (0.0, 5.0, false)
+        );
+        assert_eq!(spikes.outcome, Outcome::Regression);
+        assert!(ranked(&world(sessions.clone()), Profile::Performance)
+            .winner
+            .is_none());
+        assert!(ranked(&world(sessions), Profile::Balanced).winner.is_none());
     }
 }

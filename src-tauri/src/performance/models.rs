@@ -272,6 +272,8 @@ pub struct Conditions {
 pub enum SessionSource {
     Import,
     Assisted,
+    /// Dados de teste identificados; nunca entram no ranking real.
+    Synthetic,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

@@ -19,6 +19,86 @@ struct Fx {
 
 const ACCOUNT: u64 = 12345;
 
+#[test]
+fn capture_setup_has_backup_and_selective_rollback_without_becoming_a_fix() {
+    use crate::smart_packs::benchmark;
+    let fx = fixture();
+    let e = fx.engine();
+    let g = fx.game();
+    let id = "frx.capture.200260";
+    let original =
+        localconfig::launch_options(&std::fs::read_to_string(&fx.config).unwrap(), "200260")
+            .unwrap();
+    let preview = e.prepare(id, &g).unwrap();
+    assert_eq!(preview.status, PlanStatus::Ready);
+    let op = e
+        .apply(&preview.plan_id, &preview.fingerprint, &g, &|_| {})
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied);
+    assert!(op
+        .steps
+        .iter()
+        .all(|s| s.backup.as_ref().is_some_and(|b| b.path.is_file())));
+    assert!(e.active_for("200260").is_empty());
+    let baseline = benchmark::snapshot(&e, "200260");
+    assert!(baseline.env.is_empty() && baseline.verified);
+    let text = std::fs::read_to_string(&fx.config).unwrap();
+    let line = localconfig::launch_options(&text, "200260")
+        .unwrap()
+        .unwrap();
+    assert!(line.contains("MANGOHUD=1") && line.contains("MANGOHUD_CONFIGFILE="));
+    // Mudança legítima posterior: só os campos que a operação controla importam.
+    let changed =
+        localconfig::set_launch_options(&text, "200260", &format!("{line} -new-option")).unwrap();
+    std::fs::write(&fx.config, changed).unwrap();
+    let restarted = fx.engine();
+    let rb = restarted.prepare_rollback(&op.id).unwrap();
+    let undone = restarted
+        .rollback(&op.id, &rb.fingerprint, &|_| {})
+        .unwrap();
+    assert_eq!(undone.state, OpState::RolledBack);
+    let line = localconfig::launch_options(&std::fs::read_to_string(&fx.config).unwrap(), "200260")
+        .unwrap()
+        .unwrap();
+    assert!(!line.contains("MANGOHUD_CONFIGFILE=") && !line.contains("MANGOHUD=1"));
+    assert_eq!(line, format!("{} -new-option", original.unwrap()));
+    assert!(super::security::check_env("MANGOHUD_CONFIGFILE", "/tmp/hostile.conf").is_err());
+}
+
+#[test]
+fn capture_configuration_changes_and_drift_cannot_be_ranked_as_baseline() {
+    use crate::smart_packs::benchmark;
+    let fx = fixture();
+    let e = fx.engine();
+    let g = fx.game();
+    let started = benchmark::snapshot(&e, "200260");
+    let p = e.prepare("frx.diagnostics.proton-log", &g).unwrap();
+    let op = e.apply(&p.plan_id, &p.fingerprint, &g, &|_| {}).unwrap();
+    let mut meta = crate::smart_packs::tests::synthetic("changed", &[], 100.0, 50.0, 20.0);
+    benchmark::tag_capture(&e, "200260", &started, &mut meta);
+    assert!(!meta.smart_pack.as_ref().unwrap().verified);
+    assert!(meta.quality.issues.iter().any(|i| i.code == "pack-changed"));
+    let text = std::fs::read_to_string(&fx.config).unwrap();
+    let changed = localconfig::set_launch_options(&text, "200260", "%command%").unwrap();
+    std::fs::write(&fx.config, changed).unwrap();
+    assert!(!benchmark::snapshot(&e, "200260").verified);
+    assert_eq!(e.operation(&op.id).unwrap().state, OpState::Applied);
+}
+
+#[test]
+fn pending_manual_apply_makes_the_capture_configuration_unknown() {
+    let fx = fixture();
+    let process = fx.proc_root.join("42");
+    std::fs::create_dir_all(&process).unwrap();
+    std::fs::write(process.join("comm"), "steam\n").unwrap();
+    let e = fx.engine();
+    let g = fx.game();
+    let p = e.prepare("frx.diagnostics.proton-log", &g).unwrap();
+    let op = e.apply(&p.plan_id, &p.fingerprint, &g, &|_| {}).unwrap();
+    assert_eq!(op.state, OpState::RequiresManualStep);
+    assert!(!crate::smart_packs::benchmark::snapshot(&e, "200260").verified);
+}
+
 fn fixture() -> Fx {
     let tmp = tempfile::tempdir().unwrap();
     let steam = tmp.path().join("Steam");
@@ -1646,11 +1726,13 @@ fn acceptance_test_performance_batman() {
             },
         )
         .unwrap();
-        s.meta.id = format!("s-fixture-{}", sessions.len());
+        s.meta.id = format!("s-test-{}", sessions.len());
         s.meta.created_at = format!("2026-10-26T22:0{}:00Z", sessions.len());
         benchmark::tag_assisted(&e, "200260", &mut s.meta);
         if let Some(st) = &out {
-            st.save(&s, raw.as_bytes()).unwrap();
+            let mut exported = s.clone();
+            exported.meta.source = SessionSource::Synthetic;
+            st.save(&exported, raw.as_bytes()).unwrap();
         }
         sessions.push(s.meta.clone());
         s.meta.id

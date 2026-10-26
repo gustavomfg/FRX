@@ -30,7 +30,7 @@ use std::collections::{BTreeMap, HashMap};
 
 use super::models::*;
 use crate::performance::comparison::{comparability, noise_pct, pct};
-use crate::performance::models::{QualityLevel, SessionMeta};
+use crate::performance::models::{QualityLevel, SessionMeta, SessionSource};
 
 pub struct MetricDef {
     pub key: &'static str,
@@ -152,10 +152,25 @@ pub fn group(
         .collect();
     let mut notes = Vec::new();
     let mut unassigned = Vec::new();
-    let usable = |m: &SessionMeta| m.quality.level != QualityLevel::Unsuitable;
+    let usable = |m: &SessionMeta| {
+        m.quality.level != QualityLevel::Unsuitable
+            && m.source != SessionSource::Synthetic
+            && !m.id.starts_with("s-fixture-")
+            && !m.quality.issues.iter().any(|i| {
+                matches!(
+                    i.code.as_str(),
+                    "synthetic" | "fixture" | "interrupted" | "pack-changed"
+                )
+            })
+    };
     let latest = |filter: &dyn Fn(&PackSnapshot) -> bool| {
         mine.iter()
-            .filter(|(m, s)| usable(m) && s.as_ref().is_some_and(filter))
+            .filter(|(m, s)| {
+                usable(m)
+                    && s.as_ref().is_some_and(|s| {
+                        (s.verified || s.source == SnapshotSource::Declared) && filter(s)
+                    })
+            })
             .max_by(|a, b| when(a.0).cmp(when(b.0)))
             .map(|(m, _)| *m)
     };
@@ -175,14 +190,28 @@ pub fn group(
             unassigned.push(r);
             continue;
         };
-        if !usable(m) {
-            r.excluded = Some("Qualidade insuficiente para comparação.".into());
+        if (m.source == SessionSource::Synthetic || m.id.starts_with("s-fixture-"))
+            || m.quality
+                .issues
+                .iter()
+                .any(|i| matches!(i.code.as_str(), "synthetic" | "fixture"))
+        {
+            r.excluded = Some(
+                "Dados sintéticos identificados: não são uma medição real e não entram no ranking."
+                    .into(),
+            );
+        } else if !usable(m) {
+            r.excluded = Some("Captura interrompida, configuração alterada ou qualidade insuficiente. Repita a captura completa no mesmo trecho.".into());
+        } else if snap.source == SnapshotSource::Assisted && !snap.verified {
+            r.excluded = Some("Pacote não confirmado no disco durante a captura. Confira a operação, reabra o jogo e repita.".into());
         } else if let Some(reference) = reference.filter(|x| x.id != m.id) {
             let c = comparability(reference, m);
             let major: Vec<String> = c
                 .differences
                 .iter()
-                .filter(|d| d.major)
+                .filter(|d| {
+                    d.major || matches!(d.field.as_str(), "proton" | "driver" | "cpu" | "kernel")
+                })
                 .map(|d| d.label.clone())
                 .collect();
             if !major.is_empty() {
@@ -191,11 +220,13 @@ pub fn group(
                     major.join(", ")
                 ));
             }
-            for d in c
-                .differences
-                .iter()
-                .filter(|d| !d.major && d.field != "fixes")
-            {
+            for d in c.differences.iter().filter(|d| {
+                !d.major
+                    && !matches!(
+                        d.field.as_str(),
+                        "fixes" | "proton" | "driver" | "cpu" | "kernel"
+                    )
+            }) {
                 r.notes
                     .push(format!("{} diferente da referência.", d.label));
             }
@@ -264,7 +295,8 @@ pub fn delta(
     pack: &MetricStats,
     within_noise: Option<f64>,
 ) -> Option<MetricDelta> {
-    let d = pct(base.median, pack.median)?;
+    let percentage = pct(base.median, pack.median);
+    let d = percentage.unwrap_or(0.0);
     let limited = base.n < 2 || pack.n < 2;
     let threshold = if limited {
         def.floor.max(within_noise.unwrap_or(0.0))
@@ -274,7 +306,15 @@ pub fn delta(
             .max(pack.spread_pct.unwrap_or(0.0))
     };
     let oriented = if def.higher_better { d } else { -d };
-    let outcome = if oriented.abs() <= threshold {
+    let outcome = if percentage.is_none() {
+        if (pack.median - base.median).abs() <= 1e-9 {
+            Outcome::NoDifference
+        } else if (pack.median > base.median) == def.higher_better {
+            Outcome::Improvement
+        } else {
+            Outcome::Regression
+        }
+    } else if oriented.abs() <= threshold {
         Outcome::NoDifference
     } else if oriented > 0.0 {
         Outcome::Improvement
@@ -285,6 +325,7 @@ pub fn delta(
         metric: def.key.into(),
         label: def.label.into(),
         delta_pct: d,
+        percentage_available: percentage.is_some(),
         threshold_pct: threshold,
         outcome,
         limited,

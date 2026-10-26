@@ -293,6 +293,7 @@ pub fn compute(
             &mut b,
             game,
             &launch_actions,
+            recipe.id == format!("frx.capture.{}", game.app_id),
             &mut steps,
             &mut changes,
             &mut manual_possible,
@@ -418,6 +419,7 @@ fn launch_step(
     b: &mut Builder,
     game: &GameCtx,
     actions: &[&RecipeAction],
+    capture_setup: bool,
     steps: &mut Vec<Step>,
     changes: &mut Vec<PlannedChange>,
     manual_possible: &mut bool,
@@ -463,7 +465,21 @@ fn launch_step(
     for a in actions {
         match a {
             RecipeAction::SetLaunchEnv { key, value } => {
-                if let Err(e) = security::check_env(key, value) {
+                // Exceção exclusiva da receita interna resolvida pelo núcleo:
+                // nenhum catálogo ou descoberta pode fornecer esses valores.
+                let internal = capture_setup
+                    && ((key == "MANGOHUD" && value == "1")
+                        || (key == "MANGOHUD_CONFIGFILE"
+                            && Path::new(value).is_absolute()
+                            && value.ends_with(&format!("/mangohud/{}.conf", game.app_id))
+                            && !Path::new(value)
+                                .components()
+                                .any(|c| matches!(c, std::path::Component::ParentDir))));
+                if let Err(e) = if internal {
+                    Ok(())
+                } else {
+                    security::check_env(key, value)
+                } {
                     return b.block(PlanStatus::NotExecutable, "Segurança", e);
                 }
                 if let Some(cur) = line.as_deref().filter(|l| !l.trim().is_empty()) {

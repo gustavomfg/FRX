@@ -20,7 +20,7 @@ use super::evidence::{compare, Grouped};
 use super::models::*;
 use crate::performance::models::SessionMeta;
 
-const SAME_SCENE: &str = "A comparação assume o mesmo trecho do jogo, as mesmas configurações gráficas e duração parecida. Cenas diferentes também mudam o FPS.";
+const SAME_SCENE: &str = "A comparação assume o mesmo trecho do jogo, as mesmas configurações gráficas e duração parecida. Cenas diferentes também mudam o FPS. Duas sessões por configuração são um ponto inicial: a diferença observada não prova causalidade.";
 
 fn label(v: EvalVerdict, preliminary: bool) -> &'static str {
     match (v, preliminary) {
@@ -28,8 +28,8 @@ fn label(v: EvalVerdict, preliminary: bool) -> &'static str {
         (EvalVerdict::Regression, false) => "Regressão de desempenho medida",
         (EvalVerdict::Improvement, true) => "Indício de melhoria — recomendado repetir o teste",
         (EvalVerdict::Improvement, false) => "Melhoria de desempenho medida",
-        (EvalVerdict::NoDifference, true) => "Sem diferença significativa detectada (preliminar)",
-        (EvalVerdict::NoDifference, false) => "Sem diferença significativa detectada",
+        (EvalVerdict::NoDifference, true) => "Sem diferença relevante detectada (preliminar)",
+        (EvalVerdict::NoDifference, false) => "Sem diferença relevante detectada",
         (EvalVerdict::Inconclusive, _) => "Resultado inconclusivo",
         (EvalVerdict::NotComparable, _) => "Não foi possível determinar a diferença",
         (EvalVerdict::NoBaseline, _) => "Sem referência para comparar",
@@ -41,11 +41,13 @@ fn fmt(v: f64, digits: usize) -> String {
     format!("{v:.digits$}").replace('.', ",")
 }
 
-/// Verdito pelas métricas principais (FPS médio e 1% low).
+/// Verdito inclui quedas e estabilidade; uma melhora não esconde piora em outra métrica.
 pub fn verdict(vs: &VsBaseline) -> EvalVerdict {
     let get = |k: &str| vs.get(k).map(|d| d.outcome);
-    let (avg, low) = (get("fpsAvg"), get("fpsLow1"));
-    let outs: Vec<Outcome> = [avg, low].into_iter().flatten().collect();
+    let outs: Vec<Outcome> = ["fpsAvg", "fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
+        .into_iter()
+        .filter_map(get)
+        .collect();
     if outs.is_empty() {
         return EvalVerdict::Inconclusive;
     }
@@ -73,6 +75,7 @@ pub fn evaluate(
     config: Option<&PackSnapshot>,
 ) -> PackEvaluation {
     let mut e = PackEvaluation {
+        conditions: session.conditions.clone(),
         app_id: c.app_id.to_owned(),
         pack_id: config.map(|s| s.pack_id.clone()).unwrap_or_default(),
         pack_name: String::new(),
@@ -156,7 +159,7 @@ pub fn evaluate(
 
     if cfg.pack_id == c.baseline_id {
         e.preliminary = e.pack_sessions < 2;
-        e.next_step = (e.pack_sessions < 2).then(|| "Capture mais uma sessão de referência no mesmo trecho: com duas, o FRX consegue separar diferença real da variação entre partidas.".into());
+        e.next_step = (e.pack_sessions < 2).then(|| "Capture mais uma sessão de referência no mesmo trecho: repetições ajudam a estimar a variação entre partidas.".into());
         e.ranking_effect = "Referência para todos os pacotes deste jogo.".into();
         let n = e.pack_sessions;
         return done(
@@ -218,7 +221,8 @@ pub fn evaluate(
         };
     } else {
         e.ranking_effect = match v {
-            EvalVerdict::Regression => "Comprovado com sessões repetidas: o pacote vai para “não recomendados” nos perfis em que a métrica piorou.".into(),
+            EvalVerdict::Inconclusive => "Sinais mistos: a classificação depende do perfil; uma troca entre FPS e estabilidade não garante vencedor.".into(),
+            EvalVerdict::Regression => "Observado em sessões repetidas: o pacote vai para “não recomendados” nos perfis em que a métrica piorou.".into(),
             EvalVerdict::Improvement => "Entra no ranking medido; pode ser o vencedor se não dividir a posição.".into(),
             _ => "Entra no ranking medido, sem diferença em relação ao baseline.".into(),
         };

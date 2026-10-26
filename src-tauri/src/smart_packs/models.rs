@@ -276,6 +276,9 @@ pub struct MetricDelta {
     pub metric: String,
     pub label: String,
     pub delta_pct: f64,
+    /// Percentual indisponível quando o valor de referência é zero.
+    #[serde(default = "default_true")]
+    pub percentage_available: bool,
     pub threshold_pct: f64,
     pub outcome: Outcome,
     /// Poucas sessões: tratar como indicativo.
@@ -459,6 +462,9 @@ pub enum EvalVerdict {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PackEvaluation {
+    /// Contexto da sessão avaliada; evidência local a este hardware/software.
+    #[serde(default)]
+    pub conditions: crate::performance::models::Conditions,
     pub app_id: String,
     pub pack_id: String,
     pub pack_name: String,
@@ -519,4 +525,8 @@ pub struct SwitchPlan {
     pub steps: Vec<SwitchStep>,
     pub possible: bool,
     pub notes: Vec<String>,
+}
+
+fn default_true() -> bool {
+    true
 }

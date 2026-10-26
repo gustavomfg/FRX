@@ -96,7 +96,15 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     for u in &found.units {
         if let Some(v) = vs_for(&u.env) {
             let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
-            let r = (get("fpsAvg"), get("fpsLow1"));
+            let stability = if ["fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
+                .iter()
+                .any(|k| get(k) == Outcome::Regression)
+            {
+                Outcome::Regression
+            } else {
+                get("fpsLow1")
+            };
+            let r = (get("fpsAvg"), stability);
             // Conclusivo sempre conta; preliminar só quando indica regressão
             // (bloqueia combinações até ser repetido).
             if !v.limited || r.0 == Outcome::Regression || r.1 == Outcome::Regression {
@@ -385,7 +393,10 @@ pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPl
     let ops: Vec<Operation> = engine
         .operations(Some(app_id))
         .into_iter()
-        .filter(|o| o.holds_changes() || o.state == OpState::RequiresManualStep)
+        .filter(|o| {
+            !crate::fix_engine::is_capture_setup(&o.recipe_id)
+                && (o.holds_changes() || o.state == OpState::RequiresManualStep)
+        })
         .collect();
     let (cur, _, _) = current_env(engine, app_id);
     let keep: Vec<EnvPair> = cur.iter().filter(|p| to.env.contains(p)).cloned().collect();

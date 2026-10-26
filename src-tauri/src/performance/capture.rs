@@ -70,6 +70,9 @@ pub struct CaptureRequest {
     pub start: StartMode,
     pub start_delay_s: u32,
     pub show_hud: bool,
+    /// Pack esperado pelo fluxo guiado; recusado se a configuração mudou.
+    #[serde(default)]
+    pub expected_pack_id: Option<String>,
     #[serde(default)]
     pub input: SessionInput,
 }
@@ -83,6 +86,9 @@ pub struct CapturePlan {
     pub start: StartMode,
     pub start_delay_s: u32,
     pub show_hud: bool,
+    /// Pack esperado pelo fluxo guiado; recusado se a configuração mudou.
+    #[serde(default)]
+    pub expected_pack_id: Option<String>,
     pub config_path: String,
     pub output_dir: String,
     pub socket_name: String,
@@ -92,6 +98,9 @@ pub struct CapturePlan {
     pub launch_options_flatpak: String,
     /// Opções que o jogo já tinha na Steam (lidas, não alteradas).
     pub existing_launch_options: Option<String>,
+    /// A linha atual já aponta para o config do FRX e habilita o MangoHud.
+    #[serde(default)]
+    pub launch_options_ready: bool,
     pub flatpak_override: Option<String>,
     pub created_at: String,
     pub input: SessionInput,
@@ -306,8 +315,13 @@ pub fn build_plan(
         start: req.start,
         start_delay_s: req.start_delay_s.clamp(1, 600),
         show_hud: req.show_hud,
+        expected_pack_id: req.expected_pack_id.clone(),
         launch_options: merge_launch_options(existing.as_deref(), &cp, true)?,
         launch_options_flatpak: merge_launch_options(existing.as_deref(), &cp, false)?,
+        launch_options_ready: launch_configured(
+            existing.as_deref(),
+            &config_path.to_string_lossy(),
+        ),
         existing_launch_options: existing,
         flatpak_override: flatpak.then(|| {
             format!(
@@ -326,18 +340,24 @@ pub fn build_plan(
 pub fn write_config(plan: &CapturePlan, armed: bool) -> Result<(), String> {
     let path = Path::new(&plan.config_path);
     let content = render_config(plan, armed);
+    for target in [Some(path), path.parent(), Some(Path::new(&plan.output_dir))]
+        .into_iter()
+        .flatten()
+    {
+        if std::fs::symlink_metadata(target).is_ok_and(|m| m.file_type().is_symlink()) {
+            return Err("A configuração ou pasta de captura é um link simbólico; escolha uma pasta própria do FRX sem links.".into());
+        }
+    }
     // O hot reload do MangoHud recria recursos de controle. Não o dispare quando
     // nada mudou (especialmente entre capturas com HUD oculto no mesmo processo).
     if std::fs::read(path).is_ok_and(|old| old == content.as_bytes()) {
         return Ok(());
     }
     if let Some(dir) = path.parent() {
-        std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+        crate::fix_engine::files::private_dir(dir)?;
     }
-    std::fs::create_dir_all(&plan.output_dir).map_err(|e| e.to_string())?;
-    let tmp = path.with_extension("conf.tmp");
-    std::fs::write(&tmp, content).map_err(|e| e.to_string())?;
-    std::fs::rename(tmp, path).map_err(|e| e.to_string())
+    crate::fix_engine::files::private_dir(Path::new(&plan.output_dir))?;
+    crate::fix_engine::files::atomic_write(path, content.as_bytes(), 0o600)
 }
 
 // ---------------------------------------------------------------------------
@@ -681,9 +701,57 @@ pub fn step(status: &mut CaptureStatus, obs: &Observation) -> Action {
     }
 }
 
+/// Reconhece a configuração existente sem reescrever aspas ou wrappers.
+pub fn launch_configured(existing: Option<&str>, config: &str) -> bool {
+    let Some(line) = existing else { return false };
+    let Ok(parsed) = crate::steam::launch_options::LaunchLine::parse(line) else {
+        return false;
+    };
+    let end = parsed.command.unwrap_or(parsed.words.len());
+    let words = &parsed.words[..end];
+    words
+        .iter()
+        .any(|w| w.value == format!("MANGOHUD_CONFIGFILE={config}"))
+        && words.iter().any(|w| {
+            w.value == "MANGOHUD=1" || w.value == "mangohud" || w.value.ends_with("/mangohud")
+        })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn recognizes_existing_wrapper_and_vulkan_setup_without_manual_changes() {
+        let cfg = "/tmp/FRX path/mangohud/200260.conf";
+        assert!(launch_configured(Some("MANGOHUD_CONFIGFILE='/tmp/FRX path/mangohud/200260.conf' gamescope -f -- mangohud %command% -skipintro"), cfg));
+        assert!(launch_configured(
+            Some("MANGOHUD=1 MANGOHUD_CONFIGFILE='/tmp/FRX path/mangohud/200260.conf' %command%"),
+            cfg
+        ));
+        assert!(!launch_configured(
+            Some("MANGOHUD=1 MANGOHUD_CONFIGFILE=/other.conf %command%"),
+            cfg
+        ));
+        assert!(!launch_configured(
+            Some("MANGOHUD_CONFIGFILE='/tmp/FRX path/mangohud/200260.conf' %command%"),
+            cfg
+        ));
+    }
+
+    #[test]
+    fn configuration_never_writes_through_a_symlink() {
+        let tmp = tempfile::tempdir().unwrap();
+        let victim = tmp.path().join("untouched");
+        std::fs::write(&victim, "keep").unwrap();
+        let link = tmp.path().join("config.conf");
+        std::os::unix::fs::symlink(&victim, &link).unwrap();
+        let mut p = plan(StartMode::Manual);
+        p.config_path = link.to_string_lossy().into_owned();
+        p.output_dir = tmp.path().join("logs").to_string_lossy().into_owned();
+        assert!(write_config(&p, true).is_err());
+        assert_eq!(std::fs::read_to_string(victim).unwrap(), "keep");
+    }
     use std::time::{Duration, Instant};
 
     fn plan(start: StartMode) -> CapturePlan {
@@ -694,6 +762,7 @@ mod tests {
             start,
             start_delay_s: 10,
             show_hud: false,
+            expected_pack_id: None,
             input: SessionInput::default(),
         };
         build_plan(
@@ -813,6 +882,7 @@ mod tests {
             start: StartMode::Manual,
             start_delay_s: 5,
             show_hud: true,
+            expected_pack_id: None,
             input: SessionInput::default(),
         };
         assert!(build_plan(&req, Path::new("/d"), None, false).is_err());

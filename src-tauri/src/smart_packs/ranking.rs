@@ -73,6 +73,12 @@ fn describe(vs: &VsBaseline) -> Vec<String> {
                 (Outcome::Regression, true) => "indício de piora",
                 _ => "dentro da variação",
             };
+            if !x.percentage_available {
+                return format!(
+                    "{}: {} → {} {} ({what}; percentual indisponível porque a referência é zero).",
+                    x.label, x.before, x.after, x.unit
+                );
+            }
             format!(
                 "{}: {} ({what}; limiar ±{}%){}.",
                 x.label,
@@ -95,6 +101,10 @@ fn classify(p: Profile, vs: &VsBaseline) -> Result<(Outcome, Vec<String>), Vec<S
     let r = |s: &str| vec![s.to_owned()];
     match p {
         Profile::Performance => match (avg, low) {
+            (Outcome::Improvement, _) if [p99, spikes, o(vs, "fpsLow01")].contains(&Outcome::Regression) => Ok((
+                Outcome::Mixed, r("Troca: mais FPS médio, mas piora de estabilidade (0,1% low, P99 ou picos).")
+            )),
+            (Outcome::NoDifference, _) if [p99, spikes, o(vs, "fpsLow01")].contains(&Outcome::Regression) => Err(r("Sem ganho de FPS médio e com piora de estabilidade (0,1% low, P99 ou picos).")),
             (Outcome::Regression, _) => Err(r("FPS médio caiu além da variação medida.")),
             (Outcome::NoDifference, Outcome::Regression) => {
                 Err(r("FPS médio igual e 1% low pior: mais quedas, sem ganho."))
@@ -113,7 +123,7 @@ fn classify(p: Profile, vs: &VsBaseline) -> Result<(Outcome, Vec<String>), Vec<S
             )),
         },
         Profile::Balanced => {
-            if [avg, low, p99].contains(&Outcome::Regression) {
+            if [avg, low, p99, spikes, o(vs, "fpsLow01")].contains(&Outcome::Regression) {
                 return Err(r(
                     "Piorou FPS médio, 1% low ou frametime P99 além da variação.",
                 ));

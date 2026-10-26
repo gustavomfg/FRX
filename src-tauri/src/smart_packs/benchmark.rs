@@ -33,11 +33,18 @@ pub fn current_env(engine: &FixEngine, app_id: &str) -> (Vec<EnvPair>, Vec<Strin
     let mut ops = Vec::new();
     let mut verified = true;
     let applied = engine.applied(Some(app_id));
-    for op in engine
-        .operations(Some(app_id))
-        .into_iter()
-        .filter(|o| o.state == OpState::Applied)
-    {
+    if engine.operations(Some(app_id)).iter().any(|o| {
+        o.state.in_flight()
+            || matches!(
+                o.state,
+                OpState::RequiresManualStep | OpState::RecoveryRequired
+            )
+    }) {
+        verified = false;
+    }
+    for op in engine.operations(Some(app_id)).into_iter().filter(|o| {
+        o.state == OpState::Applied && !crate::fix_engine::is_capture_setup(&o.recipe_id)
+    }) {
         if applied
             .iter()
             .find(|a| a.operation_id == op.id)
@@ -136,5 +143,27 @@ pub fn declared(app_id: &str, env: Vec<EnvPair>) -> PackSnapshot {
         verified: false,
         source: SnapshotSource::Declared,
         recorded_at: now_iso(),
+    }
+}
+
+/// Associa apenas uma configuração estável entre início e fim da captura.
+pub fn tag_capture(
+    engine: &FixEngine,
+    app_id: &str,
+    started: &PackSnapshot,
+    meta: &mut SessionMeta,
+) {
+    tag_assisted(engine, app_id, meta);
+    let finished = meta.smart_pack.as_mut().expect("snapshot criado acima");
+    if !started.verified
+        || started.env != finished.env
+        || started.operation_ids != finished.operation_ids
+    {
+        finished.verified = false;
+        meta.quality.issues.push(crate::performance::models::Issue::new(
+            crate::performance::models::Severity::Warning,
+            "pack-changed",
+            "A configuração do FRX mudou durante a captura. Repita com o pacote esperado ativo e o jogo reaberto; esta sessão não entra no ranking.",
+        ));
     }
 }

@@ -89,11 +89,11 @@ fn library(ctx: &AppCtx) -> Option<ScanResult> {
 }
 
 /// O que o FRX sabe agora sobre o sistema e o Proton do jogo.
-fn known_conditions(ctx: &AppCtx, app_id: Option<&str>) -> Conditions {
+fn known_conditions(_ctx: &AppCtx, app_id: Option<&str>) -> Conditions {
     let profile = crate::system::profile();
     let gpu = profile.primary_gpu.clone();
     let proton = app_id.and_then(|id| {
-        let lib = library(ctx)?;
+        let lib = crate::steam::scan(&crate::steam::discovery::DiscoveryEnv::from_process(), None);
         let game = lib.games.into_iter().find(|g| g.app_id == id)?;
         let tool = game.compatibility.tool?;
         Some(match tool.version {
@@ -309,12 +309,12 @@ pub async fn prepare_benchmark(
     if mgr.generation.load(Ordering::SeqCst) != generation {
         return Ok(mgr.status());
     }
-    let existing = library(&ctx).and_then(|l| {
-        l.steam_installs.iter().find_map(|i| {
-            crate::steam::userdata::launch_options(Path::new(&i.path), &request.app_id)
-        })
-    });
+    let existing = super::fix_engine::game_ctx(&ctx.cache, &request.app_id)
+        .ok()
+        .and_then(|g| g.steam_root)
+        .and_then(|root| crate::steam::userdata::launch_options(&root, &request.app_id));
     let prepared = detected.and_then(|mh| {
+        check_expected_pack(&ctx.engine, &request.app_id, request.expected_pack_id.as_deref())?;
         if !mh.logging_supported && !(flatpak && !mh.flatpak_layer.is_empty()) {
             return Err("MangoHud não encontrado (ou antigo demais). Instale-o e tente de novo — o FRX não instala nada sozinho.".into());
         }
@@ -348,6 +348,7 @@ pub fn start_capture(app: AppHandle, ctx: State<'_, AppCtx>) -> Result<CaptureSt
         return Err("Prepare a sessão antes de começar.".into());
     }
     let plan = s.plan.clone().ok_or("sessão sem plano")?;
+    check_expected_pack(&ctx.engine, &plan.app_id, plan.expected_pack_id.as_deref())?;
     // Tira a fotografia da pasta antes de armar a gravação.
     let ignore: Vec<PathBuf> = capture::scan_logs(Path::new(&plan.output_dir), &[])
         .into_iter()
@@ -364,6 +365,7 @@ pub fn start_capture(app: AppHandle, ctx: State<'_, AppCtx>) -> Result<CaptureSt
     let known = known_conditions(&ctx, Some(&plan.app_id));
     let out = Output {
         store: ctx.perf.store.clone(),
+        started: crate::smart_packs::benchmark::snapshot(&ctx.engine, &plan.app_id),
         engine: ctx.engine.clone(),
     };
     drop(guard);
@@ -375,6 +377,7 @@ pub fn start_capture(app: AppHandle, ctx: State<'_, AppCtx>) -> Result<CaptureSt
 struct Output {
     store: Store,
     engine: Arc<crate::fix_engine::FixEngine>,
+    started: crate::smart_packs::models::PackSnapshot,
 }
 
 async fn monitor(
@@ -540,11 +543,12 @@ async fn monitor(
                 let known = known.clone();
                 let engine = out.engine.clone();
                 let app_id = plan.app_id.clone();
+                let started = out.started.clone();
                 let result = tauri::async_runtime::spawn_blocking(move || {
                     let raw = performance::read_log_file(&path)?;
                     let mut session = performance::process(&raw, ProcessArgs { input, source: Some(SessionSource::Assisted), original_path: Some(path.to_string_lossy().into_owned()), known })?;
                     // Correções do FRX confirmadas no disco no fim da captura (associação automática ao Smart Pack).
-                    crate::smart_packs::benchmark::tag_assisted(&engine, &app_id, &mut session.meta);
+                    crate::smart_packs::benchmark::tag_capture(&engine, &app_id, &started, &mut session.meta);
                     if interrupted {
                         session.meta.quality.issues.push(Issue::new(Severity::Warning, "interrupted", "A captura foi interrompida antes do fim planejado; a duração pode ser menor que a escolhida."));
                         if session.meta.quality.level == QualityLevel::Good {
@@ -677,9 +681,45 @@ pub fn reset_capture(app: AppHandle, ctx: State<'_, AppCtx>) -> Result<CaptureSt
     Ok(s)
 }
 
+fn check_expected_pack(
+    engine: &crate::fix_engine::FixEngine,
+    app: &str,
+    expected: Option<&str>,
+) -> Result<(), String> {
+    if let Some(expected) = expected {
+        let current = crate::smart_packs::benchmark::snapshot(engine, app);
+        if !current.verified || current.pack_id != expected {
+            return Err("O pacote ativo não corresponde ao teste, ou há uma operação pendente. Confira o histórico, ative a configuração esperada e reabra o jogo antes de capturar.".into());
+        }
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn guided_capture_refuses_an_unexpected_pack_before_arming() {
+        let tmp = tempfile::tempdir().unwrap();
+        let engine = crate::fix_engine::FixEngine::with(
+            tmp.path().join("fix-engine"),
+            crate::fix_engine::catalog::Catalog::bundled(),
+            tmp.path().join("proc"),
+        );
+        let base = crate::smart_packs::benchmark::baseline_id("200260");
+        assert!(check_expected_pack(&engine, "200260", Some(&base)).is_ok());
+        let other = crate::smart_packs::benchmark::pack_id(
+            "200260",
+            &[crate::smart_packs::models::EnvPair {
+                key: "PROTON_NO_D3D11".into(),
+                value: "1".into(),
+            }],
+        );
+        assert!(check_expected_pack(&engine, "200260", Some(&other))
+            .unwrap_err()
+            .contains("pacote ativo"));
+    }
     use std::io::Read;
     use std::os::linux::net::SocketAddrExt;
     use std::os::unix::net::{SocketAddr, UnixListener};
@@ -695,6 +735,7 @@ mod tests {
                 start: capture::StartMode::Auto,
                 start_delay_s: 1,
                 show_hud: true,
+                expected_pack_id: None,
                 input: SessionInput::default(),
             },
             tmp.path(),

@@ -25,7 +25,7 @@ export type LogFormat = 'mangohud-v1' | 'mangohud' | 'generic-frametime'
 export type CaptureMode = 'per-frame' | 'periodic'
 export type Severity = 'info' | 'warning' | 'error'
 export type QualityLevel = 'good' | 'usable' | 'unsuitable'
-export type SessionSource = 'import' | 'assisted'
+export type SessionSource = 'import' | 'assisted' | 'synthetic'
 
 export interface Issue {
   severity: Severity
@@ -271,6 +271,7 @@ export interface CaptureRequest {
   start: StartMode
   startDelayS: number
   showHud: boolean
+  expectedPackId?: string | null
   input: SessionInput
 }
 
@@ -281,12 +282,14 @@ export interface CapturePlan {
   start: StartMode
   startDelayS: number
   showHud: boolean
+  expectedPackId?: string | null
   configPath: string
   outputDir: string
   socketName: string
   launchOptions: string
   launchOptionsFlatpak: string
   existingLaunchOptions: string | null
+  launchOptionsReady?: boolean
   flatpakOverride: string | null
   createdAt: string
   input: SessionInput

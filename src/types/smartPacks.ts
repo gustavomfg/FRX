@@ -109,6 +109,7 @@ export interface MetricDelta {
   metric: string
   label: string
   deltaPct: number
+  percentageAvailable?: boolean
   thresholdPct: number
   outcome: Outcome
   limited: boolean
@@ -120,6 +121,7 @@ export interface MetricDelta {
 export type EvalVerdict = 'improvement' | 'regression' | 'no-difference' | 'inconclusive' | 'not-comparable' | 'no-baseline' | 'reference'
 
 export interface PackEvaluation {
+  conditions?: import('./performance').Conditions
   appId: string
   packId: string
   packName: string
