@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowRightLeft, ExternalLink, FlaskConical, Gauge, Info, Layers, RefreshCw, RotateCcw, Trophy, Wrench } from 'lucide-react'
@@ -10,7 +10,10 @@ import { Pill } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { RISK } from '@/components/fix/engineMeta'
 import { Mascot } from '@/mascot/Mascot'
-import { compareSmartPacks, declareBenchmarkPack, getSmartPacks, planSmartPackSwitch } from '@/services/smartPacks'
+import { compareSmartPacks, declareBenchmarkPack, evaluateBenchmarkSession, getSmartPacks, planSmartPackSwitch } from '@/services/smartPacks'
+import { CaptureFlow } from '@/components/performance/CaptureFlow'
+import type { FormValues } from '@/components/performance/SessionForm'
+import { useLibrary } from '@/state/library'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
 import { useFixEngine } from '@/state/fixEngine'
@@ -18,7 +21,8 @@ import { usePerformance } from '@/state/performance'
 import { useToast } from '@/state/store'
 import { fmtDateTime, fmtNum, fmtPct } from '@/lib/format'
 import { cn } from '@/lib/cn'
-import type { Measurements, MetricDelta, PackComparison, Profile, RankEntry, SmartPack, SmartPackReport, SwitchPlan, Tier } from '@/types/smartPacks'
+import type { Measurements, MetricDelta, PackComparison, PackEvaluation, Profile, RankEntry, SmartPack, SmartPackReport, SwitchPlan, Tier } from '@/types/smartPacks'
+import { PackEvaluationCard, PackTestDialog, captureActive, testStatus } from './PackTest'
 import { EVIDENCE_LABEL, GOAL, OUTCOME, PROFILE, STATE, TIER } from './meta'
 
 type View = 'todas' | Tier
@@ -79,6 +83,34 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const [switchTo, setSwitchTo] = useState<SmartPack | null>(null)
   const navigate = useNavigate()
   const act = onAct ?? setTarget
+  const perf = usePerformance()
+  const { games } = useLibrary()
+  const toast = useToast()
+  // Fluxo "Testar desempenho": pacote em teste, resultado da última captura e captura aberta.
+  const [testing, setTesting] = useState<string | null>(null)
+  const [result, setResult] = useState<PackEvaluation | null>(null)
+  const [skipBaseline, setSkipBaseline] = useState(false)
+  const [captureOpen, setCaptureOpen] = useState(false)
+  const evaluated = useRef<string | null>(null)
+
+  const evaluate = useCallback(
+    async (sessionId: string) => {
+      if (evaluated.current === sessionId) return
+      evaluated.current = sessionId
+      try {
+        setResult(await evaluateBenchmarkSession(sessionId))
+        void reload()
+      } catch (e) {
+        toast({ tone: 'error', title: 'Não foi possível avaliar a sessão', body: errorMessage(e) })
+      }
+    },
+    [reload, toast],
+  )
+  // Ao terminar a captura iniciada por um teste, analisa sozinho — sem importar CSV nem associar à mão.
+  const cap = perf.capture
+  useEffect(() => {
+    if (testing && cap?.state === 'completed' && cap.sessionId && cap.plan?.appId === appId) void evaluate(cap.sessionId)
+  }, [testing, cap?.state, cap?.sessionId, cap?.plan?.appId, appId, evaluate])
 
   if (!appId) return <EmptyState pose="idle" title="Escolha um jogo" body="Os Smart Packs são compostos por jogo, a partir das descobertas e receitas aplicáveis a ele." />
   if (error && !report)
@@ -102,6 +134,27 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const tiers: Tier[] = ['measured', 'candidate', 'not-recommended']
   const benchmark = () => navigate(`/performance?game=${report.appId}`)
   const baseline = byId(report.baselineId)!
+  const testPack = testing ? byId(testing) : undefined
+  const startTest = (p: SmartPack) => {
+    setTesting(p.id)
+    setResult(null)
+    setSkipBaseline(false)
+  }
+  const applyPack = (p: SmartPack) => (report.currentPackId === report.baselineId ? setTarget({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))
+  // Condições da referência pré-preenchidas: a comparação só vale com as mesmas configurações.
+  const ref = perf.sessions.find((s) => s.id === report.referenceSessionId)
+  const preset: Partial<FormValues> | undefined = testPack
+    ? {
+        appId: report.appId,
+        label: testPack.kind === 'baseline' ? 'Referência (sem correções do FRX)' : `Smart Pack · ${testPack.name}`,
+        resolution: ref?.conditions.resolution ?? '',
+        preset: ref?.conditions.preset ?? '',
+        fpsLimit: ref?.conditions.fpsLimit ?? '',
+        vsync: ref?.conditions.vsync == null ? 'desconhecido' : ref.conditions.vsync ? 'ligado' : 'desligado',
+      }
+    : undefined
+  const latest = [...report.evaluations].filter((e) => e.verdict !== 'reference').sort((a, b) => (b.capturedAt ?? '').localeCompare(a.capturedAt ?? ''))[0]
+  const blocking = !!target || !!switchTo || captureOpen
 
   return (
     <div className="mt-5 space-y-6">
@@ -153,6 +206,17 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
         </div>
       </section>
 
+      {latest && (
+        <div>
+          <h3 className="eyebrow mb-3">Último teste</h3>
+          <PackEvaluationCard
+            e={latest}
+            onRestore={report.currentPackId === latest.packId && latest.packId !== report.baselineId ? () => setSwitchTo(baseline) : undefined}
+            onRepeat={byId(latest.packId) ? () => startTest(byId(latest.packId)!) : undefined}
+          />
+        </div>
+      )}
+
       {tiers
         .filter((t) => view === 'todas' || view === t)
         .map((t) => {
@@ -179,7 +243,8 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
                       current={report.currentPackId === e.packId}
                       onDetail={setDetail}
                       onApply={(p) => (report.currentPackId === report.baselineId ? act({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))}
-                      onBenchmark={benchmark}
+                      onTest={startTest}
+                      status={byId(e.packId) ? testStatus(byId(e.packId)!, report, cap, testing) : null}
                     />
                   ))}
                 </ul>
@@ -242,6 +307,42 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
         />
       )}
       {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
+      {testPack && !blocking && (
+        <PackTestDialog
+          pack={testPack}
+          report={report}
+          capture={cap}
+          result={result}
+          skipBaseline={skipBaseline}
+          onSkipBaseline={() => setSkipBaseline(true)}
+          onClose={() => {
+            setTesting(null)
+            setResult(null)
+          }}
+          onApply={() => applyPack(testPack)}
+          onRestore={() => setSwitchTo(baseline)}
+          onCapture={() => {
+            if (cap && !captureActive(cap) && cap.state !== 'idle') void perf.reset()
+            setCaptureOpen(true)
+          }}
+          onOpenCapture={() => setCaptureOpen(true)}
+          onContinue={() => setResult(null)}
+        />
+      )}
+      {captureOpen && (
+        <CaptureFlow
+          open
+          onClose={() => setCaptureOpen(false)}
+          games={games}
+          defaultAppId={report.appId}
+          preset={preset}
+          intro={testPack ? `Teste de desempenho: ${testPack.kind === 'baseline' ? 'referência sem correções do FRX' : testPack.name}. Ao terminar, o FRX compara com a referência automaticamente.` : undefined}
+          onViewSession={(id) => {
+            setCaptureOpen(false)
+            void evaluate(id)
+          }}
+        />
+      )}
     </div>
   )
 }
@@ -254,7 +355,8 @@ function PackCard({
   current,
   onDetail,
   onApply,
-  onBenchmark,
+  onTest,
+  status,
 }: {
   entry: RankEntry
   pack?: SmartPack
@@ -263,7 +365,8 @@ function PackCard({
   current: boolean
   onDetail: (p: SmartPack) => void
   onApply: (p: SmartPack) => void
-  onBenchmark: () => void
+  onTest: (p: SmartPack) => void
+  status: { label: string; color: string; soft: string } | null
 }) {
   const vs = entry.vsBaseline
   const used = m?.sessions.filter((s) => !s.excluded).length ?? 0
@@ -302,6 +405,11 @@ function PackCard({
         <Pill color={OUTCOME[entry.outcome].color} soft={OUTCOME[entry.outcome].soft}>
           {entry.headline}
         </Pill>
+        {status && (
+          <Pill color={status.color} soft={status.soft}>
+            {status.label}
+          </Pill>
+        )}
       </div>
       {pack && pack.kind !== 'baseline' && (
         <p className="mt-2 text-[12px] text-fg-3">
@@ -343,9 +451,9 @@ function PackCard({
             Restaurar
           </Button>
         )}
-        {current && (
-          <Button size="sm" variant="outline" icon={<Gauge className="size-3.5" />} onClick={onBenchmark}>
-            {used ? 'Repetir benchmark' : 'Testar agora'}
+        {pack && (pack.kind === 'baseline' || (pack.applyRecipeId && pack.state !== 'unsupported')) && (
+          <Button size="sm" variant={pack.kind === 'baseline' ? 'outline' : 'primary'} icon={<Gauge className="size-3.5" />} onClick={() => onTest(pack)}>
+            {pack.kind === 'baseline' ? (used ? 'Repetir referência' : 'Capturar referência') : 'Testar desempenho'}
           </Button>
         )}
       </div>
@@ -484,7 +592,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
   )
 }
 
-function SwitchDialog({ appId, pack, onClose, onStep }: { appId: string; pack: SmartPack; onClose: () => void; onStep: (t: ApplyTarget) => void }) {
+export function SwitchDialog({ appId, pack, onClose, onStep }: { appId: string; pack: Pick<SmartPack, 'id' | 'name' | 'kind' | 'applyRecipeId'>; onClose: () => void; onStep: (t: ApplyTarget) => void }) {
   const engine = useFixEngine()
   const [plan, setPlan] = useState<SwitchPlan | null>(null)
   const [error, setError] = useState<string | null>(null)

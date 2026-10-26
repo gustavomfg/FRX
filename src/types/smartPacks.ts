@@ -112,6 +112,32 @@ export interface MetricDelta {
   thresholdPct: number
   outcome: Outcome
   limited: boolean
+  before: number
+  after: number
+  unit: string
+}
+
+export type EvalVerdict = 'improvement' | 'regression' | 'no-difference' | 'inconclusive' | 'not-comparable' | 'no-baseline' | 'reference'
+
+export interface PackEvaluation {
+  appId: string
+  packId: string
+  packName: string
+  sessionId: string
+  sessionLabel: string
+  capturedAt: string | null
+  verdict: EvalVerdict
+  preliminary: boolean
+  headline: string
+  summary: string
+  deltas: MetricDelta[]
+  baselineSessions: number
+  packSessions: number
+  limitations: string[]
+  nextStep: string | null
+  rankingEffect: string
+  baselineId: string
+  currentPackId: string | null
 }
 
 export interface VsBaseline {
@@ -187,6 +213,7 @@ export interface SmartPackReport {
   currentPackId: string | null
   currentNote: string
   windows: WindowsReference | null
+  evaluations: PackEvaluation[]
   notes: string[]
 }
 

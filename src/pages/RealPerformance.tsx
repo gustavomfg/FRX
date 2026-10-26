@@ -13,6 +13,7 @@ import { DeleteSessionDialog, HistoryTable } from '@/components/performance/Hist
 import { EditSessionDialog, ImportDialog, toConditions } from '@/components/performance/SessionForm'
 import { ResourcesGrid, SessionCharts, SessionHero, StabilityPanel } from '@/components/performance/SessionView'
 import { Mascot } from '@/mascot/Mascot'
+import { SessionPackResult } from '@/components/smart/SessionPackResult'
 import { useLibrary } from '@/state/library'
 import { usePerformance } from '@/state/performance'
 import { useToast } from '@/state/store'
@@ -185,6 +186,7 @@ export function RealPerformanceLab() {
           ) : view ? (
             <motion.div key={`view-${view.meta.id}`} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-10">
               <SessionHero meta={view.meta} />
+              <SessionPackResult meta={view.meta} />
               <SessionCharts session={view} />
               <section aria-labelledby="recursos-reais">
                 <div className="mb-4 flex items-end justify-between">

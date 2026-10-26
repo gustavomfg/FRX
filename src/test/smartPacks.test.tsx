@@ -8,6 +8,7 @@ import { act, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
 import { clearMocks, mockIPC } from '@tauri-apps/api/mocks'
+import { emit } from '@tauri-apps/api/event'
 import { MotionGlobalConfig } from 'motion/react'
 import { AppStoreProvider } from '@/state/store'
 import { LibraryProvider } from '@/state/library'
@@ -16,8 +17,9 @@ import { FixEngineProvider } from '@/state/fixEngine'
 import { PerformanceProvider } from '@/state/performance'
 import { SmartPacksPanel } from '@/components/smart/SmartPacksPanel'
 import { SessionHero } from '@/components/performance/SessionView'
+import { SessionPackResult } from '@/components/smart/SessionPackResult'
 import type { FixPlan } from '@/types/fixEngine'
-import type { Measurements, RankEntry, SmartPack, SmartPackReport } from '@/types/smartPacks'
+import type { Measurements, PackEvaluation, RankEntry, SmartPack, SmartPackReport } from '@/types/smartPacks'
 import { scan } from './fixtures'
 import { meta } from './perfFixtures'
 
@@ -105,6 +107,7 @@ function report(over: Partial<SmartPackReport> = {}): SmartPackReport {
     currentPackId: BASE,
     currentNote: 'Baseline ativo.',
     windows: null,
+    evaluations: [],
     notes: [],
     ...over,
   }
@@ -112,7 +115,7 @@ function report(over: Partial<SmartPackReport> = {}): SmartPackReport {
 
 /** Vencedor medido (sintético): 2 × 2 sessões, +20% no FPS médio. */
 function measuredReport(): SmartPackReport {
-  const vs = { packId: D3D, limited: false, notes: [], deltas: [{ metric: 'fpsAvg', label: 'FPS médio', deltaPct: 20, thresholdPct: 3, outcome: 'improvement' as const, limited: false }, { metric: 'fpsLow1', label: '1% low', deltaPct: 20, thresholdPct: 5, outcome: 'improvement' as const, limited: false }] }
+  const vs = { packId: D3D, limited: false, notes: [], deltas: [{ metric: 'fpsAvg', label: 'FPS médio', deltaPct: 20, thresholdPct: 3, outcome: 'improvement' as const, limited: false, before: 100, after: 120, unit: 'FPS' }, { metric: 'fpsLow1', label: '1% low', deltaPct: 20, thresholdPct: 5, outcome: 'improvement' as const, limited: false, before: 50, after: 60, unit: 'FPS' }] }
   const r = report({
     packs: [pack(BASE), pack(D3D), pack(COMBO, { state: 'ready' })],
     measurements: [meas(BASE, 100), meas(D3D, 120)],
@@ -131,6 +134,35 @@ function measuredReport(): SmartPackReport {
   }
   return r
 }
+
+/**
+ * FIXTURE do cenário relatado pelo usuário (observação informal, não
+ * benchmark registrado): baseline ~95 FPS, com PROTON_NO_D3D11 ~55 FPS.
+ */
+const regression = (over: Partial<PackEvaluation> = {}): PackEvaluation => ({
+  appId: '200260',
+  packId: D3D,
+  packName: 'Desativar Direct3D 11',
+  sessionId: 's-new',
+  sessionLabel: 'Smart Pack · Desativar Direct3D 11',
+  capturedAt: '2026-10-26T21:30:00Z',
+  verdict: 'regression',
+  preliminary: true,
+  headline: 'Indício de regressão — recomendado repetir o teste',
+  summary: 'FPS médio 95,0 → 55,0 FPS (−42,1%, limiar ±13,4%)',
+  deltas: [
+    { metric: 'fpsAvg', label: 'FPS médio', deltaPct: -42.105, thresholdPct: 13.4, outcome: 'regression', limited: true, before: 95, after: 55, unit: 'FPS' },
+    { metric: 'fpsLow1', label: '1% low', deltaPct: -45.7, thresholdPct: 5, outcome: 'regression', limited: true, before: 70, after: 38, unit: 'FPS' },
+  ],
+  baselineSessions: 1,
+  packSessions: 1,
+  limitations: ['A comparação assume o mesmo trecho do jogo, as mesmas configurações gráficas e duração parecida. Cenas diferentes também mudam o FPS.'],
+  nextStep: 'Repita o teste no mesmo trecho: faltam 1 sessão(ões) do baseline e 1 do pacote para uma conclusão.',
+  rankingEffect: 'Preliminar: o pacote fica no fim dos candidatos, marcado com indício de regressão, e não entra em combinações.',
+  baselineId: BASE,
+  currentPackId: D3D,
+  ...over,
+})
 
 const plan = { planId: 'p', fingerprint: 'fp', recipeId: 'gen.200260.aaaaaaaaaaaaaaaa', recipeVersion: '1.0.0', recipeTitle: 'Desativar Direct3D 11', appId: '200260', gameName: 'Batman', status: 'ready', mode: 'automatic', reasons: [], checks: [], changes: [], manualLine: null, backupNote: null, steamRunning: false, gameRunning: false, risk: 'moderate', purpose: 'compatibility', trust: 'generated', effects: [], sideEffects: [], sources: [], generated: null, pack: null, createdAt: 'x', expiresAt: 9999999999 } satisfies FixPlan
 
@@ -202,6 +234,10 @@ describe('Smart Packs na interface', () => {
             return { a: BASE, b: D3D, deltas: [{ metric: 'fpsAvg', label: 'FPS médio', deltaPct: 20, thresholdPct: 3, outcome: 'improvement', limited: false }], limited: false, summary: 'B teve FPS médio maior que A além da variação medida.', notes: [] }
           case 'declare_benchmark_pack':
             return meta('old', 100)
+          case 'evaluate_benchmark_session':
+            return regression({ sessionId: (args as { sessionId: string }).sessionId })
+          case 'prepare_benchmark':
+            return { state: 'ready', plan: null, hudAttached: false, hudVersion: null, device: null, controllable: false, logFile: null, frames: 0, recordedS: null, message: null, sessionId: null, interrupted: false, updatedAt: 'x' }
           default:
             return null
         }
@@ -314,5 +350,68 @@ describe('Smart Packs na interface', () => {
     const old = mount(<SessionHero meta={meta('b', 100)} />)
     expect(text()).toContain('Não registrado')
     old.unmount()
+  })
+  it('Testar desempenho sem referência: guia a captura do baseline com as condições pré-preenchidas', async () => {
+    const m = mount(<SmartPacksPanel appId="200260" />)
+    await flush(80)
+    expect(text()).toContain('Aguardando baseline')
+    await click(button('Testar desempenho'))
+    expect(text()).toContain('Testar desempenho · Desativar Direct3D 11')
+    expect(text()).toContain('Ainda não há uma sessão de referência')
+    await click(button('Capturar referência agora'))
+    expect(text()).toContain('Teste de desempenho: Desativar Direct3D 11')
+    const label = document.body.querySelector<HTMLInputElement>('input[value="Referência (sem correções do FRX)"], input[value^="Smart Pack"]')
+    expect(label).toBeTruthy()
+    expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
+    m.unmount()
+  })
+
+  it('pack ativo: captura concluída é analisada sozinha e a regressão aparece com valores e restauração', async () => {
+    current = () => {
+      const r = report({ currentPackId: D3D, measurements: [meas(BASE, 95, 1)] })
+      r.packs = [pack(BASE, { state: 'ready' }), pack(D3D, { state: 'verified' })]
+      return r
+    }
+    const m = mount(<SmartPacksPanel appId="200260" />)
+    await flush(80)
+    expect(text()).toContain('Pronto para teste')
+    await click(button('Testar desempenho'))
+    expect(text()).toContain('está ativo e conferido no disco')
+    expect(button('Preparar captura')).toBeTruthy()
+    // O núcleo avisa que a captura terminou (evento real do Performance Lab).
+    await act(async () => {
+      await emit('frx://capture', { state: 'completed', plan: { appId: '200260', gameName: 'Batman' }, hudAttached: true, hudVersion: null, device: null, controllable: true, logFile: null, frames: 3300, recordedS: 60, message: 'Sessão salva', sessionId: 's-new', interrupted: false, updatedAt: 'x' })
+    })
+    await flush(120)
+    expect(calls.find((c) => c.cmd === 'evaluate_benchmark_session')!.args).toEqual({ sessionId: 's-new' })
+    expect(text()).toContain('Indício de regressão — recomendado repetir o teste')
+    expect(text()).toContain('Preliminar')
+    expect(text()).toContain('95,0 FPS')
+    expect(text()).toContain('55,0 FPS')
+    expect(text()).toContain('−40,0 (−42,1%)')
+    expect(text()).toContain('faltam 1 sessão(ões) do baseline')
+    expect(calls.some((c) => c.cmd.startsWith('rollback'))).toBe(false)
+    await click(button('Restaurar configuração anterior'))
+    expect(calls.find((c) => c.cmd === 'plan_smart_pack_switch')!.args).toEqual({ appId: '200260', packId: BASE })
+    m.unmount()
+  })
+
+  it('resultado do último teste e estado do card vêm das avaliações do núcleo', async () => {
+    current = () => report({ evaluations: [regression()], measurements: [meas(BASE, 95, 1), meas(D3D, 55, 1)] })
+    const m = mount(<SmartPacksPanel appId="200260" />)
+    await flush(80)
+    expect(text()).toContain('Último teste')
+    expect(text()).toContain('Regressão observada · preliminar')
+    m.unmount()
+  })
+
+  it('Performance Lab mostra a conclusão da sessão e oferece restaurar', async () => {
+    const m = mount(<SessionPackResult meta={meta('s-new', 55)} />)
+    await flush(80)
+    expect(text()).toContain('Smart Pack · resultado')
+    expect(text()).toContain('Indício de regressão — recomendado repetir o teste')
+    await click(button('Restaurar configuração anterior'))
+    expect(calls.find((c) => c.cmd === 'plan_smart_pack_switch')!.args).toEqual({ appId: '200260', packId: BASE })
+    m.unmount()
   })
 })

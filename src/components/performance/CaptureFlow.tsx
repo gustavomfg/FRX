@@ -88,7 +88,25 @@ const DURATIONS = [
   { value: '300', label: '5 min' },
 ]
 
-export function CaptureFlow({ open, onClose, games, defaultAppId, onViewSession }: { open: boolean; onClose: () => void; games: Game[]; defaultAppId: string; onViewSession: (id: string) => void }) {
+export function CaptureFlow({
+  open,
+  onClose,
+  games,
+  defaultAppId,
+  onViewSession,
+  preset,
+  intro,
+}: {
+  open: boolean
+  onClose: () => void
+  games: Game[]
+  defaultAppId: string
+  onViewSession: (id: string) => void
+  /** Valores iniciais do formulário (ex.: teste de Smart Pack com as condições da referência). */
+  preset?: Partial<FormValues>
+  /** Texto extra no topo do formulário. */
+  intro?: string
+}) {
   const perf = usePerformance()
   const toast = useToast()
   const status = perf.capture
@@ -101,7 +119,8 @@ export function CaptureFlow({ open, onClose, games, defaultAppId, onViewSession 
   const [busy, setBusy] = useState(false)
 
   useEffect(() => {
-    if (open && (state === 'idle' || state === 'cancelled' || state === 'failed' || state === 'completed')) setForm((f) => ({ ...f, appId: f.appId || defaultAppId }))
+    if (open && (state === 'idle' || state === 'cancelled' || state === 'failed' || state === 'completed')) setForm((f) => (preset ? { ...emptyForm(defaultAppId), ...preset } : { ...f, appId: f.appId || defaultAppId }))
+    // O preset vale no momento em que o diálogo abre.
   }, [open, state, defaultAppId])
 
   const game = games.find((g) => g.id === (status?.plan?.appId ?? form.appId))
@@ -241,6 +260,7 @@ export function CaptureFlow({ open, onClose, games, defaultAppId, onViewSession 
     >
       {fresh && (
         <div className="space-y-5">
+          {intro && <p className="rounded-md border border-accent-line bg-accent-soft px-3.5 py-2.5 text-[13px] text-fg">{intro}</p>}
           <p className="text-[13px] text-fg-2">Prepare com o jogo fechado para carregar a configuração desta sessão. Se mudar a duração ou o HUD, abra o jogo novamente.</p>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Jogo" className="col-span-2">
