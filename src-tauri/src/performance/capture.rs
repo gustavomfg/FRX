@@ -23,6 +23,7 @@ use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
 
 use super::models::SessionInput;
+use crate::steam::launch_options::{shell_quote, shell_words, ShellWord};
 use crate::time::now_iso;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -193,84 +194,6 @@ pub fn render_config(plan: &CapturePlan, armed: bool) -> String {
         s.push_str("no_display\n");
     }
     s
-}
-
-fn shell_quote(s: &str) -> String {
-    if s.chars()
-        .all(|c| c.is_ascii_alphanumeric() || "/._-+=:@".contains(c))
-    {
-        s.to_owned()
-    } else {
-        format!("'{}'", s.replace('\'', "'\\''"))
-    }
-}
-
-struct ShellWord {
-    start: usize,
-    end: usize,
-    value: String,
-}
-
-/// Apenas localiza palavras; nunca interpreta expansões nem executa um shell.
-/// As fatias originais preservam aspas, escapes e espaços dentro dos argumentos.
-fn shell_words(text: &str) -> Result<Vec<ShellWord>, String> {
-    let mut words = Vec::new();
-    let mut start = None;
-    let mut value = String::new();
-    let mut quote = None;
-    let mut escaped = false;
-    for (i, ch) in text.char_indices() {
-        if ch.is_control() && ch != '\t' {
-            return Err(
-                "As opções de inicialização contêm quebras de linha ou caracteres de controle."
-                    .into(),
-            );
-        }
-        if escaped {
-            value.push(ch);
-            escaped = false;
-            continue;
-        }
-        if quote != Some('\'')
-            && (ch == '`' || (ch == '$' && text.as_bytes().get(i + 1) == Some(&b'(')))
-        {
-            return Err("As opções atuais usam substituição de comandos. Mantenha-as e importe o log manualmente; a mesclagem automática não é segura neste caso.".into());
-        }
-        if ch == '\\' && quote != Some('\'') {
-            start.get_or_insert(i);
-            escaped = true;
-        } else if quote == Some(ch) {
-            quote = None;
-        } else if quote.is_none() && matches!(ch, '\'' | '"') {
-            start.get_or_insert(i);
-            quote = Some(ch);
-        } else if quote.is_none() && ch.is_whitespace() {
-            if let Some(a) = start.take() {
-                words.push(ShellWord {
-                    start: a,
-                    end: i,
-                    value: std::mem::take(&mut value),
-                });
-            }
-        } else {
-            if quote.is_none() && ";|&<>()".contains(ch) {
-                return Err("As opções atuais usam operadores de shell. Preserve essa linha e importe o log manualmente; o FRX não a reescreve automaticamente.".into());
-            }
-            start.get_or_insert(i);
-            value.push(ch);
-        }
-    }
-    if quote.is_some() || escaped {
-        return Err("As opções de inicialização têm aspas ou escapes sem fechamento.".into());
-    }
-    if let Some(a) = start {
-        words.push(ShellWord {
-            start: a,
-            end: text.len(),
-            value,
-        });
-    }
-    Ok(words)
 }
 
 /// Mescla a linha do FRX com as opções existentes **sem remover nada**:

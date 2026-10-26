@@ -6,9 +6,12 @@
 
 pub mod compatibility;
 pub mod discovery;
+pub mod launch_options;
 pub mod libraries;
+pub mod localconfig;
 pub mod manifests;
 pub mod models;
+pub mod processes;
 pub mod userdata;
 pub mod vdf;
 

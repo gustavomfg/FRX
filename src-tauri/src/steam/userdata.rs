@@ -52,7 +52,7 @@ pub fn launch_options(root: &Path, app_id: &str) -> Option<String> {
         .filter(|s| !s.is_empty())
 }
 
-fn most_recent_account(root: &Path) -> Option<u64> {
+pub fn most_recent_account(root: &Path) -> Option<u64> {
     let text = read_text(&root.join("config/loginusers.vdf")).ok()?;
     let doc = vdf::parse(&text).ok()?;
     let users = doc.get("users")?;
