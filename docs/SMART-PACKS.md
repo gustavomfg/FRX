@@ -81,7 +81,7 @@ Nenhum perfil reduz a qualidade gráfica: as receitas só definem variáveis do 
 - **Configuração da sessão**: o snapshot `smartPack` gravado no fim da captura assistida (variáveis do FRX conferidas no disco); senão `activeFixes` (v0.4); senão desconhecida. Sessões desconhecidas podem ser **declaradas** pelo usuário e ficam marcadas assim.
 - **Referência de condições**: a sessão de baseline mais recente com qualidade suficiente.
   - Sessões com diferença grave em relação a ela ficam fora, com o motivo: jogo, GPU, resolução, preset, limite de FPS, VSync, modo de captura ou duração mais de 4× diferente.
-  - Proton, driver, kernel e governador diferentes viram notas.
+  - Proton, driver, CPU e kernel diferentes também excluem a sessão da comparação controlada. O governador diferente gera nota; os dados originais permanecem no histórico.
   - Dados ausentes (resolução, preset) não bloqueiam, mas são avisados.
 - **Por pacote e métrica**: mediana das sessões (robusta a uma partida fora da curva), mínimo, máximo e dispersão = (máx − mín) ÷ mediana.
 - **Pacote × baseline**: diferença percentual entre as medianas, com limiar:
@@ -158,12 +158,15 @@ Os estados são `candidate`, `ready`, `conflict`, `testing`, `applied`, `verifie
    - É possível seguir sem referência; nesse caso, o resultado será “Sem referência para comparar”.
 2. **Aplicar o pacote**: mostra as variáveis e abre a prévia do Fix Engine. Nada é gravado sem confirmação. Com a Steam aberta, vale o modo manual de sempre.
 3. **Capturar**: abre a captura existente do Performance Lab, já preenchida com o rótulo do teste e as condições da referência (resolução, preset, limite de FPS, VSync).
+   - Para jogos Vulkan, **Configurar pelo FRX (Vulkan)** prepara `MANGOHUD=1` e o caminho do arquivo próprio do FRX com a prévia, o backup e o rollback do Fix Engine. O jogo e a Steam precisam estar fechados pelo usuário. A receita interna `frx.capture.<appid>` não vem das descobertas, não aceita caminhos enviados pela interface e não entra nas correções do ranking. A allowlist das receitas externas continua recusando essas variáveis.
+   - Quando as opções já habilitam o MangoHud e apontam para o arquivo correto, o assistente oferece **Aguardar o jogo**, sem pedir colagem. A configuração automática é para Vulkan; OpenGL e Flatpak continuam com a alternativa manual e precisam de validação própria.
+   - No teste guiado, o início manual vem selecionado para evitar medir menus. O jogo escolhido fica fixo, e a referência recebe seu próprio rótulo.
    - A captura dura só o tempo escolhido, sem monitoramento contínuo.
    - Com início manual, a gravação começa quando você chega ao trecho jogável (pelo FRX ou Shift esquerdo + F2), sem medir menus.
    - O jogo é aberto pela Steam com o mecanismo existente.
 4. **Resultado automático**: quando a captura termina, o FRX analisa o log, associa a sessão à configuração ativa e compara com a referência, sem nenhuma ação manual.
 
-**Associação automática.** No fim de toda captura assistida, `smart_packs::benchmark::tag_assisted` grava na sessão:
+**Associação automática.** O fluxo guiado envia o `expectedPackId`; o núcleo confere o pacote ao preparar e ao começar a captura. O FRX registra a configuração no início e confere novamente ao terminar. Se mudar, a sessão é guardada com aviso e excluída do ranking. No fim de toda captura assistida, `smart_packs::benchmark::tag_assisted` grava na sessão:
 - as correções do FRX ativas e conferidas no disco (`activeFixes`);
 - o Smart Pack equivalente (`smartPack`: variáveis, receitas, operações, `verified`).
 
@@ -173,20 +176,24 @@ O pacote é identificado pelas variáveis, então a sessão pertence ao pacote r
 
 | Situação | Conclusão |
 |---|---|
-| 1 sessão em algum lado | **preliminar**: “Indício de regressão — recomendado repetir o teste”, “Indício de melhoria…”, “Sem diferença significativa detectada (preliminar)” |
-| ≥ 2 sessões comparáveis de cada lado | “Regressão de desempenho medida”, “Melhoria de desempenho medida” ou “Sem diferença significativa detectada” |
+| 1 sessão em algum lado | **preliminar**: “Indício de regressão — recomendado repetir o teste”, “Indício de melhoria…”, “Sem diferença relevante detectada (preliminar)” |
+| ≥ 2 sessões comparáveis de cada lado | “Regressão de desempenho medida”, “Melhoria de desempenho medida” ou “Sem diferença relevante detectada” |
 | FPS médio e 1% low em direções opostas | “Resultado inconclusivo” |
 | condições diferentes da referência, qualidade insuficiente ou configuração desconhecida | “Não foi possível determinar a diferença” |
 | sem baseline | “Sem referência para comparar” |
 
+Sessões interrompidas, impróprias, com configuração não confirmada ou marcadas como `synthetic`/fixture são preservadas, mas excluídas da evidência real. Esse marcador identifica dados conhecidos de teste: não é um detector capaz de provar a autenticidade de qualquer CSV externo.
+
 Cada conclusão traz:
 - valores absolutos (referência → pacote), diferença absoluta e percentual, e o limiar usado, para FPS médio, 1% low, 0,1% low, frametime P99 e picos/min;
 - o número de sessões de cada lado;
-- as limitações, entre elas a de que cenas diferentes também mudam o FPS;
+- as condições de hardware/software registradas e as limitações, entre elas a de que cenas diferentes também mudam o FPS;
 - o próximo passo (“faltam N sessões…”);
 - o efeito no ranking.
 
-Uma captura só nunca comprova uma regressão. Com 1 sessão, o limiar é a variação natural dentro da sessão, e o resultado é só indicativo.
+Duas sessões por configuração são um ponto inicial de observação, não prova científica de causalidade. Uma captura só nunca sustenta uma conclusão definitiva. Com 1 sessão, o limiar é a variação natural dentro da sessão, e o resultado é só indicativo.
+
+FPS médio maior com piora em 1% low, 0,1% low, P99 ou picos é tratado como sinal misto. A tabela preserva todas as métricas, e o perfil de desempenho não elege esse trade-off como vencedor. Se o baseline tem zero picos, a diferença absoluta aparece com percentual indisponível, sem dividir por zero.
 
 **Onde aparece:**
 - no próprio fluxo, ao terminar a captura;
@@ -196,7 +203,7 @@ Uma captura só nunca comprova uma regressão. Com 1 sessão, o limiar é a vari
 
 **Consequências no ranking:**
 - *Preliminar com regressão*: o pacote fica no fim dos candidatos, com “Regressão indicativa — repita para confirmar”, e **não entra em combinações** até ser repetido.
-- *Regressão comprovada (2 × 2)*: o pacote vai para **não recomendados** nos perfis em que a métrica piorou e nunca é vencedor.
+- *Regressão medida em repetições (2 × 2)*: o pacote vai para **não recomendados** nos perfis em que a métrica piorou e nunca é vencedor.
 - O histórico de medições e o histórico do ranking são preservados.
 
 **Restauração.** Quando a conclusão indica regressão e o pacote ainda está ativo, aparece **Restaurar configuração anterior**. O botão abre a troca para o baseline: desfazer cada operação, com a prévia do rollback e confirmação. Nada é revertido automaticamente.

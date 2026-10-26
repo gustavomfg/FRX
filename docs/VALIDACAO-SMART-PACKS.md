@@ -149,7 +149,7 @@ O binário de release foi gerado pelos pacotes acima.
 - o fluxo “Testar desempenho”;
 - a avaliação automática por sessão (`evaluate_benchmark_session`);
 - a associação na captura (`tag_assisted`);
-- resultados preliminares e comprovados;
+- resultados preliminares e medidos em repetições;
 - o estado de teste nos cards, o “Último teste” e o resultado no Performance Lab;
 - “Restaurar configuração anterior” a partir do resultado;
 - o bloqueio de combinações com indício de regressão.
@@ -169,7 +169,7 @@ Os detalhes estão em [`SMART-PACKS.md`](SMART-PACKS.md#testar-desempenho-detec�
 **Testes novos:**
 - Rust (`smart_packs/tests.rs::acceptance`):
   - 1 × 1 vira regressão preliminar, com valores absolutos e percentuais e limiar pela variação natural;
-  - 2 × 2 vira regressão comprovada e “não recomendado” nos perfis desempenho e equilibrado;
+  - 2 × 2 vira regressão medida em repetições e “não recomendado” nos perfis desempenho e equilibrado;
   - referência, sem baseline, condições diferentes, sem diferença, sinais mistos e configuração desconhecida;
   - indício de regressão bloqueia combinações.
 - Front-end:
@@ -211,3 +211,10 @@ O app usou cópias: Steam em scratchpad, `FRX_DEV_PROC_ROOT` e as sessões de fi
 - Nenhuma captura real foi feita nesta validação: os números de desempenho são de fixtures.
 - O FRX não reconhece o trecho do jogo; a comparação assume o mesmo trecho e as mesmas configurações, e isso aparece em todo resultado.
 - A conclusão no Performance Lab é a avaliação atual do pacote, com todas as sessões comparáveis, não só a sessão aberta.
+
+
+## Revisão final da v0.4 — validação real pendente
+
+A revisão posterior parte de `7c1e5eb`, com árvore limpa e o fluxo automático já commitado. O usuário informou que não pode jogar agora e não autorizou alterações na Steam real. Nenhuma captura A1/A2/B1/B2 foi realizada nesta revisão; as estimativas informais de FPS não foram registradas como benchmarks.
+
+O relatório atual, as verificações e o protocolo preparado estão em [`VALIDACAO-FINAL-v0.4.md`](VALIDACAO-FINAL-v0.4.md). Os resultados anteriores acima são históricos de etapas distintas.
