@@ -132,7 +132,7 @@ fn row(
 
 /// Variação natural do FPS médio (em %), a partir do desvio por segundo.
 /// Erro-padrão × 2 para compensar a autocorrelação entre segundos vizinhos.
-fn noise_pct(s: &SessionStats) -> Option<f64> {
+pub(crate) fn noise_pct(s: &SessionStats) -> Option<f64> {
     let sd = s.stability.per_second_fps_stdev?;
     let avg = s.fps.avg?;
     let n = s.stability.seconds.max(1) as f64;
@@ -341,7 +341,7 @@ fn verdict(before: &SessionMeta, after: &SessionMeta, comp: &Comparability) -> V
     }
 }
 
-fn comparability(before: &SessionMeta, after: &SessionMeta) -> Comparability {
+pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Comparability {
     let mut differences = Vec::new();
     let mut notes = Vec::new();
     let (cb, ca) = (&before.conditions, &after.conditions);
@@ -396,6 +396,36 @@ fn comparability(before: &SessionMeta, after: &SessionMeta) -> Comparability {
                 major: true,
             });
         }
+    }
+    // Correções do FRX: só registramos a diferença — sem atribuir causa.
+    if let (Some(x), Some(y)) = (&before.active_fixes, &after.active_fixes) {
+        let ids = |v: &[crate::fix_engine::models::ActiveFixRef]| {
+            v.iter()
+                .map(|f| format!("{}@{}", f.recipe_id, f.recipe_version))
+                .collect::<Vec<_>>()
+        };
+        if ids(x) != ids(y) {
+            let label = |v: &[crate::fix_engine::models::ActiveFixRef]| {
+                if v.is_empty() {
+                    "nenhuma".to_owned()
+                } else {
+                    v.iter()
+                        .map(|f| format!("{} (v{})", f.title, f.recipe_version))
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                }
+            };
+            differences.push(Difference {
+                field: "fixes".into(),
+                label: "Correções do FRX ativas".into(),
+                before: Some(label(x)),
+                after: Some(label(y)),
+                major: false,
+            });
+            notes.push("As sessões têm correções do FRX diferentes. Uma diferença de desempenho entre elas não prova que a correção foi a causa; repita as medições para confirmar.".into());
+        }
+    } else if before.active_fixes.is_some() != after.active_fixes.is_some() {
+        notes.push("Uma das sessões não registra quais correções do FRX estavam ativas (importada ou anterior à v0.4).".into());
     }
     let (b, a) = (&before.stats, &after.stats);
     if b.mode != a.mode {
@@ -453,7 +483,7 @@ fn mode_label(m: CaptureMode) -> String {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::super::metrics::analyze;
     use super::super::parser::{fixtures::per_frame, parse};
     use super::*;
@@ -485,6 +515,8 @@ mod tests {
             stats: a.stats,
             quality: a.quality,
             fix_ids: vec![],
+            active_fixes: None,
+            smart_pack: None,
         }
     }
 
@@ -537,6 +569,33 @@ mod tests {
             .iter()
             .any(|d| d.field == "resolution"));
         assert!(r.verdict.reasons.iter().any(|x| x.contains("condições")));
+    }
+
+    #[test]
+    fn different_active_fixes_are_listed_without_blocking() {
+        use crate::fix_engine::models::ActiveFixRef;
+        let fts = wobble(16.0, 2000);
+        let mut a = session("a", &fts);
+        let mut b = session("b", &fts);
+        a.active_fixes = Some(vec![]);
+        b.active_fixes = Some(vec![ActiveFixRef {
+            recipe_id: "frx.compat.wined3d".into(),
+            recipe_version: "1.0.0".into(),
+            operation_id: "op-1".into(),
+            title: "WineD3D".into(),
+        }]);
+        let c = compare(&a, &b).comparability;
+        let d = c.differences.iter().find(|d| d.field == "fixes").unwrap();
+        assert_eq!(d.before.as_deref(), Some("nenhuma"));
+        assert_eq!(d.after.as_deref(), Some("WineD3D (v1.0.0)"));
+        assert!(!d.major && c.controlled);
+        assert!(c.notes.iter().any(|n| n.contains("não prova")));
+        b.active_fixes = Some(vec![]);
+        assert!(!compare(&a, &b)
+            .comparability
+            .differences
+            .iter()
+            .any(|d| d.field == "fixes"));
     }
 
     #[test]

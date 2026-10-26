@@ -241,6 +241,35 @@ impl Store {
         Ok(meta)
     }
 
+    /// Declara (ou remove) a configuração do FRX de uma sessão sem registro.
+    /// Sessões capturadas pelo FRX já têm a configuração conferida e não mudam.
+    pub fn set_smart_pack(
+        &self,
+        id: &str,
+        snapshot: Option<crate::smart_packs::models::PackSnapshot>,
+    ) -> Result<SessionMeta, String> {
+        use crate::smart_packs::models::SnapshotSource;
+        let _guard = self.access.lock().map_err(|_| "histórico indisponível")?;
+        let mut meta = self.load_meta(id).ok_or("sessão não encontrada")?;
+        let recorded = meta.active_fixes.is_some()
+            || meta
+                .smart_pack
+                .as_ref()
+                .is_some_and(|s| s.source == SnapshotSource::Assisted);
+        if recorded {
+            return Err("A configuração desta sessão foi registrada pelo FRX na captura e não pode ser alterada.".into());
+        }
+        if snapshot
+            .as_ref()
+            .is_some_and(|s| s.source != SnapshotSource::Declared)
+        {
+            return Err("Só é possível declarar a configuração.".into());
+        }
+        meta.smart_pack = snapshot;
+        self.write_meta(&meta)?;
+        Ok(meta)
+    }
+
     pub fn delete(&self, id: &str) -> Result<(), String> {
         let _guard = self.access.lock().map_err(|_| "histórico indisponível")?;
         let dir = self.dir(id).ok_or("identificador de sessão inválido")?;

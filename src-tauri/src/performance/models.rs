@@ -298,6 +298,14 @@ pub struct SessionMeta {
     pub quality: Quality,
     #[serde(default)]
     pub fix_ids: Vec<String>,
+    /// Correções do Fix Engine ativas durante a captura assistida. `None` =
+    /// desconhecido (importações e sessões anteriores à v0.4).
+    #[serde(default)]
+    pub active_fixes: Option<Vec<crate::fix_engine::models::ActiveFixRef>>,
+    /// Configuração do FRX na captura, como Smart Pack (desde os Smart Packs).
+    /// Ausente em sessões antigas; pode ser declarada pelo usuário.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub smart_pack: Option<crate::smart_packs::models::PackSnapshot>,
 }
 
 /// Sessão completa (metadados + séries do gráfico).

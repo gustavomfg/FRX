@@ -127,6 +127,8 @@ pub fn process(raw: &[u8], args: ProcessArgs) -> Result<Session, String> {
         stats: analysis.stats,
         quality: analysis.quality,
         fix_ids: vec![],
+        active_fixes: None,
+        smart_pack: None,
     };
     Ok(Session {
         meta,

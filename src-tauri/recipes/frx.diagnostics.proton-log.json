@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "frx.diagnostics.proton-log",
+  "version": "1.0.0",
+  "trust": "reviewed",
+  "title": "Log de diagnóstico do Proton",
+  "summary": "Ativa PROTON_LOG=1 para o Proton gravar um log detalhado de cada execução do jogo.",
+  "description": "Útil para investigar travamentos, telas pretas e erros de inicialização. O arquivo fica em ~/steam-<AppID>.log e pode ser anexado a relatos de problema. Não é uma otimização de desempenho.",
+  "category": "other",
+  "purpose": "diagnostic",
+  "risk": "low",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": null
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_LOG",
+      "value": "1"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [],
+  "relatedKeys": [
+    "env:PROTON_LOG=1"
+  ],
+  "effects": [
+    "O Proton grava ~/steam-<AppID>.log a cada execução do jogo."
+  ],
+  "sideEffects": [
+    "O log pode crescer bastante (centenas de MB) e deixar a abertura do jogo mais lenta.",
+    "Não melhora o desempenho: serve só para diagnóstico."
+  ],
+  "sources": [
+    {
+      "label": "Proton — opções de execução (README oficial)",
+      "url": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+    }
+  ],
+  "review": {
+    "by": "FRX",
+    "at": "2026-10-25",
+    "notes": "Variável documentada pelo Proton. Só altera a linha de inicialização deste jogo; nada no prefixo ou na instalação."
+  }
+}

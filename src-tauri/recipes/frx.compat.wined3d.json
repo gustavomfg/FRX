@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "frx.compat.wined3d",
+  "version": "1.0.0",
+  "trust": "reviewed",
+  "title": "Renderizar com WineD3D (OpenGL)",
+  "summary": "Define PROTON_USE_WINED3D=1 para trocar DXVK pelo WineD3D em jogos Direct3D 9/10/11.",
+  "description": "Contorno de compatibilidade para jogos que falham ou mostram artefatos com DXVK. WineD3D traduz Direct3D para OpenGL e costuma ser mais lento.",
+  "category": "graphics",
+  "purpose": "compatibility",
+  "risk": "moderate",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": null
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_USE_WINED3D",
+      "value": "1"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [],
+  "relatedKeys": [
+    "env:PROTON_USE_WINED3D=1"
+  ],
+  "effects": [
+    "Na próxima execução o jogo usa WineD3D em vez de DXVK."
+  ],
+  "sideEffects": [
+    "Normalmente reduz o desempenho de forma perceptível.",
+    "Jogos Direct3D 12 (VKD3D-Proton) não são afetados."
+  ],
+  "sources": [
+    {
+      "label": "Proton — opções de execução (README oficial)",
+      "url": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+    }
+  ],
+  "review": {
+    "by": "FRX",
+    "at": "2026-10-25",
+    "notes": "Variável documentada pelo Proton. Reversível; altera só a linha de inicialização deste jogo."
+  }
+}

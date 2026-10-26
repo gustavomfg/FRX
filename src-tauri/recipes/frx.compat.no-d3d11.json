@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "id": "frx.compat.no-d3d11",
+  "version": "0.1.0",
+  "trust": "candidate",
+  "title": "Forçar o modo Direct3D 9 (sem d3d11)",
+  "summary": "Define PROTON_NO_D3D11=1 para jogos que têm modo D3D9 alternativo.",
+  "description": "Citado pela comunidade para alguns jogos antigos com modo D3D9. Ainda não foi revisado pelo FRX: só funciona em jogos que realmente têm o modo alternativo e pode impedir outros de abrir.",
+  "category": "graphics",
+  "purpose": "compatibility",
+  "risk": "high",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": null
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_NO_D3D11",
+      "value": "1"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [
+    "frx.compat.wined3d"
+  ],
+  "relatedKeys": [
+    "env:PROTON_NO_D3D11=1"
+  ],
+  "effects": [
+    "O jogo deixa de enxergar o Direct3D 11 e precisa cair para D3D9."
+  ],
+  "sideEffects": [
+    "Jogos sem modo D3D9 podem não abrir."
+  ],
+  "sources": [
+    {
+      "label": "Proton — opções de execução (README oficial)",
+      "url": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+    }
+  ],
+  "review": null
+}

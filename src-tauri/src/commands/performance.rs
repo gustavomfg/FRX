@@ -362,10 +362,19 @@ pub fn start_capture(app: AppHandle, ctx: State<'_, AppCtx>) -> Result<CaptureSt
 
     let generation = mgr.generation.fetch_add(1, Ordering::SeqCst) + 1;
     let known = known_conditions(&ctx, Some(&plan.app_id));
-    let store = ctx.perf.store.clone();
+    let out = Output {
+        store: ctx.perf.store.clone(),
+        engine: ctx.engine.clone(),
+    };
     drop(guard);
-    tauri::async_runtime::spawn(monitor(app, mgr, generation, plan, ignore, store, known));
+    tauri::async_runtime::spawn(monitor(app, mgr, generation, plan, ignore, out, known));
     Ok(s)
+}
+
+/// Onde a sessão termina: o histórico e o Fix Engine (para registrar as correções ativas).
+struct Output {
+    store: Store,
+    engine: Arc<crate::fix_engine::FixEngine>,
 }
 
 async fn monitor(
@@ -374,9 +383,10 @@ async fn monitor(
     generation: u64,
     plan: capture::CapturePlan,
     ignore: Vec<PathBuf>,
-    store: Store,
+    out: Output,
     known: Conditions,
 ) {
+    let store = out.store;
     let mut tail = Tail::default();
     let mut current: Option<PathBuf> = None;
     let mut last_size = 0u64;
@@ -528,9 +538,14 @@ async fn monitor(
                     ..plan.input.clone()
                 };
                 let known = known.clone();
+                let engine = out.engine.clone();
+                let app_id = plan.app_id.clone();
                 let result = tauri::async_runtime::spawn_blocking(move || {
                     let raw = performance::read_log_file(&path)?;
                     let mut session = performance::process(&raw, ProcessArgs { input, source: Some(SessionSource::Assisted), original_path: Some(path.to_string_lossy().into_owned()), known })?;
+                    // Correções do FRX confirmadas no disco no fim da captura.
+                    session.meta.active_fixes = Some(engine.active_for(&app_id));
+                    session.meta.smart_pack = Some(crate::smart_packs::benchmark::snapshot(&engine, &app_id));
                     if interrupted {
                         session.meta.quality.issues.push(Issue::new(Severity::Warning, "interrupted", "A captura foi interrompida antes do fim planejado; a duração pode ser menor que a escolhida."));
                         if session.meta.quality.level == QualityLevel::Good {

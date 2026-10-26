@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "catalogVersion": "2026.10.25",
+  "recipes": [
+    {
+      "file": "frx.diagnostics.proton-log.json",
+      "sha256": "f1a1f22af2c9706cbdfb4db7ed877753835f73b7fd9ae9b7c6818c2039e7dcc6"
+    },
+    {
+      "file": "frx.compat.no-esync-fsync.json",
+      "sha256": "8572e3353b9b90db1dd02b5b90c8014e54296fbb7ea30f72edd3249b5c4c8468"
+    },
+    {
+      "file": "frx.compat.wined3d.json",
+      "sha256": "8d093a5adfccae5cca8be93b83751c1a3064ef92af01003da358bfc447d66bbd"
+    },
+    {
+      "file": "frx.compat.no-d3d11.json",
+      "sha256": "7252d0bbd50ebef4bfa9764c2543f124bb96502952d23d8595c86db7e6d72539"
+    }
+  ],
+  "revoked": [],
+  "signature": null
+}

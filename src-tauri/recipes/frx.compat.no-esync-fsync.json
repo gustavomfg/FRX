@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "frx.compat.no-esync-fsync",
+  "version": "1.0.0",
+  "trust": "reviewed",
+  "title": "Desativar esync e fsync",
+  "summary": "Define PROTON_NO_ESYNC=1 e PROTON_NO_FSYNC=1 para usar a sincronização tradicional do Wine.",
+  "description": "Alguns jogos travam, congelam ou fecham com os mecanismos de sincronização rápida do Proton. Desativá-los é um teste de compatibilidade conhecido. Use apenas se o jogo apresentar esse tipo de problema.",
+  "category": "compatibility",
+  "purpose": "compatibility",
+  "risk": "moderate",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": null
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_NO_ESYNC",
+      "value": "1"
+    },
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_NO_FSYNC",
+      "value": "1"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [],
+  "relatedKeys": [
+    "env:PROTON_NO_ESYNC=1",
+    "env:PROTON_NO_FSYNC=1",
+    "sync:esync:off",
+    "sync:fsync:off"
+  ],
+  "effects": [
+    "O jogo passa a usar a sincronização padrão do Wine na próxima execução."
+  ],
+  "sideEffects": [
+    "Pode reduzir o desempenho, principalmente em jogos que usam muitas threads.",
+    "Em versões do Proton com NTSYNC ativo, o efeito pode ser diferente."
+  ],
+  "sources": [
+    {
+      "label": "Proton — opções de execução (README oficial)",
+      "url": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+    }
+  ],
+  "review": {
+    "by": "FRX",
+    "at": "2026-10-25",
+    "notes": "Variáveis documentadas pelo Proton. Reversível; altera só a linha de inicialização deste jogo."
+  }
+}

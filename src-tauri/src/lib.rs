@@ -1,16 +1,19 @@
 //! Camada nativa do FRX.
 //!
-//! Esta versão detecta jogos da Steam, pesquisa correções conhecidas em
-//! fontes públicas e registra benchmarks reais com o MangoHud. É **somente leitura**: nenhuma correção é aplicada,
-//! nenhum arquivo de jogo, prefixo ou configuração da Steam é modificado e
-//! nenhum script de terceiros é executado.
+//! Detecta jogos da Steam, pesquisa correções conhecidas em fontes públicas,
+//! registra benchmarks reais com o MangoHud e aplica correções **revisadas**
+//! do catálogo local pelo Fix Engine (prévia, backup, verificação, rollback).
+//! A descoberta continua somente leitura e nenhum script de terceiros é
+//! executado; só o Fix Engine escreve, e apenas o que o plano confirmado diz.
 
 mod art;
 mod cache;
 mod commands;
+mod fix_engine;
 mod fixes;
 mod net;
 mod performance;
+mod smart_packs;
 mod steam;
 mod system;
 mod time;
@@ -36,6 +39,8 @@ pub fn run() {
             let fetcher = net::ReqwestFetcher::new().map_err(|e| format!("cliente HTTP: {e}"))?;
             let data_dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&data_dir)?;
+            let engine =
+                std::sync::Arc::new(fix_engine::FixEngine::new(fix_engine::data_root(&data_dir)));
             let perf = commands::performance::PerfCtx {
                 store: performance::persistence::Store::new(data_dir.join("benchmarks")),
                 data_dir,
@@ -47,6 +52,7 @@ pub fn run() {
                 scan_lock: Default::default(),
                 fixes: Default::default(),
                 perf,
+                engine,
             });
             Ok(())
         })
@@ -77,6 +83,23 @@ pub fn run() {
             commands::performance::finish_capture,
             commands::performance::cancel_capture,
             commands::performance::reset_capture,
+            commands::fix_engine::get_fix_engine_status,
+            commands::fix_engine::list_fix_recipes,
+            commands::fix_engine::get_fix_recipe,
+            commands::fix_engine::analyze_fix_findings,
+            commands::smart_packs::get_smart_packs,
+            commands::smart_packs::compare_smart_packs,
+            commands::smart_packs::plan_smart_pack_switch,
+            commands::smart_packs::declare_benchmark_pack,
+            commands::fix_engine::check_fix_compatibility,
+            commands::fix_engine::prepare_fix_plan,
+            commands::fix_engine::apply_fix_plan,
+            commands::fix_engine::get_fix_operation,
+            commands::fix_engine::list_fix_operations,
+            commands::fix_engine::get_applied_fixes,
+            commands::fix_engine::prepare_fix_rollback,
+            commands::fix_engine::rollback_fix,
+            commands::fix_engine::verify_fix_operation,
         ])
         .run(tauri::generate_context!())
         .expect("erro ao iniciar o FRX");
