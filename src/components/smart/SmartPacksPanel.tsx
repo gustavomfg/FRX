@@ -32,25 +32,29 @@ export function useSmartPacks(appId: string | null, profile: Profile) {
   const engine = useFixEngine()
   const perf = usePerformance()
   const [report, setReport] = useState<SmartPackReport | null>(null)
+  const request = useRef(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const stamp = engine.operations.map((o) => o.id + o.state).join() + '|' + perf.sessions.map((s) => s.id + (s.smartPack?.packId ?? '')).join()
+  const stamp = engine.operations.map((o) => o.id + o.state).join() + '|' + JSON.stringify(perf.sessions.map((s) => [s.id, s.conditions, s.smartPack]))
   const load = useCallback(async () => {
+    const version = ++request.current
     if (!engine.available || !appId) return setReport(null)
     setLoading(true)
     try {
-      setReport(await getSmartPacks(appId, profile))
+      const next = await getSmartPacks(appId, profile)
+      if (version !== request.current) return
+      setReport(next)
       setError(null)
     } catch (e) {
-      setError(errorMessage(e))
+      if (version === request.current) setError(errorMessage(e))
     } finally {
-      setLoading(false)
+      if (version === request.current) setLoading(false)
     }
   }, [engine.available, appId, profile])
   useEffect(() => {
     void load()
   }, [load, stamp])
-  return { report, loading, error, reload: load }
+  return { report: report?.appId === appId && report.profile === profile ? report : null, loading, error, reload: load }
 }
 
 const fps = (v: number | null | undefined) => (v == null ? '—' : fmtNum(v, 1))
@@ -59,7 +63,7 @@ function delta(d: MetricDelta | undefined) {
   if (!d) return null
   return (
     <span style={{ color: OUTCOME[d.outcome].color }} title={`Limiar ±${fmtNum(d.thresholdPct, 1)}%${d.limited ? ' · indicativo' : ''}`}>
-      {fmtPct(d.deltaPct, 1)}
+      {d.percentageAvailable === false ? `${fmtNum(d.before, 1)} → ${fmtNum(d.after, 1)} ${d.unit}` : fmtPct(d.deltaPct, 1)}
       {d.limited && <span className="text-fg-3"> · indicativo</span>}
     </span>
   )
@@ -92,15 +96,33 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const [skipBaseline, setSkipBaseline] = useState(false)
   const [captureOpen, setCaptureOpen] = useState(false)
   const evaluated = useRef<string | null>(null)
+  const previousCapture = useRef<string | null>(null)
+  const evaluationVersion = useRef(0)
+  const [evaluationError, setEvaluationError] = useState<string | null>(null)
+  useEffect(() => {
+    ++evaluationVersion.current
+    setTesting(null)
+    setResult(null)
+    setCaptureOpen(false)
+    setEvaluationError(null)
+    evaluated.current = null
+  }, [appId])
 
   const evaluate = useCallback(
     async (sessionId: string) => {
       if (evaluated.current === sessionId) return
       evaluated.current = sessionId
+      const version = ++evaluationVersion.current
+      setEvaluationError(null)
       try {
-        setResult(await evaluateBenchmarkSession(sessionId))
+        const next = await evaluateBenchmarkSession(sessionId)
+        if (version !== evaluationVersion.current) return
+        setResult(next)
         void reload()
       } catch (e) {
+        if (version !== evaluationVersion.current) return
+        evaluated.current = null
+        setEvaluationError(errorMessage(e))
         toast({ tone: 'error', title: 'Não foi possível avaliar a sessão', body: errorMessage(e) })
       }
     },
@@ -109,7 +131,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   // Ao terminar a captura iniciada por um teste, analisa sozinho — sem importar CSV nem associar à mão.
   const cap = perf.capture
   useEffect(() => {
-    if (testing && cap?.state === 'completed' && cap.sessionId && cap.plan?.appId === appId) void evaluate(cap.sessionId)
+    if (testing && cap?.state === 'completed' && cap.sessionId && cap.sessionId !== previousCapture.current && cap.plan?.appId === appId) void evaluate(cap.sessionId)
   }, [testing, cap?.state, cap?.sessionId, cap?.plan?.appId, appId, evaluate])
 
   if (!appId) return <EmptyState pose="idle" title="Escolha um jogo" body="Os Smart Packs são compostos por jogo, a partir das descobertas e receitas aplicáveis a ele." />
@@ -136,6 +158,10 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const baseline = byId(report.baselineId)!
   const testPack = testing ? byId(testing) : undefined
   const startTest = (p: SmartPack) => {
+    ++evaluationVersion.current
+    previousCapture.current = perf.capture?.sessionId ?? null
+    evaluated.current = null
+    setEvaluationError(null)
     setTesting(p.id)
     setResult(null)
     setSkipBaseline(false)
@@ -143,10 +169,11 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const applyPack = (p: SmartPack) => (report.currentPackId === report.baselineId ? setTarget({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))
   // Condições da referência pré-preenchidas: a comparação só vale com as mesmas configurações.
   const ref = perf.sessions.find((s) => s.id === report.referenceSessionId)
+  const capturingBaseline = !!testPack && report.currentPackId === report.baselineId
   const preset: Partial<FormValues> | undefined = testPack
     ? {
         appId: report.appId,
-        label: testPack.kind === 'baseline' ? 'Referência (sem correções do FRX)' : `Smart Pack · ${testPack.name}`,
+        label: capturingBaseline ? 'Referência (sem correções do FRX)' : `Smart Pack · ${testPack.name}`,
         resolution: ref?.conditions.resolution ?? '',
         preset: ref?.conditions.preset ?? '',
         fpsLimit: ref?.conditions.fpsLimit ?? '',
@@ -313,6 +340,8 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
           report={report}
           capture={cap}
           result={result}
+          evaluationError={evaluationError}
+          onRetryEvaluation={() => { if (cap?.sessionId) void evaluate(cap.sessionId) }}
           skipBaseline={skipBaseline}
           onSkipBaseline={() => setSkipBaseline(true)}
           onClose={() => {
@@ -326,7 +355,11 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
             setCaptureOpen(true)
           }}
           onOpenCapture={() => setCaptureOpen(true)}
-          onContinue={() => setResult(null)}
+          onContinue={() => {
+            previousCapture.current = cap?.sessionId ?? null
+            evaluated.current = null
+            setResult(null)
+          }}
         />
       )}
       {captureOpen && (
@@ -336,7 +369,8 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
           games={games}
           defaultAppId={report.appId}
           preset={preset}
-          intro={testPack ? `Teste de desempenho: ${testPack.kind === 'baseline' ? 'referência sem correções do FRX' : testPack.name}. Ao terminar, o FRX compara com a referência automaticamente.` : undefined}
+          expectedPackId={capturingBaseline ? report.baselineId : testPack?.id}
+          intro={testPack ? `Teste de desempenho: ${capturingBaseline ? 'referência sem correções do FRX' : testPack.name}. Ao terminar, o FRX compara com a referência automaticamente.` : undefined}
           onViewSession={(id) => {
             setCaptureOpen(false)
             void evaluate(id)

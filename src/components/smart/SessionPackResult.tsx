@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { evaluateBenchmarkSession } from '@/services/smartPacks'
+import { errorMessage } from '@/services/native'
 import { useFixEngine } from '@/state/fixEngine'
 import { usePerformance } from '@/state/performance'
 import type { SessionMeta } from '@/types/performance'
@@ -20,20 +21,28 @@ export function SessionPackResult({ meta }: { meta: SessionMeta }) {
   const perf = usePerformance()
   const navigate = useNavigate()
   const [e, setE] = useState<PackEvaluation | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [retry, setRetry] = useState(0)
   const [restore, setRestore] = useState(false)
   const [target, setTarget] = useState<ApplyTarget | null>(null)
-  const stamp = engine.operations.map((o) => o.id + o.state).join() + perf.sessions.length
+  const stamp = engine.operations.map((o) => o.id + o.state).join() + JSON.stringify(perf.sessions.map((s) => [s.id, s.conditions, s.smartPack]))
 
   useEffect(() => {
     if (!engine.available || !meta.appId) return setE(null)
     let gone = false
+    setE(null)
+    setError(null)
     evaluateBenchmarkSession(meta.id).then(
       (r) => !gone && setE(r),
-      () => !gone && setE(null),
+      (err) => !gone && setError(errorMessage(err)),
     )
     return () => void (gone = true)
-  }, [engine.available, meta.id, meta.appId, stamp])
+  }, [engine.available, meta.id, meta.appId, stamp, retry])
 
+  if (error) return <section role="alert" className="text-[13px] text-fg-2">
+    <p>Não foi possível avaliar o Smart Pack: {error}</p>
+    <Button size="sm" variant="outline" onClick={() => setRetry((n) => n + 1)}>Tentar avaliação de novo</Button>
+  </section>
   if (!e) return null
   const canRestore = e.verdict === 'regression' && e.currentPackId === e.packId && e.packId !== e.baselineId
   return (

@@ -63,7 +63,7 @@ export function HistoryTable({ sessions, viewId, beforeId, afterId, onView, onBe
                     {m.label}
                   </button>
                   <span className="block truncate text-[11.5px] text-fg-3">
-                    {m.source === 'assisted' ? 'Captura FRX' : 'Importado'}
+                    {m.source === 'synthetic' ? 'Sintético · teste' : m.source === 'assisted' ? 'Captura FRX' : 'Importado'}
                     {m.conditions.preset && ` · ${m.conditions.preset}`}
                     {m.conditions.resolution && ` · ${m.conditions.resolution}`}
                   </span>

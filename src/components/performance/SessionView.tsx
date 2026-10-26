@@ -36,7 +36,7 @@ export function SessionHero({ meta, pose = 'observe' }: { meta: SessionMeta; pos
                 <span className="size-1.5" style={{ background: q.color }} aria-hidden />
                 {q.label}
               </Pill>
-              <SourceTag>{meta.source === 'assisted' ? 'Captura FRX' : 'Importado'}</SourceTag>
+              <SourceTag>{meta.source === 'synthetic' ? 'Sintético · teste' : meta.source === 'assisted' ? 'Captura FRX' : 'Importado'}</SourceTag>
             </div>
             <div className="mt-5 flex items-end gap-4">
               <p className="tnum font-display text-[clamp(56px,6.2vw,84px)] leading-[0.85] font-bold tracking-[-0.06em]">

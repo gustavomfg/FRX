@@ -83,7 +83,7 @@ export function Segmented<T extends string>({ value, onChange, options, label, s
   )
 }
 
-export function Select<T extends string>({ value, onChange, options, label, className, hideLabel }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; label: string; className?: string; hideLabel?: boolean }) {
+export function Select<T extends string>({ value, onChange, options, label, className, hideLabel, disabled }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; label: string; className?: string; hideLabel?: boolean; disabled?: boolean }) {
   const id = useId()
   return (
     <div className={cn('flex items-center gap-2', className)}>
@@ -94,6 +94,7 @@ export function Select<T extends string>({ value, onChange, options, label, clas
         <select
           id={id}
           value={value}
+          disabled={disabled}
           onChange={(e) => onChange(e.target.value as T)}
           className="h-8 appearance-none rounded-sm border border-line-2 bg-surface pr-8 pl-2.5 text-[13px] text-fg transition-colors hover:border-line-3 focus-visible:outline-2"
         >

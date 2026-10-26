@@ -198,10 +198,12 @@ const click = async (el: HTMLElement | undefined) => {
 
 describe('Smart Packs na interface', () => {
   let calls: { cmd: string; args: Record<string, unknown> }[] = []
+  let evaluationFailure: string | null = null
   let current: () => SmartPackReport = () => report()
 
   beforeEach(() => {
     calls = []
+    evaluationFailure = null
     current = () => report()
     g.isTauri = true
     mockIPC(
@@ -225,7 +227,7 @@ describe('Smart Packs na interface', () => {
           case 'get_capture_status':
             return { phase: 'idle' }
           case 'get_smart_packs':
-            return current()
+            return { ...current(), profile: (args as { profile: string }).profile }
           case 'prepare_fix_plan':
             return plan
           case 'plan_smart_pack_switch':
@@ -235,6 +237,7 @@ describe('Smart Packs na interface', () => {
           case 'declare_benchmark_pack':
             return meta('old', 100)
           case 'evaluate_benchmark_session':
+            if (evaluationFailure) throw new Error(evaluationFailure)
             return regression({ sessionId: (args as { sessionId: string }).sessionId })
           case 'prepare_benchmark':
             return { state: 'ready', plan: null, hudAttached: false, hudVersion: null, device: null, controllable: false, logFile: null, frames: 0, recordedS: null, message: null, sessionId: null, interrupted: false, updatedAt: 'x' }
@@ -359,9 +362,15 @@ describe('Smart Packs na interface', () => {
     expect(text()).toContain('Testar desempenho · Desativar Direct3D 11')
     expect(text()).toContain('Ainda não há uma sessão de referência')
     await click(button('Capturar referência agora'))
-    expect(text()).toContain('Teste de desempenho: Desativar Direct3D 11')
+    expect(text()).toContain('Teste de desempenho: referência sem correções do FRX')
     const label = document.body.querySelector<HTMLInputElement>('input[value="Referência (sem correções do FRX)"], input[value^="Smart Pack"]')
     expect(label).toBeTruthy()
+    expect((label as HTMLInputElement).value).toBe('Referência (sem correções do FRX)')
+    expect(document.querySelector<HTMLSelectElement>('select[disabled]')).toBeTruthy()
+    await click(button('Preparar sessão'))
+    const request = calls.find((c) => c.cmd === 'prepare_benchmark')!.args.request as { expectedPackId: string; start: string }
+    expect(request.expectedPackId).toBe(BASE)
+    expect(request.start).toBe('manual')
     expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
     m.unmount()
   })
@@ -412,6 +421,37 @@ describe('Smart Packs na interface', () => {
     expect(text()).toContain('Indício de regressão — recomendado repetir o teste')
     await click(button('Restaurar configuração anterior'))
     expect(calls.find((c) => c.cmd === 'plan_smart_pack_switch')!.args).toEqual({ appId: '200260', packId: BASE })
+    m.unmount()
+  })
+
+  it('um novo teste ignora o resultado antigo e cancelamento não cria avaliação', async () => {
+    const m = mount(<SmartPacksPanel appId="200260" />)
+    await flush(80)
+    await act(async () => {
+      await emit('frx://capture', { state: 'completed', plan: { appId: '200260', gameName: 'Batman' }, sessionId: 's-old' })
+    })
+    await click(button('Testar desempenho'))
+    expect(calls.some((c) => c.cmd === 'evaluate_benchmark_session')).toBe(false)
+    await act(async () => {
+      await emit('frx://capture', { state: 'cancelled', plan: { appId: '200260' }, sessionId: null, message: 'Captura descartada por você.' })
+    })
+    await flush()
+    expect(text()).toContain('Captura descartada por você.')
+    expect(calls.some((c) => c.cmd === 'evaluate_benchmark_session')).toBe(false)
+    m.unmount()
+  })
+
+  it('falha de avaliação no Performance Lab aparece e pode ser repetida', async () => {
+    evaluationFailure = 'Histórico indisponível'
+    const m = mount(<SessionPackResult meta={meta('s-new', 55)} />)
+    await flush(80)
+    expect(text()).toContain('Histórico indisponível')
+    expect(text()).not.toContain('Regressão observada')
+    evaluationFailure = null
+    await click(button('Tentar avaliação de novo'))
+    await flush(80)
+    expect(text()).toContain('Indício de regressão')
+    expect(calls.filter((c) => c.cmd === 'evaluate_benchmark_session')).toHaveLength(2)
     m.unmount()
   })
 })

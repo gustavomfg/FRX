@@ -8,6 +8,7 @@ import { Segmented, Select, Toggle } from '@/components/ui/Controls'
 import { Mascot } from '@/mascot/Mascot'
 import type { Pose } from '@/mascot/sprites'
 import { usePerformance } from '@/state/performance'
+import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { useToast } from '@/state/store'
 import { openExternal } from '@/services/opener'
 import { isTauri } from '@/services/platform'
@@ -96,6 +97,7 @@ export function CaptureFlow({
   onViewSession,
   preset,
   intro,
+  expectedPackId,
 }: {
   open: boolean
   onClose: () => void
@@ -106,6 +108,7 @@ export function CaptureFlow({
   preset?: Partial<FormValues>
   /** Texto extra no topo do formulário. */
   intro?: string
+  expectedPackId?: string
 }) {
   const perf = usePerformance()
   const toast = useToast()
@@ -113,10 +116,11 @@ export function CaptureFlow({
   const state: CaptureState = status?.state ?? 'idle'
   const [form, setForm] = useState<FormValues>(emptyForm(defaultAppId))
   const [dur, setDur] = useState('60')
-  const [start, setStart] = useState<StartMode>('auto')
+  const [start, setStart] = useState<StartMode>(intro ? 'manual' : 'auto')
   const [delay, setDelay] = useState('20')
   const [hud, setHud] = useState(true)
   const [busy, setBusy] = useState(false)
+  const [setup, setSetup] = useState<ApplyTarget | null>(null)
 
   useEffect(() => {
     if (open && (state === 'idle' || state === 'cancelled' || state === 'failed' || state === 'completed')) setForm((f) => (preset ? { ...emptyForm(defaultAppId), ...preset } : { ...f, appId: f.appId || defaultAppId }))
@@ -147,6 +151,7 @@ export function CaptureFlow({
       start,
       startDelayS: Math.max(1, Math.min(600, Number(delay) || 20)),
       showHud: hud,
+      expectedPackId: expectedPackId ?? null,
       input: { label: form.label || null, notes: form.notes || null, conditions: toConditions(form) },
     })
     setBusy(false)
@@ -179,7 +184,7 @@ export function CaptureFlow({
               Cancelar
             </Button>
             <Button variant="primary" icon={<Play className="size-4" />} onClick={() => void perf.start()}>
-              Já colei — aguardar o jogo
+              {plan?.launchOptionsReady ? 'Aguardar o jogo' : 'Já colei — aguardar o jogo'}
             </Button>
           </>
         )
@@ -245,8 +250,9 @@ export function CaptureFlow({
   })()
 
   return (
+    <>
     <Dialog
-      open={open}
+      open={open && !setup}
       onClose={onClose}
       width={680}
       title={fresh ? 'Nova sessão de benchmark' : CAPTURE_LABEL[state]}
@@ -269,6 +275,7 @@ export function CaptureFlow({
                 hideLabel
                 className="[&_select]:h-9 [&_select]:w-full [&>div]:w-full"
                 value={form.appId || (games[0]?.id ?? '')}
+                disabled={!!expectedPackId}
                 onChange={(v) => setForm({ ...form, appId: v })}
                 options={games.map((g) => ({ value: g.id, label: g.title }))}
               />
@@ -308,7 +315,7 @@ export function CaptureFlow({
             label="Mostrar o HUD do MangoHud durante a captura"
             description={
               hud
-                ? 'Recomendado: o próprio MangoHud inicia a gravação no tempo escolhido.'
+                ? start === 'manual' ? 'HUD visível. Inicie a gravação ao chegar ao trecho jogável.' : 'O próprio MangoHud inicia a gravação no tempo escolhido.'
                 : start === 'auto'
                   ? 'Com o HUD oculto, o MangoHud não inicia sozinho: o FRX inicia a gravação pelo socket de controle quando o jogo conectar.'
                   : 'O overlay fica oculto; só os dados são gravados.'
@@ -325,7 +332,14 @@ export function CaptureFlow({
 
       {state === 'checking_dependencies' && <p className="py-6 text-[13.5px] text-fg-2">Procurando o MangoHud, a camada Vulkan e as bibliotecas de 32/64 bits…</p>}
 
-      {state === 'ready' && plan && (
+      {state === 'ready' && plan?.launchOptionsReady && <p className="text-[13.5px] text-fg-2">MangoHud já configurado para este jogo. Clique em “Aguardar o jogo” e depois abra o jogo pela Steam. Repita o mesmo trecho e as mesmas configurações da referência.</p>}
+      {state === 'ready' && plan && !plan.launchOptionsReady && (
+        <div className="space-y-4">
+        <div className="space-y-2 text-[13px] text-fg-2">
+          <p>Para jogos Vulkan, o FRX pode preparar essas opções com backup. Feche o jogo e a Steam você mesmo e revise a prévia antes de confirmar.</p>
+          <Button variant="primary" onClick={() => setSetup({ kind: 'apply', recipeId: `frx.capture.${plan.appId}`, appId: plan.appId, title: 'Preparar MangoHud' })}>Configurar pelo FRX (Vulkan)</Button>
+        </div>
+        <details><summary className="cursor-pointer text-[13px] text-fg-3">Alternativa manual e Steam Flatpak</summary>
         <ol className="space-y-5 text-[13.5px]">
           <li>
             <p className="font-medium">1. Na Steam, abra as Propriedades de {plan.gameName} → Geral → Opções de inicialização.</p>
@@ -356,7 +370,7 @@ export function CaptureFlow({
           <li className="text-[12px] text-fg-3">
             Configuração do MangoHud só deste jogo: <code className="font-mono">{plan.configPath}</code>. Logs em <code className="font-mono">{plan.outputDir}</code>.
           </li>
-        </ol>
+        </ol></details></div>
       )}
 
       {(state === 'waiting_for_game' || state === 'recording' || state === 'processing') && (
@@ -392,7 +406,7 @@ export function CaptureFlow({
             {status?.interrupted && <span className="text-caution"> · captura interrompida</span>}
           </p>
           <p className="text-[12.5px] text-fg-3">
-            O config deste jogo voltou ao repouso: não grava sozinho. Quando terminar de testar, remova a linha das opções de inicialização na Steam.
+            A configuração deste jogo voltou ao repouso e não grava sozinha. Se preparou o MangoHud pelo FRX, pode desfazer essa preparação pelo Histórico após concluir os testes.
           </p>
         </div>
       )}
@@ -403,6 +417,8 @@ export function CaptureFlow({
         </p>
       )}
     </Dialog>
+    {setup && <ApplyFixDialog target={setup} onClose={() => { setSetup(null); void prepare() }} />}
+    </>
   )
 }
 

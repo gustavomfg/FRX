@@ -15,9 +15,9 @@ type Meta = { label: string; color: string; soft: string; pose: Pose }
 export const VERDICT: Record<EvalVerdict, Meta> = {
   improvement: { label: 'Melhoria observada', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)', pose: 'celebrate' },
   regression: { label: 'Regressão observada', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)', pose: 'worried' },
-  'no-difference': { label: 'Sem diferença significativa', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)', pose: 'observe' },
+  'no-difference': { label: 'Sem diferença relevante', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)', pose: 'observe' },
   inconclusive: { label: 'Resultado inconclusivo', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)', pose: 'confused' },
-  'not-comparable': { label: 'Resultado inconclusivo', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)', pose: 'confused' },
+  'not-comparable': { label: 'Não comparável', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)', pose: 'confused' },
   'no-baseline': { label: 'Aguardando baseline', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)', pose: 'prepare' },
   reference: { label: 'Referência registrada', color: 'var(--frx-info)', soft: 'var(--frx-info-soft)', pose: 'wave' },
 }
@@ -79,7 +79,7 @@ export function PackEvaluationCard({ e, onRestore, onRepeat, compact }: { e: Pac
         </div>
       </div>
       {e.deltas.length > 0 && !compact && (
-        <table className="mt-4 w-full text-[12.5px]">
+        <div className="mt-4 overflow-x-auto"><table className="w-full text-[12.5px]">
           <thead>
             <tr className="text-left text-fg-3">
               <th className="py-1 font-normal">Métrica</th>
@@ -96,14 +96,17 @@ export function PackEvaluationCard({ e, onRestore, onRepeat, compact }: { e: Pac
                 <td className="py-1.5 text-right text-fg-2">{num(d.before, d.unit)}</td>
                 <td className="py-1.5 text-right text-fg">{num(d.after, d.unit)}</td>
                 <td className="py-1.5 text-right" style={{ color: d.outcome === 'improvement' ? 'var(--frx-good)' : d.outcome === 'regression' ? 'var(--frx-bad)' : 'var(--frx-text-2)' }}>
-                  {signed(d.after - d.before)} ({signed(d.deltaPct)}%)
+                  {signed(d.after - d.before)} ({d.percentageAvailable === false ? 'percentual indisponível' : `${signed(d.deltaPct)}%`})
                 </td>
-                <td className="py-1.5 text-right text-fg-3">±{fmtNum(d.thresholdPct, 1)}%</td>
+                <td className="py-1.5 text-right text-fg-3">{d.percentageAvailable === false ? '—' : `±${fmtNum(d.thresholdPct, 1)}%`}</td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       )}
+      {e.conditions && <p className="mt-3 text-[12px] text-fg-3">
+        Condições registradas: {[e.conditions.gpu, e.conditions.cpu, e.conditions.proton, e.conditions.driver, e.conditions.resolution, e.conditions.preset, e.conditions.fpsLimit && `Limite: ${e.conditions.fpsLimit}`, e.conditions.vsync != null && `VSync ${e.conditions.vsync ? 'ligado' : 'desligado'}`].filter(Boolean).join(' · ') || 'não informadas'}. Evidência local a esta configuração.
+      </p>}
       <div className="mt-4 space-y-1 text-[12.5px]">
         {e.nextStep && (
           <p className="flex items-start gap-2 text-fg-2">
@@ -170,6 +173,8 @@ export function PackTestDialog({
   onCapture,
   onOpenCapture,
   onContinue,
+  evaluationError,
+  onRetryEvaluation,
 }: {
   pack: SmartPack
   report: SmartPackReport
@@ -183,6 +188,8 @@ export function PackTestDialog({
   onCapture: () => void
   onOpenCapture: () => void
   onContinue: () => void
+  evaluationError?: string | null
+  onRetryEvaluation?: () => void
 }) {
   const isBase = pack.kind === 'baseline'
   const base = baselineCount(report)
@@ -329,6 +336,12 @@ export function PackTestDialog({
           </li>
         ))}
       </ol>
+      {evaluationError && <div role="alert" className="mb-4 text-[13px] text-bad">
+        <p>Não foi possível avaliar a sessão: {evaluationError}</p>
+        <Button variant="outline" size="sm" onClick={onRetryEvaluation}>Tentar avaliação de novo</Button>
+      </div>}
+      {capture && ['failed', 'cancelled'].includes(capture.state) && <p role="status" className="mb-4 text-[13px] text-fg-2">{capture.message ?? 'Captura cancelada. Nenhum resultado foi registrado.'} Prepare uma nova captura para repetir o teste.</p>}
+      {result && result.packId && result.packId !== pack.id && result.verdict !== 'reference' && <p role="alert" className="mb-4 text-[13px] text-caution">A sessão foi registrada com uma configuração diferente do pacote escolhido. Confira o histórico, ative o pacote esperado e reabra o jogo antes de repetir.</p>}
       <div className="text-[13.5px] text-fg-2">{body}</div>
     </Dialog>
   )
