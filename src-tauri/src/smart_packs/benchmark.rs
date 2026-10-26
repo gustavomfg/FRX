@@ -81,6 +81,14 @@ pub fn snapshot(engine: &FixEngine, app_id: &str) -> PackSnapshot {
     }
 }
 
+/// Fim da captura assistida: registra as correções ativas e o Smart Pack
+/// equivalente, conferidos no disco agora. É o que associa a sessão ao pacote
+/// sem nenhuma ação do usuário.
+pub fn tag_assisted(engine: &FixEngine, app_id: &str, meta: &mut SessionMeta) {
+    meta.active_fixes = Some(engine.active_for(app_id));
+    meta.smart_pack = Some(snapshot(engine, app_id));
+}
+
 /// Configuração de uma sessão: snapshot do Smart Pack, ou as correções ativas
 /// registradas desde a v0.4 (`active_fixes`). `None` = desconhecida.
 pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnapshot> {

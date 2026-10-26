@@ -35,6 +35,7 @@ use crate::performance::models::{QualityLevel, SessionMeta};
 pub struct MetricDef {
     pub key: &'static str,
     pub label: &'static str,
+    pub unit: &'static str,
     pub higher_better: bool,
     pub floor: f64,
 }
@@ -43,30 +44,35 @@ pub const METRICS: &[MetricDef] = &[
     MetricDef {
         key: "fpsAvg",
         label: "FPS médio",
+        unit: "FPS",
         higher_better: true,
         floor: 3.0,
     },
     MetricDef {
         key: "fpsLow1",
         label: "1% low",
+        unit: "FPS",
         higher_better: true,
         floor: 5.0,
     },
     MetricDef {
         key: "fpsLow01",
         label: "0,1% low",
+        unit: "FPS",
         higher_better: true,
         floor: 8.0,
     },
     MetricDef {
         key: "ftP99",
         label: "Frametime P99",
+        unit: "ms",
         higher_better: false,
         floor: 5.0,
     },
     MetricDef {
         key: "spikesPerMin",
         label: "Picos por minuto",
+        unit: "/min",
         higher_better: false,
         floor: 20.0,
     },
@@ -282,6 +288,9 @@ pub fn delta(
         threshold_pct: threshold,
         outcome,
         limited,
+        before: base.median,
+        after: pack.median,
+        unit: def.unit.into(),
     })
 }
 

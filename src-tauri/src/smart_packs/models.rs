@@ -280,6 +280,13 @@ pub struct MetricDelta {
     pub outcome: Outcome,
     /// Poucas sessões: tratar como indicativo.
     pub limited: bool,
+    /// Medianas comparadas (referência e pacote), na unidade da métrica.
+    #[serde(default)]
+    pub before: f64,
+    #[serde(default)]
+    pub after: f64,
+    #[serde(default)]
+    pub unit: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -427,7 +434,53 @@ pub struct SmartPackReport {
     pub current_pack_id: Option<String>,
     pub current_note: String,
     pub windows: Option<WindowsReference>,
+    /// Última avaliação de cada pacote com sessão registrada.
+    pub evaluations: Vec<PackEvaluation>,
     pub notes: Vec<String>,
+}
+
+/// Conclusão do teste de um pacote, a partir de uma sessão.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum EvalVerdict {
+    Improvement,
+    Regression,
+    NoDifference,
+    Inconclusive,
+    /// Condições diferentes da referência, qualidade insuficiente ou configuração desconhecida.
+    NotComparable,
+    /// Ainda não há baseline medido para comparar.
+    NoBaseline,
+    /// A sessão é do próprio baseline.
+    Reference,
+}
+
+/// Avaliação automática de um pacote depois de uma captura.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct PackEvaluation {
+    pub app_id: String,
+    pub pack_id: String,
+    pub pack_name: String,
+    pub session_id: String,
+    pub session_label: String,
+    pub captured_at: Option<String>,
+    pub verdict: EvalVerdict,
+    /// Menos de 2 sessões comparáveis de algum lado: resultado preliminar.
+    pub preliminary: bool,
+    pub headline: String,
+    pub summary: String,
+    pub deltas: Vec<MetricDelta>,
+    pub baseline_sessions: usize,
+    pub pack_sessions: usize,
+    pub limitations: Vec<String>,
+    /// Próximo passo sugerido (repetir, capturar baseline…).
+    pub next_step: Option<String>,
+    /// O que este resultado muda no ranking.
+    pub ranking_effect: String,
+    pub baseline_id: String,
+    /// Configuração do FRX ativa agora neste jogo (para oferecer restaurar).
+    pub current_pack_id: Option<String>,
 }
 
 /// Comparação direta entre dois pacotes (mesma metodologia do ranking).

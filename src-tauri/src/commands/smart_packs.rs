@@ -118,3 +118,15 @@ pub async fn declare_benchmark_pack(
     })
     .await
 }
+
+/// Avalia automaticamente uma sessão (ex.: a que acabou de ser capturada)
+/// contra o baseline do jogo: melhoria, regressão, sem diferença ou
+/// inconclusivo, com a indicação de preliminar quando há poucas sessões.
+#[tauri::command]
+pub async fn evaluate_benchmark_session(
+    ctx: State<'_, AppCtx>,
+    session_id: String,
+) -> Result<PackEvaluation, String> {
+    let (engine, store) = (ctx.engine.clone(), ctx.perf.store.clone());
+    blocking(move || smart_packs::evaluate_session(&engine, &store.list(), &session_id)).await
+}

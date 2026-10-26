@@ -58,9 +58,15 @@ fn measured_ok(r: Option<&(Outcome, Outcome)>) -> bool {
     r.is_some_and(|(avg, low)| *avg != Outcome::Regression && *low != Outcome::Regression)
 }
 
+/// Medição local (mesmo preliminar) indicou regressão: não combina até repetir.
+fn regressed(r: Option<&(Outcome, Outcome)>) -> bool {
+    r.is_some_and(|(avg, low)| *avg == Outcome::Regression || *low == Outcome::Regression)
+}
+
 pub fn eligible(u: &Unit, single: Option<&(Outcome, Outcome)>) -> bool {
     u.perf != PerfHint::FrameCap
         && !u.already_included
+        && !regressed(single)
         && (strong(u.evidence) || measured_ok(single))
 }
 

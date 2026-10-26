@@ -750,3 +750,157 @@ fn old_session_json_without_smart_pack_still_loads() {
     assert!(back.smart_pack.is_none());
     let _ = BTreeMap::<String, ()>::new();
 }
+
+// ── Avaliação automática: cenário de aceitação do Batman ─────────────────
+//
+// FIXTURE da observação informal do usuário (não é benchmark registrado):
+// baseline com FPS típico entre 90 e 100; `PROTON_NO_D3D11=1` com FPS
+// frequentemente abaixo de 60.
+
+mod acceptance {
+    use super::*;
+    use crate::smart_packs::evaluation::{evaluate, Ctx};
+
+    /// Sessão sintética com variação por segundo realista (desvio de 25 FPS).
+    fn obs(id: &str, e: &[EnvPair], avg: f64, low1: f64) -> SessionMeta {
+        let mut m = synthetic(id, e, avg, low1, 1000.0 / low1);
+        m.stats.stability.per_second_fps_stdev = Some(25.0);
+        m
+    }
+
+    fn eval(sessions: &[SessionMeta], id: &str) -> PackEvaluation {
+        let w = world(sessions.to_vec());
+        let g = group(APP, sessions, |m| m.smart_pack.clone(), &baseline_id(APP));
+        let metas: HashMap<&str, &SessionMeta> =
+            sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+        let name_of = |pid: &str| w.packs.iter().find(|p| p.id == pid).map(|p| p.name.clone());
+        let ctx = Ctx {
+            app_id: APP,
+            baseline_id: &baseline_id(APP),
+            grouped: &g,
+            metas: &metas,
+            name_of: &name_of,
+        };
+        let m = sessions.iter().find(|m| m.id == id).unwrap();
+        evaluate(&ctx, m, m.smart_pack.as_ref())
+    }
+
+    #[test]
+    fn one_capture_each_gives_a_preliminary_regression_with_absolute_and_relative_values() {
+        let s = vec![obs("b1", &[], 95.0, 70.0), obs("d1", &d3d11(), 55.0, 38.0)];
+        let e = eval(&s, "synthetic-d1");
+        assert_eq!(e.verdict, EvalVerdict::Regression);
+        assert!(e.preliminary, "uma captura não comprova regressão");
+        assert_eq!(
+            e.headline,
+            "Indício de regressão — recomendado repetir o teste"
+        );
+        assert_eq!(
+            e.pack_name, "gen.200260.aaaaaaaaaaaaaaaa",
+            "nome do pacote de uma receita"
+        );
+        let avg = e.deltas.iter().find(|d| d.metric == "fpsAvg").unwrap();
+        assert_eq!(
+            (avg.before, avg.after, avg.unit.as_str()),
+            (95.0, 55.0, "FPS")
+        );
+        assert!((avg.delta_pct - (55.0 - 95.0) / 95.0 * 100.0).abs() < 1e-9);
+        // Limiar preliminar = variação natural dentro das sessões (2·25/√60 ≈ 6,5% de 95; combinada ≈ 13,4%).
+        assert!(
+            avg.threshold_pct > 3.0 && avg.threshold_pct < 20.0,
+            "{}",
+            avg.threshold_pct
+        );
+        assert!(e.summary.contains("FPS médio 95,0 → 55,0 FPS (−42,1%"));
+        assert!(e
+            .next_step
+            .as_deref()
+            .unwrap()
+            .contains("faltam 1 sessão(ões) do baseline e 1 do pacote"));
+        assert!(e.limitations.iter().any(|l| l.contains("mesmo trecho")));
+        assert!(e.ranking_effect.starts_with("Preliminar"));
+        // Ranking: não sobe, não é vencedor, fica marcado no fim dos candidatos.
+        let r = ranked(&world(s.clone()), Profile::Performance);
+        let entry = entry(&r, &d3d11());
+        assert_eq!(entry.tier, Tier::Candidate);
+        assert_eq!(
+            entry.headline,
+            "Regressão indicativa — repita para confirmar"
+        );
+        assert!(r.winner.is_none());
+    }
+
+    #[test]
+    fn repeated_captures_prove_the_regression_and_move_it_to_not_recommended() {
+        let s = vec![
+            obs("b1", &[], 95.0, 70.0),
+            obs("b2", &[], 92.0, 68.0),
+            obs("d1", &d3d11(), 55.0, 38.0),
+            obs("d2", &d3d11(), 58.0, 40.0),
+        ];
+        let e = eval(&s, "synthetic-d2");
+        assert_eq!((e.verdict, e.preliminary), (EvalVerdict::Regression, false));
+        assert_eq!(e.headline, "Regressão de desempenho medida");
+        assert!(e.ranking_effect.contains("não recomendados"));
+        for profile in [Profile::Performance, Profile::Balanced] {
+            let r = ranked(&world(s.clone()), profile);
+            assert_eq!(
+                entry(&r, &d3d11()).tier,
+                Tier::NotRecommended,
+                "{profile:?}"
+            );
+            assert!(r.winner.is_none());
+        }
+    }
+
+    #[test]
+    fn other_outcomes_are_named_honestly() {
+        // Referência.
+        let s = vec![obs("b1", &[], 95.0, 70.0)];
+        let e = eval(&s, "synthetic-b1");
+        assert_eq!(e.verdict, EvalVerdict::Reference);
+        assert!(e.next_step.is_some());
+        // Sem baseline.
+        let s = vec![obs("d1", &d3d11(), 55.0, 38.0)];
+        assert_eq!(eval(&s, "synthetic-d1").verdict, EvalVerdict::NoBaseline);
+        // Condições diferentes: não dá para determinar.
+        let mut other = obs("d1", &d3d11(), 55.0, 38.0);
+        other.conditions.resolution = Some("2560x1440".into());
+        let s = vec![obs("b1", &[], 95.0, 70.0), other];
+        let e = eval(&s, "synthetic-d1");
+        assert_eq!(e.verdict, EvalVerdict::NotComparable);
+        assert_eq!(e.headline, "Não foi possível determinar a diferença");
+        // Dentro da variação: sem diferença (preliminar).
+        let s = vec![obs("b1", &[], 95.0, 70.0), obs("d1", &d3d11(), 94.0, 69.0)];
+        let e = eval(&s, "synthetic-d1");
+        assert_eq!(e.verdict, EvalVerdict::NoDifference);
+        assert_eq!(
+            e.headline,
+            "Sem diferença significativa detectada (preliminar)"
+        );
+        // Sinais mistos: inconclusivo.
+        let s = vec![obs("b1", &[], 95.0, 40.0), obs("d1", &d3d11(), 60.0, 70.0)];
+        assert_eq!(eval(&s, "synthetic-d1").verdict, EvalVerdict::Inconclusive);
+        // Configuração desconhecida.
+        let mut old = obs("old", &[], 95.0, 70.0);
+        old.smart_pack = None;
+        assert_eq!(
+            eval(&[old], "synthetic-old").verdict,
+            EvalVerdict::NotComparable
+        );
+    }
+
+    #[test]
+    fn preliminary_regression_blocks_combinations_until_repeated() {
+        let strong = unit("a", &[("PROTON_NO_ESYNC", "1")], EvidenceLevel::Documented);
+        let other = unit(
+            "b",
+            &[("PROTON_HEAP_DELAY_FREE", "1")],
+            EvidenceLevel::Documented,
+        );
+        let mut singles = SingleResults::new();
+        singles.insert("a".into(), (Outcome::Regression, Outcome::NoDifference));
+        let c = compose(APP, &[strong, other], &singles, Limits::default());
+        assert!(c.packs.iter().all(|p| p.kind != PackKind::Combination));
+    }
+}

@@ -24,6 +24,7 @@ pub mod benchmark;
 pub mod composition;
 pub mod conflicts;
 pub mod discovery;
+pub mod evaluation;
 pub mod evidence;
 pub mod lifecycle;
 pub mod models;
@@ -93,9 +94,14 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     };
     let mut singles: SingleResults = HashMap::new();
     for u in &found.units {
-        if let Some(v) = vs_for(&u.env).filter(|v| !v.limited) {
+        if let Some(v) = vs_for(&u.env) {
             let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
-            singles.insert(u.recipe_id.clone(), (get("fpsAvg"), get("fpsLow1")));
+            let r = (get("fpsAvg"), get("fpsLow1"));
+            // Conclusivo sempre conta; preliminar só quando indica regressão
+            // (bloqueia combinações até ser repetido).
+            if !v.limited || r.0 == Outcome::Regression || r.1 == Outcome::Regression {
+                singles.insert(u.recipe_id.clone(), r);
+            }
         }
     }
     let composed = composition::compose(app, &found.units, &singles, i.limits);
@@ -145,7 +151,9 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
         "As correções do FRX ativas agora não correspondem a nenhum pacote composto (ex.: uma receita de diagnóstico).".to_owned()
     };
     let mut notes = composed.notes;
-    notes.extend(grouped.notes);
+    notes.extend(grouped.notes.clone());
+    let evaluations =
+        latest_evaluations(engine, app, i.sessions, &grouped, &metas, &base_id, &packs);
     Ok(SmartPackReport {
         app_id: app.to_owned(),
         game_name: i.game.name.clone(),
@@ -166,9 +174,90 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
         current_pack_id: Some(cur_id),
         current_note,
         windows: store.windows(app),
+        evaluations,
         packs,
         notes,
     })
+}
+
+fn name_lookup(packs: &[SmartPack]) -> impl Fn(&str) -> Option<String> + '_ {
+    move |id: &str| packs.iter().find(|p| p.id == id).map(|p| p.name.clone())
+}
+
+/// Avaliação da sessão comparável mais recente de cada configuração medida.
+fn latest_evaluations(
+    engine: &FixEngine,
+    app: &str,
+    sessions: &[SessionMeta],
+    grouped: &evidence::Grouped,
+    metas: &HashMap<&str, &SessionMeta>,
+    base_id: &str,
+    packs: &[SmartPack],
+) -> Vec<PackEvaluation> {
+    let name_of = name_lookup(packs);
+    let ctx = evaluation::Ctx {
+        app_id: app,
+        baseline_id: base_id,
+        grouped,
+        metas,
+        name_of: &name_of,
+    };
+    let mut out = Vec::new();
+    for m in grouped.measurements.values() {
+        let latest = m
+            .sessions
+            .iter()
+            .filter(|s| s.excluded.is_none())
+            .max_by(|a, b| a.captured_at.cmp(&b.captured_at).then(a.id.cmp(&b.id)));
+        if let Some(meta) = latest.and_then(|s| sessions.iter().find(|x| x.id == s.id)) {
+            let cfg = benchmark::session_config(engine, meta);
+            let mut e = evaluation::evaluate(&ctx, meta, cfg.as_ref());
+            e.current_pack_id = Some(pack_id(app, &current_env(engine, app).0));
+            out.push(e);
+        }
+    }
+    out
+}
+
+/// Avalia uma sessão (normalmente a que acabou de ser capturada) contra o
+/// baseline, com os pacotes compostos atuais para dar nome à configuração.
+pub fn evaluate_session(
+    engine: &FixEngine,
+    sessions: &[SessionMeta],
+    session_id: &str,
+) -> Result<PackEvaluation, String> {
+    let meta = sessions
+        .iter()
+        .find(|m| m.id == session_id)
+        .ok_or("Sessão não encontrada.")?;
+    let app = meta
+        .app_id
+        .clone()
+        .ok_or("A sessão não está associada a um jogo.")?;
+    let base_id = baseline_id(&app);
+    let grouped = evidence::group(
+        &app,
+        sessions,
+        |m| benchmark::session_config(engine, m),
+        &base_id,
+    );
+    let metas: HashMap<&str, &SessionMeta> = sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+    let stored: Vec<SmartPack> = store_for(engine)
+        .load(&app)
+        .map(|f| f.packs.into_iter().map(|s| s.pack).collect())
+        .unwrap_or_default();
+    let name_of = name_lookup(&stored);
+    let ctx = evaluation::Ctx {
+        app_id: &app,
+        baseline_id: &base_id,
+        grouped: &grouped,
+        metas: &metas,
+        name_of: &name_of,
+    };
+    let cfg = benchmark::session_config(engine, meta);
+    let mut e = evaluation::evaluate(&ctx, meta, cfg.as_ref());
+    e.current_pack_id = Some(pack_id(&app, &current_env(engine, &app).0));
+    Ok(e)
 }
 
 /// Receita composta de um Smart Pack. As receitas de origem são refeitas e

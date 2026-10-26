@@ -91,6 +91,7 @@ pub fn run() {
             commands::smart_packs::compare_smart_packs,
             commands::smart_packs::plan_smart_pack_switch,
             commands::smart_packs::declare_benchmark_pack,
+            commands::smart_packs::evaluate_benchmark_session,
             commands::fix_engine::check_fix_compatibility,
             commands::fix_engine::prepare_fix_plan,
             commands::fix_engine::apply_fix_plan,

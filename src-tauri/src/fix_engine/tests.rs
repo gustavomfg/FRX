@@ -1565,3 +1565,233 @@ fn real_smart_packs_end_to_end() {
         build(&sessions, Profile::Balanced).history.len()
     );
 }
+
+/// Teste de aceitação do "Testar desempenho" (Batman) **sem tocar na
+/// instalação**: cópia do localconfig.vdf real numa Steam em tempdir e
+/// logs MangoHud de FIXTURE gerados a partir da observação informal do
+/// usuário (referência ≈ 95 FPS; `PROTON_NO_D3D11=1` ≈ 55 FPS). Os logs
+/// passam pelo mesmo processamento e pela mesma associação da captura
+/// assistida (`tag_assisted`).
+/// `cargo test acceptance_test_performance_batman -- --ignored --nocapture`
+/// Com `FRX_E2E_STORE=<pasta>`, as sessões também são salvas ali (para
+/// validar a interface num ambiente isolado).
+#[test]
+#[ignore]
+fn acceptance_test_performance_batman() {
+    use crate::fix_engine::dynamic::tests::batman_no_d3d11;
+    use crate::performance::models::{Conditions, SessionInput, SessionMeta, SessionSource};
+    use crate::performance::parser::fixtures::per_frame;
+    use crate::performance::{process, ProcessArgs};
+    use crate::smart_packs::models::*;
+    use crate::smart_packs::{self, benchmark, BuildInput};
+
+    let home = PathBuf::from(std::env::var("HOME").unwrap());
+    let fx = fixture();
+    let real_cfg = localconfig::path_for(&home.join(".local/share/Steam"))
+        .unwrap()
+        .1;
+    let original = std::fs::read(&real_cfg).unwrap();
+    std::fs::write(&fx.config, &original).unwrap();
+    let e = fx.engine();
+    let g = GameCtx {
+        findings: vec![batman_no_d3d11()],
+        ..fx.game()
+    };
+    let out = std::env::var_os("FRX_E2E_STORE").map(crate::performance::persistence::Store::new);
+
+    // Log de FIXTURE: 60 s de quadros com oscilação e alguns picos.
+    let log = |fps: f64, seed: f64| {
+        let mut fts = Vec::new();
+        let (mut t, mut i) = (0.0, 0usize);
+        while t < 60_000.0 {
+            let wobble = 1.0
+                + 0.08 * ((i as f64 / 37.0) + seed).sin()
+                + 0.05 * ((i as f64 / 5.0) * seed).cos();
+            let mut ft = 1000.0 / fps * wobble;
+            if i % 400 == 17 {
+                ft *= 2.6;
+            }
+            fts.push(ft);
+            t += ft;
+            i += 1;
+        }
+        per_frame(&fts, 97.0)
+    };
+    let conditions = Conditions {
+        resolution: Some("1920x1080".into()),
+        preset: Some("Alto".into()),
+        vsync: Some(false),
+        gpu: Some("NVIDIA GeForce RTX 4060".into()),
+        ..Default::default()
+    };
+    let mut sessions: Vec<SessionMeta> = Vec::new();
+    let capture = |label: &str, fps: f64, seed: f64, sessions: &mut Vec<SessionMeta>| {
+        let raw = log(fps, seed);
+        let mut s = process(
+            raw.as_bytes(),
+            ProcessArgs {
+                input: SessionInput {
+                    app_id: Some("200260".into()),
+                    game_name: Some("Batman: Arkham City GOTY".into()),
+                    label: Some(format!("FIXTURE · {label}")),
+                    notes: Some(
+                        "Gerada a partir da observação informal do usuário; não é benchmark real."
+                            .into(),
+                    ),
+                    conditions: conditions.clone(),
+                },
+                source: Some(SessionSource::Assisted),
+                original_path: None,
+                known: conditions.clone(),
+            },
+        )
+        .unwrap();
+        s.meta.id = format!("s-fixture-{}", sessions.len());
+        s.meta.created_at = format!("2026-10-26T22:0{}:00Z", sessions.len());
+        benchmark::tag_assisted(&e, "200260", &mut s.meta);
+        if let Some(st) = &out {
+            st.save(&s, raw.as_bytes()).unwrap();
+        }
+        sessions.push(s.meta.clone());
+        s.meta.id
+    };
+    let report = |sessions: &[SessionMeta], profile| {
+        smart_packs::build(
+            &e,
+            BuildInput {
+                game: &g,
+                sessions,
+                profile,
+                limits: Limits::default(),
+                launch_line: fx.line(),
+            },
+        )
+        .unwrap()
+    };
+    let show = |ev: &PackEvaluation| {
+        println!(
+            "  [{:?}{}] {}",
+            ev.verdict,
+            if ev.preliminary { " · preliminar" } else { "" },
+            ev.headline
+        );
+        println!("    {}", ev.summary);
+        if let Some(n) = &ev.next_step {
+            println!("    próximo passo: {n}");
+        }
+        println!("    ranking: {}", ev.ranking_effect);
+    };
+
+    // 1. Referência (configuração normal).
+    let r = report(&sessions, Profile::Performance);
+    let pack = r
+        .packs
+        .iter()
+        .find(|p| p.env.len() == 1 && p.env[0].key == "PROTON_NO_D3D11")
+        .cloned()
+        .unwrap();
+    let b1 = capture("referência 1", 95.0, 0.3, &mut sessions);
+    let ev = smart_packs::evaluate_session(&e, &sessions, &b1).unwrap();
+    println!("Captura da referência:");
+    show(&ev);
+    assert_eq!(ev.verdict, EvalVerdict::Reference);
+
+    // 2. Aplica o pacote (prévia → confirmação) e captura.
+    let p = e
+        .prepare(pack.apply_recipe_id.as_deref().unwrap(), &g)
+        .unwrap();
+    let op = e.apply(&p.plan_id, &p.fingerprint, &g, &noop).unwrap();
+    assert_eq!(op.state, OpState::Applied);
+    let d1 = capture("PROTON_NO_D3D11 1", 55.0, 1.1, &mut sessions);
+    let m = sessions.iter().find(|s| s.id == d1).unwrap();
+    assert_eq!(
+        m.smart_pack.as_ref().unwrap().pack_id,
+        pack.id,
+        "associada sozinha ao pack ativo"
+    );
+    let ev = smart_packs::evaluate_session(&e, &sessions, &d1).unwrap();
+    println!("\nPrimeira captura com o pacote:");
+    show(&ev);
+    assert_eq!(
+        (ev.verdict, ev.preliminary),
+        (EvalVerdict::Regression, true)
+    );
+    assert_eq!(
+        ev.current_pack_id.as_deref(),
+        Some(pack.id.as_str()),
+        "oferece restaurar"
+    );
+    let r = report(&sessions, Profile::Performance);
+    let en = r
+        .ranking
+        .entries
+        .iter()
+        .find(|x| x.pack_id == pack.id)
+        .unwrap();
+    println!("  ranking: [{:?}] {}", en.tier, en.headline);
+    assert_eq!(
+        en.tier,
+        Tier::Candidate,
+        "uma captura não comprova a regressão"
+    );
+
+    // 3. Repetição: pacote ainda ativo; depois restaura e repete a referência.
+    let d2 = capture("PROTON_NO_D3D11 2", 57.0, 2.3, &mut sessions);
+    let sw = smart_packs::switch_plan(&e, "200260", &r.packs[0]);
+    println!(
+        "\nRestaurar: remove {:?} em {} passo(s)",
+        sw.remove
+            .iter()
+            .map(|x| format!("{}={}", x.key, x.value))
+            .collect::<Vec<_>>(),
+        sw.steps.len()
+    );
+    let rb = e.prepare_rollback(&op.id).unwrap();
+    assert_eq!(
+        e.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state,
+        OpState::RolledBack
+    );
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        original,
+        "configuração anterior restaurada byte a byte"
+    );
+    let b2 = capture("referência 2", 92.0, 4.7, &mut sessions);
+    assert_eq!(
+        sessions
+            .iter()
+            .find(|s| s.id == b2)
+            .unwrap()
+            .smart_pack
+            .as_ref()
+            .unwrap()
+            .pack_id,
+        r.baseline_id
+    );
+    let ev = smart_packs::evaluate_session(&e, &sessions, &d2).unwrap();
+    println!("\nCom 2 × 2 capturas:");
+    show(&ev);
+    for d in &ev.deltas {
+        println!(
+            "    {:<18} {:>7.1} → {:>7.1} {:<4} ({:+.1}%, limiar ±{:.1}%) {:?}",
+            d.label, d.before, d.after, d.unit, d.delta_pct, d.threshold_pct, d.outcome
+        );
+    }
+    assert_eq!(
+        (ev.verdict, ev.preliminary),
+        (EvalVerdict::Regression, false)
+    );
+    for profile in [Profile::Performance, Profile::Balanced] {
+        let r = report(&sessions, profile);
+        let en = r
+            .ranking
+            .entries
+            .iter()
+            .find(|x| x.pack_id == pack.id)
+            .unwrap();
+        println!("  ranking {:?}: [{:?}] {}", profile, en.tier, en.headline);
+        assert_eq!(en.tier, Tier::NotRecommended);
+        assert!(r.ranking.winner.is_none());
+    }
+    let _ = d1;
+}

@@ -543,9 +543,8 @@ async fn monitor(
                 let result = tauri::async_runtime::spawn_blocking(move || {
                     let raw = performance::read_log_file(&path)?;
                     let mut session = performance::process(&raw, ProcessArgs { input, source: Some(SessionSource::Assisted), original_path: Some(path.to_string_lossy().into_owned()), known })?;
-                    // Correções do FRX confirmadas no disco no fim da captura.
-                    session.meta.active_fixes = Some(engine.active_for(&app_id));
-                    session.meta.smart_pack = Some(crate::smart_packs::benchmark::snapshot(&engine, &app_id));
+                    // Correções do FRX confirmadas no disco no fim da captura (associação automática ao Smart Pack).
+                    crate::smart_packs::benchmark::tag_assisted(&engine, &app_id, &mut session.meta);
                     if interrupted {
                         session.meta.quality.issues.push(Issue::new(Severity::Warning, "interrupted", "A captura foi interrompida antes do fim planejado; a duração pode ser menor que a escolhida."));
                         if session.meta.quality.level == QualityLevel::Good {
