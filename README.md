@@ -8,9 +8,9 @@
 
 **FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
 
-**Versão 0.3.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções conhecidas e mede o desempenho com logs reais do **MangoHud**. O Performance Lab importa CSVs, prepara capturas por jogo, guarda o histórico e compara sessões. Nenhuma correção é aplicada, nenhum script de terceiros é executado e nenhum arquivo da Steam, de prefixo ou de jogo é modificado.
+**Versão 0.4.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções conhecidas, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine** — receitas revisadas do catálogo local ou **geradas automaticamente** a partir das descobertas, quando o FRX reconhece e valida uma ação suportada: prévia calculada no Rust, backup verificado, gravação atômica, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros.
 
-> Aplicar e reverter Fix Packs continuam **demonstrativos**. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo com dados fictícios. No desktop, o Performance Lab usa exclusivamente os logs importados ou capturados; as duas fontes de dados nunca se misturam.
+> O gerador dinâmico transforma descobertas em receitas sem cadastro manual quando a ação é uma variável de ambiente conhecida e reversível. Winetricks, DLLs, registro, arquivos do jogo e programas extras ficam como “requer validação adicional”, com o motivo. Nenhum script de terceiros é executado, nada é baixado para execução e nada pede sudo. Com a Steam aberta, o FRX não grava nada: mostra a linha para você colar e confere depois. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo, com dados fictícios e aplicação simulada. As duas fontes de dados nunca se misturam.
 
 ## Prévia
 
@@ -58,10 +58,10 @@ Onde ficam os artefatos:
 
 ```
 src-tauri/target/release/frx                                   binário
-src-tauri/target/release/bundle/appimage/FRX_0.3.0_amd64.AppImage
-src-tauri/target/release/bundle/deb/FRX_0.3.0_amd64.deb
-src-tauri/target/release/bundle/rpm/FRX-0.3.0-1.x86_64.rpm
-packaging/arch/frx-bin-0.3.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
+src-tauri/target/release/bundle/appimage/FRX_0.4.0_amd64.AppImage
+src-tauri/target/release/bundle/deb/FRX_0.4.0_amd64.deb
+src-tauri/target/release/bundle/rpm/FRX-0.4.0-1.x86_64.rpm
+packaging/arch/frx-bin-0.4.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
 ```
 
 Na build de release, a interface (`dist/`) é **embutida no binário** e servida pelo protocolo interno do Tauri. Não é preciso um servidor Vite. O Vite só é usado em `npm run dev`, pela `devUrl` `http://localhost:1420`.
@@ -90,10 +90,16 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 | `import_benchmark`, `list_benchmark_sessions`, `get_benchmark_session` | Importação, histórico persistente e séries temporais |
 | `compare_benchmark_sessions`, `update_benchmark_session`, `delete_benchmark_session`, `export_benchmark_session` | Comparação e gerenciamento de sessões |
 | `prepare_benchmark`, `start_capture`, `get_capture_status`, `capture_logging`, `finish_capture`, `cancel_capture`, `reset_capture` | Captura assistida e controle do MangoHud |
+| `get_fix_engine_status`, `list_fix_recipes`, `get_fix_recipe`, `check_fix_compatibility` | Catálogo local e compatibilidade (somente leitura) |
+| `analyze_fix_findings` | Gerador dinâmico: categoria, motivo e receita gerada de cada descoberta (não grava no jogo) |
+| `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack` | Smart Packs: composição, ranking por perfil, comparação, troca passo a passo e declaração de sessões antigas |
+| `prepare_fix_plan`, `apply_fix_plan` | Prévia (dry-run) e aplicação do plano confirmado: só `planId` + `fingerprint` |
+| `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | Histórico, estado real conferido no disco e passos manuais |
+| `prepare_fix_rollback`, `rollback_fix` | Prévia e execução do rollback |
 
-- **TypeScript:** `src/services/{games,fixes,performance,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/{library,fixes,performance}.tsx`; a captura continua ao navegar entre páginas.
-- **Tipos:** os modelos do Rust estão espelhados em `src/types/{steam,fixes,performance}.ts`.
-- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri, os diálogos nativos de abrir/salvar e o `opener` para os domínios das fontes e `steam://rungameid/*`. O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
+- **TypeScript:** `src/services/{games,fixes,fixEngine,performance,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/{library,fixes,fixEngine,performance}.tsx`; a captura continua ao navegar entre páginas, e o progresso do Fix Engine chega pelo evento `fix-engine://progress`.
+- **Tipos:** os modelos do Rust estão espelhados em `src/types/{steam,fixes,fixEngine,performance}.ts`.
+- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri, os diálogos nativos de abrir/salvar e o `opener` para os domínios das fontes e `steam://rungameid/*`. Não há plugin de sistema de arquivos nem API genérica de escrita: toda escrita passa pelos comandos do Fix Engine. O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
 
 ## Performance Lab: primeiro benchmark
 
@@ -101,7 +107,7 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 2. Abra a **Biblioteca**, selecione um jogo e clique em **Medir desempenho**, ou acesse **Performance Lab** pela barra lateral.
 3. Para um CSV já existente, escolha **Importar benchmark**, selecione o log principal do MangoHud (não o `_summary.csv`), confira o jogo e as condições e confirme a importação.
 4. Com o jogo fechado, clique em **Nova sessão**. Escolha jogo, duração, início automático ou manual, HUD e condições do teste. Clique em **Preparar sessão**. Se mudar a duração ou o HUD entre sessões, reabra o jogo para carregar a nova configuração.
-5. Na Steam, abra **Propriedades → Geral → Opções de inicialização** do jogo. Confira e cole a linha mostrada pelo FRX. **O FRX não altera essas opções.** Variáveis, aspas e wrappers comuns, como `gamescope`, são preservados. Linhas com operadores de shell ou substituição de comandos são recusadas em vez de reescritas; nesse caso, use a importação manual.
+5. Na Steam, abra **Propriedades → Geral → Opções de inicialização** do jogo. Confira e cole a linha mostrada pelo FRX. **O Performance Lab não altera essas opções.** Variáveis, aspas e wrappers comuns, como `gamescope`, são preservados. Linhas com operadores de shell ou substituição de comandos são recusadas em vez de reescritas; nesse caso, use a importação manual.
 6. Clique em **Já colei — aguardar o jogo** e abra o jogo. No modo automático, espere o atraso configurado. No manual, use **Iniciar gravação agora** ou `Shift esquerdo + F2` no jogo. Com o HUD oculto, o início automático depende da conexão ao socket do MangoHud.
 7. Ao terminar, o FRX processa o CSV e salva a sessão. **Parar e analisar** encerra antecipadamente pelo socket; **Descartar** para a gravação e não salva uma sessão. Se o jogo fechar durante a captura, os dados disponíveis são analisados com aviso de interrupção.
 8. No histórico, marque duas sessões diferentes como **Antes** e **Depois**. Use o mesmo trecho, resolução, preset e duração para uma comparação útil. Você também pode renomear, excluir e exportar sessões.
@@ -116,6 +122,7 @@ Depois de capturar, a configuração própria do FRX volta ao repouso, sem grava
 - Capturas por quadro usam `log_interval=0`. FPS médio = quadros ÷ soma dos frametimes. **1% low** e **0,1% low** = inverso da média dos piores 1%/0,1% dos frametimes; exigem pelo menos 100/1.000 quadros. Em logs periódicos, os lows são estimativas e aparecem identificados.
 - Gráficos usam séries reduzidas dos dados reais, preservando os picos. As estatísticas usam as amostras originais. Sensores ausentes ficam como “—”.
 - Capturas curtas, amostras inválidas, lacunas, interrupções e diferenças de GPU, resolução, preset ou ferramenta geram avisos. Uma melhoria observada não prova que um Fix Pack causou a diferença.
+- Capturas assistidas registram as **correções do FRX ativas** (receita, versão e operação), conferidas no disco no fim da captura. A comparação mostra quando elas diferem entre as sessões, sem atribuir causa. Sessões importadas aparecem como “Não registrado”.
 - A captura espera até 15 minutos pelo início. Logs sem crescimento têm tratamento de interrupção; sessões anteriores e `_summary.csv` nunca são confundidos com uma nova captura.
 - A comunicação de controle usa um socket abstrato Linux. Sandboxes sem namespace de rede compartilhado podem impedir o controle; a detecção do CSV e a importação continuam sendo alternativas. A variante Flatpak é orientada na interface, mas precisa ser validada no ambiente do usuário.
 
@@ -172,9 +179,33 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 - **Atualização:** "Pesquisar de novo" força uma consulta nova, com revalidação por ETag.
 - **Sem conexão:** usa o último dado salvo e o marca como **desatualizado**; ele não vale como confirmação atual.
 
+## Fix Engine: aplicar a primeira correção
+
+Pelas descobertas: em **Fix Packs → Descobertas** ou na página do jogo, cada descoberta mostra a **Análise do FRX**. Quando há receita aplicável (gerada automaticamente ou revisada), o botão **Aplicar correção** abre a mesma prévia descrita abaixo. Senão, o cartão mostra o motivo exato. Veja [`docs/FIX-ENGINE-DINAMICO.md`](docs/FIX-ENGINE-DINAMICO.md).
+
+1. Abra **Fix Packs → Receitas do FRX** (ou o botão **Ver receitas para este jogo** na página do jogo) e escolha o jogo.
+2. Cada receita mostra o estado calculado agora pelo Rust: **Aplicável**, **Aplicável · passo manual** (Steam aberta), **Conflito**, **Incompatível**, **Já aplicada**, **Já incluída no Proton** ou **Só consulta** (candidata ou revogada).
+3. **Revisar e aplicar** abre a prévia: a linha atual e a nova, as verificações e onde fica o backup. Nada foi gravado até aqui.
+4. Confirme. Com a Steam fechada, o Pim mostra as etapas reais: conferir, backup, gravar e verificar. Com a Steam aberta, copie a linha, cole nas opções de inicialização do jogo, feche a Steam e clique em **Conferir agora**.
+5. Em **Histórico**, cada operação mostra etapas, linhas antes/depois, backup (com SHA-256) e o botão **Desfazer**. O rollback remove só o que a correção adicionou e recusa sobrescrever mudanças feitas por outros programas.
+
+Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs/FIX-ENGINE.md). Validação desta versão: [`docs/VALIDACAO-v0.4.0.md`](docs/VALIDACAO-v0.4.0.md).
+
+## Smart Packs
+
+Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX monta combinações das correções aplicáveis ao jogo, detecta conflitos e redundâncias e classifica os pacotes pelo que foi **medido** no Performance Lab. A classificação muda conforme o perfil: Máximo desempenho, Equilibrado ou Máxima compatibilidade.
+
+- Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor: o FRX mostra os candidatos em ordem de teste e o próximo teste recomendado.
+- Pacotes de várias receitas são aplicados pelo Fix Engine como **uma** operação, com um backup e um rollback.
+- Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.
+- Cada captura assistida registra o pacote ativo. Sessões antigas podem ser declaradas.
+
+Detalhes: [`docs/SMART-PACKS.md`](docs/SMART-PACKS.md). Validação: [`docs/VALIDACAO-SMART-PACKS.md`](docs/VALIDACAO-SMART-PACKS.md).
+
 ## Segurança
 
-- Nenhum script de terceiros, download de DLL, alteração de prefixo, de opções de inicialização ou de arquivos da Steam, e nenhum pedido de sudo. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout; o jogo só é aberto pela Steam quando solicitado pelo usuário.
+- **Descoberta e Performance Lab:** nenhum script de terceiros, nenhum download de DLL, nenhuma alteração de prefixo ou de arquivos da Steam, e nenhum pedido de sudo. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout. O jogo só é aberto pela Steam quando o usuário pede.
+- **Fix Engine:** só escreve o que um plano confirmado descreve, de uma receita revisada ou gerada e revalidada pelo núcleo a partir do cache da pesquisa (nunca de dados enviados pela interface). Hoje, isso é apenas a opção `LaunchOptions` do jogo no `localconfig.vdf`, editada de forma posicional, com backup verificado, gravação atômica e verificação. As ações formam um conjunto fechado, sem comando genérico. Variáveis passam por uma allowlist explícita, e caminhos de arquivo ficam confinados à pasta do jogo, sem links simbólicos nem `..`. O FRX nunca encerra a Steam nem processos. Backups e diário ficam em `~/.local/share/io.frx.FRX/fix-engine/`, com permissão 0700.
 - Todo conteúdo da internet é tratado como não confiável:
   - o cliente HTTP só aceita HTTPS para uma lista fechada de hosts, inclusive em redirecionamentos, e limita o tamanho das respostas;
   - o JSON malformado é descartado;
@@ -189,7 +220,7 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 | `Ctrl + K` | Busca rápida (páginas, jogos, Fix Packs) |
 | `Alt + 1…5` | Ir para Início, Biblioteca, Fix Packs, Performance Lab, Configurações |
 | `/` | Focar a busca da Biblioteca |
-| `Esc` | Fechar diálogos (exceto durante uma operação simulada) |
+| `Esc` | Fechar diálogos (exceto durante uma operação em andamento) |
 
 ## Stack
 
@@ -199,9 +230,14 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 
 ```
 src-tauri/src/
-  commands/                comandos Tauri: app, games, system, fixes, performance
+  commands/                comandos Tauri: app, games, system, fixes, fix_engine, performance
+  fix_engine/              catalog, security (allowlist), planner, files (backup/escrita atômica),
+                           journal, models — aplicação, verificação, rollback e recuperação
   performance/             parser, metrics, comparison, persistence, detection, capture, models
-  steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata
+  steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata,
+                           launch_options (tokenizador compartilhado), localconfig (edição posicional),
+                           processes (Steam/jogo abertos, só leitura)
+src-tauri/recipes/         catálogo local de receitas (JSON + manifesto SHA-256)
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
     providers/             umu (protonfixes + database), github, protondb (desativado)
   system/                  perfil e GPUs via /proc e /sys
@@ -216,7 +252,8 @@ src/
   components/
     ui/                    Button, controles, Dialog, Toasts, status, contadores, estados vazios
     game/                  GameArt, CoverImage, GameCard/GameRow, estado da instalação e avisos
-    fix/                   FindingCard, FixFlowDialog (demo), ChangeList, fontes
+    fix/                   FindingCard, RecipesPanel, ApplyFixDialog, OperationHistory,
+                           FixFlowDialog (demo), ChangeList, fontes
     perf/                  CompareHero, MetricChart, vereditos
     performance/           captura, importação, histórico, gráficos e comparação reais
     brand/                 Logo (símbolo d-pad + wordmark)
@@ -224,7 +261,7 @@ src/
   mascot/                  Pim: sprites procedurais, relógio compartilhado, componente
   data/                    dados demonstrativos (jogos, problemas, fix packs, benchmarks…)
   services/                games, fixes, performance, native (invoke), opener, platform e demo.ts
-  state/                   store, library (Steam real × demo), fixes, performance, movimento, seletores
+  state/                   store, library (Steam real × demo), fixes, fixEngine, performance, movimento, seletores
   hooks/                   useGameArt
   test/                    fixtures e testes de integração da ponte IPC (Vitest + mockIPC)
   types/                   tipos de domínio
@@ -247,14 +284,14 @@ src/
 
 ## O que é real e o que ainda é simulado
 
-| Área | No app desktop (v0.3) | No navegador |
+| Área | No app desktop (v0.4) | No navegador |
 | --- | --- | --- |
 | Biblioteca | **Real:** jogos da Steam detectados pelo Rust | 12 jogos fictícios |
 | Sistema | **Real:** /proc, /sys, os-release | Perfil fictício |
 | Capas | **Reais:** cache da Steam ou CDN pública, com cache local | Arte pixelada gerada |
-| Correções | **Descoberta real** (UMU-Protonfixes, UMU Database, GitHub). Aplicar fica desabilitado, com aviso "em breve" | Fix Packs fictícios com aplicar e reverter simulados |
+| Correções | **Descoberta real** (UMU-Protonfixes, UMU Database, GitHub); **receitas geradas** a partir delas quando a ação é reconhecida; **aplicação real** pelo Fix Engine, com backup e rollback | Fix Packs fictícios com aplicar e reverter simulados |
 | Performance Lab | **Real:** logs MangoHud, captura assistida, histórico e comparação | Demonstrativo |
-| Persistência | Cache local, benchmarks no diretório de dados e preferências | Só preferências (localStorage) |
+| Persistência | Cache local, benchmarks, diário e backups do Fix Engine no diretório de dados, e preferências | Só preferências (localStorage) |
 
 Em Configurações → Dados e fontes, a opção "Usar dados demonstrativos" troca o app desktop para a demonstração, útil para testes.
 
