@@ -13,6 +13,7 @@ import { AppStoreProvider } from '@/state/store'
 import { LibraryProvider } from '@/state/library'
 import { FixReportsProvider } from '@/state/fixes'
 import { FixEngineProvider } from '@/state/fixEngine'
+import { ActionableFindings } from '@/components/fix/ActionableFindings'
 import { FindingCard } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { OperationHistory } from '@/components/fix/OperationHistory'
@@ -59,7 +60,7 @@ const recipe: Recipe = {
 
 const base = { evidence: 'single' as const, evidenceNote: generated.evidenceNote, provenance: [SOURCE], interpreter: 'deterministic', generatedAt: '2026-10-26T10:00:00Z', updatedAt: '2026-10-26T10:00:00Z', discoveredAt: null, reevaluated: null, appId: '200260' }
 const assessments: Assessment[] = [
-  { ...base, findingId: 'f-gen', class: 'applicable', status: 'generated', reasons: ['Receita gerada automaticamente a partir da descoberta.', `Experimental: ${generated.evidenceNote}`], experimental: true, actions: [{ kind: 'launch-option', raw: 'PROTON_NO_D3D11=1', supported: true, note: 'O d3d11.dll fica indisponível.' }], recipeId: GEN, recipe },
+  { ...base, findingId: 'f-gen', availability: { state: 'available', reasons: [], checkedAt: '2026-10-27T00:00:00Z', planStatus: 'ready', planFingerprint: 'fixture-plan' }, class: 'applicable', status: 'generated', reasons: ['Receita gerada automaticamente a partir da descoberta.', `Experimental: ${generated.evidenceNote}`], experimental: true, actions: [{ kind: 'launch-option', raw: 'PROTON_NO_D3D11=1', supported: true, note: 'O d3d11.dll fica indisponível.' }], recipeId: GEN, recipe },
   { ...base, findingId: 'f-wt', class: 'needs-validation', status: 'needs-validation', reasons: ['Instala “d3dx9_43” no prefixo do Proton com winetricks: baixa arquivos e executa instaladores, o que o FRX não faz automaticamente.'], experimental: false, actions: [{ kind: 'winetricks', raw: 'd3dx9_43', supported: false, note: 'winetricks' }], recipeId: null, recipe: null },
 ]
 const findings = [
@@ -157,7 +158,7 @@ function Harness() {
     <>
       <ul>
         {findings.map((f) => (
-          <FindingCard key={f.id} finding={f} defaultOpen assessment={a.byFinding[f.id] ?? null} analyzing={a.loading} onApply={(x) => setTarget({ kind: 'apply', recipeId: x.recipeId!, appId: x.appId, title: x.recipe?.title ?? f.title })} />
+          <FindingCard key={f.id} finding={f} defaultOpen assessment={a.byFinding[f.id] ?? null} analyzing={a.loading} onApply={(x) => setTarget({ kind: 'apply', expectedFingerprint: x.availability?.planFingerprint ?? undefined, recipeId: x.recipeId!, appId: x.appId, title: x.recipe?.title ?? f.title })} />
         ))}
       </ul>
       {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
@@ -168,10 +169,12 @@ function Harness() {
 describe('Gerador dinâmico na interface', () => {
   let calls: { cmd: string; args: Record<string, unknown> }[] = []
   let operations: Operation[] = []
+  let prepareFailure: string | null = null
 
   beforeEach(() => {
     calls = []
     operations = []
+    prepareFailure = null
     g.isTauri = true
     mockIPC(
       async (cmd, args) => {
@@ -193,6 +196,7 @@ describe('Gerador dinâmico na interface', () => {
           case 'analyze_fix_findings':
             return assessments
           case 'prepare_fix_plan':
+            if (prepareFailure) throw prepareFailure
             return plan
           case 'apply_fix_plan':
             operations = [appliedOp()]
@@ -221,13 +225,13 @@ describe('Gerador dinâmico na interface', () => {
     expect(byText('Experimental')).toBe(true)
     expect(byText('Requer validação adicional')).toBe(true)
     expect(byText(/baixa arquivos e executa instaladores/)).toBe(true)
-    expect(button('Requer validação adicional')!.disabled).toBe(true)
+    expect(button('Requer validação adicional')).toBeUndefined()
     expect(byText('Receita indisponível')).toBe(false)
 
     // Clicar não aplica: abre a prévia calculada no núcleo.
     await click(button('Aplicar correção'))
     expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
-    expect(calls.find((c) => c.cmd === 'prepare_fix_plan')!.args).toEqual({ recipeId: GEN, appId: '200260' })
+    expect(calls.find((c) => c.cmd === 'prepare_fix_plan')!.args).toEqual({ recipeId: GEN, appId: '200260', expectedFingerprint: 'fixture-plan' })
     expect(byText('Por que foi sugerida')).toBe(true)
     expect(byText(SNIPPET)).toBe(true)
     expect(byText(/deixa de abrir até você desfazer/)).toBe(true)
@@ -243,6 +247,70 @@ describe('Gerador dinâmico na interface', () => {
     const apply = calls.find((c) => c.cmd === 'apply_fix_plan')!
     expect(Object.keys(apply.args).sort()).toEqual(['appId', 'fingerprint', 'planId'])
     expect(byText('Aplicada e verificada no disco.')).toBe(true)
+    m.unmount()
+  })
+
+  it('só apresenta planos completos na lista principal; pesquisas e receitas legadas ficam separadas', async () => {
+    const legacy = finding({ id: 'legacy', title: 'Fixture cache antigo' })
+    const missing = finding({ id: 'missing', title: 'Fixture sem receita' })
+    const foreign = finding({ id: 'foreign', gameAppId: '999', title: 'Fixture de outro jogo' })
+    const m = mount(<ActionableFindings appId="200260" findings={[...findings, legacy, missing, foreign]} assessments={Object.fromEntries([...assessments, { ...assessments[0], findingId: legacy.id, availability: undefined }, { ...assessments[0], findingId: missing.id, recipeId: null }, { ...assessments[0], findingId: foreign.id, appId: '999' }].map((a) => [a.findingId, a]))} loading={false} error={null} refresh={() => {}} onApply={() => {}} />)
+    await flush()
+    const main = document.querySelector('[aria-label="Correções disponíveis"]')!
+    expect(main.textContent).toContain(findings[0].title)
+    expect(main.textContent).not.toContain(legacy.title)
+    expect(main.textContent).not.toContain(missing.title)
+    expect(byText(foreign.title)).toBe(false)
+    expect(byText('Descobertas em investigação (3)')).toBe(true)
+    const card = main.querySelector<HTMLButtonElement>('button')!
+    await click(card)
+    expect(button('Aplicar correção')?.disabled).toBe(false)
+    m.unmount()
+  })
+
+  it('condição temporária orienta fechar o jogo e revalidar; não oferece aplicação falsa', async () => {
+    let refreshes = 0
+    const temporary: Assessment = { ...assessments[0], availability: { state: 'temporary', reasons: [{ code: 'game-running', message: 'Feche o jogo para continuar.' }], checkedAt: '2026-10-27', planStatus: 'conflict', planFingerprint: null } }
+    const m = mount(<ActionableFindings appId="200260" findings={[findings[0]]} assessments={{ 'f-gen': temporary }} loading={false} error={null} refresh={() => { refreshes++ }} onApply={() => { throw Error('must not apply') }} />)
+    await flush()
+    expect(byText('Nenhuma correção automática disponível')).toBe(true)
+    const pending = document.querySelector('[aria-label="Aguardando condição local"]')!
+    await click(pending.querySelector<HTMLButtonElement>('button')!)
+    expect(pending.textContent).toContain('Feche o jogo para continuar.')
+    expect(pending.textContent).not.toContain('Correção aplicável')
+    expect(button('Aplicar correção')).toBeUndefined()
+    await click(button('Revalidar condição')); expect(refreshes).toBe(1)
+    m.unmount()
+  })
+
+  it('nova validação incompatível retira a ação principal e preserva a razão na pesquisa', async () => {
+    function ChangingContext() {
+      const [current, setCurrent] = useState(assessments[0])
+      return <><button onClick={() => setCurrent({ ...current, availability: { state: 'incompatible', checkedAt: '2026-10-27', planStatus: 'incompatible', planFingerprint: null, reasons: [{ code: 'hardware', message: 'A GPU atual não atende ao requisito NVIDIA desta receita.' }] } })}>Trocar ambiente sintético</button><ActionableFindings appId="200260" findings={[findings[0]]} assessments={{ 'f-gen': current }} loading={false} error={null} refresh={() => {}} onApply={() => {}} /></>
+    }
+    const m = mount(<ChangingContext />); await flush()
+    expect(document.querySelector('[aria-label="Correções disponíveis"]')?.textContent).toContain(findings[0].title)
+    await click(button('Trocar ambiente sintético'))
+    expect(document.querySelector('[aria-label="Correções disponíveis"]')?.textContent).not.toContain(findings[0].title)
+    expect(byText('Descobertas em investigação (1)')).toBe(true)
+    await click([...document.querySelectorAll<HTMLButtonElement>('button')].find((b) => b.textContent?.startsWith(findings[0].title)))
+    expect(byText('A GPU atual não atende')).toBe(true)
+    expect(button('Aplicar correção')).toBeUndefined()
+    m.unmount()
+  })
+
+  it('mudança de fonte entre listagem e prévia preserva o motivo do núcleo e não executa', async () => {
+    prepareFailure = 'A fonte ou o ambiente mudou desde a listagem. Revalide as correções.'
+    const m = mount(<Harness />); await flush(80)
+    await click(button('Aplicar correção'))
+    expect(calls.find((c) => c.cmd === 'prepare_fix_plan')?.args.expectedFingerprint).toBe('fixture-plan')
+    expect(byText('A fonte ou o ambiente mudou')).toBe(true)
+    expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
+    expect(document.querySelector('[role="dialog"]')?.textContent).not.toContain('Continuar')
+    expect(button('Revisar de novo')).toBeUndefined()
+    await click(button('Fechar e revalidar'))
+    expect(document.querySelector('[role="dialog"]')).toBeNull()
+    expect(calls.filter((c) => c.cmd === 'prepare_fix_plan')).toHaveLength(1)
     m.unmount()
   })
 

@@ -1,5 +1,5 @@
 /** Smart Packs — espelho de `src-tauri/src/smart_packs/models.rs`. */
-import type { DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, RecipeAction, Risk, Trust } from './fixEngine'
+import type { Availability, DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, RecipeAction, Risk, Trust } from './fixEngine'
 import type { ArtifactCandidate, GpuReq } from './fixes'
 import type { HardwareRequirements } from './steam'
 
@@ -60,6 +60,7 @@ export interface Unit {
 }
 
 export interface SmartPack {
+  availability?: Availability
   artifacts?: ArtifactCandidate[]
   fileFixes?: FileFixRef[]
   performanceEvidence?: GamePerformanceEvidence

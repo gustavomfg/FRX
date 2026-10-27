@@ -14,7 +14,7 @@ export const listFixRecipes = (appId?: string | null) => call<RecipeView[]>('lis
 export const analyzeFixFindings = (appId: string) => call<Assessment[]>('analyze_fix_findings', { appId })
 export const getFixRecipe = (recipeId: string) => call<Recipe>('get_fix_recipe', { recipeId })
 export const checkFixCompatibility = (recipeId: string, appId: string) => call<FixPlan>('check_fix_compatibility', { recipeId, appId })
-export const prepareFixPlan = (recipeId: string, appId: string) => call<FixPlan>('prepare_fix_plan', { recipeId, appId })
+export const prepareFixPlan = (recipeId: string, appId: string, expectedFingerprint?: string) => call<FixPlan>('prepare_fix_plan', { recipeId, appId, ...(expectedFingerprint ? { expectedFingerprint } : {}) })
 export const applyFixPlan = (plan: Pick<FixPlan, 'planId' | 'fingerprint' | 'appId'>) =>
   call<Operation>('apply_fix_plan', { planId: plan.planId, fingerprint: plan.fingerprint, appId: plan.appId })
 export const getFixOperation = (operationId: string) => call<Operation>('get_fix_operation', { operationId })

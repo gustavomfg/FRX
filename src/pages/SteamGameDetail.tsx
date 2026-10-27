@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, ShieldCheck, Wifi } from 'lucide-react'
@@ -7,13 +7,13 @@ import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
 import { InfoBlock, InfoRow } from '@/components/game/InfoBlock'
 import { SourceTag } from '@/components/game/LibraryNotices'
-import { FindingCard, ProviderStatusList } from '@/components/fix/FindingCard'
+import { ProviderStatusList } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { OperationHistory } from '@/components/fix/OperationHistory'
 import { useRecipes } from '@/components/fix/RecipesPanel'
 import { useAssessments } from '@/components/fix/useAssessments'
 import { Button } from '@/components/ui/Button'
-import { Segmented } from '@/components/ui/Controls'
+import { ActionableFindings } from '@/components/fix/ActionableFindings'
 import { Mascot } from '@/mascot/Mascot'
 import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
@@ -23,15 +23,9 @@ import { openExternal } from '@/services/opener'
 import { TOOL_SOURCE_LABEL, toolLabel } from '@/lib/steamGame'
 import { fmtDateTime, fmtNum, fmtRelative } from '@/lib/format'
 import type { Game } from '@/types'
-import type { FixFinding } from '@/types/fixes'
 import { cn } from '@/lib/cn'
 import { useSmartPacks } from '@/components/smart/SmartPacksPanel'
-import { isRelevant } from '@/lib/findings'
 import { ResolutionCenter } from '@/components/resolution/ResolutionCenter'
-
-type FindingFilter = 'relevantes' | 'todas'
-
-const ORDER: Record<FixFinding['confidence'], number> = { verified: 0, curated: 1, 'community-reported': 2, unverified: 3 }
 
 /** Detalhes de um jogo real detectado na Steam. Mesmo desenho da página demonstrativa. */
 export function SteamGameDetail({ game }: { game: Game }) {
@@ -44,26 +38,16 @@ export function SteamGameDetail({ game }: { game: Game }) {
   const report = fixes.reports[game.id]
   const searching = !!fixes.searching[game.id]
   const error = fixes.errors[game.id]
-  const [filter, setFilter] = useState<FindingFilter>('relevantes')
   const engine = useFixEngine()
   const [target, setTarget] = useState<ApplyTarget | null>(null)
   const { recipes, checks } = useRecipes(game.id)
   const applicable = recipes.filter((r) => {
     const c = checks[r.id]
-    return r.executable && typeof c === 'object' && (c.status === 'ready' || c.status === 'requires-manual-step')
+    return r.executable && typeof c === 'object' && c.status === 'ready' && c.mode === 'automatic'
   }).length
   const applied = engine.applied.filter((a) => a.appId === game.id)
   const analysis = useAssessments(game.id)
-  const generated = new Set(Object.values(analysis.byFinding).filter((a) => a.status === 'generated').map((a) => a.recipeId)).size
-
-  const findings = useMemo(() => {
-    const list = [...(report?.findings ?? [])].sort((a, b) => {
-      const inc = Number(a.compatibility === 'incompatible') - Number(b.compatibility === 'incompatible')
-      return inc || ORDER[a.confidence] - ORDER[b.confidence] || b.sources.length - a.sources.length
-    })
-    return filter === 'todas' ? list : list.filter(isRelevant)
-  }, [report, filter])
-  const hidden = (report?.findings.length ?? 0) - findings.length
+  const generated = new Set(Object.values(analysis.byFinding).filter((a) => a.status === 'generated' && a.availability?.state === 'available').map((a) => a.recipeId)).size
 
   const search = (force: boolean) =>
     fixes.search(game.id, game.title, force).then((r) => {
@@ -152,16 +136,6 @@ export function SteamGameDetail({ game }: { game: Game }) {
               </div>
               {report && (
                 <div className="flex items-center gap-2">
-                  <Segmented<FindingFilter>
-                    label="Filtrar descobertas"
-                    size="sm"
-                    value={filter}
-                    onChange={setFilter}
-                    options={[
-                      { value: 'relevantes', label: 'Relevantes' },
-                      { value: 'todas', label: 'Todas' },
-                    ]}
-                  />
                   <Button size="sm" variant="outline" icon={<RefreshCw className={cn('size-3.5', searching && 'animate-spin')} />} onClick={() => void search(true)} disabled={searching}>
                     Pesquisar de novo
                   </Button>
@@ -199,39 +173,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
                 <div className="mb-4">
                   <ProviderStatusList providers={report.providers} />
                 </div>
-                {findings.length === 0 ? (
-                  <div className="flex items-center gap-5 rounded-lg border border-dashed border-line-2 px-6 py-6">
-                    <Mascot pose={report.providers.some((p) => p.state === 'unavailable' || p.state === 'rate-limited') ? 'worried' : 'idle'} scale={3} />
-                    <div>
-                      <p className="font-medium">{report.findings.length ? 'Nenhuma descoberta relevante para o seu sistema' : 'Nenhuma correção conhecida encontrada'}</p>
-                      <p className="text-[13px] text-fg-2">
-                        {report.findings.length
-                          ? `${hidden} descoberta${hidden === 1 ? '' : 's'} oculta${hidden === 1 ? '' : 's'} (incompatíveis ou contestadas). Use “Todas” para ver.`
-                          : 'As fontes consultadas não têm correções específicas para este AppID. Isso costuma significar que o jogo roda sem ajustes — mas não é garantia.'}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <ul className="space-y-3">
-                    {findings.map((f, i) => (
-                      <FindingCard
-                        key={f.id}
-                        finding={f}
-                        defaultOpen={i === 0 && findings.length <= 2}
-                        recipe={recipes.find((r) => r.relatedFindings.includes(f.id)) ?? null}
-                        onOpenRecipe={(r) => navigate(`/correcoes?view=receitas&game=${game.id}&recipe=${r.id}`)}
-                        assessment={analysis.byFinding[f.id] ?? null}
-                        analyzing={analysis.loading}
-                        onApply={(a) => setTarget({ kind: 'apply', recipeId: a.recipeId!, appId: game.id, title: a.recipe?.title ?? f.title })}
-                      />
-                    ))}
-                  </ul>
-                )}
-                {hidden > 0 && findings.length > 0 && (
-                  <p className="mt-3 text-[12.5px] text-fg-3">
-                    {hidden} descoberta{hidden === 1 ? '' : 's'} oculta{hidden === 1 ? '' : 's'} — incompatíveis com seu hardware ou contestadas por outros relatos.
-                  </p>
-                )}
+                <ActionableFindings appId={game.id} findings={report.findings} assessments={analysis.byFinding} loading={analysis.loading} error={analysis.error} refresh={analysis.refresh} onApply={(a, f) => setTarget({ kind: 'apply', expectedFingerprint: a.availability?.planFingerprint ?? undefined, recipeId: a.recipeId!, appId: game.id, title: a.recipe?.title ?? f.title })} />
               </>
             )}
           </section>
@@ -312,7 +254,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
           </section>
         </aside>
       </div>
-      {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
+      {target && <ApplyFixDialog target={target} onClose={() => { setTarget(null); void engine.refresh(); analysis.refresh() }} />}
     </Page>
   )
 }

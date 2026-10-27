@@ -225,9 +225,9 @@ export function PackTestDialog({
       case 'apply':
         return (
           <div className="space-y-2">
-            <p>O pacote altera as opções de inicialização deste jogo:</p>
+            <p>O pacote propõe estas alterações de inicialização e arquivos:</p>
             <code className="block rounded-sm border border-line bg-bg px-3 py-2 font-mono text-[12px] break-all text-fg">{env}</code>
-            <p className="text-fg-3">A prévia mostra a linha completa antes e depois; nada é gravado sem a sua confirmação. Com a Steam aberta, o FRX mostra a linha para você colar.</p>
+            <p className="text-fg-3">A prévia mostra todas as alterações antes e depois; nada é gravado sem a sua confirmação. Se a Steam ou o jogo estiverem abertos, feche-os normalmente e recalcule o pacote para continuar.</p>
           </div>
         )
       case 'capture':
@@ -276,9 +276,9 @@ export function PackTestDialog({
             <Button variant="ghost" onClick={onClose}>
               Cancelar
             </Button>
-            <Button variant="primary" icon={<Wrench className="size-4" />} onClick={onApply}>
+            {pack.availability?.state === 'available' && pack.availability.planFingerprint ? <Button variant="primary" icon={<Wrench className="size-4" />} onClick={onApply}>
               Revisar e aplicar
-            </Button>
+            </Button> : <p className="text-[12px] text-caution">{pack.availability?.reasons.map((r) => r.message).join(' ') || 'A aplicabilidade mudou. Feche este teste e recalcule o pacote.'}</p>}
           </>
         )
       case 'capture':

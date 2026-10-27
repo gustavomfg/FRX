@@ -65,7 +65,7 @@ export function RealHome() {
                 {games.length} jogo{games.length === 1 ? '' : 's'} da Steam na estante.{' '}
                 {gamesWithFindings > 0 ? (
                   <>
-                    <span className="text-fg">{gamesWithFindings} com correções descobertas</span> esperando sua revisão.
+                    <span className="text-fg">{gamesWithFindings} com descobertas técnicas</span> esperando sua revisão.
                   </>
                 ) : (
                   'Abra um jogo para pesquisar correções conhecidas.'
@@ -141,7 +141,7 @@ export function RealHome() {
         </SummaryColumn>
 
         <SummaryColumn eyebrow="Correções" to="/correcoes" cta="Ver descobertas">
-          <BigNumber value={findings.length} label="descobertas relevantes" aside={`${Object.keys(reports).length} jogo${Object.keys(reports).length === 1 ? '' : 's'} pesquisado${Object.keys(reports).length === 1 ? '' : 's'}`} />
+          <BigNumber value={findings.length} label="descobertas técnicas relevantes" aside={`${Object.keys(reports).length} jogo${Object.keys(reports).length === 1 ? '' : 's'} pesquisado${Object.keys(reports).length === 1 ? '' : 's'}`} />
           {findings.length > 0 ? (
             <ul className="mt-5 space-y-2.5">
               {findings.slice(0, 3).map(({ f, name }) => (

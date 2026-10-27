@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Check, ChevronDown, ExternalLink, FlaskConical, Lock, Package, ShieldCheck, Rocket, SquareTerminal, KeyRound, FileCode2, Layers, CircleHelp, ThumbsDown, ThumbsUp, Wrench, X } from 'lucide-react'
+import { Check, ChevronDown, ExternalLink, FlaskConical, Package, ShieldCheck, Rocket, SquareTerminal, KeyRound, FileCode2, Layers, CircleHelp, ThumbsDown, ThumbsUp, Wrench, X } from 'lucide-react'
 import type { FixAction, FixFinding, ProviderStatus } from '@/types/fixes'
 import type { Assessment, RecipeView } from '@/types/fixEngine'
 import { DYN_STATUS, EVIDENCE, TRUST } from './engineMeta'
@@ -73,16 +73,16 @@ function useOpen() {
  * Uma descoberta de correção. O texto da descoberta nunca é executado: o
  * gerador dinâmico do núcleo (`assessment`) diz se há uma receita aplicável —
  * gerada ou do catálogo — e o botão abre a prévia do Fix Engine. Sem análise
- * (modo demonstrativo), o cartão só leva à receita revisada relacionada.
+ * (ou cache legado), a descoberta permanece apenas na pesquisa técnica.
  */
 export function FindingCard({
   finding,
   defaultOpen = false,
   recipe,
-  onOpenRecipe,
   assessment,
   analyzing,
   onApply,
+  onRefresh,
 }: {
   finding: FixFinding
   defaultOpen?: boolean
@@ -91,12 +91,13 @@ export function FindingCard({
   assessment?: Assessment | null
   analyzing?: boolean
   onApply?: (a: Assessment) => void
+  onRefresh?: () => void
 }) {
   const [open, setOpen] = useState(defaultOpen)
   const engine = useFixEngine()
   const applied = !!assessment?.recipeId && engine.applied.some((a) => a.appId === finding.gameAppId && a.recipeId === assessment.recipeId)
-  const dyn = assessment ? DYN_STATUS[assessment.status] : null
-  const canApply = !!assessment && assessment.class === 'applicable' && !!assessment.recipeId && !!onApply && !applied
+  const dyn = assessment ? assessmentMeta(assessment) : null
+  const canApply = !!assessment && assessment.appId === finding.gameAppId && assessment.availability?.state === 'available' && !!assessment.recipeId && !!assessment.availability.planFingerprint && !!onApply && !applied
   const openUrl = useOpen()
   const id = `finding-${finding.id}`
   const dim = finding.compatibility === 'incompatible'
@@ -115,7 +116,7 @@ export function FindingCard({
           {!open && <p className="mt-1 line-clamp-2 text-[13px] text-fg-2">{finding.description}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConfidencePill finding={finding} />
-            <CompatPill finding={finding} />
+            {assessment?.availability?.state === 'available' ? <Pill color="var(--frx-good)" soft="var(--frx-good-soft)" title="Requisitos para aplicar conferidos pelo planejador. O resultado no jogo ainda precisa ser verificado.">Requisitos conferidos</Pill> : <CompatPill finding={finding} />}
             <ArtifactBadge artifacts={finding.artifacts} />
             <HardwareRequirementsSummary requirements={finding.requirements.hardware} compact />
             <GameEvidence appId={finding.gameAppId} scope={finding.scope} compact />
@@ -244,22 +245,13 @@ export function FindingCard({
                   <Button size="sm" variant="primary" icon={<Wrench className="size-3.5" />} onClick={() => onApply!(assessment!)}>
                     Aplicar correção
                   </Button>
-                ) : assessment && dyn ? (
-                  <span title={assessment.reasons[0]}>
-                    <Button size="sm" variant="secondary" disabled icon={<Lock className="size-3.5" />}>
-                      {dyn.action}
-                    </Button>
-                  </span>
-                ) : recipe?.executable && onOpenRecipe ? (
-                  <Button size="sm" variant="secondary" icon={<ShieldCheck className="size-3.5" />} onClick={() => onOpenRecipe(recipe)}>
-                    Ver receita revisada
-                  </Button>
+                ) : assessment?.availability?.state === 'temporary' ? (
+                  <div className="max-w-[55%] space-y-2 text-[12.5px] text-caution">
+                    {assessment.availability.reasons.map((reason) => <p key={reason.code}>{reason.message}</p>)}
+                    {onRefresh && <Button size="sm" variant="secondary" onClick={onRefresh}>Revalidar condição</Button>}
+                  </div>
                 ) : (
-                  <span title={recipe ? 'Existe uma receita para este ajuste, mas ela ainda não foi revisada pelo FRX.' : 'O FRX só aplica receitas revisadas do catálogo local. Esta descoberta serve como referência.'}>
-                    <Button size="sm" variant="secondary" disabled icon={<Lock className="size-3.5" />}>
-                      {recipe ? 'Receita candidata · só consulta' : 'Sem receita revisada'}
-                    </Button>
-                  </span>
+                  <p className="max-w-[55%] text-[12.5px] text-fg-3">{assessment?.availability?.reasons.map((r) => r.message).join(' ') || assessment?.reasons[0] || 'Aplicabilidade ainda não verificada. Consulte a pesquisa técnica.'}</p>
                 )}
               </div>
             </div>
@@ -270,9 +262,20 @@ export function FindingCard({
   )
 }
 
+/** Generation is not proof that the complete plan is executable in this environment. */
+function assessmentMeta(a: Assessment) {
+  const state = a.availability?.state
+  if (state === 'available' && a.recipeId && a.availability?.planFingerprint) return DYN_STATUS.generated
+  if (state === 'applied') return { label: 'Correção aplicada', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' }
+  if (state === 'temporary') return { label: 'Aguardando condição local', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' }
+  if (state === 'incompatible') return DYN_STATUS.incompatible
+  if (a.status !== 'generated' && a.status !== 'reviewed') return DYN_STATUS[a.status]
+  return { label: 'Em investigação', color: 'var(--frx-text-3)', soft: 'var(--frx-raised)' }
+}
+
 /** O que o gerador dinâmico concluiu: estado, motivo, evidência e ações reconhecidas. */
 function AnalysisBlock({ a, applied }: { a: Assessment; applied: boolean }) {
-  const dyn = DYN_STATUS[a.status]
+  const dyn = assessmentMeta(a)
   const generated = a.status === 'generated'
   return (
     <div>

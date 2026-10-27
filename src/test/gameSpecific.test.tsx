@@ -65,6 +65,7 @@ const assessment = (appId: string): Assessment => ({
 function smartPack(appId: string, baseline = false): SmartPack {
   const recipeId = `gen.${appId}.synthetic`
   return {
+    availability: { state: baseline ? 'applied' : 'available', reasons: [], checkedAt: '2026-10-27', planStatus: 'ready', planFingerprint: 'fixture-pack-plan' },
     id: `pack.${appId}.${baseline ? 'baseline' : 'synthetic'}`, appId, version: '1.0.0', name: baseline ? 'Baseline sintético' : TITLE,
     kind: baseline ? 'baseline' : 'single', goal: baseline ? 'reference' : 'compatibility', goalText: 'Fixture; não representa desempenho real.',
     members: baseline ? [] : [{ recipeId, version: '1.0.0', fingerprint: `fixture-${appId}`, trust: 'generated', title: TITLE, env: [{ key: 'PROTON_NO_D3D11', value: '1' }], evidence: 'corroborated', discoveredAt: null, protonVersions: [] }],
@@ -234,18 +235,23 @@ describe('Game-specific fix intelligence — integração sintética', () => {
     expect(text()).toContain('Correções')
     expect(text()).toContain(`Jogo sintético ${A}`)
     expect(text()).toContain(`Jogo sintético ${B}`)
-    expect(document.querySelector('[aria-label="Descobertas"]')).not.toBeNull()
-    expect(calls.some((c) => c.cmd === 'list_fix_recipes')).toBe(true)
+    expect(document.querySelector('[aria-label="Correções disponíveis"]')).not.toBeNull()
+    expect(calls.some((c) => c.cmd === 'analyze_fix_findings')).toBe(true)
     await click(button('Smart Packs'))
     await flush(60)
     expect(runtimeErrors).toEqual([])
     expect(text()).toContain(`Classificação sintética exclusiva ${A}`)
     expect(text()).toContain(POSITIVE)
-    await click(button('Descobertas'))
+    await click(button('Pesquisa técnica'))
+    await flush(60)
+    expect(document.querySelector('[aria-label="Descobertas"]')).not.toBeNull()
+    expect(text()).toContain('Todos os jogos')
+    expect(text()).toContain('Análise exclusiva da fixture')
+    await click(button('Correções disponíveis'))
     await flush(60)
     expect(runtimeErrors).toEqual([])
     expect(text()).toContain('Correções')
-    expect(document.querySelector('[aria-label="Descobertas"]')).not.toBeNull()
+    expect(document.querySelector('[aria-label="Correções disponíveis"]')).not.toBeNull()
     act(() => root.unmount())
   })
 

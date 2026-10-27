@@ -11,6 +11,7 @@ export type RecipeAction =
   | { type: 'add_launch_args'; args: string[] }
   | { type: 'write_game_file'; path: string; content: string }
   | { type: 'install_artifact'; artifact: ArtifactCandidate }
+  | { type: 'set_dxvk_option'; path: string; key: string; value: string }
   | { type: 'patch_known_config'; path: string; expectedSha256: string; replacements: { find: string; replace: string }[] }
 
 export interface Recipe {
@@ -76,7 +77,16 @@ export interface GeneratedInfo {
 export type DynClass = 'applicable' | 'needs-validation' | 'informational'
 export type DynStatus = 'generated' | 'reviewed' | 'already-included' | 'incompatible' | 'needs-validation' | 'blocked' | 'contested' | 'no-actions' | 'insufficient-data' | 'invalid'
 
+export interface Availability {
+  state: 'available' | 'temporary' | 'investigation' | 'incompatible' | 'applied'
+  reasons: { code: string; message: string }[]
+  checkedAt: string
+  planStatus: PlanStatus | null
+  planFingerprint: string | null
+}
+
 export interface Assessment {
+  availability?: Availability
   performanceEvidence?: GamePerformanceEvidence
   performanceWarnings?: string[]
   findingId: string

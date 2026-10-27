@@ -27,6 +27,8 @@ export function describeAction(a: RecipeAction) {
       return { label: 'Arquivo de configuração do jogo', value: a.path }
     case 'install_artifact':
       return { label: 'Baixar, verificar e instalar arquivos', value: a.artifact.assetName }
+    case 'set_dxvk_option':
+      return { label: 'Configuração DXVK documentada', value: `${a.path} · ${a.key} = ${a.value}` }
     case 'patch_known_config':
       return { label: 'Alterar configuração com hash conhecido', value: a.path }
   }
@@ -164,7 +166,7 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
   const plan = typeof check === 'object' ? check : null
   const applied = engine.applied.find((a) => a.appId === game.id && a.recipeId === recipe.id)
   const pending = engine.operations.find((o) => o.appId === game.id && o.recipeId === recipe.id && (o.state === 'requires-manual-step' || o.state === 'recovery-required'))
-  const canApply = recipe.executable && (plan?.status === 'ready' || plan?.status === 'requires-manual-step') && !pending
+  const canApply = recipe.executable && plan?.status === 'ready' && plan.mode === 'automatic' && !pending
   return (
     <article className="space-y-5 rounded-xl border border-line bg-surface p-6">
       <header>
@@ -290,9 +292,10 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
               Abrir operação
             </Button>
           )}
-          <Button size="sm" variant="primary" disabled={!canApply} onClick={() => onAct({ kind: 'apply', recipeId: recipe.id, appId: game.id, title: recipe.title })}>
-            Revisar e aplicar
-          </Button>
+          {canApply && <Button size="sm" variant="primary" onClick={() => onAct({ kind: 'apply', expectedFingerprint: plan?.fingerprint, recipeId: recipe.id, appId: game.id, title: recipe.title })}>
+            Aplicar correção
+          </Button>}
+          {!canApply && plan?.status === 'requires-manual-step' && <p className="max-w-[30ch] text-[12.5px] text-caution">Feche a Steam normalmente e reabra esta receita para permitir a aplicação automática.</p>}
         </div>
       </div>
     </article>

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { analyzeFixFindings } from '@/services/fixEngine'
 import { useFixEngine } from '@/state/fixEngine'
+import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
 import type { Assessment } from '@/types/fixEngine'
 
@@ -12,10 +13,19 @@ import type { Assessment } from '@/types/fixEngine'
 export function useAssessments(appId: string | null) {
   const engine = useFixEngine()
   const fixes = useFixReports()
+  const library = useLibrary()
   const [result, setResult] = useState<{ appId: string; byFinding: Record<string, Assessment> } | null>(null)
   const [loading, setLoading] = useState(false)
+  const [epoch, setEpoch] = useState(0)
+  const refresh = useCallback(() => setEpoch((n) => n + 1), [])
   const [error, setError] = useState<string | null>(null)
   const retrieved = appId ? fixes.reports[appId]?.retrievedAt : undefined
+  const context = JSON.stringify([library.system, library.games.find((g) => g.id === appId)?.steam])
+  useEffect(() => {
+    if (!appId || !engine.available) return
+    window.addEventListener('focus', refresh)
+    return () => window.removeEventListener('focus', refresh)
+  }, [appId, engine.available, refresh])
   const stamp = engine.operations.map((o) => o.id + o.state).join()
 
   useEffect(() => {
@@ -36,7 +46,7 @@ export function useAssessments(appId: string | null) {
       .catch((e) => !gone && setError(String(e?.message ?? e)))
       .finally(() => !gone && setLoading(false))
     return () => void (gone = true)
-  }, [engine.available, appId, retrieved, stamp])
+  }, [engine.available, appId, retrieved, stamp, epoch, context])
 
-  return { byFinding: result?.appId === appId ? result.byFinding : {}, loading, error }
+  return { byFinding: result?.appId === appId ? result.byFinding : {}, loading, error, refresh }
 }

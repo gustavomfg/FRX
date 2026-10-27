@@ -49,7 +49,11 @@ export function useSmartPacks(appId: string | null, profile: Profile) {
       setReport(next)
       setError(null)
     } catch (e) {
-      if (version === request.current) setError(errorMessage(e))
+      if (version === request.current) {
+        const message = errorMessage(e)
+        setError(message)
+        setReport((old) => old ? { ...old, packs: old.packs.map((p) => p.kind === 'baseline' || p.availability?.state === 'applied' ? p : { ...p, availability: { state: 'investigation', reasons: [{ code: 'refresh-failed', message: `Não foi possível revalidar este pacote: ${message}` }], checkedAt: new Date().toISOString(), planStatus: null, planFingerprint: null } }) } : old)
+      }
     } finally {
       if (version === request.current) setLoading(false)
     }
@@ -184,7 +188,7 @@ export function SmartPacksPanel({ appId, selectedPackId, onAct }: { appId: strin
     setResult(null)
     setSkipBaseline(false)
   }
-  const applyPack = (p: SmartPack) => (report.currentPackId === report.baselineId ? setTarget({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))
+  const applyPack = (p: SmartPack) => (report.currentPackId === report.baselineId ? setTarget({ kind: 'apply', expectedFingerprint: p.availability?.planFingerprint ?? undefined, recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))
   // Condições da referência pré-preenchidas: a comparação só vale com as mesmas configurações.
   const ref = perf.sessions.find((s) => s.id === report.referenceSessionId)
   const capturingBaseline = !!testPack && report.currentPackId === report.baselineId
@@ -203,6 +207,7 @@ export function SmartPacksPanel({ appId, selectedPackId, onAct }: { appId: strin
 
   return (
     <div className="mt-5 space-y-6">
+      {error && <p role="alert" className="text-[13px] text-caution">A atualização falhou: {error}. O histórico foi preservado; recalcule para voltar a aplicar pacotes.</p>}
       {selectedPackId && !report.packs.some((p) => p.id === selectedPackId && p.appId === appId) && <p role="status" className="text-[13px] text-fg-2">O pacote do link não está disponível para este jogo e contexto. Revise os pacotes recalculados abaixo.</p>}
       <div className="flex flex-wrap items-center gap-3">
         <Segmented<Profile>
@@ -290,7 +295,7 @@ export function SmartPacksPanel({ appId, selectedPackId, onAct }: { appId: strin
                       winner={report.ranking.winner === e.packId}
                       current={report.currentPackId === e.packId}
                       onDetail={setDetail}
-                      onApply={(p) => (report.currentPackId === report.baselineId ? act({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))}
+                      onApply={(p) => (report.currentPackId === report.baselineId ? act({ kind: 'apply', expectedFingerprint: p.availability?.planFingerprint ?? undefined, recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))}
                       onTest={startTest}
                       status={e.tier !== 'performance-risk' && byId(e.packId) ? testStatus(byId(e.packId)!, report, cap, testing) : null}
                     />
@@ -354,7 +359,7 @@ export function SmartPacksPanel({ appId, selectedPackId, onAct }: { appId: strin
           }}
         />
       )}
-      {target && (target.kind === 'apply' ? target.appId : target.operation.appId) === report.appId && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
+      {target && (target.kind === 'apply' ? target.appId : target.operation.appId) === report.appId && <ApplyFixDialog target={target} onClose={() => { setTarget(null); void reload() }} />}
       {testPack && !blocking && (
         <PackTestDialog
           pack={testPack}
@@ -426,7 +431,7 @@ function PackCard({
   const vs = entry.vsBaseline
   const used = m?.sessions.filter((s) => !s.excluded).length ?? 0
   const preventiveRisk = entry.tier === 'performance-risk'
-  const canApply = pack && pack.applyRecipeId && (pack.state === 'ready' || pack.state === 'rolled_back' || pack.state === 'failed' || pack.state === 'conflict') && !current
+  const canApply = pack && pack.applyRecipeId && pack.availability?.state === 'available' && pack.availability.planFingerprint && !current
   return (
     <motion.li
       layout
@@ -457,7 +462,7 @@ function PackCard({
         {pack && <ArtifactBadge artifacts={pack.artifacts} />}
         {pack && (
           <Pill color={preventiveRisk && !current ? 'var(--frx-caution)' : STATE[pack.state].color} soft={preventiveRisk && !current ? 'var(--frx-caution-soft)' : STATE[pack.state].soft} title={pack.stateDetail}>
-            {preventiveRisk && !current ? 'Contorno de compatibilidade' : pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : STATE[pack.state].label}
+            {pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : current ? STATE[pack.state].label : pack.availability?.state === 'temporary' ? 'Aguardando condição local' : !pack.availability ? 'Aplicabilidade não verificada' : preventiveRisk ? 'Contorno de compatibilidade' : STATE[pack.state].label}
           </Pill>
         )}
         <Pill color={preventiveRisk ? 'var(--frx-caution)' : OUTCOME[entry.outcome].color} soft={preventiveRisk ? 'var(--frx-caution-soft)' : OUTCOME[entry.outcome].soft}>
@@ -500,6 +505,9 @@ function PackCard({
             Detalhes
           </Button>
         )}
+        {pack?.availability?.state === 'temporary' && <p className="w-full text-[12px] text-caution">{pack.availability.reasons.map((r) => r.message).join(' ')} Use Recalcular depois de resolver a condição.</p>}
+        {pack?.availability?.state === 'investigation' && <p className="w-full text-[12px] text-fg-3">{pack.availability.reasons.map((r) => r.message).join(' ')}</p>}
+        {pack && pack.kind !== 'baseline' && !current && !pack.availability && <p className="w-full text-[12px] text-fg-3">Aplicabilidade não verificada. Use Recalcular para validar este pacote.</p>}
         {canApply && (
           <Button size="sm" variant="secondary" icon={current ? undefined : <Wrench className="size-3.5" />} onClick={() => onApply(pack!)}>
             {preventiveRisk ? 'Revisar compatibilidade' : pack!.state === 'conflict' ? 'Trocar para este' : 'Aplicar'}
@@ -510,7 +518,7 @@ function PackCard({
             Restaurar
           </Button>
         )}
-        {pack && !preventiveRisk && (pack.kind === 'baseline' || (pack.applyRecipeId && pack.state !== 'unsupported')) && (
+        {pack && !preventiveRisk && (pack.kind === 'baseline' || current || canApply) && (
           <Button size="sm" variant={pack.kind === 'baseline' ? 'outline' : 'primary'} icon={<Gauge className="size-3.5" />} onClick={() => onTest(pack)}>
             {pack.kind === 'baseline' ? (used ? 'Repetir referência' : 'Capturar referência') : 'Testar desempenho'}
           </Button>
@@ -535,6 +543,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
       <div className="space-y-5 text-[12.5px] text-fg-2">
         <PerformanceWarning warnings={pack.performanceWarnings} />
         <ArtifactDetails artifacts={pack.artifacts} />
+        {!!pack.availability?.reasons.length && <Block title="Aplicabilidade atual"><ul className="space-y-1">{pack.availability.reasons.map((r) => <li key={r.code}>{r.message}</li>)}</ul></Block>}
         <GameEvidence appId={report.appId} evidence={pack.performanceEvidence} />
         <Block title="Objetivo">
           <p>{pack.goalText}</p>
@@ -549,7 +558,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
                     <span className="text-fg-3">{x.trust === 'reviewed' ? 'revisada' : 'gerada'} · v{x.version}</span>
                   </div>
                   {x.env.length > 0 && <code className="break-all font-mono text-[12px] text-fg-2">{x.env.map((e) => `${e.key}=${e.value}`).join(' ')}</code>}
-                  {x.fileActions?.map((action, i) => action.type === 'install_artifact' ? <p key={i} className="break-all text-[12px] text-fg-2">{action.artifact.files.length} arquivo(s) · {action.artifact.releaseTag}</p> : null)}
+                  {x.fileActions?.map((action, i) => action.type === 'install_artifact' ? <p key={i} className="break-all text-[12px] text-fg-2">{action.artifact.files.length} arquivo(s) · {action.artifact.releaseTag}</p> : action.type === 'set_dxvk_option' ? <p key={i} className="break-all text-[12px] text-fg-2">{action.path} · {action.key} = {action.value}</p> : null)}
                   <p className="text-[11.5px] text-fg-3">
                     Evidência: {EVIDENCE_LABEL[x.evidence]}
                     {x.discoveredAt && ` · fonte de ${fmtDateTime(x.discoveredAt)}`}

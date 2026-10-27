@@ -1,4 +1,5 @@
 import type { EnvironmentContext } from './steam'
+import type { Availability } from './fixEngine'
 
 /** IPC mirror of resolution/models.rs. Unknown states remain unknown in the UI. */
 export interface ResolutionEvidence {
@@ -43,6 +44,7 @@ export interface ResolutionProblem {
 }
 
 export interface ResolutionPlan {
+  availability?: Availability
   id: string
   appId: string
   title: string

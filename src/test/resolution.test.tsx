@@ -19,14 +19,14 @@ MotionGlobalConfig.skipAnimations = true
 const g = globalThis as unknown as { isTauri: boolean }
 const at = '2026-10-27T12:00:00Z'
 const evidence: ResolutionEvidence = { id: 'synthetic-source', kind: 'official-documentation', summary: 'Fixture: documentação explica o diagnóstico, não confirma a causa.', sourceUrl: 'https://github.com/ValveSoftware/Proton', publisher: 'Fixture publisher', publishedAt: '2025-01-01T12:00:00Z', updatedAt: at, fetchedAt: at, version: 'fixture-v1', appId: null, technology: 'graphics', stale: false, limitations: ['Fixture: documento geral não prova desempenho.'] }
-const resolutionPlan: ResolutionPlan = { id: 'resolution.200260.fixture', appId: '200260', title: 'Preparar diagnóstico sintético', objective: 'Registrar o sintoma para investigar; não corrige o crash.', problemId: 'fixture-problem', recipeId: 'frx.diagnostics.proton-log', state: 'applicable', actions: ['Definir PROTON_LOG=1'], dependencies: ['Proton confirmado na fixture'], risks: ['Log pode conter dados pessoais.'], sources: [evidence], reversible: true, verificationMethod: 'Conferir configuração; importar log autorizado.', successCriterion: 'Configuração persistida não prova funcionamento.', operationId: null, verification: 'Funcionamento ainda não verificado.', limitations: [] }
+const resolutionPlan: ResolutionPlan = { availability: { state: 'available', reasons: [], checkedAt: at, planStatus: 'ready', planFingerprint: 'fixture-plan' }, id: 'resolution.200260.fixture', appId: '200260', title: 'Preparar diagnóstico sintético', objective: 'Registrar o sintoma para investigar; não corrige o crash.', problemId: 'fixture-problem', recipeId: 'frx.diagnostics.proton-log', state: 'applicable', actions: ['Definir PROTON_LOG=1'], dependencies: ['Proton confirmado na fixture'], risks: ['Log pode conter dados pessoais.'], sources: [evidence], reversible: true, verificationMethod: 'Conferir configuração; importar log autorizado.', successCriterion: 'Configuração persistida não prova funcionamento.', operationId: null, verification: 'Funcionamento ainda não verificado.', limitations: [] }
 const report = (appId = '200260', over: Partial<ResolutionReport> = {}): ResolutionReport => ({ schema: 1, appId, gameName: `Synthetic Game ${appId}`, generatedAt: at, contextFingerprint: `fixture-${appId}`, symptoms: ['startup'], environment: null, technologies: [{ id: 'dlss', name: 'DLSS', hardware: 'supported', gameSupport: 'detected', environment: 'unknown', configured: 'unknown', runtime: 'unknown', evidence: [evidence], limitations: ['A presença da DLL não prova que o jogo implementa o recurso.'] }, { id: 'mfg', name: 'Multi Frame Generation', hardware: 'unsupported', gameSupport: 'unknown', environment: 'unknown', configured: 'unknown', runtime: 'unknown', evidence: [], limitations: ['Fixture RTX 4060 não atende ao requisito RTX 50.'] }], problems: [{ id: 'fixture-problem', technology: 'stability', symptom: `Crash informado no jogo ${appId}`, certainty: 'user-reported', evidence: [evidence], hypotheses: ['Dependência ou driver ainda não confirmados.'], ruledOut: [], limitations: ['Sem observação runtime.'], nextAction: 'Preparar log com confirmação.', planIds: [resolutionPlan.id] }], plans: [{ ...resolutionPlan, appId }], packs: [], knowledge: [evidence], limitations: ['Fixture isolada; nenhum dado desta suíte representa diagnóstico real.'], ...over })
 const fixPlan: FixPlan = { planId: 'fixture-plan', fingerprint: 'fixture-fp', recipeId: resolutionPlan.recipeId!, recipeVersion: '1.0.0', recipeTitle: resolutionPlan.title, appId: '200260', gameName: 'Synthetic Game', status: 'ready', mode: 'automatic', reasons: [], checks: [], changes: [{ kind: 'launch-options', target: 'Synthetic LaunchOptions', before: '%command%', after: 'PROTON_LOG=1 %command%', summary: 'Adiciona apenas o diagnóstico' }], manualLine: null, backupNote: 'Backup isolado verificado.', steamRunning: false, gameRunning: false, risk: 'low', purpose: 'diagnostic', trust: 'reviewed', effects: [], sideEffects: [], sources: [], generated: null, pack: null, createdAt: at, expiresAt: 9999999999 }
 const operation: Operation = { schema: 1, id: 'fixture-operation', recipeId: resolutionPlan.recipeId!, recipeVersion: '1.0.0', recipeTitle: resolutionPlan.title, appId: '200260', gameName: 'Synthetic Game', state: 'applied', mode: 'automatic', steps: [], planFingerprint: 'fixture-fp', createdAt: at, updatedAt: at, appliedAt: at, rolledBackAt: null, message: 'Configuração registrada na fixture.', pending: null, events: [], recipeTrust: 'reviewed', findingIds: [] }
 
 const flush = () => act(() => new Promise((resolve) => setTimeout(resolve, 30)))
 const text = () => document.body.textContent ?? ''
-const button = (label: string) => [...document.body.querySelectorAll<HTMLButtonElement>('button')].find((b) => b.textContent?.trim() === label)
+const button = (label: string) => [...(document.querySelector('[role=dialog]') ?? document.body).querySelectorAll<HTMLButtonElement>('button')].find((b) => b.textContent?.trim() === label)
 const click = async (target: HTMLElement | undefined | null) => { expect(target).toBeTruthy(); await act(async () => target!.click()); await flush() }
 function mount(node: ReactNode) {
   const el = document.createElement('div'); document.body.appendChild(el)
@@ -103,7 +103,7 @@ describe('Resolution Center — IPC e estados honestos', () => {
   it('recusa relatório que retorna outro AppID', async () => {
     stored = report('999')
     const m = mount(<ResolutionCenter appId="200260" available />); await flush()
-    expect(text()).toContain('diagnóstico retornou outro AppID'); expect(button('Visualizar prévia')).toBeUndefined()
+    expect(text()).toContain('diagnóstico retornou outro AppID'); expect(button('Aplicar correção')).toBeUndefined()
     m.unmount()
   })
 
@@ -112,21 +112,61 @@ describe('Resolution Center — IPC e estados honestos', () => {
     const m = mount(<ResolutionCenter appId="200260" available />); await flush(); await click(button('Pesquisar soluções'))
     expect(document.body.querySelector('[role=alert]')?.textContent).toContain('limite de consultas')
     expect(text()).toContain('Crash informado no jogo 200260')
+    expect(button('Aplicar correção')).toBeUndefined()
     failure = null; await click(button('Diagnosticar')); expect(document.body.querySelector('[role=alert]')).toBeNull()
     m.unmount()
   })
 
   it('mantém solução em revisão sem prévia e bloqueia URL hostil', async () => {
-    stored = report('200260', { plans: [{ ...resolutionPlan, state: 'review', recipeId: null, risks: ['DLL desconhecida sem procedência.'], sources: [{ ...evidence, sourceUrl: 'javascript:alert(1)' }] }] })
+    stored = report('200260', { plans: [{ ...resolutionPlan, state: 'review', availability: { state: 'investigation', reasons: [{ code: 'binary-review', message: 'DLL desconhecida sem procedência.' }], checkedAt: at, planStatus: null, planFingerprint: null }, recipeId: null, risks: ['DLL desconhecida sem procedência.'], sources: [{ ...evidence, sourceUrl: 'javascript:alert(1)' }] }] })
     const m = mount(<ResolutionCenter appId="200260" available />); await flush()
     expect(text()).toContain('Requer revisão'); expect(text()).toContain('DLL desconhecida'); expect(text()).toContain('abertura bloqueada')
-    expect(button('Visualizar prévia')).toBeUndefined(); expect(calls.some((c) => c.cmd === 'prepare_fix_plan')).toBe(false)
+    expect(button('Aplicar correção')).toBeUndefined(); expect(calls.some((c) => c.cmd === 'prepare_fix_plan')).toBe(false)
+    m.unmount()
+  })
+
+  it('plano legado sem disponibilidade validada fica na investigação, mesmo com receita e estado antigo aplicável', async () => {
+    stored = report('200260', { plans: [{ ...resolutionPlan, availability: undefined }] })
+    const m = mount(<ResolutionCenter appId="200260" available />); await flush()
+    expect(document.querySelector('[aria-label="Soluções aplicáveis"]')?.textContent).toContain('Nenhuma correção automática disponível')
+    expect(text()).toContain('Descobertas em investigação (1)')
+    expect(text()).not.toContain('Prévia disponível')
+    expect(button('Aplicar correção')).toBeUndefined()
+    m.unmount()
+  })
+
+  it('rollback antigo não permite reaplicar plano após falha de revalidação', async () => {
+    stored = report('200260', { plans: [{ ...resolutionPlan, state: 'rolled-back', operationId: operation.id }] })
+    const m = mount(<ResolutionCenter appId="200260" available />); await flush()
+    expect(button('Aplicar correção')).toBeDefined()
+    failure = 'Fixture: ambiente indisponível para revalidar.'
+    await click(button('Pesquisar soluções'))
+    expect(button('Aplicar correção')).toBeUndefined()
+    expect(text()).toContain('Alteração desfeita')
+    selectedLog = null
+    await click(button('Importar log deste jogo'))
+    expect(button('Aplicar correção')).toBeUndefined()
+    failure = null; await click(button('Diagnosticar'))
+    expect(button('Aplicar correção')).toBeDefined()
+    m.unmount()
+  })
+
+  it('separa condição temporária de procedimentos em investigação sem perder o problema identificado', async () => {
+    stored = report('200260', { plans: [{ ...resolutionPlan, state: 'review', availability: { state: 'temporary', checkedAt: at, planStatus: 'requires-manual-step', planFingerprint: null, reasons: [{ code: 'steam-running', message: 'Feche a Steam normalmente para permitir esta alteração.' }] } }] })
+    const m = mount(<ResolutionCenter appId="200260" available />); await flush()
+    expect(text()).toContain('Problemas identificados')
+    expect(text()).toContain('Aguardando condição local')
+    expect(text()).toContain('Feche a Steam normalmente')
+    expect(text()).toContain('Descobertas em investigação (0)')
+    expect(button('Aplicar correção')).toBeUndefined()
+    await click(button('Revalidar condições'))
+    expect(calls.some((c) => c.cmd === 'diagnose_game')).toBe(true)
     m.unmount()
   })
 
   it('abre prévia, exige confirmação existente e confere configuração sem anunciar recurso resolvido', async () => {
-    const m = mount(<ResolutionCenter appId="200260" available />); await flush(); await click(button('Visualizar prévia'))
-    expect(calls.find((c) => c.cmd === 'prepare_fix_plan')?.args).toEqual({ recipeId: resolutionPlan.recipeId, appId: '200260' })
+    const m = mount(<ResolutionCenter appId="200260" available />); await flush(); await click(button('Aplicar correção'))
+    expect(calls.find((c) => c.cmd === 'prepare_fix_plan')?.args).toEqual({ recipeId: resolutionPlan.recipeId, appId: '200260', expectedFingerprint: 'fixture-plan' })
     expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
     await click(button('Continuar'))
     expect(button('Aplicar correção')?.disabled).toBe(true)

@@ -56,6 +56,7 @@ export function ResolutionCenter({ appId, available }: { appId: string; availabl
 function ScopedResolutionCenter({ appId }: { appId: string }) {
   const engine = useFixEngine()
   const [report, setReport] = useState<ResolutionReport | null>(null)
+  const [plansValidated, setPlansValidated] = useState(false)
   const [symptoms, setSymptoms] = useState<string[]>([])
   const [busy, setBusy] = useState<string | null>('load')
   const [error, setError] = useState<string | null>(null)
@@ -63,18 +64,19 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   const alive = useRef(true)
   const sequence = useRef(0)
 
-  const run = useCallback(async (label: string, task: () => Promise<ResolutionReport | null>) => {
+  const run = useCallback(async (label: string, task: () => Promise<ResolutionReport | null | undefined>) => {
     const request = ++sequence.current
     setBusy(label)
     setError(null)
     try {
       const result = await task()
-      if (!alive.current || request !== sequence.current) return
+      if (!alive.current || request !== sequence.current || result === undefined) return
       if (result && result.appId !== appId) throw new Error('O diagnóstico retornou outro AppID. Nada foi associado a este jogo; tente diagnosticar novamente.')
       setReport(result)
+      setPlansValidated(true)
       if (result?.symptoms) setSymptoms(result.symptoms)
     } catch (e) {
-      if (alive.current && request === sequence.current) setError(errorMessage(e))
+      if (alive.current && request === sequence.current) { setError(errorMessage(e)); setPlansValidated(false) }
     } finally {
       if (alive.current && request === sequence.current) setBusy(null)
     }
@@ -90,8 +92,9 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   const research = () => run('research', () => api.researchGameResolutions(appId, symptoms))
   const importLog = () => run('import', async () => {
     const path = await api.chooseResolutionLog()
-    // Closing the file picker preserves the current report and imports nothing.
-    return path ? api.importResolutionLog(appId, path) : report
+    // Canceling preserves both the report and its validation state: an old
+    // report must not become executable again merely by closing the picker.
+    return path ? api.importResolutionLog(appId, path) : undefined
   })
   const open = (url: string) => void openExternal(url).catch((e) => { if (alive.current) setError(errorMessage(e)) })
   const rollback = async (plan: ResolutionPlan) => {
@@ -111,7 +114,12 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
     void engine.refresh()
     void diagnose()
   }
-  const safePlans = report?.plans.filter((p) => p.appId === appId) ?? []
+  const safePlans = report?.plans.filter((p) => p.appId === appId).map((p): ResolutionPlan => !plansValidated && (!p.operationId || p.state === 'rolled-back') ? { ...p, availability: { state: 'investigation', reasons: [{ code: 'refresh-failed', message: 'A atualização falhou. Diagnostique novamente para revalidar o plano antes de aplicar.' }], checkedAt: new Date().toISOString(), planStatus: null, planFingerprint: null } } : p) ?? []
+  const applicablePlans = safePlans.filter((p) => p.availability?.state === 'available' && p.availability.planFingerprint && p.recipeId && p.reversible && (!p.operationId || p.state === 'rolled-back'))
+  const temporaryPlans = safePlans.filter((p) => p.availability?.state === 'temporary' && !p.operationId)
+  const recordedPlans = safePlans.filter((p) => !!p.operationId && !(p.state === 'rolled-back' && p.availability?.state === 'available'))
+  const investigationPlans = safePlans.filter((p) => !p.operationId && !applicablePlans.includes(p) && !temporaryPlans.includes(p))
+  const renderPlan = (plan: ResolutionPlan) => <PlanDetails key={plan.id} plan={plan} busy={!!busy} onOpen={open} onPreview={() => { if (plan.recipeId && plan.availability?.state === 'available') setTarget({ kind: 'apply', expectedFingerprint: plan.availability?.planFingerprint ?? undefined, recipeId: plan.recipeId, appId, title: plan.title }) }} onVerify={() => void run('verify', () => api.verifyResolutionPlan(appId, plan.id))} onRollback={() => void rollback(plan)} />
 
   return <section aria-labelledby="resolution-center" className="mt-10 border-t border-line pt-7" aria-busy={!!busy}>
     <div className="flex flex-wrap items-start justify-between gap-5">
@@ -156,7 +164,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
       </div>}
 
       <div>
-        <h3 className="font-medium text-[15px]">Problemas e soluções</h3>
+        <h3 className="font-medium text-[15px]">Problemas identificados</h3>
         {!report.problems.length && <p className="mt-2 text-[13px] text-fg-2">Nenhum problema confirmado com os dados disponíveis. Isso não garante que todos os recursos estejam funcionando.</p>}
         <div className="mt-3 divide-y divide-line border-y border-line">
           {report.problems.map((problem) => <details key={problem.id} className="py-4" open={report.problems.length === 1}>
@@ -170,13 +178,20 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
                 <Detail title="Próxima ação"><p>{problem.nextAction}</p></Detail>
               </div>
               <div className="min-w-0 space-y-5">
-                {safePlans.filter((p) => p.problemId === problem.id || problem.planIds.includes(p.id)).map((plan) => <PlanDetails key={plan.id} plan={plan} busy={!!busy} onOpen={open} onPreview={() => { if (plan.recipeId) setTarget({ kind: 'apply', recipeId: plan.recipeId, appId, title: plan.title }) }} onVerify={() => void run('verify', () => api.verifyResolutionPlan(appId, plan.id))} onRollback={() => void rollback(plan)} />)}
-                {!safePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) && <p className="text-[13px] text-fg-2">Problema identificado — nenhuma solução aplicável confirmada.</p>}
+                {!applicablePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) && <p className="text-[13px] text-fg-2">Problema identificado — nenhuma solução aplicável confirmada.</p>}
+                {applicablePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) && <p className="text-[13px] text-fg-2">Há um plano completo na seção Soluções aplicáveis abaixo.</p>}
               </div>
             </div>
           </details>)}
         </div>
       </div>
+      <section aria-label="Soluções aplicáveis">
+        <h3 className="font-medium text-[15px]">Soluções aplicáveis</h3>
+        {applicablePlans.length ? <div className="mt-3 space-y-6">{applicablePlans.map(renderPlan)}</div> : <p className="mt-2 text-[13px] text-fg-2">Nenhuma correção automática disponível para este jogo no momento.</p>}
+      </section>
+      {!!temporaryPlans.length && <section><h3 className="font-medium text-[15px]">Aguardando condição local</h3><div className="mt-3 space-y-6">{temporaryPlans.map(renderPlan)}</div><Button size="sm" disabled={!!busy} onClick={() => void diagnose()}>Revalidar condições</Button></section>}
+      {!!recordedPlans.length && <section><h3 className="font-medium text-[15px]">Aplicação e restauração</h3><div className="mt-3 space-y-6">{recordedPlans.map(renderPlan)}</div></section>}
+      <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[14px] font-medium">Descobertas em investigação ({investigationPlans.length})</summary><p className="mt-2 text-[12.5px] text-fg-3">Fontes e procedimentos que ainda não têm aplicação completa e segura para este ambiente.</p><div className="mt-3 space-y-6">{investigationPlans.map(renderPlan)}</div></details>
       {!!report.packs.filter((pack) => pack.appId === appId).length && <div>
         <h3 className="font-medium text-[15px]">Smart Resolution Packs</h3>
         <ul className="mt-2 divide-y divide-line">{report.packs.filter((pack) => pack.appId === appId).map((pack) => <li key={pack.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div className="min-w-0"><p className="text-[13px] font-medium">{pack.title}</p><p className="mt-1 max-w-[65ch] text-[12px] text-fg-2">{pack.explanation}</p></div>{pack.smartPackId && <Link className="text-[13px] text-accent underline underline-offset-4" to={`/correcoes?view=smart&game=${encodeURIComponent(appId)}&pack=${encodeURIComponent(pack.smartPackId)}`}>Ver pacote</Link>}</li>)}</ul>
@@ -191,15 +206,16 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
 function PlanDetails({ plan, busy, onOpen, onPreview, onVerify, onRollback }: { plan: ResolutionPlan; busy: boolean; onOpen: (url: string) => void; onPreview: () => void; onVerify: () => void; onRollback: () => void }) {
   const applied = plan.state === 'applied-unverified' || plan.state === 'verified-configuration'
   return <article aria-label={plan.title} className="space-y-3">
-    <div><h4 className="text-[14px] font-medium">{plan.title}</h4><p className={`mt-1 text-[12px] ${plan.state === 'review' || plan.state === 'error' ? 'text-caution' : 'text-fg-2'}`}>{PLAN_STATES[plan.state] ?? 'Estado não confirmado'}</p></div>
-    <Detail title="Solução sugerida"><p>{plan.objective}</p><TextList items={plan.actions} /></Detail>
+    <div><h4 className="text-[14px] font-medium">{plan.title}</h4><p className={`mt-1 text-[12px] ${plan.state === 'review' || plan.state === 'error' ? 'text-caution' : 'text-fg-2'}`}>{plan.operationId && plan.state !== 'rolled-back' ? PLAN_STATES[plan.state] ?? 'Operação registrada' : plan.availability?.state === 'temporary' ? 'Aguardando condição local' : plan.availability?.state === 'incompatible' ? 'Incompatível com este ambiente' : plan.availability?.state === 'available' ? 'Prévia disponível' : plan.state === 'rolled-back' ? PLAN_STATES[plan.state] : 'Requer revisão'}</p></div>
+    {!!plan.availability?.reasons.length && <TextList items={plan.availability.reasons.map((r) => r.message)} />}
+    <Detail title="Plano de resolução"><p>{plan.objective}</p><TextList items={plan.actions} /></Detail>
     {!!plan.dependencies.length && <Detail title="Compatibilidade e dependências"><TextList items={plan.dependencies} /></Detail>}
     {!!plan.risks.length && <Detail title="Riscos"><TextList items={plan.risks} /></Detail>}
     <Detail title="Verificação"><p>{plan.verificationMethod}</p><p className="mt-1">Critério: {plan.successCriterion}</p>{plan.verification && <p className="mt-2 font-medium text-fg">{plan.verification}</p>}</Detail>
     {!!plan.limitations.length && <TextList items={plan.limitations} />}
     {!!plan.sources.length && <Detail title="Fontes"><EvidenceList evidence={plan.sources} onOpen={onOpen} /></Detail>}
     <div className="flex flex-wrap gap-2">
-      {(plan.state === 'applicable' || plan.state === 'rolled-back') && plan.recipeId && plan.reversible && <Button size="sm" disabled={busy} onClick={onPreview}>Visualizar prévia</Button>}
+      {plan.availability?.state === 'available' && plan.availability.planFingerprint && plan.recipeId && plan.reversible && (!plan.operationId || plan.state === 'rolled-back') && <Button size="sm" disabled={busy} onClick={onPreview}>Aplicar correção</Button>}
       {applied && plan.operationId && <Button size="sm" disabled={busy} icon={<RefreshCw className="size-3.5" />} onClick={onVerify}>Verificar alteração</Button>}
       {applied && plan.verificationMethod.includes('Performance Lab') && <Link className="inline-flex items-center text-[13px] text-accent underline underline-offset-4" to={`/performance?game=${encodeURIComponent(plan.appId)}`}>Abrir Performance Lab</Link>}
       {(applied || plan.state === 'error') && plan.operationId && plan.reversible && <Button size="sm" variant="ghost" disabled={busy} icon={<RotateCcw className="size-3.5" />} onClick={onRollback}>Desfazer</Button>}

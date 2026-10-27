@@ -20,7 +20,7 @@ import { cn } from '@/lib/cn'
 
 type Phase = 'loading' | 'review' | 'confirm' | 'running' | 'manual' | 'done' | 'error' | 'cancelled'
 
-export type ApplyTarget = { kind: 'apply'; recipeId: string; appId: string; title: string } | { kind: 'rollback'; operation: Operation }
+export type ApplyTarget = { kind: 'apply'; recipeId: string; appId: string; title: string; expectedFingerprint?: string } | { kind: 'rollback'; operation: Operation }
 
 /**
  * Fluxo real: prévia calculada no núcleo → confirmação → execução com
@@ -62,7 +62,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
     setStage(null)
     try {
       if (target.kind === 'apply') {
-        setPlan(await prepareFixPlan(target.recipeId, target.appId))
+        setPlan(await prepareFixPlan(target.recipeId, target.appId, target.expectedFingerprint))
       } else if (target.operation.state === 'requires-manual-step' || target.operation.state === 'recovery-required') {
         // Passo manual pendente ou operação interrompida: começa pela conferência.
         setOp(target.operation)
@@ -192,6 +192,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
   const stageIndex = stage ? stages.findIndex((s) => s.state === stage) : -1
   // No resultado vale o estado real da operação, não o tipo de diálogo.
   const undone = op?.state === 'rolled-back'
+  const staleListing = target.kind === 'apply' && !!target.expectedFingerprint && error?.includes('desde a listagem')
 
   const pose =
     phase === 'loading' ? 'inspect' : phase === 'running' ? 'fix' : phase === 'done' ? (undone ? 'wave' : 'celebrate') : phase === 'error' ? 'worried' : phase === 'manual' ? 'confused' : 'inspect'
@@ -309,8 +310,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
             <Button variant="ghost" onClick={onClose}>
               Fechar
             </Button>
-            <Button variant="primary" icon={<RefreshCw className="size-4" />} onClick={() => void load()}>
-              Revisar de novo
+            <Button variant="primary" icon={<RefreshCw className="size-4" />} onClick={() => staleListing ? onClose() : void load()}>
+              {staleListing ? 'Fechar e revalidar' : 'Revisar de novo'}
             </Button>
           </>
         )

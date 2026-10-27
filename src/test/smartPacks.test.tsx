@@ -37,6 +37,7 @@ const D3D = 'pack.200260.1111111111111111'
 const COMBO = 'pack.200260.2222222222222222'
 
 const pack = (id: string, over: Partial<SmartPack> = {}): SmartPack => ({
+  availability: { state: id === BASE ? 'applied' : 'available', reasons: [], checkedAt: '2026-10-27', planStatus: 'ready', planFingerprint: 'fixture-pack-plan' },
   id,
   appId: '200260',
   version: '1.0.0',
@@ -199,11 +200,13 @@ const click = async (el: HTMLElement | undefined) => {
 describe('Smart Packs na interface', () => {
   let calls: { cmd: string; args: Record<string, unknown> }[] = []
   let evaluationFailure: string | null = null
+  let refreshFailure: string | null = null
   let current: () => SmartPackReport = () => report()
 
   beforeEach(() => {
     calls = []
     evaluationFailure = null
+    refreshFailure = null
     current = () => report()
     g.isTauri = true
     mockIPC(
@@ -227,6 +230,7 @@ describe('Smart Packs na interface', () => {
           case 'get_capture_status':
             return { phase: 'idle' }
           case 'get_smart_packs':
+            if (refreshFailure) throw refreshFailure
             return { ...current(), profile: (args as { profile: string }).profile }
           case 'prepare_fix_plan':
             return plan
@@ -253,6 +257,34 @@ describe('Smart Packs na interface', () => {
     clearMocks()
     g.isTauri = false
     document.body.innerHTML = ''
+  })
+
+  it('erro ao recalcular preserva dados anteriores mas invalida botões de aplicação antigos', async () => {
+    const m = mount(<SmartPacksPanel appId="200260" />); await flush(80)
+    expect(button('Aplicar')).toBeDefined()
+    refreshFailure = 'Fixture offline durante revalidação'
+    await click(button('Recalcular')); await flush(80)
+    expect(text()).toContain('Fixture offline durante revalidação')
+    expect(button('Aplicar')).toBeUndefined()
+    expect(text()).toContain('Desativar Direct3D 11')
+    refreshFailure = null
+    await click(button('Recalcular')); await flush(80)
+    expect(button('Aplicar')).toBeDefined()
+    m.unmount()
+  })
+
+  it('pack legado ou temporariamente bloqueado não oferece aplicar nem iniciar teste que exige aplicação', async () => {
+    current = () => report({ packs: [pack(BASE), pack(D3D, { availability: { state: 'temporary', reasons: [{ code: 'game-running', message: 'Feche o jogo para continuar.' }], checkedAt: '2026-10-27', planStatus: 'conflict', planFingerprint: 'fixture-temporary' } })] })
+    const m = mount(<SmartPacksPanel appId="200260" />); await flush(80)
+    const card = document.querySelector('li[aria-label="Desativar Direct3D 11"]')!
+    expect(card.textContent).toContain('Feche o jogo para continuar.')
+    expect([...card.querySelectorAll('button')].some((b) => ['Aplicar', 'Testar desempenho'].includes(b.textContent?.trim() ?? ''))).toBe(false)
+    current = () => report({ packs: [pack(BASE), pack(D3D, { availability: undefined })] })
+    await click(button('Recalcular')); await flush(80)
+    expect(text()).toContain('Aplicabilidade não verificada')
+    expect(button('Aplicar')).toBeUndefined()
+    expect(calls.some((c) => c.cmd === 'prepare_fix_plan')).toBe(false)
+    m.unmount()
   })
 
   it('sem evidência: nenhum vencedor, candidatos em ordem de teste e referência Windows indisponível', async () => {
@@ -300,7 +332,7 @@ describe('Smart Packs na interface', () => {
     await click(button('Aplicar'))
     await flush(60)
     const prep = calls.find((c) => c.cmd === 'prepare_fix_plan')!
-    expect(prep.args).toEqual({ recipeId: 'gen.200260.aaaaaaaaaaaaaaaa', appId: '200260' })
+    expect(prep.args).toEqual({ recipeId: 'gen.200260.aaaaaaaaaaaaaaaa', appId: '200260', expectedFingerprint: 'fixture-pack-plan' })
     expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
     m.unmount()
   })
