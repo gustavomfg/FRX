@@ -100,3 +100,24 @@ A implementação pode ser revisada e commitada localmente com esses limites. **
 - Documentação: `docs/SMART-PACKS.md`, `docs/VALIDACAO-SMART-PACKS.md` e este relatório.
 
 Artefatos de build, capturas de tela, diretórios de teste, logs, backups e dados isolados ficaram fora do histórico, nos caminhos já ignorados pelo projeto. A revisão não encontrou segredos nos arquivos pendentes. Nenhuma alteração não relacionada existia no início nem foi incluída.
+
+
+## Ajuste posterior — triagem automática de sugestões (27/10/2026)
+
+O usuário esclareceu que queria a separação preventiva de alternativas com possível perda de desempenho, sem precisar testar cada sugestão. O FRX já tinha descrições de custo, mas não as usava como categoria própria antes dos benchmarks.
+
+A análise preventiva agora chega às descobertas, ao catálogo, à prévia e aos Smart Packs pelo mesmo classificador Rust. WineD3D, desativação de sincronizações, fallback de APIs e limitadores de FPS recebem explicações específicas. A seção **Risco de perda de desempenho** é independente do ranking medido; sem evidência local suficiente, essas alternativas não são sugeridas como otimizações, não entram em combinações automáticas e não geram uma sequência de testes recomendados. A ação disponível é revisar seu uso para compatibilidade. Impacto ainda desconhecido também não vira promessa de FPS.
+
+Não se apaga nem proíbe uma correção globalmente. Medições locais já existentes continuam sendo usadas com seu contexto; o aviso preventivo permanece visível mesmo quando dados comparáveis permitem avaliar um caso específico. Nenhuma porcentagem nova foi inferida de um relato.
+
+Verificações desta alteração:
+
+- `cargo fmt --check` e Clippy com `-D warnings`: passaram.
+- Rust: **228 aprovados, 6 ignorados**.
+- Front-end: **43 aprovados**; TypeScript e build web passaram.
+- Build Tauri Linux: AppImage, DEB e RPM gerados.
+- Tauri com instalação fictícia, sem sessões: WineD3D e Direct3D 11 apareceram em **Risco de perda**, sem próximo teste recomendado nem botão de testar nesses cards. O histórico anterior foi preservado, com o novo campo aditivo `preventiveRisks`. A interface foi inspecionada em 1200×800 e 1024×760.
+
+Os testes de transação e rollback passaram a usar ações sem esse risco nas fixtures de composição; os testes originais foram mantidos. A nova cobertura verifica triagem independente de benchmarks, conservação da receita aplicável, ausência de pedidos de teste para custos conhecidos, persistência sem repetir eventos e ausência de promessa de FPS para relatos de compatibilidade.
+
+Esta verificação não iniciou jogos nem alterou a Steam real. Artefatos visuais e logs estão em `output/playwright/v04-performance-risk/`, fora do histórico. A versão do aplicativo continua 0.4.0; foram atualizadas apenas as versões internas de metodologia e conhecimento para recomputar o cache automaticamente.

@@ -25,6 +25,27 @@ Código: `src-tauri/src/smart_packs/`. Comandos: `src-tauri/src/commands/smart_p
 6. o ranking é calculado;
 7. o histórico é salvo.
 
+## Triagem preventiva de desempenho
+
+Antes de pedir benchmarks, o FRX classifica automaticamente as ações conhecidas. Uma receita ser revisada ou aplicável significa que o núcleo sabe gravá-la e desfazê-la; isso não é uma promessa de FPS.
+
+A seção **Risco de perda de desempenho** separa, mesmo sem sessões:
+
+- `PROTON_USE_WINED3D=1`: troca DXVK/Vulkan por WineD3D/OpenGL; alternativa de compatibilidade com possível custo de desempenho.
+- `PROTON_NO_ESYNC=1`, `PROTON_NO_FSYNC=1` e `PROTON_NO_NTSYNC=1`: desativam sincronizações otimizadas e podem custar desempenho em cargas com muitas threads.
+- `PROTON_NO_D3D11=1` e `PROTON_NO_D3D10=1`: desativam APIs e podem forçar um caminho de renderização com desempenho ou recursos diferentes, além de poder impedir o jogo de iniciar.
+- `DXVK_FRAME_RATE` e `VKD3D_FRAME_RATE`: limitam intencionalmente o FPS; não são aumento de desempenho.
+
+Essas alternativas não são sugeridas como otimizações e não entram em combinações automáticas sem evidência local comparável de não regressão. O fluxo não manda capturar baseline nem testar cada alternativa para reconhecer riscos que já conhece. No card, a ação é **Revisar compatibilidade**, com a prévia e a confirmação existentes; o botão principal de testar desempenho não é exibido nesse grupo.
+
+O mesmo aviso aparece nas descobertas, nas receitas e na prévia/confirmação. A classificação continua automática quando os relatos são contestados, preservando também o motivo de exclusão. Não se apaga a descoberta: uma alternativa lenta ainda pode resolver um problema de compatibilidade em outro contexto.
+
+Quando só há relatos de compatibilidade e nenhum impacto conhecido, a interface não os apresenta como promessa de ganho e não impõe testes. Se o usuário optar por medir e houver sessões comparáveis, o ranking existente aproveita os dados. Uma melhora local medida pode colocar o pacote no ranking, mantendo o aviso preventivo visível e limitado à configuração testada.
+
+A implementação usa `dynamic::compatibility::performance_warnings`, compartilhada entre análise, catálogo, prévia, composição e ranking. As regras são preventivas: não inventam porcentagens, não simulam benchmarks e não conseguem prever o efeito exato de qualquer correção ainda desconhecida. O significado das opções está documentado no [Proton](https://github.com/ValveSoftware/Proton#runtime-config-options); a triagem do FRX é conservadora e se baseia no efeito técnico dessas ações.
+
+O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo aditivo `preventiveRisks`, preservando leitores e registros existentes. A metodologia interna passou a 1.1.0; a versão do aplicativo permanece 0.4.0.
+
 ## Unidades (o que pode entrar num pacote)
 
 - Receitas **geradas** a partir das descobertas do jogo, ou **revisadas** do catálogo quando uma descoberta do jogo cita exatamente o mesmo ajuste.
@@ -44,7 +65,7 @@ Código: `src-tauri/src/smart_packs/`. Comandos: `src-tauri/src/commands/smart_p
 4. **Pares** de receitas elegíveis sem conflito conhecido.
 5. Total limitado a `maxPacks` (padrão 12). Pacotes com as mesmas variáveis contam uma vez.
 
-**Elegível para combinação** = evidência documentada ou confirmada, **ou** medição local conclusiva sem regressão. Um comentário isolado, ainda não medido, só aparece sozinho: comentários diferentes não são somados às cegas. Limitadores de FPS nunca entram em combinações, porque mudam as condições do benchmark.
+**Elegível para combinação** = evidência documentada ou confirmada, **ou** medição local conclusiva sem regressão. Ações com risco preventivo também exigem evidência local de não regressão antes de entrar em combinações. Um comentário isolado, ainda não medido, só aparece sozinho: comentários diferentes não são somados às cegas. Limitadores de FPS nunca entram em combinações, porque mudam as condições do benchmark.
 
 O custo é O(n²) no número de receitas, com n ≤ 8. Com 40 receitas, a composição leva menos de 1 ms no teste.
 
@@ -104,7 +125,8 @@ Nenhum perfil reduz a qualidade gráfica: as receitas só definem variáveis do 
   3. evidência;
   4. risco;
   5. menos receitas.
-- **Não recomendados**: regressão conclusiva para o perfil, incompatíveis e descobertas fora dos pacotes.
+- **Risco de perda de desempenho**: triagem preventiva, independente de capturas; alternativas de compatibilidade com custo possível ou conhecido.
+- **Não recomendados**: regressão medida para o perfil, incompatíveis e demais descobertas fora dos pacotes.
 - Mais correções não significam mais FPS: o número de receitas nunca melhora a posição.
 
 ## Integração com o Performance Lab

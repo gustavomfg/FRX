@@ -195,7 +195,8 @@ Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs
 
 Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX monta combinações das correções aplicáveis ao jogo, detecta conflitos e redundâncias e classifica os pacotes pelo que foi **medido** no Performance Lab. A classificação muda conforme o perfil: Máximo desempenho, Equilibrado ou Máxima compatibilidade.
 
-- Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor: o FRX mostra os candidatos em ordem de teste e o próximo teste recomendado.
+- O FRX separa automaticamente alternativas com **risco de perda de desempenho**, como WineD3D e desativação de sincronizações. Elas não são sugeridas como otimizações nem exigem testes para esse aviso aparecer.
+- Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor medido. O FRX não transforma relatos de compatibilidade em promessa de FPS e aproveita medições existentes quando disponíveis.
 - Pacotes de várias receitas são aplicados pelo Fix Engine como **uma** operação, com um backup e um rollback.
 - Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.
 - Cada captura assistida registra o pacote ativo. Sessões antigas podem ser declaradas.
