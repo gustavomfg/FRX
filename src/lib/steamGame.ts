@@ -21,7 +21,7 @@ const ORBS: NonNullable<CoverArt['orb']>[] = ['sol', 'lua', 'planeta', 'nenhum']
 /** Arte provisória (determinística) enquanto a capa oficial não carrega. */
 export function placeholderCover(appId: string): CoverArt {
   const h = hashString(appId)
-  return { scene: SCENES[h % SCENES.length], palette: PALETTES[(h >> 3) % PALETTES.length], seed: h % 1000, orb: ORBS[(h >> 7) % ORBS.length] }
+  return { scene: SCENES[h % SCENES.length], palette: PALETTES[(h >>> 3) % PALETTES.length], seed: h % 1000, orb: ORBS[(h >>> 7) % ORBS.length] }
 }
 
 /** Nome curto para ferramentas com nomes longos (ex.: proton-cachyos). */

@@ -25,4 +25,12 @@ describe('steamToGame', () => {
   it('gera a mesma arte provisória para o mesmo AppID', () => {
     expect(placeholderCover('620')).toEqual(placeholderCover('620'))
   })
+  it('mantém a paleta válida quando o hash do AppID ocupa o bit de sinal', () => {
+    for (const id of ['620', '200260', '570', '730', '999999']) {
+      const art = placeholderCover(id)
+      expect(art.palette).toHaveLength(5)
+      expect(art.palette.every((color) => /^#[0-9a-f]{6}$/i.test(color))).toBe(true)
+      expect(['sol', 'lua', 'planeta', 'nenhum']).toContain(art.orb)
+    }
+  })
 })
