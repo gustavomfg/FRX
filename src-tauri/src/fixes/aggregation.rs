@@ -12,6 +12,8 @@ use super::tweaks::Tweak;
 
 #[derive(Debug, Clone)]
 pub struct Mention {
+    pub scope: DiscoveryScope,
+    pub performance_reports: Vec<PerformanceReport>,
     pub tweak: Tweak,
     pub source: FindingSource,
     pub positive: bool,
@@ -64,7 +66,20 @@ pub fn finding_id(provider: &str, app: &str, key: &str) -> String {
 pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) -> Vec<FixFinding> {
     let mut groups: BTreeMap<String, Vec<Mention>> = BTreeMap::new();
     for m in mentions {
-        groups.entry(m.tweak.key()).or_default().push(m);
+        let identity = format!(
+            "{:?}:{}:{}",
+            m.scope.kind,
+            m.scope.app_id.as_deref().unwrap_or(""),
+            if m.scope.kind == DiscoveryScopeKind::UnknownScope {
+                m.scope.basis.as_str()
+            } else {
+                ""
+            }
+        );
+        groups
+            .entry(format!("{identity}:{}", m.tweak.key()))
+            .or_default()
+            .push(m);
     }
     let mut out = Vec::new();
     for (key, mut ms) in groups {
@@ -74,7 +89,6 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
         let tweak = ms[0].tweak.clone();
         let positive = ms.iter().filter(|m| m.positive && !m.negative).count() as u32;
         let negative = ms.iter().filter(|m| m.negative).count() as u32;
-        let neutral = ms.len() as u32 - positive - negative;
 
         let mut versions: Vec<String> = Vec::new();
         for m in &ms {
@@ -143,24 +157,59 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             Confidence::Unverified
         };
         let mut description = format!(
-            "Citado em {distinct} comentário{} público{} sobre este jogo",
+            "Citado em {distinct} comentário{} público{} {}",
             if distinct == 1 { "" } else { "s" },
-            if distinct == 1 { "" } else { "s" }
+            if distinct == 1 { "" } else { "s" },
+            if ms[0].scope.matches_game(app_id) {
+                "sobre este jogo"
+            } else {
+                "sem atribuição confirmada ao jogo selecionado"
+            }
         );
         if negative > 0 {
             description.push_str(&format!(", {negative} dizendo que não resolveu"));
         }
         description.push_str(". O FRX não testou este ajuste; ele é exibido como referência, não como recomendação garantida.");
         let published = ms.first().and_then(|m| m.source.published_at.clone());
+        let scope = ms[0].scope.clone();
+        let scoped_app = scope
+            .app_id
+            .as_deref()
+            .filter(|_| scope.kind == DiscoveryScopeKind::VerifiedGame)
+            .unwrap_or("")
+            .to_owned();
+        let mut performance_evidence = PerformanceEvidence::default();
+        for report in ms.iter().flat_map(|m| &m.performance_reports) {
+            if report.app_id != scoped_app
+                || !scope.matches_game(&report.app_id)
+                || performance_evidence.reports.iter().any(|r| {
+                    r.source_url == report.source_url
+                        && r.action_key == report.action_key
+                        && r.outcome == report.outcome
+                })
+            {
+                continue;
+            }
+            match report.outcome {
+                PerformanceOutcome::Positive => performance_evidence.positive += 1,
+                PerformanceOutcome::Negative => performance_evidence.negative += 1,
+            }
+            performance_evidence.reports.push(report.clone());
+        }
         out.push(FixFinding {
+            scope,
+            performance_evidence,
             id: finding_id("github", app_id, &key),
-            game_app_id: app_id.to_owned(),
+            game_app_id: scoped_app,
             title,
             description,
             category,
             kind: FindingKind::Tweak,
             actions,
-            sources: ms.iter().take(6).map(|m| m.source.clone()).collect(),
+            // HTTP providers already bound the number and size of fetched
+            // comments. Keep every fetched source so a later negative claim
+            // cannot lose its provenance while positive claims remain valid.
+            sources: ms.iter().map(|m| m.source.clone()).collect(),
             requirements: Requirements {
                 gpu_vendor: gpu,
                 proton_versions: versions,
@@ -171,10 +220,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             compatibility: Compatibility::Unknown,
             compatibility_note: String::new(),
             analysis: AnalysisState::Parsed,
-            evidence: Evidence {
-                positive: positive + neutral,
-                negative,
-            },
+            evidence: Evidence { positive, negative },
             published_at: published,
             retrieved_at: retrieved_at.to_owned(),
             keys: component_keys(&tweak),
@@ -190,6 +236,9 @@ pub fn merge(mut primary: Vec<FixFinding>, others: Vec<FixFinding>) -> Vec<FixFi
     for o in others {
         let target = primary.iter_mut().find(|p| {
             p.kind == FindingKind::Protonfix
+                && p.game_app_id == o.game_app_id
+                && p.scope.matches_game(&p.game_app_id)
+                && o.scope.matches_game(&p.game_app_id)
                 && !o.keys.is_empty()
                 && o.keys.iter().all(|k| p.keys.contains(k))
         });
@@ -202,6 +251,19 @@ pub fn merge(mut primary: Vec<FixFinding>, others: Vec<FixFinding>) -> Vec<FixFi
                 }
                 p.evidence.positive += o.evidence.positive;
                 p.evidence.negative += o.evidence.negative;
+                for report in o.performance_evidence.reports {
+                    if !p.performance_evidence.reports.iter().any(|r| {
+                        r.source_url == report.source_url
+                            && r.action_key == report.action_key
+                            && r.outcome == report.outcome
+                    }) {
+                        match report.outcome {
+                            PerformanceOutcome::Positive => p.performance_evidence.positive += 1,
+                            PerformanceOutcome::Negative => p.performance_evidence.negative += 1,
+                        }
+                        p.performance_evidence.reports.push(report);
+                    }
+                }
                 for v in o.requirements.proton_versions {
                     if !p.requirements.proton_versions.contains(&v) {
                         p.requirements.proton_versions.push(v);
@@ -213,10 +275,12 @@ pub fn merge(mut primary: Vec<FixFinding>, others: Vec<FixFinding>) -> Vec<FixFi
     }
     primary.extend(rest);
     // Mesma URL de origem não pode gerar duas descobertas do mesmo tipo.
-    let mut seen: Vec<(String, String)> = Vec::new();
+    let mut seen = Vec::new();
     primary.retain(|f| {
         let k = (
             f.id.clone(),
+            f.game_app_id.clone(),
+            f.scope.clone(),
             f.sources.first().map(|s| s.url.clone()).unwrap_or_default(),
         );
         if seen.contains(&k) {
@@ -235,6 +299,8 @@ mod tests {
 
     fn mention(t: Tweak, url: &str, pos: bool, neg: bool, gpus: Vec<GpuReq>) -> Mention {
         Mention {
+            scope: DiscoveryScope::verified("1", "fixture: explicit AppID in issue title"),
+            performance_reports: vec![],
             tweak: t,
             source: FindingSource {
                 provider: ProviderId::Github,
@@ -343,5 +409,143 @@ mod tests {
             )),
             vec!["wrapper:gamemoderun", "env:PROTON_NO_FSYNC=1", "arg:-dx11"]
         );
+    }
+    #[test]
+    fn equal_actions_never_merge_across_appids_or_unknown_attribution() {
+        let a = mention(env("PROTON_NO_D3D11", "1"), "a", true, false, vec![]);
+        let mut b = mention(env("PROTON_NO_D3D11", "1"), "b", true, false, vec![]);
+        b.scope = DiscoveryScope::verified("2", "fixture: game B title");
+        let mut unknown = mention(env("PROTON_NO_D3D11", "1"), "u", true, false, vec![]);
+        unknown.scope = DiscoveryScope::default();
+        let mut groups = group_mentions("1", vec![a, b, unknown], "fixture");
+        assert_eq!(groups.len(), 3);
+        assert_ne!(groups[0].id, groups[1].id);
+        assert!(groups
+            .iter()
+            .any(|f| f.game_app_id == "1" && f.sources.len() == 1));
+        assert!(groups
+            .iter()
+            .any(|f| f.game_app_id == "2" && f.sources.len() == 1));
+        assert!(groups
+            .iter()
+            .any(|f| f.game_app_id.is_empty() && f.sources.len() == 1));
+        let mut primary = groups.remove(groups.iter().position(|f| f.game_app_id == "1").unwrap());
+        primary.kind = FindingKind::Protonfix;
+        let merged = merge(vec![primary], groups);
+        assert_eq!(merged.len(), 3);
+        assert!(merged
+            .iter()
+            .all(|f| f.sources.len() == 1 && f.evidence.positive == 1));
+    }
+
+    #[test]
+    fn neutral_mentions_do_not_become_positive_reports() {
+        let findings = group_mentions(
+            "1",
+            vec![mention(
+                env("PROTON_NO_D3D11", "1"),
+                "source",
+                false,
+                false,
+                vec![],
+            )],
+            "fixture",
+        );
+        assert_eq!(findings[0].evidence.positive, 0);
+        assert_eq!(
+            findings[0].performance_evidence,
+            PerformanceEvidence::default()
+        );
+    }
+    #[test]
+    fn all_fetched_sources_are_retained_including_a_seventh_negative_claim() {
+        let mentions: Vec<_> = (0..7)
+            .map(|i| {
+                let negative = i == 6;
+                let url =
+                    format!("https://github.com/ValveSoftware/Proton/issues/1#issuecomment-{i}");
+                let mut mention = mention(
+                    env("PROTON_NO_D3D11", "1"),
+                    &url,
+                    !negative,
+                    negative,
+                    vec![],
+                );
+                mention.source.published_at = Some(format!("2026-10-{:02}T00:00:00Z", 27 - i));
+                mention.performance_reports = vec![PerformanceReport {
+                    app_id: "1".into(),
+                    action_key: "env:PROTON_NO_D3D11=1".into(),
+                    source_url: url,
+                    author: Some(format!("synthetic-author-{i}")),
+                    reported_at: mention.source.published_at.clone(),
+                    statement: "Synthetic performance claim, not a real benchmark".into(),
+                    outcome: if negative {
+                        PerformanceOutcome::Negative
+                    } else {
+                        PerformanceOutcome::Positive
+                    },
+                    proton_version: None,
+                    gpu_vendor: None,
+                    confidence: Confidence::CommunityReported,
+                    limitations: vec![],
+                }];
+                mention
+            })
+            .collect();
+        let findings = group_mentions("1", mentions, "synthetic-fixture");
+        let finding = &findings[0];
+        assert_eq!(finding.sources.len(), 7);
+        assert_eq!(finding.performance_evidence.positive, 6);
+        assert_eq!(finding.performance_evidence.negative, 1);
+        let negative = finding
+            .performance_evidence
+            .reports
+            .iter()
+            .find(|r| r.outcome == PerformanceOutcome::Negative)
+            .unwrap();
+        assert_eq!(
+            finding.sources[6].url, negative.source_url,
+            "oldest report is deliberately beyond the former six-source display bound"
+        );
+        assert!(
+            finding
+                .performance_evidence
+                .reports
+                .iter()
+                .all(|r| finding.sources.iter().any(|s| s.url == r.source_url)),
+            "every public performance claim retains its source for contextual revalidation"
+        );
+    }
+
+    #[test]
+    fn final_deduplication_preserves_equal_ids_and_urls_with_different_game_scopes() {
+        let a = group_mentions(
+            "1",
+            vec![mention(
+                env("PROTON_NO_D3D11", "1"),
+                "same-source",
+                true,
+                false,
+                vec![],
+            )],
+            "synthetic-fixture",
+        )
+        .remove(0);
+        let mut b = a.clone();
+        b.game_app_id = "2".into();
+        b.scope = DiscoveryScope::verified("2", "Synthetic source attribution to game B");
+        let mut unknown = a.clone();
+        unknown.scope = DiscoveryScope::default();
+        let merged = merge(vec![a.clone()], vec![a, b, unknown]);
+        assert_eq!(
+            merged.len(),
+            3,
+            "only the true same-game same-scope duplicate is removed"
+        );
+        assert!(merged.iter().any(|f| f.scope.matches_game("1")));
+        assert!(merged.iter().any(|f| f.scope.matches_game("2")));
+        assert!(merged
+            .iter()
+            .any(|f| f.scope.kind == DiscoveryScopeKind::UnknownScope));
     }
 }

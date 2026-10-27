@@ -2,15 +2,15 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::fix_engine::dynamic::{DynStatus, EvidenceLevel};
+use crate::fix_engine::dynamic::{DynStatus, EvidenceLevel, GamePerformanceEvidence};
 use crate::fix_engine::models::{PlanStatus, Purpose, RecipeSource, Risk, Trust};
 use crate::fixes::models::GpuReq;
 
 pub const PACK_SCHEMA: u32 = 1;
 /// Versão do compositor: mudou → os pacotes são recompostos e registrados de novo.
-pub const COMPOSER_VERSION: &str = "1.1.0";
+pub const COMPOSER_VERSION: &str = "1.2.0";
 /// Versão da metodologia de ranking (critérios e limites documentados).
-pub const RANKING_VERSION: &str = "1.1.0";
+pub const RANKING_VERSION: &str = "1.2.0";
 
 /// Perfil de otimização: muda os critérios de ordenação, nunca os dados.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -47,7 +47,7 @@ pub enum Goal {
 pub enum PerfHint {
     /// Efeito no desempenho desconhecido: só a medição dirá.
     Unknown,
-    /// Documentada como mais lenta (ex.: WineD3D).
+    /// Risco técnico potencial; não determina o desempenho deste jogo.
     Penalty,
     /// Limita o FPS: muda as condições do benchmark.
     FrameCap,
@@ -64,6 +64,11 @@ pub struct EnvPair {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Unit {
+    /// Escopo verificado da descoberta; ausente em dados legados não atribuídos.
+    #[serde(default)]
+    pub app_id: Option<String>,
+    #[serde(default)]
+    pub performance_evidence: GamePerformanceEvidence,
     pub recipe_id: String,
     pub version: String,
     /// SHA-256 da receita usada na composição.
@@ -89,6 +94,7 @@ pub struct Unit {
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum ConflictKind {
+    GameScope,
     SameKeyDifferentValue,
     MutuallyExclusive,
     Redundant,
@@ -150,6 +156,8 @@ pub struct PackMemberView {
 #[serde(rename_all = "camelCase")]
 pub struct SmartPack {
     #[serde(default)]
+    pub performance_evidence: GamePerformanceEvidence,
+    #[serde(default)]
     pub performance_warnings: Vec<String>,
     /// `pack.<appid>.<hash>` das variáveis ordenadas (estável).
     pub id: String,
@@ -195,6 +203,8 @@ pub enum SnapshotSource {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct SnapshotRecipe {
+    #[serde(default)]
+    pub fingerprint: Option<String>,
     pub recipe_id: String,
     pub version: String,
 }
@@ -203,6 +213,12 @@ pub struct SnapshotRecipe {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct PackSnapshot {
+    /// Adicionado sem atribuir registros legados ao jogo atualmente aberto.
+    #[serde(default)]
+    pub app_id: Option<String>,
+    /// Identidade da configuração registrada, incluindo jogo e versões.
+    #[serde(default)]
+    pub fingerprint: Option<String>,
     pub pack_id: String,
     pub env: Vec<EnvPair>,
     pub recipes: Vec<SnapshotRecipe>,

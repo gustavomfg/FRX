@@ -179,7 +179,10 @@ fn primary_metric(p: Profile) -> &'static str {
 }
 
 fn used(m: &BTreeMap<String, Measurements>, id: &str) -> usize {
-    m.get(id).map(|x| x.used()).unwrap_or(0)
+    m.get(id)
+        .filter(|x| x.pack_id == id)
+        .map(|x| x.used())
+        .unwrap_or(0)
 }
 
 /// Ordem sugerida de teste: sem indício de regressão, já com dados (para
@@ -202,7 +205,12 @@ pub fn rank(i: Input<'_>) -> Ranking {
     let mut performance_risks: Vec<RankEntry> = Vec::new();
 
     for p in i.packs.iter().filter(|p| p.kind != PackKind::Baseline) {
-        let vs = i.vs.get(&p.id).cloned();
+        if p.id != super::benchmark::pack_id(&p.app_id, &p.env)
+            || !i.baseline_id.starts_with(&format!("pack.{}.", p.app_id))
+        {
+            continue;
+        }
+        let vs = i.vs.get(&p.id).filter(|v| v.pack_id == p.id).cloned();
         if p.state == PackState::Unsupported {
             not_rec.push(RankEntry {
                 pack_id: p.id.clone(),
@@ -216,13 +224,15 @@ pub fn rank(i: Input<'_>) -> Ranking {
             });
             continue;
         }
+        let contextual_candidate = p.performance_evidence.contextual_candidate(&p.app_id);
         if !p.performance_warnings.is_empty()
+            && !contextual_candidate
             && !vs
                 .as_ref()
                 .is_some_and(|v| !v.limited && v.get("fpsAvg").is_some())
         {
             let mut reasons = p.performance_warnings.clone();
-            reasons.push("Classificação preventiva do FRX: não é uma regressão medida. Só considere esta alternativa para resolver um problema de compatibilidade; não é necessário testá-la para obter otimização.".into());
+            reasons.push("Risco técnico potencial, não uma regressão universal. Sem evidência favorável suficiente para este jogo e contexto, fica reservada à compatibilidade; medições preliminares não elegem um vencedor.".into());
             if let Some(v) = &vs {
                 reasons.extend(describe(v));
             }
@@ -236,7 +246,22 @@ pub fn rank(i: Input<'_>) -> Ranking {
                 } else {
                     Outcome::Inconclusive
                 },
-                headline: "Risco de perda de desempenho".into(),
+                headline: if p.performance_evidence.conflicting() {
+                    "Evidências conflitantes"
+                } else if vs
+                    .as_ref()
+                    .is_some_and(|v| v.deltas.iter().any(|d| d.outcome == Outcome::Regression))
+                {
+                    "Risco potencial com indício de regressão neste jogo"
+                } else if vs
+                    .as_ref()
+                    .is_some_and(|v| v.deltas.iter().any(|d| d.outcome == Outcome::Improvement))
+                {
+                    "Risco potencial com indício de melhoria — dados preliminares"
+                } else {
+                    "Risco potencial — impacto neste jogo desconhecido"
+                }
+                .into(),
                 reasons,
                 vs_baseline: vs,
             });
@@ -289,7 +314,12 @@ pub fn rank(i: Input<'_>) -> Ranking {
                     .is_some_and(|v| v.deltas.iter().any(|x| x.outcome == Outcome::Regression));
                 let (headline, mut reasons) = if n == 0 {
                     (
-                        if matches!(
+                        if contextual_candidate {
+                            "Possível melhoria específica deste jogo — requer validação local"
+                                .to_owned()
+                        } else if p.performance_evidence.conflicting() {
+                            "Evidências conflitantes — impacto desconhecido".to_owned()
+                        } else if matches!(
                             p.evidence,
                             EvidenceLevel::Documented | EvidenceLevel::Corroborated
                         ) {
@@ -324,6 +354,17 @@ pub fn rank(i: Input<'_>) -> Ranking {
                         vec![],
                     )
                 };
+                reasons.extend(p.performance_warnings.clone());
+                if contextual_candidate {
+                    reasons.push(format!("Relatos positivos atribuídos ao AppID {} sustentam apenas uma candidatura; nenhum ganho foi medido neste computador por esses relatos.", p.app_id));
+                    reasons.extend(
+                        p.performance_evidence
+                            .source_urls
+                            .iter()
+                            .map(|u| format!("Origem da evidência específica: {u}")),
+                    );
+                    reasons.extend(p.performance_evidence.limitations.clone());
+                }
                 if let Some(v) = &vs {
                     reasons.extend(v.notes.clone());
                     reasons.extend(describe(v));
@@ -459,9 +500,11 @@ pub fn rank(i: Input<'_>) -> Ranking {
             .any(|x| !x.performance_warnings.is_empty());
     let next_candidate = candidates.iter().find(|(e, _)| {
         used(i.measured, &e.pack_id) > 0
-            || i.packs
-                .iter()
-                .any(|p| p.id == e.pack_id && p.goal == Goal::Performance)
+            || i.packs.iter().any(|p| {
+                p.id == e.pack_id
+                    && (p.goal == Goal::Performance
+                        || p.performance_evidence.contextual_candidate(&p.app_id))
+            })
     });
     let next_test = if next_candidate.is_none() {
         None

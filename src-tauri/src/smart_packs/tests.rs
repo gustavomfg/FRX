@@ -34,6 +34,8 @@ pub fn env(pairs: &[(&str, &str)]) -> Vec<EnvPair> {
 pub fn unit(id: &str, pairs: &[(&str, &str)], ev: EvidenceLevel) -> Unit {
     let e = env(pairs);
     Unit {
+        app_id: Some(APP.into()),
+        performance_evidence: Default::default(),
         recipe_id: id.into(),
         version: "1.0.0".into(),
         fingerprint: format!("{:0>64}", id.len()),
@@ -496,6 +498,8 @@ pub fn synthetic(id: &str, e: &[EnvPair], avg: f64, low1: f64, p99: f64) -> Sess
     m.quality.level = QualityLevel::Good;
     m.created_at = format!("2026-10-26T10:00:{:0>2}Z", id.len());
     m.smart_pack = Some(PackSnapshot {
+        app_id: Some(APP.into()),
+        fingerprint: None,
         pack_id: pack_id(APP, e),
         env: e.to_vec(),
         recipes: vec![],
@@ -597,11 +601,14 @@ fn without_benchmarks_there_is_no_winner_and_baseline_comes_first() {
     let e = entry(&r, &d3d11());
     assert_eq!(e.tier, Tier::PerformanceRisk);
     assert_eq!(
-        e.headline, "Risco de perda de desempenho",
+        e.headline, "Risco potencial — impacto neste jogo desconhecido",
         "PROTON_NO_D3D11 não sobe sem benchmark"
     );
     assert!(e.position.is_none());
-    assert_eq!(entry(&r, &esync()).headline, "Risco de perda de desempenho");
+    assert_eq!(
+        entry(&r, &esync()).headline,
+        "Risco potencial — impacto neste jogo desconhecido"
+    );
 }
 
 #[test]
@@ -611,7 +618,7 @@ fn a_single_benchmark_each_is_only_indicative() {
     let r = ranked(&world(s), Profile::Performance);
     let e = entry(&r, &d3d11());
     assert_eq!(e.tier, Tier::PerformanceRisk);
-    assert_eq!(e.headline, "Risco de perda de desempenho");
+    assert!(e.headline.contains("dados preliminares"));
     assert!(e.vs_baseline.as_ref().unwrap().limited);
     assert!(r.winner.is_none(), "uma captura não elege vencedor");
     assert!(r.next_test.is_none());
@@ -933,7 +940,7 @@ mod acceptance {
         let r = ranked(&world(s.clone()), Profile::Performance);
         let entry = entry(&r, &d3d11());
         assert_eq!(entry.tier, Tier::PerformanceRisk);
-        assert_eq!(entry.headline, "Risco de perda de desempenho");
+        assert!(entry.headline.contains("indício de regressão neste jogo"));
         assert!(r.winner.is_none());
     }
 
@@ -1108,4 +1115,600 @@ mod acceptance {
             .is_none());
         assert!(ranked(&world(sessions), Profile::Balanced).winner.is_none());
     }
+}
+
+// ── Game-specific intelligence: synthetic fixtures only ──────────────────
+
+fn game_fixture(app: &str, id: &str, e: &[EnvPair], fps: f64) -> SessionMeta {
+    let mut m = synthetic(id, e, fps, fps * 0.8, 1000.0 / (fps * 0.8));
+    m.app_id = Some(app.into());
+    m.game_name = Some(format!("Fixture game {app}"));
+    let snap = m.smart_pack.as_mut().unwrap();
+    snap.app_id = Some(app.into());
+    snap.pack_id = pack_id(app, e);
+    m
+}
+
+fn scoped_world(app: &str, sessions: &[SessionMeta]) -> Ranking {
+    let mut u = unit(
+        "shared-action",
+        &[("PROTON_NO_D3D11", "1")],
+        EvidenceLevel::Single,
+    );
+    u.app_id = Some(app.into());
+    let packs = compose(app, &[u], &SingleResults::new(), Limits::default()).packs;
+    let grouped = group(app, sessions, |m| m.smart_pack.clone(), &baseline_id(app));
+    let metas = sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+    let mut vs = HashMap::new();
+    if let Some(base) = grouped.measurements.get(&baseline_id(app)) {
+        for p in packs.iter().filter(|p| p.kind != PackKind::Baseline) {
+            if let Some(measured) = grouped.measurements.get(&p.id) {
+                vs.insert(p.id.clone(), compare(base, measured, &metas));
+            }
+        }
+    }
+    rank(Input {
+        profile: Profile::Performance,
+        packs: &packs,
+        baseline_id: &baseline_id(app),
+        measured: &grouped.measurements,
+        vs: &vs,
+        excluded: &[],
+    })
+}
+
+#[test]
+fn same_action_keeps_positive_negative_and_unknown_games_independent() {
+    // Emulates real metadata strictly inside an explicitly synthetic fixture.
+    let mut all = Vec::new();
+    for (app, after) in [(APP, 55.0), ("480", 125.0)] {
+        for n in 0..2 {
+            all.push(game_fixture(app, &format!("{app}-base-{n}"), &[], 100.0));
+            all.push(game_fixture(
+                app,
+                &format!("{app}-pack-{n}"),
+                &d3d11(),
+                after,
+            ));
+        }
+    }
+    let batman = scoped_world(APP, &all);
+    let other = scoped_world("480", &all);
+    let unknown = scoped_world("570", &all);
+    let pick = |r: &Ranking, app: &str| {
+        r.entries
+            .iter()
+            .find(|e| e.pack_id == pack_id(app, &d3d11()))
+            .unwrap()
+            .clone()
+    };
+    assert_eq!(pick(&batman, APP).outcome, Outcome::Regression);
+    assert_eq!(pick(&batman, APP).tier, Tier::NotRecommended);
+    assert_eq!(pick(&other, "480").outcome, Outcome::Improvement);
+    assert_eq!(pick(&other, "480").tier, Tier::Measured);
+    assert_eq!(
+        other.winner.as_deref(),
+        Some(pack_id("480", &d3d11()).as_str())
+    );
+    assert_eq!(pick(&unknown, "570").outcome, Outcome::NotMeasured);
+    assert!(unknown.winner.is_none());
+}
+
+#[test]
+fn composition_and_conflicts_reject_foreign_and_unattributed_units() {
+    let a = unit(
+        "a",
+        &[("PROTON_FORCE_LARGE_ADDRESS_AWARE", "1")],
+        EvidenceLevel::Documented,
+    );
+    let mut b = unit(
+        "b",
+        &[("PROTON_HEAP_DELAY_FREE", "1")],
+        EvidenceLevel::Documented,
+    );
+    b.app_id = Some("480".into());
+    let mut legacy = b.clone();
+    legacy.recipe_id = "legacy-no-app".into();
+    legacy.app_id = None;
+    assert_eq!(edge(&a, &b).kind, Some(ConflictKind::GameScope));
+    assert!(validate_combination(&[a.clone(), b.clone()], 4).is_err());
+    for app in [APP, "480"] {
+        let composed = compose(
+            app,
+            &[a.clone(), b.clone(), legacy.clone()],
+            &SingleResults::new(),
+            Limits::default(),
+        );
+        assert_eq!(composed.packs.len(), 2);
+        assert_eq!(composed.excluded.len(), 2);
+        assert!(composed.packs.iter().all(|p| p.app_id == app));
+        assert!(composed.packs.iter().all(|p| p.members.len() < 2));
+    }
+}
+
+#[test]
+fn specific_positive_reports_can_justify_testing_without_overriding_safety_or_claiming_local_gain()
+{
+    use crate::fix_engine::dynamic::GamePerformanceEvidence;
+    let mut risky = unit(
+        "risk",
+        &[("PROTON_NO_D3D11", "1")],
+        EvidenceLevel::Corroborated,
+    );
+    risky.performance_evidence = GamePerformanceEvidence {
+        app_id: Some(APP.into()),
+        positive: 2,
+        negative: 0,
+        context_compatible: true,
+        source_urls: vec![
+            "https://github.com/example/repo/issues/1#issuecomment-1".into(),
+            "https://github.com/example/repo/issues/1#issuecomment-2".into(),
+        ],
+        ..Default::default()
+    };
+    let packs = compose(
+        APP,
+        &[risky.clone()],
+        &SingleResults::new(),
+        Limits::default(),
+    )
+    .packs;
+    let ranked = rank(Input {
+        profile: Profile::Performance,
+        packs: &packs,
+        baseline_id: &baseline_id(APP),
+        measured: &BTreeMap::new(),
+        vs: &HashMap::new(),
+        excluded: &[],
+    });
+    let risk = &ranked.entries[1];
+    assert_eq!(risk.tier, Tier::Candidate);
+    assert_eq!(risk.outcome, Outcome::NotMeasured);
+    assert!(risk.headline.contains("específica deste jogo"));
+    assert!(ranked.winner.is_none());
+    assert!(ranked.next_test.is_some());
+    assert!(!packs[1].performance_warnings.is_empty());
+    assert!(
+        !super::composition::eligible(&risky, None),
+        "relatos positivos não liberam combinação de risco sem medição local"
+    );
+    risky.performance_evidence.negative = 1;
+    let packs = compose(
+        APP,
+        &[risky.clone()],
+        &SingleResults::new(),
+        Limits::default(),
+    )
+    .packs;
+    let mixed = rank(Input {
+        profile: Profile::Performance,
+        packs: &packs,
+        baseline_id: &baseline_id(APP),
+        measured: &BTreeMap::new(),
+        vs: &HashMap::new(),
+        excluded: &[],
+    });
+    assert!(mixed.entries[1].headline.contains("conflitantes"));
+    assert!(mixed.next_test.is_none());
+    risky.performance_evidence.negative = 0;
+    risky.performance_evidence.app_id = Some("480".into());
+    let packs = compose(APP, &[risky], &SingleResults::new(), Limits::default()).packs;
+    let foreign = rank(Input {
+        profile: Profile::Performance,
+        packs: &packs,
+        baseline_id: &baseline_id(APP),
+        measured: &BTreeMap::new(),
+        vs: &HashMap::new(),
+        excluded: &[],
+    });
+    assert_eq!(foreign.entries[1].tier, Tier::PerformanceRisk);
+}
+
+#[test]
+fn snapshot_identity_rejects_foreign_game_mismatched_actions_and_fingerprint() {
+    let mut m = game_fixture(APP, "tampered", &d3d11(), 130.0);
+    let mut snap = m.smart_pack.take().unwrap();
+    assert!(super::benchmark::snapshot_matches_app(APP, &snap));
+    assert!(!super::benchmark::snapshot_matches_app("480", &snap));
+    snap.pack_id = pack_id("480", &snap.env);
+    m.smart_pack = Some(snap.clone());
+    let grouped = group(APP, &[m], |m| m.smart_pack.clone(), &baseline_id(APP));
+    assert!(grouped.measurements.values().all(|m| m.used() == 0));
+    snap.pack_id = pack_id(APP, &snap.env);
+    snap.fingerprint = Some("unrelated fingerprint".into());
+    assert!(!super::benchmark::snapshot_matches_app(APP, &snap));
+    snap.fingerprint = Some(super::benchmark::snapshot_fingerprint(
+        APP,
+        &snap.env,
+        &snap.recipes,
+    ));
+    assert!(super::benchmark::snapshot_matches_app(APP, &snap));
+    snap.env.clear();
+    assert!(!super::benchmark::snapshot_matches_app(APP, &snap));
+}
+
+#[test]
+fn legacy_snapshot_requires_its_own_appid_identity_and_no_scope_is_invented() {
+    let mut m = game_fixture(APP, "legacy", &d3d11(), 120.0);
+    let s = m.smart_pack.as_mut().unwrap();
+    s.app_id = None;
+    s.fingerprint = None;
+    assert!(super::benchmark::snapshot_matches_app(APP, s));
+    assert!(!super::benchmark::snapshot_matches_app("480", s));
+    m.app_id = None;
+    let g = group(APP, &[m], |m| m.smart_pack.clone(), &baseline_id(APP));
+    assert!(g.measurements.is_empty() && g.unassigned.is_empty());
+}
+
+#[test]
+fn per_game_store_survives_switching_restart_and_preserves_invalid_legacy_records_without_executing_them(
+) {
+    let tmp = tempfile::tempdir().unwrap();
+    let dir = tmp.path().join("packs");
+    let store = SmartStore::new(dir.clone());
+    let mut ua = unit(
+        "gen.200260.aaaaaaaaaaaaaaaa",
+        &[("PROTON_HEAP_DELAY_FREE", "1")],
+        EvidenceLevel::Single,
+    );
+    let a = compose(APP, &[ua.clone()], &SingleResults::new(), Limits::default()).packs;
+    ua.app_id = Some("480".into());
+    ua.recipe_id = "gen.480.aaaaaaaaaaaaaaaa".into();
+    let b = compose("480", &[ua], &SingleResults::new(), Limits::default()).packs;
+    store.remember(APP, &a).unwrap();
+    store.remember("480", &b).unwrap();
+    assert!(store.remember(APP, &b).is_err());
+    let restarted = SmartStore::new(dir.clone());
+    assert_eq!(restarted.pack(APP, &a[1].id).unwrap().app_id, APP);
+    assert!(restarted.pack("480", &a[1].id).is_none());
+    let mut f = restarted.load(APP).unwrap();
+    f.packs[1].pack.app_id = "480".into();
+    std::fs::write(
+        dir.join(format!("{APP}.json")),
+        serde_json::to_vec(&f).unwrap(),
+    )
+    .unwrap();
+    assert!(restarted.pack(APP, &a[1].id).is_none());
+    assert_eq!(
+        restarted.load(APP).unwrap().packs.len(),
+        2,
+        "registro antigo preservado para auditoria"
+    );
+}
+
+#[test]
+fn locally_positive_wined3d_is_not_blocked_by_a_universal_performance_penalty() {
+    let wine = unit(
+        "wine",
+        &[("PROTON_USE_WINED3D", "1")],
+        EvidenceLevel::Single,
+    );
+    let memory = unit(
+        "memory",
+        &[("PROTON_FORCE_LARGE_ADDRESS_AWARE", "1")],
+        EvidenceLevel::Single,
+    );
+    let singles = SingleResults::from([
+        ("wine".into(), (Outcome::Improvement, Outcome::NoDifference)),
+        (
+            "memory".into(),
+            (Outcome::Improvement, Outcome::NoDifference),
+        ),
+    ]);
+    let c = compose(APP, &[wine, memory], &singles, Limits::default());
+    assert!(c
+        .packs
+        .iter()
+        .any(|p| p.kind == PackKind::Combination && p.goal == Goal::Performance));
+    assert!(c
+        .packs
+        .iter()
+        .filter(|p| p.kind == PackKind::Combination)
+        .all(|p| !p.performance_warnings.is_empty()));
+}
+
+#[test]
+fn old_environment_evidence_is_retained_but_not_reused_for_current_machine() {
+    let mut samples = vec![];
+    for n in 0..2 {
+        samples.push(game_fixture(APP, &format!("env-base-{n}"), &[], 100.0));
+        samples.push(game_fixture(APP, &format!("env-pack-{n}"), &d3d11(), 125.0));
+    }
+    for s in &mut samples {
+        s.conditions.driver = Some("fixture-driver-1".into());
+        s.conditions.proton = Some("fixture-proton-1".into());
+    }
+    let current = crate::performance::models::Conditions {
+        driver: Some("fixture-driver-2".into()),
+        proton: Some("fixture-proton-1".into()),
+        ..Default::default()
+    };
+    let grouped = super::evidence::group_in_context(
+        APP,
+        &samples,
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&current),
+    );
+    assert!(grouped.reference.is_none());
+    assert_eq!(
+        grouped
+            .measurements
+            .values()
+            .map(|m| m.sessions.len())
+            .sum::<usize>(),
+        4
+    );
+    assert!(grouped.measurements.values().all(|m| m.used() == 0));
+    assert!(grouped
+        .measurements
+        .values()
+        .flat_map(|m| &m.sessions)
+        .all(|s| s.excluded.as_ref().unwrap().contains("ambiente atual")));
+    // All historic measurements still exist for their original context.
+    let historical = group(APP, &samples, |m| m.smart_pack.clone(), &baseline_id(APP));
+    assert_eq!(
+        historical
+            .measurements
+            .values()
+            .map(|m| m.used())
+            .sum::<usize>(),
+        4
+    );
+}
+
+#[test]
+fn recorded_recipe_hash_is_revalidated_without_inventing_a_legacy_hash() {
+    use crate::fix_engine::{catalog::Catalog, models::GameCtx, FixEngine};
+    let tmp = tempfile::tempdir().unwrap();
+    let engine = FixEngine::with(
+        tmp.path().join("data"),
+        Catalog::bundled(),
+        tmp.path().join("proc"),
+    );
+    let game = GameCtx {
+        app_id: APP.into(),
+        name: "Synthetic fixture".into(),
+        ..Default::default()
+    };
+    let recipe = engine.resolve("frx.compat.wined3d", &game).unwrap();
+    let mut snapshot = super::benchmark::declared(APP, env(&[("PROTON_USE_WINED3D", "1")]));
+    snapshot.recipes = vec![SnapshotRecipe {
+        recipe_id: recipe.id.clone(),
+        version: recipe.version.clone(),
+        fingerprint: Some(super::discovery::fingerprint(&recipe)),
+    }];
+    snapshot.fingerprint = Some(super::benchmark::snapshot_fingerprint(
+        APP,
+        &snapshot.env,
+        &snapshot.recipes,
+    ));
+    assert!(super::benchmark::recipe_context_matches(
+        &engine, &game, &snapshot
+    ));
+    snapshot.recipes[0].fingerprint = Some("outdated-recipe-content".into());
+    snapshot.fingerprint = Some(super::benchmark::snapshot_fingerprint(
+        APP,
+        &snapshot.env,
+        &snapshot.recipes,
+    ));
+    assert!(!super::benchmark::recipe_context_matches(
+        &engine, &game, &snapshot
+    ));
+    snapshot.recipes[0].fingerprint = None;
+    snapshot.fingerprint = None;
+    assert!(super::benchmark::recipe_context_matches(
+        &engine, &game, &snapshot
+    ));
+    assert!(
+        snapshot.recipes[0].fingerprint.is_none(),
+        "o conteúdo atual não é atribuído retrospectivamente"
+    );
+}
+
+#[test]
+fn equivalent_gpu_labels_do_not_exclude_the_same_model_but_another_model_does() {
+    let mut sample = game_fixture(APP, "gpu-normalization", &[], 100.0);
+    sample.conditions.gpu = Some("NVIDIA GeForce RTX 4060/PCIe/SSE2".into());
+    let mut live = crate::performance::models::Conditions {
+        gpu: Some("AD107 [GeForce RTX 4060]".into()),
+        ..Default::default()
+    };
+    let g = super::evidence::group_in_context(
+        APP,
+        &[sample.clone()],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&live),
+    );
+    assert_eq!(g.measurements[&baseline_id(APP)].used(), 1);
+    live.gpu = Some("AD104 [GeForce RTX 4070]".into());
+    let g = super::evidence::group_in_context(
+        APP,
+        &[sample],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&live),
+    );
+    assert_eq!(g.measurements[&baseline_id(APP)].used(), 0);
+}
+
+#[test]
+fn unknown_historic_hardware_runtime_or_build_is_not_assumed_to_match_current_environment() {
+    let mut s = game_fixture(APP, "missing-critical-context", &d3d11(), 130.0);
+    s.conditions = Default::default();
+    let current = crate::performance::models::Conditions {
+        gpu: Some("fixture-gpu".into()),
+        driver: Some("fixture-driver".into()),
+        proton: Some("fixture-proton".into()),
+        cpu: Some("fixture-cpu".into()),
+        game_build_id: Some("fixture-build".into()),
+        ..Default::default()
+    };
+    let g = super::evidence::group_in_context(
+        APP,
+        &[s.clone()],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&current),
+    );
+    let sample = &g.measurements[&pack_id(APP, &d3d11())];
+    assert_eq!(sample.used(), 0);
+    let why = sample.sessions[0].excluded.as_deref().unwrap();
+    for missing in ["GPU", "driver", "Proton", "CPU", "build do jogo"] {
+        assert!(why.contains(missing));
+    }
+    let history = group(
+        APP,
+        &[s.clone()],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+    );
+    assert_eq!(history.measurements[&pack_id(APP, &d3d11())].used(), 1);
+    s.conditions = current.clone();
+    let g = super::evidence::group_in_context(
+        APP,
+        &[s.clone()],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&current),
+    );
+    assert_eq!(g.measurements[&pack_id(APP, &d3d11())].used(), 1);
+    s.conditions.game_build_id = Some("older-fixture-build".into());
+    let g = super::evidence::group_in_context(
+        APP,
+        &[s],
+        |m| m.smart_pack.clone(),
+        &baseline_id(APP),
+        Some(&current),
+    );
+    assert_eq!(g.measurements[&pack_id(APP, &d3d11())].used(), 0);
+}
+
+#[test]
+fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_same_actions() {
+    use crate::fix_engine::{
+        catalog::Catalog,
+        dynamic::{
+            analyzer::{assess, Ctx},
+            tests::finding,
+            AssessmentView,
+        },
+    };
+    use crate::fixes::models::*;
+    let key = "PROTON_NO_D3D11";
+    let claim = |id: &str, positive: bool| {
+        let mut f = finding(
+            id,
+            ActionKind::Env,
+            &format!("{key}=1"),
+            if positive { 2 } else { 0 },
+            if positive { 0 } else { 2 },
+        );
+        f.sources.clear();
+        for n in 0..if positive { 2 } else { 1 } {
+            let url = format!(
+                "https://github.com/ValveSoftware/Proton/issues/999999#issuecomment-{id}-{n}"
+            );
+            f.sources.push(FindingSource {
+                provider: ProviderId::Github,
+                label: "Synthetic fixture claim".into(),
+                url: url.clone(),
+                reference_id: None,
+                snippet: None,
+                published_at: None,
+            });
+            f.performance_evidence.reports.push(PerformanceReport {
+                app_id: APP.into(),
+                action_key: format!("env:{key}=1"),
+                source_url: url,
+                author: Some(format!("{id}-{n}")),
+                reported_at: None,
+                statement: "Synthetic fixture only".into(),
+                outcome: if positive {
+                    PerformanceOutcome::Positive
+                } else {
+                    PerformanceOutcome::Negative
+                },
+                proton_version: None,
+                gpu_vendor: None,
+                confidence: Confidence::CommunityReported,
+                limitations: vec!["Synthetic fixture".into()],
+            });
+        }
+        f
+    };
+    let positive = claim("synthetic-positive", true);
+    let negative = claim("synthetic-negative", false);
+    let mut foreign = negative.clone();
+    foreign.id = "synthetic-foreign".into();
+    foreign.game_app_id = "480".into();
+    foreign.scope = DiscoveryScope::verified("480", "Synthetic foreign fixture");
+    let mut unsafe_finding = negative.clone();
+    unsafe_finding.id = "synthetic-unsafe".into();
+    unsafe_finding.actions[0].kind = ActionKind::LaunchOption;
+    unsafe_finding.actions[0].value = format!("{key}=1 curl https://example.invalid %command%");
+    let catalog = Catalog::bundled();
+    let ctx = Ctx {
+        game_build_id: None,
+        app_id: APP,
+        gpu: None,
+        tool_name: Some("Proton Experimental"),
+        catalog: &catalog,
+    };
+    let view = |f: &FixFinding| AssessmentView {
+        assessment: assess(f, &ctx),
+        generated_at: "fixture".into(),
+        updated_at: "fixture".into(),
+        discovered_at: None,
+        reevaluated: None,
+    };
+    let pos_view = view(&positive);
+    assert!(pos_view
+        .assessment
+        .performance_evidence
+        .contextual_candidate(APP));
+    let neg_view = view(&negative);
+    assert_eq!(
+        neg_view.assessment.status,
+        crate::fix_engine::dynamic::DynStatus::Contested
+    );
+    assert!(neg_view.assessment.recipe.is_none());
+    let unrelated = super::discovery::discover(
+        APP,
+        &[pos_view.clone(), view(&foreign), view(&unsafe_finding)],
+        &[positive.clone(), foreign, unsafe_finding],
+        |id| catalog.get(id).cloned(),
+    );
+    assert_eq!(unrelated.units.len(), 1);
+    assert!(
+        unrelated.units[0]
+            .performance_evidence
+            .contextual_candidate(APP),
+        "unsafe procedures and other games cannot contaminate the valid action"
+    );
+    let result =
+        super::discovery::discover(APP, &[pos_view, neg_view], &[positive, negative], |id| {
+            catalog.get(id).cloned()
+        });
+    assert_eq!(result.units.len(), 1);
+    assert!(result.units[0].performance_evidence.conflicting());
+    assert!(!result.units[0]
+        .performance_evidence
+        .contextual_candidate(APP));
+    assert!(result.units[0]
+        .finding_ids
+        .iter()
+        .any(|id| id == "synthetic-negative"));
+    let packs = compose(APP, &result.units, &SingleResults::new(), Limits::default()).packs;
+    let r = rank(Input {
+        profile: Profile::Performance,
+        packs: &packs,
+        baseline_id: &baseline_id(APP),
+        measured: &BTreeMap::new(),
+        vs: &HashMap::new(),
+        excluded: &[],
+    });
+    assert!(r.entries[1].headline.contains("conflitantes"));
+    assert!(r.winner.is_none() && r.next_test.is_none());
 }

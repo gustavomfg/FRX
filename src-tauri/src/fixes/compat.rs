@@ -121,6 +121,8 @@ mod tests {
 
     pub fn finding(kind: FindingKind, req: Option<GpuReq>) -> FixFinding {
         FixFinding {
+            scope: DiscoveryScope::default(),
+            performance_evidence: PerformanceEvidence::default(),
             id: "x".into(),
             game_app_id: "1".into(),
             title: "t".into(),

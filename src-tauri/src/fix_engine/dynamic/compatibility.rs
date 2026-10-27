@@ -88,7 +88,7 @@ pub const KNOWLEDGE: &[Knowledge] = &[
         Exact("1"),
         "Renderizar com WineD3D (OpenGL)",
         "Direct3D 9/10/11 passa a ser traduzido para OpenGL pelo WineD3D em vez do DXVK.",
-        Some("Normalmente reduz bastante o desempenho."),
+        Some("O custo da tradução pode reduzir o desempenho; o resultado depende do jogo e do ambiente."),
         Graphics,
         Risk::Moderate,
     ),
@@ -231,7 +231,7 @@ pub fn performance_warnings<'a>(env: impl IntoIterator<Item = (&'a str, &'a str)
     let mut out = Vec::new();
     for (key, value) in env {
         let reason = match (key, value) {
-            ("PROTON_USE_WINED3D", "1") => Some("WineD3D troca DXVK/Vulkan por OpenGL. É uma alternativa de compatibilidade com risco conhecido de perda de desempenho; não é uma otimização de FPS."),
+            ("PROTON_USE_WINED3D", "1") => Some("WineD3D troca DXVK/Vulkan por OpenGL. Há risco técnico de perda de desempenho; o impacto neste jogo depende de evidências específicas e medições locais."),
             ("PROTON_NO_ESYNC" | "PROTON_NO_FSYNC" | "PROTON_NO_NTSYNC", "1") => Some("Desativa uma forma de sincronização otimizada. Pode reduzir o desempenho em jogos com muitas threads; use para contornar um problema específico, não como otimização genérica."),
             ("PROTON_NO_D3D11" | "PROTON_NO_D3D10", "1") => Some("Desativa uma API gráfica e força o jogo a usar outro caminho de renderização. Pode perder desempenho ou recursos e até impedir a inicialização; não é um ganho de FPS presumido."),
             ("DXVK_FRAME_RATE" | "VKD3D_FRAME_RATE", v) if v.parse::<u32>().is_ok_and(|n| (10..=360).contains(&n)) => Some("Limita intencionalmente o FPS. Pode ajudar a controlar consumo ou estabilidade, mas não representa aumento de desempenho."),

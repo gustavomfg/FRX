@@ -122,9 +122,82 @@ pub struct Evidence {
     pub negative: u32,
 }
 
+/// Identity is established by the source itself, never by the search query.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(rename_all = "kebab-case")]
+pub enum DiscoveryScopeKind {
+    VerifiedGame,
+    GeneralTechnical,
+    #[default]
+    UnknownScope,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct DiscoveryScope {
+    pub kind: DiscoveryScopeKind,
+    pub app_id: Option<String>,
+    pub basis: String,
+}
+
+impl DiscoveryScope {
+    pub fn verified(app_id: &str, basis: impl Into<String>) -> Self {
+        Self {
+            kind: DiscoveryScopeKind::VerifiedGame,
+            app_id: Some(app_id.to_owned()),
+            basis: basis.into(),
+        }
+    }
+
+    pub fn matches_game(&self, app_id: &str) -> bool {
+        self.kind == DiscoveryScopeKind::VerifiedGame
+            && self.app_id.as_deref() == Some(app_id)
+            && crate::art::valid_app_id(app_id)
+            && !self.basis.trim().is_empty()
+    }
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum PerformanceOutcome {
+    Positive,
+    Negative,
+}
+
+/// A public report is a contextual claim, never a local benchmark.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct PerformanceReport {
+    pub app_id: String,
+    pub action_key: String,
+    pub source_url: String,
+    #[serde(default)]
+    pub author: Option<String>,
+    pub reported_at: Option<String>,
+    pub statement: String,
+    pub outcome: PerformanceOutcome,
+    pub proton_version: Option<String>,
+    pub gpu_vendor: Option<GpuReq>,
+    pub confidence: Confidence,
+    pub limitations: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct PerformanceEvidence {
+    pub positive: u32,
+    pub negative: u32,
+    #[serde(default)]
+    pub reports: Vec<PerformanceReport>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixFinding {
+    #[serde(default)]
+    pub scope: DiscoveryScope,
+    #[serde(default)]
+    pub performance_evidence: PerformanceEvidence,
     pub id: String,
     pub game_app_id: String,
     pub title: String,

@@ -15,6 +15,8 @@ pub const APP: &str = "200260";
 
 pub fn finding(id: &str, kind: ActionKind, value: &str, pos: u32, neg: u32) -> FixFinding {
     FixFinding {
+        scope: DiscoveryScope::verified(APP, "Fixture: verified parent issue AppID"),
+        performance_evidence: Default::default(),
         id: id.into(),
         game_app_id: APP.into(),
         title: "Opção de inicialização sugerida".into(),
@@ -97,6 +99,7 @@ fn batman_wined3d11() -> FixFinding {
 
 fn ctx(c: &Catalog) -> Ctx<'_> {
     Ctx {
+        game_build_id: None,
         app_id: APP,
         gpu: Some(GpuReq::Nvidia),
         tool_name: Some("proton-cachyos-11.0-20261015"),
@@ -575,6 +578,7 @@ fn registry_reuses_unchanged_analyses_and_reevaluates_on_change() {
     let c = Catalog::bundled();
     let findings = vec![batman_no_d3d11(), batman_wined3d(), batman_wined3d11()];
     let sys = |tool| System {
+        game_build_id: None,
         tool,
         gpu: Some(GpuReq::Nvidia),
         driver: Some("580.1"),
@@ -625,4 +629,164 @@ fn registry_reuses_unchanged_analyses_and_reevaluates_on_change() {
         .1,
         3
     );
+}
+
+// Architectural fixtures below are synthetic; no local benchmark is implied.
+fn performance_finding(app: &str, key: &str) -> FixFinding {
+    let mut f = finding(
+        "synthetic-performance",
+        ActionKind::Env,
+        &format!("{key}=1"),
+        2,
+        0,
+    );
+    f.game_app_id = app.into();
+    f.scope = DiscoveryScope::verified(app, "Synthetic fixture: exact AppID in parent issue");
+    f.sources.clear();
+    for n in 1..=2 {
+        let url = format!("https://github.com/ValveSoftware/Proton/issues/999999#issuecomment-{n}");
+        f.sources.push(FindingSource {
+            provider: ProviderId::Github,
+            label: "Synthetic performance claim".into(),
+            url: url.clone(),
+            reference_id: None,
+            snippet: Some(format!("{key}=1 improves FPS")),
+            published_at: Some("2026-10-27T00:00:00Z".into()),
+        });
+        f.performance_evidence.reports.push(PerformanceReport {
+            app_id: app.into(),
+            action_key: format!("env:{key}=1"),
+            source_url: url,
+            author: Some(format!("fixture-author-{n}")),
+            reported_at: Some("2026-10-27T00:00:00Z".into()),
+            statement: format!("{key}=1 improves FPS"),
+            outcome: PerformanceOutcome::Positive,
+            proton_version: None,
+            gpu_vendor: None,
+            confidence: Confidence::CommunityReported,
+            limitations: vec!["Synthetic automated-test fixture".into()],
+        });
+    }
+    f
+}
+
+#[test]
+fn unconfirmed_general_and_other_game_sources_cannot_generate_recipes() {
+    let c = Catalog::bundled();
+    let original = performance_finding(APP, "PROTON_NO_D3D11");
+    for scope in [
+        DiscoveryScope::default(),
+        DiscoveryScope {
+            kind: DiscoveryScopeKind::GeneralTechnical,
+            app_id: None,
+            basis: "Proton manual".into(),
+        },
+        DiscoveryScope::verified("620", "Another game's parent issue"),
+    ] {
+        let mut f = original.clone();
+        f.scope = scope;
+        let a = assess(&f, &ctx(&c));
+        assert!(a.recipe_id.is_none());
+        assert!(!a.performance_evidence.contextual_candidate(APP));
+    }
+    let mut other = ctx(&c);
+    other.app_id = "620";
+    assert!(assess(&original, &other).recipe_id.is_none());
+    let a = assess(&original, &ctx(&c));
+    assert!(a.performance_evidence.contextual_candidate(APP));
+    assert!(!a.performance_evidence.contextual_candidate("620"));
+    assert!(!a.performance_warnings.is_empty());
+}
+
+#[test]
+fn contextual_reports_require_independent_authors_matching_actions_and_environment() {
+    let c = Catalog::bundled();
+    let f = performance_finding(APP, "PROTON_NO_D3D11");
+    assert!(assess(&f, &ctx(&c))
+        .performance_evidence
+        .contextual_candidate(APP));
+    let mut same_author = f.clone();
+    same_author.performance_evidence.reports[1].author =
+        same_author.performance_evidence.reports[0].author.clone();
+    assert!(!assess(&same_author, &ctx(&c))
+        .performance_evidence
+        .contextual_candidate(APP));
+    let mut mismatch = f.clone();
+    mismatch.performance_evidence.reports[0].proton_version = Some("another Proton".into());
+    assert!(!assess(&mismatch, &ctx(&c))
+        .performance_evidence
+        .contextual_candidate(APP));
+    let mut conflict = f.clone();
+    conflict.performance_evidence.reports[1].outcome = PerformanceOutcome::Negative;
+    let a = assess(&conflict, &ctx(&c));
+    assert!(a.performance_evidence.conflicting());
+    assert!(!a.performance_evidence.contextual_candidate(APP));
+    let mut wrong_action = f;
+    wrong_action.performance_evidence.reports[0].action_key = "env:PROTON_NO_FSYNC=1".into();
+    assert!(!assess(&wrong_action, &ctx(&c))
+        .performance_evidence
+        .contextual_candidate(APP));
+}
+
+#[test]
+fn authoritative_specific_performance_report_can_be_candidate_but_never_bypass_safety() {
+    let c = Catalog::bundled();
+    let mut f = performance_finding(APP, "PROTON_NO_D3D11");
+    f.performance_evidence.reports.truncate(1);
+    f.performance_evidence.reports[0].confidence = Confidence::Verified;
+    assert!(assess(&f, &ctx(&c))
+        .performance_evidence
+        .contextual_candidate(APP));
+    for key in [
+        "LD_PRELOAD",
+        "WINEDLLOVERRIDES",
+        "PATH",
+        "PROTON_ARBITRARY_NEW_VARIABLE",
+    ] {
+        let f = performance_finding(APP, key);
+        let a = assess(&f, &ctx(&c));
+        assert_ne!(a.class, DynClass::Applicable, "{key}");
+        assert!(a.recipe_id.is_none());
+    }
+    for value in [
+        "PROTON_NO_D3D11=1; arbitrary-command",
+        "PROTON_NO_D3D11=$(arbitrary-command)",
+        "winetricks unverified.dll",
+    ] {
+        let mut f = performance_finding(APP, "PROTON_NO_D3D11");
+        f.actions[0].value = value.into();
+        assert!(assess(&f, &ctx(&c)).recipe_id.is_none(), "{value}");
+    }
+}
+
+#[test]
+fn generated_registry_does_not_assign_legacy_or_foreign_records_to_open_game() {
+    let dir = tempfile::tempdir().unwrap();
+    let registry = Registry::new(dir.path().join("generated"));
+    let c = Catalog::bundled();
+    let sys = System {
+        game_build_id: None,
+        tool: None,
+        gpu: None,
+        driver: None,
+        catalog: &c.sha256,
+    };
+    let f = finding(
+        "synthetic-registry",
+        ActionKind::Env,
+        "PROTON_NO_D3D11=1",
+        1,
+        0,
+    );
+    registry
+        .refresh(APP, &[f], &sys, |f| assess(f, &ctx(&c)))
+        .unwrap();
+    let path = dir.path().join("generated").join(format!("{APP}.json"));
+    let mut raw: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+    raw["entries"][0]["assessment"]["appId"] = "620".into();
+    std::fs::write(&path, serde_json::to_vec(&raw).unwrap()).unwrap();
+    assert!(registry.load(APP).is_empty());
+    assert!(registry.load("620").is_empty());
+    assert!(path.exists(), "history/cache preserved rather than deleted");
 }

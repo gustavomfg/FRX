@@ -16,6 +16,7 @@ use crate::fixes::models::{AnalysisState, Compatibility, FindingKind, FixFinding
 
 /// O que a análise precisa saber do sistema (sem varrer a Steam).
 pub struct Ctx<'a> {
+    pub game_build_id: Option<&'a str>,
     pub app_id: &'a str,
     pub gpu: Option<GpuReq>,
     pub tool_name: Option<&'a str>,
@@ -49,6 +50,7 @@ pub fn assess(f: &FixFinding, ctx: &Ctx<'_>) -> Assessment {
 pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> Assessment {
     let (evidence, evidence_note) = validation::evidence(f);
     let a = Assessment {
+        performance_evidence: Default::default(),
         performance_warnings: vec![],
         finding_id: f.id.clone(),
         app_id: ctx.app_id.to_owned(),
@@ -74,6 +76,11 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
                 f.game_app_id.chars().take(12).collect::<String>()
             )],
         );
+    }
+    if !f.scope.matches_game(ctx.app_id) {
+        return finish(a, DynStatus::InsufficientData, vec![
+            "A fonte não confirma o vínculo com este AppID. Documentação geral e registros antigos sem atribuição ficam para consulta; pesquise novamente para verificar a origem.".into()
+        ]);
     }
     if a.provenance.is_empty() {
         return finish(
@@ -154,6 +161,7 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     a.performance_warnings = super::compatibility::performance_warnings(
         envs.iter().map(|(k, v)| (k.as_str(), v.as_str())),
     );
+    a.performance_evidence = super::game_evidence::assess(f, ctx, &envs);
     for view in a.actions.iter_mut().filter(|x| x.note.is_empty()) {
         view.note = "Variável reconhecida; avaliada junto com o restante da correção.".into();
     }
@@ -219,14 +227,25 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     }
 
     // Uma receita do catálogo faz exatamente isto?
+    // Restrições da descoberta não desaparecem quando a ação coincide com
+    // um modelo técnico genérico do catálogo.
+    if f.compatibility == Compatibility::Incompatible
+        || f.requirements
+            .gpu_vendor
+            .is_some_and(|gpu| ctx.gpu != Some(gpu))
+    {
+        return finish(
+            a,
+            DynStatus::Incompatible,
+            vec![f.compatibility_note.clone()],
+        );
+    }
     let mut set = envs.clone();
     set.sort();
-    if let Some(r) = ctx
-        .catalog
-        .recipes
-        .iter()
-        .find(|r| env_set(r).as_ref() == Some(&set))
-    {
+    if let Some(r) = ctx.catalog.recipes.iter().find(|r| {
+        (r.scope.app_ids.is_empty() || r.scope.app_ids.iter().any(|app| app == ctx.app_id))
+            && env_set(r).as_ref() == Some(&set)
+    }) {
         match r.trust {
             Trust::Reviewed => {
                 let mut a = finish(
@@ -300,6 +319,7 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
         actions: known,
         evidence,
         evidence_note: a.evidence_note.clone(),
+        performance_evidence: a.performance_evidence.clone(),
         provenance: a.provenance.clone(),
         interpreter: interp.name(),
     });
@@ -353,6 +373,11 @@ pub fn merge_duplicates(list: &mut [Assessment]) {
                 let (Some(g1), Some(g2)) = (r1.generated.as_mut(), r2.generated.as_ref()) else {
                     break;
                 };
+                if g1.game_app_id != g2.game_app_id || first.app_id != dup.app_id {
+                    break;
+                }
+                g1.performance_evidence.merge(&g2.performance_evidence);
+                first.performance_evidence.merge(&dup.performance_evidence);
                 for fid in &g2.finding_ids {
                     if !g1.finding_ids.contains(fid) {
                         g1.finding_ids.push(fid.clone());

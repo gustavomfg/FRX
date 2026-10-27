@@ -12,7 +12,7 @@
     },
     {
       "file": "frx.compat.wined3d.json",
-      "sha256": "8d093a5adfccae5cca8be93b83751c1a3064ef92af01003da358bfc447d66bbd"
+      "sha256": "b910e8745086cb29cd1c13988af06910b1cf13ff3ceeae2463626f131ed73e71"
     },
     {
       "file": "frx.compat.no-d3d11.json",

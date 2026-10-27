@@ -91,32 +91,43 @@ fn library(ctx: &AppCtx) -> Option<ScanResult> {
 /// O que o FRX sabe agora sobre o sistema e o Proton do jogo.
 fn known_conditions(_ctx: &AppCtx, app_id: Option<&str>) -> Conditions {
     let profile = crate::system::profile();
-    let gpu = profile.primary_gpu.clone();
-    let proton = app_id.and_then(|id| {
+    let game = app_id.and_then(|id| {
         let lib = crate::steam::scan(&crate::steam::discovery::DiscoveryEnv::from_process(), None);
-        let game = lib.games.into_iter().find(|g| g.app_id == id)?;
-        let tool = game.compatibility.tool?;
-        Some(match tool.version {
-            Some(v) if !tool.display_name.contains(&v) => format!(
-                "{} ({v})",
-                crate::fixes::short_tool_name(&tool.display_name)
-            ),
-            _ => crate::fixes::short_tool_name(&tool.display_name),
-        })
+        lib.games.into_iter().find(|g| g.app_id == id)
+    });
+    let mut conditions = conditions_from_profile(
+        &profile,
+        game.as_ref().and_then(|g| g.compatibility.tool.as_ref()),
+    );
+    conditions.game_build_id = game.and_then(|g| g.build_id);
+    conditions
+}
+
+/// Uma só representação do contexto observado para captura e recomendação.
+/// O chamador pode reaproveitar sua varredura sem ler a Steam novamente.
+pub(crate) fn conditions_from_profile(
+    profile: &crate::system::SystemProfile,
+    tool: Option<&crate::steam::models::CompatTool>,
+) -> Conditions {
+    let gpu = profile.primary_gpu.as_ref();
+    let proton = tool.map(|tool| match &tool.version {
+        Some(v) if !tool.display_name.contains(v.as_str()) => format!(
+            "{} ({v})",
+            crate::fixes::short_tool_name(&tool.display_name)
+        ),
+        _ => crate::fixes::short_tool_name(&tool.display_name),
     });
     Conditions {
         proton,
-        gpu: gpu.as_ref().and_then(|g| g.name.clone()),
-        driver: gpu
-            .as_ref()
-            .and_then(|g| match (&g.driver, &g.driver_version) {
-                (Some(d), Some(v)) => Some(format!("{d} {v}")),
-                (Some(d), None) => Some(d.clone()),
-                _ => None,
-            }),
-        kernel: profile.kernel,
-        os: profile.distro,
-        cpu: profile.cpu,
+        gpu: gpu.and_then(|g| g.name.clone()),
+        driver: gpu.and_then(|g| match (&g.driver, &g.driver_version) {
+            (Some(d), Some(v)) => Some(format!("{d} {v}")),
+            (Some(d), None) => Some(d.clone()),
+            _ => None,
+        }),
+        kernel: profile.kernel.clone(),
+        os: profile.distro.clone(),
+        cpu: profile.cpu.clone(),
         ..Default::default()
     }
 }
@@ -156,7 +167,6 @@ pub async fn import_benchmark(
     input: SessionInput,
 ) -> Result<SessionMeta, String> {
     let _ = app.emit(IMPORT_EVENT, ImportProgress { stage: "reading" });
-    let known = known_conditions(&ctx, input.app_id.as_deref());
     let store = ctx.perf.store.clone();
     let app2 = app.clone();
     let meta = tauri::async_runtime::spawn_blocking(move || {
@@ -174,7 +184,9 @@ pub async fn import_benchmark(
                 input,
                 source: Some(SessionSource::Import),
                 original_path: Some(path),
-                known,
+                // Um log importado pode ser antigo ou de outro computador.
+                // Só o CSV e os campos explicitamente informados o descrevem.
+                known: Conditions::default(),
             },
         )?;
         let _ = app2.emit(IMPORT_EVENT, ImportProgress { stage: "saving" });
@@ -709,6 +721,8 @@ mod tests {
         );
         let base = crate::smart_packs::benchmark::baseline_id("200260");
         assert!(check_expected_pack(&engine, "200260", Some(&base)).is_ok());
+        let other_game_baseline = crate::smart_packs::benchmark::baseline_id("480");
+        assert!(check_expected_pack(&engine, "200260", Some(&other_game_baseline)).is_err());
         let other = crate::smart_packs::benchmark::pack_id(
             "200260",
             &[crate::smart_packs::models::EnvPair {

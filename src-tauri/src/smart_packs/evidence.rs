@@ -145,6 +145,56 @@ pub fn group(
     config: impl Fn(&SessionMeta) -> Option<PackSnapshot>,
     baseline_id: &str,
 ) -> Grouped {
+    group_in_context(app_id, sessions, config, baseline_id, None)
+}
+
+/// Keep historical results, but never promote an old hardware/software cohort
+/// as the recommendation for a different current environment.
+pub fn group_in_context(
+    app_id: &str,
+    sessions: &[SessionMeta],
+    config: impl Fn(&SessionMeta) -> Option<PackSnapshot>,
+    baseline_id: &str,
+    current: Option<&crate::performance::models::Conditions>,
+) -> Grouped {
+    let context_differences = |m: &SessionMeta| -> Vec<String> {
+        let Some(c) = current else { return vec![] };
+        let old = &m.conditions;
+        [
+            ("GPU", &old.gpu, &c.gpu),
+            ("build do jogo", &old.game_build_id, &c.game_build_id),
+            ("driver", &old.driver, &c.driver),
+            ("Proton", &old.proton, &c.proton),
+            ("CPU", &old.cpu, &c.cpu),
+            ("kernel", &old.kernel, &c.kernel),
+            ("sistema", &old.os, &c.os),
+            ("escalonador da CPU", &old.cpu_scheduler, &c.cpu_scheduler),
+        ]
+        .into_iter()
+        .filter_map(|(label, a, b)| match (a, b) {
+            (Some(a), Some(b))
+                if !crate::performance::comparison::same_condition(
+                    match label {
+                        "GPU" => "gpu",
+                        "driver" => "driver",
+                        "build do jogo" => "gameBuildId",
+                        _ => label,
+                    },
+                    a,
+                    b,
+                ) =>
+            {
+                Some(label.to_owned())
+            }
+            (None, Some(_))
+                if ["GPU", "driver", "Proton", "CPU", "build do jogo"].contains(&label) =>
+            {
+                Some(format!("{label} não registrado(a) na sessão"))
+            }
+            _ => None,
+        })
+        .collect()
+    };
     let mine: Vec<(&SessionMeta, Option<PackSnapshot>)> = sessions
         .iter()
         .filter(|m| m.app_id.as_deref() == Some(app_id))
@@ -153,13 +203,19 @@ pub fn group(
     let mut notes = Vec::new();
     let mut unassigned = Vec::new();
     let usable = |m: &SessionMeta| {
-        m.quality.level != QualityLevel::Unsuitable
+        context_differences(m).is_empty()
+            && m.quality.level != QualityLevel::Unsuitable
             && m.source != SessionSource::Synthetic
             && !m.id.starts_with("s-fixture-")
             && !m.quality.issues.iter().any(|i| {
                 matches!(
                     i.code.as_str(),
-                    "synthetic" | "fixture" | "interrupted" | "pack-changed"
+                    "synthetic"
+                        | "fixture"
+                        | "interrupted"
+                        | "pack-changed"
+                        | "context-edited"
+                        | "pack-recipe-changed"
                 )
             })
     };
@@ -168,7 +224,9 @@ pub fn group(
             .filter(|(m, s)| {
                 usable(m)
                     && s.as_ref().is_some_and(|s| {
-                        (s.verified || s.source == SnapshotSource::Declared) && filter(s)
+                        super::benchmark::snapshot_matches_app(app_id, s)
+                            && (s.verified || s.source == SnapshotSource::Declared)
+                            && filter(s)
                     })
             })
             .max_by(|a, b| when(a.0).cmp(when(b.0)))
@@ -190,7 +248,9 @@ pub fn group(
             unassigned.push(r);
             continue;
         };
-        if (m.source == SessionSource::Synthetic || m.id.starts_with("s-fixture-"))
+        if !super::benchmark::snapshot_matches_app(app_id, snap) {
+            r.excluded = Some("O AppID, as ações ou o fingerprint do pacote não correspondem à sessão. O registro foi preservado, mas não influencia o ranking.".into());
+        } else if (m.source == SessionSource::Synthetic || m.id.starts_with("s-fixture-"))
             || m.quality
                 .issues
                 .iter()
@@ -200,6 +260,15 @@ pub fn group(
                 "Dados sintéticos identificados: não são uma medição real e não entram no ranking."
                     .into(),
             );
+        } else if !context_differences(m).is_empty() {
+            r.excluded = Some(format!("Contexto diferente do ambiente atual: {}. A medição permanece no histórico do jogo e não é reutilizada neste ranking.", context_differences(m).join(", ")));
+        } else if m
+            .quality
+            .issues
+            .iter()
+            .any(|i| i.code == "pack-recipe-changed")
+        {
+            r.excluded = Some("A identidade da receita mudou desde a captura; esta evidência histórica não classifica a composição atual.".into());
         } else if !usable(m) {
             r.excluded = Some("Captura interrompida, configuração alterada ou qualidade insuficiente. Repita a captura completa no mesmo trecho.".into());
         } else if snap.source == SnapshotSource::Assisted && !snap.verified {
@@ -233,6 +302,13 @@ pub fn group(
             if m.conditions.resolution.is_none() || m.conditions.preset.is_none() {
                 r.notes.push("Resolução ou preset não informados.".into());
             }
+        }
+        if snap
+            .recipes
+            .iter()
+            .any(|recipe| recipe.fingerprint.is_none())
+        {
+            r.notes.push("Registro legado sem fingerprint da receita: mantido pelo AppID, identidade da operação e ações registradas; o hash atual não foi atribuído ao passado.".into());
         }
         if snap.source == SnapshotSource::Declared {
             r.notes

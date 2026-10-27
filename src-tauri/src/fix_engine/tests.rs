@@ -698,6 +698,8 @@ fn related_findings_are_linked_by_action() {
     use crate::fixes::models::*;
     let e = fixture().engine();
     let f = |kind, value: &str| FixFinding {
+        scope: DiscoveryScope::verified("200260", "Fixture: verified game source"),
+        performance_evidence: Default::default(),
         id: format!("f-{value}"),
         game_app_id: "200260".into(),
         title: "t".into(),
@@ -1173,6 +1175,21 @@ mod packs {
         assert_eq!(p2.state, PackState::Verified, "{}", p2.state_detail);
         assert_eq!(r.current_pack_id.as_deref(), Some(p.id.as_str()));
         assert_eq!(benchmark::snapshot(&e, "200260").pack_id, p.id);
+        let snapshot = benchmark::snapshot(&e, "200260");
+        assert_eq!(snapshot.recipes[0].fingerprint, op.recipe_fingerprint);
+        assert!(benchmark::recipe_context_matches(&e, &g, &snapshot));
+        let mut changed_game = g.clone();
+        changed_game.findings[0].sources[0].snippet =
+            Some("Synthetic fixture: source changed after capture".into());
+        assert!(
+            !benchmark::recipe_context_matches(&e, &changed_game, &snapshot),
+            "the new recipe fingerprint cannot inherit old benchmark evidence"
+        );
+        assert_eq!(
+            e.operation(&op.id).unwrap().recipe_fingerprint,
+            op.recipe_fingerprint,
+            "original operation retained"
+        );
         assert_eq!(
             e.prepare(p.apply_recipe_id.as_deref().unwrap(), &g)
                 .unwrap()

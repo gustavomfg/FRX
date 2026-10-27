@@ -97,6 +97,48 @@ pub fn pct(before: f64, after: f64) -> Option<f64> {
         .then(|| (after - before) / before.abs() * 100.0)
 }
 
+/// Equivalências de representação, sem inferir que modelos/versões distintos
+/// são o mesmo ambiente. O logger OpenGL e o pci.ids podem grafar a mesma GPU
+/// de formas diferentes; fabricantes ou séries semelhantes não bastam.
+pub(crate) fn same_condition(field: &str, a: &str, b: &str) -> bool {
+    fn normalize(field: &str, s: &str) -> String {
+        let mut value = s
+            .split_whitespace()
+            .collect::<Vec<_>>()
+            .join(" ")
+            .to_lowercase();
+        if field == "gpu" {
+            if let Some(v) = value.strip_suffix("/pcie/sse2") {
+                value = v.trim_end().to_owned();
+            }
+            if value.ends_with(']') {
+                if let Some((_, marketing)) = value.rsplit_once('[') {
+                    let marketing = marketing.trim_end_matches(']').trim();
+                    if marketing.starts_with("geforce ") || marketing.starts_with("radeon ") {
+                        value = marketing.to_owned();
+                    }
+                }
+            }
+            for prefix in ["nvidia ", "amd "] {
+                if let Some(v) = value.strip_prefix(prefix) {
+                    value = v.to_owned();
+                    break;
+                }
+            }
+        } else if field == "driver" {
+            // MangoHud pode registrar só a versão do driver proprietário.
+            // Não equipara versões Mesa, nouveau ou outros módulos a NVIDIA.
+            if let Some(version) = value.strip_prefix("nvidia ") {
+                if version.chars().all(|c| c.is_ascii_digit() || c == '.') {
+                    value = version.to_owned();
+                }
+            }
+        }
+        value
+    }
+    normalize(field, a) == normalize(field, b)
+}
+
 fn row(
     key: &str,
     label: &str,
@@ -275,7 +317,10 @@ fn verdict(before: &SessionMeta, after: &SessionMeta, comp: &Comparability) -> V
     let unsuitable = [before, after]
         .iter()
         .any(|s| s.quality.level == QualityLevel::Unsuitable);
-    let kind = if unsuitable {
+    let kind = if comp.differences.iter().any(|d| d.field == "appId") {
+        reasons.push("Os AppIDs não identificam o mesmo jogo nas duas sessões. Os números continuam disponíveis, mas não representam melhoria ou regressão de um jogo.".into());
+        VerdictKind::Inconclusive
+    } else if unsuitable {
         reasons.push(
             "Ao menos uma sessão não tem qualidade suficiente para comparação (veja os avisos)."
                 .into(),
@@ -348,7 +393,7 @@ pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Compar
     let mut field =
         |key: &str, label: &str, x: &Option<String>, y: &Option<String>, major: bool| {
             if let (Some(a), Some(b)) = (x, y) {
-                if a.trim() != b.trim() {
+                if !same_condition(key, a, b) {
                     differences.push(Difference {
                         field: key.into(),
                         label: label.into(),
@@ -360,6 +405,13 @@ pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Compar
             }
         };
     field("appId", "Jogo (AppID)", &before.app_id, &after.app_id, true);
+    field(
+        "gameBuildId",
+        "Versão do jogo (build Steam)",
+        &cb.game_build_id,
+        &ca.game_build_id,
+        true,
+    );
     field("gpu", "GPU", &cb.gpu, &ca.gpu, true);
     field("cpu", "CPU", &cb.cpu, &ca.cpu, true);
     field(
@@ -387,6 +439,21 @@ pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Compar
         &ca.cpu_scheduler,
         false,
     );
+    if [before, after].iter().any(|m| {
+        m.app_id
+            .as_deref()
+            .is_none_or(|app| !crate::art::valid_app_id(app))
+    }) && !differences.iter().any(|d| d.field == "appId")
+    {
+        differences.push(Difference {
+            field: "appId".into(),
+            label: "Jogo sem AppID confirmado".into(),
+            before: before.app_id.clone(),
+            after: after.app_id.clone(),
+            major: true,
+        });
+        notes.push("Uma sessão sem AppID permanece no histórico sem ser atribuída automaticamente ao jogo aberto.".into());
+    }
     if let (Some(x), Some(y)) = (cb.vsync, ca.vsync) {
         if x != y {
             differences.push(Difference {
@@ -608,6 +675,76 @@ pub(crate) mod tests {
         let r = compare(&b, &a);
         assert!(r.comparability.controlled);
         assert!(!r.comparability.notes.is_empty());
+    }
+
+    #[test]
+    fn comparisons_never_claim_improvement_across_games_or_unknown_appids() {
+        let b = session("synthetic-a", &wobble(20.0, 3000));
+        let a = session("synthetic-b", &wobble(10.0, 6000));
+        for app_id in [Some("480"), None, Some("invalid")] {
+            let mut other = a.clone();
+            other.app_id = app_id.map(str::to_owned);
+            let result = compare(&b, &other);
+            assert_eq!(result.verdict.kind, VerdictKind::Inconclusive);
+            assert!(!result.comparability.controlled);
+            assert!(result.rows.iter().any(|r| r.key == "fpsAvg"));
+        }
+        let mut unknown_before = b;
+        let mut unknown_after = a;
+        unknown_before.app_id = None;
+        unknown_after.app_id = None;
+        assert_eq!(
+            compare(&unknown_before, &unknown_after).verdict.kind,
+            VerdictKind::Inconclusive
+        );
+    }
+
+    #[test]
+    fn equivalent_gpu_formatting_does_not_hide_hardware_or_driver_changes() {
+        assert!(same_condition(
+            "gpu",
+            "AD107 [GeForce RTX 4060]",
+            "NVIDIA GeForce RTX 4060/PCIe/SSE2"
+        ));
+        assert!(same_condition(
+            "gpu",
+            "NAVI32 [Radeon RX 7700 XT]",
+            "AMD Radeon RX 7700 XT"
+        ));
+        assert!(same_condition("driver", "nvidia 580.126.09", "580.126.09"));
+        for (field, before, after) in [
+            (
+                "gpu",
+                "NVIDIA GeForce RTX 4060",
+                "NVIDIA GeForce RTX 4060 Ti",
+            ),
+            (
+                "gpu",
+                "NVIDIA GeForce RTX 4060",
+                "NVIDIA GeForce RTX 4060 Laptop GPU",
+            ),
+            ("gpu", "AMD Radeon RX 7700 XT", "AMD Radeon RX 7800 XT"),
+            ("driver", "nvidia 580.126.09", "580.126.10"),
+            ("driver", "nouveau 580.126.09", "580.126.09"),
+            ("driver", "Mesa 25.1", "nvidia 25.1"),
+        ] {
+            assert!(
+                !same_condition(field, before, after),
+                "{field}: {before} / {after}"
+            );
+        }
+        let mut before = session("synthetic-before", &wobble(20.0, 3000));
+        let mut after = session("synthetic-after", &wobble(10.0, 6000));
+        before.conditions.gpu = Some("AD107 [GeForce RTX 4060]".into());
+        after.conditions.gpu = Some("NVIDIA GeForce RTX 4060/PCIe/SSE2".into());
+        assert!(comparability(&before, &after).controlled);
+        before.conditions.game_build_id = Some("10001".into());
+        after.conditions.game_build_id = Some("10002".into());
+        assert!(!comparability(&before, &after).controlled);
+        assert!(comparability(&before, &after)
+            .differences
+            .iter()
+            .any(|d| d.field == "gameBuildId" && d.major));
     }
 
     #[test]

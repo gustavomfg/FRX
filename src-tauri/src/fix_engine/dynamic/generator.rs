@@ -25,6 +25,7 @@ pub struct Input<'a> {
     pub actions: Vec<(String, String, &'static Knowledge)>,
     pub evidence: EvidenceLevel,
     pub evidence_note: String,
+    pub performance_evidence: super::GamePerformanceEvidence,
     pub provenance: Vec<Provenance>,
     pub interpreter: &'static str,
 }
@@ -124,6 +125,8 @@ pub fn build(i: Input<'_>) -> Recipe {
         review: None,
         pack: None,
         generated: Some(GeneratedInfo {
+            game_app_id: Some(i.app_id.to_owned()),
+            performance_evidence: i.performance_evidence,
             generator_version: GENERATOR_VERSION.into(),
             rules_version: RULES_VERSION.into(),
             interpreter: i.interpreter.into(),

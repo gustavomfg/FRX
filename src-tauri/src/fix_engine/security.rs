@@ -320,6 +320,8 @@ pub fn validate_pack(r: &Recipe) -> Result<(), String> {
             !matches!(m.trust, Trust::Reviewed | Trust::Generated)
                 || !(valid_id(&m.recipe_id) || valid_generated_id(&m.recipe_id))
                 || m.fingerprint.len() != 64
+                || !m.fingerprint.bytes().all(|b| b.is_ascii_hexdigit())
+                || m.trust == Trust::Generated && !m.recipe_id.starts_with(&format!("gen.{app}."))
         })
     {
         return Err("composição inválida".into());
@@ -370,6 +372,14 @@ pub fn validate_generated(r: &Recipe) -> Result<(), String> {
     };
     if !r.id.starts_with(&format!("gen.{app}.")) || !r.scope.requires_proton {
         return Err("escopo inconsistente".into());
+    }
+    if g.game_app_id.as_deref() != Some(app.as_str())
+        || g.performance_evidence
+            .app_id
+            .as_ref()
+            .is_some_and(|a| a != app)
+    {
+        return Err("origem gerada sem AppID confirmado ou com evidência de outro jogo; reanalise a descoberta".into());
     }
     if r.actions.is_empty() || r.actions.len() > 4 {
         return Err("número de ações inválido".into());

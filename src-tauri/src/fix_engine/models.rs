@@ -147,6 +147,11 @@ pub struct PackInfo {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GeneratedInfo {
+    /// Ausente em registros antigos: preservados, mas não executáveis sem reanálise.
+    #[serde(default)]
+    pub game_app_id: Option<String>,
+    #[serde(default)]
+    pub performance_evidence: super::dynamic::GamePerformanceEvidence,
     pub generator_version: String,
     pub rules_version: String,
     pub interpreter: String,
@@ -406,6 +411,10 @@ pub struct Pending {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Operation {
+    /// Receita exata utilizada. Ausente em operações legadas; nunca inferida
+    /// retroativamente a partir do catálogo atual.
+    #[serde(default)]
+    pub recipe_fingerprint: Option<String>,
     pub schema: u32,
     pub id: String,
     pub recipe_id: String,
@@ -530,6 +539,8 @@ pub struct EngineStatus {
 /// Contexto do jogo montado pelos comandos (biblioteca + hardware).
 #[derive(Debug, Clone, Default)]
 pub struct GameCtx {
+    /// Perfil observado agora. Nunca substitui metadados de capturas antigas.
+    pub performance_conditions: Option<crate::performance::models::Conditions>,
     pub app_id: String,
     pub name: String,
     pub steam_root: Option<PathBuf>,

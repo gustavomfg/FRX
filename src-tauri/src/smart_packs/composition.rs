@@ -79,6 +79,7 @@ pub fn eligible(u: &Unit, single: Option<&(Outcome, Outcome)>) -> bool {
 
 pub fn baseline(app_id: &str) -> SmartPack {
     SmartPack {
+        performance_evidence: Default::default(),
         performance_warnings: vec![],
         id: baseline_id(app_id),
         app_id: app_id.to_owned(),
@@ -90,7 +91,7 @@ pub fn baseline(app_id: &str) -> SmartPack {
         members: vec![],
         env: vec![],
         apply_recipe_id: None,
-        fingerprint: "baseline".into(),
+        fingerprint: sha256_hex(format!("baseline-v{PACK_SCHEMA}:{app_id}").as_bytes()),
         requirements: vec![],
         compatibility: vec![],
         conflicts_avoided: vec![],
@@ -161,6 +162,11 @@ fn make(
         .max()
         .unwrap_or(EvidenceLevel::None);
     SmartPack {
+        performance_evidence: if members.len() == 1 {
+            members[0].performance_evidence.clone()
+        } else {
+            Default::default()
+        },
         performance_warnings: performance_warnings(
             env.iter().map(|p| (p.key.as_str(), p.value.as_str())),
         ),
@@ -169,14 +175,16 @@ fn make(
         } else {
             id.clone()
         }),
-        fingerprint: sha256_hex(
-            members
+        fingerprint: {
+            let mut identities: Vec<String> = members
                 .iter()
                 .map(|u| format!("{}@{}#{}", u.recipe_id, u.version, u.fingerprint))
-                .collect::<Vec<_>>()
-                .join("\n")
-                .as_bytes(),
-        ),
+                .collect();
+            identities.sort();
+            sha256_hex(
+                &serde_json::to_vec(&(PACK_SCHEMA, app_id, &env, identities)).unwrap_or_default(),
+            )
+        },
         id,
         app_id: app_id.to_owned(),
         version: COMPOSER_VERSION.into(),
@@ -249,9 +257,19 @@ fn greedy<'a>(pool: &[&'a Unit], max: usize) -> Vec<&'a Unit> {
 }
 
 pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Limits) -> Composed {
-    let mut units = units.to_vec();
-    order(&mut units);
     let mut excluded = Vec::new();
+    let mut units: Vec<Unit> = units.iter().filter_map(|u| {
+        if u.app_id.as_deref() == Some(app_id) && crate::art::valid_app_id(app_id) {
+            Some(u.clone())
+        } else {
+            excluded.push(Excluded {
+                performance_warnings: vec![], id: u.recipe_id.clone(), title: u.title.clone(), status: None,
+                reason: "Receita de outro AppID ou sem atribuição confirmada: não pode integrar os pacotes deste jogo.".into(),
+            });
+            None
+        }
+    }).collect();
+    order(&mut units);
     let mut notes = Vec::new();
     if units.len() > limits.max_units {
         for u in units.drain(limits.max_units..) {
@@ -294,7 +312,12 @@ pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Li
             Goal::Compatibility
         };
         let text = format!(
-            "Alternativa de compatibilidade: “{}”. {}",
+            "{}: “{}”. {}",
+            if u.performance_evidence.contextual_candidate(app_id) {
+                "Possível melhoria específica deste jogo, ainda sem validação local"
+            } else {
+                "Alternativa de compatibilidade"
+            },
             u.title,
             u.effects.first().cloned().unwrap_or_default()
         );
@@ -325,9 +348,7 @@ pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Li
         .iter()
         .copied()
         .filter(|u| {
-            u.perf != PerfHint::Penalty
-                && single(u)
-                    .is_some_and(|(a, l)| *a == Outcome::Improvement && *l != Outcome::Regression)
+            single(u).is_some_and(|(a, l)| *a == Outcome::Improvement && *l != Outcome::Regression)
         })
         .collect();
     let balanced: Vec<&Unit> = elig

@@ -28,12 +28,17 @@ pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
         .find(|g| g.app_id == app_id)
         .ok_or("Jogo não encontrado na biblioteca da Steam.")?;
     let profile = crate::system::profile();
+    let mut conditions =
+        super::performance::conditions_from_profile(&profile, game.compatibility.tool.as_ref());
+    conditions.game_build_id = game.build_id.clone();
+    let performance_conditions = Some(conditions);
     let hw = HardwareContext {
         gpus: profile.gpus,
         primary: profile.primary_gpu,
     };
     let tool = game.compatibility.tool.as_ref();
     Ok(GameCtx {
+        performance_conditions,
         app_id: game.app_id.clone(),
         name: game.name.clone(),
         steam_root: Some(game.steam_install.clone().into()),
@@ -80,7 +85,11 @@ pub fn get_fix_engine_status(ctx: State<'_, AppCtx>) -> EngineStatus {
 pub fn list_fix_recipes(ctx: State<'_, AppCtx>, app_id: Option<String>) -> Vec<RecipeView> {
     let findings = app_id
         .filter(|a| crate::art::valid_app_id(a))
-        .and_then(|a| ctx.cache.get::<FixReport>("fixes", &a))
+        .and_then(|a| {
+            ctx.cache
+                .get::<FixReport>("fixes", &a)
+                .filter(|e| e.data.app_id == a)
+        })
         .map(|e| e.data.findings)
         .unwrap_or_default();
     ctx.engine.recipes(&findings)

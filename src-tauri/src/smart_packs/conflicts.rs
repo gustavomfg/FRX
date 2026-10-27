@@ -52,6 +52,14 @@ fn excl(a: &Unit, b: &Unit, kind: ConflictKind, reason: String) -> Edge {
 
 /// Relação entre duas receitas.
 pub fn edge(a: &Unit, b: &Unit) -> Edge {
+    if a.app_id.is_none() || a.app_id != b.app_id {
+        return excl(
+            a,
+            b,
+            ConflictKind::GameScope,
+            "Receitas sem o mesmo AppID confirmado nunca podem ser combinadas.".into(),
+        );
+    }
     for x in &a.env {
         if let Some(y) = b.env.iter().find(|y| y.key == x.key && y.value != x.value) {
             return excl(

@@ -9,7 +9,7 @@
 use reqwest::Url;
 use serde::Deserialize;
 
-use super::super::aggregation::{finding_id, group_mentions, Mention};
+use super::super::aggregation::{component_keys, finding_id, group_mentions, Mention};
 use super::super::http::{Ctx, Outcome};
 use super::super::models::*;
 use super::super::tweaks::scan_text;
@@ -38,7 +38,14 @@ struct Label {
 }
 
 #[derive(Deserialize, Clone)]
+struct User {
+    login: String,
+}
+
+#[derive(Deserialize, Clone)]
 struct Issue {
+    #[serde(default)]
+    user: Option<User>,
     number: u64,
     title: String,
     html_url: String,
@@ -57,6 +64,8 @@ struct Issue {
 
 #[derive(Deserialize)]
 struct Comment {
+    #[serde(default)]
+    user: Option<User>,
     html_url: String,
     #[serde(default)]
     body: Option<String>,
@@ -88,13 +97,231 @@ fn has_token(hay: &str, digits: &str) -> bool {
 
 /// Só URLs do próprio GitHub entram nas fontes (o restante é dado não confiável).
 fn safe_github_url(u: &str) -> bool {
-    Url::parse(u).is_ok_and(|x| x.scheme() == "https" && x.host_str() == Some("github.com"))
+    Url::parse(u).is_ok_and(|x| {
+        x.scheme() == "https"
+            && x.host_str() == Some("github.com")
+            && x.username().is_empty()
+            && x.password().is_none()
+            && x.port().is_none()
+    })
 }
 
 fn repo_of(repository_url: &str) -> String {
     repository_url
         .trim_start_matches("https://api.github.com/repos/")
         .to_owned()
+}
+
+/// Explicit identifiers found in source content. Plain years, FPS and version
+/// numbers are not identities. No title/name similarity is used here.
+fn explicit_app_ids(text: &str) -> Vec<String> {
+    let low = text.to_ascii_lowercase();
+    let mut ids = Vec::new();
+    for prefix in [
+        "store.steampowered.com/app/",
+        "steamcommunity.com/app/",
+        "appid",
+        "app id",
+        "steam app id",
+        "steam appid of the game",
+        "steam appid of game",
+        "app id of the game",
+    ] {
+        for (i, _) in low.match_indices(prefix) {
+            let tail = low[i + prefix.len()..].trim_start_matches([' ', ':', '=', '`', '#']);
+            let id: String = tail.chars().take_while(char::is_ascii_digit).collect();
+            if crate::art::valid_app_id(&id) && !ids.contains(&id) {
+                ids.push(id);
+            }
+        }
+    }
+    ids
+}
+
+/// Bare bracketed numbers are ambiguous identity hints, not proof: they can
+/// describe a GPU model, year or FPS count. They may only corroborate an
+/// explicit AppID label or Steam app URL from the source.
+fn identity_hints(text: &str) -> Vec<String> {
+    let low = text.to_ascii_lowercase();
+    let mut ids = explicit_app_ids(text);
+    for (open, close) in [('(', ')'), ('[', ']')] {
+        for part in low.split(open).skip(1) {
+            if let Some((id, _)) = part.split_once(close) {
+                let id = id.trim();
+                if crate::art::valid_app_id(id) && !ids.iter().any(|i| i == id) {
+                    ids.push(id.to_owned());
+                }
+            }
+        }
+    }
+    ids
+}
+
+fn issue_scope(issue: &Issue, app_id: &str) -> DiscoveryScope {
+    let repo = repo_of(&issue.repository_url);
+    let ids = identity_hints(&issue.title);
+    let title_ids = explicit_app_ids(&issue.title);
+    let body_ids = explicit_app_ids(issue.body.as_deref().unwrap_or_default());
+    let confirmed = title_ids.len() == 1 && title_ids[0] == app_id
+        || body_ids.len() == 1 && body_ids[0] == app_id;
+    let expected = format!("https://github.com/{repo}/issues/{}", issue.number);
+    if REPOS.contains(&repo.as_str())
+        && issue.html_url == expected
+        && has_token(&issue.title, app_id)
+        && ids.len() == 1
+        && ids[0] == app_id
+        && confirmed
+        && body_ids.iter().all(|id| id == app_id)
+    {
+        DiscoveryScope::verified(
+            app_id,
+            format!("A issue vincula o AppID {app_id} no título e o confirma por identificador explícito ou link da Steam: {expected}"),
+        )
+    } else {
+        DiscoveryScope {
+            basis: format!(
+                "A identidade da issue é ambígua ou não pertence a um tracker integrado: {}",
+                issue.html_url
+            ),
+            ..DiscoveryScope::default()
+        }
+    }
+}
+
+fn inherited_scope(parent: &DiscoveryScope, text: &str) -> DiscoveryScope {
+    let ids = identity_hints(text);
+    let low = text.to_ascii_lowercase();
+    if parent
+        .app_id
+        .as_deref()
+        .is_some_and(|app| ids.iter().any(|id| id != app))
+        || [
+            "another game",
+            "other game",
+            "different game",
+            "outro jogo",
+            "outros jogos",
+            "another title",
+            "different title",
+            "for me in ",
+            "also works in ",
+            "also works for ",
+            "in game ",
+            "for game ",
+        ]
+        .iter()
+        .any(|p| low.contains(p))
+    {
+        DiscoveryScope { basis: "A fonte discute outro jogo ou vários jogos; a issue original não basta para atribuir estas ações.".into(), ..DiscoveryScope::default() }
+    } else {
+        parent.clone()
+    }
+}
+
+/// Conservative claim extraction: one explicit action, one line, an observed
+/// directional performance claim. Compatibility successes and speculative
+/// suggestions never count as FPS evidence.
+fn performance_reports(
+    tweak: &super::super::tweaks::Tweak,
+    line: &str,
+    scope: &DiscoveryScope,
+    url: &str,
+    date: Option<String>,
+    maintainer: bool,
+    author: Option<&str>,
+) -> Vec<PerformanceReport> {
+    let Some(app_id) = scope
+        .app_id
+        .as_deref()
+        .filter(|app| scope.matches_game(app))
+    else {
+        return vec![];
+    };
+    let keys = component_keys(tweak);
+    if keys.len() != 1 || !keys[0].starts_with("env:") {
+        return vec![];
+    }
+    let scan = scan_text(line);
+    if scan.tweaks.len() != 1 {
+        return vec![];
+    }
+    let low = line.to_ascii_lowercase();
+    if [
+        "may ",
+        "might ",
+        "could ",
+        "should ",
+        "possibly",
+        "potential",
+        "try ",
+        "does not improve",
+        "doesn't improve",
+        "did not improve",
+        "didn't improve",
+        "no performance improvement",
+        "not better",
+        "not higher",
+        "not faster",
+        "not worse",
+        "not lower",
+        "not reduced",
+        "does not reduce",
+        "doesn't reduce",
+        "did not reduce",
+        "didn't reduce",
+        "without ",
+        "removing ",
+        "removed ",
+        "unset",
+        "not using",
+        "turned off",
+        "after disabling",
+    ]
+    .iter()
+    .any(|p| low.contains(p))
+        || low.contains('?')
+    {
+        return vec![];
+    }
+    let positive = [
+        "improved performance",
+        "improves performance",
+        "better performance",
+        "higher fps",
+        "increased fps",
+        "fps increased",
+        "fps boost",
+        "improved fps",
+        "improves fps",
+        "reduces stutter",
+        "reduced stutter",
+        "less stutter",
+        "lower frametime",
+    ]
+    .iter()
+    .any(|p| low.contains(p));
+    let negative = [
+        "worse performance",
+        "lower fps",
+        "fps dropped",
+        "decreased fps",
+        "reduces fps",
+        "reduced fps",
+        "performance regression",
+        "more stutter",
+        "higher frametime",
+    ]
+    .iter()
+    .any(|p| low.contains(p));
+    [PerformanceOutcome::Positive, PerformanceOutcome::Negative].into_iter()
+        .filter(|outcome| match outcome { PerformanceOutcome::Positive => positive, PerformanceOutcome::Negative => negative })
+        .map(|outcome| PerformanceReport {
+            app_id: app_id.to_owned(), action_key: keys[0].clone(), source_url: url.to_owned(), author: author.map(str::to_owned), reported_at: date.clone(), statement: line.chars().take(240).collect(), outcome,
+            proton_version: scan.proton_versions.first().cloned(),
+            gpu_vendor: if scan.gpus.len() == 1 { scan.gpus.first().copied() } else { None },
+            confidence: if maintainer { Confidence::Verified } else { Confidence::CommunityReported },
+            limitations: vec!["Relato público; não é medição local do FRX. Driver, cenário e configurações completas não foram verificados.".into()],
+        }).collect()
 }
 
 /// Nome normalizado para comparar com notas de versão.
@@ -198,6 +425,7 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
     for issue in &issues {
         let repo = repo_of(&issue.repository_url);
         let reference = format!("{repo}#{}", issue.number);
+        let scope = issue_scope(issue, &q.app_id);
         let labels: Vec<String> = issue
             .labels
             .iter()
@@ -210,6 +438,8 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             "aberto"
         };
         findings.push(FixFinding {
+            scope: scope.clone(),
+            performance_evidence: PerformanceEvidence::default(),
             id: finding_id("gh-issue", &q.app_id, &reference),
             game_app_id: q.app_id.clone(),
             title: format!("Relato de compatibilidade · {reference}"),
@@ -249,6 +479,8 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
                 &issue.html_url,
                 &format!("{reference} · descrição"),
                 issue.created_at.clone(),
+                &scope,
+                (false, issue.user.as_ref().map(|u| u.login.as_str())),
             );
         }
     }
@@ -258,6 +490,10 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
     by_comments.sort_by_key(|i| std::cmp::Reverse(i.comments));
     for issue in by_comments.iter().take(2).filter(|i| i.comments > 0) {
         let repo = repo_of(&issue.repository_url);
+        if !REPOS.contains(&repo.as_str()) {
+            continue;
+        }
+        let scope = issue_scope(issue, &q.app_id);
         let last_page = issue.comments.div_ceil(100).max(1) as usize;
         for page in (1..=last_page).rev().take(MAX_COMMENT_PAGES) {
             let url = format!(
@@ -277,7 +513,14 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
                 .and_then(|b| serde_json::from_str(b).ok())
                 .unwrap_or_default();
             outcomes.push(o);
-            for c in comments.iter().filter(|c| safe_github_url(&c.html_url)) {
+            let parent_url = format!(
+                "https://github.com/{repo}/issues/{}#issuecomment-",
+                issue.number
+            );
+            for c in comments
+                .iter()
+                .filter(|c| safe_github_url(&c.html_url) && c.html_url.starts_with(&parent_url))
+            {
                 let Some(body) = &c.body else { continue };
                 let label = format!("Comentário em {repo}#{}", issue.number);
                 collect(
@@ -286,8 +529,16 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
                     &c.html_url,
                     &label,
                     c.created_at.clone(),
+                    &scope,
+                    (
+                        matches!(
+                            c.author_association.as_deref(),
+                            Some("MEMBER" | "OWNER" | "COLLABORATOR")
+                        ),
+                        c.user.as_ref().map(|u| u.login.as_str()),
+                    ),
                 );
-                if let Some(f) = maintainer_statement(q, &repo, issue.number, c, body) {
+                if let Some(f) = maintainer_statement(q, &repo, issue.number, c, body, &scope) {
                     findings.push(f);
                 }
             }
@@ -323,10 +574,30 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
     }
 }
 
-fn collect(out: &mut Vec<Mention>, text: &str, url: &str, label: &str, date: Option<String>) {
+fn collect(
+    out: &mut Vec<Mention>,
+    text: &str,
+    url: &str,
+    label: &str,
+    date: Option<String>,
+    parent: &DiscoveryScope,
+    reporter: (bool, Option<&str>),
+) {
+    let (maintainer, author) = reporter;
+    let scope = inherited_scope(parent, text);
     let s = scan_text(text);
     for (tweak, line) in s.tweaks {
         out.push(Mention {
+            scope: scope.clone(),
+            performance_reports: performance_reports(
+                &tweak,
+                &line,
+                &scope,
+                url,
+                date.clone(),
+                maintainer,
+                author,
+            ),
             tweak,
             source: FindingSource {
                 provider: ProviderId::Github,
@@ -350,6 +621,7 @@ fn maintainer_statement(
     number: u64,
     c: &Comment,
     body: &str,
+    parent: &DiscoveryScope,
 ) -> Option<FixFinding> {
     let assoc = c.author_association.as_deref().unwrap_or("");
     if !matches!(assoc, "MEMBER" | "OWNER" | "COLLABORATOR") {
@@ -367,6 +639,8 @@ fn maintainer_statement(
         None => "Mantenedor indica que o problema foi corrigido".into(),
     };
     Some(FixFinding {
+        scope: inherited_scope(parent, body),
+        performance_evidence: PerformanceEvidence::default(),
         id: finding_id("gh-maint", &q.app_id, &c.html_url),
         game_app_id: q.app_id.clone(),
         title,
@@ -413,14 +687,33 @@ fn release_mentions(q: &GameQuery, repo: &str, releases: &[Release]) -> Vec<FixF
             .filter(|c| !c.is_control())
             .take(240)
             .collect();
+        let explicit = explicit_app_ids(line);
+        let scope = if explicit.len() == 1 && explicit[0] == q.app_id {
+            DiscoveryScope::verified(
+                &q.app_id,
+                format!(
+                    "O trecho das notas de versão identifica explicitamente o Steam AppID {}: {}",
+                    q.app_id, r.html_url
+                ),
+            )
+        } else {
+            DiscoveryScope {
+                basis: "Menção somente por nome nas notas de versão; a atribuição ao Steam AppID não foi confirmada.".into(),
+                ..DiscoveryScope::default()
+            }
+        };
+        let verified = scope.matches_game(&q.app_id);
         out.push(FixFinding {
+            game_app_id: scope.app_id.clone().unwrap_or_default(),
+            scope,
+            performance_evidence: PerformanceEvidence::default(),
             id: finding_id("gh-release", &q.app_id, &r.html_url),
-            game_app_id: q.app_id.clone(),
             title: format!("Citado nas notas de versão de {release}"),
-            description: format!(
-                "As notas oficiais de {repo} ({}) mencionam este jogo. Normalmente indica correção ou suporte novo nessa versão — confira o trecho e use essa versão ou uma mais nova.",
-                r.tag_name
-            ),
+            description: if verified {
+                format!("As notas oficiais de {repo} ({}) identificam este Steam AppID. Consulte o trecho para entender a alteração de compatibilidade; não é medição de desempenho local.", r.tag_name)
+            } else {
+                format!("Possível menção por nome nas notas de {repo} ({}). A fonte não confirma o Steam AppID; esta referência não pode gerar receita nem evidência de desempenho para o jogo selecionado.", r.tag_name)
+            },
             category: Category::Compatibility,
             kind: FindingKind::ReleaseNote,
             actions: vec![FixAction { kind: ActionKind::ProtonVersion, label: "Versão da ferramenta citada".into(), value: r.tag_name.clone(), conditional: false }],
@@ -481,7 +774,7 @@ mod tests {
 
     const SEARCH: &str = r#"{"total_count":2,"items":[
         {"number":309,"title":"Batman: Arkham City GOTY (200260)","html_url":"https://github.com/ValveSoftware/Proton/issues/309","state":"open","comments":2,
-         "body":"Crashes at start. PROTON_USE_WINED3D=1 works for me on GTX 1060","labels":[{"name":".NET"}],"created_at":"2018-08-23T18:41:25Z",
+         "body":"Steam AppID of the game: 200260. Crashes at start. PROTON_USE_WINED3D=1 works for me on GTX 1060","labels":[{"name":".NET"}],"created_at":"2018-08-23T18:41:25Z",
          "repository_url":"https://api.github.com/repos/ValveSoftware/Proton"},
         {"number":1,"title":"Something about 2002606","html_url":"https://github.com/x/y/issues/1","state":"open","comments":0,"repository_url":"https://api.github.com/repos/x/y"},
         {"number":2,"title":"PR 200260","html_url":"https://github.com/x/y/pull/2","state":"open","comments":0,"repository_url":"https://api.github.com/repos/x/y","pull_request":{}}
@@ -633,5 +926,159 @@ mod tests {
         ));
         assert!(has_token("Game (200260)", "200260"));
         assert!(!has_token("Game 2002601", "200260"));
+    }
+    #[test]
+    fn attribution_uses_the_source_identity_not_query_or_name_similarity() {
+        let issue: Issue = serde_json::from_str(r#"{"number":309,"title":"Game B (570), see also AppID 200260","html_url":"https://github.com/ValveSoftware/Proton/issues/309","state":"open","repository_url":"https://api.github.com/repos/ValveSoftware/Proton","created_at":null}"#).unwrap();
+        assert!(!issue_scope(&issue, "200260").matches_game("200260"));
+        let issue = serde_json::from_str::<SearchResp>(SEARCH)
+            .unwrap()
+            .items
+            .remove(0);
+        assert!(issue_scope(&issue, "200260").matches_game("200260"));
+        assert!(!issue_scope(&issue, "570").matches_game("570"));
+        let parent = issue_scope(&issue, "200260");
+        assert!(!inherited_scope(
+            &parent,
+            "For another game, PROTON_NO_D3D11=1 improves performance"
+        )
+        .matches_game("200260"));
+        assert!(
+            !inherited_scope(&parent, "AppID: 570 PROTON_NO_D3D11=1 improves performance")
+                .matches_game("200260")
+        );
+        assert!(inherited_scope(&parent, "PROTON_NO_D3D11=1 fixed my crash").matches_game("200260"));
+    }
+
+    #[test]
+    fn gpu_models_and_years_in_titles_do_not_establish_appid() {
+        let template = serde_json::from_str::<SearchResp>(SEARCH)
+            .unwrap()
+            .items
+            .remove(0);
+        for (title, app_id) in [
+            ("GPU regression on RTX (4060)", "4060"),
+            ("Crash reports (2024)", "2024"),
+        ] {
+            let mut issue = template.clone();
+            issue.title = title.into();
+            issue.body = Some("PROTON_NO_D3D11=1 improved performance".into());
+            assert!(!issue_scope(&issue, app_id).matches_game(app_id));
+        }
+        let mut issue = template.clone();
+        issue.body = None;
+        assert!(
+            !issue_scope(&issue, "200260").matches_game("200260"),
+            "bare bracketed number is unconfirmed without a source AppID label or Steam URL"
+        );
+        issue.body = Some("Steam app: https://store.steampowered.com/app/200260/".into());
+        assert!(issue_scope(&issue, "200260").matches_game("200260"));
+        issue.body = Some("Steam AppID: 570; source discusses another title".into());
+        assert!(!issue_scope(&issue, "200260").matches_game("200260"));
+        issue.title = "Compatibility report — AppID 200260".into();
+        issue.body = None;
+        assert!(
+            issue_scope(&issue, "200260").matches_game("200260"),
+            "explicit AppID in title is itself a source identity"
+        );
+        assert!(explicit_app_ids("RTX (4060), year (2024), 90 FPS").is_empty());
+    }
+
+    #[test]
+    fn name_only_release_mentions_remain_unattributed() {
+        let releases: Vec<Release> = serde_json::from_str(RELEASES).unwrap();
+        let found = release_mentions(&q(), "ValveSoftware/Proton", &releases);
+        assert_eq!(found.len(), 1);
+        assert_eq!(found[0].scope.kind, DiscoveryScopeKind::UnknownScope);
+        assert!(found[0].game_app_id.is_empty());
+        assert_eq!(
+            found[0].performance_evidence,
+            PerformanceEvidence::default()
+        );
+        let exact: Vec<Release> = serde_json::from_str(&RELEASES.replace(
+            "- Batman: Arkham City",
+            "- Batman: Arkham City (Steam AppID: 200260)",
+        ))
+        .unwrap();
+        let found = release_mentions(&q(), "ValveSoftware/Proton", &exact);
+        assert!(found[0].scope.matches_game("200260"));
+    }
+
+    #[test]
+    fn performance_claims_are_action_specific_not_compatibility_votes() {
+        let scope = DiscoveryScope::verified("200260", "fixture: title AppID");
+        let mut mentions = Vec::new();
+        for (author, text) in [
+            (
+                "one",
+                "PROTON_NO_D3D11=1 improved performance on Proton 9.0-4 with my RTX 4060",
+            ),
+            ("two", "PROTON_NO_D3D11=1 gives higher FPS"),
+            ("three", "PROTON_NO_D3D11=1 causes worse performance"),
+        ] {
+            collect(
+                &mut mentions,
+                text,
+                &format!(
+                    "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-{author}"
+                ),
+                "fixture",
+                None,
+                &scope,
+                (false, Some(author)),
+            );
+        }
+        let result = group_mentions("200260", mentions, "fixture");
+        let e = &result[0].performance_evidence;
+        assert_eq!((e.positive, e.negative), (2, 1));
+        assert_eq!(e.reports[0].app_id, "200260");
+        assert!(e
+            .reports
+            .iter()
+            .all(|r| r.action_key == "env:PROTON_NO_D3D11=1" && r.author.is_some()));
+        assert!(e
+            .reports
+            .iter()
+            .any(|r| r.gpu_vendor == Some(GpuReq::Nvidia)
+                && r.proton_version.as_deref() == Some("Proton 9.0-4")));
+        for text in [
+            "PROTON_NO_D3D11=1 works and fixed the crash",
+            "PROTON_NO_D3D11=1 might give higher FPS",
+            "PROTON_NO_D3D11=1 does not improve performance",
+            "PROTON_NO_D3D11=1 not higher FPS",
+            "Without PROTON_NO_D3D11=1 I get higher FPS",
+            "Removed PROTON_NO_D3D11=1 and saw improved performance",
+            "PROTON_NO_D3D11=1 does not reduce FPS",
+            "PROTON_NO_D3D11=1 improves performance; PROTON_NO_ESYNC=1 lowers FPS",
+        ] {
+            let mut mentions = Vec::new();
+            collect(
+                &mut mentions,
+                text,
+                "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-1",
+                "fixture",
+                None,
+                &scope,
+                (true, Some("maintainer")),
+            );
+            assert!(
+                mentions.iter().all(|m| m.performance_reports.is_empty()),
+                "{text}"
+            );
+        }
+        let mut mentions = Vec::new();
+        collect(
+            &mut mentions,
+            "PROTON_NO_D3D11=1 improves performance",
+            "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-1",
+            "fixture",
+            None,
+            &DiscoveryScope::default(),
+            (true, Some("maintainer")),
+        );
+        assert!(
+            mentions[0].performance_reports.is_empty(),
+            "Unknown scope cannot yield performance evidence"
+        );
     }
 }

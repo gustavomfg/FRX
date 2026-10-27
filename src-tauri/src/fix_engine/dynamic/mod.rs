@@ -19,6 +19,7 @@
 pub mod analyzer;
 pub mod compatibility;
 pub mod extraction;
+pub mod game_evidence;
 pub mod generator;
 pub mod provenance;
 pub mod registry;
@@ -34,11 +35,13 @@ use crate::fixes::models::ActionKind;
 use provenance::Provenance;
 
 /// Versão do gerador. Mudou → todas as receitas geradas são reavaliadas.
-pub const GENERATOR_VERSION: &str = "1.0.0";
+pub const GENERATOR_VERSION: &str = "1.1.0";
 /// Versão das regras de segurança e do conhecimento de variáveis
 /// (`security::ENV_ALLOWLIST` + `compatibility::KNOWLEDGE`). Aumente ao mudar
 /// qualquer uma das duas.
-pub const RULES_VERSION: &str = "2026.10.27-1";
+pub const RULES_VERSION: &str = "2026.10.27-2";
+
+pub use game_evidence::GamePerformanceEvidence;
 
 /// Categoria exibida ao usuário.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -113,6 +116,8 @@ pub struct ActionView {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Assessment {
+    #[serde(default)]
+    pub performance_evidence: GamePerformanceEvidence,
     #[serde(default)]
     pub performance_warnings: Vec<String>,
     pub finding_id: String,

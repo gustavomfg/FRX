@@ -140,6 +140,12 @@ impl Store {
             return None; // criado por uma versão mais nova do FRX: preservado, não tocado
         }
         let meta: SessionMeta = serde_json::from_value(migrate(value, schema)).ok()?;
+        if meta.id != id {
+            // Um arquivo copiado ou inconsistente não pode se passar por
+            // outra sessão e sobrescrever seus metadados na reanálise.
+            // O diretório e o conteúdo original ficam intactos para auditoria.
+            return None;
+        }
         if meta.analysis_version < ANALYSIS_VERSION {
             if let Some(updated) = self.reprocess(&meta) {
                 return Some(updated);
@@ -156,13 +162,19 @@ impl Store {
         let mut m = meta.clone();
         m.stats = analysis.stats;
         m.quality = analysis.quality;
-        // Interrupção é um fato da captura, não pode ser inferida de novo do CSV.
-        for issue in meta
-            .quality
-            .issues
-            .iter()
-            .filter(|i| i.code == "interrupted")
-        {
+        // Proveniência e interrupções são fatos da captura; recalcular as
+        // métricas não pode transformar dados excluídos em evidência válida.
+        for issue in meta.quality.issues.iter().filter(|i| {
+            matches!(
+                i.code.as_str(),
+                "interrupted"
+                    | "pack-changed"
+                    | "pack-recipe-changed"
+                    | "context-edited"
+                    | "synthetic"
+                    | "fixture"
+            )
+        }) {
             if !m.quality.issues.iter().any(|i| i.code == issue.code) {
                 m.quality.issues.push(issue.clone());
             }
@@ -229,13 +241,54 @@ impl Store {
             meta.notes = clip(n, 4000);
         }
         if let Some(a) = patch.app_id {
-            meta.app_id = Some(a).filter(|a| crate::art::valid_app_id(a));
+            if !a.is_empty() && !crate::art::valid_app_id(&a) {
+                return Err("AppID inválido.".into());
+            }
+            let new_app = Some(a).filter(|a| !a.is_empty());
+            if meta.app_id != new_app {
+                let recorded = meta.source == SessionSource::Assisted
+                    || meta.active_fixes.is_some()
+                    || meta.smart_pack.as_ref().is_some_and(|s| {
+                        s.source == crate::smart_packs::models::SnapshotSource::Assisted
+                    });
+                if recorded {
+                    return Err("O AppID de uma captura registrada pelo FRX não pode ser alterado. A sessão e suas evidências pertencem ao jogo capturado.".into());
+                }
+                // A atribuição de uma importação é explícita. Uma declaração
+                // anterior nunca acompanha a sessão para outro jogo.
+                meta.smart_pack = None;
+                meta.app_id = new_app;
+            }
         }
         if let Some(g) = patch.game_name {
             meta.game_name = Some(clip(g, 200)).filter(|g| !g.trim().is_empty());
         }
         if let Some(c) = patch.conditions {
-            meta.conditions = c;
+            if meta.conditions != c {
+                if let Some(s) = meta.smart_pack.as_mut() {
+                    if s.source == crate::smart_packs::models::SnapshotSource::Assisted {
+                        s.verified = false;
+                    } else {
+                        // Se o contexto declarado mudou, o usuário precisa
+                        // confirmar novamente a configuração correspondente.
+                        meta.smart_pack = None;
+                    }
+                }
+                if (meta.source == SessionSource::Assisted || meta.active_fixes.is_some())
+                    && !meta
+                        .quality
+                        .issues
+                        .iter()
+                        .any(|i| i.code == "context-edited")
+                {
+                    meta.quality.issues.push(Issue::new(
+                        Severity::Warning,
+                        "context-edited",
+                        "As condições foram editadas depois da captura. O registro original não confirma esse novo contexto; esta sessão permanece no histórico, fora do ranking automático.",
+                    ));
+                }
+                meta.conditions = c;
+            }
         }
         self.write_meta(&meta)?;
         Ok(meta)
@@ -251,7 +304,8 @@ impl Store {
         use crate::smart_packs::models::SnapshotSource;
         let _guard = self.access.lock().map_err(|_| "histórico indisponível")?;
         let mut meta = self.load_meta(id).ok_or("sessão não encontrada")?;
-        let recorded = meta.active_fixes.is_some()
+        let recorded = meta.source == SessionSource::Assisted
+            || meta.active_fixes.is_some()
             || meta
                 .smart_pack
                 .as_ref()
@@ -264,6 +318,18 @@ impl Store {
             .is_some_and(|s| s.source != SnapshotSource::Declared)
         {
             return Err("Só é possível declarar a configuração.".into());
+        }
+        if let Some(s) = &snapshot {
+            let app_id = meta
+                .app_id
+                .as_deref()
+                .ok_or("Informe explicitamente o AppID desta sessão antes de declarar o pacote.")?;
+            if !crate::smart_packs::benchmark::snapshot_matches_app(app_id, s) {
+                return Err(
+                    "O pacote declarado não pertence ao AppID e à configuração desta sessão."
+                        .into(),
+                );
+            }
         }
         meta.smart_pack = snapshot;
         self.write_meta(&meta)?;
@@ -347,6 +413,152 @@ mod tests {
     }
 
     #[test]
+    fn imported_game_reassignment_requires_explicit_input_and_drops_old_pack() {
+        let tmp = tempfile::tempdir().unwrap();
+        let store = Store::new(tmp.path());
+        let s = sample(&store, &vec![10.0; 3000]);
+        assert!(
+            store
+                .set_smart_pack(
+                    &s.meta.id,
+                    Some(crate::smart_packs::benchmark::declared("200260", vec![]))
+                )
+                .is_err(),
+            "a sessão sem AppID não herda o jogo aberto"
+        );
+        let assigned = store
+            .update(
+                &s.meta.id,
+                SessionPatch {
+                    app_id: Some("200260".into()),
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+        assert!(assigned.smart_pack.is_none());
+        assert!(store
+            .set_smart_pack(
+                &s.meta.id,
+                Some(crate::smart_packs::benchmark::declared("480", vec![]))
+            )
+            .is_err());
+        store
+            .set_smart_pack(
+                &s.meta.id,
+                Some(crate::smart_packs::benchmark::declared("200260", vec![])),
+            )
+            .unwrap();
+        let moved = store
+            .update(
+                &s.meta.id,
+                SessionPatch {
+                    app_id: Some("480".into()),
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+        assert!(moved.smart_pack.is_none());
+        let restarted = Store::new(tmp.path());
+        let recovered = restarted.get(&s.meta.id).unwrap();
+        assert_eq!(recovered.meta.app_id.as_deref(), Some("480"));
+        assert!(recovered.meta.smart_pack.is_none());
+        assert_eq!(
+            std::fs::read(restarted.raw_path(&s.meta.id).unwrap()).unwrap(),
+            per_frame(&vec![10.0; 3000], 90.0).as_bytes()
+        );
+        assert!(!recovered.series.is_empty());
+    }
+
+    #[test]
+    fn assisted_identity_is_immutable_and_context_edits_invalidate_evidence() {
+        use crate::smart_packs::{benchmark::declared, models::SnapshotSource};
+        let tmp = tempfile::tempdir().unwrap();
+        let store = Store::new(tmp.path());
+        let mut s = sample(&store, &vec![10.0; 3000]);
+        s.meta.source = SessionSource::Assisted;
+        s.meta.app_id = Some("200260".into());
+        let mut snapshot = declared("200260", vec![]);
+        snapshot.source = SnapshotSource::Assisted;
+        snapshot.verified = true;
+        s.meta.smart_pack = Some(snapshot);
+        store
+            .save(&s, per_frame(&vec![10.0; 3000], 90.0).as_bytes())
+            .unwrap();
+        assert!(store
+            .update(
+                &s.meta.id,
+                SessionPatch {
+                    app_id: Some("480".into()),
+                    ..Default::default()
+                }
+            )
+            .is_err());
+        assert_eq!(
+            store.get(&s.meta.id).unwrap().meta.app_id.as_deref(),
+            Some("200260")
+        );
+        let mut conditions = s.meta.conditions.clone();
+        conditions.proton = Some("different Proton".into());
+        let mut edited = store
+            .update(
+                &s.meta.id,
+                SessionPatch {
+                    conditions: Some(conditions),
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+        assert!(!edited.smart_pack.as_ref().unwrap().verified);
+        assert!(edited
+            .quality
+            .issues
+            .iter()
+            .any(|i| i.code == "context-edited"));
+        // A metodologia pode mudar, mas fatos de proveniência permanecem.
+        edited.analysis_version = 0;
+        s.meta = edited;
+        store
+            .save(&s, per_frame(&vec![10.0; 3000], 90.0).as_bytes())
+            .unwrap();
+        let recovered = Store::new(tmp.path()).get(&s.meta.id).unwrap();
+        assert!(recovered
+            .meta
+            .quality
+            .issues
+            .iter()
+            .any(|i| i.code == "context-edited"));
+        assert!(!recovered.meta.smart_pack.unwrap().verified);
+    }
+
+    #[test]
+    fn legacy_sessions_keep_known_or_unknown_appid_without_automatic_assignment() {
+        let tmp = tempfile::tempdir().unwrap();
+        let store = Store::new(tmp.path());
+        for app in [Some("200260"), None] {
+            let mut s = sample(&store, &vec![10.0; 3000]);
+            s.meta.app_id = app.map(str::to_owned);
+            store
+                .save(&s, per_frame(&vec![10.0; 3000], 90.0).as_bytes())
+                .unwrap();
+            let path = tmp
+                .path()
+                .join("sessions")
+                .join(&s.meta.id)
+                .join("meta.json");
+            let mut json = serde_json::to_value(&s.meta).unwrap();
+            for field in ["schemaVersion", "smartPack", "activeFixes"] {
+                json.as_object_mut().unwrap().remove(field);
+            }
+            std::fs::write(&path, serde_json::to_vec(&json).unwrap()).unwrap();
+            let loaded = Store::new(tmp.path()).get(&s.meta.id).unwrap();
+            assert_eq!(loaded.meta.app_id.as_deref(), app);
+            assert!(loaded.meta.smart_pack.is_none());
+            assert!(loaded.meta.active_fixes.is_none());
+            assert!(path.is_file());
+        }
+    }
+
+    #[test]
     fn rejects_path_traversal_ids() {
         let tmp = tempfile::tempdir().unwrap();
         let store = Store::new(tmp.path());
@@ -357,16 +569,50 @@ mod tests {
     }
 
     #[test]
+    fn mismatched_embedded_session_identity_is_preserved_but_never_loaded() {
+        let tmp = tempfile::tempdir().unwrap();
+        let store = Store::new(tmp.path());
+        let sample = sample(&store, &vec![10.0; 3000]);
+        let path = tmp
+            .path()
+            .join("sessions")
+            .join(&sample.meta.id)
+            .join("meta.json");
+        let mut json = serde_json::to_value(&sample.meta).unwrap();
+        json["id"] = "s-synthetic-other-game".into();
+        json["appId"] = "480".into();
+        json["analysisVersion"] = 0.into();
+        let inconsistent = serde_json::to_vec(&json).unwrap();
+        std::fs::write(&path, &inconsistent).unwrap();
+        assert!(store.get(&sample.meta.id).is_none());
+        assert!(store.list().is_empty());
+        assert!(store
+            .update(&sample.meta.id, SessionPatch::default())
+            .is_err());
+        assert_eq!(std::fs::read(&path).unwrap(), inconsistent);
+        assert!(store.raw_path(&sample.meta.id).unwrap().is_file());
+        assert!(!tmp.path().join("sessions/s-synthetic-other-game").exists());
+    }
+
+    #[test]
     fn concurrent_reads_reprocess_once_and_preserve_capture_warnings() {
         let tmp = tempfile::tempdir().unwrap();
         let store = Store::new(tmp.path());
         let mut s = sample(&store, &vec![10.0; 3000]);
         s.meta.analysis_version = 0;
-        s.meta.quality.issues.push(Issue::new(
-            Severity::Warning,
+        for code in [
             "interrupted",
-            "Captura interrompida.",
-        ));
+            "pack-changed",
+            "pack-recipe-changed",
+            "synthetic",
+            "fixture",
+        ] {
+            s.meta.quality.issues.push(Issue::new(
+                Severity::Warning,
+                code,
+                "Fixture sintética: fato que não pode ser reconstruído pelo CSV.",
+            ));
+        }
         store
             .save(&s, &per_frame(&vec![10.0; 3000], 90.0).into_bytes())
             .unwrap();
@@ -381,12 +627,15 @@ mod tests {
             let session = worker.join().unwrap();
             assert_eq!(session.meta.analysis_version, ANALYSIS_VERSION);
             assert_eq!(session.meta.quality.level, QualityLevel::Usable);
-            assert!(session
-                .meta
-                .quality
-                .issues
-                .iter()
-                .any(|i| i.code == "interrupted"));
+            for code in [
+                "interrupted",
+                "pack-changed",
+                "pack-recipe-changed",
+                "synthetic",
+                "fixture",
+            ] {
+                assert!(session.meta.quality.issues.iter().any(|i| i.code == code));
+            }
             assert!(!session.series.is_empty());
         }
         let cleared = store

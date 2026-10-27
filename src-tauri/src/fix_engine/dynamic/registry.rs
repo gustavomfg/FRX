@@ -29,6 +29,8 @@ pub const REGISTRY_SCHEMA: u32 = 1;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Inputs {
+    #[serde(default)]
+    pub game_build_id: Option<String>,
     pub finding: String,
     pub tool: Option<String>,
     pub gpu: Option<GpuReq>,
@@ -42,6 +44,9 @@ impl Inputs {
     /// O que mudou em relação à análise anterior (para explicar a reavaliação).
     fn diff(&self, old: &Inputs) -> Vec<&'static str> {
         let mut v = Vec::new();
+        if self.game_build_id != old.game_build_id {
+            v.push("o build do jogo");
+        }
         if self.finding != old.finding {
             v.push("a descoberta");
         }
@@ -66,6 +71,7 @@ impl Inputs {
 
 /// Contexto do sistema que entra nas `Inputs` de cada descoberta.
 pub struct System<'a> {
+    pub game_build_id: Option<&'a str>,
     pub tool: Option<&'a str>,
     pub gpu: Option<GpuReq>,
     pub driver: Option<&'a str>,
@@ -74,6 +80,7 @@ pub struct System<'a> {
 
 pub fn inputs(f: &FixFinding, sys: &System<'_>) -> Inputs {
     Inputs {
+        game_build_id: sys.game_build_id.map(str::to_owned),
         finding: sha256_hex(&serde_json::to_vec(f).unwrap_or_default())[..32].to_owned(),
         tool: sys.tool.map(str::to_owned),
         gpu: sys.gpu,
@@ -124,7 +131,20 @@ impl Registry {
             .and_then(|p| std::fs::read(p).ok())
             .and_then(|b| serde_json::from_slice::<RegistryFile>(&b).ok())
             .filter(|f| f.schema == REGISTRY_SCHEMA && f.app_id == app_id)
-            .map(|f| f.entries)
+            .map(|f| {
+                f.entries
+                    .into_iter()
+                    .filter(|e| {
+                        e.assessment.app_id == app_id
+                            && e.assessment.recipe.as_ref().is_none_or(|r| {
+                                r.scope.app_ids == [app_id]
+                                    && r.generated
+                                        .as_ref()
+                                        .is_some_and(|g| g.game_app_id.as_deref() == Some(app_id))
+                            })
+                    })
+                    .collect()
+            })
             .unwrap_or_default()
     }
 

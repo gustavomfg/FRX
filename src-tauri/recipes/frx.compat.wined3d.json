@@ -5,7 +5,7 @@
   "trust": "reviewed",
   "title": "Renderizar com WineD3D (OpenGL)",
   "summary": "Define PROTON_USE_WINED3D=1 para trocar DXVK pelo WineD3D em jogos Direct3D 9/10/11.",
-  "description": "Contorno de compatibilidade para jogos que falham ou mostram artefatos com DXVK. WineD3D traduz Direct3D para OpenGL e costuma ser mais lento.",
+  "description": "Contorno de compatibilidade para jogos que falham ou mostram artefatos com DXVK. WineD3D traduz Direct3D para OpenGL. O impacto de desempenho depende do jogo, do Proton e do hardware.",
   "category": "graphics",
   "purpose": "compatibility",
   "risk": "moderate",
@@ -30,7 +30,7 @@
     "Na próxima execução o jogo usa WineD3D em vez de DXVK."
   ],
   "sideEffects": [
-    "Normalmente reduz o desempenho de forma perceptível.",
+    "O custo da tradução pode reduzir o desempenho; isso é um risco potencial, não uma regressão medida neste jogo.",
     "Jogos Direct3D 12 (VKD3D-Proton) não são afetados."
   ],
   "sources": [

@@ -64,6 +64,19 @@ fn signature(r: &Ranking) -> Vec<(String, Option<u32>, Tier, Outcome)> {
         .collect()
 }
 
+/// Validate contained identity as well as the per-game file name. Legacy
+/// records remain on disk for audit, but malformed/cross-game records are
+/// never returned as executable pack pointers.
+fn belongs(app_id: &str, pack: &SmartPack) -> bool {
+    pack.app_id == app_id
+        && pack.id == super::benchmark::pack_id(app_id, &pack.env)
+        && pack.members.iter().all(|m| {
+            !m.recipe_id.starts_with("pack.")
+                && (!m.recipe_id.starts_with("gen.")
+                    || m.recipe_id.starts_with(&format!("gen.{app_id}.")))
+        })
+}
+
 impl SmartStore {
     pub fn new(dir: PathBuf) -> Self {
         Self { dir }
@@ -121,6 +134,12 @@ impl SmartStore {
 
     /// Registra os pacotes compostos (sem mexer no histórico do ranking).
     pub fn remember(&self, app_id: &str, packs: &[SmartPack]) -> Result<(), String> {
+        if packs.iter().any(|p| !belongs(app_id, p)) {
+            return Err(
+                "Registro recusado: um pacote pertence a outro jogo ou tem identidade inválida."
+                    .into(),
+            );
+        }
         let mut f = self.load(app_id)?;
         let now = now_iso();
         for p in packs {
@@ -150,6 +169,12 @@ impl SmartStore {
         ranking: &Ranking,
         sessions: usize,
     ) -> Result<PackFile, String> {
+        if packs.iter().any(|p| !belongs(app_id, p)) {
+            return Err(
+                "Registro recusado: um pacote pertence a outro jogo ou tem identidade inválida."
+                    .into(),
+            );
+        }
         let mut f = self.load(app_id)?;
         let now = now_iso();
         for s in &mut f.packs {
@@ -222,7 +247,7 @@ impl SmartStore {
             .ok()?
             .packs
             .into_iter()
-            .find(|s| s.pack.id == pack_id)
+            .find(|s| s.pack.id == pack_id && belongs(app_id, &s.pack))
             .map(|s| s.pack.members.iter().map(|m| m.recipe_id.clone()).collect())
     }
 
@@ -231,7 +256,7 @@ impl SmartStore {
             .ok()?
             .packs
             .into_iter()
-            .find(|s| s.pack.id == pack_id)
+            .find(|s| s.pack.id == pack_id && belongs(app_id, &s.pack))
             .map(|s| s.pack)
     }
 

@@ -71,20 +71,49 @@ pub struct BuildInput<'a> {
 
 pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, String> {
     let app = i.game.app_id.as_str();
+    if !crate::art::valid_app_id(app) {
+        return Err("AppID inválido para Smart Packs.".into());
+    }
     let store = store_for(engine);
     let views = engine.analyze(i.game)?;
-    let found = discovery::discover(&views, &i.game.findings, |id| {
+    let found = discovery::discover(app, &views, &i.game.findings, |id| {
         engine.recipe(id).ok().cloned()
     });
     let base_id = baseline_id(app);
-    let grouped = evidence::group(
+    let context_sessions: Vec<SessionMeta> = i.sessions.iter().map(|m| {
+        let mut local = m.clone();
+        if m.app_id.as_deref() == Some(app) && benchmark::session_config(engine, m).as_ref()
+            .is_some_and(|snapshot| !benchmark::recipe_context_matches(engine, i.game, snapshot)) {
+            local.quality.issues.push(crate::performance::models::Issue::new(
+                crate::performance::models::Severity::Warning, "pack-recipe-changed",
+                "A receita mudou desde esta medição; o histórico foi preservado, mas não avalia a composição atual.",
+            ));
+        }
+        local
+    }).collect();
+    let fallback_conditions = crate::performance::models::Conditions {
+        proton: i.game.tool_name.clone(),
+        driver: i.game.driver.clone(),
+        ..Default::default()
+    };
+    let grouped = evidence::group_in_context(
         app,
-        i.sessions,
+        &context_sessions,
         |m| benchmark::session_config(engine, m),
         &base_id,
+        Some(
+            i.game
+                .performance_conditions
+                .as_ref()
+                .unwrap_or(&fallback_conditions),
+        ),
     );
-    let metas: HashMap<&str, &SessionMeta> =
-        i.sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+    let metas: HashMap<&str, &SessionMeta> = i
+        .sessions
+        .iter()
+        .filter(|m| m.app_id.as_deref() == Some(app))
+        .map(|m| (m.id.as_str(), m))
+        .collect();
     let base_m = grouped.measurements.get(&base_id);
 
     let vs_for = |env: &[EnvPair]| -> Option<VsBaseline> {
@@ -249,10 +278,20 @@ pub fn evaluate_session(
         |m| benchmark::session_config(engine, m),
         &base_id,
     );
-    let metas: HashMap<&str, &SessionMeta> = sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+    let metas: HashMap<&str, &SessionMeta> = sessions
+        .iter()
+        .filter(|m| m.app_id.as_deref() == Some(app.as_str()))
+        .map(|m| (m.id.as_str(), m))
+        .collect();
     let stored: Vec<SmartPack> = store_for(engine)
         .load(&app)
-        .map(|f| f.packs.into_iter().map(|s| s.pack).collect())
+        .map(|f| {
+            f.packs
+                .into_iter()
+                .map(|s| s.pack)
+                .filter(|p| p.app_id == app && p.id == pack_id(&app, &p.env))
+                .collect()
+        })
         .unwrap_or_default();
     let name_of = name_lookup(&stored);
     let ctx = evaluation::Ctx {
@@ -282,11 +321,30 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
     if ids.len() < 2 || ids.iter().any(|m| m.starts_with("pack.")) {
         return Err("Composição inválida.".into());
     }
+    let views = engine.analyze(game)?;
+    let relevant = discovery::discover(&game.app_id, &views, &game.findings, |rid| {
+        engine.recipe(rid).ok().cloned()
+    });
     let mut recipes = Vec::new();
     let mut units = Vec::new();
     for m in &ids {
+        if !relevant
+            .units
+            .iter()
+            .any(|u| u.recipe_id == *m && u.app_id.as_deref() == Some(&game.app_id))
+        {
+            return Err("Uma receita não possui mais descoberta verificável para este AppID. Reabra os Smart Packs deste jogo.".into());
+        }
         let r = engine.resolve(m, game)?;
+        if !stored.members.iter().any(|sm| {
+            sm.recipe_id == r.id
+                && sm.version == r.version
+                && sm.fingerprint == discovery::fingerprint(&r)
+        }) {
+            return Err("A receita mudou desde a composição do pacote. Reabra os Smart Packs para revisar a nova configuração.".into());
+        }
         let u = discovery::unit_from_recipe(
+            &game.app_id,
             &r,
             EvidenceLevel::None,
             "",
@@ -390,6 +448,10 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
 
 /// Transição da configuração atual para outro pacote, passo a passo.
 pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPlan {
+    if to.app_id != app_id || to.id != pack_id(app_id, &to.env) {
+        return SwitchPlan { to: to.id.clone(), from: None, keep: vec![], remove: vec![], add: vec![], steps: vec![], possible: false,
+            notes: vec!["O pacote pertence a outro jogo ou possui identidade inválida. Reabra os Smart Packs deste jogo.".into()] };
+    }
     let ops: Vec<Operation> = engine
         .operations(Some(app_id))
         .into_iter()
@@ -465,13 +527,24 @@ pub fn compare_packs(
     a: &str,
     b: &str,
 ) -> Result<PackComparison, String> {
+    if !crate::art::valid_app_id(app_id)
+        || ![a, b]
+            .iter()
+            .all(|id| id.starts_with(&format!("pack.{app_id}.")))
+    {
+        return Err("Comparação recusada: os pacotes precisam pertencer ao mesmo AppID.".into());
+    }
     let grouped = evidence::group(
         app_id,
         sessions,
         |m| benchmark::session_config(engine, m),
         &baseline_id(app_id),
     );
-    let metas: HashMap<&str, &SessionMeta> = sessions.iter().map(|m| (m.id.as_str(), m)).collect();
+    let metas: HashMap<&str, &SessionMeta> = sessions
+        .iter()
+        .filter(|m| m.app_id.as_deref() == Some(app_id))
+        .map(|m| (m.id.as_str(), m))
+        .collect();
     let ma = grouped.measurements.get(a).filter(|m| m.used() > 0);
     let mb = grouped.measurements.get(b).filter(|m| m.used() > 0);
     let (Some(ma), Some(mb)) = (ma, mb) else {

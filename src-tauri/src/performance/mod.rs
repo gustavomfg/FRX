@@ -59,10 +59,18 @@ pub fn process(raw: &[u8], args: ProcessArgs) -> Result<Session, String> {
     let parsed = parser::parse(raw).map_err(|e| e.to_string())?;
     let analysis = metrics::analyze(&parsed);
     let sys = &parsed.system;
-    let k = &args.known;
+    // O perfil atual só descreve uma captura feita agora pelo FRX. Importar
+    // um CSV antigo não confirma o Proton, driver ou hardware usados nele.
+    let unknown = Conditions::default();
+    let k = if args.source == Some(SessionSource::Assisted) {
+        &args.known
+    } else {
+        &unknown
+    };
     let i = args.input.conditions;
     // Ordem: o que o usuário informou > o que está no log > o que o FRX sabe agora.
     let conditions = Conditions {
+        game_build_id: merge(k.game_build_id.clone(), i.game_build_id),
         proton: merge(k.proton.clone(), i.proton),
         gpu: merge(sys.gpu.clone().or(k.gpu.clone()), i.gpu),
         driver: merge(sys.driver.clone().or(k.driver.clone()), i.driver),
@@ -255,7 +263,7 @@ mod tests {
                     ..Default::default()
                 },
                 original_path: Some("/tmp/BatmanAC_2026-10-24_18-01-29.csv".into()),
-                ..Default::default()
+                source: Some(SessionSource::Assisted),
             },
         )
         .unwrap();
@@ -274,6 +282,45 @@ mod tests {
         assert_eq!(c.proton.as_deref(), Some("GE-Proton9-20"));
         assert_eq!(s.meta.captured_at.as_deref(), Some("2026-10-24T18:01:29"));
         assert!(s.meta.label.starts_with("Batman · 2026-10-24 18:01"));
+    }
+
+    #[test]
+    fn imported_logs_never_inherit_the_current_computer_or_proton() {
+        // Explicitly synthetic input to test import semantics, not real evidence.
+        let raw = "frametime\n10\n10\n10\n";
+        for source in [
+            None,
+            Some(SessionSource::Import),
+            Some(SessionSource::Synthetic),
+        ] {
+            let s = process(
+                raw.as_bytes(),
+                ProcessArgs {
+                    source,
+                    known: Conditions {
+                        proton: Some("Current-Proton".into()),
+                        gpu: Some("Current GPU".into()),
+                        driver: Some("Current driver".into()),
+                        cpu: Some("Current CPU".into()),
+                        ..Default::default()
+                    },
+                    input: SessionInput {
+                        conditions: Conditions {
+                            preset: Some("Explicit preset".into()),
+                            ..Default::default()
+                        },
+                        ..Default::default()
+                    },
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+            assert!(s.meta.conditions.proton.is_none());
+            assert!(s.meta.conditions.gpu.is_none());
+            assert!(s.meta.conditions.driver.is_none());
+            assert!(s.meta.conditions.cpu.is_none());
+            assert_eq!(s.meta.conditions.preset.as_deref(), Some("Explicit preset"));
+        }
     }
 
     #[test]

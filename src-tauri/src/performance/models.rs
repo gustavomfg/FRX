@@ -254,6 +254,10 @@ pub struct Series {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Conditions {
+    /// Build Steam observado na captura, quando disponível. Legados ficam
+    /// desconhecidos; o jogo aberto nunca preenche uma sessão antiga.
+    #[serde(default)]
+    pub game_build_id: Option<String>,
     pub proton: Option<String>,
     pub gpu: Option<String>,
     pub driver: Option<String>,

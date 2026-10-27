@@ -76,7 +76,7 @@ pub async fn protonfixes<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> Provide
         format!("gamefixes-umu/umu-{}.py", q.app_id),
     ];
     let mut outcomes: Vec<Outcome> = Vec::new();
-    let mut files: Vec<(String, String)> = Vec::new(); // (caminho resolvido, conteúdo)
+    let mut files: Vec<(String, String, String)> = Vec::new(); // (AppID mapping path, resolved path, content)
     for path in &candidates {
         let o = ctx
             .get(
@@ -106,13 +106,13 @@ pub async fn protonfixes<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> Provide
             }
             None => (path.clone(), body),
         };
-        if !files.iter().any(|(p, _)| *p == resolved) {
-            files.push((resolved, content));
+        if !files.iter().any(|(_, p, _)| *p == resolved) {
+            files.push((path.clone(), resolved, content));
         }
     }
 
     let mut findings = Vec::new();
-    for (path, content) in files {
+    for (mapping, path, content) in files {
         // Data do último commit do arquivo (opcional; consome cota da API).
         let commits_url =
             format!("https://api.github.com/repos/{REPO}/commits?path={path}&per_page=1");
@@ -124,7 +124,25 @@ pub async fn protonfixes<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> Provide
             )
             .await;
         let published = c.body.as_deref().and_then(last_commit_date);
-        findings.push(build_finding(q, &path, &content, published));
+        let mut finding = build_finding(q, &path, &content, published);
+        finding.scope = DiscoveryScope::verified(
+            &q.app_id,
+            format!("UMU-Protonfixes: vínculo exato por AppID em {mapping}; destino {path}"),
+        );
+        if mapping != path {
+            finding.sources.insert(
+                0,
+                FindingSource {
+                    provider: ProviderId::UmuProtonfixes,
+                    label: format!("umu-protonfixes · vínculo por AppID em {mapping}"),
+                    url: blob_url(&mapping),
+                    reference_id: Some(mapping),
+                    snippet: Some(format!("Git symlink → {path}")),
+                    published_at: None,
+                },
+            );
+        }
+        findings.push(finding);
     }
     let refs: Vec<&Outcome> = outcomes.iter().collect();
     ProviderResult {
@@ -245,6 +263,17 @@ pub fn build_finding(
 
     let (compatibility, note) = bundled_state(q, path);
     FixFinding {
+        scope: if path == format!("gamefixes-steam/{}.py", q.app_id)
+            || path == format!("gamefixes-umu/umu-{}.py", q.app_id)
+        {
+            DiscoveryScope::verified(
+                &q.app_id,
+                format!("UMU-Protonfixes: arquivo específico do AppID em {path}"),
+            )
+        } else {
+            DiscoveryScope::default()
+        },
+        performance_evidence: PerformanceEvidence::default(),
         id: finding_id("umu", &q.app_id, path),
         game_app_id: q.app_id.clone(),
         title,

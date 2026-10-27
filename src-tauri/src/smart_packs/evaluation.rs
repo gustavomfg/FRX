@@ -112,6 +112,11 @@ pub fn evaluate(
     let Some(cfg) = config else {
         return done(e, EvalVerdict::NotComparable, "O FRX não sabe quais correções estavam ativas nesta sessão (importada ou anterior à v0.4). Declare a configuração em Smart Packs para usá-la.".into());
     };
+    if session.app_id.as_deref() != Some(c.app_id)
+        || !super::benchmark::snapshot_matches_app(c.app_id, cfg)
+    {
+        return done(e, EvalVerdict::NotComparable, "A sessão e o pacote não pertencem ao mesmo AppID; nenhum resultado é transportado entre jogos.".into());
+    }
     e.pack_name = (c.name_of)(&cfg.pack_id).unwrap_or_else(|| {
         if cfg.env.is_empty() {
             "Baseline — sem correções do FRX".into()
@@ -132,6 +137,13 @@ pub fn evaluate(
     };
     e.pack_sessions = group.used();
     let me = group.sessions.iter().find(|s| s.id == session.id);
+    if me.is_none() {
+        return done(
+            e,
+            EvalVerdict::NotComparable,
+            "A sessão não integra as evidências deste jogo.".into(),
+        );
+    }
     if let Some(r) = me {
         e.limitations.extend(r.notes.clone());
         if let Some(why) = &r.excluded {

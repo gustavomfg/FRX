@@ -133,6 +133,10 @@ impl FixEngine {
 
     fn analysis_ctx<'a>(&'a self, game: &'a GameCtx) -> analyzer::Ctx<'a> {
         analyzer::Ctx {
+            game_build_id: game
+                .performance_conditions
+                .as_ref()
+                .and_then(|c| c.game_build_id.as_deref()),
             app_id: &game.app_id,
             gpu: game.gpu,
             tool_name: game.tool_name.as_deref(),
@@ -194,6 +198,10 @@ impl FixEngine {
     pub fn analyze(&self, game: &GameCtx) -> Result<Vec<AssessmentView>, String> {
         let ctx = self.analysis_ctx(game);
         let sys = dynamic::registry::System {
+            game_build_id: game
+                .performance_conditions
+                .as_ref()
+                .and_then(|c| c.game_build_id.as_deref()),
             tool: game.tool_name.as_deref(),
             gpu: game.gpu,
             driver: game.driver.as_deref(),
@@ -365,6 +373,7 @@ impl FixEngine {
         }
         let now = now_iso();
         let mut op = Operation {
+            recipe_fingerprint: Some(crate::smart_packs::discovery::fingerprint(&recipe)),
             schema: JOURNAL_SCHEMA,
             id: new_op_id(),
             recipe_id: recipe.id.clone(),
@@ -1049,6 +1058,11 @@ fn effective(op: &Operation) -> (Effective, String) {
 /// Achado e receita falam do mesmo ajuste? Compara as ações do achado
 /// (`KEY=valor`, linhas de inicialização) com as chaves da receita.
 pub fn related(r: &Recipe, f: &FixFinding) -> bool {
+    if !f.scope.matches_game(&f.game_app_id)
+        || (!r.scope.app_ids.is_empty() && !r.scope.app_ids.contains(&f.game_app_id))
+    {
+        return false;
+    }
     let mut keys: Vec<String> = f.keys.clone();
     for a in &f.actions {
         match a.kind {

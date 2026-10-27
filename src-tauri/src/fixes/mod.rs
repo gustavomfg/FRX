@@ -91,6 +91,9 @@ pub async fn search<F: Fetcher>(
     );
 
     let mut findings = aggregation::merge(umu.findings, gh.findings);
+    findings.retain(|f| {
+        f.scope.kind != DiscoveryScopeKind::VerifiedGame || f.scope.matches_game(&req.app_id)
+    });
     for f in &mut findings {
         compat::assess(f, &hw);
     }
@@ -130,11 +133,25 @@ pub fn cached_reports(cache: &Cache, ttl_secs: u64) -> Vec<FixReport> {
     let mut out: Vec<FixReport> = cache
         .list::<FixReport>("fixes")
         .into_iter()
+        .filter(|(key, e)| valid_app_id(key) && e.data.app_id == *key)
         .map(|(_, e)| {
             let expired = !e.is_fresh(ttl_secs);
             let mut r = e.data;
             r.from_cache = true;
-            r.stale = r.stale || expired;
+            r.stale = r.stale
+                || expired
+                || r.findings.iter().any(|f| {
+                    f.scope.kind == DiscoveryScopeKind::UnknownScope
+                        || (f.scope.kind == DiscoveryScopeKind::VerifiedGame
+                            && (!f.scope.matches_game(&r.app_id) || f.game_app_id != r.app_id))
+                });
+            // Return a safe view. Keep the original cache file intact for audit;
+            // an entry claiming a different game is never shown for this report.
+            r.findings.retain(|f| {
+                (f.game_app_id.is_empty() || f.game_app_id == r.app_id)
+                    && (f.scope.kind != DiscoveryScopeKind::VerifiedGame
+                        || f.scope.matches_game(&r.app_id))
+            });
             r
         })
         .collect();
@@ -175,6 +192,96 @@ mod tests {
         // Expiração: com validade zero, o relatório salvo aparece desatualizado.
         std::thread::sleep(std::time::Duration::from_millis(1100));
         assert!(cached_reports(&cache, 0)[0].stale);
+    }
+
+    #[test]
+    fn cached_reports_preserve_legacy_data_without_assigning_scope_or_mixing_keys() {
+        let tmp = tempfile::tempdir().unwrap();
+        let cache = Cache::new(tmp.path());
+        let query = GameQuery {
+            app_id: "200260".into(),
+            name: "Synthetic fixture A".into(),
+            retrieved_at: "fixture".into(),
+            tool: None,
+        };
+        let finding = providers::umu::build_finding(
+            &query,
+            "gamefixes-steam/200260.py",
+            r#"def main():
+    util.set_environment("PROTON_NO_D3D11", "1")"#,
+            None,
+        );
+        assert!(finding.scope.matches_game("200260"));
+        let report = FixReport {
+            app_id: query.app_id.clone(),
+            game_name: query.name.clone(),
+            findings: vec![finding],
+            providers: vec![],
+            identity: Identity::default(),
+            context: ReportContext::default(),
+            retrieved_at: "fixture".into(),
+            from_cache: false,
+            stale: false,
+        };
+        let mut legacy = serde_json::to_value(&report).unwrap();
+        legacy["findings"][0]
+            .as_object_mut()
+            .unwrap()
+            .remove("scope");
+        legacy["findings"][0]
+            .as_object_mut()
+            .unwrap()
+            .remove("performanceEvidence");
+        cache
+            .put("fixes", "200260", &Entry::new(legacy, None))
+            .unwrap();
+        let before = std::fs::read(cache.ns_dir("fixes").join("200260.json")).unwrap();
+        let loaded = cached_reports(&cache, 3600);
+        assert_eq!(loaded.len(), 1);
+        assert_eq!(loaded[0].findings.len(), 1);
+        assert_eq!(
+            loaded[0].findings[0].scope.kind,
+            DiscoveryScopeKind::UnknownScope
+        );
+        assert_eq!(
+            loaded[0].findings[0].performance_evidence,
+            PerformanceEvidence::default()
+        );
+        assert!(loaded[0].stale, "legacy source attribution needs refresh");
+        assert_eq!(
+            before,
+            std::fs::read(cache.ns_dir("fixes").join("200260.json")).unwrap()
+        );
+        cache
+            .put("fixes", "570", &Entry::new(report.clone(), None))
+            .unwrap();
+        assert_eq!(
+            cached_reports(&cache, 3600).len(),
+            1,
+            "file key must match embedded AppID"
+        );
+        let mut wrong_finding = report.clone();
+        wrong_finding.findings[0].scope =
+            DiscoveryScope::verified("570", "fixture: wrong-game source");
+        cache
+            .put("fixes", "200260", &Entry::new(wrong_finding, None))
+            .unwrap();
+        let loaded = cached_reports(&cache, 3600);
+        assert!(loaded[0].findings.is_empty());
+        assert!(
+            cache
+                .get::<FixReport>("fixes", "200260")
+                .unwrap()
+                .data
+                .findings
+                .len()
+                == 1,
+            "unsafe cached entries retained on disk for audit, not returned as game evidence"
+        );
+        let cache_after_restart = Cache::new(tmp.path());
+        assert!(cached_reports(&cache_after_restart, 3600)[0]
+            .findings
+            .is_empty());
     }
 
     #[tokio::test]
