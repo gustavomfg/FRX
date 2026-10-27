@@ -478,4 +478,24 @@ describe('Smart Packs na interface', () => {
     expect(calls.some((c) => c.cmd === 'prepare_benchmark' || c.cmd === 'apply_fix_plan')).toBe(false)
     m.unmount()
   })
+
+  it('abre o pacote exato de um link do Resolution Center sem iniciar prévia ou captura', async () => {
+    const m = mount(<SmartPacksPanel appId="200260" selectedPackId={D3D} />)
+    await flush(80)
+    expect(document.querySelector('[role=dialog]')?.textContent).toContain('Desativar Direct3D 11')
+    expect(calls.some((c) => c.cmd === 'prepare_benchmark' || c.cmd === 'prepare_fix_plan' || c.cmd === 'apply_fix_plan')).toBe(false)
+    await click(document.querySelector<HTMLButtonElement>('[role=dialog] button[aria-label="Fechar"]')!)
+    await flush(80)
+    expect(document.querySelector('[role=dialog]')).toBeNull()
+    m.unmount()
+  })
+
+  it('não abre pacote de outro jogo enviado pelo link e explica a indisponibilidade', async () => {
+    const m = mount(<SmartPacksPanel appId="200260" selectedPackId="pack.620.foreign" />)
+    await flush(80)
+    expect(document.querySelector('[role=dialog]')).toBeNull()
+    expect(text()).toContain('pacote do link não está disponível para este jogo e contexto')
+    expect(calls.some((c) => c.cmd === 'prepare_fix_plan' || c.cmd === 'apply_fix_plan')).toBe(false)
+    m.unmount()
+  })
 })

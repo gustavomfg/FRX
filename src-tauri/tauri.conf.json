@@ -48,7 +48,7 @@
     ],
     "category": "Game",
     "shortDescription": "Play. Fix. Repeat.",
-    "longDescription": "FRX é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine). Versão demonstrativa.",
+    "longDescription": "FRX reúne diagnóstico, pesquisa de soluções e correções suportadas de jogos Windows no Linux. Integra Steam, Proton, Smart Packs e Performance Lab, com prévia, confirmação, backup e rollback. Recursos sem evidência suficiente permanecem não verificados.",
     "publisher": "FRX",
     "copyright": "© 2026 FRX",
     "icon": [

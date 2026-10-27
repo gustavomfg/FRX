@@ -25,7 +25,7 @@ export interface AppInfo {
   desktop: string | null
 }
 
-export const APP_VERSION = '0.4.0'
+export const APP_VERSION = '0.5.0'
 
 const browserInfo: AppInfo = {
   name: 'FRX',

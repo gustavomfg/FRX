@@ -27,6 +27,7 @@ import type { FixFinding } from '@/types/fixes'
 import { cn } from '@/lib/cn'
 import { useSmartPacks } from '@/components/smart/SmartPacksPanel'
 import { isRelevant } from '@/lib/findings'
+import { ResolutionCenter } from '@/components/resolution/ResolutionCenter'
 
 type FindingFilter = 'relevantes' | 'todas'
 
@@ -125,6 +126,8 @@ export function SteamGameDetail({ game }: { game: Game }) {
           </div>
         ))}
       </dl>
+
+      <ResolutionCenter appId={game.id} available={engine.available} />
 
       <div className="mt-10 grid grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] gap-12">
         <div className="min-w-0 space-y-12">

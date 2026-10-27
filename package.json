@@ -1,9 +1,9 @@
 {
   "name": "frx",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
-  "description": "FRX — Play. Fix. Repeat. Gerenciador de compatibilidade de jogos no Linux, com detecção da Steam e descoberta de correções.",
+  "description": "FRX — Play. Fix. Repeat. Diagnóstico, compatibilidade e resolução de problemas de jogos Windows no Linux.",
   "scripts": {
     "dev": "tauri dev",
     "dev:web": "vite",

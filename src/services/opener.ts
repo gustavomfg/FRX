@@ -7,7 +7,7 @@ const ALLOWED = ['github.com', 'raw.githubusercontent.com', 'www.protondb.com', 
 export function isSafeExternalUrl(url: string) {
   try {
     const u = new URL(url)
-    return u.protocol === 'https:' && ALLOWED.includes(u.hostname) && !u.username
+    return u.protocol === 'https:' && (ALLOWED.includes(u.hostname) || (u.hostname === 'www.nvidia.com' && u.pathname.startsWith('/en-us/geforce/technologies/dlss/'))) && !u.username && !u.password && !u.port
   } catch {
     return false
   }

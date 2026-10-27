@@ -189,7 +189,7 @@ export function FindingsPage() {
               options={steamGames.length ? steamGames.map((g) => ({ value: g.id, label: g.title })) : [{ value: 'todos', label: 'Nenhum jogo da Steam' }]}
             />
           </div>
-          <SmartPacksPanel appId={gameFilter !== 'todos' ? gameFilter : steamGames[0]?.id ?? null} onAct={setTarget} />
+          <SmartPacksPanel appId={gameFilter !== 'todos' ? gameFilter : steamGames[0]?.id ?? null} selectedPackId={params.get('pack')} onAct={setTarget} />
         </>
       ) : view === 'receitas' ? (
         <RecipesPanel

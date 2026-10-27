@@ -1938,3 +1938,8 @@ mod file_artifacts {
     include!("file_security_tests.rs");
     include!("https_fixture_test.rs");
 }
+
+mod resolution_acceptance {
+    use super::*;
+    include!("../resolution/acceptance_tests.rs");
+}

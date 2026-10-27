@@ -81,7 +81,7 @@ function mascotFor(r: SmartPackReport | null, loading: boolean) {
   return 'inspect' as const
 }
 
-export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?: (t: ApplyTarget) => void }) {
+export function SmartPacksPanel({ appId, selectedPackId, onAct }: { appId: string | null; selectedPackId?: string | null; onAct?: (t: ApplyTarget) => void }) {
   const [profile, setProfile] = useState<Profile>('balanced')
   const [view, setView] = useState<View>('todas')
   const { report, loading, error, reload } = useSmartPacks(appId, profile)
@@ -101,6 +101,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const evaluated = useRef<string | null>(null)
   const previousCapture = useRef<string | null>(null)
   const evaluationVersion = useRef(0)
+  const openedLink = useRef<string | null>(null)
   const [evaluationError, setEvaluationError] = useState<string | null>(null)
   useEffect(() => {
     ++evaluationVersion.current
@@ -112,7 +113,18 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
     setCaptureOpen(false)
     setEvaluationError(null)
     evaluated.current = null
+    openedLink.current = null
   }, [appId])
+
+  useEffect(() => {
+    const identity = `${appId}:${selectedPackId}`
+    if (!selectedPackId || !report || openedLink.current === identity) return
+    const pack = report.packs.find((p) => p.id === selectedPackId && p.appId === appId)
+    if (pack) {
+      openedLink.current = identity
+      setDetail(pack)
+    }
+  }, [appId, selectedPackId, report])
 
   const evaluate = useCallback(
     async (sessionId: string) => {
@@ -191,6 +203,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
 
   return (
     <div className="mt-5 space-y-6">
+      {selectedPackId && !report.packs.some((p) => p.id === selectedPackId && p.appId === appId) && <p role="status" className="text-[13px] text-fg-2">O pacote do link não está disponível para este jogo e contexto. Revise os pacotes recalculados abaixo.</p>}
       <div className="flex flex-wrap items-center gap-3">
         <Segmented<Profile>
           label="Perfil de otimização"

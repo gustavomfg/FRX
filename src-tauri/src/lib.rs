@@ -13,6 +13,7 @@ mod fix_engine;
 mod fixes;
 mod net;
 mod performance;
+mod resolution;
 mod smart_packs;
 mod steam;
 mod system;
@@ -50,6 +51,7 @@ pub fn run() {
                 cache: cache::Cache::new(cache_dir),
                 fetcher,
                 scan_lock: Default::default(),
+                resolution_lock: Default::default(),
                 fixes: Default::default(),
                 perf,
                 engine,
@@ -57,6 +59,11 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            commands::resolution::get_resolution_report,
+            commands::resolution::diagnose_game,
+            commands::resolution::research_game_resolutions,
+            commands::resolution::import_resolution_log,
+            commands::resolution::verify_resolution_plan,
             commands::fix_engine::cancel_fix_operation,
             commands::app::app_info,
             commands::app::ping,

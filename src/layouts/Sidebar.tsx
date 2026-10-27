@@ -11,6 +11,7 @@ import { useFixReports } from '@/state/fixes'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { cn } from '@/lib/cn'
 import { isRelevant } from '@/lib/findings'
+import { APP_VERSION } from '@/services/platform'
 
 export function Sidebar({ narrow }: { narrow: boolean }) {
   const settings = useSettings()
@@ -45,7 +46,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
     >
       <div className={cn('flex h-16 items-center', compact ? 'justify-center' : 'justify-between px-5')}>
         <Logo compact={compact} />
-        {!compact && (real ? <SourceTag>v0.4</SourceTag> : <DemoTag />)}
+        {!compact && (real ? <SourceTag>{`v${APP_VERSION.split('.').slice(0, 2).join('.')}`}</SourceTag> : <DemoTag />)}
       </div>
 
       <nav aria-label="Principal" className={cn('mt-3 flex flex-col gap-0.5', compact ? 'px-2.5' : 'px-3')}>
