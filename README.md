@@ -6,11 +6,25 @@
 
 # FRX — Play. Fix. Repeat.
 
-**FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
+**FRX** é uma central de diagnóstico, compatibilidade e resolução de problemas de jogos Windows no Linux (Steam, Proton e Wine).
 
-**Versão 0.4.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções específicas de **jogo, GPU, driver e Proton**, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine**. Receitas revisadas ou geradas a partir das descobertas usam prévia calculada no Rust, backups verificados, escrita atômica por arquivo, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros. A classe inicial de correções externas permite baixar e instalar configurações UTF-8 com origem, integridade, destino e requisitos verificáveis.
+**Versão 0.5.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções específicas de **jogo, GPU, driver e Proton**, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine**. Receitas revisadas ou geradas a partir das descobertas usam prévia calculada no Rust, backups verificados, escrita atômica por arquivo, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros. A classe inicial de correções externas permite baixar e instalar configurações UTF-8 com origem, integridade, destino e requisitos verificáveis.
 
 > O gerador reconhece variáveis permitidas e arquivos de configuração suportados publicados por fontes reconhecidas. Downloads exigem confirmação e passam por staging e validação antes da instalação. DLLs, executáveis, scripts, Winetricks, registro e procedimentos incompletos permanecem em revisão, com o motivo. Nenhum script de terceiros é executado e não há sudo automático. Com a Steam aberta, alterações só de opções de inicialização podem seguir o passo manual; operações por arquivo aguardam seu fechamento. No navegador (`npm run dev:web`), os dados e as aplicações são demonstrativos.
+
+## Resolution Center — v0.5
+
+A página de cada jogo agora reúne **diagnóstico, tecnologias, fontes e planos de resolução**, usando o Fix Engine existente. Não é necessário que uma correção aumente FPS: compatibilidade, estabilidade, física e recursos gráficos têm objetivos próprios.
+
+- **Diagnosticar** inspeciona a instalação e o ambiente sem alterar o jogo. DLLs são indícios; suporte do hardware, configuração e observação em execução aparecem separados.
+- **Pesquisar soluções** consulta documentação dos mantenedores e relatos verificáveis do mesmo AppID. Cache permite continuar consultando dados disponíveis offline, com limitações explícitas.
+- **Importar log deste jogo** analisa somente o arquivo escolhido, com até 2 MiB e AppID correspondente; o texto bruto e caminhos pessoais não são persistidos no diagnóstico.
+- Planos suportados abrem a prévia existente: **confirmar → aplicar → conferir → manter ou desfazer**. Receitas são revalidadas no núcleo; fonte externa não autoriza comandos.
+- **Configuração conferida** confirma o estado no disco, não que um crash desapareceu ou que DLSS/PhysX/FG funcionou. Desempenho continua sendo medido no Performance Lab.
+
+Há diagnóstico conservador para PhysX, DLSS/DLAA, frame generation, FSR, XeSS, ray tracing, pilha gráfica, áudio/vídeo, controles e estabilidade. A capacidade de observar cada recurso varia: FPS do MangoHud não comprova quadros gerados ou latência. Troca de Proton, DLLs e mecanismos de atualização de componentes sem rollback específico permanecem **Requer revisão**, inclusive as opções GE-Proton documentadas. O patch PhysX histórico do Batman continua não identificado.
+
+Arquitetura: [Resolution Intelligence](docs/RESOLUTION-INTELLIGENCE.md). Fontes e limites: [diagnósticos gráficos e de física](docs/GRAPHICS-PHYSICS-DIAGNOSTICS.md). Resultados verificáveis: [validação da v0.5](docs/VALIDACAO-v0.5.md).
 
 ## Prévia
 
@@ -58,10 +72,10 @@ Onde ficam os artefatos:
 
 ```
 src-tauri/target/release/frx                                   binário
-src-tauri/target/release/bundle/appimage/FRX_0.4.0_amd64.AppImage
-src-tauri/target/release/bundle/deb/FRX_0.4.0_amd64.deb
-src-tauri/target/release/bundle/rpm/FRX-0.4.0-1.x86_64.rpm
-packaging/arch/frx-bin-0.4.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
+src-tauri/target/release/bundle/appimage/FRX_0.5.0_amd64.AppImage
+src-tauri/target/release/bundle/deb/FRX_0.5.0_amd64.deb
+src-tauri/target/release/bundle/rpm/FRX-0.5.0-1.x86_64.rpm
+packaging/arch/frx-bin-0.5.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
 ```
 
 Na build de release, a interface (`dist/`) é **embutida no binário** e servida pelo protocolo interno do Tauri. Não é preciso um servidor Vite. O Vite só é usado em `npm run dev`, pela `devUrl` `http://localhost:1420`.
