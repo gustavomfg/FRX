@@ -1,334 +1,336 @@
 <p align="center">
-  <img src="docs/assets/pim.gif" width="144" height="120" alt="Pim acenando para dar boas-vindas ao FRX">
+  <img src="docs/assets/pim.gif" width="144" height="120" alt="Pim waving to welcome you to FRX">
   <br>
-  <strong>Olá! Bem-vindo ao FRX.</strong>
+  <strong>Hello! Welcome to FRX.</strong>
 </p>
 
 # FRX — Play. Fix. Repeat.
 
-**FRX** é uma central de diagnóstico, compatibilidade e resolução de problemas de jogos Windows no Linux (Steam, Proton e Wine).
+[Português (Brasil)](README.pt-BR.md)
 
-**Versão 0.5.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções específicas de **jogo, GPU, driver e Proton**, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine**. Receitas revisadas ou geradas a partir das descobertas usam prévia calculada no Rust, backups verificados, escrita atômica por arquivo, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros. A classe inicial de correções externas permite baixar e instalar configurações UTF-8 com origem, integridade, destino e requisitos verificáveis.
+**FRX** is a diagnostic, compatibility and troubleshooting center for Windows games on Linux (Steam, Proton and Wine).
 
-> O gerador reconhece variáveis permitidas e arquivos de configuração suportados publicados por fontes reconhecidas. Downloads exigem confirmação e passam por staging e validação antes da instalação. DLLs, executáveis, scripts, Winetricks, registro e procedimentos incompletos permanecem em revisão, com o motivo. Nenhum script de terceiros é executado e não há sudo automático. Com a Steam aberta, alterações só de opções de inicialização podem seguir o passo manual; operações por arquivo aguardam seu fechamento. No navegador (`npm run dev:web`), os dados e as aplicações são demonstrativos.
+**Version 0.5.0:** in the desktop app, FRX detects games installed via Steam, searches for specific **game, GPU, driver and Proton** fixes, measures performance with real logs from **MangoHud**, and **applies fixes** via **Fix Engine**. Recipes reviewed or generated from findings use preview calculated in Rust, verified backups, atomic write per file, disk checking, persistent history, and rollback that preserves third-party changes. The initial class of external patches allows you to download and install UTF-8 configurations with verifiable source, integrity, destination, and requirements.
+
+> The generator recognizes allowed variables and supported configuration files published by recognized sources. Downloads require confirmation and undergo staging and validation before installation. DLLs, executables, scripts, Winetricks, registry, and incomplete procedures remain under review, with reason. No third-party scripts are run and there is no automatic sudo. With Steam open, launch-option-only changes may follow the manual step; file operations wait for it to close. In the browser (`npm run dev:web`), the data and applications are demonstrative.
 
 ## Resolution Center — v0.5
 
-A página de cada jogo agora reúne **diagnóstico, tecnologias, fontes e planos de resolução**, usando o Fix Engine existente. Não é necessário que uma correção aumente FPS: compatibilidade, estabilidade, física e recursos gráficos têm objetivos próprios.
+Each game's page now brings together **diagnosis, technologies, sources and resolution plans**, using the existing Fix Engine. A fix does not need to increase FPS: compatibility, stability, physics and graphics have their own goals.
 
-- **Diagnosticar** inspeciona a instalação e o ambiente sem alterar o jogo. DLLs são indícios; suporte do hardware, configuração e observação em execução aparecem separados.
-- **Pesquisar soluções** consulta documentação dos mantenedores e relatos verificáveis do mesmo AppID. Cache permite continuar consultando dados disponíveis offline, com limitações explícitas.
-- **Importar log deste jogo** analisa somente o arquivo escolhido, com até 2 MiB e AppID correspondente; o texto bruto e caminhos pessoais não são persistidos no diagnóstico.
-- Planos suportados abrem a prévia existente: **confirmar → aplicar → conferir → manter ou desfazer**. Receitas são revalidadas no núcleo; fonte externa não autoriza comandos.
-- **Configuração conferida** confirma o estado no disco, não que um crash desapareceu ou que DLSS/PhysX/FG funcionou. Desempenho continua sendo medido no Performance Lab.
+- **Diagnose** inspects the installation and environment without changing the game. DLLs are clues; hardware support, configuration, and runtime observation appear separately.
+- **Search for solutions** consult documentation from the maintainers and verifiable reports of the same AppID. Cache allows you to continue querying data available offline, with explicit limitations.
+- **Import log from this game** analyzes only the chosen file, with up to 2 MiB and corresponding AppID; raw text and personal paths are not persisted in diagnostics.
+- Supported plans open the existing preview: **confirm → apply → check → keep or undo**. Recipes are revalidated at the core; external source does not authorize commands.
+- **Configuration checked** confirms the status on the disk, not that a crash disappeared or that DLSS/PhysX/FG worked. Performance continues to be measured in the Performance Lab.
 
-Há diagnóstico conservador para PhysX, DLSS/DLAA, frame generation, FSR, XeSS, ray tracing, pilha gráfica, áudio/vídeo, controles e estabilidade. A capacidade de observar cada recurso varia: FPS do MangoHud não comprova quadros gerados ou latência. Troca de Proton, DLLs e mecanismos de atualização de componentes sem rollback específico permanecem **Requer revisão**, inclusive as opções GE-Proton documentadas. O patch PhysX histórico do Batman continua não identificado.
+There is conservative diagnosis for PhysX, DLSS/DLAA, frame generation, FSR, XeSS, ray tracing, graphics stack, audio/video, controls and stability. The ability to observe each feature varies: MangoHud FPS does not prove frames generated or latency. Proton switching, DLLs and component update mechanisms without specific rollback remain **Requires review**, including documented GE-Proton options. Batman's historical PhysX patch remains unidentified.
 
-Arquitetura: [Resolution Intelligence](docs/RESOLUTION-INTELLIGENCE.md). Fontes e limites: [diagnósticos gráficos e de física](docs/GRAPHICS-PHYSICS-DIAGNOSTICS.md). Resultados verificáveis: [validação da v0.5](docs/VALIDACAO-v0.5.md).
+Architecture: [Resolution Intelligence](docs/RESOLUTION-INTELLIGENCE.md). Sources and limits: [graphics and physics diagnostics](docs/GRAPHICS-PHYSICS-DIAGNOSTICS.md). Verifiable results: [v0.5](docs/VALIDACAO-v0.5.md) validation.
 
-## Prévia
+## Preview
 
-![Tela inicial do FRX com biblioteca, Fix Packs, comparação de FPS e o mascote Pim](docs/assets/frx-home.png)
+![FRX home screen with library, Fix Packs, FPS comparison and Pim the mascot](docs/assets/frx-home.png)
 
-*Captura da interface v0.2 em modo demonstrativo. Jogos, hardware e resultados exibidos nesta imagem são fictícios.*
+*Capture of the v0.2 interface in demo mode. Games, hardware and results displayed in this image are fictitious.*
 
-## Como executar
+## How to run
 
-O FRX é um **aplicativo desktop Linux** feito com **Tauri 2** (Rust) e uma interface em React + TypeScript + Vite.
+FRX is a **Linux desktop application** made with **Tauri 2** (Rust) and an interface in React + TypeScript + Vite.
 
-### Dependências de compilação
+### Build dependencies
 
-- Node 20.19+ ou 22.12+ (testado com Node 24) e npm
-- Rust **1.88+** (testado com 1.97) via [rustup](https://rustup.rs); a dependência de ZIP é `zip` 9.1.1
-- Bibliotecas do sistema para o WebKitGTK:
+- Node 20.19+ or 22.12+ (tested with Node 24) and npm
+- Rust **1.88+** (tested with 1.97) via [rustup](https://rustup.rs); ZIP dependency is `zip` 9.1.1
+- System libraries for WebKitGTK:
 
-| Distribuição | Comando |
+| Distribution | Command |
 | --- | --- |
-| Arch / CachyOS / Manjaro | `sudo pacman -S --needed webkit2gtk-4.1 gtk3 base-devel curl wget file openssl librsvg` |
-| Debian / Ubuntu | `sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev build-essential curl wget file libssl-dev librsvg2-dev` |
+| Arch/CachyOS/Manjaro | `sudo pacman -S --needed webkit2gtk-4.1 gtk3 base-devel curl wget file openssl librsvg` |
+| Debian/Ubuntu | `sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev build-essential curl wget file libssl-dev librsvg2-dev` |
 | Fedora | `sudo dnf install webkit2gtk4.1-devel gtk3-devel openssl-devel curl wget file librsvg2-devel && sudo dnf group install c-development` |
 
-Opcionais: `libappindicator-gtk3` (bandeja do sistema, ainda não usada) e `fuse2` (para abrir o AppImage sem extraí-lo; sem ele, use `APPIMAGE_EXTRACT_AND_RUN=1`).
+Optional: `libappindicator-gtk3` (system tray, not yet used) and `fuse2` (to open the AppImage without extracting it; without it, use `APPIMAGE_EXTRACT_AND_RUN=1`).
 
-Para **capturar** benchmarks, instale o MangoHud e a biblioteca da arquitetura do jogo. No Arch/CachyOS: `sudo pacman -S --needed mangohud lib32-mangohud`. O FRX apenas mostra essa orientação; não instala pacotes. A captura foi validada com MangoHud **0.8.4**, Vulkan, NVIDIA RTX 4060 e Hyprland/Wayland. A importação de logs existentes funciona mesmo sem MangoHud instalado.
+To **capture** benchmarks, install MangoHud and the game architecture library. On Arch/CachyOS: `sudo pacman -S --needed mangohud lib32-mangohud`. FRX only shows these instructions; it does not install packages. The capture was validated with MangoHud **0.8.4**, Vulkan, NVIDIA RTX 4060 and Hyprland/Wayland. Importing existing logs works even without MangoHud installed.
 
-### Comandos
+### Commands
 
 ```bash
 npm install
-npm run dev            # abre a janela do FRX (Tauri + Vite com recarga ao vivo)
-npm run build          # binário de release + AppImage, .deb e .rpm
-npm run build:appimage # só o AppImage
-npm run build:arch     # pacote nativo do pacman (Arch/CachyOS)
-npm run dev:web        # apenas a interface no navegador, em http://localhost:1420
-npm run build:web      # verifica o TypeScript e compila a interface
+npm run dev            # opens the FRX window (Tauri + Vite with live reload)
+npm run build          # release binary + AppImage, .deb and .rpm
+npm run build:appimage # just the AppImage
+npm run build:arch     # native pacman package (Arch/CachyOS)
+npm run dev:web        # just the interface in the browser, in http://localhost:1420
+npm run build:web      # checks TypeScript and compiles the interface
 npm run typecheck
-npm test               # testes do front-end (Vitest)
-(cd src-tauri && cargo test)            # testes do Rust (com fixtures, sem rede)
+npm test               # front-end tests (Vitest)
+(cd src-tauri && cargo test)            # Rust tests (with fixtures, without network)
 (cd src-tauri && cargo fmt --check && cargo clippy --all-targets -- -D warnings)
 ```
 
-Onde ficam os artefatos:
+Where are the artifacts:
 
 ```
-src-tauri/target/release/frx                                   binário
+src-tauri/target/release/frx                                   binary
 src-tauri/target/release/bundle/appimage/FRX_0.5.0_amd64.AppImage
 src-tauri/target/release/bundle/deb/FRX_0.5.0_amd64.deb
 src-tauri/target/release/bundle/rpm/FRX-0.5.0-1.x86_64.rpm
 packaging/arch/frx-bin-0.5.0-1-x86_64.pkg.tar.zst             (sudo pacman -U …)
 ```
 
-Na build de release, a interface (`dist/`) é **embutida no binário** e servida pelo protocolo interno do Tauri. Não é preciso um servidor Vite. O Vite só é usado em `npm run dev`, pela `devUrl` `http://localhost:1420`.
+In the release build, the interface (`dist/`) is **embedded in the binary** and served by the internal Tauri protocol. No need for a Vite server. Vite is only used on `npm run dev`, by `devUrl` `http://localhost:1420`.
 
-### Integração com o desktop
+### Desktop integration
 
-- Janela nativa com título "FRX", 1440×900, tamanho mínimo de 1024×700 e fundo `#101011` (sem flash branco ao abrir).
-- O app id e a classe da janela são `frx`. Os arquivos `.desktop` usam `StartupWMClass=frx`, então o ícone aparece certo na barra de tarefas, tanto em Wayland quanto em X11.
-- O ícone vem de `packaging/icon.svg` (o mesmo símbolo d-pad da interface). Para regenerar, rode `npx tauri icon packaging/icon.png -o src-tauri/icons`.
-- **Gerenciadores de janela em mosaico** (Hyprland, Sway…) podem ignorar o tamanho mínimo. Para abrir o FRX flutuando, adicione uma regra para a classe `frx` no seu WM.
-- **WebKitGTK + NVIDIA no Wayland:** o app define `WEBKIT_DISABLE_DMABUF_RENDERER=1` ao iniciar, a menos que você já tenha definido essa variável. Isso evita a janela em branco conhecida nessa combinação.
+- Native window with title "FRX", 1440×900, minimum size of 1024×700 and background `#101011` (without white flash when opening).
+- The app id and window class are `frx`. `.desktop` files use `StartupWMClass=frx`, so the icon appears right in the taskbar in both Wayland and X11.
+- The icon comes from `packaging/icon.svg` (the same d-pad symbol as the interface). To regenerate, run `npx tauri icon packaging/icon.png -o src-tauri/icons`.
+- **Tiled window managers** (Hyprland, Sway…) can ignore the minimum size. To open FRX by floating, add a rule for class `frx` in your WM.
+- **WebKitGTK + NVIDIA on Wayland:** the app sets `WEBKIT_DISABLE_DMABUF_RENDERER=1` on launch unless you have already set this variable. This avoids the familiar blank window in this combination.
 
-### Ponte TypeScript ↔ Rust
+### TypeScript ↔ Rust Bridge
 
-| Comando | Para que serve |
+| Command | What is it for |
 | --- | --- |
-| `scan_installed_games` | Varre a Steam (assíncrono) e salva o resultado em cache |
-| `get_installed_games` | Última varredura salva, para mostrar a biblioteca na hora |
-| `get_system_profile` | Distribuição, kernel, sessão, CPU, RAM, GPUs, driver e versão |
-| `get_game_art` | Capa, banner ou cabeçalho do jogo, com cache local |
-| `search_game_fixes` | Pesquisa correções de um AppID em todos os provedores |
-| `get_cached_fix_reports` | Relatórios salvos, funciona sem conexão |
-| `get_fix_providers`, `clear_fix_cache`, `get_cache_size` | Configurações de fontes e de cache |
-| `app_info`, `ping` | Informações do app e teste da ponte |
-| `detect_mangohud` | Executável, versão, camadas Vulkan e bibliotecas de 32/64 bits |
-| `import_benchmark`, `list_benchmark_sessions`, `get_benchmark_session` | Importação, histórico persistente e séries temporais |
-| `compare_benchmark_sessions`, `update_benchmark_session`, `delete_benchmark_session`, `export_benchmark_session` | Comparação e gerenciamento de sessões |
-| `prepare_benchmark`, `start_capture`, `get_capture_status`, `capture_logging`, `finish_capture`, `cancel_capture`, `reset_capture` | Captura assistida e controle do MangoHud |
-| `get_fix_engine_status`, `list_fix_recipes`, `get_fix_recipe`, `check_fix_compatibility` | Catálogo local e compatibilidade (somente leitura) |
-| `analyze_fix_findings` | Gerador dinâmico: categoria, motivo e receita gerada de cada descoberta (não grava no jogo) |
-| `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack`, `evaluate_benchmark_session` | Smart Packs: composição, ranking por perfil, comparação, troca passo a passo e declaração de sessões antigas |
-| `prepare_fix_plan`, `apply_fix_plan` | Prévia (dry-run) e aplicação do plano confirmado: só `planId` + `fingerprint` |
-| `cancel_fix_operation` | Cancela a preparação/download antes da fase de escrita; não abandona uma transação em gravação |
-| `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | Histórico, estado real conferido no disco e passos manuais |
-| `prepare_fix_rollback`, `rollback_fix` | Prévia e execução do rollback |
+| `scan_installed_games` | Scan Steam (asynchronous) and save the result in cache |
+| `get_installed_games` | Last saved scan, to show library instantly |
+| `get_system_profile` | Distribution, kernel, session, CPU, RAM, GPUs, driver and version |
+| `get_game_art` | Game cover, banner or header, with local cache |
+| `search_game_fixes` | Searches for fixes for an AppID across all providers |
+| `get_cached_fix_reports` | Saved reports, works offline |
+| `get_fix_providers`, `clear_fix_cache`, `get_cache_size` | Source and cache settings |
+| `app_info`, `ping` | App information and bridge testing |
+| `detect_mangohud` | Executable, version, Vulkan layers and 32/64-bit libraries |
+| `import_benchmark`, `list_benchmark_sessions`, `get_benchmark_session` | Import, persistent history and time series |
+| `compare_benchmark_sessions`, `update_benchmark_session`, `delete_benchmark_session`, `export_benchmark_session` | Session comparison and management |
+| `prepare_benchmark`, `start_capture`, `get_capture_status`, `capture_logging`, `finish_capture`, `cancel_capture`, `reset_capture` | MangoHud Assisted Capture and Control |
+| `get_fix_engine_status`, `list_fix_recipes`, `get_fix_recipe`, `check_fix_compatibility` | Local catalog and compatibility (read only) |
+| `analyze_fix_findings` | Dynamic generator: category, reason and recipe generated from each finding (does not save in the game) |
+| `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack`, `evaluate_benchmark_session` | Smart Packs: composition, ranking by profile, comparison, step-by-step exchange and declaration of old sessions |
+| `prepare_fix_plan`, `apply_fix_plan` | Preview (dry-run) and application of the confirmed plan: only `planId` + `fingerprint` |
+| `cancel_fix_operation` | Cancels the preparation/download before the writing phase; does not abandon a transaction while it is writing |
+| `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | History, actual status checked on disk and manual steps |
+| `prepare_fix_rollback`, `rollback_fix` | Rollback preview and execution |
 
-- **TypeScript:** `src/services/{games,fixes,fixEngine,performance,native,platform,opener}.ts` chamam esses comandos com `@tauri-apps/api/core`. Os estados ficam em `src/state/{library,fixes,fixEngine,performance}.tsx`; a captura continua ao navegar entre páginas, e o progresso do Fix Engine chega pelo evento `fix-engine://progress`.
-- **Tipos:** os modelos do Rust estão espelhados em `src/types/{steam,fixes,fixEngine,performance}.ts`.
-- **Permissões:** `capabilities/default.json` libera o núcleo do Tauri, os diálogos nativos de abrir/salvar e o `opener` para os domínios das fontes e `steam://rungameid/*`. Não há plugin de sistema de arquivos nem API genérica de escrita: toda escrita passa pelos comandos do Fix Engine. O protocolo de assets só enxerga `$APPCACHE/art/**`, e a CSP continua restrita aos arquivos do app.
+- **TypeScript:** `src/services/{games,fixes,fixEngine,performance,native,platform,opener}.ts` calls these commands with `@tauri-apps/api/core`. The states are in `src/state/{library,fixes,fixEngine,performance}.tsx`; capture continues when navigating between pages, and Fix Engine progress arrives via event `fix-engine://progress`.
+- **Types:** Rust models are mirrored in `src/types/{steam,fixes,fixEngine,performance}.ts`.
+- **Permissions:** `capabilities/default.json` releases the Tauri core, native open/save dialogs, and `opener` for the source domains and `steam://rungameid/*`. There is no file system plugin or generic writing API: all writing goes through Fix Engine commands. The asset protocol only sees `$APPCACHE/art/**`, and the CSP remains restricted to the app's files.
 
-## Performance Lab: primeiro benchmark
+## Performance Lab: first benchmark
 
-1. Execute `npm install` e `npm run dev` para abrir o **app desktop**.
-2. Abra a **Biblioteca**, selecione um jogo e clique em **Medir desempenho**, ou acesse **Performance Lab** pela barra lateral.
-3. Para um CSV já existente, escolha **Importar benchmark**, selecione o log principal do MangoHud (não o `_summary.csv`), confira o jogo e as condições e confirme a importação.
-4. Com o jogo fechado, clique em **Nova sessão**. Escolha jogo, duração, início automático ou manual, HUD e condições do teste. Clique em **Preparar sessão**. Se mudar a duração ou o HUD entre sessões, reabra o jogo para carregar a nova configuração.
-5. Na Steam, abra **Propriedades → Geral → Opções de inicialização** do jogo. Confira e cole a linha mostrada pelo FRX. **O Performance Lab não altera essas opções.** Variáveis, aspas e wrappers comuns, como `gamescope`, são preservados. Linhas com operadores de shell ou substituição de comandos são recusadas em vez de reescritas; nesse caso, use a importação manual.
-6. Clique em **Já colei — aguardar o jogo** e abra o jogo. No modo automático, espere o atraso configurado. No manual, use **Iniciar gravação agora** ou `Shift esquerdo + F2` no jogo. Com o HUD oculto, o início automático depende da conexão ao socket do MangoHud.
-7. Ao terminar, o FRX processa o CSV e salva a sessão. **Parar e analisar** encerra antecipadamente pelo socket; **Descartar** para a gravação e não salva uma sessão. Se o jogo fechar durante a captura, os dados disponíveis são analisados com aviso de interrupção.
-8. No histórico, marque duas sessões diferentes como **Antes** e **Depois**. Use o mesmo trecho, resolução, preset e duração para uma comparação útil. Você também pode renomear, excluir e exportar sessões.
+1. Run `npm install` and `npm run dev` to open the **desktop app**.
+2. Open the **Library**, select a game and click **Measure Performance**, or access **Performance Lab** from the sidebar.
+3. For an existing CSV, choose **Import benchmark**, select the main MangoHud log (not `_summary.csv`), check the game and conditions, and confirm the import.
+4. With the game closed, click **New session**. Choose game, duration, automatic or manual start, HUD and test conditions. Click **Prepare session**. If you change the duration or HUD between sessions, reopen the game to load the new setting.
+5. On Steam, open the game's **Properties → General → Launch Options**. Check and paste the line shown by FRX. **Performance Lab does not change these options.** Common variables, quotes, and wrappers such as `gamescope` are preserved. Lines with shell operators or command substitution are rejected instead of rewritten; in this case, use manual import.
+6. Click on **Already pasted — wait for game** and open the game. In automatic mode, wait for the configured delay. In manual mode, use **Start Recording Now** or `Left Shift + F2` in game. With the HUD hidden, automatic start depends on connecting to the MangoHud socket.
+7. When finished, FRX processes the CSV and saves the session. **Stop and analyze** terminates early via socket; **Discard** stops recording and does not save a session. If the game closes during capture, the available data is analyzed with an interruption warning.
+8. In the history, mark two different sessions as **Before** and **After**. Use the same snippet, resolution, preset, and duration for a useful comparison. You can also rename, delete and export sessions.
 
-Depois de capturar, a configuração própria do FRX volta ao repouso, sem gravação automática. Remova a linha do FRX das opções da Steam quando não quiser mais usar o MangoHud por esse fluxo.
+After capturing, the FRX's own configuration returns to rest, without automatic recording. Remove the FRX line from the Steam options when you no longer want to use MangoHud through this flow.
 
-### Dados e metodologia
+### Data and methodology
 
-- Configurações por jogo: `~/.local/share/io.frx.FRX/mangohud/<appid>.conf`. A configuração global do MangoHud nunca é alterada.
-- Logs de captura: `~/.local/share/io.frx.FRX/captures/<appid>/`. Histórico persistente: `~/.local/share/io.frx.FRX/benchmarks/sessions/<id>/`, com `raw.csv`, `meta.json` e `series.json`. Os caminhos seguem `XDG_DATA_HOME` quando definido.
-- CSVs de texto de até **256 MiB**; resumos, arquivos binários, caminhos especiais e cabeçalhos inválidos são recusados com mensagem explicativa.
-- Capturas por quadro usam `log_interval=0`. FPS médio = quadros ÷ soma dos frametimes. **1% low** e **0,1% low** = inverso da média dos piores 1%/0,1% dos frametimes; exigem pelo menos 100/1.000 quadros. Em logs periódicos, os lows são estimativas e aparecem identificados.
-- Gráficos usam séries reduzidas dos dados reais, preservando os picos. As estatísticas usam as amostras originais. Sensores ausentes ficam como “—”.
-- Capturas curtas, amostras inválidas, lacunas, interrupções e diferenças de GPU, resolução, preset ou ferramenta geram avisos. Uma melhoria observada não prova que um Fix Pack causou a diferença.
-- Capturas assistidas registram as **correções do FRX ativas** (receita, versão e operação), conferidas no disco no fim da captura. A comparação mostra quando elas diferem entre as sessões, sem atribuir causa. Sessões importadas aparecem como “Não registrado”.
-- A captura espera até 15 minutos pelo início. Logs sem crescimento têm tratamento de interrupção; sessões anteriores e `_summary.csv` nunca são confundidos com uma nova captura.
-- A comunicação de controle usa um socket abstrato Linux. Sandboxes sem namespace de rede compartilhado podem impedir o controle; a detecção do CSV e a importação continuam sendo alternativas. A variante Flatpak é orientada na interface, mas precisa ser validada no ambiente do usuário.
+- Settings per game: `~/.local/share/io.frx.FRX/mangohud/<appid>.conf`. MangoHud's global configuration is never changed.
+- Capture logs: `~/.local/share/io.frx.FRX/captures/<appid>/`. Persistent history: `~/.local/share/io.frx.FRX/benchmarks/sessions/<id>/`, with `raw.csv`, `meta.json`, and `series.json`. Paths follow `XDG_DATA_HOME` when defined.
+- Text CSVs up to **256 MiB**; summary files, binary files, special paths and invalid headers are rejected with an explanatory message.
+- Per-frame captures use `log_interval=0`. Average FPS = frames ÷ sum of frametimes. **1% low** and **0.1% low** = inverse of the average of the worst 1%/0.1% of frametimes; require at least 100/1,000 frames. In periodic logs, lows are estimates and appear identified.
+- Graphs use reduced series of real data, preserving peaks. Statistics use the original samples. Missing sensors are displayed as “—”.
+- Short captures, invalid samples, gaps, interruptions and differences in GPU, resolution, preset or tool generate warnings. An observed improvement does not prove that a Fix Pack caused the difference.
+- Assisted captures record the **active FRX corrections** (recipe, version and operation), checked on disk at the end of the capture. The comparison shows when they differ between sessions, without assigning cause. Imported sessions appear as “Not Registered”.
+- Capture waits up to 15 minutes to start. Non-growing logs have interrupt handling; previous sessions and `_summary.csv` are never confused with a new capture.
+- Control communication uses a Linux abstract socket. Sandboxes without a shared network namespace can impede control; CSV detection and import remain alternatives. The interface provides guidance for the Flatpak variant, but needs to be validated in the user environment.
 
-## Detecção de jogos (Steam)
+## Game detection (Steam)
 
-- **Onde procura:** caminhos conhecidos da Steam — nativa (`~/.local/share/Steam`, `~/.steam/root`, `~/.steam/steam`, `$XDG_DATA_HOME/Steam`, `~/.steam/debian-installation`), Flatpak (`~/.var/app/com.valvesoftware.Steam/…`) e Snap. Links simbólicos são resolvidos, para que caminhos equivalentes não dupliquem a mesma instalação.
-- **Outra pasta:** `FRX_STEAM_ROOT=/caminho` adiciona uma raiz específica à busca.
-- **Como encontra as bibliotecas:** lê `libraryfolders.vdf` (formatos novo e antigo) com um parser KeyValues de verdade, sem regex. Nada é varrido recursivamente.
-- **Bibliotecas fora do ar:** uma biblioteca desmontada aparece como **indisponível**, e uma sem permissão como **inacessível**. Os jogos declarados nelas continuam listados, como "Indisponível".
-- **Manifestos:** cada `appmanifest_*.acf` vira um jogo com estado **Instalado**, **Incompleto** (baixando ou atualizando), **Indisponível** (a pasta sumiu) ou **Desconhecido**, conforme os `StateFlags` e a existência da pasta.
-- **Ferramentas não são jogos:** Proton, Steam Linux Runtime e Steamworks Redistributables são separados da biblioteca.
+- **Where to look:** known Steam paths — native (`~/.local/share/Steam`, `~/.steam/root`, `~/.steam/steam`, `$XDG_DATA_HOME/Steam`, `~/.steam/debian-installation`), Flatpak (`~/.var/app/com.valvesoftware.Steam/…`) and Snap. Symbolic links are resolved so that equivalent paths do not duplicate the same installation.
+- **Other folder:** `FRX_STEAM_ROOT=/caminho` adds a specific root to the search.
+- **How to find libraries:** reads `libraryfolders.vdf` (new and old formats) with a real KeyValues ​​parser, without regex. Nothing is scanned recursively.
+- **Unavailable libraries:** an unmounted library appears as **unavailable**, and one without permission as **inaccessible**. The games declared in them continue to be listed as "Unavailable".
+- **Manifests:** each `appmanifest_*.acf` becomes a game with a status of **Installed**, **Incomplete** (downloading or updating), **Unavailable** (the folder has disappeared) or **Unknown**, depending on the `StateFlags` and the existence of the folder.
+- **Tools are not games:** Proton, Steam Linux Runtime, and Steamworks Redistributables are separate from the library.
 - **Proton:**
-  - a ferramenta **por jogo** (`config.vdf → CompatToolMapping[appid]`) e o **padrão global** (`CompatToolMapping["0"]`) são lidos separadamente e nunca confundidos;
-  - a ferramenta da **última execução** vem de `compatdata/<appid>/config_info`, e a versão do prefixo, de `compatdata/<appid>/version`;
-  - as ferramentas personalizadas vêm de `compatibilitytools.d` (do usuário e do sistema, como em `/usr/share/steam/compatibilitytools.d`);
-  - quando não dá para saber, o valor fica `null`; nada é inventado.
-- **Tempo de jogo:** lido do `localconfig.vdf` do último usuário que entrou na Steam.
-- **Hardware:** vem de `/sys/class/drm` (fabricante, IDs/endereço PCI, modelo e chip via `pci.ids`, módulo/versão do driver e VRAM quando disponíveis), `/proc` e `/etc/os-release`. Placas físicas do mesmo modelo permanecem distintas. Funciona com qualquer fabricante, sem `nvidia-smi` e sem sudo.
-- **Capas:** primeiro o cache local da própria Steam (`appcache/librarycache`), depois a CDN pública da Steam. Ficam em `~/.cache/io.frx.FRX/art`. Um 404 é lembrado por 7 dias, e sem rede aparece a arte pixelada provisória.
+  - the tool **per game** (`config.vdf → CompatToolMapping[appid]`) and the **global default** (`CompatToolMapping["0"]`) are read separately and never confused;
+  - the **last run** tool comes from `compatdata/<appid>/config_info`, and the prefix version from `compatdata/<appid>/version`;
+  - custom tools come from `compatibilitytools.d` (from user and system, as in `/usr/share/steam/compatibilitytools.d`);
+  - when it is not possible to know, the value is `null`; nothing is invented.
+- **Playing time:** read from `localconfig.vdf` of the last user who logged into Steam.
+- **Hardware:** comes from `/sys/class/drm` (manufacturer, PCI IDs/address, model and chip via `pci.ids`, module/driver version and VRAM when available), `/proc` and `/etc/os-release`. Physical GPUs of the same model remain distinct. Works with any manufacturer, without `nvidia-smi` and without sudo.
+- **Covers:** first Steam's own local cache (`appcache/librarycache`), then Steam's public CDN. They are located at `~/.cache/io.frx.FRX/art`. A 404 is remembered for 7 days, and without network the temporary pixel art appears.
 
-### Contexto de hardware e software
+### Hardware and software context
 
-O inventário de GPUs é separado da GPU usada pelo jogo. Em sistemas com múltiplas placas, o FRX não transforma a GPU provável da interface em seleção confirmada. Uma captura assistida só associa o renderer do MangoHud a um dispositivo PCI quando há uma correspondência única; duas placas idênticas podem continuar indistinguíveis. Drivers Vulkan instalados também não comprovam qual driver está ativo no jogo.
+The GPU inventory is separate from the GPU used by the game. On multi-card systems, FRX does not turn the interface's probable GPU into a confirmed selection. An assisted capture only associates the MangoHud renderer with a PCI device when there is a unique match; two identical cards may remain indistinguishable. Installed Vulkan drivers also do not prove which driver is active in the game.
 
-Requisitos conhecidos podem restringir fabricante, dispositivo PCI, modelo, versão do driver, Proton e arquitetura. Dados opcionais ausentes permanecem desconhecidos. Relatos comunitários e benchmarks só influenciam o contexto correspondente: uma melhoria na RTX 4060 não promove automaticamente a mesma ação numa Radeon ou em outro jogo. Alterações de driver, Proton e artefato reavaliam cache e comparabilidade, preservando o histórico. Detalhes: [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
+Known requirements may restrict manufacturer, PCI device, model, driver version, Proton, and architecture. Missing optional data remains unknown. Community reports and benchmarks only influence the corresponding context: an improvement on the RTX 4060 does not automatically promote the same action on a Radeon or another game. Driver, Proton, and artifact changes reevaluate cache and comparability while preserving history. Details: [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
 
-## Descoberta de correções
+## Fix discovery
 
-Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independente, e adicionar uma fonte é criar um módulo e chamá-lo em `fixes::search`.
+Architecture in `src-tauri/src/fixes/`. Each provider in `providers/` is independent, and adding a source is creating a module and calling it in `fixes::search`.
 
-| Provedor | Estado | Como funciona |
+| Provider | Status | How it works |
 | --- | --- | --- |
-| **UMU-Protonfixes** | Ativo | Baixa `gamefixes-steam/<appid>.py` e `gamefixes-umu/umu-<appid>.py` **como texto** e resolve links simbólicos do git. Faz uma análise estática limitada (`pyscan.rs`): docstrings, chamadas `util.*` com argumentos literais e `os.environ`. **Nunca executa nem importa o script.** O que não é reconhecido marca a análise como parcial ou não verificada. |
-| **UMU Database** | Ativo | CSV público, usado para confirmar o UMU ID e os nomes do jogo em outras lojas. |
-| **GitHub** | Ativo | API REST pública. Busca por **AppID** e faz uma busca adicional limitada por nome nos trackers integrados; a consulta sozinha nunca confirma a identidade do jogo. Lê comentários, notas de versão e metadados de Releases referenciadas. Conserva a fonte da recomendação separada da origem do arquivo. Usa User-Agent próprio, ETag, timeouts, limites e bloqueio temporário por rate limit. `FRX_GITHUB_TOKEN` aumenta o limite; o token nunca vai para o front-end nem acompanha downloads de artefatos. |
-| **ProtonDB** | **Desativado** | Não há API pública oficial. O FRX não usa endpoints internos nem raspa o site; só abre a página do jogo no navegador. |
+| **UMU-Protonfixes** | Active | Downloads `gamefixes-steam/<appid>.py` and `gamefixes-umu/umu-<appid>.py` **as text** and resolves symlinks from git. Does a limited static analysis (`pyscan.rs`): docstrings, called `util.*` with literal arguments and `os.environ`. **Never runs or imports the script.** What is not recognized marks the analysis as partial or unverified. |
+| **UMU Database** | Active | Public CSV, used to confirm UMU ID and game names from other stores. |
+| **GitHub** | Active | Public REST API. Search by **AppID** and perform an additional limited search by name in the integrated trackers; query alone never confirms the game's identity. Reads comments, release notes and metadata from referenced Releases. Keeps the source of the recommendation separate from the source of the file. Uses own User-Agent, ETag, timeouts, limits and temporary blocking by rate limit. `FRX_GITHUB_TOKEN` increases the limit; the token never goes to the front end nor accompanies artifact downloads. |
+| **ProtonDB** | **Disabled** | There is no official public API. FRX does not use internal endpoints or scrape the website; it only opens the game page in the browser. |
 
-**Graus de confiança** (nunca atribuídos por popularidade):
+**Degrees of confidence** (never assigned by popularity):
 
-| Grau | Quando é usado |
+| Degree | When is it used |
 | --- | --- |
-| **Verificada** | Declaração verificável de mantenedores: notas oficiais de versão que citam o jogo, ou um comentário de membro do repositório dizendo que o problema foi corrigido. |
-| **Curada** | Arquivo do UMU-Protonfixes, um repositório revisado. Isso não significa que foi testada no seu PC. |
-| **Relato da comunidade** | O mesmo ajuste citado de forma favorável em pelo menos 2 comentários distintos, com mais menções a favor do que contra. |
-| **Não verificada / experimental** | Menção única, contestada, ou conteúdo que não pôde ser interpretado. |
+| **Verified** | Verifiable maintainer statement: Official release notes citing the game, or a comment from a repository member saying the issue has been fixed. |
+| **Curated** | A file from UMU-Protonfixes, a reviewed repository. This does not mean it has been tested on your PC. |
+| **Community report** | The same adjustment cited favorably in at least 2 different comments, with more mentions in favor than against. |
+| **Not verified / experimental** | Unique, contested mention, or content that could not be interpreted. |
 
-**Compatibilidade** — cada descoberta é comparada com os requisitos conhecidos do jogo, hardware e ferramenta:
+**Compatibility** — each finding is compared to known game, hardware, and tool requirements:
 
-| Estado | Significado |
+| Status | Meaning |
 | --- | --- |
-| **Compatível** | Os requisitos declarados correspondem aos dados disponíveis; isso não confirma ganho de FPS. |
-| **Incompatível** | Um requisito conhecido contradiz o ambiente, como fabricante, modelo, driver ou Proton. |
-| **Desconhecida** | Faltam dados essenciais, inclusive a GPU de execução em um sistema híbrido; o motivo permanece visível. |
-| **Já incluída** | A ferramenta configurada (GE-Proton, proton-cachyos…) já traz o mesmo arquivo do UMU-Protonfixes. |
+| **Compatible** | The stated requirements correspond to the available data; This does not confirm FPS gains. |
+| **Incompatible** | A known requirement contradicts the environment, such as manufacturer, model, driver, or Proton. |
+| **Unknown** | Essential data, including the execution GPU in a hybrid system, is missing; the reason remains visible. |
+| **Already included** | The configured tool (GE-Proton, proton-cachyos…) already has the same file as UMU-Protonfixes. |
 
-**Agrupamento:** menções da comunidade só se juntam quando citam exatamente o mesmo ajuste normalizado (mesma variável e valor, mesmo componente ou mesma opção de inicialização). Se esse ajuste também está num script do UMU-Protonfixes, as menções viram fontes adicionais dele. Toda origem continua listada.
+**Grouping:** Community mentions only come together when they mention exactly the same normalized setting (same variable and value, same component or same initialization option). If this adjustment is also in a UMU-Protonfixes script, the mentions become additional sources of it. Every origin remains listed.
 
-**Cache:** fica em `~/.cache/io.frx.FRX/` (biblioteca, capas, respostas das fontes e relatórios).
-- **Validade:** configurável em Configurações (6 h a 7 dias).
-- **Atualização:** "Pesquisar de novo" força uma consulta nova, com revalidação por ETag.
-- **Sem conexão:** usa o último dado salvo e o marca como **desatualizado**; ele não vale como confirmação atual.
+**Cache:** is located in `~/.cache/io.frx.FRX/` (library, covers, source responses and reports).
+- **Validity:** configurable in Settings (6 hours to 7 days).
+- **Update:** "Search again" forces a new query, with revalidation by ETag.
+- **No connection:** uses the last saved data and marks it as **outdated**; it is not valid as current confirmation.
 
-## Fix Engine: aplicar a primeira correção
+## Fix Engine: apply the first fix
 
-Em **Fix Packs → Descobertas** ou na página do jogo, **Correções disponíveis** contém apenas receitas cuja prévia automática foi validada pelo Rust no contexto atual. **Aplicar correção** abre essa prévia. Condições temporárias, como jogo/Steam abertos, mostram a ação necessária e permitem reavaliar. **Descobertas em investigação** preserva fontes, procedimentos incompletos e incompatibilidades sem anunciar uma instalação disponível. Veja [Aplicabilidade e operações suportadas](docs/ACTIONABLE-FIXES.md).
+In **Fix Packs → Discoveries** or on the game page, **Available Fixes** only contains recipes whose automatic preview has been validated by Rust in the current context. **Apply Fix** opens this preview. Temporary conditions, such as the game or Steam running, show necessary action and allow you to reevaluate. **Findings under investigation** preserves sources, incomplete procedures, and incompatibilities without announcing an available installation. See [Applicability and supported operations](docs/ACTIONABLE-FIXES.md).
 
-1. Abra **Fix Packs → Correções disponíveis** ou a página do jogo e escolha o jogo instalado.
-2. Confirme requisitos, riscos e impedimentos específicos. O **Catálogo técnico** permite consultar receitas, mas somente a validação para o jogo escolhido habilita aplicação automática.
-3. **Aplicar correção** abre a prévia: opções de inicialização, arquivos afetados, origem/versão do download quando houver, requisitos, riscos e backups. Nada foi gravado até aqui.
-4. Confirme. Com a Steam e o jogo fechados, o Pim mostra as etapas reais: baixar/verificar quando necessário, criar backups, gravar e conferir. Se fonte, ambiente ou arquivos mudarem depois da listagem, reavalie para obter uma prévia atual. O FRX não fecha programas.
-5. Em **Histórico**, cada operação mostra etapas, linhas antes/depois, backup (com SHA-256) e o botão **Desfazer**. O rollback remove só o que a correção adicionou e recusa sobrescrever mudanças feitas por outros programas.
+1. Open **Fix Packs → Available Fixes** or the game page and choose the installed game.
+2. Confirm specific requirements, risks, and impediments. The **Technical Catalog** allows you to consult recipes, but only validation for the chosen game enables automatic application.
+3. **Apply fix** opens the preview: launch options, affected files, download source/version if applicable, requirements, risks and backups. Nothing has been written yet.
+4. Confirm. With Steam and the game closed, Pim shows the actual steps: download/verify when necessary, create backups, save and verify. If the source, environment, or files change after listing, please re-evaluate to get a current preview. FRX does not close programs.
+5. In **History**, each operation shows steps, before/after lines, backup (with SHA-256) and the **Undo** button. Rollback only removes what the fix added and refuses to overwrite changes made by other programs.
 
-Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs/FIX-ENGINE.md). Validação desta versão: [`docs/VALIDACAO-v0.4.0.md`](docs/VALIDACAO-v0.4.0.md).
+Details, recipe format, allowlist and states: [`docs/FIX-ENGINE.md`](docs/FIX-ENGINE.md). Validation of this version: [`docs/VALIDACAO-v0.4.0.md`](docs/VALIDACAO-v0.4.0.md).
 
-### Correções que precisam de arquivos externos
+### Fixes that require external files
 
-Também há geração automática de ajustes **tipados de `dxvk.conf`** quando a fonte atribuída ao jogo especifica o caminho relativo, a chave permitida e seu valor. O FRX cria ou mescla a configuração preservando opções não relacionadas. Variáveis, configuração DXVK e artefatos verificáveis podem integrar uma única transação; uma etapa desconhecida impede a aplicação parcial. Não há ganho de desempenho presumido nem confirmação de que o jogo leu a configuração apenas porque ela foi gravada.
+There is also automatic generation of adjustments **typed from `dxvk.conf`** when the source assigned to the game specifies the relative path, the allowed key and its value. FRX creates or merges the configuration while preserving unrelated options. Variables, DXVK configuration, and verifiable artifacts can be part of a single transaction; an unknown step prevents partial application. There is no assumed performance gain and no confirmation that the game read the configuration just because it was written.
 
-O FRX identifica assets de GitHub Releases ligados pelas fontes integradas. A aplicação inicial aceita **INI, CFG, CONF, JSON e TXT em UTF-8**, diretamente ou como membros explicitamente selecionados de um ZIP. O publicador precisa fornecer vínculo com o AppID, destinos relativos e digests suficientes; substituições também exigem o hash do original esperado. Instruções estritas ou um manifesto tipado da release podem gerar a receita sem cadastrar JSON por jogo no FRX. Prosa ambígua ou procedimentos com etapas desconhecidas ficam em revisão.
+FRX identifies assets from GitHub Releases linked by integrated sources. The initial application accepts **INI, CFG, CONF, JSON and TXT in UTF-8**, either directly or as explicitly selected members of a ZIP. The publisher must provide linkage to the AppID, relative targets, and sufficient digests; replacements also require the hash of the expected original. Strict instructions or a typed release manifest can generate a recipe without registering JSON per game in FRX. Ambiguous prose or procedures with unknown steps are subject to review.
 
-Após a prévia e a confirmação, o mesmo Fix Engine baixa para staging privado, revalida os metadados atuais, verifica SHA-256 e conteúdo, cria backups e instala somente os arquivos autorizados. ZIPs nunca são extraídos diretamente na instalação. O histórico permite desfazer após reiniciar o FRX; alterações externas ou uma atualização da Steam podem exigir revisão em vez de sobrescrita. Não há reaplicação automática após atualização.
+After preview and confirmation, the same Fix Engine downloads to private staging, revalidates the current metadata, checks SHA-256 and content, creates backups and installs only authorized files. ZIPs are never extracted directly upon installation. History allows you to undo after restarting the FRX; External changes or a Steam update may require revision rather than overwriting. There is no automatic reapplication after updating.
 
-Origem reconhecida e checksum não garantem que um arquivo seja benigno ou mais rápido. DLLs, executáveis, scripts, TAR, XML e procedimentos que alteram prefixos/Proton **não têm instalação automatizada nesta etapa**. O patch NVIDIA/PhysX histórico do Batman ainda não foi identificado com segurança. Veja [Automatic File Fix Engine](docs/AUTOMATIC-FILE-FIX-ENGINE.md) e a [investigação Batman/PhysX](docs/BATMAN-PHYSX-INVESTIGATION.md).
+Recognized origin and checksum do not guarantee that a file is benign or faster. DLLs, executables, scripts, TAR, XML and procedures that change prefixes/Proton **do not have automated installation at this stage**. Batman's historical NVIDIA/PhysX patch has not yet been safely identified. See [Automatic File Fix Engine](docs/AUTOMATIC-FILE-FIX-ENGINE.md) and the [Batman/PhysX](docs/BATMAN-PHYSX-INVESTIGATION.md) investigation.
 
 ## Smart Packs
 
-As descobertas, receitas, pacotes e evidências mantêm seu vínculo com o **Steam AppID e o ambiente de hardware/software**. Uma melhoria ou regressão em outro jogo, GPU ou driver incompatível não altera o ranking atual. Documentação técnica geral explica riscos; somente evidência pertinente e medições locais comparáveis sustentam a avaliação contextual. Veja [Game-Specific Fix Intelligence](docs/GAME-SPECIFIC-FIX-INTELLIGENCE.md) e [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
+Discoveries, recipes, packages, and evidence maintain their link to the **Steam AppID and the hardware/software environment**. An improvement or regression in another game, GPU or incompatible driver does not change the current ranking. General technical documentation explains risks; only pertinent evidence and comparable local measurements support contextual assessment. See [Game-Specific Fix Intelligence](docs/GAME-SPECIFIC-FIX-INTELLIGENCE.md) and [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
 
-Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX monta combinações das correções aplicáveis ao jogo, detecta conflitos e redundâncias e classifica os pacotes pelo que foi **medido** no Performance Lab. A classificação muda conforme o perfil: Máximo desempenho, Equilibrado ou Máxima compatibilidade.
+In **Fix Packs → Smart Packs** (or from the summary on the game page), FRX assembles combinations of fixes applicable to the game, detects conflicts and redundancies and classifies the packages according to what was **measured** in the Performance Lab. The classification changes depending on the profile: Maximum performance, Balanced or Maximum compatibility.
 
-- O FRX separa automaticamente alternativas com **risco de perda de desempenho**, como WineD3D e desativação de sincronizações. O aviso aparece antes de qualquer teste; não é uma regressão universal. Relatos confiáveis do AppID selecionado podem justificar um candidato, preservando o aviso.
-- Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor medido. O FRX não transforma relatos de compatibilidade em promessa de FPS e aproveita medições existentes quando disponíveis.
-- Pacotes podem combinar variáveis permitidas e arquivos suportados. São aplicados pelo Fix Engine como **uma** operação, com backups por arquivo, journal e rollback. Um artefato sem validação impede a aplicação do pacote inteiro; a escrita atômica de cada arquivo não implica atomicidade de toda a transação.
-- A identidade dos arquivos instalados inclui destino, hash e versão/origem do artefato. Atualizar um patch não reutiliza silenciosamente a evidência de outra configuração.
-- Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.
-- Cada captura assistida registra o pacote ativo. Sessões antigas podem ser declaradas.
-- **Testar desempenho** guia referência → aplicar → capturar e, ao fim da captura, compara sozinho com a referência: melhoria, regressão, sem diferença ou inconclusivo, marcado como *preliminar* enquanto houver poucas sessões. Com regressão, oferece restaurar a configuração anterior.
+- FRX automatically separates alternatives with **risk of loss of performance**, such as WineD3D and disabling synchronizations. The warning appears before any test; it is not a universal regression. Reliable reporting of the selected AppID can justify a candidate while preserving the notice.
+- Without sufficient benchmarks (≥ 2 sessions comparable with the package and baseline), there is no measured winner. FRX does not turn compatibility reports into FPS promises and leverages existing measurements when available.
+- Packages can combine allowed variables and supported files. They are applied by the Fix Engine as **one** operation, with backups per file, journal and rollback. An artifact without validation prevents the application of the entire package; atomic writing of each file does not imply atomicity of the entire transaction.
+- The identity of installed files includes destination, hash, and artifact version/source. Updating a patch does not silently reuse evidence from another configuration.
+- Switching packages and restoring the previous state are done step by step, each step with its own preview.
+- Each assisted capture records the active pack. Old sessions can be declared.
+- **Test performance** guides reference → apply → capture and automatically compares the capture with the reference: improvement, regression, no difference or inconclusive, marked as *preliminary* while there are few sessions. With regression, it offers to restore the previous configuration.
 
-Detalhes: [`docs/SMART-PACKS.md`](docs/SMART-PACKS.md). Validação: [`docs/VALIDACAO-SMART-PACKS.md`](docs/VALIDACAO-SMART-PACKS.md).
+Details: [`docs/SMART-PACKS.md`](docs/SMART-PACKS.md). Validation: [`docs/VALIDACAO-SMART-PACKS.md`](docs/VALIDACAO-SMART-PACKS.md).
 
-## Segurança
+## Security
 
-- **Descoberta e Performance Lab:** fontes são lidas como texto/metadados; não executam scripts de terceiros nem instalam DLLs. Prefixos e drivers não são alterados, e não há sudo automático. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout. O jogo só é aberto pela Steam quando o usuário pede.
-- **Fix Engine:** escreve somente o plano confirmado e revalidado pelo núcleo: opções `LaunchOptions` do jogo e arquivos suportados dentro da instalação resolvida. Downloads exigem fonte reconhecida, release/asset identificados, SHA-256, requisitos compatíveis e destino documentado; o conteúdo é verificado antes da instalação. Variáveis passam por allowlist; ações são tipadas, sem shell genérico. Caminhos recusam escapes, links e alvos trocados desde a prévia. Backups e journal antecedem a escrita; cada arquivo usa substituição atômica, mas uma transação com vários arquivos pode exigir recuperação após falha. Rollback detecta divergências e não declara restauração parcial como concluída. O FRX nunca encerra a Steam nem processos. Backups e diário ficam em `~/.local/share/io.frx.FRX/fix-engine/`, com diretórios 0700.
-- Todo conteúdo da internet é tratado como não confiável:
-  - o cliente HTTP só aceita HTTPS para uma lista fechada de hosts, inclusive em redirecionamentos, e limita o tamanho das respostas;
-  - o JSON malformado é descartado;
-  - de comentários só se extraem padrões estreitos, e linhas com `;`, `|`, `&&` ou `$(` são descartadas;
-  - textos externos são exibidos como texto, nunca como HTML.
-- Os links externos são validados duas vezes: no TypeScript e na capability do `opener`.
+- **Discovery and Performance Lab:** sources are read as text/metadata; they do not run third-party scripts or install DLLs. Prefixes and drivers are not changed, and there is no automatic sudo. The detection only runs `mangohud --version`, with explicit arguments and timeout. The game is only opened by Steam when the user requests it.
+- **Fix Engine:** writes only the plan confirmed and revalidated by the core: `LaunchOptions` game options and supported files within the resolved installation. Downloads require recognized source, identified release/asset, SHA-256, compatible requirements and documented destination; content is checked before installation. Variables go through allowlist; actions are typed, no generic shell. Paths refuse escapes, links and targets changed since the preview. Backups and journals precede writing; each file uses atomic replacement, but a multi-file transaction may require recovery after failure. Rollback detects discrepancies and does not declare partial restoration as complete. FRX never terminates Steam or processes. Backups and journal are in `~/.local/share/io.frx.FRX/fix-engine/`, with directories 0700.
+- All internet content is treated as untrustworthy:
+  - the HTTP client only accepts HTTPS for a closed list of hosts, including in redirects, and limits the size of responses;
+  - malformed JSON is discarded;
+  - only narrow patterns are extracted from comments, and lines with `;`, `|`, `&&` or `$(` are discarded;
+  - external texts are displayed as text, never as HTML.
+- External links are validated twice: in TypeScript and in the `opener` capability.
 
-### Atalhos
+### Shortcuts
 
-| Atalho | Ação |
+| Shortcut | Action |
 | --- | --- |
-| `Ctrl + K` | Busca rápida (páginas, jogos, Fix Packs) |
-| `Alt + 1…5` | Ir para Início, Biblioteca, Fix Packs, Performance Lab, Configurações |
-| `/` | Focar a busca da Biblioteca |
-| `Esc` | Fechar diálogos (exceto durante uma operação em andamento) |
+| `Ctrl + K` | Quick search (pages, games, Fix Packs) |
+| `Alt + 1…5` | Go to Home, Library, Fix Packs, Performance Lab, Settings |
+| `/` | Focus the Library search |
+| `Esc` | Close dialogs (except during an operation in progress) |
 
 ## Stack
 
-Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · Recharts · Lucide. As fontes (Bricolage Grotesque, Geist, Geist Mono e Silkscreen) vêm do Fontsource e são empacotadas localmente, sem depender de rede.
+Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · Recharts · Lucide. The fonts (Bricolage Grotesque, Geist, Geist Mono and Silkscreen) come from Fontsource and are packaged locally, without depending on the network.
 
-## Estrutura
+## Structure
 
 ```
 src-tauri/src/
-  commands/                comandos Tauri: app, games, system, fixes, fix_engine, performance
-  fix_engine/              catalog, security (allowlist), planner, files, confined (destinos por FD),
-                           artifacts (download/staging), journal, models — aplicação e rollback
+  commands/                Tauri commands: app, games, system, fixes, fix_engine, performance
+  fix_engine/              catalog, security (allowlist), planner, files, confined (FD-based destinations),
+                           artifacts (download/staging), journal, models — application and rollback
   performance/             parser, metrics, comparison, persistence, detection, capture, models
   steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata,
-                           launch_options (tokenizador compartilhado), localconfig (edição posicional),
-                           processes (Steam/jogo abertos, só leitura)
-src-tauri/recipes/         catálogo local de receitas (JSON + manifesto SHA-256)
+                           launch_options (shared tokenizer), localconfig (positional editing),
+                           processes (Steam/game running, read-only)
+src-tauri/recipes/         local recipe catalog (JSON + SHA-256 manifest)
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
-    providers/             umu (protonfixes + database), github, artifacts, protondb (desativado)
-  system/                  perfil e GPUs via /proc e /sys, context (requisitos e ambiente)
-  cache/  art.rs  net.rs   cache em arquivos, capas, cliente HTTP restrito
-packaging/               ícone-fonte (SVG/PNG) e pacote Arch (PKGBUILD + .desktop)
-docs/assets/             captura da interface e animação do Pim para este README
+    providers/             umu (protonfixes + database), github, artifacts, protondb (disabled)
+  system/                  profile and GPUs via /proc and /sys, context (requirements and environment)
+  cache/  art.rs  net.rs   file cache, cover art, restricted HTTP client
+packaging/               source icon (SVG/PNG) and Arch package (PKGBUILD + .desktop)
+docs/assets/             interface screenshot and Pim animation for this README
 src/
-  app/routes.ts            navegação principal
+  app/routes.ts            main navigation
   layouts/                 AppShell, Sidebar, CommandPalette, Page
   pages/                   Home/RealHome, Library, GameDetail/SteamGameDetail, FixPacks/FindingsPage,
                            Performance/RealPerformance, Settings, NotFound
   components/
-    ui/                    Button, controles, Dialog, Toasts, status, contadores, estados vazios
-    game/                  GameArt, CoverImage, GameCard/GameRow, estado da instalação e avisos
+    ui/                    Button, controls, Dialog, Toasts, status, counters, empty states
+    game/                  GameArt, CoverImage, GameCard/GameRow, installation status and warnings
     fix/                   FindingCard, RecipesPanel, ApplyFixDialog, OperationHistory,
-                           FixFlowDialog (demo), ChangeList, fontes
-    perf/                  CompareHero, MetricChart, vereditos
-    performance/           captura, importação, histórico, gráficos e comparação reais
-    brand/                 Logo (símbolo d-pad + wordmark)
-  design/tokens.css        design tokens (cores, raios, movimento, acentos)
-  mascot/                  Pim: sprites procedurais, relógio compartilhado, componente
-  data/                    dados demonstrativos (jogos, problemas, fix packs, benchmarks…)
-  services/                games, fixes, performance, native (invoke), opener, platform e demo.ts
-  state/                   store, library (Steam real × demo), fixes, fixEngine, performance, movimento, seletores
+                           FixFlowDialog (demo), ChangeList, sources
+    perf/                  CompareHero, MetricChart, verdicts
+    performance/           real capture, import, history, charts and comparison
+    brand/                 Logo (d-pad symbol + wordmark)
+  design/tokens.css        design tokens (colors, radii, motion, accents)
+  mascot/                  Pim: procedural sprites, shared clock, component
+  data/                    demo data (games, problems, fix packs, benchmarks…)
+  services/                games, fixes, performance, native (invoke), opener, platform and demo.ts
+  state/                   store, library (real Steam × demo), fixes, fixEngine, performance, motion, selectors
   hooks/                   useGameArt
-  test/                    fixtures e testes de integração da ponte IPC (Vitest + mockIPC)
-  types/                   tipos de domínio
+  test/                    fixtures and IPC bridge integration tests (Vitest + mockIPC)
+  types/                   domain types
 ```
 
-## Identidade visual
+## Visual identity
 
-- **Tokens:** todas as cores vivem em `src/design/tokens.css` e são expostas ao Tailwind via `@theme inline` (`bg-surface`, `text-fg-2`, `text-accent`…). Os acentos alternativos (`menta`, `coral`, `ceu`) já funcionam em Configurações; novos temas só precisam redefinir as variáveis sob `[data-theme='…']`.
-- **Símbolo:** um direcional (d-pad) em pixel art que também é um "+" de primeiros socorros: jogar e consertar no mesmo gesto.
-- **Pim:** o mascote original, um marshmallow de gorro amarelo-manteiga. Ele é desenhado proceduralmente numa grade de 24×20 (`mascot/sprites.ts`) e renderizado como SVG nítido (um `<path>` por cor). Tem 13 poses, incluindo acenar, descansar, investigar, consertar, observar, comemorar, preparar, gravar e analisar benchmarks.
-- **Capas:** cada jogo fictício recebe uma cena pixelada gerada em SVG a partir de uma semente fixa (`GameArt.tsx`), sem assets de terceiros.
+- **Tokens:** all colors live in `src/design/tokens.css` and are exposed to Tailwind via `@theme inline` (`bg-surface`, `text-fg-2`, `text-accent`…). Alternative accents (`menta`, `coral`, `ceu`) already work in Settings; New themes just need to reset the variables under `[data-theme='…']`.
+- **Symbol:** a directional pad (d-pad) in pixel art that is also a first aid "+": play and repair in the same gesture.
+- **Pim:** the original mascot, a marshmallow with a butter-yellow hat. It is drawn procedurally on a 24x20 grid (`mascot/sprites.ts`) and rendered as a crisp SVG (one `<path>` per color). It has 13 poses, including wave, rest, investigate, repair, observe, celebrate, prepare, record, and analyze benchmarks.
+- **Covers:** each fictional game receives a pixelated scene generated in SVG from a fixed seed (`GameArt.tsx`), without third-party assets.
 
-## Movimento e acessibilidade
+## Movement and accessibility
 
-- Um único relógio de 8 Hz anima todos os sprites e pausa quando a janela fica oculta ou quando nenhum Pim está visível.
-- Intensidade **Completa / Suave / Desligada**, além de "Seguir o sistema / Sempre reduzir" para `prefers-reduced-motion`. O nível efetivo vai para `<html data-motion>` e para o `MotionConfig`.
-- Foco visível em todos os controles, link "Pular para o conteúdo", controles segmentados navegáveis por setas, diálogos com foco preso, `aria-live` nos progressos.
-- Status de compatibilidade, risco e severidade nunca dependem só da cor: sempre vêm com glifo pixelado e texto.
-- Nos gráficos, "antes" é tracejado e "depois" é sólido, com legenda e tooltip.
+- A single 8Hz clock animates all sprites and pauses when the window is hidden or when no Pim is visible.
+- Intensity **Full / Soft / Off**, plus "Follow system / Always reduce" for `prefers-reduced-motion`. The effective level goes to `<html data-motion>` and `MotionConfig`.
+- Visible focus on all controls, "Skip to content" link, segmented controls navigable by arrows, dialogs with focus trapped, `aria-live` in progress.
+- Compatibility status, risk and severity never depend solely on color: they always come with a pixelated glyph and text.
+- In the charts, "before" is dashed and "after" is solid, with legend and tooltip.
 
-## O que é real e o que ainda é simulado
+## What is real and what is still simulated
 
-| Área | No app desktop (v0.4) | No navegador |
+| Area | In desktop app (v0.4) | In browser |
 | --- | --- | --- |
-| Biblioteca | **Real:** jogos da Steam detectados pelo Rust | 12 jogos fictícios |
-| Sistema | **Real:** /proc, /sys, os-release | Perfil fictício |
-| Capas | **Reais:** cache da Steam ou CDN pública, com cache local | Arte pixelada gerada |
-| Correções | **Descoberta real** por AppID/hardware; **receitas geradas** para ações reconhecidas, incluindo configurações UTF-8 de Releases verificáveis; aplicação pelo Fix Engine, com backup e rollback | Fix Packs fictícios com aplicar e reverter simulados |
-| Performance Lab | **Real:** logs MangoHud, captura assistida, histórico e comparação | Demonstrativo |
-| Persistência | Cache local, benchmarks, diário e backups do Fix Engine no diretório de dados, e preferências | Só preferências (localStorage) |
+| Library | **Real:** Steam games detected by Rust | 12 fictional games |
+| System | **Actual:** /proc, /sys, os-release | Fictitious profile |
+| Covers | **Real:** Steam cache or public CDN, with local cache | Generated pixel art |
+| Fixes | **Actual discovery** by AppID/hardware; **generated recipes** for recognized actions, including UTF-8 configurations from verifiable Releases; application by Fix Engine, with backup and rollback | Dummy Fix Packs with simulated apply and revert |
+| Performance Lab | **Actual:** MangoHud logs, assisted capture, history and comparison | Demo |
+| Persistence | Fix Engine local cache, benchmarks, journal, and backups in data directory, and preferences | Preferences only (localStorage) |
 
-Em Configurações → Dados e fontes, a opção "Usar dados demonstrativos" troca o app desktop para a demonstração, útil para testes.
+In Settings → Data and sources, the "Use demo data" option switches the desktop app to the demo, useful for testing.
 
-O app usa `HashRouter` e caminhos relativos (`base: './'`) para funcionar empacotado.
+The app uses `HashRouter` and relative paths (`base: './'`) to work bundled.

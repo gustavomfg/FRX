@@ -6,6 +6,8 @@
 
 # FRX — Play. Fix. Repeat.
 
+[English](README.md)
+
 **FRX** é uma central de diagnóstico, compatibilidade e resolução de problemas de jogos Windows no Linux (Steam, Proton e Wine).
 
 **Versão 0.5.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções específicas de **jogo, GPU, driver e Proton**, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine**. Receitas revisadas ou geradas a partir das descobertas usam prévia calculada no Rust, backups verificados, escrita atômica por arquivo, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros. A classe inicial de correções externas permite baixar e instalar configurações UTF-8 com origem, integridade, destino e requisitos verificáveis.
