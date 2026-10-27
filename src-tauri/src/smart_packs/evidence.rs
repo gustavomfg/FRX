@@ -160,7 +160,7 @@ pub fn group_in_context(
     let context_differences = |m: &SessionMeta| -> Vec<String> {
         let Some(c) = current else { return vec![] };
         let old = &m.conditions;
-        [
+        let mut differences: Vec<String> = [
             ("GPU", &old.gpu, &c.gpu),
             ("build do jogo", &old.game_build_id, &c.game_build_id),
             ("driver", &old.driver, &c.driver),
@@ -193,7 +193,21 @@ pub fn group_in_context(
             }
             _ => None,
         })
-        .collect()
+        .collect();
+        if let (Some(a), Some(b)) = (&old.environment, &c.environment) {
+            differences.extend(a.cohort_differences(b));
+        }
+        if c.environment
+            .as_ref()
+            .is_some_and(|env| env.detected_gpus.len() > 1 && env.observed_gpu().is_none())
+        {
+            differences.push(
+                "GPU de execução atual não confirmada entre os dispositivos detectados".into(),
+            );
+        }
+        differences.sort();
+        differences.dedup();
+        differences
     };
     let mine: Vec<(&SessionMeta, Option<PackSnapshot>)> = sessions
         .iter()

@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 
 use super::analyzer::Ctx;
 use crate::fixes::models::{Confidence, FixFinding, PerformanceOutcome};
+use crate::system::context::MatchState;
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -78,6 +79,14 @@ pub fn assess(
         ..Default::default()
     };
     let mut minimum_positive = u32::MAX;
+    let required_hardware = f.requirements.hardware.evaluate(ctx.environment);
+    if required_hardware.state != MatchState::Compatible {
+        out.context_compatible = false;
+    }
+    out.limitations.extend(required_hardware.limitations);
+    if required_hardware.state == MatchState::Incompatible {
+        out.limitations.extend(required_hardware.reasons);
+    }
     if f.requirements
         .game_version
         .as_deref()
@@ -100,14 +109,23 @@ pub fn assess(
             {
                 continue;
             }
-            let compatible = r.gpu_vendor.is_none_or(|gpu| ctx.gpu == Some(gpu))
+            let compatible = (ctx.environment.is_some()
+                || r.gpu_vendor.is_none_or(|gpu| ctx.gpu == Some(gpu)))
                 && r.proton_version.as_ref().is_none_or(|p| {
                     ctx.tool_name
                         .is_some_and(|tool| tool.eq_ignore_ascii_case(p))
                 });
-            if !compatible {
-                out.context_compatible = false;
-                out.limitations.push("Há relato com GPU ou Proton diferente ou não confirmado no contexto atual; não promove um candidato automaticamente.".into());
+            let mut requirements = r.hardware.clone();
+            if requirements.gpu_vendor.is_none() && ctx.environment.is_some() {
+                requirements.gpu_vendor = r.gpu_vendor;
+            }
+            let report_hardware = requirements.evaluate(ctx.environment);
+            if !compatible || report_hardware.state != MatchState::Compatible {
+                // Evidence from another GPU/driver stays at its original source,
+                // but cannot improve or penalize this environment's assessment.
+                out.limitations.push("Relato de outro hardware/Proton ou contexto não confirmado foi preservado na origem e não participa da avaliação deste ambiente.".into());
+                out.limitations.extend(report_hardware.limitations);
+                continue;
             }
             if !out.source_urls.contains(&r.source_url) {
                 out.source_urls.push(r.source_url.clone());
@@ -147,4 +165,142 @@ pub fn assess(
     out.limitations.sort();
     out.limitations.dedup();
     out
+}
+
+#[cfg(test)]
+mod hardware_tests {
+    use super::*;
+    use crate::fix_engine::catalog::Catalog;
+    use crate::fixes::models::*;
+    use crate::system::context::{
+        tests::{env, gpu},
+        HardwareRequirements,
+    };
+    use crate::system::GpuVendor;
+
+    #[test]
+    fn positive_and_negative_reports_for_different_hardware_are_not_global_conflicts() {
+        // Synthetic source claims, never benchmark sessions or application data.
+        let mut finding = crate::fix_engine::dynamic::tests::finding(
+            "synthetic-hardware",
+            ActionKind::Env,
+            "PROTON_NO_D3D11=1",
+            2,
+            0,
+        );
+        finding.sources.clear();
+        for (vendor, model, device, outcome) in [
+            (
+                GpuReq::Nvidia,
+                "GeForce RTX 4060",
+                "10de:2882",
+                PerformanceOutcome::Positive,
+            ),
+            (
+                GpuReq::Nvidia,
+                "GeForce RTX 4070",
+                "10de:2883",
+                PerformanceOutcome::Negative,
+            ),
+            (
+                GpuReq::Amd,
+                "Radeon RX 7800 XT",
+                "1002:747e",
+                PerformanceOutcome::Negative,
+            ),
+        ] {
+            for n in 0..2 {
+                let url=format!("https://github.com/ValveSoftware/Proton/issues/99999#issuecomment-{device}-{n}");
+                finding.sources.push(FindingSource {
+                    provider: ProviderId::Github,
+                    label: "Synthetic hardware evidence".into(),
+                    url: url.clone(),
+                    reference_id: None,
+                    snippet: None,
+                    published_at: None,
+                });
+                finding
+                    .performance_evidence
+                    .reports
+                    .push(PerformanceReport {
+                        hardware: HardwareRequirements {
+                            gpu_vendor: Some(vendor),
+                            gpu_models: vec![model.into()],
+                            gpu_device_ids: vec![device.into()],
+                            driver_versions: if model == "GeForce RTX 4060" {
+                                vec!["580.0".into()]
+                            } else {
+                                vec![]
+                            },
+                            ..Default::default()
+                        },
+                        app_id: "200260".into(),
+                        action_key: "env:PROTON_NO_D3D11=1".into(),
+                        source_url: url,
+                        author: Some(format!("synthetic-{device}-{n}")),
+                        reported_at: None,
+                        statement: "Synthetic scoped performance claim".into(),
+                        outcome,
+                        proton_version: None,
+                        gpu_vendor: Some(vendor),
+                        confidence: Confidence::CommunityReported,
+                        limitations: vec!["Automated-test fixture".into()],
+                    });
+            }
+        }
+        let catalog = Catalog::bundled();
+        for (vendor, context, pos, neg) in [
+            (
+                GpuReq::Nvidia,
+                env(gpu(GpuVendor::Nvidia, "GeForce RTX 4060", "2882", "580.0")),
+                2,
+                0,
+            ),
+            (
+                GpuReq::Nvidia,
+                env(gpu(GpuVendor::Nvidia, "GeForce RTX 4070", "2883", "580.0")),
+                0,
+                2,
+            ),
+            (
+                GpuReq::Nvidia,
+                env(gpu(GpuVendor::Nvidia, "GeForce RTX 4060", "2882", "590.0")),
+                0,
+                0,
+            ),
+            (
+                GpuReq::Amd,
+                env(gpu(GpuVendor::Amd, "Radeon RX 7800 XT", "747e", "25.3")),
+                0,
+                2,
+            ),
+            (
+                GpuReq::Intel,
+                env(gpu(GpuVendor::Intel, "Arc A770", "56a0", "25.3")),
+                0,
+                0,
+            ),
+        ] {
+            let ctx = Ctx {
+                environment: Some(&context),
+                game_build_id: None,
+                app_id: "200260",
+                gpu: Some(vendor),
+                tool_name: Some("Proton 10"),
+                catalog: &catalog,
+            };
+            let result = assess(&finding, &ctx, &[("PROTON_NO_D3D11".into(), "1".into())]);
+            assert_eq!((result.positive, result.negative), (pos, neg));
+            assert!(
+                !result.conflicting(),
+                "reports from an incompatible GPU do not make this cohort contradictory"
+            );
+            assert_eq!(result.contextual_candidate("200260"), pos >= 2);
+            assert_eq!(
+                finding.performance_evidence.reports.len(),
+                6,
+                "all original claims remain available"
+            );
+        }
+    }
 }

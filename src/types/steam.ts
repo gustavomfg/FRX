@@ -77,6 +77,9 @@ export interface ScanResult {
 export type GpuVendor = 'nvidia' | 'amd' | 'intel' | 'other'
 
 export interface GpuInfo {
+  pciAddress?: string | null
+  gpuFamily?: string | null
+  vramBytes?: number | null
   vendor: GpuVendor
   vendorId: string
   deviceId: string
@@ -84,6 +87,34 @@ export interface GpuInfo {
   driver: string | null
   driverVersion: string | null
   bootVga: boolean
+}
+
+/** Detected devices are not proof of the renderer selected by a game. */
+export interface EnvironmentContext {
+  detectedGpus: GpuInfo[]
+  selectedGpu: GpuInfo | null
+  selection: 'unknown' | 'measured'
+  installedVulkanDrivers: string[]
+  activeVulkanDriver: string | null
+  cpuArch: string | null
+  sessionType: string | null
+  protonVersion: string | null
+  protonOrigin: string | null
+}
+
+export interface HardwareRequirements {
+  gpuVendor: 'nvidia' | 'amd' | 'intel' | null
+  gpuDeviceIds: string[]
+  gpuModels: string[]
+  driverVersions: string[]
+  protonVersions: string[]
+  cpuArch: string | null
+}
+
+export interface HardwareMatch {
+  state: 'compatible' | 'unknown' | 'incompatible'
+  reasons: string[]
+  limitations: string[]
 }
 
 export interface SystemProfile {

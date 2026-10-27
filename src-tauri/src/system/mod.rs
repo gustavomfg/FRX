@@ -2,6 +2,7 @@
 //! arquivos padrão (`/etc/os-release`, `pci.ids`). Sem comandos externos,
 //! sem ferramentas exclusivas de fabricante e sem privilégios.
 
+pub mod context;
 pub mod hardware;
 
 use serde::Serialize;

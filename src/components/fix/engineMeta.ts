@@ -46,6 +46,8 @@ export const PLAN_STATUS: Record<PlanStatus, Meta> = {
 
 export const OP_STATE: Record<OpState, Meta> = {
   checking: { label: 'Conferindo', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
+  downloading: { label: 'Baixando arquivos', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
+  'verifying-artifacts': { label: 'Verificando arquivos baixados', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
   'backing-up': { label: 'Criando backup', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
   applying: { label: 'Aplicando', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
   verifying: { label: 'Verificando', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
@@ -56,6 +58,7 @@ export const OP_STATE: Record<OpState, Meta> = {
   'rolling-back': { label: 'Desfazendo', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)' },
   'rolled-back': { label: 'Desfeita', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
   'recovery-required': { label: 'Requer recuperação', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)' },
+  cancelled: { label: 'Cancelada antes da instalação', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
 }
 
 export const RISK: Record<Risk, Meta> = {
@@ -78,9 +81,18 @@ export const APPLY_STAGES: { state: OpState; label: string }[] = [
   { state: 'verifying', label: 'Verificar no disco' },
 ]
 
+export const FILE_APPLY_STAGES: { state: OpState; label: string }[] = [
+  { state: 'checking', label: 'Conferir o jogo, hardware e destinos' },
+  { state: 'downloading', label: 'Baixar para área temporária' },
+  { state: 'verifying-artifacts', label: 'Verificar hash e conteúdo' },
+  { state: 'backing-up', label: 'Criar backup verificado' },
+  { state: 'applying', label: 'Instalar somente os arquivos autorizados' },
+  { state: 'verifying', label: 'Verificar no disco' },
+]
+
 export const ROLLBACK_STAGES: { state: OpState; label: string }[] = [
   { state: 'rolling-back', label: 'Remover só o que a correção adicionou' },
   { state: 'rolled-back', label: 'Verificar no disco' },
 ]
 
-export const isFinal = (s: OpState) => ['applied', 'failed', 'conflict', 'requires-manual-step', 'rolled-back', 'recovery-required'].includes(s)
+export const isFinal = (s: OpState) => ['applied', 'failed', 'conflict', 'requires-manual-step', 'rolled-back', 'recovery-required', 'cancelled'].includes(s)

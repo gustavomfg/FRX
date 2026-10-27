@@ -36,6 +36,7 @@ export interface DiscoveryScope {
 }
 
 export interface PerformanceReport {
+  hardware?: import('./steam').HardwareRequirements
   appId: string
   actionKey: string
   sourceUrl: string
@@ -49,7 +50,53 @@ export interface PerformanceReport {
   limitations: string[]
 }
 
+export interface FixRequirements {
+  gpuVendor: GpuReq | null
+  protonVersions: string[]
+  gameVersion: string | null
+  hardware?: import('./steam').HardwareRequirements
+}
+
+export interface ArtifactFile {
+  sourcePath: string | null
+  targetPath: string
+  sha256: string | null
+  replace: boolean
+  expectedOriginalSha256?: string | null
+}
+
+/** Published origin and checksums do not prove that executable code is benign. */
+export interface ArtifactCandidate {
+  id: string
+  appId: string
+  scope: DiscoveryScope
+  recommendationSource: FindingSource
+  repository: string
+  releaseTag: string
+  releaseUrl: string
+  metadataUrl: string
+  releaseId: number
+  publisher: string | null
+  assetId: number
+  assetName: string
+  assetUrl: string
+  sizeBytes: number
+  contentType: string | null
+  sha256: string | null
+  signatureUrl: string | null
+  format: 'file' | 'zip' | 'unknown'
+  platform: string | null
+  architecture: string | null
+  files: ArtifactFile[]
+  requirements: FixRequirements
+  trust: 'origin-and-integrity' | 'partial' | 'untrusted'
+  reasons: string[]
+  license: string | null
+  publishedAt: string | null
+}
+
 export interface FixFinding {
+  artifacts?: ArtifactCandidate[]
   scope?: DiscoveryScope
   performanceEvidence?: { positive: number; negative: number; reports: PerformanceReport[] }
   id: string
@@ -60,7 +107,7 @@ export interface FixFinding {
   kind: FindingKind
   actions: FixAction[]
   sources: FindingSource[]
-  requirements: { gpuVendor: GpuReq | null; protonVersions: string[]; gameVersion: string | null }
+  requirements: FixRequirements
   confidence: Confidence
   compatibility: Compatibility
   compatibilityNote: string

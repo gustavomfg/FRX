@@ -34,6 +34,8 @@ pub fn env(pairs: &[(&str, &str)]) -> Vec<EnvPair> {
 pub fn unit(id: &str, pairs: &[(&str, &str)], ev: EvidenceLevel) -> Unit {
     let e = env(pairs);
     Unit {
+        hardware: Default::default(),
+        file_actions: vec![],
         app_id: Some(APP.into()),
         performance_evidence: Default::default(),
         recipe_id: id.into(),
@@ -498,6 +500,7 @@ pub fn synthetic(id: &str, e: &[EnvPair], avg: f64, low1: f64, p99: f64) -> Sess
     m.quality.level = QualityLevel::Good;
     m.created_at = format!("2026-10-26T10:00:{:0>2}Z", id.len());
     m.smart_pack = Some(PackSnapshot {
+        file_fixes: vec![],
         app_id: Some(APP.into()),
         fingerprint: None,
         pack_id: pack_id(APP, e),
@@ -1458,6 +1461,91 @@ fn old_environment_evidence_is_retained_but_not_reused_for_current_machine() {
 }
 
 #[test]
+fn evaluate_requested_session_uses_its_gpu_cohort_even_when_another_gpu_is_newer() {
+    use crate::fix_engine::{catalog::Catalog, FixEngine};
+
+    // These imported-session records are explicit test fixtures, never saved
+    // to the user's Performance Lab. Declared snapshots intentionally exercise
+    // the production validation path without inventing assisted operations.
+    let tmp = tempfile::tempdir().unwrap();
+    let engine = FixEngine::with(
+        tmp.path().join("fixture-data"),
+        Catalog::bundled(),
+        tmp.path().join("fixture-proc"),
+    );
+    let mut samples = Vec::new();
+    for (gpu, driver, hour, fps) in [
+        (
+            "NVIDIA GeForce RTX 4060",
+            "fixture-nvidia-driver",
+            10,
+            130.0,
+        ),
+        ("AMD Radeon RX 7600", "fixture-amd-driver", 11, 55.0),
+    ] {
+        for n in 0..2 {
+            for (kind, changes, avg) in [("base", Vec::new(), 100.0), ("pack", d3d11(), fps)] {
+                let id = format!("gpu-{hour}-{kind}-{n}");
+                let mut sample = game_fixture(APP, &id, &changes, avg);
+                sample.conditions.gpu = Some(gpu.into());
+                sample.conditions.driver = Some(driver.into());
+                sample.conditions.proton = Some("fixture-proton".into());
+                sample.captured_at = Some(format!("2026-10-27T{hour}:00:0{n}Z"));
+                sample.smart_pack = Some(super::benchmark::declared(APP, changes));
+                samples.push(sample);
+            }
+        }
+    }
+    let mut intel = game_fixture(APP, "gpu-intel-pack", &d3d11(), 90.0);
+    intel.conditions.gpu = Some("Intel Arc A750".into());
+    intel.conditions.driver = Some("fixture-intel-driver".into());
+    intel.conditions.proton = Some("fixture-proton".into());
+    intel.captured_at = Some("2026-10-27T12:00:00Z".into());
+    intel.smart_pack = Some(super::benchmark::declared(APP, d3d11()));
+    samples.push(intel);
+
+    let nvidia = super::evaluate_session(&engine, &samples, "synthetic-gpu-10-pack-1").unwrap();
+    let amd = super::evaluate_session(&engine, &samples, "synthetic-gpu-11-pack-1").unwrap();
+    let intel = super::evaluate_session(&engine, &samples, "synthetic-gpu-intel-pack").unwrap();
+    assert_eq!(
+        nvidia.verdict,
+        EvalVerdict::Improvement,
+        "{}",
+        nvidia.summary
+    );
+    assert_eq!(amd.verdict, EvalVerdict::Regression, "{}", amd.summary);
+    assert_eq!(intel.verdict, EvalVerdict::NoBaseline, "{}", intel.summary);
+    assert_eq!(
+        nvidia.pack_id, amd.pack_id,
+        "The action and AppID are identical"
+    );
+    assert_eq!(amd.pack_id, intel.pack_id);
+    assert!(!nvidia.preliminary && !amd.preliminary);
+    assert_eq!((nvidia.baseline_sessions, nvidia.pack_sessions), (2, 2));
+    assert_eq!((amd.baseline_sessions, amd.pack_sessions), (2, 2));
+    assert_eq!((intel.baseline_sessions, intel.pack_sessions), (0, 1));
+    let fps_delta = |result: &PackEvaluation| {
+        result
+            .deltas
+            .iter()
+            .find(|d| d.metric == "fpsAvg")
+            .unwrap()
+            .delta_pct
+    };
+    assert!((fps_delta(&nvidia) - 30.0).abs() < 1e-6);
+    assert!((fps_delta(&amd) + 45.0).abs() < 1e-6);
+    assert!(
+        intel.deltas.is_empty(),
+        "Other GPUs cannot supply Intel's baseline"
+    );
+    assert_eq!(samples.len(), 9, "Historical sessions are retained");
+    assert!(
+        engine.operations(Some(APP)).is_empty(),
+        "Evaluation never applies a fix"
+    );
+}
+
+#[test]
 fn recorded_recipe_hash_is_revalidated_without_inventing_a_legacy_hash() {
     use crate::fix_engine::{catalog::Catalog, models::GameCtx, FixEngine};
     let tmp = tempfile::tempdir().unwrap();
@@ -1619,6 +1707,7 @@ fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_s
                 published_at: None,
             });
             f.performance_evidence.reports.push(PerformanceReport {
+                hardware: Default::default(),
                 app_id: APP.into(),
                 action_key: format!("env:{key}=1"),
                 source_url: url,
@@ -1650,6 +1739,7 @@ fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_s
     unsafe_finding.actions[0].value = format!("{key}=1 curl https://example.invalid %command%");
     let catalog = Catalog::bundled();
     let ctx = Ctx {
+        environment: None,
         game_build_id: None,
         app_id: APP,
         gpu: None,
@@ -1711,4 +1801,279 @@ fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_s
     });
     assert!(r.entries[1].headline.contains("conflitantes"));
     assert!(r.winner.is_none() && r.next_test.is_none());
+}
+
+mod file_packs {
+    use super::*;
+    use crate::fix_engine::models::RecipeAction;
+    use crate::fixes::models::{
+        ArtifactCandidate, ArtifactFile, ArtifactFormat, ArtifactTrust, DiscoveryScope,
+        FindingSource, ProviderId,
+    };
+    use crate::smart_packs::benchmark::{
+        action_file_fixes, declared_with_files, pack_id_with_files, snapshot_matches_app,
+    };
+
+    /// Entirely synthetic metadata; this fixture never downloads a payload.
+    fn artifact(app: &str, path: &str) -> ArtifactCandidate {
+        ArtifactCandidate {
+            id: format!("synthetic-config-{app}-{path}"), app_id: app.into(),
+            scope: DiscoveryScope::verified(app, "Synthetic publisher fixture"),
+            recommendation_source: FindingSource { provider:ProviderId::Github,label:"Synthetic fixture".into(),url:"https://github.com/ValveSoftware/Proton/issues/1".into(),reference_id:None,snippet:None,published_at:None },
+            repository:"ValveSoftware/Proton".into(),release_tag:"synthetic-v1".into(),
+            release_url:"https://github.com/ValveSoftware/Proton/releases/tag/synthetic-v1".into(),
+            metadata_url:"https://api.github.com/repos/ValveSoftware/Proton/releases/1".into(),release_id:1,publisher:Some("synthetic-publisher".into()),asset_id:2,
+            asset_name:"synthetic.cfg".into(),asset_url:"https://github.com/ValveSoftware/Proton/releases/download/synthetic-v1/synthetic.cfg".into(),size_bytes:12,content_type:Some("text/plain".into()),sha256:Some("a".repeat(64)),signature_url:None,
+            format:ArtifactFormat::File,platform:Some("any".into()),architecture:Some("any".into()),
+            files:vec![ArtifactFile { source_path:None,target_path:path.into(),sha256:Some("a".repeat(64)),replace:false,expected_original_sha256:None }],
+            requirements:Default::default(),trust:ArtifactTrust::OriginAndIntegrity,reasons:vec!["Synthetic fixture only".into()],license:None,published_at:None,
+        }
+    }
+
+    fn file_unit(id: &str, path: &str) -> Unit {
+        let mut u = unit(id, &[], EvidenceLevel::Documented);
+        u.file_actions.push(RecipeAction::InstallArtifact {
+            artifact: Box::new(artifact(APP, path)),
+        });
+        u
+    }
+
+    #[test]
+    fn config_artifact_and_environment_compose_without_fictitious_variables() {
+        let files = file_unit("synthetic-file", "settings.cfg");
+        let vars = unit(
+            "synthetic-env",
+            &[("PROTON_HEAP_DELAY_FREE", "1")],
+            EvidenceLevel::Documented,
+        );
+        let report = compose(
+            APP,
+            &[files, vars],
+            &SingleResults::new(),
+            Limits::default(),
+        );
+        assert_eq!(
+            report.packs.len(),
+            4,
+            "baseline, file, variable and whole composition"
+        );
+        let file = report
+            .packs
+            .iter()
+            .find(|p| p.kind == PackKind::Single && p.env.is_empty())
+            .unwrap();
+        assert_ne!(
+            file.id,
+            baseline_id(APP),
+            "a file-only pack is never the baseline"
+        );
+        let mixed = report
+            .packs
+            .iter()
+            .find(|p| p.kind == PackKind::Combination)
+            .unwrap();
+        assert_eq!(mixed.env, env(&[("PROTON_HEAP_DELAY_FREE", "1")]));
+        assert_eq!(mixed.file_fixes.len(), 1);
+        assert_eq!(mixed.artifacts.len(), 1);
+        assert_eq!(
+            mixed
+                .members
+                .iter()
+                .map(|m| m.file_actions.len())
+                .sum::<usize>(),
+            1
+        );
+        assert!(mixed.apply_recipe_id.as_deref() == Some(mixed.id.as_str()));
+    }
+
+    #[test]
+    fn invalid_artifact_or_foreign_game_never_leaves_a_partial_env_pack() {
+        let mut invalid = file_unit("synthetic-invalid", "settings.cfg");
+        invalid.env = env(&[("PROTON_HEAP_DELAY_FREE", "1")]);
+        let RecipeAction::InstallArtifact { artifact: a } = &mut invalid.file_actions[0] else {
+            unreachable!()
+        };
+        a.sha256 = None;
+        let mut foreign = file_unit("synthetic-foreign", "other.cfg");
+        let RecipeAction::InstallArtifact { artifact: a } = &mut foreign.file_actions[0] else {
+            unreachable!()
+        };
+        a.app_id = "480".into();
+        a.scope = DiscoveryScope::verified("480", "Synthetic other game");
+        let report = compose(
+            APP,
+            &[invalid, foreign],
+            &SingleResults::new(),
+            Limits::default(),
+        );
+        assert_eq!(report.packs.len(), 1);
+        assert_eq!(report.excluded.len(), 2);
+        assert!(report.excluded.iter().any(|e| e.reason.contains("SHA-256")));
+    }
+
+    #[test]
+    fn same_file_targets_conflict_even_when_environment_actions_differ() {
+        let a = file_unit("synthetic-one", "settings.cfg");
+        let b = file_unit("synthetic-two", "SETTINGS.cfg");
+        assert_eq!(edge(&a, &b).kind, Some(ConflictKind::SameFile));
+        assert!(validate_combination(&[a.clone(), b], 4).is_err());
+        let c = file_unit("synthetic-other", "other.cfg");
+        assert!(validate_combination(&[a, c], 4).is_ok());
+    }
+
+    #[test]
+    fn release_and_content_changes_invalidate_pack_identity_and_persisted_snapshot() {
+        let u = file_unit("synthetic-release", "settings.cfg");
+        let old = action_file_fixes(APP, &u.file_actions).unwrap();
+        let mut changed = u.clone();
+        let RecipeAction::InstallArtifact { artifact: a } = &mut changed.file_actions[0] else {
+            unreachable!()
+        };
+        a.release_tag = "synthetic-v2".into();
+        a.release_url = "https://github.com/ValveSoftware/Proton/releases/tag/synthetic-v2".into();
+        a.asset_url =
+            "https://github.com/ValveSoftware/Proton/releases/download/synthetic-v2/synthetic.cfg"
+                .into();
+        let updated = action_file_fixes(APP, &changed.file_actions).unwrap();
+        assert_ne!(
+            pack_id_with_files(APP, &[], &old),
+            pack_id_with_files(APP, &[], &updated)
+        );
+        let mut content = old.clone();
+        content[0].sha256 = "b".repeat(64);
+        assert_ne!(
+            pack_id_with_files(APP, &[], &old),
+            pack_id_with_files(APP, &[], &content)
+        );
+        let snapshot = declared_with_files(APP, vec![], old);
+        let mut loaded: PackSnapshot =
+            serde_json::from_str(&serde_json::to_string(&snapshot).unwrap()).unwrap();
+        assert!(snapshot_matches_app(APP, &loaded));
+        loaded.file_fixes = updated;
+        assert!(
+            !snapshot_matches_app(APP, &loaded),
+            "an old fingerprint cannot claim an updated patch"
+        );
+        assert!(!snapshot_matches_app("480", &snapshot));
+    }
+
+    #[test]
+    fn legacy_snapshots_keep_their_identity_without_inventing_file_metadata() {
+        let snapshot =
+            super::super::benchmark::declared(APP, env(&[("PROTON_HEAP_DELAY_FREE", "1")]));
+        let mut value = serde_json::to_value(&snapshot).unwrap();
+        value.as_object_mut().unwrap().remove("fileFixes");
+        let loaded: PackSnapshot = serde_json::from_value(value).unwrap();
+        assert!(loaded.file_fixes.is_empty());
+        assert!(snapshot_matches_app(APP, &loaded));
+        assert_eq!(
+            pack_id_with_files(APP, &loaded.env, &[]),
+            pack_id(APP, &loaded.env)
+        );
+    }
+
+    #[test]
+    fn binary_and_unknown_config_actions_cannot_bypass_artifact_policy_in_a_pack() {
+        let mut dll = file_unit("synthetic-dll", "physx.dll");
+        dll.env = env(&[("PROTON_HEAP_DELAY_FREE", "1")]);
+        let mut arbitrary = file_unit("synthetic-script", "settings.cfg");
+        arbitrary.file_actions.push(RecipeAction::WriteGameFile {
+            path: "manual.cfg".into(),
+            content: "quality=high".into(),
+        });
+        let report = compose(
+            APP,
+            &[dll, arbitrary],
+            &SingleResults::new(),
+            Limits::default(),
+        );
+        assert_eq!(report.packs.len(), 1);
+        assert_eq!(report.excluded.len(), 2);
+    }
+
+    #[test]
+    fn joint_hardware_intersection_is_checked_for_all_members() {
+        let mut a = unit(
+            "a",
+            &[("PROTON_HEAP_DELAY_FREE", "1")],
+            EvidenceLevel::Documented,
+        );
+        let mut b = unit(
+            "b",
+            &[("PROTON_FORCE_LARGE_ADDRESS_AWARE", "1")],
+            EvidenceLevel::Documented,
+        );
+        let mut c = file_unit("c", "settings.cfg");
+        a.hardware.driver_versions = vec!["1".into(), "2".into()];
+        b.hardware.driver_versions = vec!["2".into(), "3".into()];
+        c.hardware.driver_versions = vec!["1".into(), "3".into()];
+        assert!(
+            validate_combination(&[a, b, c], 4).is_err(),
+            "pairwise overlap does not guarantee one common environment"
+        );
+    }
+    #[test]
+    fn download_lifecycle_uses_intent_but_benchmark_never_uses_unwritten_hashes() {
+        use super::super::benchmark::{operation_file_fixes, operation_planned_file_fixes};
+        use crate::fix_engine::models::{
+            ExecMode, OpState, Operation, Step, StepRecord, StepStatus,
+        };
+        let u = file_unit("synthetic-staging", "settings.cfg");
+        let RecipeAction::InstallArtifact { artifact: a } = &u.file_actions[0] else {
+            unreachable!()
+        };
+        let mut pack = compose(
+            APP,
+            std::slice::from_ref(&u),
+            &SingleResults::new(),
+            Limits::default(),
+        )
+        .packs
+        .remove(1);
+        let op = Operation {
+            manual_recovery_required: false,
+            schema: 1,
+            id: "synthetic-op".into(),
+            recipe_id: u.recipe_id,
+            recipe_version: u.version,
+            recipe_title: u.title,
+            app_id: APP.into(),
+            game_name: "Synthetic fixture".into(),
+            state: OpState::Downloading,
+            mode: ExecMode::Automatic,
+            steps: vec![StepRecord {
+                step: Step::GameFile {
+                    artifact: Some(a.clone()),
+                    identity: None,
+                    root: "/synthetic/game".into(),
+                    rel: "settings.cfg".into(),
+                    target: "/synthetic/game/settings.cfg".into(),
+                    before_sha: None,
+                    content: String::new(),
+                },
+                status: StepStatus::Pending,
+                backup: None,
+                after_sha: None,
+                rollback_backup: None,
+            }],
+            plan_fingerprint: "synthetic".into(),
+            created_at: String::new(),
+            updated_at: String::new(),
+            applied_at: None,
+            rolled_back_at: None,
+            message: None,
+            pending: None,
+            events: vec![],
+            recipe_trust: Some(Trust::Generated),
+            finding_ids: vec![],
+            recipe_fingerprint: None,
+            artifacts: vec![(**a).clone()],
+            artifact_progress: None,
+        };
+        assert_eq!(operation_planned_file_fixes(&op), pack.file_fixes);
+        let unwritten = declared_with_files(APP, vec![], operation_file_fixes(&op));
+        assert!(!snapshot_matches_app(APP, &unwritten));
+        super::super::lifecycle::derive(&mut pack, None, &[op], &[], &[], &[]);
+        assert_eq!(pack.state, PackState::Testing);
+    }
 }

@@ -133,7 +133,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
             <div className="mb-4 flex items-end justify-between gap-4">
               <div>
                 <h2 id="descobertas" className="font-display text-[20px] font-semibold tracking-[-0.02em]">
-                  Correções conhecidas
+                  Correções para este jogo e hardware
                 </h2>
                 <p className="mt-1 text-[12.5px] text-fg-3">
                   {report ? (
@@ -267,11 +267,12 @@ export function SteamGameDetail({ game }: { game: Game }) {
           <InfoBlock title="Hardware detectado">
             {system ? (
               <>
-                <InfoRow k="GPU" v={system.primaryGpu?.name ?? system.primaryGpu?.vendor.toUpperCase() ?? 'Desconhecida'} />
+                <InfoRow k="GPU provável" v={system.primaryGpu?.name ?? system.primaryGpu?.vendor.toUpperCase() ?? 'Desconhecida'} />
                 <InfoRow k="Driver" v={system.primaryGpu ? [system.primaryGpu.driver, system.primaryGpu.driverVersion].filter(Boolean).join(' ') || '—' : '—'} />
-                {system.gpus.length > 1 && <InfoRow k="Outras GPUs" v={system.gpus.filter((g) => g !== system.primaryGpu && g.deviceId !== system.primaryGpu?.deviceId).map((g) => g.name ?? g.vendor).join(', ')} />}
+                {system.gpus.length > 1 && <InfoRow k="GPUs detectadas" v={system.gpus.map((g) => `${g.name ?? g.vendor}${g.pciAddress ? ` (${g.pciAddress})` : ''}`).join(', ')} />}
                 <InfoRow k="CPU" v={system.cpu ?? '—'} />
                 <InfoRow k="Sistema" v={[system.distro, system.kernel && `kernel ${system.kernel}`].filter(Boolean).join(' · ') || '—'} />
+                <p className="mt-2 text-[12px] text-fg-3">A detecção do sistema não confirma qual GPU executa o jogo. O Performance Lab registra o renderizador informado pela captura quando identificável.</p>
               </>
             ) : (
               <InfoRow k="Perfil" v="Carregando…" />

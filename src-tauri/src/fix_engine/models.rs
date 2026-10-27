@@ -62,6 +62,24 @@ pub enum RecipeAction {
     AddLaunchArgs { args: Vec<String> },
     /// Arquivo de texto relativo à pasta de instalação do jogo.
     WriteGameFile { path: String, content: String },
+    /// Download/staging/verification are mandatory parts of this one action.
+    InstallArtifact {
+        artifact: Box<crate::fixes::models::ArtifactCandidate>,
+    },
+    /// Literal edits of an exact known original. Never regex or executable code.
+    PatchKnownConfig {
+        path: String,
+        #[serde(rename = "expectedSha256")]
+        expected_sha256: String,
+        replacements: Vec<ConfigReplacement>,
+    },
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ConfigReplacement {
+    pub find: String,
+    pub replace: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
@@ -91,6 +109,8 @@ pub struct Review {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Recipe {
+    #[serde(default)]
+    pub hardware: crate::system::context::HardwareRequirements,
     pub schema: u32,
     pub id: String,
     pub version: String,
@@ -242,6 +262,12 @@ pub struct PlannedChange {
 #[serde(rename_all = "camelCase")]
 pub struct FixPlan {
     #[serde(default)]
+    pub artifacts: Vec<crate::fixes::models::ArtifactCandidate>,
+    #[serde(default)]
+    pub environment: Option<crate::system::context::EnvironmentContext>,
+    #[serde(default)]
+    pub hardware_match: Option<crate::system::context::HardwareMatch>,
+    #[serde(default)]
     pub performance_warnings: Vec<String>,
     pub plan_id: String,
     pub fingerprint: String,
@@ -306,6 +332,10 @@ pub enum Step {
     },
     #[serde(rename_all = "camelCase")]
     GameFile {
+        #[serde(default)]
+        artifact: Option<Box<crate::fixes::models::ArtifactCandidate>>,
+        #[serde(default)]
+        identity: Option<super::confined::FileIdentity>,
         root: PathBuf,
         rel: String,
         target: PathBuf,
@@ -327,6 +357,9 @@ impl Step {
 #[serde(rename_all = "kebab-case")]
 pub enum OpState {
     Checking,
+    Downloading,
+    VerifyingArtifacts,
+    Cancelled,
     BackingUp,
     Applying,
     Verifying,
@@ -345,6 +378,8 @@ impl OpState {
         matches!(
             self,
             OpState::Checking
+                | OpState::Downloading
+                | OpState::VerifyingArtifacts
                 | OpState::BackingUp
                 | OpState::Applying
                 | OpState::Verifying
@@ -369,6 +404,7 @@ pub struct BackupRef {
 pub enum StepStatus {
     Pending,
     BackedUp,
+    Writing,
     Written,
     Verified,
     Reverted,
@@ -411,6 +447,14 @@ pub struct Pending {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Operation {
+    /// Concurrent content retained outside the normal backup sequence needs
+    /// manual review; presence checks alone must never dismiss that state.
+    #[serde(default)]
+    pub manual_recovery_required: bool,
+    #[serde(default)]
+    pub artifacts: Vec<crate::fixes::models::ArtifactCandidate>,
+    #[serde(default)]
+    pub artifact_progress: Option<ArtifactProgress>,
     /// Receita exata utilizada. Ausente em operações legadas; nunca inferida
     /// retroativamente a partir do catálogo atual.
     #[serde(default)]
@@ -438,6 +482,14 @@ pub struct Operation {
     pub recipe_trust: Option<Trust>,
     #[serde(default)]
     pub finding_ids: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct ArtifactProgress {
+    pub downloaded_bytes: u64,
+    pub total_bytes: Option<u64>,
+    pub asset_name: String,
 }
 
 impl Operation {

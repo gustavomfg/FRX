@@ -205,7 +205,7 @@ pub fn rank(i: Input<'_>) -> Ranking {
     let mut performance_risks: Vec<RankEntry> = Vec::new();
 
     for p in i.packs.iter().filter(|p| p.kind != PackKind::Baseline) {
-        if p.id != super::benchmark::pack_id(&p.app_id, &p.env)
+        if p.id != super::benchmark::pack_id_with_files(&p.app_id, &p.env, &p.file_fixes)
             || !i.baseline_id.starts_with(&format!("pack.{}.", p.app_id))
         {
             continue;

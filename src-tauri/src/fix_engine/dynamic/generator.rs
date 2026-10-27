@@ -84,6 +84,7 @@ pub fn build(i: Input<'_>) -> Recipe {
         .filter_map(|p| p.published_at.clone())
         .max();
     Recipe {
+        hardware: i.finding.requirements.hardware.clone(),
         schema: RECIPE_SCHEMA,
         id,
         version: GENERATOR_VERSION.into(),
@@ -136,5 +137,24 @@ pub fn build(i: Input<'_>) -> Recipe {
             provenance: i.provenance,
             discovered_at,
         }),
+    }
+}
+
+pub fn artifact_recipe(f: &FixFinding, app: &str, provenance: Vec<Provenance>) -> Recipe {
+    let hash = sha256_hex(&serde_json::to_vec(&(app, &f.artifacts)).unwrap_or_default());
+    let mut hardware = f.requirements.hardware.clone();
+    if hardware.gpu_vendor.is_none() {
+        hardware.gpu_vendor = f.requirements.gpu_vendor;
+    }
+    Recipe{
+        hardware,schema:RECIPE_SCHEMA,id:format!("gen.{app}.{}",&hash[..16]),version:GENERATOR_VERSION.into(),trust:Trust::Generated,
+        title:cut(f.title.clone(),120),summary:cut(format!("Baixa e instala {} artefato(s) de configuração para este jogo.",f.artifacts.len()),400),
+        description:"Gerada de metadados e instruções explícitas do publicador. A origem e o SHA-256 não garantem conteúdo benigno. A confirmação autoriza somente os destinos da prévia.".into(),
+        category:f.category,purpose:Purpose::Compatibility,risk:Risk::Moderate,
+        scope:Scope{app_ids:vec![app.into()],requires_proton:false,gpu_vendor:f.requirements.gpu_vendor},
+        actions:f.artifacts.iter().cloned().map(|artifact|RecipeAction::InstallArtifact{artifact:Box::new(artifact)}).collect(),already_included_by_protonfixes:false,
+        conflicts_with:vec![],related_keys:vec![],effects:vec!["Instala somente os arquivos selecionados nos destinos relativos à instalação detectada.".into()],side_effects:vec!["Pode alterar o comportamento do jogo. Uma atualização Steam pode sobrescrever a correção; não há reaplicação automática.".into()],
+        sources:f.sources.iter().take(8).map(|s|RecipeSource{label:s.label.clone(),url:s.url.clone()}).collect(),review:None,pack:None,
+        generated:Some(GeneratedInfo{game_app_id:Some(app.into()),performance_evidence:Default::default(),generator_version:GENERATOR_VERSION.into(),rules_version:RULES_VERSION.into(),interpreter:"publisher-artifact-metadata".into(),finding_ids:vec![f.id.clone()],evidence:EvidenceLevel::Documented,evidence_note:"Publicador, versão, digest e destinos identificados; nenhuma melhoria de FPS foi medida por essa identificação.".into(),provenance,discovered_at:f.published_at.clone()}),
     }
 }

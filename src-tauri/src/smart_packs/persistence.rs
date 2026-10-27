@@ -69,7 +69,7 @@ fn signature(r: &Ranking) -> Vec<(String, Option<u32>, Tier, Outcome)> {
 /// never returned as executable pack pointers.
 fn belongs(app_id: &str, pack: &SmartPack) -> bool {
     pack.app_id == app_id
-        && pack.id == super::benchmark::pack_id(app_id, &pack.env)
+        && pack.id == super::benchmark::pack_id_with_files(app_id, &pack.env, &pack.file_fixes)
         && pack.members.iter().all(|m| {
             !m.recipe_id.starts_with("pack.")
                 && (!m.recipe_id.starts_with("gen.")

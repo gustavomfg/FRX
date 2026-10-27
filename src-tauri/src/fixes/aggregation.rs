@@ -197,6 +197,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             performance_evidence.reports.push(report.clone());
         }
         out.push(FixFinding {
+            artifacts: vec![],
             scope,
             performance_evidence,
             id: finding_id("github", app_id, &key),
@@ -211,6 +212,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             // cannot lose its provenance while positive claims remain valid.
             sources: ms.iter().map(|m| m.source.clone()).collect(),
             requirements: Requirements {
+                hardware: Default::default(),
                 gpu_vendor: gpu,
                 proton_versions: versions,
                 game_version: None,
@@ -473,6 +475,7 @@ mod tests {
                 );
                 mention.source.published_at = Some(format!("2026-10-{:02}T00:00:00Z", 27 - i));
                 mention.performance_reports = vec![PerformanceReport {
+                    hardware: Default::default(),
                     app_id: "1".into(),
                     action_key: "env:PROTON_NO_D3D11=1".into(),
                     source_url: url,

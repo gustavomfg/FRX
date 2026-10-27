@@ -254,6 +254,9 @@ pub struct Series {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Conditions {
+    /// Inventory and observed rendering device are deliberately distinct.
+    #[serde(default)]
+    pub environment: Option<crate::system::context::EnvironmentContext>,
     /// Build Steam observado na captura, quando disponível. Legados ficam
     /// desconhecidos; o jogo aberto nunca preenche uma sessão antiga.
     #[serde(default)]

@@ -3,9 +3,9 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Copy, Serialize, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "lowercase")]
 pub enum GpuVendor {
     Nvidia,
@@ -25,9 +25,17 @@ impl GpuVendor {
     }
 }
 
-#[derive(Debug, Clone, Serialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct GpuInfo {
+    /// Physical PCI slot, when sysfs exposes it. Equal models can be distinct GPUs.
+    #[serde(default)]
+    pub pci_address: Option<String>,
+    /// Chip/family label from the local pci.ids entry; never inferred from FPS.
+    #[serde(default)]
+    pub gpu_family: Option<String>,
+    #[serde(default)]
+    pub vram_bytes: Option<u64>,
     pub vendor: GpuVendor,
     pub vendor_id: String,
     pub device_id: String,
@@ -92,6 +100,16 @@ impl PciIds {
     }
 }
 
+fn valid_pci_address(n: &str) -> bool {
+    n.len() == 12
+        && n.as_bytes()[4] == b':'
+        && n.as_bytes()[7] == b':'
+        && n.as_bytes()[10] == b'.'
+        && n.bytes()
+            .enumerate()
+            .all(|(i, c)| [4, 7, 10].contains(&i) || c.is_ascii_hexdigit())
+}
+
 fn read_hex(p: &Path) -> Option<u16> {
     let s = std::fs::read_to_string(p).ok()?;
     u16::from_str_radix(s.trim().trim_start_matches("0x"), 16).ok()
@@ -139,6 +157,7 @@ pub fn gpus(drm: &Path, ids: &PciIds) -> Vec<GpuInfo> {
         .collect();
     cards.sort();
     let mut out: Vec<GpuInfo> = Vec::new();
+    let mut seen_devices = std::collections::HashSet::new();
     for card in cards {
         let dev = card.join("device");
         let (Some(vendor), Some(device)) =
@@ -146,10 +165,41 @@ pub fn gpus(drm: &Path, ids: &PciIds) -> Vec<GpuInfo> {
         else {
             continue;
         };
+        let physical = std::fs::canonicalize(&dev).unwrap_or_else(|_| dev.clone());
+        if !seen_devices.insert(physical.clone()) {
+            continue;
+        }
+        let pci_address = std::fs::read_to_string(dev.join("uevent"))
+            .ok()
+            .and_then(|v| {
+                v.lines().find_map(|l| {
+                    l.strip_prefix("PCI_SLOT_NAME=")
+                        .filter(|v| valid_pci_address(v))
+                        .map(str::to_owned)
+                })
+            })
+            .or_else(|| {
+                physical
+                    .file_name()
+                    .and_then(|n| n.to_str())
+                    .filter(|n| valid_pci_address(n))
+                    .map(str::to_owned)
+            });
+        let raw_name = ids.device(vendor, device);
+        let gpu_family = raw_name
+            .and_then(|n| n.split_once('[').map(|(f, _)| f.trim().to_owned()))
+            .filter(|n| !n.is_empty());
+        let vram_bytes = std::fs::read_to_string(dev.join("mem_info_vram_total"))
+            .ok()
+            .and_then(|v| v.trim().parse().ok())
+            .filter(|v| *v > 0);
         let driver = std::fs::read_link(dev.join("driver"))
             .ok()
             .and_then(|p| p.file_name().map(|n| n.to_string_lossy().into_owned()));
         let info = GpuInfo {
+            pci_address,
+            gpu_family,
+            vram_bytes,
             vendor: GpuVendor::from_pci(vendor),
             vendor_id: format!("{vendor:04x}"),
             device_id: format!("{device:04x}"),
@@ -160,13 +210,7 @@ pub fn gpus(drm: &Path, ids: &PciIds) -> Vec<GpuInfo> {
                 .map(|s| s.trim() == "1")
                 .unwrap_or(false),
         };
-        if !out.iter().any(|g| {
-            g.vendor_id == info.vendor_id
-                && g.device_id == info.device_id
-                && g.boot_vga == info.boot_vga
-        }) {
-            out.push(info);
-        }
+        out.push(info);
     }
     out
 }
@@ -241,5 +285,33 @@ mod tests {
         let mut with_driver = g.clone();
         with_driver[1].driver = Some("nvidia".into());
         assert_eq!(primary(&with_driver).unwrap().vendor, GpuVendor::Nvidia);
+    }
+}
+
+#[cfg(test)]
+mod precise_identity_tests {
+    use super::*;
+
+    #[test]
+    fn identical_models_remain_distinct_and_optional_pci_memory_family_are_read() {
+        let tmp = tempfile::tempdir().unwrap();
+        for (n, slot) in [(0, "0000:01:00.0"), (1, "0000:02:00.0")] {
+            let d = tmp.path().join(format!("card{n}/device"));
+            std::fs::create_dir_all(&d).unwrap();
+            std::fs::write(d.join("vendor"), "0x10de").unwrap();
+            std::fs::write(d.join("device"), "0x2882").unwrap();
+            std::fs::write(d.join("uevent"), format!("PCI_SLOT_NAME={slot}\n")).unwrap();
+            std::fs::write(d.join("mem_info_vram_total"), "8589934592").unwrap();
+        }
+        let ids = PciIds::parse(
+            "10de  NVIDIA\n\t2882  AD107 [GeForce RTX 4060]\n",
+            &[0x10de],
+        );
+        let devices = gpus(tmp.path(), &ids);
+        assert_eq!(devices.len(), 2, "a pair of equal boards is not one device");
+        assert_ne!(devices[0].pci_address, devices[1].pci_address);
+        assert_eq!(devices[0].gpu_family.as_deref(), Some("AD107"));
+        assert_eq!(devices[0].vram_bytes, Some(8589934592));
+        assert_eq!(devices[0].name.as_deref(), Some("GeForce RTX 4060"));
     }
 }

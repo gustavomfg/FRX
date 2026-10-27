@@ -1,5 +1,6 @@
 /** Fix Engine — espelho de `src-tauri/src/fix_engine/models.rs`. */
-import type { FixAction, FixCategory, GpuReq, ProviderId } from './fixes'
+import type { ArtifactCandidate, FixAction, FixCategory, GpuReq, ProviderId } from './fixes'
+import type { EnvironmentContext, HardwareMatch, HardwareRequirements } from './steam'
 
 export type Trust = 'discovered' | 'candidate' | 'reviewed' | 'unsupported' | 'revoked' | 'generated' | 'pack'
 export type Purpose = 'diagnostic' | 'compatibility' | 'performance'
@@ -9,8 +10,11 @@ export type RecipeAction =
   | { type: 'set_launch_env'; key: string; value: string }
   | { type: 'add_launch_args'; args: string[] }
   | { type: 'write_game_file'; path: string; content: string }
+  | { type: 'install_artifact'; artifact: ArtifactCandidate }
+  | { type: 'patch_known_config'; path: string; expectedSha256: string; replacements: { find: string; replace: string }[] }
 
 export interface Recipe {
+  hardware?: HardwareRequirements
   schema: number
   id: string
   version: string
@@ -120,6 +124,9 @@ export interface PlannedChange {
 }
 
 export interface FixPlan {
+  artifacts?: ArtifactCandidate[]
+  environment?: EnvironmentContext | null
+  hardwareMatch?: HardwareMatch | null
   performanceWarnings?: string[]
   planId: string
   fingerprint: string
@@ -151,6 +158,8 @@ export interface FixPlan {
 
 export type OpState =
   | 'checking'
+  | 'downloading'
+  | 'verifying-artifacts'
   | 'backing-up'
   | 'applying'
   | 'verifying'
@@ -161,6 +170,7 @@ export type OpState =
   | 'rolling-back'
   | 'rolled-back'
   | 'recovery-required'
+  | 'cancelled'
 
 export interface EnvWrite {
   key: string
@@ -170,7 +180,7 @@ export interface EnvWrite {
 
 export type Step =
   | { type: 'launch-options'; config: string; appId: string; fileSha: string; before: string | null; after: string; env: EnvWrite[]; args: string[] }
-  | { type: 'game-file'; root: string; rel: string; target: string; beforeSha: string | null; content: string }
+  | { type: 'game-file'; root: string; rel: string; target: string; beforeSha: string | null; content: string; artifact?: ArtifactCandidate | null; identity?: { rootDev: number; rootIno: number; parentDev: number; parentIno: number } | null }
 
 export interface BackupRef {
   path: string
@@ -182,13 +192,16 @@ export interface BackupRef {
 
 export interface StepRecord {
   step: Step
-  status: 'pending' | 'backed-up' | 'written' | 'verified' | 'reverted'
+  status: 'pending' | 'writing' | 'backed-up' | 'written' | 'verified' | 'reverted'
   backup: BackupRef | null
   afterSha: string | null
   rollbackBackup: BackupRef | null
 }
 
 export interface Operation {
+  manualRecoveryRequired?: boolean
+  artifacts?: ArtifactCandidate[]
+  artifactProgress?: { downloadedBytes: number; totalBytes?: number | null; assetName: string } | null
   recipeFingerprint?: string | null
   schema: number
   id: string

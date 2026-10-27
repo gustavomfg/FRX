@@ -30,6 +30,8 @@ pub const REGISTRY_SCHEMA: u32 = 1;
 #[serde(rename_all = "camelCase")]
 pub struct Inputs {
     #[serde(default)]
+    pub environment_fingerprint: Option<String>,
+    #[serde(default)]
     pub game_build_id: Option<String>,
     pub finding: String,
     pub tool: Option<String>,
@@ -44,6 +46,9 @@ impl Inputs {
     /// O que mudou em relação à análise anterior (para explicar a reavaliação).
     fn diff(&self, old: &Inputs) -> Vec<&'static str> {
         let mut v = Vec::new();
+        if self.environment_fingerprint != old.environment_fingerprint {
+            v.push("o contexto de hardware/software");
+        }
         if self.game_build_id != old.game_build_id {
             v.push("o build do jogo");
         }
@@ -71,6 +76,7 @@ impl Inputs {
 
 /// Contexto do sistema que entra nas `Inputs` de cada descoberta.
 pub struct System<'a> {
+    pub environment: Option<&'a crate::system::context::EnvironmentContext>,
     pub game_build_id: Option<&'a str>,
     pub tool: Option<&'a str>,
     pub gpu: Option<GpuReq>,
@@ -80,6 +86,9 @@ pub struct System<'a> {
 
 pub fn inputs(f: &FixFinding, sys: &System<'_>) -> Inputs {
     Inputs {
+        environment_fingerprint: sys
+            .environment
+            .map(|env| sha256_hex(&serde_json::to_vec(env).unwrap_or_default())),
         game_build_id: sys.game_build_id.map(str::to_owned),
         finding: sha256_hex(&serde_json::to_vec(f).unwrap_or_default())[..32].to_owned(),
         tool: sys.tool.map(str::to_owned),
@@ -214,5 +223,56 @@ impl Registry {
             atomic_write(&path, &json, 0o600)?;
         }
         Ok((entries, regenerated))
+    }
+}
+
+#[cfg(test)]
+mod hardware_tests {
+    use super::*;
+    use crate::system::context::tests::{env, gpu};
+    use crate::system::GpuVendor;
+    #[test]
+    fn hardware_model_driver_and_selection_changes_invalidate_generated_cache() {
+        let f = crate::fix_engine::dynamic::tests::finding(
+            "synthetic-cache",
+            crate::fixes::models::ActionKind::Env,
+            "PROTON_NO_D3D11=1",
+            2,
+            0,
+        );
+        let a = env(gpu(GpuVendor::Nvidia, "GeForce RTX 4060", "2882", "580.0"));
+        let input = |environment| {
+            inputs(
+                &f,
+                &System {
+                    environment: Some(environment),
+                    game_build_id: None,
+                    tool: None,
+                    gpu: None,
+                    driver: None,
+                    catalog: "synthetic",
+                },
+            )
+        };
+        let before = input(&a);
+        let mut driver = a.clone();
+        driver.detected_gpus[0].driver_version = Some("590.0".into());
+        driver.selected_gpu.as_mut().unwrap().driver_version = Some("590.0".into());
+        assert_ne!(
+            before.environment_fingerprint,
+            input(&driver).environment_fingerprint
+        );
+        let mut board = a.clone();
+        board.selected_gpu.as_mut().unwrap().device_id = "2883".into();
+        assert_ne!(
+            before.environment_fingerprint,
+            input(&board).environment_fingerprint
+        );
+        let mut unknown = a.clone();
+        unknown.selected_gpu = None;
+        assert_ne!(
+            before.environment_fingerprint,
+            input(&unknown).environment_fingerprint
+        );
     }
 }

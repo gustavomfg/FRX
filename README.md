@@ -8,9 +8,9 @@
 
 **FRX** é um gerenciador de compatibilidade e otimização de jogos para Linux (Steam, Proton e Wine).
 
-**Versão 0.4.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções conhecidas, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine** — receitas revisadas do catálogo local ou **geradas automaticamente** a partir das descobertas, quando o FRX reconhece e valida uma ação suportada: prévia calculada no Rust, backup verificado, gravação atômica, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros.
+**Versão 0.4.0:** no app desktop, o FRX detecta os jogos instalados pela Steam, pesquisa correções específicas de **jogo, GPU, driver e Proton**, mede o desempenho com logs reais do **MangoHud** e **aplica correções** pelo **Fix Engine**. Receitas revisadas ou geradas a partir das descobertas usam prévia calculada no Rust, backups verificados, escrita atômica por arquivo, conferência no disco, histórico persistente e rollback que preserva mudanças de terceiros. A classe inicial de correções externas permite baixar e instalar configurações UTF-8 com origem, integridade, destino e requisitos verificáveis.
 
-> O gerador dinâmico transforma descobertas em receitas sem cadastro manual quando a ação é uma variável de ambiente conhecida e reversível. Winetricks, DLLs, registro, arquivos do jogo e programas extras ficam como “requer validação adicional”, com o motivo. Nenhum script de terceiros é executado, nada é baixado para execução e nada pede sudo. Com a Steam aberta, o FRX não grava nada: mostra a linha para você colar e confere depois. No navegador (`npm run dev:web`) o app inteiro roda em modo demonstrativo, com dados fictícios e aplicação simulada. As duas fontes de dados nunca se misturam.
+> O gerador reconhece variáveis permitidas e arquivos de configuração suportados publicados por fontes reconhecidas. Downloads exigem confirmação e passam por staging e validação antes da instalação. DLLs, executáveis, scripts, Winetricks, registro e procedimentos incompletos permanecem em revisão, com o motivo. Nenhum script de terceiros é executado e não há sudo automático. Com a Steam aberta, alterações só de opções de inicialização podem seguir o passo manual; operações por arquivo aguardam seu fechamento. No navegador (`npm run dev:web`), os dados e as aplicações são demonstrativos.
 
 ## Prévia
 
@@ -25,7 +25,7 @@ O FRX é um **aplicativo desktop Linux** feito com **Tauri 2** (Rust) e uma inte
 ### Dependências de compilação
 
 - Node 20.19+ ou 22.12+ (testado com Node 24) e npm
-- Rust estável (testado com 1.97) via [rustup](https://rustup.rs)
+- Rust **1.88+** (testado com 1.97) via [rustup](https://rustup.rs); a dependência de ZIP é `zip` 9.1.1
 - Bibliotecas do sistema para o WebKitGTK:
 
 | Distribuição | Comando |
@@ -51,7 +51,7 @@ npm run build:web      # verifica o TypeScript e compila a interface
 npm run typecheck
 npm test               # testes do front-end (Vitest)
 (cd src-tauri && cargo test)            # testes do Rust (com fixtures, sem rede)
-(cd src-tauri && cargo fmt --check && cargo clippy --all-targets)
+(cd src-tauri && cargo fmt --check && cargo clippy --all-targets -- -D warnings)
 ```
 
 Onde ficam os artefatos:
@@ -94,6 +94,7 @@ Na build de release, a interface (`dist/`) é **embutida no binário** e servida
 | `analyze_fix_findings` | Gerador dinâmico: categoria, motivo e receita gerada de cada descoberta (não grava no jogo) |
 | `get_smart_packs`, `compare_smart_packs`, `plan_smart_pack_switch`, `declare_benchmark_pack`, `evaluate_benchmark_session` | Smart Packs: composição, ranking por perfil, comparação, troca passo a passo e declaração de sessões antigas |
 | `prepare_fix_plan`, `apply_fix_plan` | Prévia (dry-run) e aplicação do plano confirmado: só `planId` + `fingerprint` |
+| `cancel_fix_operation` | Cancela a preparação/download antes da fase de escrita; não abandona uma transação em gravação |
 | `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | Histórico, estado real conferido no disco e passos manuais |
 | `prepare_fix_rollback`, `rollback_fix` | Prévia e execução do rollback |
 
@@ -140,8 +141,14 @@ Depois de capturar, a configuração própria do FRX volta ao repouso, sem grava
   - as ferramentas personalizadas vêm de `compatibilitytools.d` (do usuário e do sistema, como em `/usr/share/steam/compatibilitytools.d`);
   - quando não dá para saber, o valor fica `null`; nada é inventado.
 - **Tempo de jogo:** lido do `localconfig.vdf` do último usuário que entrou na Steam.
-- **Hardware:** vem de `/sys/class/drm` (fabricante, modelo via `pci.ids`, módulo do driver e versão), `/proc` e `/etc/os-release`. Funciona com qualquer fabricante, sem `nvidia-smi` e sem sudo.
+- **Hardware:** vem de `/sys/class/drm` (fabricante, IDs/endereço PCI, modelo e chip via `pci.ids`, módulo/versão do driver e VRAM quando disponíveis), `/proc` e `/etc/os-release`. Placas físicas do mesmo modelo permanecem distintas. Funciona com qualquer fabricante, sem `nvidia-smi` e sem sudo.
 - **Capas:** primeiro o cache local da própria Steam (`appcache/librarycache`), depois a CDN pública da Steam. Ficam em `~/.cache/io.frx.FRX/art`. Um 404 é lembrado por 7 dias, e sem rede aparece a arte pixelada provisória.
+
+### Contexto de hardware e software
+
+O inventário de GPUs é separado da GPU usada pelo jogo. Em sistemas com múltiplas placas, o FRX não transforma a GPU provável da interface em seleção confirmada. Uma captura assistida só associa o renderer do MangoHud a um dispositivo PCI quando há uma correspondência única; duas placas idênticas podem continuar indistinguíveis. Drivers Vulkan instalados também não comprovam qual driver está ativo no jogo.
+
+Requisitos conhecidos podem restringir fabricante, dispositivo PCI, modelo, versão do driver, Proton e arquitetura. Dados opcionais ausentes permanecem desconhecidos. Relatos comunitários e benchmarks só influenciam o contexto correspondente: uma melhoria na RTX 4060 não promove automaticamente a mesma ação numa Radeon ou em outro jogo. Alterações de driver, Proton e artefato reavaliam cache e comparabilidade, preservando o histórico. Detalhes: [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
 
 ## Descoberta de correções
 
@@ -151,7 +158,7 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 | --- | --- | --- |
 | **UMU-Protonfixes** | Ativo | Baixa `gamefixes-steam/<appid>.py` e `gamefixes-umu/umu-<appid>.py` **como texto** e resolve links simbólicos do git. Faz uma análise estática limitada (`pyscan.rs`): docstrings, chamadas `util.*` com argumentos literais e `os.environ`. **Nunca executa nem importa o script.** O que não é reconhecido marca a análise como parcial ou não verificada. |
 | **UMU Database** | Ativo | CSV público, usado para confirmar o UMU ID e os nomes do jogo em outras lojas. |
-| **GitHub** | Ativo | API REST pública. Busca issues com o **AppID no título** em `ValveSoftware/Proton`, `Open-Wine-Components/umu-protonfixes` e `GloriousEggroll/proton-ge-custom`, lê os comentários mais recentes e as notas de versão oficiais. Usa User-Agent próprio, ETag, timeouts, limite de tamanho e bloqueio temporário ao atingir o rate limit (10 buscas/min e 60 consultas/h sem token). `FRX_GITHUB_TOKEN` no ambiente aumenta o limite; o token nunca vai para o front-end. |
+| **GitHub** | Ativo | API REST pública. Busca por **AppID** e faz uma busca adicional limitada por nome nos trackers integrados; a consulta sozinha nunca confirma a identidade do jogo. Lê comentários, notas de versão e metadados de Releases referenciadas. Conserva a fonte da recomendação separada da origem do arquivo. Usa User-Agent próprio, ETag, timeouts, limites e bloqueio temporário por rate limit. `FRX_GITHUB_TOKEN` aumenta o limite; o token nunca vai para o front-end nem acompanha downloads de artefatos. |
 | **ProtonDB** | **Desativado** | Não há API pública oficial. O FRX não usa endpoints internos nem raspa o site; só abre a página do jogo no navegador. |
 
 **Graus de confiança** (nunca atribuídos por popularidade):
@@ -163,13 +170,13 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 | **Relato da comunidade** | O mesmo ajuste citado de forma favorável em pelo menos 2 comentários distintos, com mais menções a favor do que contra. |
 | **Não verificada / experimental** | Menção única, contestada, ou conteúdo que não pôde ser interpretado. |
 
-**Compatibilidade** — cada descoberta é comparada com a GPU principal e com a ferramenta do jogo:
+**Compatibilidade** — cada descoberta é comparada com os requisitos conhecidos do jogo, hardware e ferramenta:
 
 | Estado | Significado |
 | --- | --- |
-| **Compatível** | Nada na fonte impede o uso no seu hardware. |
-| **Incompatível** | A fonte é exclusiva de outro fabricante de GPU. |
-| **Desconhecida** | Faltam dados para decidir; nunca é escondida por isso. |
+| **Compatível** | Os requisitos declarados correspondem aos dados disponíveis; isso não confirma ganho de FPS. |
+| **Incompatível** | Um requisito conhecido contradiz o ambiente, como fabricante, modelo, driver ou Proton. |
+| **Desconhecida** | Faltam dados essenciais, inclusive a GPU de execução em um sistema híbrido; o motivo permanece visível. |
 | **Já incluída** | A ferramenta configurada (GE-Proton, proton-cachyos…) já traz o mesmo arquivo do UMU-Protonfixes. |
 
 **Agrupamento:** menções da comunidade só se juntam quando citam exatamente o mesmo ajuste normalizado (mesma variável e valor, mesmo componente ou mesma opção de inicialização). Se esse ajuste também está num script do UMU-Protonfixes, as menções viram fontes adicionais dele. Toda origem continua listada.
@@ -185,21 +192,30 @@ Pelas descobertas: em **Fix Packs → Descobertas** ou na página do jogo, cada 
 
 1. Abra **Fix Packs → Receitas do FRX** (ou o botão **Ver receitas para este jogo** na página do jogo) e escolha o jogo.
 2. Cada receita mostra o estado calculado agora pelo Rust: **Aplicável**, **Aplicável · passo manual** (Steam aberta), **Conflito**, **Incompatível**, **Já aplicada**, **Já incluída no Proton** ou **Só consulta** (candidata ou revogada).
-3. **Revisar e aplicar** abre a prévia: a linha atual e a nova, as verificações e onde fica o backup. Nada foi gravado até aqui.
-4. Confirme. Com a Steam fechada, o Pim mostra as etapas reais: conferir, backup, gravar e verificar. Com a Steam aberta, copie a linha, cole nas opções de inicialização do jogo, feche a Steam e clique em **Conferir agora**.
+3. **Revisar e aplicar** abre a prévia: opções de inicialização, arquivos afetados, origem/versão do download quando houver, requisitos, riscos e backups. Nada foi gravado até aqui.
+4. Confirme. Com a Steam e o jogo fechados, o Pim mostra as etapas reais: baixar/verificar quando necessário, criar backups, gravar e conferir. O passo manual com a Steam aberta é exclusivo das opções de inicialização; operações por arquivo exigem o fechamento pelo usuário.
 5. Em **Histórico**, cada operação mostra etapas, linhas antes/depois, backup (com SHA-256) e o botão **Desfazer**. O rollback remove só o que a correção adicionou e recusa sobrescrever mudanças feitas por outros programas.
 
 Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs/FIX-ENGINE.md). Validação desta versão: [`docs/VALIDACAO-v0.4.0.md`](docs/VALIDACAO-v0.4.0.md).
 
+### Correções que precisam de arquivos externos
+
+O FRX identifica assets de GitHub Releases ligados pelas fontes integradas. A aplicação inicial aceita **INI, CFG, CONF, JSON e TXT em UTF-8**, diretamente ou como membros explicitamente selecionados de um ZIP. O publicador precisa fornecer vínculo com o AppID, destinos relativos e digests suficientes; substituições também exigem o hash do original esperado. Instruções estritas ou um manifesto tipado da release podem gerar a receita sem cadastrar JSON por jogo no FRX. Prosa ambígua ou procedimentos com etapas desconhecidas ficam em revisão.
+
+Após a prévia e a confirmação, o mesmo Fix Engine baixa para staging privado, revalida os metadados atuais, verifica SHA-256 e conteúdo, cria backups e instala somente os arquivos autorizados. ZIPs nunca são extraídos diretamente na instalação. O histórico permite desfazer após reiniciar o FRX; alterações externas ou uma atualização da Steam podem exigir revisão em vez de sobrescrita. Não há reaplicação automática após atualização.
+
+Origem reconhecida e checksum não garantem que um arquivo seja benigno ou mais rápido. DLLs, executáveis, scripts, TAR, XML e procedimentos que alteram prefixos/Proton **não têm instalação automatizada nesta etapa**. O patch NVIDIA/PhysX histórico do Batman ainda não foi identificado com segurança. Veja [Automatic File Fix Engine](docs/AUTOMATIC-FILE-FIX-ENGINE.md) e a [investigação Batman/PhysX](docs/BATMAN-PHYSX-INVESTIGATION.md).
+
 ## Smart Packs
 
-As descobertas, receitas, pacotes e evidências mantêm seu vínculo com o **Steam AppID**. Uma melhoria ou regressão em um jogo não altera o ranking de outro. Documentação técnica geral explica riscos; somente evidência específica e medições locais comparáveis sustentam a avaliação contextual. Veja [Game-Specific Fix Intelligence](docs/GAME-SPECIFIC-FIX-INTELLIGENCE.md).
+As descobertas, receitas, pacotes e evidências mantêm seu vínculo com o **Steam AppID e o ambiente de hardware/software**. Uma melhoria ou regressão em outro jogo, GPU ou driver incompatível não altera o ranking atual. Documentação técnica geral explica riscos; somente evidência pertinente e medições locais comparáveis sustentam a avaliação contextual. Veja [Game-Specific Fix Intelligence](docs/GAME-SPECIFIC-FIX-INTELLIGENCE.md) e [Hardware-Specific Fix Intelligence](docs/HARDWARE-FIX-INTELLIGENCE.md).
 
 Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX monta combinações das correções aplicáveis ao jogo, detecta conflitos e redundâncias e classifica os pacotes pelo que foi **medido** no Performance Lab. A classificação muda conforme o perfil: Máximo desempenho, Equilibrado ou Máxima compatibilidade.
 
 - O FRX separa automaticamente alternativas com **risco de perda de desempenho**, como WineD3D e desativação de sincronizações. O aviso aparece antes de qualquer teste; não é uma regressão universal. Relatos confiáveis do AppID selecionado podem justificar um candidato, preservando o aviso.
 - Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor medido. O FRX não transforma relatos de compatibilidade em promessa de FPS e aproveita medições existentes quando disponíveis.
-- Pacotes de várias receitas são aplicados pelo Fix Engine como **uma** operação, com um backup e um rollback.
+- Pacotes podem combinar variáveis permitidas e arquivos suportados. São aplicados pelo Fix Engine como **uma** operação, com backups por arquivo, journal e rollback. Um artefato sem validação impede a aplicação do pacote inteiro; a escrita atômica de cada arquivo não implica atomicidade de toda a transação.
+- A identidade dos arquivos instalados inclui destino, hash e versão/origem do artefato. Atualizar um patch não reutiliza silenciosamente a evidência de outra configuração.
 - Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.
 - Cada captura assistida registra o pacote ativo. Sessões antigas podem ser declaradas.
 - **Testar desempenho** guia referência → aplicar → capturar e, ao fim da captura, compara sozinho com a referência: melhoria, regressão, sem diferença ou inconclusivo, marcado como *preliminar* enquanto houver poucas sessões. Com regressão, oferece restaurar a configuração anterior.
@@ -208,8 +224,8 @@ Detalhes: [`docs/SMART-PACKS.md`](docs/SMART-PACKS.md). Validação: [`docs/VALI
 
 ## Segurança
 
-- **Descoberta e Performance Lab:** nenhum script de terceiros, nenhum download de DLL, nenhuma alteração de prefixo ou de arquivos da Steam, e nenhum pedido de sudo. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout. O jogo só é aberto pela Steam quando o usuário pede.
-- **Fix Engine:** só escreve o que um plano confirmado descreve, de uma receita revisada ou gerada e revalidada pelo núcleo a partir do cache da pesquisa (nunca de dados enviados pela interface). Hoje, isso é apenas a opção `LaunchOptions` do jogo no `localconfig.vdf`, editada de forma posicional, com backup verificado, gravação atômica e verificação. As ações formam um conjunto fechado, sem comando genérico. Variáveis passam por uma allowlist explícita, e caminhos de arquivo ficam confinados à pasta do jogo, sem links simbólicos nem `..`. O FRX nunca encerra a Steam nem processos. Backups e diário ficam em `~/.local/share/io.frx.FRX/fix-engine/`, com permissão 0700.
+- **Descoberta e Performance Lab:** fontes são lidas como texto/metadados; não executam scripts de terceiros nem instalam DLLs. Prefixos e drivers não são alterados, e não há sudo automático. A detecção executa apenas `mangohud --version`, com argumentos explícitos e timeout. O jogo só é aberto pela Steam quando o usuário pede.
+- **Fix Engine:** escreve somente o plano confirmado e revalidado pelo núcleo: opções `LaunchOptions` do jogo e arquivos suportados dentro da instalação resolvida. Downloads exigem fonte reconhecida, release/asset identificados, SHA-256, requisitos compatíveis e destino documentado; o conteúdo é verificado antes da instalação. Variáveis passam por allowlist; ações são tipadas, sem shell genérico. Caminhos recusam escapes, links e alvos trocados desde a prévia. Backups e journal antecedem a escrita; cada arquivo usa substituição atômica, mas uma transação com vários arquivos pode exigir recuperação após falha. Rollback detecta divergências e não declara restauração parcial como concluída. O FRX nunca encerra a Steam nem processos. Backups e diário ficam em `~/.local/share/io.frx.FRX/fix-engine/`, com diretórios 0700.
 - Todo conteúdo da internet é tratado como não confiável:
   - o cliente HTTP só aceita HTTPS para uma lista fechada de hosts, inclusive em redirecionamentos, e limita o tamanho das respostas;
   - o JSON malformado é descartado;
@@ -235,16 +251,16 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 ```
 src-tauri/src/
   commands/                comandos Tauri: app, games, system, fixes, fix_engine, performance
-  fix_engine/              catalog, security (allowlist), planner, files (backup/escrita atômica),
-                           journal, models — aplicação, verificação, rollback e recuperação
+  fix_engine/              catalog, security (allowlist), planner, files, confined (destinos por FD),
+                           artifacts (download/staging), journal, models — aplicação e rollback
   performance/             parser, metrics, comparison, persistence, detection, capture, models
   steam/                   vdf (parser), discovery, libraries, manifests, compatibility, userdata,
                            launch_options (tokenizador compartilhado), localconfig (edição posicional),
                            processes (Steam/jogo abertos, só leitura)
 src-tauri/recipes/         catálogo local de receitas (JSON + manifesto SHA-256)
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
-    providers/             umu (protonfixes + database), github, protondb (desativado)
-  system/                  perfil e GPUs via /proc e /sys
+    providers/             umu (protonfixes + database), github, artifacts, protondb (desativado)
+  system/                  perfil e GPUs via /proc e /sys, context (requisitos e ambiente)
   cache/  art.rs  net.rs   cache em arquivos, capas, cliente HTTP restrito
 packaging/               ícone-fonte (SVG/PNG) e pacote Arch (PKGBUILD + .desktop)
 docs/assets/             captura da interface e animação do Pim para este README
@@ -293,7 +309,7 @@ src/
 | Biblioteca | **Real:** jogos da Steam detectados pelo Rust | 12 jogos fictícios |
 | Sistema | **Real:** /proc, /sys, os-release | Perfil fictício |
 | Capas | **Reais:** cache da Steam ou CDN pública, com cache local | Arte pixelada gerada |
-| Correções | **Descoberta real** (UMU-Protonfixes, UMU Database, GitHub); **receitas geradas** a partir delas quando a ação é reconhecida; **aplicação real** pelo Fix Engine, com backup e rollback | Fix Packs fictícios com aplicar e reverter simulados |
+| Correções | **Descoberta real** por AppID/hardware; **receitas geradas** para ações reconhecidas, incluindo configurações UTF-8 de Releases verificáveis; aplicação pelo Fix Engine, com backup e rollback | Fix Packs fictícios com aplicar e reverter simulados |
 | Performance Lab | **Real:** logs MangoHud, captura assistida, histórico e comparação | Demonstrativo |
 | Persistência | Cache local, benchmarks, diário e backups do Fix Engine no diretório de dados, e preferências | Só preferências (localStorage) |
 

@@ -118,14 +118,20 @@ pub fn evaluate(
         return done(e, EvalVerdict::NotComparable, "A sessão e o pacote não pertencem ao mesmo AppID; nenhum resultado é transportado entre jogos.".into());
     }
     e.pack_name = (c.name_of)(&cfg.pack_id).unwrap_or_else(|| {
-        if cfg.env.is_empty() {
+        if cfg.env.is_empty() && cfg.file_fixes.is_empty() {
             "Baseline — sem correções do FRX".into()
         } else {
-            cfg.env
+            let mut changes: Vec<String> = cfg
+                .env
                 .iter()
                 .map(|p| format!("{}={}", p.key, p.value))
-                .collect::<Vec<_>>()
-                .join(" ")
+                .collect();
+            changes.extend(
+                cfg.file_fixes
+                    .iter()
+                    .map(|f| format!("arquivo {}", f.target_path)),
+            );
+            changes.join(" · ")
         }
     });
     let Some(group) = c.grouped.measurements.get(&cfg.pack_id) else {

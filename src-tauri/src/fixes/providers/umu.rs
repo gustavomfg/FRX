@@ -112,6 +112,7 @@ pub async fn protonfixes<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> Provide
     }
 
     let mut findings = Vec::new();
+    let mut artifact_documents = Vec::new();
     for (mapping, path, content) in files {
         // Data do último commit do arquivo (opcional; consome cota da API).
         let commits_url =
@@ -142,8 +143,19 @@ pub async fn protonfixes<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> Provide
                 },
             );
         }
+        if let Some(source) = finding.sources.first() {
+            artifact_documents.push(super::artifacts::Document {
+                source: source.clone(),
+                scope: finding.scope.clone(),
+                text: content.clone(),
+            });
+        }
         findings.push(finding);
     }
+    let (artifact_findings, artifact_outcomes) =
+        super::artifacts::discover(ctx, q, &artifact_documents).await;
+    findings.extend(artifact_findings);
+    outcomes.extend(artifact_outcomes);
     let refs: Vec<&Outcome> = outcomes.iter().collect();
     ProviderResult {
         status: summarize(
@@ -263,6 +275,7 @@ pub fn build_finding(
 
     let (compatibility, note) = bundled_state(q, path);
     FixFinding {
+        artifacts: vec![],
         scope: if path == format!("gamefixes-steam/{}.py", q.app_id)
             || path == format!("gamefixes-umu/umu-{}.py", q.app_id)
         {
@@ -283,6 +296,7 @@ pub fn build_finding(
         actions: a.actions,
         sources,
         requirements: Requirements {
+            hardware: Default::default(),
             gpu_vendor: a.gpu,
             proton_versions: vec![],
             game_version: None,

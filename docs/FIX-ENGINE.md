@@ -1,5 +1,7 @@
 # Fix Engine (v0.4.0)
 
+> Evolução de 27/10/2026: o mesmo executor agora prepara downloads e configurações de texto verificáveis, com contexto de hardware, staging, backup e rollback. DLLs e scripts continuam em revisão. O suporte atual e suas restrições estão em [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md); as descrições abaixo documentam também o fluxo original de variáveis.
+
 O Fix Engine é o núcleo em Rust que aplica correções (revisadas do catálogo, geradas pelo gerador dinâmico — veja [`FIX-ENGINE-DINAMICO.md`](FIX-ENGINE-DINAMICO.md) — ou Smart Packs compostos, `pack.<appid>.<hash>`, aplicados como uma única operação — veja [`SMART-PACKS.md`](SMART-PACKS.md)) com prévia, backup verificado, gravação atômica, verificação no disco, diário persistente e rollback. Código em `src-tauri/src/fix_engine/`, comandos em `src-tauri/src/commands/fix_engine.rs` e interface em `src/components/fix/{ApplyFixDialog,RecipesPanel,OperationHistory}.tsx`.
 
 ## Do achado à operação

@@ -1,13 +1,14 @@
 /** Smart Packs — espelho de `src-tauri/src/smart_packs/models.rs`. */
-import type { DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, Risk, Trust } from './fixEngine'
-import type { GpuReq } from './fixes'
+import type { DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, RecipeAction, Risk, Trust } from './fixEngine'
+import type { ArtifactCandidate, GpuReq } from './fixes'
+import type { HardwareRequirements } from './steam'
 
 export type Profile = 'performance' | 'balanced' | 'compatibility'
 export type PackKind = 'baseline' | 'single' | 'combination'
 export type Goal = 'reference' | 'compatibility' | 'performance' | 'balanced'
 export type PerfHint = 'unknown' | 'penalty' | 'frame-cap'
 export type PackState = 'candidate' | 'ready' | 'conflict' | 'testing' | 'applied' | 'verified' | 'failed' | 'partially_recovered' | 'rolled_back' | 'unsupported'
-export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter' | 'game-scope'
+export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter' | 'game-scope' | 'same-file'
 export type Outcome = 'improvement' | 'regression' | 'no-difference' | 'mixed' | 'inconclusive' | 'not-measured'
 export type Tier = 'measured' | 'candidate' | 'performance-risk' | 'not-recommended'
 
@@ -24,7 +25,17 @@ export interface Edge {
   reason: string
 }
 
+export interface FileFixRef {
+  targetPath: string
+  sha256: string
+  artifactId: string | null
+  artifactVersion: string | null
+  artifactSha256: string | null
+}
+
 export interface Unit {
+  hardware?: HardwareRequirements
+  fileActions?: RecipeAction[]
   appId?: string | null
   performanceEvidence?: GamePerformanceEvidence
   recipeId: string
@@ -49,6 +60,8 @@ export interface Unit {
 }
 
 export interface SmartPack {
+  artifacts?: ArtifactCandidate[]
+  fileFixes?: FileFixRef[]
   performanceEvidence?: GamePerformanceEvidence
   performanceWarnings?: string[]
   id: string
@@ -58,7 +71,7 @@ export interface SmartPack {
   kind: PackKind
   goal: Goal
   goalText: string
-  members: { recipeId: string; version: string; fingerprint: string; trust: Trust; title: string; env: EnvPair[]; evidence: EvidenceLevel; discoveredAt: string | null; protonVersions: string[] }[]
+  members: { recipeId: string; version: string; fingerprint: string; trust: Trust; title: string; env: EnvPair[]; fileActions?: RecipeAction[]; evidence: EvidenceLevel; discoveredAt: string | null; protonVersions: string[] }[]
   env: EnvPair[]
   applyRecipeId: string | null
   fingerprint: string
@@ -246,6 +259,7 @@ export interface SwitchPlan {
 }
 
 export interface PackSnapshot {
+  fileFixes?: FileFixRef[]
   appId?: string | null
   fingerprint?: string | null
   packId: string

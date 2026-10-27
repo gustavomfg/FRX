@@ -274,6 +274,17 @@ pub fn validate_recipe(r: &Recipe) -> Result<(), String> {
                     return Err(format!("{}: conteúdo de arquivo inválido", r.id));
                 }
             }
+            RecipeAction::InstallArtifact { artifact } => {
+                let [app] = r.scope.app_ids.as_slice() else {
+                    return Err("Um artefato precisa de exatamente um AppID.".into());
+                };
+                super::artifacts::validate(artifact, app)?;
+            }
+            RecipeAction::PatchKnownConfig {
+                path,
+                expected_sha256,
+                replacements,
+            } => validate_config_patch(path, expected_sha256, replacements)?,
         }
     }
     Ok(())
@@ -312,7 +323,13 @@ pub fn validate_pack(r: &Recipe) -> Result<(), String> {
     let [app] = r.scope.app_ids.as_slice() else {
         return Err("Smart Pack precisa valer para exatamente um jogo".into());
     };
-    if !r.id.starts_with(&format!("pack.{app}.")) || !r.scope.requires_proton {
+    if !r.id.starts_with(&format!("pack.{app}."))
+        || (!r.scope.requires_proton
+            && !r
+                .actions
+                .iter()
+                .all(|a| matches!(a, RecipeAction::InstallArtifact { .. })))
+    {
         return Err("escopo inconsistente".into());
     }
     if !(2..=6).contains(&p.members.len())
@@ -332,7 +349,18 @@ pub fn validate_pack(r: &Recipe) -> Result<(), String> {
     let mut keys = Vec::new();
     for a in &r.actions {
         let RecipeAction::SetLaunchEnv { key, value } = a else {
-            return Err("Smart Packs só definem variáveis de ambiente".into());
+            match a {
+                RecipeAction::InstallArtifact { artifact } => {
+                    super::artifacts::validate(artifact, app)?
+                }
+                RecipeAction::PatchKnownConfig {
+                    path,
+                    expected_sha256,
+                    replacements,
+                } => validate_config_patch(path, expected_sha256, replacements)?,
+                _ => return Err("Operação de arquivo não validada para Smart Pack.".into()),
+            }
+            continue;
         };
         check_env(key, value)?;
         if super::dynamic::compatibility::knowledge(key, value).is_none() {
@@ -370,7 +398,13 @@ pub fn validate_generated(r: &Recipe) -> Result<(), String> {
     let [app] = r.scope.app_ids.as_slice() else {
         return Err("receita gerada precisa valer para exatamente um jogo".into());
     };
-    if !r.id.starts_with(&format!("gen.{app}.")) || !r.scope.requires_proton {
+    if !r.id.starts_with(&format!("gen.{app}."))
+        || (!r.scope.requires_proton
+            && !r
+                .actions
+                .iter()
+                .all(|a| matches!(a, RecipeAction::InstallArtifact { .. })))
+    {
         return Err("escopo inconsistente".into());
     }
     if g.game_app_id.as_deref() != Some(app.as_str())
@@ -390,7 +424,18 @@ pub fn validate_generated(r: &Recipe) -> Result<(), String> {
     let mut keys = Vec::new();
     for a in &r.actions {
         let RecipeAction::SetLaunchEnv { key, value } = a else {
-            return Err("receitas geradas só definem variáveis de ambiente".into());
+            match a {
+                RecipeAction::InstallArtifact { artifact } => {
+                    super::artifacts::validate(artifact, app)?
+                }
+                // Patches literais exigem revisão do catálogo nesta primeira implementação.
+                _ => {
+                    return Err(
+                        "Ação dinâmica não suportada ou sem integridade verificável.".into(),
+                    )
+                }
+            }
+            continue;
         };
         check_env(key, value)?;
         if super::dynamic::compatibility::knowledge(key, value).is_none() {
@@ -422,6 +467,27 @@ pub fn validate_generated(r: &Recipe) -> Result<(), String> {
     }
     if g.finding_ids.is_empty() || g.provenance.is_empty() {
         return Err("receita gerada sem descoberta de origem".into());
+    }
+    Ok(())
+}
+
+fn validate_config_patch(
+    path: &str,
+    sha: &str,
+    replacements: &[super::models::ConfigReplacement],
+) -> Result<(), String> {
+    check_rel_path(path)?;
+    if !super::artifacts::sha_valid(sha)
+        || replacements.is_empty()
+        || replacements.len() > 16
+        || replacements
+            .iter()
+            .any(|r| r.find.is_empty() || r.find.len() > 16384 || r.replace.len() > 16384)
+    {
+        return Err("Patch de configuração sem original ou substituições válidas.".into());
+    }
+    for r in replacements {
+        super::artifacts::validate_text(path, r.replace.as_bytes())?;
     }
     Ok(())
 }

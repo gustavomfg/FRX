@@ -68,8 +68,29 @@ pub fn process(raw: &[u8], args: ProcessArgs) -> Result<Session, String> {
         &unknown
     };
     let i = args.input.conditions;
+    let environment = if args.source == Some(SessionSource::Assisted) {
+        k.environment.clone().map(|env| {
+            if let Some(name) = &sys.gpu {
+                env.with_observed_gpu(name)
+            } else {
+                // Missing renderer metadata cannot be replaced by a primary-GPU guess.
+                let mut env = env;
+                env.selected_gpu = None;
+                env.selection = crate::system::context::GpuSelection::Unknown;
+                env
+            }
+        })
+    } else {
+        // Imported context is a declaration; never manufacture a measured PCI identity.
+        i.environment.clone().map(|mut env| {
+            env.selected_gpu = None;
+            env.selection = crate::system::context::GpuSelection::Unknown;
+            env
+        })
+    };
     // Ordem: o que o usuário informou > o que está no log > o que o FRX sabe agora.
     let conditions = Conditions {
+        environment,
         game_build_id: merge(k.game_build_id.clone(), i.game_build_id),
         proton: merge(k.proton.clone(), i.proton),
         gpu: merge(sys.gpu.clone().or(k.gpu.clone()), i.gpu),
@@ -388,6 +409,86 @@ mod real {
                 .iter()
                 .map(|x| (&x.key, x.points.len()))
                 .collect::<Vec<_>>()
+        );
+    }
+}
+
+#[cfg(test)]
+mod hardware_selection_tests {
+    use super::*;
+    use crate::system::context::{
+        tests::{env, gpu},
+        GpuSelection,
+    };
+    use crate::system::GpuVendor;
+
+    #[test]
+    fn renderer_from_log_overrides_inventory_guess_and_import_does_not_claim_measured_pci() {
+        let raw = parser::fixtures::per_frame(&vec![10.0; 3000], 90.0);
+        let nv = gpu(GpuVendor::Nvidia, "GeForce RTX 4060", "2882", "580.0");
+        let amd = gpu(GpuVendor::Amd, "Radeon RX 7800 XT", "747e", "25.3");
+        let mut inventory = env(amd.clone());
+        inventory.selected_gpu = None;
+        inventory.selection = GpuSelection::Unknown;
+        inventory.detected_gpus = vec![amd, nv];
+        let known = Conditions {
+            environment: Some(inventory.clone()),
+            gpu: Some("wrong inventory preference".into()),
+            ..Default::default()
+        };
+        let assisted = process(
+            raw.as_bytes(),
+            ProcessArgs {
+                source: Some(SessionSource::Assisted),
+                known: known.clone(),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let captured = assisted.meta.conditions.environment.as_ref().unwrap();
+        assert_eq!(captured.observed_gpu().unwrap().device_id, "2882");
+        assert_eq!(captured.selection, GpuSelection::Measured);
+        assert!(
+            captured.active_vulkan_driver.is_none(),
+            "installed ICDs cannot establish active driver"
+        );
+        let imported = process(
+            raw.as_bytes(),
+            ProcessArgs {
+                source: Some(SessionSource::Import),
+                known,
+                input: SessionInput {
+                    conditions: Conditions {
+                        environment: Some(captured.clone()),
+                        ..Default::default()
+                    },
+                    ..Default::default()
+                },
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        assert!(imported
+            .meta
+            .conditions
+            .environment
+            .as_ref()
+            .unwrap()
+            .observed_gpu()
+            .is_none());
+        assert_eq!(
+            imported
+                .meta
+                .conditions
+                .environment
+                .as_ref()
+                .unwrap()
+                .selection,
+            GpuSelection::Unknown
+        );
+        assert_eq!(
+            imported.meta.conditions.gpu.as_deref(),
+            Some("NVIDIA GeForce RTX 4060")
         );
     }
 }

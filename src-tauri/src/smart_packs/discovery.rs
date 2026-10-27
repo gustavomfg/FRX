@@ -21,7 +21,8 @@ pub fn fingerprint(r: &Recipe) -> String {
     sha256_hex(&serde_json::to_vec(r).unwrap_or_default())
 }
 
-/// Receita → unidade (só receitas que apenas definem variáveis).
+/// Receita → unidade. Variáveis e artefatos suportados são validados juntos;
+/// uma ação não suportada exclui a receita inteira, sem aplicação parcial.
 pub fn unit_from_recipe(
     app_id: &str,
     r: &Recipe,
@@ -39,12 +40,18 @@ pub fn unit_from_recipe(
         return None;
     }
     let mut env = Vec::new();
+    let mut file_actions = Vec::new();
     for a in &r.actions {
         match a {
             RecipeAction::SetLaunchEnv { key, value } => env.push(EnvPair {
                 key: key.clone(),
                 value: value.clone(),
             }),
+            RecipeAction::InstallArtifact { artifact }
+                if crate::fix_engine::artifacts::validate(artifact, app_id).is_ok() =>
+            {
+                file_actions.push(a.clone())
+            }
             _ => return None,
         }
     }
@@ -69,6 +76,8 @@ pub fn unit_from_recipe(
         .and_then(|g| g.discovered_at.clone())
         .or_else(|| related.iter().filter_map(|f| f.published_at.clone()).max());
     Some(Unit {
+        hardware: r.hardware.clone(),
+        file_actions,
         app_id: Some(app_id.to_owned()),
         performance_evidence: r
             .generated
@@ -186,7 +195,10 @@ pub fn discover(
         };
         u.performance_evidence = a.performance_evidence.clone();
         // Mesmas variáveis (gerada e revisada, ou duas descobertas): uma unidade só.
-        match units.iter_mut().find(|x| x.env == u.env) {
+        match units
+            .iter_mut()
+            .find(|x| x.env == u.env && x.file_actions == u.file_actions)
+        {
             Some(x) => {
                 for f in u.finding_ids {
                     if !x.finding_ids.contains(&f) {
@@ -253,10 +265,9 @@ pub fn discover(
         }
         env.sort();
         env.dedup();
-        if let Some(unit) = units
-            .iter_mut()
-            .find(|u| u.env == env && u.app_id.as_deref() == Some(app_id))
-        {
+        if let Some(unit) = units.iter_mut().find(|u| {
+            u.env == env && u.file_actions.is_empty() && u.app_id.as_deref() == Some(app_id)
+        }) {
             unit.performance_evidence.merge(&a.performance_evidence);
             if !unit.finding_ids.contains(&a.finding_id) {
                 unit.finding_ids.push(a.finding_id.clone());

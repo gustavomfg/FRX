@@ -10,6 +10,7 @@ import { Pill } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { PerformanceWarning } from '@/components/fix/PerformanceWarning'
 import { RISK } from '@/components/fix/engineMeta'
+import { ArtifactBadge, ArtifactDetails } from '@/components/fix/ArtifactDetails'
 import { Mascot } from '@/mascot/Mascot'
 import { compareSmartPacks, declareBenchmarkPack, evaluateBenchmarkSession, getSmartPacks, planSmartPackSwitch } from '@/services/smartPacks'
 import { CaptureFlow } from '@/components/performance/CaptureFlow'
@@ -440,6 +441,7 @@ function PackCard({
       </div>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {pack && <PerformanceWarning warnings={pack.performanceWarnings} compact />}
+        {pack && <ArtifactBadge artifacts={pack.artifacts} />}
         {pack && (
           <Pill color={preventiveRisk && !current ? 'var(--frx-caution)' : STATE[pack.state].color} soft={preventiveRisk && !current ? 'var(--frx-caution-soft)' : STATE[pack.state].soft} title={pack.stateDetail}>
             {preventiveRisk && !current ? 'Contorno de compatibilidade' : pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : STATE[pack.state].label}
@@ -519,6 +521,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
     <Dialog open onClose={onClose} title={pack.name} description={`${GOAL[pack.goal]} · ${STATE[pack.state].label}`} width={720} footer={<Button variant="ghost" onClick={onClose}>Fechar</Button>}>
       <div className="space-y-5 text-[12.5px] text-fg-2">
         <PerformanceWarning warnings={pack.performanceWarnings} />
+        <ArtifactDetails artifacts={pack.artifacts} />
         <GameEvidence appId={report.appId} evidence={pack.performanceEvidence} />
         <Block title="Objetivo">
           <p>{pack.goalText}</p>
@@ -532,7 +535,8 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
                     <span className="min-w-0 flex-1 text-fg">{x.title}</span>
                     <span className="text-fg-3">{x.trust === 'reviewed' ? 'revisada' : 'gerada'} · v{x.version}</span>
                   </div>
-                  <code className="font-mono text-[12px] text-fg-2">{x.env.map((e) => `${e.key}=${e.value}`).join(' ')}</code>
+                  {x.env.length > 0 && <code className="break-all font-mono text-[12px] text-fg-2">{x.env.map((e) => `${e.key}=${e.value}`).join(' ')}</code>}
+                  {x.fileActions?.map((action, i) => action.type === 'install_artifact' ? <p key={i} className="break-all text-[12px] text-fg-2">{action.artifact.files.length} arquivo(s) · {action.artifact.releaseTag}</p> : null)}
                   <p className="text-[11.5px] text-fg-3">
                     Evidência: {EVIDENCE_LABEL[x.evidence]}
                     {x.discoveredAt && ` · fonte de ${fmtDateTime(x.discoveredAt)}`}
@@ -613,7 +617,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
           <p>
             {pack.kind === 'baseline'
               ? 'O baseline não grava nada: voltar a ele é desfazer as correções do FRX ativas.'
-              : 'Aplicado pelo Fix Engine numa única operação: prévia, backup verificado (SHA-256), gravação atômica e conferência no disco. O rollback remove só o que o pacote adicionou e continua disponível depois de reiniciar o FRX.'}
+              : 'Aplicado pelo Fix Engine numa única operação: prévia, backup verificado (SHA-256), gravações individuais atômicas e conferência no disco. A operação completa pode exigir recuperação se for interrompida. O rollback remove só o que o pacote adicionou e continua disponível depois de reiniciar o FRX.'}
           </p>
         </Block>
         {pack.sources.length > 0 && (

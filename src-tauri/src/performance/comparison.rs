@@ -439,6 +439,19 @@ pub(crate) fn comparability(before: &SessionMeta, after: &SessionMeta) -> Compar
         &ca.cpu_scheduler,
         false,
     );
+    if let (Some(before), Some(after)) = (&cb.environment, &ca.environment) {
+        for label in before.cohort_differences(after) {
+            differences.push(Difference {
+                field: "environment".into(),
+                label,
+                before: None,
+                after: None,
+                major: true,
+            });
+        }
+    } else if cb.environment.is_some() || ca.environment.is_some() {
+        notes.push("Uma sessão não possui os identificadores detalhados de hardware; a comparação conserva as limitações do contexto legado.".into());
+    }
     if [before, after].iter().any(|m| {
         m.app_id
             .as_deref()

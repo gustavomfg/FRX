@@ -11,6 +11,7 @@ import { checkFixCompatibility, listFixRecipes } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
 import { PerformanceWarning } from './PerformanceWarning'
+import { ArtifactDetails } from './ArtifactDetails'
 import { useFixEngine } from '@/state/fixEngine'
 import type { Game } from '@/types'
 import type { FixPlan, RecipeAction, RecipeView } from '@/types/fixEngine'
@@ -24,6 +25,10 @@ export function describeAction(a: RecipeAction) {
       return { label: 'Argumentos do jogo', value: a.args.join(' ') }
     case 'write_game_file':
       return { label: 'Arquivo de configuração do jogo', value: a.path }
+    case 'install_artifact':
+      return { label: 'Baixar, verificar e instalar arquivos', value: a.artifact.assetName }
+    case 'patch_known_config':
+      return { label: 'Alterar configuração com hash conhecido', value: a.path }
   }
 }
 
@@ -185,6 +190,7 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
       </header>
 
       <PerformanceWarning warnings={recipe.performanceWarnings} />
+      <ArtifactDetails artifacts={recipe.actions.flatMap((action) => action.type === 'install_artifact' ? [action.artifact] : [])} />
       <p className="text-[13px] text-fg-2">{recipe.description}</p>
 
       <div>
@@ -201,7 +207,7 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
             )
           })}
         </ul>
-        <p className="mt-2 text-[12px] text-fg-3">Só as opções de inicialização deste jogo mudam. Prefixo, arquivos do jogo e outras configurações ficam intactos.</p>
+        <p className="mt-2 text-[12px] text-fg-3">A prévia confirma os destinos e as alterações desta receita antes da aplicação.</p>
       </div>
 
       {(recipe.effects.length > 0 || recipe.sideEffects.length > 0) && (

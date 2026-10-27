@@ -22,13 +22,13 @@
 
 use std::collections::HashMap;
 
-use super::benchmark::{baseline_id, pack_id};
+use super::benchmark::{action_file_fixes, baseline_id, pack_id_with_files};
 use super::conflicts::{graph, validate_combination};
 use super::models::*;
 use crate::fix_engine::dynamic::compatibility::performance_warnings;
 use crate::fix_engine::dynamic::EvidenceLevel;
 use crate::fix_engine::files::sha256_hex;
-use crate::fix_engine::models::{Purpose, RecipeSource, Risk};
+use crate::fix_engine::models::{Purpose, RecipeAction, RecipeSource, Risk};
 use crate::fixes::compat::vendor_name;
 
 /// Resultado conclusivo de uma receita medida sozinha: (FPS médio, 1% low).
@@ -79,6 +79,8 @@ pub fn eligible(u: &Unit, single: Option<&(Outcome, Outcome)>) -> bool {
 
 pub fn baseline(app_id: &str) -> SmartPack {
     SmartPack {
+        artifacts: vec![],
+        file_fixes: vec![],
         performance_evidence: Default::default(),
         performance_warnings: vec![],
         id: baseline_id(app_id),
@@ -87,7 +89,7 @@ pub fn baseline(app_id: &str) -> SmartPack {
         name: "Baseline — sem correções do FRX".into(),
         kind: PackKind::Baseline,
         goal: Goal::Reference,
-        goal_text: "Configuração de referência: as suas opções de inicialização sem nenhuma correção do FRX. É contra ela que os outros pacotes são medidos.".into(),
+        goal_text: "Configuração de referência: opções e arquivos do jogo sem nenhuma correção ativa do FRX. É contra ela que os outros pacotes são medidos.".into(),
         members: vec![],
         env: vec![],
         apply_recipe_id: None,
@@ -121,7 +123,20 @@ fn make(
     let mut env: Vec<EnvPair> = members.iter().flat_map(|u| u.env.clone()).collect();
     env.sort();
     env.dedup();
-    let id = pack_id(app_id, &env);
+    let file_actions: Vec<_> = members
+        .iter()
+        .flat_map(|u| u.file_actions.clone())
+        .collect();
+    let file_fixes = action_file_fixes(app_id, &file_actions)
+        .expect("composition only accepts validated complete file actions");
+    let artifacts = file_actions
+        .iter()
+        .filter_map(|a| match a {
+            RecipeAction::InstallArtifact { artifact } => Some((**artifact).clone()),
+            _ => None,
+        })
+        .collect();
+    let id = pack_id_with_files(app_id, &env, &file_fixes);
     let mut sources: Vec<RecipeSource> = Vec::new();
     for s in members.iter().flat_map(|u| u.sources.iter()) {
         if !sources.iter().any(|x| x.url == s.url) {
@@ -162,6 +177,7 @@ fn make(
         .max()
         .unwrap_or(EvidenceLevel::None);
     SmartPack {
+        artifacts,
         performance_evidence: if members.len() == 1 {
             members[0].performance_evidence.clone()
         } else {
@@ -182,7 +198,8 @@ fn make(
                 .collect();
             identities.sort();
             sha256_hex(
-                &serde_json::to_vec(&(PACK_SCHEMA, app_id, &env, identities)).unwrap_or_default(),
+                &serde_json::to_vec(&(PACK_SCHEMA, app_id, &env, &file_fixes, identities))
+                    .unwrap_or_default(),
             )
         },
         id,
@@ -195,6 +212,7 @@ fn make(
         members: members
             .iter()
             .map(|u| PackMemberView {
+                file_actions: u.file_actions.clone(),
                 recipe_id: u.recipe_id.clone(),
                 version: u.version.clone(),
                 fingerprint: u.fingerprint.clone(),
@@ -207,6 +225,7 @@ fn make(
             })
             .collect(),
         env,
+        file_fixes,
         requirements,
         compatibility,
         conflicts_avoided: graph
@@ -259,15 +278,15 @@ fn greedy<'a>(pool: &[&'a Unit], max: usize) -> Vec<&'a Unit> {
 pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Limits) -> Composed {
     let mut excluded = Vec::new();
     let mut units: Vec<Unit> = units.iter().filter_map(|u| {
-        if u.app_id.as_deref() == Some(app_id) && crate::art::valid_app_id(app_id) {
-            Some(u.clone())
+        let reason = if u.app_id.as_deref() != Some(app_id) || !crate::art::valid_app_id(app_id) {
+            Some("Receita de outro AppID ou sem atribuição confirmada: não pode integrar os pacotes deste jogo.".to_owned())
         } else {
-            excluded.push(Excluded {
-                performance_warnings: vec![], id: u.recipe_id.clone(), title: u.title.clone(), status: None,
-                reason: "Receita de outro AppID ou sem atribuição confirmada: não pode integrar os pacotes deste jogo.".into(),
-            });
+            action_file_fixes(app_id, &u.file_actions).err()
+        };
+        if let Some(reason) = reason {
+            excluded.push(Excluded { performance_warnings: vec![], id: u.recipe_id.clone(), title: u.title.clone(), status: None, reason });
             None
-        }
+        } else { Some(u.clone()) }
     }).collect();
     order(&mut units);
     let mut notes = Vec::new();

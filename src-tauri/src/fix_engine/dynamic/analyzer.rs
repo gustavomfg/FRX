@@ -16,6 +16,7 @@ use crate::fixes::models::{AnalysisState, Compatibility, FindingKind, FixFinding
 
 /// O que a análise precisa saber do sistema (sem varrer a Steam).
 pub struct Ctx<'a> {
+    pub environment: Option<&'a crate::system::context::EnvironmentContext>,
     pub game_build_id: Option<&'a str>,
     pub app_id: &'a str,
     pub gpu: Option<GpuReq>,
@@ -88,6 +89,17 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
             DynStatus::Invalid,
             vec!["Sem fonte rastreável (HTTPS no GitHub); nada é gerado.".into()],
         );
+    }
+    let mut source_hardware = f.requirements.hardware.clone();
+    if source_hardware.gpu_vendor.is_none() {
+        source_hardware.gpu_vendor = f.requirements.gpu_vendor;
+    }
+    let hw = source_hardware.evaluate(ctx.environment);
+    if hw.state == crate::system::context::MatchState::Incompatible {
+        return finish(a, DynStatus::Incompatible, hw.reasons);
+    }
+    if !f.artifacts.is_empty() {
+        return assess_artifacts(f, ctx, a);
     }
     if f.compatibility == Compatibility::AlreadyIncluded {
         return finish(
@@ -354,6 +366,28 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     a.recipe_id = Some(recipe.id.clone());
     a.recipe = Some(recipe);
     a
+}
+
+fn assess_artifacts(f: &FixFinding, ctx: &Ctx<'_>, mut a: Assessment) -> Assessment {
+    if !f.actions.is_empty() || f.analysis != AnalysisState::Parsed {
+        return finish(a,DynStatus::NeedsValidation,vec!["A correção por arquivo inclui outros passos não validados; nenhuma parte será aplicada isoladamente.".into()]);
+    }
+    let mut reasons = Vec::new();
+    a.actions=f.artifacts.iter().map(|artifact|{
+        let validation=crate::fix_engine::artifacts::validate(artifact,ctx.app_id);
+        if let Err(e)=&validation{reasons.push(e.clone());}
+        ActionView{kind:crate::fixes::models::ActionKind::ConfigFile,raw:format!("{} → {}",artifact.asset_name,artifact.files.iter().map(|f|f.target_path.as_str()).collect::<Vec<_>>().join(", ")),supported:validation.is_ok(),note:validation.err().unwrap_or_else(||"Download HTTPS, staging privado, integridade, backup e rollback; configuração UTF-8 apenas.".into())}
+    }).collect();
+    if !reasons.is_empty() {
+        return finish(a, DynStatus::NeedsValidation, reasons);
+    }
+    let recipe = generator::artifact_recipe(f, ctx.app_id, a.provenance.clone());
+    if let Err(e) = validate_generated(&recipe) {
+        return finish(a, DynStatus::NeedsValidation, vec![e]);
+    }
+    a.recipe_id = Some(recipe.id.clone());
+    a.recipe = Some(recipe);
+    finish(a,DynStatus::Generated,vec!["Instalação estruturada de configuração publicada para este AppID. O FRX reconsulta a release antes do download; confira destinos, requisitos e riscos na prévia.".into()])
 }
 
 /// Mesmas ações em descobertas diferentes → uma receita só, com todas as

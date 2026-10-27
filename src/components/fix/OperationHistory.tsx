@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Pill } from './FindingCard'
 import { OP_STATE } from './engineMeta'
+import { ArtifactDetails } from './ArtifactDetails'
 import { type ApplyTarget } from './ApplyFixDialog'
 import { useFixEngine } from '@/state/fixEngine'
 import { fmtDateTime, fmtRelative } from '@/lib/format'
@@ -71,6 +72,7 @@ function OperationRow({ op, onAct, showGame }: { op: Operation; onAct: (t: Apply
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
             <div className="space-y-3 border-t border-line px-4 pt-3 pb-4 text-[12.5px]">
               {op.message && <p className="text-fg-2">{op.message}</p>}
+              <ArtifactDetails artifacts={op.artifacts} />
               <ol className="space-y-1">
                 {op.events.map((e, i) => (
                   <li key={i} className="flex gap-3">

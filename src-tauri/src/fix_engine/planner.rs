@@ -106,6 +106,39 @@ pub fn compute(
     let mut steps = Vec::new();
     let mut changes = Vec::new();
     let mut manual_possible = true;
+    let environment = game
+        .performance_conditions
+        .as_ref()
+        .and_then(|c| c.environment.as_ref());
+    let mut hardware = recipe.hardware.clone();
+    if hardware.gpu_vendor.is_none() {
+        hardware.gpu_vendor = recipe.scope.gpu_vendor;
+    }
+    let hardware_match = hardware.evaluate(environment);
+    match hardware_match.state {
+        crate::system::context::MatchState::Incompatible => b.block(
+            PlanStatus::Incompatible,
+            "Hardware e Proton",
+            hardware_match.reasons.join(" "),
+        ),
+        crate::system::context::MatchState::Unknown
+            if recipe
+                .actions
+                .iter()
+                .any(|a| matches!(a, RecipeAction::InstallArtifact { .. })) =>
+        {
+            b.block(
+                PlanStatus::Incompatible,
+                "Hardware não confirmado",
+                hardware_match.limitations.join(" "),
+            )
+        }
+        crate::system::context::MatchState::Unknown => b.warn(
+            "Hardware não confirmado",
+            hardware_match.limitations.join(" "),
+        ),
+        _ => (),
+    }
 
     match recipe.trust {
         Trust::Reviewed => b.ok(
@@ -236,6 +269,20 @@ pub fn compute(
 
     // Relação com outras operações do mesmo jogo.
     let mine = recipe.env_keys();
+    let file_targets: Vec<&str> = recipe
+        .actions
+        .iter()
+        .flat_map(|action| match action {
+            RecipeAction::InstallArtifact { artifact } => artifact
+                .files
+                .iter()
+                .map(|f| f.target_path.as_str())
+                .collect(),
+            RecipeAction::WriteGameFile { path, .. }
+            | RecipeAction::PatchKnownConfig { path, .. } => vec![path.as_str()],
+            _ => vec![],
+        })
+        .collect();
     for op in others
         .iter()
         .filter(|o| o.app_id == game.app_id && o.holds_changes())
@@ -260,6 +307,13 @@ pub fn compute(
                     op.recipe_title
                 ),
             );
+        } else if op.steps.iter().any(|s| match &s.step {
+            Step::GameFile { rel, .. } => file_targets
+                .iter()
+                .any(|target| target.eq_ignore_ascii_case(rel)),
+            _ => false,
+        }) {
+            b.block(PlanStatus::Conflict,"Conflitos",format!("“{}” já controla um dos mesmos arquivos. Desfaça a operação antes de substituir sua versão.",op.recipe_title));
         } else if op.env_writes().any(|w| mine.contains(&w.key.as_str())) {
             b.block(
                 PlanStatus::Conflict,
@@ -286,7 +340,12 @@ pub fn compute(
     let launch_actions: Vec<&RecipeAction> = recipe
         .actions
         .iter()
-        .filter(|a| !matches!(a, RecipeAction::WriteGameFile { .. }))
+        .filter(|a| {
+            matches!(
+                a,
+                RecipeAction::SetLaunchEnv { .. } | RecipeAction::AddLaunchArgs { .. }
+            )
+        })
         .collect();
     if !launch_actions.is_empty() {
         launch_step(
@@ -313,8 +372,89 @@ pub fn compute(
                 Err(e) => b.block(PlanStatus::Conflict, "Arquivo do jogo", e),
             }
         }
+        if let RecipeAction::InstallArtifact { artifact } = a {
+            manual_possible = false;
+            match artifact_steps(game, artifact) {
+                Ok(list) => {
+                    for (step, change) in list {
+                        b.warn("Download necessário", change.summary.clone());
+                        steps.push(step);
+                        changes.push(change);
+                    }
+                }
+                Err(e) => b.block(PlanStatus::NotExecutable, "Artefato requer revisão", e),
+            }
+        }
+        if let RecipeAction::PatchKnownConfig {
+            path,
+            expected_sha256,
+            replacements,
+        } = a
+        {
+            manual_possible = false;
+            let result = (|| {
+                let root = game
+                    .install_path
+                    .as_ref()
+                    .ok_or("Pasta do jogo desconhecida")?;
+                let target = super::confined::Target::open(root, path, None)?;
+                let bytes = target.read()?.ok_or("A configuração original não existe")?;
+                if sha256_hex(&bytes) != *expected_sha256 {
+                    return Err(
+                        "A versão da configuração original não corresponde ao patch.".into(),
+                    );
+                }
+                let mut content = super::artifacts::validate_text(path, &bytes)?;
+                for r in replacements {
+                    if r.find.is_empty() || content.matches(&r.find).count() != 1 {
+                        return Err("O trecho original precisa ocorrer exatamente uma vez.".into());
+                    }
+                    content = content.replacen(&r.find, &r.replace, 1);
+                }
+                super::artifacts::validate_text(path, content.as_bytes())?;
+                game_file_step(game, path, &content)
+            })();
+            match result {
+                Ok((step, change)) => {
+                    steps.push(step);
+                    changes.push(change);
+                }
+                Err(e) => b.block(PlanStatus::Conflict, "Configuração conhecida", e),
+            }
+        }
     }
 
+    // Keep already matching members in a partially installed artifact so its
+    // complete identity is recorded in benchmark snapshots and rollback. A
+    // fully matching plan remains a no-op.
+    if !steps.is_empty()
+        && steps.iter().all(|s| match s {
+            Step::GameFile {
+                artifact: Some(a),
+                rel,
+                before_sha,
+                ..
+            } => a
+                .files
+                .iter()
+                .any(|f| f.target_path == *rel && f.sha256 == *before_sha),
+            _ => false,
+        })
+    {
+        steps.clear();
+        changes.clear();
+    }
+    let mut destinations = std::collections::BTreeSet::new();
+    if steps.iter().any(|s| match s {
+        Step::GameFile { rel, .. } => !destinations.insert(rel.to_ascii_lowercase()),
+        _ => false,
+    }) {
+        b.block(
+            PlanStatus::Conflict,
+            "Arquivos conflitantes",
+            "Duas ações tentam controlar o mesmo arquivo; nenhuma será aplicada.",
+        );
+    }
     if steam_running && !steps.is_empty() {
         if manual_possible {
             b.block(
@@ -358,6 +498,8 @@ pub fn compute(
         .flatten();
     #[derive(Serialize)]
     struct Fp<'a> {
+        environment: Option<&'a crate::system::context::EnvironmentContext>,
+        game_build: Option<&'a str>,
         recipe: &'a str,
         version: &'a str,
         catalog: &'a str,
@@ -371,6 +513,11 @@ pub fn compute(
         proton: Option<bool>,
     }
     let fp = serde_json::to_vec(&Fp {
+        environment,
+        game_build: game
+            .performance_conditions
+            .as_ref()
+            .and_then(|c| c.game_build_id.as_deref()),
         recipe: &recipe.id,
         version: &recipe.version,
         catalog: &catalog.sha256,
@@ -385,6 +532,9 @@ pub fn compute(
     })
     .unwrap_or_default();
     let plan = FixPlan {
+        artifacts: recipe.actions.iter().filter_map(|a|match a {RecipeAction::InstallArtifact{artifact}=>Some((**artifact).clone()),_=>None}).collect(),
+        environment: environment.cloned(),
+        hardware_match: Some(hardware_match),
         performance_warnings: recipe.performance_warnings(),
         plan_id: format!("plan-{}", &crate::performance::persistence::new_id()[2..]),
         fingerprint: sha256_hex(&fp)[..32].to_owned(),
@@ -539,12 +689,13 @@ fn launch_step(
                     }
                 }
             }
-            RecipeAction::WriteGameFile { .. } => {}
+            RecipeAction::WriteGameFile { .. }
+            | RecipeAction::InstallArtifact { .. }
+            | RecipeAction::PatchKnownConfig { .. } => {}
         }
     }
     if env.is_empty() && added_args.is_empty() {
-        return b.block(
-            PlanStatus::AlreadyApplied,
+        return b.ok(
             "Opções atuais",
             "As opções de inicialização já contêm esta correção.",
         );
@@ -596,13 +747,8 @@ fn game_file_step(
         .ok_or("Pasta de instalação do jogo desconhecida.")?;
     security::check_game_root(root)?;
     let target = security::resolve_in_root(root, rel)?;
-    let existing = match std::fs::read(&target) {
-        Ok(b) if b.len() > 256 * 1024 => {
-            return Err("O arquivo atual é grande demais para ser substituído.".into())
-        }
-        Ok(b) => Some(b),
-        Err(_) => None,
-    };
+    let opened = super::confined::Target::open(root, rel, None)?;
+    let existing = opened.read()?;
     if existing.as_deref() == Some(content.as_bytes()) {
         return Err("O arquivo já tem exatamente este conteúdo.".into());
     }
@@ -621,6 +767,8 @@ fn game_file_step(
     };
     Ok((
         Step::GameFile {
+            artifact: None,
+            identity: Some(opened.identity),
             root: root.clone(),
             rel: rel.to_owned(),
             before_sha: existing.as_deref().map(sha256_hex),
@@ -629,4 +777,150 @@ fn game_file_step(
         },
         change,
     ))
+}
+
+fn artifact_steps(
+    game: &GameCtx,
+    a: &crate::fixes::models::ArtifactCandidate,
+) -> Result<Vec<(Step, PlannedChange)>, String> {
+    super::artifacts::validate(a, &game.app_id)?;
+    // The artifact is an independent policy boundary. Do not rely on an
+    // enclosing discovery/recipe having copied its requirements correctly.
+    let mut hardware = a.requirements.hardware.clone();
+    if let Some(legacy_vendor) = a.requirements.gpu_vendor {
+        if hardware
+            .gpu_vendor
+            .is_some_and(|vendor| vendor != legacy_vendor)
+        {
+            return Err(
+                "O artefato declara fabricantes de GPU contraditórios; requer revisão.".into(),
+            );
+        }
+        hardware.gpu_vendor = Some(legacy_vendor);
+    }
+    if !a.requirements.proton_versions.is_empty() {
+        if hardware.proton_versions.is_empty() {
+            hardware.proton_versions = a.requirements.proton_versions.clone();
+        } else {
+            hardware.proton_versions.retain(|version| {
+                a.requirements
+                    .proton_versions
+                    .iter()
+                    .any(|legacy| legacy.eq_ignore_ascii_case(version))
+            });
+            if hardware.proton_versions.is_empty() {
+                return Err(
+                    "O artefato declara versões do Proton contraditórias; requer revisão.".into(),
+                );
+            }
+        }
+    }
+    if !hardware.proton_versions.is_empty() && game.uses_proton != Some(true) {
+        return Err(
+            "O artefato exige uma versão do Proton, mas seu uso pelo jogo não foi confirmado."
+                .into(),
+        );
+    }
+    let mut environment = game
+        .performance_conditions
+        .as_ref()
+        .and_then(|c| c.environment.clone())
+        .unwrap_or_default();
+    if environment.proton_version.is_none() && game.uses_proton == Some(true) {
+        environment.proton_version = game.tool_name.clone();
+    }
+    let compatibility = hardware.evaluate(Some(&environment));
+    if compatibility.state != crate::system::context::MatchState::Compatible {
+        return Err(format!(
+            "Os requisitos do artefato não foram confirmados para este ambiente: {} {}",
+            compatibility.reasons.join(" "),
+            compatibility.limitations.join(" ")
+        ));
+    }
+    if let Some(required_build) = a.requirements.game_version.as_deref() {
+        match game
+            .performance_conditions
+            .as_ref()
+            .and_then(|c| c.game_build_id.as_deref())
+        {
+            Some(actual) if actual == required_build => (),
+            Some(_) => {
+                return Err(
+                    "A versão/build do jogo difere da exigida pelo artefato; requer revisão."
+                        .into(),
+                )
+            }
+            None => return Err(
+                "A versão/build do jogo exigida pelo artefato não foi confirmada; requer revisão."
+                    .into(),
+            ),
+        }
+    }
+    match (a.platform.as_deref(),game.uses_proton) {
+        (Some("windows"),Some(false)) | (Some("linux"),Some(true)) => return Err("A plataforma do artefato não corresponde ao modo de execução do jogo; requer revisão.".into()),
+        (Some("windows" | "linux"),None) => return Err("O modo de execução do jogo não foi confirmado para a plataforma do artefato; requer revisão.".into()),
+        _ => (),
+    }
+    if matches!(a.architecture.as_deref(), Some("x86" | "x86_64")) {
+        return Err("A arquitetura do jogo/artefato ainda não foi confirmada; a arquitetura da CPU não comprova a do jogo. Requer revisão.".into());
+    }
+    let root = game
+        .install_path
+        .as_ref()
+        .ok_or("Pasta de instalação desconhecida")?;
+    let mut output = Vec::new();
+    for file in &a.files {
+        let opened = super::confined::Target::open(root, &file.target_path, None)?;
+        let existing = opened.read()?;
+        let before = existing.as_deref().map(sha256_hex);
+        let already_matching = before == file.sha256;
+        if !already_matching
+            && before.is_some()
+            && (!file.replace || file.expected_original_sha256 != before)
+        {
+            return Err(format!("{} já existe e não corresponde ao original documentado; a substituição exige SHA-256 do original.",file.target_path));
+        }
+        if !already_matching && before.is_none() && file.expected_original_sha256.is_some() {
+            return Err("O original exigido pela substituição não está instalado.".into());
+        }
+        output.push((
+            Step::GameFile {
+                artifact: Some(Box::new(a.clone())),
+                identity: Some(opened.identity),
+                root: root.clone(),
+                rel: file.target_path.clone(),
+                target: root
+                    .canonicalize()
+                    .map_err(|e| e.to_string())?
+                    .join(&file.target_path),
+                before_sha: before,
+                content: String::new(),
+            },
+            PlannedChange {
+                kind: ChangeKind::GameFile,
+                target: format!("{}/{}", game.name, file.target_path),
+                before: existing
+                    .as_ref()
+                    .map(|b| String::from_utf8_lossy(b).chars().take(4000).collect()),
+                after: Some(format!(
+                    "Download verificado: {} · SHA-256 {}",
+                    a.asset_name,
+                    file.sha256.as_deref().unwrap_or("desconhecido")
+                )),
+                summary: format!(
+                    "{} {} · {} bytes para staging",
+                    if already_matching {
+                        "preserva conteúdo correspondente com backup"
+                    } else if existing.is_some() {
+                        "substitui com backup"
+                    } else {
+                        "instala"
+                    },
+                    file.target_path,
+                    a.size_bytes
+                ),
+            },
+        ));
+    }
+    Ok(output)
 }

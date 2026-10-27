@@ -21,3 +21,6 @@ output/playwright/
 packaging/arch/pkg/
 packaging/arch/src/
 packaging/arch/*.pkg.tar.*
+
+# Auditoria local da implementação v0.5
+output/resolution-v05/

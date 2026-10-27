@@ -1,13 +1,12 @@
 //! Ligação entre benchmarks do Performance Lab e pacotes.
 //!
-//! Um pacote é identificado pelas variáveis que ele define (ordenadas), não
-//! pelo nome: uma sessão capturada com `PROTON_NO_D3D11=1` ativo pertence ao
-//! pacote com essas variáveis, tenha ele sido aplicado como receita avulsa ou
-//! como Smart Pack. Sem nenhuma variável do FRX, a sessão é do baseline.
+//! A identidade inclui as variáveis e os arquivos efetivamente instalados,
+//! com versão e hash do artefato. IDs legados de pacotes só de variáveis são
+//! preservados. O baseline não contém variáveis nem arquivos ativos do FRX.
 
 use super::models::*;
 use crate::fix_engine::files::sha256_hex;
-use crate::fix_engine::models::{Effective, OpState};
+use crate::fix_engine::models::{Effective, OpState, Operation, RecipeAction, Step};
 use crate::fix_engine::FixEngine;
 use crate::performance::models::SessionMeta;
 use crate::time::now_iso;
@@ -21,6 +20,154 @@ pub fn pack_id(app_id: &str, env: &[EnvPair]) -> String {
     norm.dedup();
     let h = sha256_hex(format!("pack\n{app_id}\n{}", norm.join("\n")).as_bytes());
     format!("pack.{app_id}.{}", &h[..16])
+}
+
+pub fn pack_id_with_files(app_id: &str, env: &[EnvPair], files: &[FileFixRef]) -> String {
+    if files.is_empty() {
+        return pack_id(app_id, env);
+    }
+    let mut file_ids = files.to_vec();
+    file_ids.sort();
+    file_ids.dedup();
+    let h = sha256_hex(
+        &serde_json::to_vec(&(
+            "file-fixes-v1",
+            PACK_SCHEMA,
+            app_id,
+            pack_id(app_id, env),
+            file_ids,
+        ))
+        .unwrap_or_default(),
+    );
+    format!("pack.{app_id}.{}", &h[..16])
+}
+
+/// Every file action is validated as a whole before it can join a composition.
+pub fn action_file_fixes(
+    app_id: &str,
+    actions: &[RecipeAction],
+) -> Result<Vec<FileFixRef>, String> {
+    let mut refs = Vec::new();
+    for action in actions {
+        let RecipeAction::InstallArtifact { artifact } = action else {
+            return Err("Este tipo de edição de arquivo ainda exige revisão fora das combinações automáticas.".into());
+        };
+        crate::fix_engine::artifacts::validate(artifact, app_id)?;
+        for f in &artifact.files {
+            let hash = f
+                .sha256
+                .as_ref()
+                .or_else(|| {
+                    (artifact.format == crate::fixes::models::ArtifactFormat::File)
+                        .then_some(artifact.sha256.as_ref())
+                        .flatten()
+                })
+                .ok_or("Hash do arquivo instalado ausente")?;
+            refs.push(FileFixRef {
+                target_path: f.target_path.clone(),
+                sha256: hash.to_ascii_lowercase(),
+                artifact_id: Some(artifact.id.clone()),
+                artifact_version: Some(artifact.release_tag.clone()),
+                artifact_sha256: artifact.sha256.as_ref().map(|h| h.to_ascii_lowercase()),
+            });
+        }
+    }
+    let mut targets = std::collections::BTreeSet::new();
+    if refs
+        .iter()
+        .any(|f| !targets.insert(f.target_path.to_ascii_lowercase()))
+    {
+        return Err("As ações disputam o mesmo arquivo de destino.".into());
+    }
+    refs.sort();
+    Ok(refs)
+}
+
+pub fn operation_file_fixes(op: &Operation) -> Vec<FileFixRef> {
+    let mut files: Vec<_> = op
+        .steps
+        .iter()
+        .filter_map(|record| {
+            let Step::GameFile { rel, artifact, .. } = &record.step else {
+                return None;
+            };
+            Some(FileFixRef {
+                target_path: rel.clone(),
+                sha256: record
+                    .after_sha
+                    .clone()
+                    .unwrap_or_else(|| "unverified".into()),
+                artifact_id: artifact.as_ref().map(|a| a.id.clone()),
+                artifact_version: artifact.as_ref().map(|a| a.release_tag.clone()),
+                artifact_sha256: artifact
+                    .as_ref()
+                    .and_then(|a| a.sha256.clone())
+                    .map(|h| h.to_ascii_lowercase()),
+            })
+        })
+        .collect();
+    files.sort();
+    files.dedup();
+    files
+}
+
+/// Used only to identify an operation while staging or after a failed download.
+/// Benchmark snapshots always use operation_file_fixes and its written hashes.
+pub fn operation_planned_file_fixes(op: &Operation) -> Vec<FileFixRef> {
+    let mut files: Vec<_> = op
+        .steps
+        .iter()
+        .filter_map(|record| {
+            let Step::GameFile {
+                rel,
+                artifact,
+                content,
+                ..
+            } = &record.step
+            else {
+                return None;
+            };
+            let hash = record
+                .after_sha
+                .clone()
+                .or_else(|| {
+                    artifact.as_ref().and_then(|a| {
+                        a.files
+                            .iter()
+                            .find(|f| f.target_path == *rel)
+                            .and_then(|f| f.sha256.clone())
+                    })
+                })
+                .unwrap_or_else(|| sha256_hex(content.as_bytes()));
+            Some(FileFixRef {
+                target_path: rel.clone(),
+                sha256: hash.to_ascii_lowercase(),
+                artifact_id: artifact.as_ref().map(|a| a.id.clone()),
+                artifact_version: artifact.as_ref().map(|a| a.release_tag.clone()),
+                artifact_sha256: artifact
+                    .as_ref()
+                    .and_then(|a| a.sha256.clone())
+                    .map(|h| h.to_ascii_lowercase()),
+            })
+        })
+        .collect();
+    files.sort();
+    files.dedup();
+    files
+}
+
+pub fn current_file_fixes(engine: &FixEngine, app_id: &str) -> Vec<FileFixRef> {
+    let mut files: Vec<_> = engine
+        .operations(Some(app_id))
+        .iter()
+        .filter(|o| {
+            o.state == OpState::Applied && !crate::fix_engine::is_capture_setup(&o.recipe_id)
+        })
+        .flat_map(operation_file_fixes)
+        .collect();
+    files.sort();
+    files.dedup();
+    files
 }
 
 /// Fingerprint separado do ID estável das ações: inclui o jogo, formato e
@@ -45,22 +192,46 @@ pub fn snapshot_fingerprint(app_id: &str, env: &[EnvPair], recipes: &[SnapshotRe
     sha256_hex(&serde_json::to_vec(&(PACK_SCHEMA, app_id, actions, ids)).unwrap_or_default())
 }
 
+pub fn snapshot_fingerprint_with_files(
+    app_id: &str,
+    env: &[EnvPair],
+    recipes: &[SnapshotRecipe],
+    files: &[FileFixRef],
+) -> String {
+    let old = snapshot_fingerprint(app_id, env, recipes);
+    if files.is_empty() {
+        return old;
+    }
+    let mut refs = files.to_vec();
+    refs.sort();
+    refs.dedup();
+    sha256_hex(&serde_json::to_vec(&("file-snapshot-v1", old, refs)).unwrap_or_default())
+}
+
 /// Nenhum snapshot pode transportar as ações ou a identidade de outro jogo.
 /// Legados sem campos novos só são aceitos quando o ID antigo confirma o
 /// AppID e exatamente as mesmas ações. Nada é inferido pelo jogo aberto.
 pub fn snapshot_matches_app(app_id: &str, snapshot: &PackSnapshot) -> bool {
     crate::art::valid_app_id(app_id)
         && snapshot.app_id.as_deref().is_none_or(|a| a == app_id)
-        && snapshot.pack_id == pack_id(app_id, &snapshot.env)
+        && snapshot.pack_id == pack_id_with_files(app_id, &snapshot.env, &snapshot.file_fixes)
+        && snapshot.file_fixes.iter().all(|f| {
+            crate::fix_engine::security::check_rel_path(&f.target_path).is_ok()
+                && crate::fix_engine::artifacts::sha_valid(&f.sha256)
+        })
         && snapshot.recipes.iter().all(|r| {
             (!r.recipe_id.starts_with("gen.") || r.recipe_id.starts_with(&format!("gen.{app_id}.")))
                 && (!r.recipe_id.starts_with("pack.")
                     || r.recipe_id.starts_with(&format!("pack.{app_id}.")))
         })
-        && snapshot
-            .fingerprint
-            .as_ref()
-            .is_none_or(|fp| *fp == snapshot_fingerprint(app_id, &snapshot.env, &snapshot.recipes))
+        && snapshot.fingerprint.as_ref().is_none_or(|fp| {
+            *fp == snapshot_fingerprint_with_files(
+                app_id,
+                &snapshot.env,
+                &snapshot.recipes,
+                &snapshot.file_fixes,
+            )
+        })
 }
 
 pub fn baseline_id(app_id: &str) -> String {
@@ -108,6 +279,7 @@ pub fn current_env(engine: &FixEngine, app_id: &str) -> (Vec<EnvPair>, Vec<Strin
 /// Snapshot gravado no fim da captura assistida.
 pub fn snapshot(engine: &FixEngine, app_id: &str) -> PackSnapshot {
     let (env, operation_ids, verified) = current_env(engine, app_id);
+    let file_fixes = current_file_fixes(engine, app_id);
     let recipes: Vec<SnapshotRecipe> = engine
         .operations(Some(app_id))
         .into_iter()
@@ -119,9 +291,15 @@ pub fn snapshot(engine: &FixEngine, app_id: &str) -> PackSnapshot {
         })
         .collect();
     PackSnapshot {
+        fingerprint: Some(snapshot_fingerprint_with_files(
+            app_id,
+            &env,
+            &recipes,
+            &file_fixes,
+        )),
+        pack_id: pack_id_with_files(app_id, &env, &file_fixes),
+        file_fixes,
         app_id: Some(app_id.to_owned()),
-        fingerprint: Some(snapshot_fingerprint(app_id, &env, &recipes)),
-        pack_id: pack_id(app_id, &env),
         env,
         recipes,
         operation_ids,
@@ -170,6 +348,7 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
         }
         if s.source == SnapshotSource::Assisted {
             let mut recorded_env = Vec::new();
+            let mut recorded_files = Vec::new();
             for id in &s.operation_ids {
                 let op = engine.operation(id).ok()?;
                 if op.app_id != app
@@ -185,13 +364,19 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
                     key: w.key.clone(),
                     value: w.written.clone(),
                 }));
+                recorded_files.extend(operation_file_fixes(&op));
             }
             recorded_env.sort();
             recorded_env.dedup();
             let mut claimed = s.env.clone();
             claimed.sort();
             claimed.dedup();
-            if recorded_env != claimed {
+            recorded_files.sort();
+            recorded_files.dedup();
+            let mut claimed_files = s.file_fixes.clone();
+            claimed_files.sort();
+            claimed_files.dedup();
+            if recorded_env != claimed || recorded_files != claimed_files {
                 return None;
             }
         }
@@ -201,6 +386,7 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
     let mut env = Vec::new();
     let mut recipes = Vec::new();
     let mut operation_ids = Vec::new();
+    let mut file_fixes = Vec::new();
     for f in fixes {
         let op = engine.operation(&f.operation_id).ok()?;
         if op.app_id != app || op.recipe_id != f.recipe_id || op.recipe_version != f.recipe_version
@@ -211,6 +397,7 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
             continue;
         }
         operation_ids.push(op.id.clone());
+        file_fixes.extend(operation_file_fixes(&op));
         recipes.push(SnapshotRecipe {
             fingerprint: op.recipe_fingerprint.clone(),
             recipe_id: op.recipe_id.clone(),
@@ -225,10 +412,18 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
     }
     env.sort();
     env.dedup();
+    file_fixes.sort();
+    file_fixes.dedup();
     Some(PackSnapshot {
+        fingerprint: Some(snapshot_fingerprint_with_files(
+            app,
+            &env,
+            &recipes,
+            &file_fixes,
+        )),
+        pack_id: pack_id_with_files(app, &env, &file_fixes),
+        file_fixes,
         app_id: Some(app.to_owned()),
-        fingerprint: Some(snapshot_fingerprint(app, &env, &recipes)),
-        pack_id: pack_id(app, &env),
         env,
         recipes,
         operation_ids,
@@ -240,10 +435,24 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
 
 /// Configuração declarada pelo usuário para uma sessão sem registro.
 pub fn declared(app_id: &str, env: Vec<EnvPair>) -> PackSnapshot {
+    declared_with_files(app_id, env, vec![])
+}
+
+pub fn declared_with_files(
+    app_id: &str,
+    env: Vec<EnvPair>,
+    file_fixes: Vec<FileFixRef>,
+) -> PackSnapshot {
     PackSnapshot {
+        fingerprint: Some(snapshot_fingerprint_with_files(
+            app_id,
+            &env,
+            &[],
+            &file_fixes,
+        )),
+        pack_id: pack_id_with_files(app_id, &env, &file_fixes),
+        file_fixes,
         app_id: Some(app_id.to_owned()),
-        fingerprint: Some(snapshot_fingerprint(app_id, &env, &[])),
-        pack_id: pack_id(app_id, &env),
         env,
         recipes: vec![],
         operation_ids: vec![],
@@ -268,6 +477,7 @@ pub fn tag_capture(
         || !snapshot_matches_app(app_id, started)
         || !started.verified
         || started.env != finished.env
+        || started.file_fixes != finished.file_fixes
         || started.operation_ids != finished.operation_ids
         || started.recipes != finished.recipes
     {

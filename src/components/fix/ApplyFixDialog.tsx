@@ -7,16 +7,18 @@ import { Button } from '@/components/ui/Button'
 import { Mascot } from '@/mascot/Mascot'
 import { Pill } from './FindingCard'
 import { PerformanceWarning } from './PerformanceWarning'
-import { APPLY_STAGES, EVIDENCE, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
+import { ArtifactDetails, artifactBytes } from './ArtifactDetails'
+import { HardwareContext } from './HardwareContext'
+import { APPLY_STAGES, FILE_APPLY_STAGES, EVIDENCE, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
 import { openExternal } from '@/services/opener'
-import { applyFixPlan, onFixProgress, prepareFixPlan, prepareFixRollback, rollbackFix, verifyFixOperation } from '@/services/fixEngine'
+import { applyFixPlan, cancelFixOperation, onFixProgress, prepareFixPlan, prepareFixRollback, rollbackFix, verifyFixOperation } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
 import { useFixEngine } from '@/state/fixEngine'
 import { useToast } from '@/state/store'
 import type { Check as PlanCheck, FixPlan, OpState, Operation, PlannedChange, RollbackPlan } from '@/types/fixEngine'
 import { cn } from '@/lib/cn'
 
-type Phase = 'loading' | 'review' | 'confirm' | 'running' | 'manual' | 'done' | 'error'
+type Phase = 'loading' | 'review' | 'confirm' | 'running' | 'manual' | 'done' | 'error' | 'cancelled'
 
 export type ApplyTarget = { kind: 'apply'; recipeId: string; appId: string; title: string } | { kind: 'rollback'; operation: Operation }
 
@@ -42,6 +44,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
   const [stage, setStage] = useState<OpState | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [ack, setAck] = useState(false)
+  const [downloadAck, setDownloadAck] = useState(false)
+  const [cancelling, setCancelling] = useState(false)
   const [verifying, setVerifying] = useState(false)
   const alive = useRef(true)
 
@@ -53,6 +57,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
     setPhase('loading')
     setError(null)
     setAck(false)
+    setDownloadAck(false)
+    setCancelling(false)
     setStage(null)
     try {
       if (target.kind === 'apply') {
@@ -91,6 +97,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
     } else if (result.state === 'rolled-back') {
       setPhase('done')
       toast({ tone: 'info', title: 'Correção desfeita', body: `${result.recipeTitle} · só o que o FRX adicionou foi removido.` })
+    } else if (result.state === 'cancelled') {
+      setPhase('cancelled')
     } else if (result.state === 'requires-manual-step') {
       setPhase('manual')
     } else {
@@ -105,7 +113,10 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
     setError(null)
     setStage(rollback ? 'rolling-back' : 'checking')
     const un = await onFixProgress((o) => {
-      if (alive.current && o.appId === appId) setStage(o.state)
+      if (alive.current && o.appId === appId && (target.kind === 'rollback' ? o.id === target.operation.id : o.recipeId === plan?.recipeId)) {
+        setStage(o.state)
+        setOp(o)
+      }
     })
     try {
       if (target.kind === 'apply' && plan) finish(await applyFixPlan(plan))
@@ -116,6 +127,21 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
       void engine.refresh()
     } finally {
       un()
+    }
+  }
+
+  const cancelDownload = async () => {
+    if (!op || cancelling) return
+    setCancelling(true)
+    try {
+      const accepted = await cancelFixOperation(op.id)
+      if (!accepted) {
+        setCancelling(false)
+        setError('A instalação já avançou além do download. Aguarde a conclusão e use Desfazer no histórico se necessário.')
+      }
+    } catch (e) {
+      setCancelling(false)
+      setError(errorMessage(e))
     }
   }
 
@@ -161,7 +187,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
   const manualMode = status === 'requires-manual-step'
   const changes = (rollback ? rb?.changes : plan?.changes) ?? []
   const reasons = (rollback ? rb?.reasons : plan?.reasons) ?? []
-  const stages = rollback ? ROLLBACK_STAGES : APPLY_STAGES
+  const hasDownloads = !!plan?.artifacts?.length
+  const stages = rollback ? ROLLBACK_STAGES : hasDownloads ? FILE_APPLY_STAGES : APPLY_STAGES
   const stageIndex = stage ? stages.findIndex((s) => s.state === stage) : -1
   // No resultado vale o estado real da operação, não o tipo de diálogo.
   const undone = op?.state === 'rolled-back'
@@ -183,6 +210,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
         return 'Falta um passo seu na Steam. O FRX só marca como concluído depois de conferir no arquivo.'
       case 'done':
         return undone ? 'Conferido no disco: a correção foi removida.' : 'Conferido no disco. Vale a partir da próxima vez que o jogo abrir.'
+      case 'cancelled':
+        return 'Operação cancelada antes da instalação. Os detalhes permanecem no histórico.'
       case 'error':
         return 'Nada foi marcado como concluído.'
     }
@@ -224,17 +253,20 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
             <Button variant="ghost" onClick={() => setPhase('review')}>
               Voltar
             </Button>
-            <Button variant="primary" disabled={!ack} onClick={() => void run()}>
-              {manualMode ? 'Registrar e mostrar a linha' : 'Aplicar correção'}
+            <Button variant="primary" disabled={!ack || (hasDownloads && !downloadAck)} onClick={() => void run()}>
+              {manualMode ? 'Registrar e mostrar a linha' : hasDownloads ? 'Baixar e instalar correção' : 'Aplicar correção'}
             </Button>
           </>
         )
       case 'running':
         return (
-          <Button variant="ghost" disabled>
-            Aplicando…
-          </Button>
+          <>
+            {hasDownloads && op && (stage === 'downloading' || stage === 'verifying-artifacts') && <Button variant="outline" disabled={cancelling} onClick={() => void cancelDownload()}>{cancelling ? 'Cancelamento solicitado…' : 'Cancelar download'}</Button>}
+            <Button variant="ghost" disabled>Aplicando…</Button>
+          </>
         )
+      case 'cancelled':
+        return <Button variant="ghost" onClick={onClose}>Fechar</Button>
       case 'manual':
         return (
           <>
@@ -339,6 +371,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
                 )}
               </div>
               {!rollback && <PerformanceWarning warnings={plan?.performanceWarnings} />}
+              {plan && <HardwareContext environment={plan.environment} match={plan.hardwareMatch} />}
+              {plan && <ArtifactDetails artifacts={plan.artifacts} />}
               {reasons.length > 0 && (
                 <ul className={cn('space-y-1.5 rounded-md border px-3.5 py-2.5 text-[13px]', executable ? 'border-caution/25 bg-caution-soft text-caution' : 'border-bad/25 bg-bad-soft text-bad')}>
                   {reasons.map((r) => (
@@ -367,6 +401,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
           {phase === 'confirm' && plan && (
             <div className="space-y-4">
               <PerformanceWarning warnings={plan.performanceWarnings} />
+              {hasDownloads && <p className="text-[13px] text-fg-2">O FRX vai baixar os arquivos identificados na prévia, verificar o conteúdo em uma área temporária e só então criar o backup e instalar nos destinos autorizados.</p>}
               <ul className="space-y-3 text-[13.5px]">
                 <li className="flex gap-3">
                   <ShieldCheck className="mt-0.5 size-4 shrink-0 text-fg-2" aria-hidden />
@@ -391,6 +426,10 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
                       : 'Entendo que o resultado depende do meu sistema e que a melhora não é garantida.'}
                 </span>
               </label>
+              {hasDownloads && <label className="flex cursor-pointer items-start gap-3 rounded-md border border-line-2 bg-raised/50 px-3.5 py-3 text-[13.5px] transition-colors hover:border-line-3">
+                <input type="checkbox" checked={downloadAck} onChange={(e) => setDownloadAck(e.target.checked)} className="mt-0.5 size-4 accent-[var(--frx-accent)]" />
+                <span>Autorizo o download e a instalação somente dos arquivos e destinos mostrados nesta prévia. Entendo que origem e checksum não garantem ausência de risco nem melhoria de desempenho.</span>
+              </label>}
             </div>
           )}
 
@@ -419,6 +458,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
                   )
                 })}
               </ol>
+              {hasDownloads && op?.artifactProgress && <p className="mt-3 break-all text-[12.5px] text-fg-2" aria-live="polite">{op.artifactProgress.assetName} · {artifactBytes(op.artifactProgress.downloadedBytes)}{op.artifactProgress.totalBytes != null ? ` de ${artifactBytes(op.artifactProgress.totalBytes)}` : ' recebidos'}</p>}
+              {phase === 'running' && error && <p role="alert" className="mt-3 text-[12.5px] text-caution">{error}</p>}
             </div>
           )}
 
@@ -445,6 +486,8 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
               {op.recipeId === 'frx.diagnostics.proton-log' && !undone && <p>O log fica em ~/steam-{op.appId}.log depois que o jogo abrir. Desfaça quando terminar o diagnóstico.</p>}
             </div>
           )}
+
+          {phase === 'cancelled' && <p className="text-[13px] text-fg-2">{op?.message ?? 'Download cancelado. Nenhuma instalação foi concluída.'}</p>}
 
           {phase === 'error' && error && <p className="mt-4 rounded-md border border-bad/25 bg-bad-soft px-3.5 py-2.5 text-[13px] text-bad">{error}</p>}
         </motion.div>

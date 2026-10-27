@@ -20,6 +20,7 @@ const REPOS: &[&str] = &[
     "ValveSoftware/Proton",
     "Open-Wine-Components/umu-protonfixes",
     "GloriousEggroll/proton-ge-custom",
+    "CachyOS/proton-cachyos",
 ];
 const RELEASE_REPOS: &[&str] = &["ValveSoftware/Proton", "GloriousEggroll/proton-ge-custom"];
 const ACCEPT: &str = "application/vnd.github+json";
@@ -167,15 +168,13 @@ fn issue_scope(issue: &Issue, app_id: &str) -> DiscoveryScope {
     let expected = format!("https://github.com/{repo}/issues/{}", issue.number);
     if REPOS.contains(&repo.as_str())
         && issue.html_url == expected
-        && has_token(&issue.title, app_id)
-        && ids.len() == 1
-        && ids[0] == app_id
+        && (ids.is_empty() && body_ids == [app_id] || ids == [app_id])
         && confirmed
         && body_ids.iter().all(|id| id == app_id)
     {
         DiscoveryScope::verified(
             app_id,
-            format!("A issue vincula o AppID {app_id} no título e o confirma por identificador explícito ou link da Steam: {expected}"),
+            format!("A própria issue confirma o AppID {app_id} por identificador explícito ou link da Steam: {expected}"),
         )
     } else {
         DiscoveryScope {
@@ -316,6 +315,7 @@ fn performance_reports(
     [PerformanceOutcome::Positive, PerformanceOutcome::Negative].into_iter()
         .filter(|outcome| match outcome { PerformanceOutcome::Positive => positive, PerformanceOutcome::Negative => negative })
         .map(|outcome| PerformanceReport {
+            hardware: Default::default(),
             app_id: app_id.to_owned(), action_key: keys[0].clone(), source_url: url.to_owned(), author: author.map(str::to_owned), reported_at: date.clone(), statement: line.chars().take(240).collect(), outcome,
             proton_version: scan.proton_versions.first().cloned(),
             gpu_vendor: if scan.gpus.len() == 1 { scan.gpus.first().copied() } else { None },
@@ -377,6 +377,7 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
     let mut outcomes: Vec<Outcome> = Vec::new();
     let mut findings: Vec<FixFinding> = Vec::new();
     let mut mentions: Vec<Mention> = Vec::new();
+    let mut artifact_documents: Vec<super::artifacts::Document> = Vec::new();
 
     // 1. Issues com o AppID no título.
     let query = format!(
@@ -406,7 +407,7 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             ctx.ttl_secs,
         )
         .await;
-    let issues: Vec<Issue> = so
+    let mut issues: Vec<Issue> = so
         .body
         .as_deref()
         .and_then(|b| serde_json::from_str::<SearchResp>(b).ok())
@@ -421,6 +422,55 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
         .take(MAX_ISSUES)
         .collect();
     outcomes.push(so);
+
+    // A source can discuss an actual file solution without putting the AppID
+    // in its title. Search the normalized name too, but never use the query
+    // as identity evidence: ambiguous hits remain explicitly unattributed.
+    if let Some(name) = name_variants(&q.name).last().filter(|n| n.len() >= 6) {
+        let query = format!(
+            "\"{name}\" in:title,body {}",
+            REPOS
+                .iter()
+                .map(|r| format!("repo:{r}"))
+                .collect::<Vec<_>>()
+                .join(" ")
+        );
+        let url = Url::parse_with_params(
+            "https://api.github.com/search/issues",
+            &[
+                ("q", query.as_str()),
+                ("per_page", "5"),
+                ("sort", "updated"),
+                ("order", "desc"),
+            ],
+        )
+        .map(|u| u.to_string())
+        .unwrap_or_default();
+        let o = ctx
+            .get(
+                HttpRequest::new(url, ACCEPT, 2 * 1024 * 1024),
+                Some("search"),
+                ctx.ttl_secs,
+            )
+            .await;
+        if let Some(body) = &o.body {
+            if let Ok(found) = serde_json::from_str::<SearchResp>(body) {
+                for i in found.items.into_iter().filter(|i| {
+                    i.pull_request.is_none()
+                        && safe_github_url(&i.html_url)
+                        && REPOS.contains(&repo_of(&i.repository_url).as_str())
+                }) {
+                    if issues.len() >= MAX_ISSUES {
+                        break;
+                    }
+                    if !issues.iter().any(|old| old.html_url == i.html_url) {
+                        issues.push(i);
+                    }
+                }
+            }
+        }
+        outcomes.push(o);
+    }
 
     for issue in &issues {
         let repo = repo_of(&issue.repository_url);
@@ -438,10 +488,11 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             "aberto"
         };
         findings.push(FixFinding {
+            artifacts: vec![],
             scope: scope.clone(),
             performance_evidence: PerformanceEvidence::default(),
             id: finding_id("gh-issue", &q.app_id, &reference),
-            game_app_id: q.app_id.clone(),
+            game_app_id: scope.app_id.clone().unwrap_or_default(),
             title: format!("Relato de compatibilidade · {reference}"),
             description: format!(
                 "“{}” — {state}, {} comentário{}{}. Relatos descrevem problemas e soluções testadas por outros jogadores; leia antes de seguir qualquer passo.",
@@ -473,6 +524,18 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             keys: vec![],
         });
         if let Some(body) = &issue.body {
+            artifact_documents.push(super::artifacts::Document {
+                source: FindingSource {
+                    provider: ProviderId::Github,
+                    label: format!("{reference} · descrição"),
+                    url: issue.html_url.clone(),
+                    reference_id: Some(reference.clone()),
+                    snippet: None,
+                    published_at: issue.created_at.clone(),
+                },
+                scope: scope.clone(),
+                text: body.clone(),
+            });
             collect(
                 &mut mentions,
                 body,
@@ -523,6 +586,18 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             {
                 let Some(body) = &c.body else { continue };
                 let label = format!("Comentário em {repo}#{}", issue.number);
+                artifact_documents.push(super::artifacts::Document {
+                    source: FindingSource {
+                        provider: ProviderId::Github,
+                        label: label.clone(),
+                        url: c.html_url.clone(),
+                        reference_id: None,
+                        snippet: None,
+                        published_at: c.created_at.clone(),
+                    },
+                    scope: inherited_scope(&scope, body),
+                    text: body.clone(),
+                });
                 collect(
                     &mut mentions,
                     body,
@@ -562,9 +637,34 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             .unwrap_or_default();
         outcomes.push(o);
         findings.extend(release_mentions(q, repo, &releases));
+        for r in &releases {
+            if let Some(body) = &r.body {
+                if explicit_app_ids(body) == [q.app_id.clone()] {
+                    artifact_documents.push(super::artifacts::Document {
+                        source: FindingSource {
+                            provider: ProviderId::Github,
+                            label: format!("{repo} · {}", r.tag_name),
+                            url: r.html_url.clone(),
+                            reference_id: Some(r.tag_name.clone()),
+                            snippet: None,
+                            published_at: r.published_at.clone(),
+                        },
+                        scope: DiscoveryScope::verified(
+                            &q.app_id,
+                            format!("Release identifica explicitamente o AppID {}", q.app_id),
+                        ),
+                        text: format!("{}\n{}", r.html_url, body),
+                    });
+                }
+            }
+        }
     }
 
     findings.extend(group_mentions(&q.app_id, mentions, &q.retrieved_at));
+    let (artifact_findings, artifact_outcomes) =
+        super::artifacts::discover(ctx, q, &artifact_documents).await;
+    findings.extend(artifact_findings);
+    outcomes.extend(artifact_outcomes);
     let refs: Vec<&Outcome> = outcomes.iter().collect();
     let found = findings.len();
     ProviderResult {
@@ -639,6 +739,7 @@ fn maintainer_statement(
         None => "Mantenedor indica que o problema foi corrigido".into(),
     };
     Some(FixFinding {
+        artifacts: vec![],
         scope: inherited_scope(parent, body),
         performance_evidence: PerformanceEvidence::default(),
         id: finding_id("gh-maint", &q.app_id, &c.html_url),
@@ -651,7 +752,7 @@ fn maintainer_statement(
         kind: FindingKind::ReleaseNote,
         actions: versions.iter().take(2).map(|v| FixAction { kind: ActionKind::ProtonVersion, label: "Versão citada pelo mantenedor".into(), value: v.clone(), conditional: false }).collect(),
         sources: vec![FindingSource { provider: ProviderId::Github, label: format!("Mantenedor em {repo}#{number}"), url: c.html_url.clone(), reference_id: None, snippet: Some(snippet), published_at: c.created_at.clone() }],
-        requirements: Requirements { gpu_vendor: None, proton_versions: versions, game_version: None },
+        requirements: Requirements { hardware: Default::default(), gpu_vendor: None, proton_versions: versions, game_version: None },
         confidence: Confidence::Verified,
         compatibility: Compatibility::Unknown,
         compatibility_note: String::new(),
@@ -704,6 +805,7 @@ fn release_mentions(q: &GameQuery, repo: &str, releases: &[Release]) -> Vec<FixF
         };
         let verified = scope.matches_game(&q.app_id);
         out.push(FixFinding {
+            artifacts: vec![],
             game_app_id: scope.app_id.clone().unwrap_or_default(),
             scope,
             performance_evidence: PerformanceEvidence::default(),
@@ -718,7 +820,7 @@ fn release_mentions(q: &GameQuery, repo: &str, releases: &[Release]) -> Vec<FixF
             kind: FindingKind::ReleaseNote,
             actions: vec![FixAction { kind: ActionKind::ProtonVersion, label: "Versão da ferramenta citada".into(), value: r.tag_name.clone(), conditional: false }],
             sources: vec![FindingSource { provider: ProviderId::Github, label: format!("{repo} · {release}"), url: r.html_url.clone(), reference_id: Some(r.tag_name.clone()), snippet: Some(snippet), published_at: r.published_at.clone() }],
-            requirements: Requirements { gpu_vendor: None, proton_versions: vec![r.tag_name.clone()], game_version: None },
+            requirements: Requirements { hardware: Default::default(), gpu_vendor: None, proton_versions: vec![r.tag_name.clone()], game_version: None },
             confidence: Confidence::Verified,
             compatibility: Compatibility::Unknown,
             compatibility_note: String::new(),
@@ -909,6 +1011,71 @@ mod tests {
         assert!(r.findings.is_empty());
     }
 
+    #[tokio::test]
+    async fn name_query_finds_file_references_but_only_publisher_appid_confirms_recipe_scope() {
+        let tmp = tempfile::tempdir().unwrap();
+        let cache = Cache::new(tmp.path());
+        let state = EngineState::default();
+        let fetcher = MockFetcher::default();
+        let query = format!(
+            "\"batman arkham city\" in:title,body {}",
+            REPOS
+                .iter()
+                .map(|r| format!("repo:{r}"))
+                .collect::<Vec<_>>()
+                .join(" ")
+        );
+        let url = Url::parse_with_params(
+            "https://api.github.com/search/issues",
+            &[
+                ("q", query.as_str()),
+                ("per_page", "5"),
+                ("sort", "updated"),
+                ("order", "desc"),
+            ],
+        )
+        .unwrap()
+        .to_string();
+        fetcher.on(&url,200,r#"{"items":[{"number":999999,"title":"GPU PhysX / CUDA compatibility","html_url":"https://github.com/GloriousEggroll/proton-ge-custom/issues/999999","state":"open","comments":0,"body":"Synthetic report about Batman Arkham City: https://github.com/ValveSoftware/Proton/releases/tag/fixture-file","repository_url":"https://api.github.com/repos/GloriousEggroll/proton-ge-custom"}]}"#);
+        let metadata = serde_json::json!({"id":4242,"tag_name":"fixture-file","html_url":"https://github.com/ValveSoftware/Proton/releases/tag/fixture-file","author":{"login":"ValveSoftware"},"body":"Steam AppID: 200260\nInstall: Config/fix.ini <- fix.ini","assets":[{"id":7,"name":"fix.ini","size":100,"state":"uploaded","digest":format!("sha256:{}","a".repeat(64)),"browser_download_url":"https://github.com/ValveSoftware/Proton/releases/download/fixture-file/fix.ini"}]});
+        fetcher.on(
+            "https://api.github.com/repos/ValveSoftware/Proton/releases/tags/fixture-file",
+            200,
+            &metadata.to_string(),
+        );
+        let ctx = Ctx {
+            fetcher: &fetcher,
+            cache: &cache,
+            state: &state,
+            ttl_secs: 3600,
+            force: false,
+        };
+        let result = search(&ctx, &q()).await;
+        let community = result
+            .findings
+            .iter()
+            .find(|f| f.kind == FindingKind::Report)
+            .unwrap();
+        assert_eq!(community.scope.kind, DiscoveryScopeKind::UnknownScope);
+        assert!(community.game_app_id.is_empty());
+        let artifact = result
+            .findings
+            .iter()
+            .find(|f| !f.artifacts.is_empty())
+            .unwrap();
+        assert!(artifact.scope.matches_game("200260"));
+        assert_eq!(
+            artifact.artifacts[0].trust,
+            ArtifactTrust::OriginAndIntegrity
+        );
+        assert!(artifact.artifacts[0].scope.basis.contains("publicador"));
+        assert_eq!(
+            fetcher.count("https://github.com/"),
+            0,
+            "discovery never fetches payloads"
+        );
+    }
+
     #[test]
     fn name_matching_is_word_based() {
         assert_eq!(
@@ -982,6 +1149,20 @@ mod tests {
             "explicit AppID in title is itself a source identity"
         );
         assert!(explicit_app_ids("RTX (4060), year (2024), 90 FPS").is_empty());
+    }
+
+    #[test]
+    fn source_body_can_confirm_appid_even_when_the_issue_title_has_no_id() {
+        let mut issue = serde_json::from_str::<SearchResp>(SEARCH)
+            .unwrap()
+            .items
+            .remove(0);
+        issue.title = "NVIDIA PhysX / CUDA compatibility".into();
+        issue.body = Some("Steam AppID: 200260; publisher release linked below".into());
+        assert!(issue_scope(&issue, "200260").matches_game("200260"));
+        issue.body =
+            Some("Batman Arkham City; a similarly named game is not identity proof".into());
+        assert!(!issue_scope(&issue, "200260").matches_game("200260"));
     }
 
     #[test]

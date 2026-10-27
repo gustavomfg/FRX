@@ -35,11 +35,11 @@ use crate::fixes::models::ActionKind;
 use provenance::Provenance;
 
 /// Versão do gerador. Mudou → todas as receitas geradas são reavaliadas.
-pub const GENERATOR_VERSION: &str = "1.1.0";
+pub const GENERATOR_VERSION: &str = "1.2.0";
 /// Versão das regras de segurança e do conhecimento de variáveis
 /// (`security::ENV_ALLOWLIST` + `compatibility::KNOWLEDGE`). Aumente ao mudar
 /// qualquer uma das duas.
-pub const RULES_VERSION: &str = "2026.10.27-2";
+pub const RULES_VERSION: &str = "2026.10.27-3";
 
 pub use game_evidence::GamePerformanceEvidence;
 

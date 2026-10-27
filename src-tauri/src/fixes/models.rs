@@ -111,6 +111,8 @@ pub struct FindingSource {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Requirements {
+    #[serde(default)]
+    pub hardware: crate::system::context::HardwareRequirements,
     pub gpu_vendor: Option<GpuReq>,
     pub proton_versions: Vec<String>,
     pub game_version: Option<String>,
@@ -168,6 +170,8 @@ pub enum PerformanceOutcome {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PerformanceReport {
+    #[serde(default)]
+    pub hardware: crate::system::context::HardwareRequirements,
     pub app_id: String,
     pub action_key: String,
     pub source_url: String,
@@ -191,9 +195,72 @@ pub struct PerformanceEvidence {
     pub reports: Vec<PerformanceReport>,
 }
 
+/// Published metadata is evidence of origin/integrity, not proof that code is benign.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum ArtifactTrust {
+    OriginAndIntegrity,
+    Partial,
+    Untrusted,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "kebab-case")]
+pub enum ArtifactFormat {
+    File,
+    Zip,
+    Unknown,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ArtifactFile {
+    /// Exact member name in a ZIP; None means the direct downloaded file.
+    pub source_path: Option<String>,
+    pub target_path: String,
+    pub sha256: Option<String>,
+    pub replace: bool,
+    #[serde(default)]
+    pub expected_original_sha256: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ArtifactCandidate {
+    pub id: String,
+    pub app_id: String,
+    pub scope: DiscoveryScope,
+    /// A community recommendation is distinct from the artifact publisher.
+    pub recommendation_source: FindingSource,
+    pub repository: String,
+    pub release_tag: String,
+    pub release_url: String,
+    pub metadata_url: String,
+    pub release_id: u64,
+    pub publisher: Option<String>,
+    pub asset_id: u64,
+    pub asset_name: String,
+    pub asset_url: String,
+    pub size_bytes: u64,
+    pub content_type: Option<String>,
+    pub sha256: Option<String>,
+    pub signature_url: Option<String>,
+    pub format: ArtifactFormat,
+    pub platform: Option<String>,
+    pub architecture: Option<String>,
+    pub files: Vec<ArtifactFile>,
+    pub requirements: Requirements,
+    pub trust: ArtifactTrust,
+    pub reasons: Vec<String>,
+    pub license: Option<String>,
+    pub published_at: Option<String>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixFinding {
+    #[serde(default)]
+    pub artifacts: Vec<ArtifactCandidate>,
     #[serde(default)]
     pub scope: DiscoveryScope,
     #[serde(default)]

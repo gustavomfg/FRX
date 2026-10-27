@@ -118,13 +118,22 @@ pub(crate) fn conditions_from_profile(
         _ => crate::fixes::short_tool_name(&tool.display_name),
     });
     Conditions {
+        environment: Some(crate::system::context::EnvironmentContext::from_profile(
+            profile, tool,
+        )),
         proton,
-        gpu: gpu.and_then(|g| g.name.clone()),
-        driver: gpu.and_then(|g| match (&g.driver, &g.driver_version) {
-            (Some(d), Some(v)) => Some(format!("{d} {v}")),
-            (Some(d), None) => Some(d.clone()),
-            _ => None,
-        }),
+        gpu: (profile.gpus.len() == 1)
+            .then(|| gpu.and_then(|g| g.name.clone()))
+            .flatten(),
+        driver: (profile.gpus.len() == 1)
+            .then(|| {
+                gpu.and_then(|g| match (&g.driver, &g.driver_version) {
+                    (Some(d), Some(v)) => Some(format!("{d} {v}")),
+                    (Some(_), None) => None,
+                    _ => None,
+                })
+            })
+            .flatten(),
         kernel: profile.kernel.clone(),
         os: profile.distro.clone(),
         cpu: profile.cpu.clone(),

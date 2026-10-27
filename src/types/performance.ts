@@ -121,6 +121,7 @@ export interface Series {
 }
 
 export interface Conditions {
+  environment?: import('./steam').EnvironmentContext | null
   gameBuildId?: string | null
   proton: string | null
   gpu: string | null

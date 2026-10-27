@@ -41,9 +41,10 @@ pub fn derive(
     ops: &[Operation],
     applied: &[AppliedFix],
     current_env: &[EnvPair],
+    current_files: &[FileFixRef],
 ) {
     if pack.kind == PackKind::Baseline {
-        if current_env.is_empty() {
+        if current_env.is_empty() && current_files.is_empty() {
             set(
                 pack,
                 PackState::Verified,
@@ -64,7 +65,11 @@ pub fn derive(
         .map(|p| p.status);
     let latest = ops
         .iter()
-        .filter(|o| op_env(o) == pack.env)
+        .filter(|o| {
+            o.app_id == pack.app_id
+                && op_env(o) == pack.env
+                && super::benchmark::operation_planned_file_fixes(o) == pack.file_fixes
+        })
         .max_by(|a, b| a.updated_at.cmp(&b.updated_at).then(a.id.cmp(&b.id)));
     if let Some(op) = latest {
         pack.operation_id = Some(op.id.clone());

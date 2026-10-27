@@ -698,6 +698,7 @@ fn related_findings_are_linked_by_action() {
     use crate::fixes::models::*;
     let e = fixture().engine();
     let f = |kind, value: &str| FixFinding {
+        artifacts: vec![],
         scope: DiscoveryScope::verified("200260", "Fixture: verified game source"),
         performance_evidence: Default::default(),
         id: format!("f-{value}"),
@@ -1929,4 +1930,11 @@ fn acceptance_test_performance_batman() {
         assert!(r.ranking.winner.is_none());
     }
     let _ = d1;
+}
+
+mod file_artifacts {
+    use super::*;
+    include!("artifact_tests.rs");
+    include!("file_security_tests.rs");
+    include!("https_fixture_test.rs");
 }

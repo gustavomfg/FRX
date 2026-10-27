@@ -40,6 +40,26 @@ pub fn assess(f: &mut FixFinding, hw: &HardwareContext) {
     if f.compatibility == Compatibility::AlreadyIncluded {
         return;
     }
+    if !f.requirements.hardware.is_empty() {
+        let context = crate::system::context::EnvironmentContext {
+            detected_gpus: hw.gpus.clone(),
+            cpu_arch: Some(std::env::consts::ARCH.into()),
+            ..Default::default()
+        };
+        let matched = f.requirements.hardware.evaluate(Some(&context));
+        f.compatibility = match matched.state {
+            crate::system::context::MatchState::Compatible => Compatibility::Compatible,
+            crate::system::context::MatchState::Unknown => Compatibility::Unknown,
+            crate::system::context::MatchState::Incompatible => Compatibility::Incompatible,
+        };
+        f.compatibility_note = matched
+            .reasons
+            .into_iter()
+            .chain(matched.limitations)
+            .collect::<Vec<_>>()
+            .join(" ");
+        return;
+    }
     let Some(req) = f.requirements.gpu_vendor else {
         // Sem requisito explícito.
         if f.kind == FindingKind::Protonfix || f.kind == FindingKind::ReleaseNote {
@@ -78,7 +98,7 @@ pub fn assess(f: &mut FixFinding, hw: &HardwareContext) {
                 .unwrap_or("desconhecida")
                 .to_owned()
         });
-    if primary == Some(req) {
+    if primary == Some(req) && hw.gpus.len() == 1 {
         f.compatibility = Compatibility::Compatible;
         f.compatibility_note = format!(
             "Citada para GPUs {} — a sua é {}.",
@@ -109,6 +129,9 @@ mod tests {
 
     fn gpu(v: GpuVendor, name: &str) -> GpuInfo {
         GpuInfo {
+            pci_address: None,
+            gpu_family: None,
+            vram_bytes: None,
             vendor: v,
             vendor_id: String::new(),
             device_id: String::new(),
@@ -121,6 +144,7 @@ mod tests {
 
     pub fn finding(kind: FindingKind, req: Option<GpuReq>) -> FixFinding {
         FixFinding {
+            artifacts: vec![],
             scope: DiscoveryScope::default(),
             performance_evidence: PerformanceEvidence::default(),
             id: "x".into(),
@@ -170,7 +194,7 @@ mod tests {
         assert_eq!(amd_fix.compatibility, Compatibility::Unknown);
         let mut nv_fix = finding(FindingKind::Tweak, Some(GpuReq::Nvidia));
         assess(&mut nv_fix, &hw);
-        assert_eq!(nv_fix.compatibility, Compatibility::Compatible);
+        assert_eq!(nv_fix.compatibility, Compatibility::Unknown);
     }
 
     #[test]

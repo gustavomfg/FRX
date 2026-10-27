@@ -2,6 +2,7 @@
 //! busca e devolve descobertas + situação. Adicionar uma fonte nova é criar
 //! um módulo aqui e chamá-lo em `fixes::search`.
 
+pub mod artifacts;
 pub mod github;
 pub mod protondb;
 pub mod umu;

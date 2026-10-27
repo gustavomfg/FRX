@@ -1,5 +1,7 @@
 # Fix Engine dinâmico (gerador de receitas)
 
+> Evolução de 27/10/2026: o mesmo executor agora prepara downloads e configurações de texto verificáveis, com contexto de hardware, staging, backup e rollback. DLLs e scripts continuam em revisão. O suporte atual e suas restrições estão em [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md); as descrições abaixo documentam também o fluxo original de variáveis.
+
 O FRX gera receitas sozinho a partir das descobertas da pesquisa, sem cadastro manual, quando reconhece e valida uma ação suportada. O catálogo revisado (`src-tauri/recipes/`) continua existindo, mas deixou de ser o único caminho para aplicar uma correção.
 
 Código: `src-tauri/src/fix_engine/dynamic/`.

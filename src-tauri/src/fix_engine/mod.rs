@@ -13,7 +13,9 @@
 //! o ID do plano e a impressão digital que ele recebeu. Tudo é recalculado
 //! aqui antes de qualquer escrita.
 
+pub mod artifacts;
 pub mod catalog;
+pub mod confined;
 pub mod dynamic;
 pub mod files;
 pub mod journal;
@@ -26,7 +28,8 @@ mod tests;
 
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::sync::{Mutex, TryLockError};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, Mutex, TryLockError};
 
 use crate::fixes::models::{ActionKind, FixFinding};
 use crate::steam::launch_options::{remove_args, revert_env, LaunchLine, Revert};
@@ -53,6 +56,8 @@ pub struct FixEngine {
     plans: Mutex<HashMap<String, (FixPlan, Vec<Step>)>>,
     /// Uma operação de escrita por vez (aplicação ou rollback).
     exec: Mutex<()>,
+    artifact_transport: Arc<dyn artifacts::Transport>,
+    artifact_cancel: Mutex<Option<(String, Arc<AtomicBool>)>>,
 }
 
 impl FixEngine {
@@ -91,6 +96,8 @@ impl FixEngine {
             proc_root,
             plans: Mutex::default(),
             exec: Mutex::new(()),
+            artifact_transport: Arc::new(artifacts::HttpsTransport),
+            artifact_cancel: Mutex::new(None),
         };
         engine.recover();
         engine
@@ -133,6 +140,10 @@ impl FixEngine {
 
     fn analysis_ctx<'a>(&'a self, game: &'a GameCtx) -> analyzer::Ctx<'a> {
         analyzer::Ctx {
+            environment: game
+                .performance_conditions
+                .as_ref()
+                .and_then(|c| c.environment.as_ref()),
             game_build_id: game
                 .performance_conditions
                 .as_ref()
@@ -198,6 +209,10 @@ impl FixEngine {
     pub fn analyze(&self, game: &GameCtx) -> Result<Vec<AssessmentView>, String> {
         let ctx = self.analysis_ctx(game);
         let sys = dynamic::registry::System {
+            environment: game
+                .performance_conditions
+                .as_ref()
+                .and_then(|c| c.environment.as_ref()),
             game_build_id: game
                 .performance_conditions
                 .as_ref()
@@ -373,6 +388,16 @@ impl FixEngine {
         }
         let now = now_iso();
         let mut op = Operation {
+            manual_recovery_required: false,
+            artifacts: recipe
+                .actions
+                .iter()
+                .filter_map(|a| match a {
+                    RecipeAction::InstallArtifact { artifact } => Some((**artifact).clone()),
+                    _ => None,
+                })
+                .collect(),
+            artifact_progress: None,
             recipe_fingerprint: Some(crate::smart_packs::discovery::fingerprint(&recipe)),
             schema: JOURNAL_SCHEMA,
             id: new_op_id(),
@@ -428,14 +453,26 @@ impl FixEngine {
     }
 
     fn run_apply(&self, op: &mut Operation, emit: &dyn Fn(&Operation)) {
-        let result = self.try_apply(op, emit);
+        let result = self
+            .prepare_artifacts(op, emit)
+            .and_then(|_| self.try_apply(op, emit));
         if let Err(e) = result {
-            let written = op
-                .steps
-                .iter()
-                .any(|s| s.status == StepStatus::Written || s.status == StepStatus::Verified);
+            if e.starts_with("RECUPERAÇÃO:") {
+                op.manual_recovery_required = true;
+                let _ = self.journal.transition(op, OpState::RecoveryRequired, e);
+                emit(op);
+                return;
+            }
+            let written = op.steps.iter().any(|s| {
+                matches!(
+                    s.status,
+                    StepStatus::Writing | StepStatus::Written | StepStatus::Verified
+                )
+            });
             if !written {
-                let state = if e.starts_with("CONFLITO:") {
+                let state = if e.starts_with("CANCELADO:") {
+                    OpState::Cancelled
+                } else if e.starts_with("CONFLITO:") {
                     OpState::Conflict
                 } else {
                     OpState::Failed
@@ -455,6 +492,7 @@ impl FixEngine {
                         );
                     }
                     Err(u) => {
+                        op.manual_recovery_required |= u.contains("RECUPERAÇÃO:");
                         let _ = self.journal.transition(
                             op,
                             OpState::RecoveryRequired,
@@ -465,6 +503,110 @@ impl FixEngine {
             }
             emit(op);
         }
+    }
+
+    /// Cancellation belongs to one operation and is accepted only while all
+    /// content is being prepared. Once writes start it cannot abandon a journal.
+    pub fn cancel_artifact_operation(&self, operation_id: &str) -> bool {
+        let Ok(active) = self.artifact_cancel.lock() else {
+            return false;
+        };
+        if let Some((id, flag)) = active.as_ref().filter(|(id, _)| id == operation_id) {
+            let _ = id;
+            flag.store(true, Ordering::SeqCst);
+            true
+        } else {
+            false
+        }
+    }
+
+    fn prepare_artifacts(
+        &self,
+        op: &mut Operation,
+        emit: &dyn Fn(&Operation),
+    ) -> Result<(), String> {
+        if op.artifacts.is_empty() {
+            return Ok(());
+        }
+        let flag = Arc::new(AtomicBool::new(false));
+        *self
+            .artifact_cancel
+            .lock()
+            .map_err(|_| "Estado de download indisponível")? = Some((op.id.clone(), flag.clone()));
+        let staging = self.root.join("staging").join(&op.id);
+        let result = (|| {
+            files::private_dir(&self.root.join("staging"))?;
+            std::fs::create_dir(&staging)
+                .map_err(|e| format!("Não foi possível preparar staging privado: {e}"))?;
+            files::private_dir(&staging)?;
+            let mut all = std::collections::BTreeMap::new();
+            for (index, artifact) in op.artifacts.clone().into_iter().enumerate() {
+                self.journal.transition(
+                    op,
+                    OpState::Downloading,
+                    format!(
+                        "Baixando {} para staging; o jogo ainda não foi alterado.",
+                        artifact.asset_name
+                    ),
+                )?;
+                emit(op);
+                let content = artifacts::prepare(
+                    &artifact,
+                    &staging.join(index.to_string()),
+                    self.artifact_transport.as_ref(),
+                    &flag,
+                    &mut |n, total, verifying| {
+                        op.artifact_progress = Some(ArtifactProgress {
+                            downloaded_bytes: n,
+                            total_bytes: total,
+                            asset_name: artifact.asset_name.clone(),
+                        });
+                        if verifying {
+                            let _ = self.journal.transition(
+                                op,
+                                OpState::VerifyingArtifacts,
+                                "Verificando SHA-256, formato e arquivos selecionados.",
+                            );
+                        }
+                        emit(op);
+                    },
+                )?;
+                for (path, text) in content {
+                    if all.insert(path, text).is_some() {
+                        return Err("Arquivos de artefatos distintos têm o mesmo destino.".into());
+                    }
+                }
+            }
+            for record in &mut op.steps {
+                if let Step::GameFile {
+                    rel,
+                    content,
+                    artifact: Some(_),
+                    ..
+                } = &mut record.step
+                {
+                    *content = all
+                        .remove(rel)
+                        .ok_or("Arquivo verificado ausente no staging")?;
+                }
+            }
+            // Every remaining item belongs to the publisher's explicit selection;
+            // already matching files need no additional write.
+            self.journal.save(op)?;
+            // This mutex serializes accepting cancellation with entering writes.
+            let mut active = self
+                .artifact_cancel
+                .lock()
+                .map_err(|_| "Estado indisponível")?;
+            artifacts::cancelled(&flag)?;
+            *active = None;
+            Ok(())
+        })();
+        if let Ok(mut active) = self.artifact_cancel.lock() {
+            *active = None;
+        }
+        let _ = std::fs::remove_dir_all(&staging);
+        result
     }
 
     fn try_apply(&self, op: &mut Operation, emit: &dyn Fn(&Operation)) -> Result<(), String> {
@@ -482,7 +624,20 @@ impl FixEngine {
                     .map(|n| n.to_string_lossy().into_owned())
                     .unwrap_or_default()
             );
-            let b = files::backup(&target, &dir, &name)?;
+            let b = match &rec.step {
+                Step::GameFile {
+                    root,
+                    rel,
+                    identity,
+                    ..
+                } => confined::Target::open(root, rel, identity.as_ref())?.backup(&dir, &name)?,
+                _ => files::backup(&target, &dir, &name)?,
+            };
+            if let Step::GameFile { before_sha, .. } = &rec.step {
+                if b.sha256 != *before_sha {
+                    return Err("CONFLITO: arquivo do jogo mudou desde a prévia.".into());
+                }
+            }
             if let Step::LaunchOptions { file_sha, .. } = &rec.step {
                 if b.sha256.as_deref() != Some(file_sha.as_str()) {
                     return Err("CONFLITO: localconfig.vdf mudou depois da prévia.".into());
@@ -500,18 +655,40 @@ impl FixEngine {
         if processes::game_running(&self.proc_root, &op.app_id) {
             return Err("CONFLITO: o jogo foi aberto durante a aplicação.".into());
         }
-        let launch = op
-            .steps
-            .iter()
-            .any(|s| matches!(s.step, Step::LaunchOptions { .. }));
-        if launch && processes::steam_running(&self.proc_root) {
+        if processes::steam_running(&self.proc_root) {
             return Err("CONFLITO: a Steam foi aberta durante a aplicação.".into());
         }
         for i in 0..op.steps.len() {
+            if processes::steam_running(&self.proc_root)
+                || processes::game_running(&self.proc_root, &op.app_id)
+            {
+                return Err("CONFLITO: Steam ou jogo foram abertos durante a transação; nenhuma etapa adicional foi executada.".into());
+            }
+            op.steps[i].after_sha = Some(match &op.steps[i].step {
+                Step::GameFile { content, .. } => sha256_hex(content.as_bytes()),
+                Step::LaunchOptions {
+                    config,
+                    app_id,
+                    after,
+                    ..
+                } => sha256_hex(
+                    localconfig::set_launch_options(
+                        &localconfig::read_file(config)?,
+                        app_id,
+                        after,
+                    )?
+                    .as_bytes(),
+                ),
+            });
+            op.steps[i].status = StepStatus::Writing;
+            self.journal.save(op)?;
             let after_sha = write_step(&op.steps[i].step)?;
             op.steps[i].after_sha = Some(after_sha);
             op.steps[i].status = StepStatus::Written;
             self.journal.save(op)?;
+            if matches!(op.steps[i].step, Step::GameFile { .. }) {
+                emit(op);
+            }
         }
 
         // 3. Verificação do estado real.
@@ -536,17 +713,42 @@ impl FixEngine {
     /// Restaura do backup o que foi gravado — só se ninguém mexeu depois.
     fn undo_written(&self, op: &mut Operation) -> Result<(), String> {
         for rec in op.steps.iter_mut().rev() {
-            if !matches!(rec.status, StepStatus::Written | StepStatus::Verified) {
+            if !matches!(
+                rec.status,
+                StepStatus::Writing | StepStatus::Written | StepStatus::Verified
+            ) {
                 continue;
             }
+            if processes::steam_running(&self.proc_root)
+                || processes::game_running(&self.proc_root, &op.app_id)
+            {
+                return Err("Steam ou jogo estão abertos; o backup foi preservado e a recuperação aguarda seu encerramento.".into());
+            }
             let target = rec.step.target().to_path_buf();
-            if sha256_file(&target)? != rec.after_sha {
+            if step_sha(&rec.step)? != rec.after_sha {
+                if rec.status == StepStatus::Writing
+                    && step_sha(&rec.step)? == rec.backup.as_ref().and_then(|b| b.sha256.clone())
+                {
+                    rec.status = StepStatus::Reverted;
+                    continue;
+                }
                 return Err(format!(
                     "{} foi alterado por outro programa.",
                     target.display()
                 ));
             }
-            files::restore(rec.backup.as_ref().ok_or("backup ausente")?, &target)?;
+            match &rec.step {
+                Step::GameFile {
+                    root,
+                    rel,
+                    identity,
+                    ..
+                } => confined::Target::open(root, rel, identity.as_ref())?.restore(
+                    rec.backup.as_ref().ok_or("backup ausente")?,
+                    rec.after_sha.as_deref(),
+                )?,
+                _ => files::restore(rec.backup.as_ref().ok_or("backup ausente")?, &target)?,
+            }
             rec.status = StepStatus::Reverted;
         }
         self.journal.save(op)
@@ -558,6 +760,10 @@ impl FixEngine {
     pub fn verify(&self, op_id: &str, emit: &dyn Fn(&Operation)) -> Result<Operation, String> {
         let _guard = self.exec.lock().map_err(|_| "estado indisponível")?;
         let mut op = self.journal.load(op_id)?;
+        if op.manual_recovery_required {
+            emit(&op);
+            return Ok(op);
+        }
         let presence = presence(&op)?;
         match (op.state, op.pending.as_ref().map(|p| p.kind)) {
             (OpState::RequiresManualStep, Some(PendingKind::Apply))
@@ -571,11 +777,26 @@ impl FixEngine {
                     self.journal.transition(&mut op, OpState::Applied, "Confirmado no localconfig.vdf: a correção está nas opções de inicialização.")?;
                 }
                 Presence::None if op.state == OpState::RecoveryRequired => {
-                    self.journal.transition(
-                        &mut op,
-                        OpState::Failed,
-                        "Conferido: a alteração não ficou gravada; nada está aplicado.",
-                    )?;
+                    let originals_present = op
+                        .steps
+                        .iter()
+                        .filter(|s| matches!(s.step, Step::GameFile { .. }))
+                        .all(|s| match &s.step {
+                            Step::GameFile { before_sha, .. } => {
+                                step_sha(&s.step).ok().as_ref() == Some(before_sha)
+                            }
+                            _ => true,
+                        });
+                    if originals_present {
+                        self.journal.transition(
+                            &mut op,
+                            OpState::Failed,
+                            "Conferido: a alteração não ficou gravada; nada está aplicado.",
+                        )?;
+                    } else {
+                        op.message=Some("Recuperação ainda necessária: um arquivo não corresponde ao original nem ao conteúdo instalado. O backup foi preservado; a ausência do patch não significa restauração concluída.".into());
+                        self.journal.save(&op)?;
+                    }
                 }
                 _ => {
                     op.message = Some("Ainda não encontrei a linha no localconfig.vdf. A Steam só grava as opções no disco ao fechar — feche a Steam e confira de novo.".into());
@@ -614,6 +835,14 @@ impl FixEngine {
     }
 
     fn rollback_plan(&self, op: &Operation) -> Result<(RollbackPlan, RollbackWrites), String> {
+        if op.manual_recovery_required {
+            return Err(format!(
+                "É necessária revisão manual do conteúdo externo preservado. {}",
+                op.message
+                    .as_deref()
+                    .unwrap_or("Consulte os eventos da operação antes de restaurar arquivos.")
+            ));
+        }
         let pending_apply = op.state == OpState::RequiresManualStep
             && op
                 .pending
@@ -631,8 +860,7 @@ impl FixEngine {
         let mut manual_line = None;
         let mut fp_parts: Vec<String> = vec![op.id.clone(), format!("{:?}", op.state)];
         for rec in &op.steps {
-            let target = rec.step.target();
-            fp_parts.push(sha256_file(target)?.unwrap_or_default());
+            fp_parts.push(step_sha(&rec.step)?.unwrap_or_default());
             match &rec.step {
                 Step::LaunchOptions {
                     config,
@@ -706,7 +934,8 @@ impl FixEngine {
                     before_sha,
                     ..
                 } => {
-                    let cur = sha256_file(target)?;
+                    let _ = target;
+                    let cur = step_sha(&rec.step)?;
                     if cur == rec.after_sha {
                         changes.push(PlannedChange {
                             kind: ChangeKind::GameFile,
@@ -826,22 +1055,40 @@ impl FixEngine {
             .transition(&mut op, OpState::RollingBack, "Desfazendo a correção.")?;
         emit(&op);
         let dir = self.backups_dir(&op.id);
+        // A retry after a crash must not collide with an earlier, preserved
+        // rollback backup. Each attempt gets new names; the original application
+        // backup and all earlier recovery copies remain available.
+        let rollback_attempt = new_op_id();
         let result = (|| -> Result<(), String> {
             for (i, bytes) in writes.into_iter().enumerate() {
+                if processes::steam_running(&self.proc_root)
+                    || processes::game_running(&self.proc_root, &op.app_id)
+                {
+                    return Err("CONFLITO: Steam ou jogo foram abertos durante o rollback; nenhuma etapa adicional foi executada.".into());
+                }
                 let Some(bytes) = bytes else {
                     op.steps[i].status = StepStatus::Reverted;
                     continue;
                 };
                 let target = op.steps[i].step.target().to_path_buf();
-                let name = format!(
-                    "rollback-{i}-{}",
-                    target
-                        .file_name()
-                        .map(|n| n.to_string_lossy().into_owned())
-                        .unwrap_or_default()
-                );
-                op.steps[i].rollback_backup = Some(files::backup(&target, &dir, &name)?);
+                let name = format!("rollback-{rollback_attempt}-{i}");
+                op.steps[i].rollback_backup = Some(match &op.steps[i].step {
+                    Step::GameFile {
+                        root,
+                        rel,
+                        identity,
+                        ..
+                    } => {
+                        confined::Target::open(root, rel, identity.as_ref())?.backup(&dir, &name)?
+                    }
+                    _ => files::backup(&target, &dir, &name)?,
+                });
                 self.journal.save(&op)?;
+                if processes::steam_running(&self.proc_root)
+                    || processes::game_running(&self.proc_root, &op.app_id)
+                {
+                    return Err("CONFLITO: Steam ou jogo foram abertos durante o backup do rollback; nenhuma etapa adicional foi executada.".into());
+                }
                 match &op.steps[i].step {
                     Step::LaunchOptions { config, app_id, .. } => {
                         // Confere de novo logo antes de gravar.
@@ -860,10 +1107,15 @@ impl FixEngine {
                             return Err("A verificação do rollback falhou.".into());
                         }
                     }
-                    Step::GameFile { target, .. } => {
-                        files::restore(
+                    Step::GameFile {
+                        root,
+                        rel,
+                        identity,
+                        ..
+                    } => {
+                        confined::Target::open(root, rel, identity.as_ref())?.restore(
                             op.steps[i].backup.as_ref().ok_or("backup ausente")?,
-                            target,
+                            op.steps[i].after_sha.as_deref(),
                         )?;
                     }
                 }
@@ -883,6 +1135,7 @@ impl FixEngine {
                 )?;
             }
             Err(e) => {
+                op.manual_recovery_required |= e.contains("RECUPERAÇÃO:");
                 self.journal.transition(
                     &mut op,
                     OpState::RecoveryRequired,
@@ -910,7 +1163,7 @@ impl FixEngine {
                     .iter()
                     .all(|s| matches!(s.status, StepStatus::Pending | StepStatus::BackedUp))
                 && op.steps.iter().all(|s| {
-                    let cur = sha256_file(s.step.target()).ok().flatten();
+                    let cur = step_sha(&s.step).ok().flatten();
                     match &s.backup {
                         Some(b) => cur == b.sha256,
                         None => true,
@@ -925,6 +1178,9 @@ impl FixEngine {
                 (OpState::RecoveryRequired, "O FRX foi fechado no meio da operação. Confira o estado real ou desfaça a correção.")
             };
             let _ = self.journal.transition(&mut op, state, msg);
+            if journal::valid_op_id(&op.id) {
+                let _ = std::fs::remove_dir_all(self.root.join("staging").join(&op.id));
+            }
         }
     }
 }
@@ -952,23 +1208,28 @@ fn write_step(step: &Step) -> Result<String, String> {
             target,
             before_sha,
             content,
+            identity,
+            ..
         } => {
             let again = security::resolve_in_root(root, rel)?;
             if again != *target {
                 return Err("CONFLITO: o caminho do arquivo mudou.".into());
             }
-            if sha256_file(target)? != *before_sha {
+            if confined::Target::open(root, rel, identity.as_ref())?.sha()? != *before_sha {
                 return Err("CONFLITO: o arquivo do jogo foi alterado.".into());
             }
-            files::atomic_write(target, content.as_bytes(), 0o644)?;
+            confined::Target::open(root, rel, identity.as_ref())?.write(
+                content.as_bytes(),
+                before_sha.as_deref(),
+                0o644,
+            )?;
             Ok(sha256_hex(content.as_bytes()))
         }
     }
 }
 
 fn verify_written(rec: &StepRecord) -> Result<(), String> {
-    let target = rec.step.target();
-    if sha256_file(target)? != rec.after_sha {
+    if step_sha(&rec.step)? != rec.after_sha {
         return Err("A verificação falhou: o arquivo não tem o conteúdo gravado.".into());
     }
     if let Step::LaunchOptions {
@@ -985,6 +1246,18 @@ fn verify_written(rec: &StepRecord) -> Result<(), String> {
         }
     }
     Ok(())
+}
+
+fn step_sha(step: &Step) -> Result<Option<String>, String> {
+    match step {
+        Step::GameFile {
+            root,
+            rel,
+            identity,
+            ..
+        } => confined::Target::open(root, rel, identity.as_ref())?.sha(),
+        Step::LaunchOptions { config, .. } => sha256_file(config),
+    }
 }
 
 enum Presence {
@@ -1032,9 +1305,9 @@ fn presence(op: &Operation) -> Result<Presence, String> {
                     }
                 }
             }
-            Step::GameFile { target, .. } => {
+            Step::GameFile { .. } => {
                 total += 1;
-                if sha256_file(target)? == rec.after_sha && rec.after_sha.is_some() {
+                if step_sha(&rec.step)? == rec.after_sha && rec.after_sha.is_some() {
                     found += 1;
                 }
             }

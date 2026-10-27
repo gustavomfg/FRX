@@ -111,7 +111,7 @@ pub async fn declare_benchmark_pack(
                 let p = smart_packs::store_for(&engine)
                     .pack(&app, &id)
                     .ok_or("Pacote não encontrado para este jogo.")?;
-                Some(benchmark::declared(&app, p.env))
+                Some(benchmark::declared_with_files(&app, p.env, p.file_fixes))
             }
         };
         store.set_smart_pack(&session_id, snap)

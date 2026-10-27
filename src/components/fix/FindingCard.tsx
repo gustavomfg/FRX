@@ -6,6 +6,8 @@ import type { Assessment, RecipeView } from '@/types/fixEngine'
 import { DYN_STATUS, EVIDENCE, TRUST } from './engineMeta'
 import { PerformanceWarning } from './PerformanceWarning'
 import { GameEvidence } from './GameEvidence'
+import { ArtifactBadge, ArtifactDetails } from './ArtifactDetails'
+import { HardwareRequirementsSummary } from './HardwareContext'
 import { Mascot } from '@/mascot/Mascot'
 import { useFixEngine } from '@/state/fixEngine'
 import { SourceIcon } from './SourceIcon'
@@ -114,6 +116,8 @@ export function FindingCard({
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConfidencePill finding={finding} />
             <CompatPill finding={finding} />
+            <ArtifactBadge artifacts={finding.artifacts} />
+            <HardwareRequirementsSummary requirements={finding.requirements.hardware} compact />
             <GameEvidence appId={finding.gameAppId} scope={finding.scope} compact />
             <PerformanceWarning warnings={assessment?.performanceWarnings ?? recipe?.performanceWarnings} compact />
             {dyn && (
@@ -139,6 +143,7 @@ export function FindingCard({
             <div className="space-y-5 border-t border-line px-5 pt-4 pb-5">
               <PerformanceWarning warnings={assessment?.performanceWarnings ?? recipe?.performanceWarnings} />
               <GameEvidence appId={finding.gameAppId} scope={finding.scope} evidence={assessment?.performanceEvidence} />
+              <ArtifactDetails artifacts={finding.artifacts} />
               <p className="text-[13.5px] text-fg-2">{finding.description}</p>
 
               {finding.compatibilityNote && <p className="text-[12.5px] text-fg-3">{finding.compatibilityNote}</p>}

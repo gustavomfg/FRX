@@ -3,14 +3,14 @@
 use serde::{Deserialize, Serialize};
 
 use crate::fix_engine::dynamic::{DynStatus, EvidenceLevel, GamePerformanceEvidence};
-use crate::fix_engine::models::{PlanStatus, Purpose, RecipeSource, Risk, Trust};
-use crate::fixes::models::GpuReq;
+use crate::fix_engine::models::{PlanStatus, Purpose, RecipeAction, RecipeSource, Risk, Trust};
+use crate::fixes::models::{ArtifactCandidate, GpuReq};
 
 pub const PACK_SCHEMA: u32 = 1;
 /// Versão do compositor: mudou → os pacotes são recompostos e registrados de novo.
-pub const COMPOSER_VERSION: &str = "1.2.0";
+pub const COMPOSER_VERSION: &str = "1.3.0";
 /// Versão da metodologia de ranking (critérios e limites documentados).
-pub const RANKING_VERSION: &str = "1.2.0";
+pub const RANKING_VERSION: &str = "1.3.0";
 
 /// Perfil de otimização: muda os critérios de ordenação, nunca os dados.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -59,11 +59,26 @@ pub struct EnvPair {
     pub value: String,
 }
 
+/// Identidade do conteúdo efetivamente instalado; nunca usa chaves de env falsas.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[serde(rename_all = "camelCase")]
+pub struct FileFixRef {
+    pub target_path: String,
+    pub sha256: String,
+    pub artifact_id: Option<String>,
+    pub artifact_version: Option<String>,
+    pub artifact_sha256: Option<String>,
+}
+
 /// Receita aplicável que pode entrar em um pacote (unidade atômica: nunca é
 /// dividida nem misturada com ações de outra receita).
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Unit {
+    #[serde(default)]
+    pub hardware: crate::system::context::HardwareRequirements,
+    #[serde(default)]
+    pub file_actions: Vec<RecipeAction>,
     /// Escopo verificado da descoberta; ausente em dados legados não atribuídos.
     #[serde(default)]
     pub app_id: Option<String>,
@@ -94,6 +109,7 @@ pub struct Unit {
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum ConflictKind {
+    SameFile,
     GameScope,
     SameKeyDifferentValue,
     MutuallyExclusive,
@@ -141,6 +157,8 @@ pub enum PackState {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PackMemberView {
+    #[serde(default)]
+    pub file_actions: Vec<RecipeAction>,
     pub recipe_id: String,
     pub version: String,
     pub fingerprint: String,
@@ -155,6 +173,10 @@ pub struct PackMemberView {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SmartPack {
+    #[serde(default)]
+    pub artifacts: Vec<ArtifactCandidate>,
+    #[serde(default)]
+    pub file_fixes: Vec<FileFixRef>,
     #[serde(default)]
     pub performance_evidence: GamePerformanceEvidence,
     #[serde(default)]
@@ -213,6 +235,8 @@ pub struct SnapshotRecipe {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct PackSnapshot {
+    #[serde(default)]
+    pub file_fixes: Vec<FileFixRef>,
     /// Adicionado sem atribuir registros legados ao jogo atualmente aberto.
     #[serde(default)]
     pub app_id: Option<String>,

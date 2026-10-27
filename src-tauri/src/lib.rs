@@ -57,6 +57,7 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            commands::fix_engine::cancel_fix_operation,
             commands::app::app_info,
             commands::app::ping,
             commands::system::get_system_profile,

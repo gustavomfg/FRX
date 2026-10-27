@@ -23,5 +23,6 @@ export const getAppliedFixes = (appId?: string | null) => call<AppliedFix[]>('ge
 export const prepareFixRollback = (operationId: string) => call<RollbackPlan>('prepare_fix_rollback', { operationId })
 export const rollbackFix = (plan: Pick<RollbackPlan, 'operationId' | 'fingerprint'>) => call<Operation>('rollback_fix', { operationId: plan.operationId, fingerprint: plan.fingerprint })
 export const verifyFixOperation = (operationId: string) => call<Operation>('verify_fix_operation', { operationId })
+export const cancelFixOperation = (operationId: string) => call<boolean>('cancel_fix_operation', { operationId })
 
 export const onFixProgress = (cb: (op: Operation) => void): Promise<UnlistenFn> => listen<Operation>('fix-engine://progress', (e) => cb(e.payload))

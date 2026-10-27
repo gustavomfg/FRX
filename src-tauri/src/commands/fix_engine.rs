@@ -80,6 +80,11 @@ pub fn get_fix_engine_status(ctx: State<'_, AppCtx>) -> EngineStatus {
     ctx.engine.status()
 }
 
+#[tauri::command]
+pub fn cancel_fix_operation(ctx: State<'_, AppCtx>, operation_id: String) -> bool {
+    ctx.engine.cancel_artifact_operation(&operation_id)
+}
+
 /// Catálogo local, com os achados da última pesquisa que citam o mesmo ajuste.
 #[tauri::command]
 pub fn list_fix_recipes(ctx: State<'_, AppCtx>, app_id: Option<String>) -> Vec<RecipeView> {

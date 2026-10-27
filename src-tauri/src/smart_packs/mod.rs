@@ -41,7 +41,9 @@ use crate::fix_engine::models::*;
 use crate::fix_engine::{security, FixEngine};
 use crate::performance::models::SessionMeta;
 use crate::time::now_iso;
-use benchmark::{baseline_id, current_env, pack_id};
+use benchmark::{
+    action_file_fixes, baseline_id, current_env, current_file_fixes, pack_id_with_files,
+};
 use composition::SingleResults;
 use models::*;
 use persistence::SmartStore;
@@ -116,28 +118,32 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
         .collect();
     let base_m = grouped.measurements.get(&base_id);
 
-    let vs_for = |env: &[EnvPair]| -> Option<VsBaseline> {
-        let pm = grouped.measurements.get(&pack_id(app, env))?;
+    let vs_for = |env: &[EnvPair], files: &[FileFixRef]| -> Option<VsBaseline> {
+        let pm = grouped
+            .measurements
+            .get(&pack_id_with_files(app, env, files))?;
         let b = base_m?;
         (b.used() > 0 && pm.used() > 0).then(|| evidence::compare(b, pm, &metas))
     };
     let mut singles: SingleResults = HashMap::new();
     for u in &found.units {
-        if let Some(v) = vs_for(&u.env) {
-            let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
-            let stability = if ["fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
-                .iter()
-                .any(|k| get(k) == Outcome::Regression)
-            {
-                Outcome::Regression
-            } else {
-                get("fpsLow1")
-            };
-            let r = (get("fpsAvg"), stability);
-            // Conclusivo sempre conta; preliminar só quando indica regressão
-            // (bloqueia combinações até ser repetido).
-            if !v.limited || r.0 == Outcome::Regression || r.1 == Outcome::Regression {
-                singles.insert(u.recipe_id.clone(), r);
+        if let Ok(files) = action_file_fixes(app, &u.file_actions) {
+            if let Some(v) = vs_for(&u.env, &files) {
+                let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
+                let stability = if ["fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
+                    .iter()
+                    .any(|k| get(k) == Outcome::Regression)
+                {
+                    Outcome::Regression
+                } else {
+                    get("fpsLow1")
+                };
+                let r = (get("fpsAvg"), stability);
+                // Conclusivo sempre conta; preliminar só quando indica regressão
+                // (bloqueia combinações até ser repetido).
+                if !v.limited || r.0 == Outcome::Regression || r.1 == Outcome::Regression {
+                    singles.insert(u.recipe_id.clone(), r);
+                }
             }
         }
     }
@@ -147,6 +153,7 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     // Registra antes da prévia: a receita composta é resolvida pelo registro.
     store.remember(app, &packs)?;
     let (cur_env, _, _) = current_env(engine, app);
+    let cur_files = current_file_fixes(engine, app);
     let ops = engine.operations(Some(app));
     let applied = engine.applied(Some(app));
     let line = i.launch_line.as_deref();
@@ -157,12 +164,12 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
             .apply_recipe_id
             .as_deref()
             .map(|r| engine.check(r, i.game));
-        lifecycle::derive(p, plan, &ops, &applied, &cur_env);
+        lifecycle::derive(p, plan, &ops, &applied, &cur_env, &cur_files);
     }
 
     let mut vs: HashMap<String, VsBaseline> = HashMap::new();
     for p in packs.iter().filter(|p| p.kind != PackKind::Baseline) {
-        if let Some(v) = vs_for(&p.env) {
+        if let Some(v) = vs_for(&p.env, &p.file_fixes) {
             vs.insert(p.id.clone(), v);
         }
     }
@@ -179,8 +186,8 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     let used: usize = grouped.measurements.values().map(|m| m.used()).sum();
     let file = store.record(app, &packs, &ranking, used)?;
 
-    let cur_id = pack_id(app, &cur_env);
-    let current_note = if cur_env.is_empty() {
+    let cur_id = pack_id_with_files(app, &cur_env, &cur_files);
+    let current_note = if cur_env.is_empty() && cur_files.is_empty() {
         "Baseline ativo: nenhuma correção do FRX aplicada neste jogo.".to_owned()
     } else if let Some(p) = packs.iter().find(|p| p.id == cur_id) {
         format!("Ativo agora: {}.", p.name)
@@ -249,7 +256,11 @@ fn latest_evaluations(
         if let Some(meta) = latest.and_then(|s| sessions.iter().find(|x| x.id == s.id)) {
             let cfg = benchmark::session_config(engine, meta);
             let mut e = evaluation::evaluate(&ctx, meta, cfg.as_ref());
-            e.current_pack_id = Some(pack_id(app, &current_env(engine, app).0));
+            e.current_pack_id = Some(pack_id_with_files(
+                app,
+                &current_env(engine, app).0,
+                &current_file_fixes(engine, app),
+            ));
             out.push(e);
         }
     }
@@ -272,11 +283,12 @@ pub fn evaluate_session(
         .clone()
         .ok_or("A sessão não está associada a um jogo.")?;
     let base_id = baseline_id(&app);
-    let grouped = evidence::group(
+    let grouped = evidence::group_in_context(
         &app,
         sessions,
         |m| benchmark::session_config(engine, m),
         &base_id,
+        Some(&meta.conditions),
     );
     let metas: HashMap<&str, &SessionMeta> = sessions
         .iter()
@@ -289,7 +301,9 @@ pub fn evaluate_session(
             f.packs
                 .into_iter()
                 .map(|s| s.pack)
-                .filter(|p| p.app_id == app && p.id == pack_id(&app, &p.env))
+                .filter(|p| {
+                    p.app_id == app && p.id == pack_id_with_files(&app, &p.env, &p.file_fixes)
+                })
                 .collect()
         })
         .unwrap_or_default();
@@ -303,7 +317,11 @@ pub fn evaluate_session(
     };
     let cfg = benchmark::session_config(engine, meta);
     let mut e = evaluation::evaluate(&ctx, meta, cfg.as_ref());
-    e.current_pack_id = Some(pack_id(&app, &current_env(engine, &app).0));
+    e.current_pack_id = Some(pack_id_with_files(
+        &app,
+        &current_env(engine, &app).0,
+        &current_file_fixes(engine, &app),
+    ));
     Ok(e)
 }
 
@@ -354,7 +372,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
                 .unwrap_or_default(),
             &game.findings,
         )
-        .ok_or("Uma receita do pacote não é só de variáveis de ambiente.")?;
+        .ok_or("Uma receita do pacote inclui uma ação de arquivo não validada integralmente.")?;
         units.push(u);
         recipes.push(r);
     }
@@ -369,7 +387,9 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
     let mut env: Vec<EnvPair> = units.iter().flat_map(|u| u.env.clone()).collect();
     env.sort();
     env.dedup();
-    if pack_id(&game.app_id, &env) != id {
+    let file_actions: Vec<_> = units.iter().flat_map(|u| u.file_actions.clone()).collect();
+    let file_fixes = action_file_fixes(&game.app_id, &file_actions)?;
+    if pack_id_with_files(&game.app_id, &env, &file_fixes) != id {
         return Err(
             "As receitas do pacote mudaram desde a composição. Abra Smart Packs de novo.".into(),
         );
@@ -395,12 +415,13 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
         out
     };
     let r = Recipe {
+        hardware: conflicts::combined_hardware(&units)?,
         schema: RECIPE_SCHEMA,
         id: id.to_owned(),
         version: COMPOSER_VERSION.into(),
         trust: Trust::Pack,
         title: stored.name.chars().take(120).collect(),
-        summary: format!("Define {line} nas opções de inicialização deste jogo."),
+        summary: format!("Aplica as alterações validadas deste jogo: {} arquivo(s) e opções {line}.", file_fixes.len()),
         description: "Smart Pack composto pelo FRX a partir de receitas validadas individualmente e em conjunto. Não foi revisado por pessoas; a composição não comprova ganho de desempenho.".into(),
         category: recipes[0].category,
         purpose: if recipes.iter().all(|r| r.purpose == Purpose::Performance) {
@@ -411,7 +432,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
         risk: recipes.iter().map(|r| r.risk).max().unwrap_or(Risk::Low),
         scope: Scope {
             app_ids: vec![game.app_id.clone()],
-            requires_proton: true,
+            requires_proton: recipes.iter().any(|r| r.scope.requires_proton),
             gpu_vendor: recipes.iter().find_map(|r| r.scope.gpu_vendor),
         },
         actions: env
@@ -420,6 +441,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
                 key: p.key.clone(),
                 value: p.value.clone(),
             })
+            .chain(file_actions)
             .collect(),
         already_included_by_protonfixes: recipes.iter().any(|r| r.already_included_by_protonfixes),
         conflicts_with: vec![],
@@ -448,7 +470,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
 
 /// Transição da configuração atual para outro pacote, passo a passo.
 pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPlan {
-    if to.app_id != app_id || to.id != pack_id(app_id, &to.env) {
+    if to.app_id != app_id || to.id != pack_id_with_files(app_id, &to.env, &to.file_fixes) {
         return SwitchPlan { to: to.id.clone(), from: None, keep: vec![], remove: vec![], add: vec![], steps: vec![], possible: false,
             notes: vec!["O pacote pertence a outro jogo ou possui identidade inválida. Reabra os Smart Packs deste jogo.".into()] };
     }
@@ -461,6 +483,7 @@ pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPl
         })
         .collect();
     let (cur, _, _) = current_env(engine, app_id);
+    let cur_files = current_file_fixes(engine, app_id);
     let keep: Vec<EnvPair> = cur.iter().filter(|p| to.env.contains(p)).cloned().collect();
     let remove: Vec<EnvPair> = cur
         .iter()
@@ -483,7 +506,7 @@ pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPl
     if let Some(b) = blocked {
         notes.insert(0, format!("Resolva antes a operação pendente “{}” no Histórico (passo manual ou recuperação).", b.recipe_title));
     }
-    let same = cur == to.env;
+    let same = cur == to.env && cur_files == to.file_fixes;
     if same {
         notes.insert(0, "Este pacote já é a configuração ativa.".into());
     }
@@ -495,7 +518,7 @@ pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPl
             operation_id: Some(o.id.clone()),
             recipe_id: None,
             title: format!("Desfazer “{}”", o.recipe_title),
-            detail: "Remove só as variáveis que esta operação adicionou.".into(),
+            detail: "Desfaz somente as alterações desta operação, com conferência dos arquivos e backup.".into(),
         })
         .collect();
     if let Some(r) = &to.apply_recipe_id {
@@ -509,7 +532,8 @@ pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPl
     }
     SwitchPlan {
         to: to.id.clone(),
-        from: (!cur.is_empty()).then(|| pack_id(app_id, &cur)),
+        from: (!cur.is_empty() || !cur_files.is_empty())
+            .then(|| pack_id_with_files(app_id, &cur, &cur_files)),
         keep,
         remove,
         add,

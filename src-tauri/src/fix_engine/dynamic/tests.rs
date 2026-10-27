@@ -15,6 +15,7 @@ pub const APP: &str = "200260";
 
 pub fn finding(id: &str, kind: ActionKind, value: &str, pos: u32, neg: u32) -> FixFinding {
     FixFinding {
+        artifacts: vec![],
         scope: DiscoveryScope::verified(APP, "Fixture: verified parent issue AppID"),
         performance_evidence: Default::default(),
         id: id.into(),
@@ -99,6 +100,7 @@ fn batman_wined3d11() -> FixFinding {
 
 fn ctx(c: &Catalog) -> Ctx<'_> {
     Ctx {
+        environment: None,
         game_build_id: None,
         app_id: APP,
         gpu: Some(GpuReq::Nvidia),
@@ -578,6 +580,7 @@ fn registry_reuses_unchanged_analyses_and_reevaluates_on_change() {
     let c = Catalog::bundled();
     let findings = vec![batman_no_d3d11(), batman_wined3d(), batman_wined3d11()];
     let sys = |tool| System {
+        environment: None,
         game_build_id: None,
         tool,
         gpu: Some(GpuReq::Nvidia),
@@ -654,6 +657,7 @@ fn performance_finding(app: &str, key: &str) -> FixFinding {
             published_at: Some("2026-10-27T00:00:00Z".into()),
         });
         f.performance_evidence.reports.push(PerformanceReport {
+            hardware: Default::default(),
             app_id: app.into(),
             action_key: format!("env:{key}=1"),
             source_url: url,
@@ -765,6 +769,7 @@ fn generated_registry_does_not_assign_legacy_or_foreign_records_to_open_game() {
     let registry = Registry::new(dir.path().join("generated"));
     let c = Catalog::bundled();
     let sys = System {
+        environment: None,
         game_build_id: None,
         tool: None,
         gpu: None,

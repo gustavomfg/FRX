@@ -50,6 +50,61 @@ fn excl(a: &Unit, b: &Unit, kind: ConflictKind, reason: String) -> Edge {
     }
 }
 
+/// A combination must satisfy every member's hardware/software constraints.
+pub fn combined_hardware(
+    units: &[Unit],
+) -> Result<crate::system::context::HardwareRequirements, String> {
+    use crate::system::context::HardwareRequirements;
+    let mut out = HardwareRequirements::default();
+    fn intersect(target: &mut Vec<String>, extra: &[String], field: &str) -> Result<(), String> {
+        if extra.is_empty() {
+            return Ok(());
+        }
+        if target.is_empty() {
+            *target = extra.to_vec();
+            return Ok(());
+        }
+        target.retain(|a| {
+            extra.iter().any(|b| {
+                if field == "modelo GPU" {
+                    crate::performance::comparison::same_condition("gpu", a, b)
+                } else {
+                    a.trim_start_matches("0x")
+                        .eq_ignore_ascii_case(b.trim_start_matches("0x"))
+                }
+            })
+        });
+        if target.is_empty() {
+            return Err(format!("Requisitos de {field} não possuem um contexto comum; as receitas não podem ser combinadas."));
+        }
+        Ok(())
+    }
+    for unit in units {
+        let h = &unit.hardware;
+        if let Some(v) = h.gpu_vendor {
+            if out.gpu_vendor.is_some_and(|old| old != v) {
+                return Err("As receitas exigem fabricantes de GPU diferentes.".into());
+            }
+            out.gpu_vendor = Some(v);
+        }
+        if let Some(arch) = &h.cpu_arch {
+            if out
+                .cpu_arch
+                .as_ref()
+                .is_some_and(|old| !old.eq_ignore_ascii_case(arch))
+            {
+                return Err("As receitas exigem arquiteturas diferentes.".into());
+            }
+            out.cpu_arch = Some(arch.clone());
+        }
+        intersect(&mut out.gpu_device_ids, &h.gpu_device_ids, "ID PCI")?;
+        intersect(&mut out.gpu_models, &h.gpu_models, "modelo GPU")?;
+        intersect(&mut out.driver_versions, &h.driver_versions, "driver")?;
+        intersect(&mut out.proton_versions, &h.proton_versions, "Proton")?;
+    }
+    Ok(out)
+}
+
 /// Relação entre duas receitas.
 pub fn edge(a: &Unit, b: &Unit) -> Edge {
     if a.app_id.is_none() || a.app_id != b.app_id {
@@ -59,6 +114,9 @@ pub fn edge(a: &Unit, b: &Unit) -> Edge {
             ConflictKind::GameScope,
             "Receitas sem o mesmo AppID confirmado nunca podem ser combinadas.".into(),
         );
+    }
+    if let Err(reason) = combined_hardware(&[a.clone(), b.clone()]) {
+        return excl(a, b, ConflictKind::GpuMismatch, reason);
     }
     for x in &a.env {
         if let Some(y) = b.env.iter().find(|y| y.key == x.key && y.value != x.value) {
@@ -73,7 +131,27 @@ pub fn edge(a: &Unit, b: &Unit) -> Edge {
             );
         }
     }
-    if subset(&a.env, &b.env) || subset(&b.env, &a.env) {
+    let a_files = super::benchmark::action_file_fixes(
+        a.app_id.as_deref().unwrap_or_default(),
+        &a.file_actions,
+    );
+    let b_files = super::benchmark::action_file_fixes(
+        b.app_id.as_deref().unwrap_or_default(),
+        &b.file_actions,
+    );
+    let (Ok(a_files), Ok(b_files)) = (a_files, b_files) else {
+        return excl(a,b,ConflictKind::SameFile,"Uma ação de arquivo não passou na validação integral; o pacote não pode ser aplicado parcialmente.".into());
+    };
+    if let Some(path) = a_files.iter().find(|x| {
+        b_files
+            .iter()
+            .any(|y| x.target_path.eq_ignore_ascii_case(&y.target_path))
+    }) {
+        return excl(a,b,ConflictKind::SameFile,format!("As duas correções disputam o destino {}; cada arquivo tem uma única origem por operação.",path.target_path));
+    }
+    if (subset(&a.env, &b.env) && a_files.is_empty())
+        || (subset(&b.env, &a.env) && b_files.is_empty())
+    {
         return excl(
             a,
             b,
@@ -152,10 +230,18 @@ pub fn validate_combination(units: &[Unit], max_size: usize) -> Result<(), Vec<E
     if units.len() < 2 || units.len() > max_size {
         return Err(vec![]);
     }
-    let bad: Vec<Edge> = graph(units)
+    let mut bad: Vec<Edge> = graph(units)
         .into_iter()
         .filter(|e| e.relation == Relation::Excludes)
         .collect();
+    if let Err(reason) = combined_hardware(units) {
+        bad.push(excl(
+            &units[0],
+            &units[units.len() - 1],
+            ConflictKind::GpuMismatch,
+            reason,
+        ));
+    }
     if bad.is_empty() {
         Ok(())
     } else {

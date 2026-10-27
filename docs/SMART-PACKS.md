@@ -1,6 +1,6 @@
 # FRX Smart Packs
 
-> Atualização de 27/10/2026: descoberta e evidência têm escopo explícito por AppID; risco global não é julgamento universal de FPS. O gerador 1.1.0 e a composição/ranking 1.2.0 revalidam registros sem apagar históricos. Detalhes e migração em [GAME-SPECIFIC-FIX-INTELLIGENCE.md](GAME-SPECIFIC-FIX-INTELLIGENCE.md).
+> Atualização de 27/10/2026: descoberta e evidência têm escopo explícito por AppID; risco global não é julgamento universal de FPS. O gerador 1.2.0 e a composição/ranking 1.3.0 revalidam registros sem apagar históricos. Packs podem combinar variáveis e configurações por arquivo verificáveis; hardware, versões e hashes refinam o escopo. Veja [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md). Detalhes e migração em [GAME-SPECIFIC-FIX-INTELLIGENCE.md](GAME-SPECIFIC-FIX-INTELLIGENCE.md).
 
 Smart Packs são combinações de correções que o FRX compõe sozinho para um jogo. Ele as classifica pelo que foi **medido** no seu computador. Nenhum JSON é escrito à mão. Nenhum FPS é inventado. Quando não há dados, não há vencedor.
 
