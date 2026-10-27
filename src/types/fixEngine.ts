@@ -44,7 +44,20 @@ export interface Provenance {
   publishedAt: string | null
 }
 
+/** Public game-specific reports, never a local measurement. */
+export interface GamePerformanceEvidence {
+  appId: string | null
+  positive: number
+  negative: number
+  authoritativePositive?: boolean
+  sourceUrls: string[]
+  contextCompatible: boolean
+  limitations: string[]
+}
+
 export interface GeneratedInfo {
+  gameAppId?: string | null
+  performanceEvidence?: GamePerformanceEvidence
   generatorVersion: string
   rulesVersion: string
   interpreter: string
@@ -60,6 +73,7 @@ export type DynClass = 'applicable' | 'needs-validation' | 'informational'
 export type DynStatus = 'generated' | 'reviewed' | 'already-included' | 'incompatible' | 'needs-validation' | 'blocked' | 'contested' | 'no-actions' | 'insufficient-data' | 'invalid'
 
 export interface Assessment {
+  performanceEvidence?: GamePerformanceEvidence
   performanceWarnings?: string[]
   findingId: string
   appId: string
@@ -175,6 +189,7 @@ export interface StepRecord {
 }
 
 export interface Operation {
+  recipeFingerprint?: string | null
   schema: number
   id: string
   recipeId: string

@@ -29,7 +29,29 @@ export interface FindingSource {
   publishedAt: string | null
 }
 
+export interface DiscoveryScope {
+  kind: 'verified-game' | 'general-technical' | 'unknown-scope'
+  appId: string | null
+  basis: string
+}
+
+export interface PerformanceReport {
+  appId: string
+  actionKey: string
+  sourceUrl: string
+  author: string | null
+  reportedAt: string | null
+  statement: string
+  outcome: 'positive' | 'negative'
+  protonVersion: string | null
+  gpuVendor: GpuReq | null
+  confidence: Confidence
+  limitations: string[]
+}
+
 export interface FixFinding {
+  scope?: DiscoveryScope
+  performanceEvidence?: { positive: number; negative: number; reports: PerformanceReport[] }
   id: string
   gameAppId: string
   title: string

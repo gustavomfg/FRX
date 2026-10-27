@@ -26,6 +26,12 @@ export type ApplyTarget = { kind: 'apply'; recipeId: string; appId: string; titl
  * A interface só envia IDs e a impressão digital da prévia.
  */
 export function ApplyFixDialog({ target, onClose }: { target: ApplyTarget | null; onClose: () => void }) {
+  if (!target) return null
+  const identity = target.kind === 'apply' ? `${target.appId}:${target.recipeId}` : target.operation.id
+  return <ScopedApplyFixDialog key={`${target.kind}:${identity}`} target={target} onClose={onClose} />
+}
+
+function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClose: () => void }) {
   const engine = useFixEngine()
   const toast = useToast()
   const navigate = useNavigate()

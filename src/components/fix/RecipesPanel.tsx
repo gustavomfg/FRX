@@ -33,6 +33,7 @@ export function useRecipes(appId: string | null, withChecks = true) {
   const [recipes, setRecipes] = useState<RecipeView[]>([])
   const [checks, setChecks] = useState<Record<string, FixPlan | string>>({})
   const [loading, setLoading] = useState(false)
+  const [resultAppId, setResultAppId] = useState<string | null | undefined>(undefined)
   // Recalcula quando o histórico muda (aplicação, rollback, verificação).
   const stamp = engine.operations.map((o) => o.id + o.state).join()
 
@@ -40,11 +41,13 @@ export function useRecipes(appId: string | null, withChecks = true) {
     if (!engine.available) return
     let gone = false
     setLoading(true)
+    setChecks({})
     void (async () => {
       try {
         const list = await listFixRecipes(appId)
         if (gone) return
         setRecipes(list)
+        setResultAppId(appId)
         if (!appId || !withChecks) return setChecks({})
         const results = await Promise.allSettled(list.map((r) => checkFixCompatibility(r.id, appId)))
         if (gone) return
@@ -58,7 +61,7 @@ export function useRecipes(appId: string | null, withChecks = true) {
     return () => void (gone = true)
   }, [engine.available, appId, stamp, withChecks])
 
-  return { recipes, checks, loading }
+  return { recipes: resultAppId === appId ? recipes : [], checks: resultAppId === appId ? checks : {}, loading }
 }
 
 export function RecipesPanel({

@@ -25,6 +25,7 @@ import { cn } from '@/lib/cn'
 import type { Measurements, MetricDelta, PackComparison, PackEvaluation, Profile, RankEntry, SmartPack, SmartPackReport, SwitchPlan, Tier } from '@/types/smartPacks'
 import { PackEvaluationCard, PackTestDialog, captureActive, testStatus } from './PackTest'
 import { EVIDENCE_LABEL, GOAL, OUTCOME, PROFILE, STATE, TIER } from './meta'
+import { GameEvidence, gameEvidenceText } from '@/components/fix/GameEvidence'
 
 type View = 'todas' | Tier
 
@@ -102,6 +103,9 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const [evaluationError, setEvaluationError] = useState<string | null>(null)
   useEffect(() => {
     ++evaluationVersion.current
+    setDetail(null)
+    setTarget(null)
+    setSwitchTo(null)
     setTesting(null)
     setResult(null)
     setCaptureOpen(false)
@@ -283,7 +287,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
           )
         })}
 
-      <ComparePanel report={report} />
+      <ComparePanel key={report.appId} report={report} />
       <Unassigned report={report} onDone={() => void reload()} />
 
       <section className="grid gap-4 md:grid-cols-2">
@@ -324,8 +328,8 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
         </div>
       </section>
 
-      {detail && <PackDetail pack={detail} report={report} onClose={() => setDetail(null)} />}
-      {switchTo && (
+      {detail?.appId === report.appId && <PackDetail pack={detail} report={report} onClose={() => setDetail(null)} />}
+      {switchTo?.appId === report.appId && (
         <SwitchDialog
           appId={report.appId}
           pack={switchTo}
@@ -336,7 +340,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
           }}
         />
       )}
-      {target && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
+      {target && (target.kind === 'apply' ? target.appId : target.operation.appId) === report.appId && <ApplyFixDialog target={target} onClose={() => setTarget(null)} />}
       {testPack && !blocking && (
         <PackTestDialog
           pack={testPack}
@@ -435,6 +439,7 @@ function PackCard({
         </div>
       </div>
       <div className="mt-3 flex flex-wrap gap-1.5">
+        {pack && <PerformanceWarning warnings={pack.performanceWarnings} compact />}
         {pack && (
           <Pill color={preventiveRisk && !current ? 'var(--frx-caution)' : STATE[pack.state].color} soft={preventiveRisk && !current ? 'var(--frx-caution-soft)' : STATE[pack.state].soft} title={pack.stateDetail}>
             {preventiveRisk && !current ? 'Contorno de compatibilidade' : pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : STATE[pack.state].label}
@@ -454,6 +459,7 @@ function PackCard({
           Evidência: {EVIDENCE_LABEL[pack.evidence]} · <span style={{ color: RISK[pack.risk].color }}>{RISK[pack.risk].label}</span>
         </p>
       )}
+      {pack && pack.kind !== 'baseline' && <p className="mt-2 text-[12px] text-fg-3">AppID {pack.appId} · {gameEvidenceText(pack.performanceEvidence?.appId === pack.appId ? pack.performanceEvidence : undefined)}</p>}
       {(!pack || preventiveRisk) && <p className="mt-2 line-clamp-3 text-[12px] text-fg-3">{entry.reasons[0]}</p>}
       {pack && (
         <dl className="mt-3 grid grid-cols-3 gap-2 text-[12px]">
@@ -513,6 +519,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
     <Dialog open onClose={onClose} title={pack.name} description={`${GOAL[pack.goal]} · ${STATE[pack.state].label}`} width={720} footer={<Button variant="ghost" onClick={onClose}>Fechar</Button>}>
       <div className="space-y-5 text-[12.5px] text-fg-2">
         <PerformanceWarning warnings={pack.performanceWarnings} />
+        <GameEvidence appId={report.appId} evidence={pack.performanceEvidence} />
         <Block title="Objetivo">
           <p>{pack.goalText}</p>
         </Block>
@@ -636,7 +643,11 @@ export function SwitchDialog({ appId, pack, onClose, onStep }: { appId: string; 
   const [plan, setPlan] = useState<SwitchPlan | null>(null)
   const [error, setError] = useState<string | null>(null)
   useEffect(() => {
-    planSmartPackSwitch(appId, pack.id).then(setPlan, (e) => setError(errorMessage(e)))
+    let gone = false
+    setPlan(null)
+    setError(null)
+    planSmartPackSwitch(appId, pack.id).then((p) => !gone && setPlan(p), (e) => !gone && setError(errorMessage(e)))
+    return () => { gone = true }
   }, [appId, pack.id])
   const next = plan?.steps[0]
   const go = () => {
@@ -712,13 +723,14 @@ function ComparePanel({ report }: { report: SmartPackReport }) {
   const measured = report.packs.filter((p) => report.measurements.some((m) => m.packId === p.id && m.sessions.some((s) => !s.excluded)))
   const [a, setA] = useState(report.baselineId)
   const [b, setB] = useState(measured.find((p) => p.id !== report.baselineId)?.id ?? '')
-  const [res, setRes] = useState<PackComparison | null>(null)
+  const [comparison, setComparison] = useState<{ a: string; b: string; res: PackComparison } | null>(null)
+  const res = comparison?.a === a && comparison.b === b ? comparison.res : null
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const latest = (id: string) => report.measurements.find((m) => m.packId === id)?.sessions.filter((s) => !s.excluded).sort((x, y) => (y.capturedAt ?? '').localeCompare(x.capturedAt ?? ''))[0]
   const opts = useMemo(() => measured.map((p) => ({ value: p.id, label: p.name })), [measured])
   if (measured.length < 2) return null
-  const run = () => compareSmartPacks(report.appId, a, b).then(setRes, (e) => setError(errorMessage(e)))
+  const run = () => compareSmartPacks(report.appId, a, b).then((res) => setComparison({ a, b, res }), (e) => setError(errorMessage(e)))
   return (
     <section className="rounded-lg border border-line bg-surface p-4" aria-label="Comparar pacotes">
       <h3 className="eyebrow mb-3 flex items-center gap-2">

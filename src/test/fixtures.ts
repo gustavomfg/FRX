@@ -51,6 +51,8 @@ export const scan: ScanResult = {
 
 export function finding(over: Partial<FixFinding> = {}): FixFinding {
   return {
+    scope: { kind: 'verified-game', appId: '200260', basis: 'Fixture: AppID explícito na issue' },
+    performanceEvidence: { positive: 0, negative: 0, reports: [] },
     id: 'f1',
     gameAppId: '200260',
     title: 'Componente d3dx9_43 (winetricks)',

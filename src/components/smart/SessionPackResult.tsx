@@ -30,6 +30,8 @@ export function SessionPackResult({ meta }: { meta: SessionMeta }) {
   useEffect(() => {
     if (!engine.available || !meta.appId) return setE(null)
     let gone = false
+    setRestore(false)
+    setTarget(null)
     setE(null)
     setError(null)
     evaluateBenchmarkSession(meta.id).then(
@@ -43,7 +45,7 @@ export function SessionPackResult({ meta }: { meta: SessionMeta }) {
     <p>Não foi possível avaliar o Smart Pack: {error}</p>
     <Button size="sm" variant="outline" onClick={() => setRetry((n) => n + 1)}>Tentar avaliação de novo</Button>
   </section>
-  if (!e) return null
+  if (!e || e.sessionId !== meta.id || e.appId !== meta.appId) return null
   const canRestore = e.verdict === 'regression' && e.currentPackId === e.packId && e.packId !== e.baselineId
   return (
     <section aria-labelledby="smart-pack-result" className="space-y-3">

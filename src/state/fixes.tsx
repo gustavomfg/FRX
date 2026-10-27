@@ -51,6 +51,7 @@ export function FixReportsProvider({ children }: { children: ReactNode }) {
       })
       try {
         const r = await searchGameFixes({ appId, name, force, maxAgeHours: fixCacheHours })
+        if (r.appId !== appId) throw new Error('A pesquisa retornou um AppID diferente. Atualize as descobertas deste jogo.')
         setReports((all) => ({ ...all, [appId]: r }))
         const n = r.findings.length
         dispatch({ type: 'activity', kind: 'analise', gameId: appId, text: `${name}: ${n} descoberta${n === 1 ? '' : 's'} de correção${r.fromCache ? ' (cache)' : ''}` })

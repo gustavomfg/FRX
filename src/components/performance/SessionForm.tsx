@@ -17,13 +17,15 @@ export interface FormValues {
   fpsLimit: string
   vsync: 'desconhecido' | 'ligado' | 'desligado'
   proton: string
+  gameBuildId: string
 }
 
-export const emptyForm = (appId = ''): FormValues => ({ appId, label: '', notes: '', resolution: '', preset: '', fpsLimit: '', vsync: 'desconhecido', proton: '' })
+export const emptyForm = (appId = ''): FormValues => ({ appId, label: '', notes: '', resolution: '', preset: '', fpsLimit: '', vsync: 'desconhecido', proton: '', gameBuildId: '' })
 
 export function toConditions(v: FormValues, base?: Conditions): Conditions {
   const s = (x: string) => (x.trim() ? x.trim() : null)
   return {
+    gameBuildId: s(v.gameBuildId) ?? base?.gameBuildId ?? null,
     proton: s(v.proton) ?? base?.proton ?? null,
     gpu: base?.gpu ?? null,
     driver: base?.driver ?? null,
@@ -50,7 +52,7 @@ export function Field({ label, children, hint, className }: { label: string; chi
   )
 }
 
-export function SessionFields({ value, onChange, games, showGame = true, showLabel = true }: { value: FormValues; onChange: (v: FormValues) => void; games: Game[]; showGame?: boolean; showLabel?: boolean }) {
+export function SessionFields({ value, onChange, games, showGame = true, showLabel = true, historicalContext = false }: { value: FormValues; onChange: (v: FormValues) => void; games: Game[]; showGame?: boolean; showLabel?: boolean; historicalContext?: boolean }) {
   const set = (patch: Partial<FormValues>) => onChange({ ...value, ...patch })
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -71,6 +73,14 @@ export function SessionFields({ value, onChange, games, showGame = true, showLab
           <input className={input} value={value.label} maxLength={120} onChange={(e) => set({ label: e.target.value })} placeholder="Gerado automaticamente se ficar vazio" />
         </Field>
       )}
+      {historicalContext && <>
+        <Field label="Proton usado na captura" hint="Informe apenas se souber a versão usada no log; não presuma a versão atual.">
+          <input className={input} value={value.proton} maxLength={120} onChange={(e) => set({ proton: e.target.value })} />
+        </Field>
+        <Field label="Build Steam da captura" hint="Opcional. BuildID do jogo na data da captura, se conhecido.">
+          <input className={input} value={value.gameBuildId} maxLength={80} onChange={(e) => set({ gameBuildId: e.target.value })} />
+        </Field>
+      </>}
       <Field label="Resolução">
         <input className={input} value={value.resolution} maxLength={40} onChange={(e) => set({ resolution: e.target.value })} placeholder="Ex.: 1920x1080" />
       </Field>
@@ -161,7 +171,7 @@ export function ImportDialog({
         </>
       }
     >
-      <SessionFields value={v} onChange={setV} games={games} />
+      <SessionFields value={v} onChange={setV} games={games} historicalContext />
     </Dialog>
   )
 }
@@ -169,6 +179,7 @@ export function ImportDialog({
 export function EditSessionDialog({ meta, games, onClose, onSave }: { meta: SessionMeta | null; games: Game[]; onClose: () => void; onSave: (v: FormValues) => Promise<void> }) {
   const [v, setV] = useState<FormValues>(emptyForm())
   const [busy, setBusy] = useState(false)
+  const recorded = !!meta && (meta.source === 'assisted' || meta.activeFixes != null || meta.smartPack?.source === 'assisted')
   useEffect(() => {
     if (meta)
       setV({
@@ -180,6 +191,7 @@ export function EditSessionDialog({ meta, games, onClose, onSave }: { meta: Sess
         fpsLimit: meta.conditions.fpsLimit ?? '',
         vsync: meta.conditions.vsync == null ? 'desconhecido' : meta.conditions.vsync ? 'ligado' : 'desligado',
         proton: meta.conditions.proton ?? '',
+        gameBuildId: meta.conditions.gameBuildId ?? '',
       })
   }, [meta])
   return (
@@ -210,7 +222,8 @@ export function EditSessionDialog({ meta, games, onClose, onSave }: { meta: Sess
         </>
       }
     >
-      <SessionFields value={v} onChange={setV} games={games} />
+      <SessionFields value={v} onChange={setV} games={games} showGame={!recorded} historicalContext />
+      <p className="mt-3 text-[12px] text-fg-3">{recorded ? 'O jogo de uma captura registrada não pode ser trocado. Alterar as condições preserva os dados medidos, mas retira a sessão do ranking automático.' : 'Trocar o jogo de uma importação remove a associação anterior ao pacote. O FRX não atribui automaticamente uma nova configuração.'}</p>
     </Dialog>
   )
 }

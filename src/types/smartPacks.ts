@@ -1,5 +1,5 @@
 /** Smart Packs — espelho de `src-tauri/src/smart_packs/models.rs`. */
-import type { DynStatus, EvidenceLevel, PlanStatus, Purpose, Risk, Trust } from './fixEngine'
+import type { DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, Risk, Trust } from './fixEngine'
 import type { GpuReq } from './fixes'
 
 export type Profile = 'performance' | 'balanced' | 'compatibility'
@@ -7,7 +7,7 @@ export type PackKind = 'baseline' | 'single' | 'combination'
 export type Goal = 'reference' | 'compatibility' | 'performance' | 'balanced'
 export type PerfHint = 'unknown' | 'penalty' | 'frame-cap'
 export type PackState = 'candidate' | 'ready' | 'conflict' | 'testing' | 'applied' | 'verified' | 'failed' | 'partially_recovered' | 'rolled_back' | 'unsupported'
-export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter'
+export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter' | 'game-scope'
 export type Outcome = 'improvement' | 'regression' | 'no-difference' | 'mixed' | 'inconclusive' | 'not-measured'
 export type Tier = 'measured' | 'candidate' | 'performance-risk' | 'not-recommended'
 
@@ -25,6 +25,8 @@ export interface Edge {
 }
 
 export interface Unit {
+  appId?: string | null
+  performanceEvidence?: GamePerformanceEvidence
   recipeId: string
   version: string
   fingerprint: string
@@ -47,6 +49,7 @@ export interface Unit {
 }
 
 export interface SmartPack {
+  performanceEvidence?: GamePerformanceEvidence
   performanceWarnings?: string[]
   id: string
   appId: string
@@ -243,9 +246,11 @@ export interface SwitchPlan {
 }
 
 export interface PackSnapshot {
+  appId?: string | null
+  fingerprint?: string | null
   packId: string
   env: EnvPair[]
-  recipes: { recipeId: string; version: string }[]
+  recipes: { recipeId: string; version: string; fingerprint?: string | null }[]
   operationIds: string[]
   verified: boolean
   source: 'assisted' | 'declared'

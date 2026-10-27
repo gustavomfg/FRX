@@ -121,6 +121,7 @@ export interface Series {
 }
 
 export interface Conditions {
+  gameBuildId?: string | null
   proton: string | null
   gpu: string | null
   driver: string | null

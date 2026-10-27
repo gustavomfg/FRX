@@ -12,20 +12,25 @@ import type { Assessment } from '@/types/fixEngine'
 export function useAssessments(appId: string | null) {
   const engine = useFixEngine()
   const fixes = useFixReports()
-  const [byFinding, setByFinding] = useState<Record<string, Assessment>>({})
+  const [result, setResult] = useState<{ appId: string; byFinding: Record<string, Assessment> } | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const retrieved = appId ? fixes.reports[appId]?.retrievedAt : undefined
   const stamp = engine.operations.map((o) => o.id + o.state).join()
 
   useEffect(() => {
-    if (!engine.available || !appId || !retrieved) return setByFinding({})
+    setResult(null)
+    setError(null)
+    if (!engine.available || !appId || !retrieved) {
+      setLoading(false)
+      return
+    }
     let gone = false
     setLoading(true)
     analyzeFixFindings(appId)
       .then((list) => {
         if (gone) return
-        setByFinding(Object.fromEntries(list.map((a) => [a.findingId, a])))
+        setResult({ appId, byFinding: Object.fromEntries(list.filter((a) => a.appId === appId).map((a) => [a.findingId, a])) })
         setError(null)
       })
       .catch((e) => !gone && setError(String(e?.message ?? e)))
@@ -33,5 +38,5 @@ export function useAssessments(appId: string | null) {
     return () => void (gone = true)
   }, [engine.available, appId, retrieved, stamp])
 
-  return { byFinding, loading, error }
+  return { byFinding: result?.appId === appId ? result.byFinding : {}, loading, error }
 }
