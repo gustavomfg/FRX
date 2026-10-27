@@ -225,6 +225,28 @@ pub fn known_key(key: &str) -> bool {
     KNOWLEDGE.iter().any(|k| k.key == key)
 }
 
+/// Triagem preventiva por ação conhecida. Não inventa FPS ou regressão medida.
+/// É independente de a receita ser segura de aplicar ou resolver compatibilidade.
+pub fn performance_warnings<'a>(env: impl IntoIterator<Item = (&'a str, &'a str)>) -> Vec<String> {
+    let mut out = Vec::new();
+    for (key, value) in env {
+        let reason = match (key, value) {
+            ("PROTON_USE_WINED3D", "1") => Some("WineD3D troca DXVK/Vulkan por OpenGL. É uma alternativa de compatibilidade com risco conhecido de perda de desempenho; não é uma otimização de FPS."),
+            ("PROTON_NO_ESYNC" | "PROTON_NO_FSYNC" | "PROTON_NO_NTSYNC", "1") => Some("Desativa uma forma de sincronização otimizada. Pode reduzir o desempenho em jogos com muitas threads; use para contornar um problema específico, não como otimização genérica."),
+            ("PROTON_NO_D3D11" | "PROTON_NO_D3D10", "1") => Some("Desativa uma API gráfica e força o jogo a usar outro caminho de renderização. Pode perder desempenho ou recursos e até impedir a inicialização; não é um ganho de FPS presumido."),
+            ("DXVK_FRAME_RATE" | "VKD3D_FRAME_RATE", v) if v.parse::<u32>().is_ok_and(|n| (10..=360).contains(&n)) => Some("Limita intencionalmente o FPS. Pode ajudar a controlar consumo ou estabilidade, mas não representa aumento de desempenho."),
+            _ => None,
+        };
+        if let Some(reason) = reason {
+            let reason = format!("{key}={value}: {reason}");
+            if !out.contains(&reason) {
+                out.push(reason);
+            }
+        }
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

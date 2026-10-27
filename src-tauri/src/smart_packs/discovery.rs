@@ -111,6 +111,7 @@ pub fn discover(
             | DynStatus::NeedsValidation
             | DynStatus::Blocked => {
                 excluded.push(Excluded {
+                    performance_warnings: a.performance_warnings.clone(),
                     id: a.finding_id.clone(),
                     title: title_of(&a.finding_id),
                     status: Some(a.status),
@@ -123,6 +124,7 @@ pub fn discover(
         let Some(r) = recipe else { continue };
         if a.evidence == EvidenceLevel::Contested {
             excluded.push(Excluded {
+                performance_warnings: a.performance_warnings.clone(),
                 id: r.id.clone(),
                 title: r.title.clone(),
                 status: Some(DynStatus::Contested),

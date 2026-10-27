@@ -60,6 +60,7 @@ export type DynClass = 'applicable' | 'needs-validation' | 'informational'
 export type DynStatus = 'generated' | 'reviewed' | 'already-included' | 'incompatible' | 'needs-validation' | 'blocked' | 'contested' | 'no-actions' | 'insufficient-data' | 'invalid'
 
 export interface Assessment {
+  performanceWarnings?: string[]
   findingId: string
   appId: string
   class: DynClass
@@ -80,6 +81,7 @@ export interface Assessment {
 }
 
 export interface RecipeView extends Recipe {
+  performanceWarnings?: string[]
   executable: boolean
   integrity: boolean
   relatedFindings: string[]
@@ -104,6 +106,7 @@ export interface PlannedChange {
 }
 
 export interface FixPlan {
+  performanceWarnings?: string[]
   planId: string
   fingerprint: string
   recipeId: string

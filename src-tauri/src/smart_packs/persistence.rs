@@ -47,7 +47,20 @@ pub struct SmartStore {
 fn signature(r: &Ranking) -> Vec<(String, Option<u32>, Tier, Outcome)> {
     r.entries
         .iter()
-        .map(|e| (e.pack_id.clone(), e.position, e.tier, e.outcome))
+        .map(|e| {
+            (
+                e.pack_id.clone(),
+                e.position,
+                // O histórico mantém o vocabulário anterior, com a distinção no
+                // campo aditivo preventive_risks; versões antigas não corrompem o registro.
+                if e.tier == Tier::PerformanceRisk {
+                    Tier::NotRecommended
+                } else {
+                    e.tier
+                },
+                e.outcome,
+            )
+        })
         .collect()
 }
 
@@ -158,12 +171,22 @@ impl SmartStore {
             }
         }
         let sig = signature(ranking);
+        let preventive_risks: Vec<String> = ranking
+            .entries
+            .iter()
+            .filter(|e| e.tier == Tier::PerformanceRisk)
+            .map(|e| e.pack_id.clone())
+            .collect();
         let last = f
             .history
             .iter()
             .rev()
             .find(|h| h.profile == ranking.profile);
-        if last.is_none_or(|h| h.entries != sig || h.version != ranking.version) {
+        if last.is_none_or(|h| {
+            h.entries != sig
+                || h.version != ranking.version
+                || h.preventive_risks != preventive_risks
+        }) {
             let reason = match last {
                 None => "Primeira classificação.".to_owned(),
                 Some(h) if h.version != ranking.version => {
@@ -175,6 +198,7 @@ impl SmartStore {
                 Some(_) => "Pacotes, receitas ou estado mudaram.".to_owned(),
             };
             f.history.push(RankingSnapshot {
+                preventive_risks,
                 at: now,
                 profile: ranking.profile,
                 version: ranking.version.clone(),

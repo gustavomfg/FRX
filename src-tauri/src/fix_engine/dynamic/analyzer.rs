@@ -49,6 +49,7 @@ pub fn assess(f: &FixFinding, ctx: &Ctx<'_>) -> Assessment {
 pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> Assessment {
     let (evidence, evidence_note) = validation::evidence(f);
     let a = Assessment {
+        performance_warnings: vec![],
         finding_id: f.id.clone(),
         app_id: ctx.app_id.to_owned(),
         class: super::DynClass::Informational,
@@ -150,6 +151,9 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
         }
     }
 
+    a.performance_warnings = super::compatibility::performance_warnings(
+        envs.iter().map(|(k, v)| (k.as_str(), v.as_str())),
+    );
     for view in a.actions.iter_mut().filter(|x| x.note.is_empty()) {
         view.note = "Variável reconhecida; avaliada junto com o restante da correção.".into();
     }

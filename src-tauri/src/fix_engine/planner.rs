@@ -385,6 +385,7 @@ pub fn compute(
     })
     .unwrap_or_default();
     let plan = FixPlan {
+        performance_warnings: recipe.performance_warnings(),
         plan_id: format!("plan-{}", &crate::performance::persistence::new_id()[2..]),
         fingerprint: sha256_hex(&fp)[..32].to_owned(),
         recipe_id: recipe.id.clone(),

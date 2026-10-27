@@ -112,6 +112,7 @@ impl FixEngine {
             .recipes
             .iter()
             .map(|r| RecipeView {
+                performance_warnings: r.performance_warnings(),
                 executable: r.trust == Trust::Reviewed,
                 integrity: true,
                 related_findings: findings

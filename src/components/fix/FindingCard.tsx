@@ -4,6 +4,7 @@ import { Check, ChevronDown, ExternalLink, FlaskConical, Lock, Package, ShieldCh
 import type { FixAction, FixFinding, ProviderStatus } from '@/types/fixes'
 import type { Assessment, RecipeView } from '@/types/fixEngine'
 import { DYN_STATUS, EVIDENCE, TRUST } from './engineMeta'
+import { PerformanceWarning } from './PerformanceWarning'
 import { Mascot } from '@/mascot/Mascot'
 import { useFixEngine } from '@/state/fixEngine'
 import { SourceIcon } from './SourceIcon'
@@ -112,6 +113,7 @@ export function FindingCard({
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConfidencePill finding={finding} />
             <CompatPill finding={finding} />
+            <PerformanceWarning warnings={assessment?.performanceWarnings ?? recipe?.performanceWarnings} compact />
             {dyn && (
               <Pill color={applied ? 'var(--frx-good)' : dyn.color} soft={applied ? 'var(--frx-good-soft)' : dyn.soft} title={assessment?.reasons[0]}>
                 {applied ? 'Correção aplicada' : dyn.label}
@@ -133,6 +135,7 @@ export function FindingCard({
         {open && (
           <motion.div id={id} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }} className="overflow-hidden">
             <div className="space-y-5 border-t border-line px-5 pt-4 pb-5">
+              <PerformanceWarning warnings={assessment?.performanceWarnings ?? recipe?.performanceWarnings} />
               <p className="text-[13.5px] text-fg-2">{finding.description}</p>
 
               {finding.compatibilityNote && <p className="text-[12.5px] text-fg-3">{finding.compatibilityNote}</p>}

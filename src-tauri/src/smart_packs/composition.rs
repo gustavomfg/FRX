@@ -25,6 +25,7 @@ use std::collections::HashMap;
 use super::benchmark::{baseline_id, pack_id};
 use super::conflicts::{graph, validate_combination};
 use super::models::*;
+use crate::fix_engine::dynamic::compatibility::performance_warnings;
 use crate::fix_engine::dynamic::EvidenceLevel;
 use crate::fix_engine::files::sha256_hex;
 use crate::fix_engine::models::{Purpose, RecipeSource, Risk};
@@ -55,7 +56,10 @@ fn strong(e: EvidenceLevel) -> bool {
 }
 
 fn measured_ok(r: Option<&(Outcome, Outcome)>) -> bool {
-    r.is_some_and(|(avg, low)| *avg != Outcome::Regression && *low != Outcome::Regression)
+    r.is_some_and(|(avg, low)| {
+        matches!(avg, Outcome::Improvement | Outcome::NoDifference)
+            && matches!(low, Outcome::Improvement | Outcome::NoDifference)
+    })
 }
 
 /// Medição local (mesmo preliminar) indicou regressão: não combina até repetir.
@@ -67,11 +71,15 @@ pub fn eligible(u: &Unit, single: Option<&(Outcome, Outcome)>) -> bool {
     u.perf != PerfHint::FrameCap
         && !u.already_included
         && !regressed(single)
+        && (performance_warnings(u.env.iter().map(|p| (p.key.as_str(), p.value.as_str())))
+            .is_empty()
+            || measured_ok(single))
         && (strong(u.evidence) || measured_ok(single))
 }
 
 pub fn baseline(app_id: &str) -> SmartPack {
     SmartPack {
+        performance_warnings: vec![],
         id: baseline_id(app_id),
         app_id: app_id.to_owned(),
         version: COMPOSER_VERSION.into(),
@@ -153,6 +161,9 @@ fn make(
         .max()
         .unwrap_or(EvidenceLevel::None);
     SmartPack {
+        performance_warnings: performance_warnings(
+            env.iter().map(|p| (p.key.as_str(), p.value.as_str())),
+        ),
         apply_recipe_id: Some(if members.len() == 1 {
             members[0].recipe_id.clone()
         } else {
@@ -245,6 +256,9 @@ pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Li
     if units.len() > limits.max_units {
         for u in units.drain(limits.max_units..) {
             excluded.push(Excluded {
+                performance_warnings: performance_warnings(
+                    u.env.iter().map(|p| (p.key.as_str(), p.value.as_str())),
+                ),
                 id: u.recipe_id.clone(),
                 title: u.title.clone(),
                 status: None,
@@ -280,7 +294,7 @@ pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Li
             Goal::Compatibility
         };
         let text = format!(
-            "Testar “{}” sozinha. {}",
+            "Alternativa de compatibilidade: “{}”. {}",
             u.title,
             u.effects.first().cloned().unwrap_or_default()
         );

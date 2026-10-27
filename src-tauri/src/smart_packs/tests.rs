@@ -95,11 +95,119 @@ fn one_recipe_gives_baseline_plus_single() {
 }
 
 #[test]
+fn preventive_risk_separates_known_costs_without_requesting_any_benchmark() {
+    let wined3d = unit(
+        "wine",
+        &[("PROTON_USE_WINED3D", "1")],
+        EvidenceLevel::Documented,
+    );
+    let heap = unit(
+        "heap",
+        &[("PROTON_HEAP_DELAY_FREE", "1")],
+        EvidenceLevel::Documented,
+    );
+    let c = compose(
+        APP,
+        &[wined3d.clone(), heap],
+        &SingleResults::new(),
+        Limits::default(),
+    );
+    assert!(
+        c.packs.iter().all(|p| p.kind != PackKind::Combination),
+        "evidência documental de compatibilidade não prova ganho de FPS"
+    );
+    let only_wine = compose(APP, &[wined3d], &SingleResults::new(), Limits::default());
+    for profile in [
+        Profile::Performance,
+        Profile::Balanced,
+        Profile::Compatibility,
+    ] {
+        let r = rank(Input {
+            profile,
+            packs: &only_wine.packs,
+            baseline_id: &baseline_id(APP),
+            measured: &BTreeMap::new(),
+            vs: &HashMap::new(),
+            excluded: &[],
+        });
+        let wine = r
+            .entries
+            .iter()
+            .find(|e| e.pack_id != baseline_id(APP))
+            .unwrap();
+        assert_eq!(wine.tier, Tier::PerformanceRisk);
+        assert_eq!(wine.outcome, Outcome::NotMeasured);
+        assert!(wine.position.is_none() && r.winner.is_none());
+        assert!(
+            r.next_test.is_none(),
+            "não manda o usuário testar uma alternativa que já tem risco conhecido"
+        );
+        assert!(wine.reasons.iter().any(|r| r.contains("OpenGL")));
+    }
+}
+
+#[test]
+fn preventive_risks_survive_restart_without_breaking_legacy_history_tiers() {
+    let tmp = tempfile::tempdir().unwrap();
+    let store = SmartStore::new(tmp.path().join("smart-packs"));
+    let w = world(vec![]);
+    let r = ranked(&w, Profile::Performance);
+    let f = store.record(APP, &w.packs, &r, 0).unwrap();
+    assert!(!f.history[0].preventive_risks.is_empty());
+    assert!(f.history[0]
+        .entries
+        .iter()
+        .all(|(_, _, tier, _)| *tier != Tier::PerformanceRisk));
+    let restarted = SmartStore::new(tmp.path().join("smart-packs"));
+    let again = restarted.record(APP, &w.packs, &r, 0).unwrap();
+    assert_eq!(
+        again.history.len(),
+        1,
+        "não registra a mesma classificação a cada abertura"
+    );
+    assert_eq!(
+        again.history[0].preventive_risks,
+        f.history[0].preventive_risks
+    );
+}
+
+#[test]
+fn compatibility_reports_do_not_become_fps_promises_or_mandatory_tests() {
+    let c = compose(
+        APP,
+        &[unit(
+            "memory",
+            &[("PROTON_FORCE_LARGE_ADDRESS_AWARE", "1")],
+            EvidenceLevel::Documented,
+        )],
+        &SingleResults::new(),
+        Limits::default(),
+    );
+    let r = rank(Input {
+        profile: Profile::Performance,
+        packs: &c.packs,
+        baseline_id: &baseline_id(APP),
+        measured: &BTreeMap::new(),
+        vs: &HashMap::new(),
+        excluded: &[],
+    });
+    let entry = r
+        .entries
+        .iter()
+        .find(|e| e.pack_id != baseline_id(APP))
+        .unwrap();
+    assert_eq!(entry.tier, Tier::Candidate);
+    assert_eq!(entry.outcome, Outcome::NotMeasured);
+    assert!(entry.headline.contains("impacto ainda desconhecido"));
+    assert!(r.next_test.is_none() && r.winner.is_none());
+}
+
+#[test]
 fn compatible_recipes_with_strong_evidence_are_combined_once() {
     let units = [
         unit(
             "a",
-            &[("PROTON_NO_ESYNC", "1")],
+            &[("PROTON_FORCE_LARGE_ADDRESS_AWARE", "1")],
             EvidenceLevel::Corroborated,
         ),
         unit(
@@ -223,10 +331,12 @@ fn contradictions_exclusions_gpu_and_proton_versions_are_edges() {
         .packs
         .iter()
         .any(|p| has(p, "PROTON_NO_ESYNC") && has(p, "PROTON_NO_FSYNC")));
-    assert!(c
-        .packs
-        .iter()
-        .any(|p| has(p, "PROTON_USE_WINED3D") && has(p, "PROTON_NO_ESYNC")));
+    assert!(
+        !c.packs
+            .iter()
+            .any(|p| has(p, "PROTON_USE_WINED3D") && has(p, "PROTON_NO_ESYNC")),
+        "ausência de conflito não elimina risco de custo de desempenho"
+    );
     let single = c
         .packs
         .iter()
@@ -476,22 +586,22 @@ fn base(n: usize, avg: f64) -> Vec<SessionMeta> {
 fn without_benchmarks_there_is_no_winner_and_baseline_comes_first() {
     let r = ranked(&world(vec![]), Profile::Performance);
     assert!(r.winner.is_none());
-    assert_eq!(
-        r.summary,
-        "Ainda não há dados suficientes para recomendar um vencedor."
+    assert!(r
+        .summary
+        .contains("Nenhuma otimização de desempenho identificada"));
+    assert!(
+        r.next_test.is_none(),
+        "riscos conhecidos não exigem que o usuário meça todos os candidatos"
     );
-    assert_eq!(r.next_test.as_ref().unwrap().pack_id, baseline_id(APP));
+    assert_eq!(r.entries[0].pack_id, baseline_id(APP));
     let e = entry(&r, &d3d11());
-    assert_eq!(e.tier, Tier::Candidate);
+    assert_eq!(e.tier, Tier::PerformanceRisk);
     assert_eq!(
-        e.headline, "Experimental — ainda não testado",
+        e.headline, "Risco de perda de desempenho",
         "PROTON_NO_D3D11 não sobe sem benchmark"
     );
     assert!(e.position.is_none());
-    assert_eq!(
-        entry(&r, &esync()).headline,
-        "Candidato promissor — ainda não testado"
-    );
+    assert_eq!(entry(&r, &esync()).headline, "Risco de perda de desempenho");
 }
 
 #[test]
@@ -500,11 +610,11 @@ fn a_single_benchmark_each_is_only_indicative() {
     s.push(synthetic("p0", &d3d11(), 130.0, 60.0, 18.0));
     let r = ranked(&world(s), Profile::Performance);
     let e = entry(&r, &d3d11());
-    assert_eq!(e.tier, Tier::Candidate);
-    assert_eq!(e.headline, "Melhora indicativa — repita para confirmar");
+    assert_eq!(e.tier, Tier::PerformanceRisk);
+    assert_eq!(e.headline, "Risco de perda de desempenho");
     assert!(e.vs_baseline.as_ref().unwrap().limited);
     assert!(r.winner.is_none(), "uma captura não elege vencedor");
-    assert!(r.next_test.unwrap().reason.contains("Repita o baseline"));
+    assert!(r.next_test.is_none());
 }
 
 #[test]
@@ -629,7 +739,7 @@ fn ranking_updates_after_new_sessions_and_history_keeps_every_change() {
     s.push(synthetic("p0", &d3d11(), 120.0, 55.0, 19.0));
     let w = world(s.clone());
     let r1 = ranked(&w, Profile::Performance);
-    assert_eq!(entry(&r1, &d3d11()).tier, Tier::Candidate);
+    assert_eq!(entry(&r1, &d3d11()).tier, Tier::PerformanceRisk);
     store.record(APP, &w.packs, &r1, 2).unwrap();
     store.record(APP, &w.packs, &r1, 2).unwrap();
     assert_eq!(
@@ -822,11 +932,8 @@ mod acceptance {
         // Ranking: não sobe, não é vencedor, fica marcado no fim dos candidatos.
         let r = ranked(&world(s.clone()), Profile::Performance);
         let entry = entry(&r, &d3d11());
-        assert_eq!(entry.tier, Tier::Candidate);
-        assert_eq!(
-            entry.headline,
-            "Regressão indicativa — repita para confirmar"
-        );
+        assert_eq!(entry.tier, Tier::PerformanceRisk);
+        assert_eq!(entry.headline, "Risco de perda de desempenho");
         assert!(r.winner.is_none());
     }
 

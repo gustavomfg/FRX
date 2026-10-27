@@ -41,6 +41,7 @@ export const OUTCOME: Record<Outcome, Meta> = {
 export const TIER: Record<Tier, string> = {
   measured: 'Ranking medido',
   candidate: 'Candidatos para testar',
+  'performance-risk': 'Risco de perda de desempenho',
   'not-recommended': 'Não recomendados',
 }
 

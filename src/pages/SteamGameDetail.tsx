@@ -327,7 +327,7 @@ function SmartPacksSummary({ appId, onOpen }: { appId: string; onOpen: () => voi
         <>
           <p className="mt-2 text-[12.5px] text-fg-2">{report.ranking.summary}</p>
           <p className="mt-1 text-[12px] text-fg-3">
-            {count('measured')} no ranking medido · {count('candidate')} para testar · {count('not-recommended')} não recomendado{count('not-recommended') === 1 ? '' : 's'}
+            {count('measured')} no ranking medido · {count('candidate')} para testar · {count('performance-risk')} com risco de perda · {count('not-recommended')} não recomendado{count('not-recommended') === 1 ? '' : 's'}
           </p>
           {report.ranking.nextTest && <p className="mt-2 text-[12px] text-fg-2">Próximo teste: {report.ranking.nextTest.reason}</p>}
         </>

@@ -109,6 +109,43 @@ fn st(f: &FixFinding) -> DynStatus {
     assess(f, &ctx(&c)).status
 }
 
+#[test]
+fn performance_triage_is_independent_of_benchmark_counts_and_recipe_applicability() {
+    let catalog = Catalog::bundled();
+    for f in [
+        batman_wined3d(),
+        batman_no_d3d11(),
+        finding("sync", ActionKind::Env, "PROTON_NO_FSYNC=1", 3, 0),
+    ] {
+        let result = assess(&f, &ctx(&catalog));
+        assert!(
+            !result.performance_warnings.is_empty(),
+            "{}",
+            f.actions[0].value
+        );
+    }
+    let unknown = super::compatibility::performance_warnings([
+        ("UNKNOWN_SETTING", "1"),
+        ("PROTON_USE_WINED3D", "0"),
+    ]);
+    assert!(
+        unknown.is_empty(),
+        "não inventa risco específico para ação desconhecida ou valor oposto"
+    );
+    let safe = assess(
+        &finding(
+            "memory",
+            ActionKind::Env,
+            "PROTON_FORCE_LARGE_ADDRESS_AWARE=1",
+            3,
+            0,
+        ),
+        &ctx(&catalog),
+    );
+    assert!(safe.performance_warnings.is_empty());
+    assert_eq!(safe.status, DynStatus::Generated);
+}
+
 // ── Geração ──────────────────────────────────────────────────────────────
 
 #[test]

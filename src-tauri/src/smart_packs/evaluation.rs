@@ -216,6 +216,7 @@ pub fn evaluate(
             2usize.saturating_sub(pn)
         ));
         e.ranking_effect = match v {
+            _ if !crate::fix_engine::dynamic::compatibility::performance_warnings(cfg.env.iter().map(|p| (p.key.as_str(),p.value.as_str()))).is_empty() => "Preliminar: a alternativa permanece separada em risco de perda de desempenho; não é sugerida como otimização nem exige novos testes para reconhecer esse risco.".into(),
             EvalVerdict::Regression => "Preliminar: o pacote fica no fim dos candidatos, marcado com indício de regressão, e não entra em combinações. Ainda não vai para “não recomendados”.".into(),
             _ => "Preliminar: ainda não entra no ranking medido (exige 2 sessões comparáveis de cada lado).".into(),
         };

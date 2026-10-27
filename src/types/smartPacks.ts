@@ -9,7 +9,7 @@ export type PerfHint = 'unknown' | 'penalty' | 'frame-cap'
 export type PackState = 'candidate' | 'ready' | 'conflict' | 'testing' | 'applied' | 'verified' | 'failed' | 'partially_recovered' | 'rolled_back' | 'unsupported'
 export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter'
 export type Outcome = 'improvement' | 'regression' | 'no-difference' | 'mixed' | 'inconclusive' | 'not-measured'
-export type Tier = 'measured' | 'candidate' | 'not-recommended'
+export type Tier = 'measured' | 'candidate' | 'performance-risk' | 'not-recommended'
 
 export interface EnvPair {
   key: string
@@ -47,6 +47,7 @@ export interface Unit {
 }
 
 export interface SmartPack {
+  performanceWarnings?: string[]
   id: string
   appId: string
   version: string
@@ -171,6 +172,7 @@ export interface Ranking {
 }
 
 export interface RankingSnapshot {
+  preventiveRisks?: string[]
   at: string
   profile: Profile
   version: string
@@ -180,6 +182,7 @@ export interface RankingSnapshot {
 }
 
 export interface Excluded {
+  performanceWarnings?: string[]
   id: string
   title: string
   status: DynStatus | null

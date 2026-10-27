@@ -8,6 +8,7 @@ import { Segmented, Select } from '@/components/ui/Controls'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Pill } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
+import { PerformanceWarning } from '@/components/fix/PerformanceWarning'
 import { RISK } from '@/components/fix/engineMeta'
 import { Mascot } from '@/mascot/Mascot'
 import { compareSmartPacks, declareBenchmarkPack, evaluateBenchmarkSession, getSmartPacks, planSmartPackSwitch } from '@/services/smartPacks'
@@ -153,7 +154,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
   const byId = (id: string) => report.packs.find((p) => p.id === id)
   const meas = (id: string) => report.measurements.find((m) => m.packId === id)
   const entries = report.ranking.entries.filter((e) => view === 'todas' || e.tier === view)
-  const tiers: Tier[] = ['measured', 'candidate', 'not-recommended']
+  const tiers: Tier[] = ['measured', 'candidate', 'performance-risk', 'not-recommended']
   const benchmark = () => navigate(`/performance?game=${report.appId}`)
   const baseline = byId(report.baselineId)!
   const testPack = testing ? byId(testing) : undefined
@@ -202,6 +203,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
             { value: 'todas', label: 'Todos' },
             { value: 'measured', label: 'Ranking medido' },
             { value: 'candidate', label: 'Candidatos' },
+            { value: 'performance-risk', label: 'Risco de perda' },
             { value: 'not-recommended', label: 'Não recomendados' },
           ]}
         />
@@ -214,16 +216,16 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
         <Mascot pose={mascotFor(report, loading)} scale={3} className="shrink-0" />
         <div className="min-w-0 flex-1 space-y-2">
           <p className="text-[15px] font-medium text-fg">{report.ranking.summary}</p>
-          <p className="text-[12.5px] text-fg-2">{PROFILE[profile].help} {report.currentNote}</p>
+          <p className="text-[12.5px] text-fg-2">Critério do perfil: {PROFILE[profile].help} {report.currentNote}</p>
           {report.ranking.nextTest && (
             <p className="flex items-start gap-2 text-[12.5px] text-fg-2">
               <FlaskConical className="mt-0.5 size-3.5 shrink-0 text-accent" aria-hidden /> <span>Próximo teste: {report.ranking.nextTest.reason}</span>
             </p>
           )}
           <div className="flex flex-wrap gap-2 pt-1">
-            <Button size="sm" variant="primary" icon={<Gauge className="size-3.5" />} onClick={benchmark}>
+            {(report.ranking.nextTest || report.ranking.winner) && <Button size="sm" variant="primary" icon={<Gauge className="size-3.5" />} onClick={benchmark}>
               Iniciar benchmark
-            </Button>
+            </Button>}
             {report.currentPackId !== report.baselineId && (
               <Button size="sm" variant="outline" icon={<RotateCcw className="size-3.5" />} onClick={() => setSwitchTo(baseline)}>
                 Restaurar estado anterior
@@ -253,6 +255,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
               <h3 className="eyebrow mb-3">
                 {TIER[t]} · {list.length}
               </h3>
+              {t === 'performance-risk' && list.length > 0 && <p className="-mt-1 mb-3 text-[12px] text-caution">Separadas automaticamente pelo efeito conhecido das ações. Não são sugestões de ganho de FPS e não entram em combinações automáticas sem evidência local favorável.</p>}
               {t === 'candidate' && list.length > 0 && <p className="-mt-1 mb-3 text-[12px] text-fg-3">Ordem sugerida de teste — não é ordem de desempenho.</p>}
               {list.length === 0 ? (
                 <p className="text-[12.5px] text-fg-3">
@@ -271,7 +274,7 @@ export function SmartPacksPanel({ appId, onAct }: { appId: string | null; onAct?
                       onDetail={setDetail}
                       onApply={(p) => (report.currentPackId === report.baselineId ? act({ kind: 'apply', recipeId: p.applyRecipeId!, appId: report.appId, title: p.name }) : setSwitchTo(p))}
                       onTest={startTest}
-                      status={byId(e.packId) ? testStatus(byId(e.packId)!, report, cap, testing) : null}
+                      status={e.tier !== 'performance-risk' && byId(e.packId) ? testStatus(byId(e.packId)!, report, cap, testing) : null}
                     />
                   ))}
                 </ul>
@@ -404,6 +407,7 @@ function PackCard({
 }) {
   const vs = entry.vsBaseline
   const used = m?.sessions.filter((s) => !s.excluded).length ?? 0
+  const preventiveRisk = entry.tier === 'performance-risk'
   const canApply = pack && pack.applyRecipeId && (pack.state === 'ready' || pack.state === 'rolled_back' || pack.state === 'failed' || pack.state === 'conflict') && !current
   return (
     <motion.li
@@ -432,11 +436,11 @@ function PackCard({
       </div>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {pack && (
-          <Pill color={STATE[pack.state].color} soft={STATE[pack.state].soft} title={pack.stateDetail}>
-            {pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : STATE[pack.state].label}
+          <Pill color={preventiveRisk && !current ? 'var(--frx-caution)' : STATE[pack.state].color} soft={preventiveRisk && !current ? 'var(--frx-caution-soft)' : STATE[pack.state].soft} title={pack.stateDetail}>
+            {preventiveRisk && !current ? 'Contorno de compatibilidade' : pack.kind === 'baseline' ? (pack.state === 'verified' ? 'Ativo' : 'Inativo') : STATE[pack.state].label}
           </Pill>
         )}
-        <Pill color={OUTCOME[entry.outcome].color} soft={OUTCOME[entry.outcome].soft}>
+        <Pill color={preventiveRisk ? 'var(--frx-caution)' : OUTCOME[entry.outcome].color} soft={preventiveRisk ? 'var(--frx-caution-soft)' : OUTCOME[entry.outcome].soft}>
           {entry.headline}
         </Pill>
         {status && (
@@ -450,7 +454,7 @@ function PackCard({
           Evidência: {EVIDENCE_LABEL[pack.evidence]} · <span style={{ color: RISK[pack.risk].color }}>{RISK[pack.risk].label}</span>
         </p>
       )}
-      {!pack && <p className="mt-2 line-clamp-3 text-[12px] text-fg-3">{entry.reasons[0]}</p>}
+      {(!pack || preventiveRisk) && <p className="mt-2 line-clamp-3 text-[12px] text-fg-3">{entry.reasons[0]}</p>}
       {pack && (
         <dl className="mt-3 grid grid-cols-3 gap-2 text-[12px]">
           <div>
@@ -477,7 +481,7 @@ function PackCard({
         )}
         {canApply && (
           <Button size="sm" variant="secondary" icon={current ? undefined : <Wrench className="size-3.5" />} onClick={() => onApply(pack!)}>
-            {pack!.state === 'conflict' ? 'Trocar para este' : 'Aplicar'}
+            {preventiveRisk ? 'Revisar compatibilidade' : pack!.state === 'conflict' ? 'Trocar para este' : 'Aplicar'}
           </Button>
         )}
         {pack?.kind === 'baseline' && !current && (
@@ -485,7 +489,7 @@ function PackCard({
             Restaurar
           </Button>
         )}
-        {pack && (pack.kind === 'baseline' || (pack.applyRecipeId && pack.state !== 'unsupported')) && (
+        {pack && !preventiveRisk && (pack.kind === 'baseline' || (pack.applyRecipeId && pack.state !== 'unsupported')) && (
           <Button size="sm" variant={pack.kind === 'baseline' ? 'outline' : 'primary'} icon={<Gauge className="size-3.5" />} onClick={() => onTest(pack)}>
             {pack.kind === 'baseline' ? (used ? 'Repetir referência' : 'Capturar referência') : 'Testar desempenho'}
           </Button>
@@ -508,6 +512,7 @@ function PackDetail({ pack, report, onClose }: { pack: SmartPack; report: SmartP
   return (
     <Dialog open onClose={onClose} title={pack.name} description={`${GOAL[pack.goal]} · ${STATE[pack.state].label}`} width={720} footer={<Button variant="ghost" onClick={onClose}>Fechar</Button>}>
       <div className="space-y-5 text-[12.5px] text-fg-2">
+        <PerformanceWarning warnings={pack.performanceWarnings} />
         <Block title="Objetivo">
           <p>{pack.goalText}</p>
         </Block>

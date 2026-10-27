@@ -158,6 +158,14 @@ pub struct GeneratedInfo {
 }
 
 impl Recipe {
+    pub fn performance_warnings(&self) -> Vec<String> {
+        super::dynamic::compatibility::performance_warnings(self.actions.iter().filter_map(|a| {
+            match a {
+                RecipeAction::SetLaunchEnv { key, value } => Some((key.as_str(), value.as_str())),
+                _ => None,
+            }
+        }))
+    }
     pub fn env_keys(&self) -> Vec<&str> {
         self.actions
             .iter()
@@ -228,6 +236,8 @@ pub struct PlannedChange {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixPlan {
+    #[serde(default)]
+    pub performance_warnings: Vec<String>,
     pub plan_id: String,
     pub fingerprint: String,
     pub recipe_id: String,
@@ -493,6 +503,8 @@ pub struct RollbackPlan {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct RecipeView {
+    #[serde(default)]
+    pub performance_warnings: Vec<String>,
     #[serde(flatten)]
     pub recipe: Recipe,
     pub executable: bool,

@@ -454,4 +454,28 @@ describe('Smart Packs na interface', () => {
     expect(calls.filter((c) => c.cmd === 'evaluate_benchmark_session')).toHaveLength(2)
     m.unmount()
   })
+
+  it('separa WineD3D preventivamente sem pedir benchmark ou sugerir combinações', async () => {
+    const warnings = ['WineD3D troca DXVK/Vulkan por OpenGL e pode reduzir o desempenho.']
+    current = () => {
+      const risk = pack(D3D, { name: 'Renderizar com WineD3D (OpenGL)', env: [{ key: 'PROTON_USE_WINED3D', value: '1' }], applyRecipeId: 'frx.compat.wined3d', performanceWarnings: warnings })
+      const r = report({ packs: [pack(BASE), risk] })
+      r.ranking.entries = [entry(BASE, {}), entry(D3D, { title: risk.name, tier: 'performance-risk', headline: 'Risco de perda de desempenho', reasons: warnings })]
+      r.ranking.summary = 'Nenhuma otimização de desempenho identificada entre as sugestões atuais.'
+      r.ranking.nextTest = null
+      return r
+    }
+    const m = mount(<SmartPacksPanel appId="200260" />)
+    await flush(80)
+    const region = document.querySelector('section[aria-label="Risco de perda de desempenho"]')!
+    expect(region).toBeTruthy()
+    expect(region.textContent).toContain('Renderizar com WineD3D')
+    expect(region.textContent).toContain('OpenGL')
+    expect(region.textContent).toContain('Revisar compatibilidade')
+    expect(region.textContent).not.toContain('Testar desempenho')
+    expect(text()).not.toContain('Próximo teste:')
+    expect(button('Iniciar benchmark')).toBeUndefined()
+    expect(calls.some((c) => c.cmd === 'prepare_benchmark' || c.cmd === 'apply_fix_plan')).toBe(false)
+    m.unmount()
+  })
 })

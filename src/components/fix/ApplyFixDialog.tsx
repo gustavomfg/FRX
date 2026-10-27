@@ -6,6 +6,7 @@ import { Dialog } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { Mascot } from '@/mascot/Mascot'
 import { Pill } from './FindingCard'
+import { PerformanceWarning } from './PerformanceWarning'
 import { APPLY_STAGES, EVIDENCE, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
 import { openExternal } from '@/services/opener'
 import { applyFixPlan, onFixProgress, prepareFixPlan, prepareFixRollback, rollbackFix, verifyFixOperation } from '@/services/fixEngine'
@@ -331,6 +332,7 @@ export function ApplyFixDialog({ target, onClose }: { target: ApplyTarget | null
                   </>
                 )}
               </div>
+              {!rollback && <PerformanceWarning warnings={plan?.performanceWarnings} />}
               {reasons.length > 0 && (
                 <ul className={cn('space-y-1.5 rounded-md border px-3.5 py-2.5 text-[13px]', executable ? 'border-caution/25 bg-caution-soft text-caution' : 'border-bad/25 bg-bad-soft text-bad')}>
                   {reasons.map((r) => (
@@ -358,6 +360,7 @@ export function ApplyFixDialog({ target, onClose }: { target: ApplyTarget | null
 
           {phase === 'confirm' && plan && (
             <div className="space-y-4">
+              <PerformanceWarning warnings={plan.performanceWarnings} />
               <ul className="space-y-3 text-[13.5px]">
                 <li className="flex gap-3">
                   <ShieldCheck className="mt-0.5 size-4 shrink-0 text-fg-2" aria-hidden />

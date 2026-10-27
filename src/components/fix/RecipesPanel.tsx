@@ -10,6 +10,7 @@ import { PLAN_STATUS, PURPOSE, RISK, TRUST } from './engineMeta'
 import { checkFixCompatibility, listFixRecipes } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
+import { PerformanceWarning } from './PerformanceWarning'
 import { useFixEngine } from '@/state/fixEngine'
 import type { Game } from '@/types'
 import type { FixPlan, RecipeAction, RecipeView } from '@/types/fixEngine'
@@ -123,6 +124,7 @@ export function RecipesPanel({
                         {TRUST[r.trust].label} · {PURPOSE[r.purpose]}
                         {r.relatedFindings.length > 0 && ` · citada em ${r.relatedFindings.length} descoberta${r.relatedFindings.length === 1 ? '' : 's'}`}
                       </span>
+                      <PerformanceWarning warnings={r.performanceWarnings} compact />
                     </span>
                     {meta ? (
                       <Pill color={meta.color} soft={meta.soft}>
@@ -179,6 +181,7 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
         <p className="mt-1.5 text-[13.5px] text-fg-2">{recipe.summary}</p>
       </header>
 
+      <PerformanceWarning warnings={recipe.performanceWarnings} />
       <p className="text-[13px] text-fg-2">{recipe.description}</p>
 
       <div>

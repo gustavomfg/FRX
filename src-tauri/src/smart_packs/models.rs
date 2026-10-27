@@ -8,9 +8,9 @@ use crate::fixes::models::GpuReq;
 
 pub const PACK_SCHEMA: u32 = 1;
 /// Versão do compositor: mudou → os pacotes são recompostos e registrados de novo.
-pub const COMPOSER_VERSION: &str = "1.0.0";
+pub const COMPOSER_VERSION: &str = "1.1.0";
 /// Versão da metodologia de ranking (critérios e limites documentados).
-pub const RANKING_VERSION: &str = "1.0.0";
+pub const RANKING_VERSION: &str = "1.1.0";
 
 /// Perfil de otimização: muda os critérios de ordenação, nunca os dados.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -149,6 +149,8 @@ pub struct PackMemberView {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SmartPack {
+    #[serde(default)]
+    pub performance_warnings: Vec<String>,
     /// `pack.<appid>.<hash>` das variáveis ordenadas (estável).
     pub id: String,
     pub app_id: String,
@@ -314,6 +316,8 @@ pub enum Tier {
     Measured,
     /// Seguro e compatível, sem evidência suficiente: ordem de teste.
     Candidate,
+    /// Triagem preventiva: possível custo, sem recomendar testes obrigatórios.
+    PerformanceRisk,
     NotRecommended,
 }
 
@@ -354,6 +358,9 @@ pub struct Ranking {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct RankingSnapshot {
+    /// IDs separados preventivamente; campo aditivo para leitores antigos.
+    #[serde(default)]
+    pub preventive_risks: Vec<String>,
     pub at: String,
     pub profile: Profile,
     pub version: String,
@@ -366,6 +373,8 @@ pub struct RankingSnapshot {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Excluded {
+    #[serde(default)]
+    pub performance_warnings: Vec<String>,
     pub id: String,
     pub title: String,
     pub status: Option<DynStatus>,

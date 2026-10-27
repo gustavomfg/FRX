@@ -38,7 +38,7 @@ pub const GENERATOR_VERSION: &str = "1.0.0";
 /// Versão das regras de segurança e do conhecimento de variáveis
 /// (`security::ENV_ALLOWLIST` + `compatibility::KNOWLEDGE`). Aumente ao mudar
 /// qualquer uma das duas.
-pub const RULES_VERSION: &str = "2026.10.26-1";
+pub const RULES_VERSION: &str = "2026.10.27-1";
 
 /// Categoria exibida ao usuário.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -113,6 +113,8 @@ pub struct ActionView {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Assessment {
+    #[serde(default)]
+    pub performance_warnings: Vec<String>,
     pub finding_id: String,
     pub app_id: String,
     pub class: DynClass,

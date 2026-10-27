@@ -199,6 +199,7 @@ pub fn rank(i: Input<'_>) -> Ranking {
     let mut measured: Vec<Row> = Vec::new();
     let mut candidates: Vec<(RankEntry, TestOrder)> = Vec::new();
     let mut not_rec: Vec<RankEntry> = Vec::new();
+    let mut performance_risks: Vec<RankEntry> = Vec::new();
 
     for p in i.packs.iter().filter(|p| p.kind != PackKind::Baseline) {
         let vs = i.vs.get(&p.id).cloned();
@@ -211,6 +212,32 @@ pub fn rank(i: Input<'_>) -> Ranking {
                 outcome: Outcome::NotMeasured,
                 headline: "Incompatível com o sistema atual".into(),
                 reasons: vec![p.state_detail.clone()],
+                vs_baseline: vs,
+            });
+            continue;
+        }
+        if !p.performance_warnings.is_empty()
+            && !vs
+                .as_ref()
+                .is_some_and(|v| !v.limited && v.get("fpsAvg").is_some())
+        {
+            let mut reasons = p.performance_warnings.clone();
+            reasons.push("Classificação preventiva do FRX: não é uma regressão medida. Só considere esta alternativa para resolver um problema de compatibilidade; não é necessário testá-la para obter otimização.".into());
+            if let Some(v) = &vs {
+                reasons.extend(describe(v));
+            }
+            performance_risks.push(RankEntry {
+                pack_id: p.id.clone(),
+                title: p.name.clone(),
+                tier: Tier::PerformanceRisk,
+                position: None,
+                outcome: if used(i.measured, &p.id) == 0 {
+                    Outcome::NotMeasured
+                } else {
+                    Outcome::Inconclusive
+                },
+                headline: "Risco de perda de desempenho".into(),
+                reasons,
                 vs_baseline: vs,
             });
             continue;
@@ -266,7 +293,7 @@ pub fn rank(i: Input<'_>) -> Ranking {
                             p.evidence,
                             EvidenceLevel::Documented | EvidenceLevel::Corroborated
                         ) {
-                            "Candidato promissor — ainda não testado".to_owned()
+                            "Alternativa de compatibilidade — impacto ainda desconhecido".to_owned()
                         } else {
                             "Experimental — ainda não testado".to_owned()
                         },
@@ -425,7 +452,20 @@ pub fn rank(i: Input<'_>) -> Ranking {
     };
 
     candidates.sort_by(|a, b| a.1.cmp(&b.1));
-    let next_test = if base_n < 2 {
+    let no_candidates = candidates.is_empty() && entries.is_empty();
+    let has_risks = !performance_risks.is_empty()
+        || i.excluded
+            .iter()
+            .any(|x| !x.performance_warnings.is_empty());
+    let next_candidate = candidates.iter().find(|(e, _)| {
+        used(i.measured, &e.pack_id) > 0
+            || i.packs
+                .iter()
+                .any(|p| p.id == e.pack_id && p.goal == Goal::Performance)
+    });
+    let next_test = if next_candidate.is_none() {
+        None
+    } else if base_n < 2 {
         Some(NextTest {
             pack_id: i.baseline_id.to_owned(),
             reason: if base_n == 0 {
@@ -435,7 +475,7 @@ pub fn rank(i: Input<'_>) -> Ranking {
             },
         })
     } else {
-        candidates.first().map(|(c, _)| NextTest {
+        next_candidate.map(|(c, _)| NextTest {
             pack_id: c.pack_id.clone(),
             reason: if c.outcome == Outcome::NotMeasured {
                 format!("Teste “{}”: aplique, capture no mesmo trecho e com as mesmas configurações do baseline.", c.title)
@@ -458,6 +498,7 @@ pub fn rank(i: Input<'_>) -> Ranking {
                 .map(|p| p.name.as_str())
                 .unwrap_or(w)
         ),
+        (None, true) if no_candidates && has_risks => "Nenhuma otimização de desempenho identificada entre as sugestões atuais. As alternativas com risco de perda ficam separadas; use-as apenas para resolver um problema específico de compatibilidade.".into(),
         (None, true) => "Ainda não há dados suficientes para recomendar um vencedor.".into(),
         (None, false) => {
             if entries
@@ -474,16 +515,33 @@ pub fn rank(i: Input<'_>) -> Ranking {
     let mut all = vec![baseline_entry];
     all.extend(entries);
     all.extend(candidates.into_iter().map(|(e, _)| e));
+    all.extend(performance_risks);
     all.extend(not_rec);
-    all.extend(i.excluded.iter().map(|x| RankEntry {
-        pack_id: x.id.clone(),
-        title: x.title.clone(),
-        tier: Tier::NotRecommended,
-        position: None,
-        outcome: Outcome::NotMeasured,
-        headline: "Fora dos pacotes".into(),
-        reasons: vec![x.reason.clone()],
-        vs_baseline: None,
+    all.extend(i.excluded.iter().map(|x| {
+        RankEntry {
+            pack_id: x.id.clone(),
+            title: x.title.clone(),
+            tier: if x.performance_warnings.is_empty() {
+                Tier::NotRecommended
+            } else {
+                Tier::PerformanceRisk
+            },
+            position: None,
+            outcome: Outcome::NotMeasured,
+            headline: if x.performance_warnings.is_empty() {
+                "Fora dos pacotes"
+            } else {
+                "Risco de perda de desempenho"
+            }
+            .into(),
+            reasons: x
+                .performance_warnings
+                .iter()
+                .cloned()
+                .chain(std::iter::once(x.reason.clone()))
+                .collect(),
+            vs_baseline: None,
+        }
     }));
     Ranking {
         profile: i.profile,

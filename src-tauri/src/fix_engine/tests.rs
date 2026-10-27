@@ -20,6 +20,33 @@ struct Fx {
 const ACCOUNT: u64 = 12345;
 
 #[test]
+fn reviewed_wined3d_is_executable_but_warned_before_any_test_or_write() {
+    let fx = fixture();
+    let engine = fx.engine();
+    let game = fx.game();
+    let before = std::fs::read(&fx.config).unwrap();
+    let view = engine
+        .recipes(&[])
+        .into_iter()
+        .find(|r| r.recipe.id == "frx.compat.wined3d")
+        .unwrap();
+    assert!(view.executable);
+    assert!(view
+        .performance_warnings
+        .iter()
+        .any(|w| w.contains("OpenGL")));
+    let preview = engine.prepare("frx.compat.wined3d", &game).unwrap();
+    assert_eq!(preview.status, PlanStatus::Ready);
+    assert_eq!(preview.performance_warnings, view.performance_warnings);
+    assert!(engine.operations(None).is_empty());
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        before,
+        "triagem é automática e somente leitura"
+    );
+}
+
+#[test]
 fn capture_setup_has_backup_and_selective_rollback_without_becoming_a_fix() {
     use crate::smart_packs::benchmark;
     let fx = fixture();
@@ -1059,7 +1086,13 @@ mod packs {
 
     fn findings() -> Vec<FixFinding> {
         vec![
-            finding("esync", ActionKind::Env, "PROTON_NO_ESYNC=1", 2, 0),
+            finding(
+                "address",
+                ActionKind::Env,
+                "PROTON_FORCE_LARGE_ADDRESS_AWARE=1",
+                2,
+                0,
+            ),
             finding("heap", ActionKind::Env, "PROTON_HEAP_DELAY_FREE=1", 2, 0),
         ]
     }
@@ -1118,7 +1151,10 @@ mod packs {
         assert_eq!(plan.pack.as_ref().unwrap().members.len(), 2);
         assert_eq!(plan.changes.len(), 1, "dry run consolidado: uma alteração");
         let after = plan.changes[0].after.clone().unwrap();
-        assert!(after.contains("PROTON_NO_ESYNC=1") && after.contains("PROTON_HEAP_DELAY_FREE=1"));
+        assert!(
+            after.contains("PROTON_FORCE_LARGE_ADDRESS_AWARE=1")
+                && after.contains("PROTON_HEAP_DELAY_FREE=1")
+        );
         assert_eq!(std::fs::read_to_string(&fx.config).unwrap(), LOCALCONFIG);
 
         let op = e
@@ -1168,7 +1204,7 @@ mod packs {
         let e = fx.engine();
         let g = game(&fx, findings());
         let r = report(&fx, &e, &g);
-        let a = single(&r, "PROTON_NO_ESYNC");
+        let a = single(&r, "PROTON_FORCE_LARGE_ADDRESS_AWARE");
         let b = combo(&r);
         let pa = e
             .prepare(a.apply_recipe_id.as_deref().unwrap(), &g)
