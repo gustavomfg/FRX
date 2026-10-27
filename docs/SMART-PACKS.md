@@ -1,6 +1,6 @@
 # FRX Smart Packs
 
-> Atualização de 27/10/2026: descoberta e evidência têm escopo explícito por AppID; risco global não é julgamento universal de FPS. O gerador 1.2.0 e a composição/ranking 1.3.0 revalidam registros sem apagar históricos. Packs podem combinar variáveis e configurações por arquivo verificáveis; hardware, versões e hashes refinam o escopo. Veja [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md). Detalhes e migração em [GAME-SPECIFIC-FIX-INTELLIGENCE.md](GAME-SPECIFIC-FIX-INTELLIGENCE.md).
+> Atualização de 27/10/2026: descoberta e evidência têm escopo explícito por AppID; risco global não é julgamento universal de FPS. O gerador 1.3.0 e a composição/ranking 1.4.0 revalidam registros sem apagar históricos. Packs combinam variáveis e configurações verificáveis, incluindo DXVK, usando o conteúdo final na identidade. Somente planos validados habilitam aplicação; bloqueios temporários têm motivo e reavaliação. Veja [ACTIONABLE-FIXES.md](ACTIONABLE-FIXES.md), [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md) e [GAME-SPECIFIC-FIX-INTELLIGENCE.md](GAME-SPECIFIC-FIX-INTELLIGENCE.md).
 
 Smart Packs são combinações de correções que o FRX compõe sozinho para um jogo. Ele as classifica pelo que foi **medido** no seu computador. Nenhum JSON é escrito à mão. Nenhum FPS é inventado. Quando não há dados, não há vencedor.
 
@@ -46,7 +46,7 @@ Quando só há relatos de compatibilidade e nenhum impacto conhecido, a interfac
 
 A implementação usa `dynamic::compatibility::performance_warnings`, compartilhada entre análise, catálogo, prévia, composição e ranking. As regras são preventivas: não inventam porcentagens, não simulam benchmarks e não conseguem prever o efeito exato de qualquer correção ainda desconhecida. O significado das opções está documentado no [Proton](https://github.com/ValveSoftware/Proton#runtime-config-options); a triagem do FRX é conservadora e se baseia no efeito técnico dessas ações.
 
-O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo aditivo `preventiveRisks`, preservando leitores e registros existentes. A metodologia de composição/ranking é 1.2.0; a versão do aplicativo permanece 0.4.0.
+O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo aditivo `preventiveRisks`, preservando leitores e registros existentes. Essa etapa original usava metodologia 1.2.0 e aplicativo 0.4.0; a atualização descrita acima usa composição/ranking 1.4.0, sem alterar a versão atual do aplicativo (0.5.0).
 
 ## Unidades (o que pode entrar num pacote)
 

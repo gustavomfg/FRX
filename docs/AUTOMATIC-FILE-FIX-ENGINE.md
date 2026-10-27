@@ -98,7 +98,7 @@ A captura registra arquivos efetivamente instalados e seus hashes, junto de rece
 
 Os novos campos são aditivos e têm defaults. Operações, sessões e packs anteriores continuam carregáveis sem inventar identidade de GPU ou metadados de arquivos. IDs legados dos packs apenas de variáveis são preservados. Nenhum benchmark, log, backup ou histórico antigo é apagado.
 
-Gerador `1.2.0`, regras `2026.10.27-3`, compositor/ranking `1.3.0`: os caches são revalidados pela versão e pelo contexto, preservando registros históricos. Driver, inventário/seleção de GPU e Proton integram o fingerprint do cache de receitas. Dados sem contexto suficiente não recebem atributos do jogo aberto silenciosamente.
+Gerador `1.3.0`, regras `2026.10.27-4`, compositor/ranking `1.4.0`: os caches são revalidados pela versão e pelo contexto, preservando registros históricos. Driver, inventário/seleção de GPU e Proton integram o fingerprint do cache de receitas. Dados sem contexto suficiente não recebem atributos do jogo aberto silenciosamente. Ajustes tipados de `dxvk.conf`, soluções compostas e validação de aplicabilidade estão descritos em [ACTIONABLE-FIXES.md](ACTIONABLE-FIXES.md).
 
 ## Como testar com segurança
 

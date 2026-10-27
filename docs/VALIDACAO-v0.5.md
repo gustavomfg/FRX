@@ -1,5 +1,7 @@
 # Validação da v0.5 — Resolution Intelligence
 
+Este registro descreve a entrega original. A correção posterior de aplicabilidade e a expansão de operações DXVK têm relatório próprio em [ACTIONABLE-FIXES.md](ACTIONABLE-FIXES.md); os números abaixo não substituem a validação dessa etapa.
+
 Data: 27/10/2026. No momento da validação, a implementação estava no working tree, sem commits, tags, push ou release. Este documento distingue a base funcional da Resolution Intelligence das classes que continuam exigindo revisão. Não representa validação de ganho real de FPS ou funcionamento de recursos em jogos reais.
 
 ## Estado inicial e preservação

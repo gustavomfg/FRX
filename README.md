@@ -202,17 +202,19 @@ Arquitetura em `src-tauri/src/fixes/`. Cada provedor em `providers/` é independ
 
 ## Fix Engine: aplicar a primeira correção
 
-Pelas descobertas: em **Fix Packs → Descobertas** ou na página do jogo, cada descoberta mostra a **Análise do FRX**. Quando há receita aplicável (gerada automaticamente ou revisada), o botão **Aplicar correção** abre a mesma prévia descrita abaixo. Senão, o cartão mostra o motivo exato. Veja [`docs/FIX-ENGINE-DINAMICO.md`](docs/FIX-ENGINE-DINAMICO.md).
+Em **Fix Packs → Descobertas** ou na página do jogo, **Correções disponíveis** contém apenas receitas cuja prévia automática foi validada pelo Rust no contexto atual. **Aplicar correção** abre essa prévia. Condições temporárias, como jogo/Steam abertos, mostram a ação necessária e permitem reavaliar. **Descobertas em investigação** preserva fontes, procedimentos incompletos e incompatibilidades sem anunciar uma instalação disponível. Veja [Aplicabilidade e operações suportadas](docs/ACTIONABLE-FIXES.md).
 
-1. Abra **Fix Packs → Receitas do FRX** (ou o botão **Ver receitas para este jogo** na página do jogo) e escolha o jogo.
-2. Cada receita mostra o estado calculado agora pelo Rust: **Aplicável**, **Aplicável · passo manual** (Steam aberta), **Conflito**, **Incompatível**, **Já aplicada**, **Já incluída no Proton** ou **Só consulta** (candidata ou revogada).
-3. **Revisar e aplicar** abre a prévia: opções de inicialização, arquivos afetados, origem/versão do download quando houver, requisitos, riscos e backups. Nada foi gravado até aqui.
-4. Confirme. Com a Steam e o jogo fechados, o Pim mostra as etapas reais: baixar/verificar quando necessário, criar backups, gravar e conferir. O passo manual com a Steam aberta é exclusivo das opções de inicialização; operações por arquivo exigem o fechamento pelo usuário.
+1. Abra **Fix Packs → Correções disponíveis** ou a página do jogo e escolha o jogo instalado.
+2. Confirme requisitos, riscos e impedimentos específicos. O **Catálogo técnico** permite consultar receitas, mas somente a validação para o jogo escolhido habilita aplicação automática.
+3. **Aplicar correção** abre a prévia: opções de inicialização, arquivos afetados, origem/versão do download quando houver, requisitos, riscos e backups. Nada foi gravado até aqui.
+4. Confirme. Com a Steam e o jogo fechados, o Pim mostra as etapas reais: baixar/verificar quando necessário, criar backups, gravar e conferir. Se fonte, ambiente ou arquivos mudarem depois da listagem, reavalie para obter uma prévia atual. O FRX não fecha programas.
 5. Em **Histórico**, cada operação mostra etapas, linhas antes/depois, backup (com SHA-256) e o botão **Desfazer**. O rollback remove só o que a correção adicionou e recusa sobrescrever mudanças feitas por outros programas.
 
 Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs/FIX-ENGINE.md). Validação desta versão: [`docs/VALIDACAO-v0.4.0.md`](docs/VALIDACAO-v0.4.0.md).
 
 ### Correções que precisam de arquivos externos
+
+Também há geração automática de ajustes **tipados de `dxvk.conf`** quando a fonte atribuída ao jogo especifica o caminho relativo, a chave permitida e seu valor. O FRX cria ou mescla a configuração preservando opções não relacionadas. Variáveis, configuração DXVK e artefatos verificáveis podem integrar uma única transação; uma etapa desconhecida impede a aplicação parcial. Não há ganho de desempenho presumido nem confirmação de que o jogo leu a configuração apenas porque ela foi gravada.
 
 O FRX identifica assets de GitHub Releases ligados pelas fontes integradas. A aplicação inicial aceita **INI, CFG, CONF, JSON e TXT em UTF-8**, diretamente ou como membros explicitamente selecionados de um ZIP. O publicador precisa fornecer vínculo com o AppID, destinos relativos e digests suficientes; substituições também exigem o hash do original esperado. Instruções estritas ou um manifesto tipado da release podem gerar a receita sem cadastrar JSON por jogo no FRX. Prosa ambígua ou procedimentos com etapas desconhecidas ficam em revisão.
 

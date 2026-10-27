@@ -1,6 +1,6 @@
 # Fix Engine dinâmico (gerador de receitas)
 
-> Evolução de 27/10/2026: o mesmo executor agora prepara downloads e configurações de texto verificáveis, com contexto de hardware, staging, backup e rollback. DLLs e scripts continuam em revisão. O suporte atual e suas restrições estão em [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md); as descrições abaixo documentam também o fluxo original de variáveis.
+> Evolução de 27/10/2026: o mesmo executor prepara downloads e configurações verificáveis, incluindo ajustes tipados de `dxvk.conf` e soluções compostas. A geração de receita não habilita mais o botão por si só: `availability` exige uma prévia automática válida. DLLs e scripts continuam em investigação. Veja [ACTIONABLE-FIXES.md](ACTIONABLE-FIXES.md) e [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md). As seções sobre a v0.4 registram o fluxo original.
 
 O FRX gera receitas sozinho a partir das descobertas da pesquisa, sem cadastro manual, quando reconhece e valida uma ação suportada. O catálogo revisado (`src-tauri/recipes/`) continua existindo, mas deixou de ser o único caminho para aplicar uma correção.
 
@@ -33,9 +33,9 @@ Cada descoberta é analisada sozinha. Ações de comentários diferentes nunca s
 
 | Categoria | Estados (`DynStatus`) | Botão |
 |---|---|---|
-| **A — aplicável com confirmação** | `generated` (receita gerada), `reviewed` (uma receita revisada do catálogo faz exatamente o mesmo ajuste) | **Aplicar correção** → abre a prévia, nunca aplica direto |
-| **B — requer validação adicional** | `needs-validation` (winetricks, DLL, registro, arquivo do jogo, wrappers como `gamemoderun`, argumentos do jogo, variável desconhecida, script condicional ou parcialmente analisado), `blocked` (variáveis que carregam código ou mudam caminhos: `LD_*`, `WINEDLLOVERRIDES`, `PATH`, camadas Vulkan, `STEAM_*`…) | desabilitado, com o motivo |
-| **C — apenas informativa** | `no-actions`, `contested` (relatos contrários ≥ favoráveis), `incompatible`, `already-included`, `invalid` (AppID diferente, conteúdo malformado, sem fonte rastreável) | desabilitado, com o motivo |
+| **A — receita gerada/revisada** | `generated`, `reviewed` | Só oferece **Aplicar correção** quando `availability.state = available`, com fingerprint atual. Condições temporárias têm instrução e reavaliação. |
+| **B — requer validação adicional** | `needs-validation`, `blocked`: dependência sem executor, DLL, registro, destino desconhecido, variável proibida, procedimento incompleto | Pesquisa técnica, com impedimento; sem botão de aplicação |
+| **C — apenas informativa** | `no-actions`, `contested`, `incompatible`, `already-included`, `invalid` | Pesquisa técnica ou histórico, conforme o estado; sem falsa instalação |
 
 Uma correção com partes não suportadas nunca é aplicada parcialmente. Por exemplo, `gamemoderun PROTON_NO_ESYNC=1 %command%` vira categoria B inteira.
 
@@ -49,7 +49,7 @@ Uma correção com partes não suportadas nunca é aplicada parcialmente. Por ex
   - `none`: sem relatos, também experimental;
   - `contested`: categoria C.
 
-A evidência é exibida, mas não libera a aplicação. O que libera é a segurança da operação somada a evidência não contestada.
+A evidência é exibida, mas não libera a aplicação. São necessários segurança, evidência admitida, escopo, requisitos e prévia automática completa no contexto atual.
 
 ### Variáveis que podem gerar receita
 
@@ -62,7 +62,7 @@ A evidência é exibida, mas não libera a aplicação. O que libera é a segura
 - `trust = generated`, sem `review`, com registro de origem;
 - ID `gen.<appid>.<16 hex>`;
 - um único AppID no escopo, que exige Proton;
-- de 1 a 4 ações, só `set_launch_env`, cada uma na allowlist **e** na base de conhecimento;
+- ações limitadas e estruturadas: variáveis na allowlist/base de conhecimento, `set_dxvk_option` restrito e `install_artifact` conforme a política de confiança; etapas desconhecidas impedem a solução inteira;
 - sem `conflictsWith`;
 - textos sem caracteres de controle;
 - fontes HTTPS do GitHub.
@@ -71,17 +71,17 @@ O catálogo recusa receitas com `generated` ou `trust = generated`. O planejador
 
 ## ID estável e deduplicação
 
-`gen.<appid>.<sha256(appid + NOME=valor ordenados)[..16]>`. O ID não depende do texto exibido nem da ordem das variáveis. Descobertas diferentes com as mesmas ações viram uma receita só, com todas as origens (`generated.findingIds` e `provenance`) e a melhor evidência entre elas.
+Receitas usam `gen.<appid>.<digest>`. Variáveis são normalizadas; soluções estruturadas incluem ações e requisitos no digest. Receitas com exigências diferentes não compartilham identidade só por alterarem a mesma chave. A deduplicação preserva origens (`generated.findingIds` e `provenance`), evidências e escopo.
 
 ## Execução
 
-- A interface envia só `recipeId` + `appId` (prévia) e `planId` + `fingerprint` + `appId` (aplicação).
+- A interface envia `recipeId` + `appId` + `expectedFingerprint` da listagem (prévia) e `planId` + `fingerprint` + `appId` (aplicação).
 - O núcleo **regenera** a receita a partir do cache da pesquisa (`analyzer::resolve`) antes da prévia e de novo antes da aplicação. O registro em disco nunca é executado.
 - A impressão digital da prévia inclui o SHA-256 da receita. Se a descoberta mudar entre a prévia e a confirmação (sumiu, ganhou relatos contrários, mudou a evidência), a aplicação é recusada sem gravar nada.
-- O restante é o Fix Engine da v0.4.0, sem mudanças:
+- O executor existente continua responsável por:
   - backup verificado e gravação atômica;
   - verificação e diário;
-  - modo manual com a Steam aberta;
+  - operações legadas manuais no histórico; novas sugestões automáticas pedem fechamento normal da Steam antes de continuar;
   - conflito com o jogo aberto;
   - rollback seletivo e recuperação.
 - As operações registram `recipeTrust` e `findingIds`, e o histórico mostra “receita gerada automaticamente”.

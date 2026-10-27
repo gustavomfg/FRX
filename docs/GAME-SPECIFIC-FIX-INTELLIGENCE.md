@@ -59,8 +59,8 @@ A associação confere o AppID da sessão, o do snapshot, o derivado do ID do pa
 ## Cache, persistência e migração
 
 - Descobertas: `cache/fixes/<appid>.json`; o AppID interno deve corresponder à chave. Descobertas estrangeiras não aparecem como específicas do jogo.
-- Receitas: `fix-engine/generated/<appid>.json`; valida identidade das entradas e invalida por descoberta, catálogo, GPU/driver, Proton, build conhecido, gerador e regras. Gerador `1.2.0`; regras `2026.10.27-3`. O contexto de hardware/software e os novos artefatos são detalhados em [HARDWARE-FIX-INTELLIGENCE.md](HARDWARE-FIX-INTELLIGENCE.md) e [AUTOMATIC-FILE-FIX-ENGINE.md](AUTOMATIC-FILE-FIX-ENGINE.md).
-- Smart Packs: `fix-engine/smart-packs/<appid>.json`; ponteiros de pacotes são verificados também por conteúdo e membros. Composição e ranking `1.2.0`.
+- Receitas: `fix-engine/generated/<appid>.json`; valida identidade das entradas e invalida por descoberta, catálogo, GPU/driver, Proton, build conhecido, gerador e regras. Gerador `1.3.0`; regras `2026.10.27-4`. A aplicabilidade é recalculada pelo planejador, não herdada do cache. Veja [ACTIONABLE-FIXES.md](ACTIONABLE-FIXES.md).
+- Smart Packs: `fix-engine/smart-packs/<appid>.json`; ponteiros de pacotes são verificados também por conteúdo e membros. Composição e ranking `1.4.0`; configurações mescladas incluem o digest dos bytes resultantes.
 - Histórico de aplicação: mantém AppID e, nas novas operações, fingerprint da receita. Rollback usa a operação original, não uma recomendação de outro jogo.
 - Performance Lab: `benchmarks/sessions/<id>`; o ID interno deve corresponder ao diretório. Arquivos inválidos ficam preservados no disco, sem serem executados ou reinterpretados como sessão de outro jogo.
 
