@@ -193,9 +193,11 @@ Detalhes, formato das receitas, allowlist e estados: [`docs/FIX-ENGINE.md`](docs
 
 ## Smart Packs
 
+As descobertas, receitas, pacotes e evidências mantêm seu vínculo com o **Steam AppID**. Uma melhoria ou regressão em um jogo não altera o ranking de outro. Documentação técnica geral explica riscos; somente evidência específica e medições locais comparáveis sustentam a avaliação contextual. Veja [Game-Specific Fix Intelligence](docs/GAME-SPECIFIC-FIX-INTELLIGENCE.md).
+
 Em **Fix Packs → Smart Packs** (ou pelo resumo na página do jogo), o FRX monta combinações das correções aplicáveis ao jogo, detecta conflitos e redundâncias e classifica os pacotes pelo que foi **medido** no Performance Lab. A classificação muda conforme o perfil: Máximo desempenho, Equilibrado ou Máxima compatibilidade.
 
-- O FRX separa automaticamente alternativas com **risco de perda de desempenho**, como WineD3D e desativação de sincronizações. Elas não são sugeridas como otimizações nem exigem testes para esse aviso aparecer.
+- O FRX separa automaticamente alternativas com **risco de perda de desempenho**, como WineD3D e desativação de sincronizações. O aviso aparece antes de qualquer teste; não é uma regressão universal. Relatos confiáveis do AppID selecionado podem justificar um candidato, preservando o aviso.
 - Sem benchmarks suficientes (≥ 2 sessões comparáveis com o pacote e com o baseline), não há vencedor medido. O FRX não transforma relatos de compatibilidade em promessa de FPS e aproveita medições existentes quando disponíveis.
 - Pacotes de várias receitas são aplicados pelo Fix Engine como **uma** operação, com um backup e um rollback.
 - Trocar de pacote e restaurar o estado anterior são feitos passo a passo, cada passo com a própria prévia.

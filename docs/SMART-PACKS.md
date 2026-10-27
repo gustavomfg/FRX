@@ -1,5 +1,7 @@
 # FRX Smart Packs
 
+> Atualização de 27/10/2026: descoberta e evidência têm escopo explícito por AppID; risco global não é julgamento universal de FPS. O gerador 1.1.0 e a composição/ranking 1.2.0 revalidam registros sem apagar históricos. Detalhes e migração em [GAME-SPECIFIC-FIX-INTELLIGENCE.md](GAME-SPECIFIC-FIX-INTELLIGENCE.md).
+
 Smart Packs são combinações de correções que o FRX compõe sozinho para um jogo. Ele as classifica pelo que foi **medido** no seu computador. Nenhum JSON é escrito à mão. Nenhum FPS é inventado. Quando não há dados, não há vencedor.
 
 Código: `src-tauri/src/smart_packs/`. Comandos: `src-tauri/src/commands/smart_packs.rs`. Interface: `src/components/smart/`.
@@ -36,7 +38,7 @@ A seção **Risco de perda de desempenho** separa, mesmo sem sessões:
 - `PROTON_NO_D3D11=1` e `PROTON_NO_D3D10=1`: desativam APIs e podem forçar um caminho de renderização com desempenho ou recursos diferentes, além de poder impedir o jogo de iniciar.
 - `DXVK_FRAME_RATE` e `VKD3D_FRAME_RATE`: limitam intencionalmente o FPS; não são aumento de desempenho.
 
-Essas alternativas não são sugeridas como otimizações e não entram em combinações automáticas sem evidência local comparável de não regressão. O fluxo não manda capturar baseline nem testar cada alternativa para reconhecer riscos que já conhece. No card, a ação é **Revisar compatibilidade**, com a prévia e a confirmação existentes; o botão principal de testar desempenho não é exibido nesse grupo.
+Sem evidência específica, essas alternativas ficam fora das sugestões automáticas de otimização. Relatos explícitos confiáveis do AppID podem torná-las candidatas para teste, mantendo os avisos; não entram em combinações automáticas sem evidência local comparável de não regressão. O fluxo não manda capturar baseline nem testar cada alternativa para reconhecer riscos que já conhece. No card, a ação é **Revisar compatibilidade**, com a prévia e a confirmação existentes; o botão principal de testar desempenho não é exibido nesse grupo.
 
 O mesmo aviso aparece nas descobertas, nas receitas e na prévia/confirmação. A classificação continua automática quando os relatos são contestados, preservando também o motivo de exclusão. Não se apaga a descoberta: uma alternativa lenta ainda pode resolver um problema de compatibilidade em outro contexto.
 
@@ -44,7 +46,7 @@ Quando só há relatos de compatibilidade e nenhum impacto conhecido, a interfac
 
 A implementação usa `dynamic::compatibility::performance_warnings`, compartilhada entre análise, catálogo, prévia, composição e ranking. As regras são preventivas: não inventam porcentagens, não simulam benchmarks e não conseguem prever o efeito exato de qualquer correção ainda desconhecida. O significado das opções está documentado no [Proton](https://github.com/ValveSoftware/Proton#runtime-config-options); a triagem do FRX é conservadora e se baseia no efeito técnico dessas ações.
 
-O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo aditivo `preventiveRisks`, preservando leitores e registros existentes. A metodologia interna passou a 1.1.0; a versão do aplicativo permanece 0.4.0.
+O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo aditivo `preventiveRisks`, preservando leitores e registros existentes. A metodologia de composição/ranking é 1.2.0; a versão do aplicativo permanece 0.4.0.
 
 ## Unidades (o que pode entrar num pacote)
 
@@ -60,7 +62,7 @@ O histórico mantém os tipos anteriores e guarda os IDs preventivos no campo ad
 2. **Receitas individuais**, até `maxUnits` (padrão 8), ordenadas por evidência, risco, nº de variáveis e ID. As que passam do limite ficam fora, com o motivo.
 3. **Pacotes por perfil**: união gulosa de receitas *elegíveis* e compatíveis entre si, até `maxPackSize` (padrão 4).
    - **Compatibilidade**: contornos com evidência documentada ou confirmada por vários relatos.
-   - **Desempenho**: receitas que, medidas sozinhas, melhoraram o FPS médio sem piorar o 1% low (e sem penalidade documentada).
+   - **Desempenho**: receitas que, medidas sozinhas, melhoraram o FPS médio sem piorar o 1% low (riscos técnicos gerais permanecem visíveis, sem veto universal).
    - **Equilibrado**: receitas que, medidas sozinhas, não pioraram FPS médio nem 1% low e melhoraram um deles.
 4. **Pares** de receitas elegíveis sem conflito conhecido.
 5. Total limitado a `maxPacks` (padrão 12). Pacotes com as mesmas variáveis contam uma vez.
