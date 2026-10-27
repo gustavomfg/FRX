@@ -4,13 +4,18 @@
 //! (variáveis de ambiente de uma lista permitida, componentes de winetricks,
 //! opções de inicialização com `%command%`) e nunca executamos nada.
 
-use super::models::GpuReq;
+use super::models::{ActionKind, FixAction, GpuReq};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Tweak {
-    Env { name: String, value: String },
+    Env {
+        name: String,
+        value: String,
+    },
     Verb(String),
     Launch(String),
+    /// All steps from a text that explicitly documents a DXVK config destination.
+    Configuration(Vec<FixAction>),
 }
 
 impl Tweak {
@@ -19,6 +24,10 @@ impl Tweak {
             Tweak::Env { name, value } => format!("env:{name}={value}"),
             Tweak::Verb(v) => format!("verb:{}", v.to_ascii_lowercase()),
             Tweak::Launch(l) => format!("launch:{l}"),
+            Tweak::Configuration(actions) => format!(
+                "configuration:{}",
+                serde_json::to_string(actions).unwrap_or_default()
+            ),
         }
     }
 }
@@ -384,11 +393,34 @@ pub fn scan_text(text: &str) -> TextSignals {
         ..Default::default()
     };
     let mut seen: Vec<String> = Vec::new();
+    let mut configurations = Vec::new();
     for line in text.lines() {
         let trimmed = line
             .trim()
             .trim_start_matches(['>', '-', '*', ' ', '`'])
             .trim_end_matches('`');
+        if let Ok((path, key, value)) = crate::fix_engine::dynamic::extraction::dxvk_option(trimmed)
+        {
+            configurations.push(FixAction {
+                kind: ActionKind::ConfigFile,
+                label: format!("Configura {key} em {path}"),
+                value: format!("{path}: {key}={value}"),
+                conditional: false,
+            });
+            continue;
+        }
+        if trimmed
+            .split_once(':')
+            .is_some_and(|(path, _)| path.trim().ends_with("dxvk.conf"))
+        {
+            configurations.push(FixAction {
+                kind: ActionKind::Other,
+                label: "Instrução de configuração inválida ou não suportada".into(),
+                value: trimmed.chars().take(390).collect(),
+                conditional: false,
+            });
+            continue;
+        }
         // Opção de inicialização completa: uma recomendação única, não fatiada.
         if line.contains("%command%") {
             if let Some(opt) = launch_option(line) {
@@ -424,6 +456,94 @@ pub fn scan_text(text: &str) -> TextSignals {
                 }
             }
         }
+    }
+    if !configurations.is_empty() {
+        // Keep the complete recognized procedure together. In particular,
+        // winetricks or wrappers may not silently disappear from a config fix.
+        for (t, _) in &s.tweaks {
+            let (kind, value) = match t {
+                Tweak::Env { name, value } => (ActionKind::Env, format!("{name}={value}")),
+                Tweak::Verb(v) => (ActionKind::Winetricks, v.clone()),
+                Tweak::Launch(v) => (ActionKind::LaunchOption, v.clone()),
+                Tweak::Configuration(_) => continue,
+            };
+            configurations.push(FixAction {
+                kind,
+                label: "Etapa adicional da mesma fonte".into(),
+                value,
+                conditional: false,
+            });
+        }
+        if [
+            "download",
+            "install",
+            "copy",
+            "replace",
+            "execute",
+            "run",
+            "extract",
+            "delete",
+            "remove",
+            "rename",
+            "move",
+            "sudo",
+            "curl",
+            "wget",
+            "rm",
+            "mv",
+            "cp",
+            "ln",
+            "chmod",
+            "chown",
+            "tee",
+            "sed",
+            "awk",
+            "sh",
+            "bash",
+            "zsh",
+            "fish",
+            "python",
+            "python3",
+            "powershell",
+            "pwsh",
+            "regedit",
+            "winetricks",
+            "protontricks",
+            "tar",
+            "unzip",
+            "7z",
+            "git",
+            "make",
+            "wine",
+            "baixe",
+            "copie",
+            "instale",
+            "substitua",
+            "extraia",
+            "apague",
+            "remova",
+            "renomeie",
+            "mova",
+            "if",
+            "unless",
+            "only",
+            "somente",
+            "quando",
+            "se",
+        ]
+        .iter()
+        .any(|word| word_has(&low, word))
+            || ["&&", "||", "$(", " | ", " > ", " >> "]
+                .iter()
+                .any(|marker| low.contains(marker))
+            || low.lines().any(|line| {
+                let command = line.trim().trim_matches('`').trim();
+                command.starts_with("./") || command.starts_with('/') || command.starts_with("~/")
+            })
+        {
+            configurations.push(FixAction{kind:ActionKind::Other,label:"Passo ou condição adicional não interpretado".into(),value:"A fonte inclui instruções adicionais de arquivo, execução ou condição; revisão integral necessária.".into(),conditional:false});
+        }
+        s.tweaks = vec![(Tweak::Configuration(configurations), context_line(&text))];
     }
     s
 }

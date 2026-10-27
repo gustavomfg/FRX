@@ -52,6 +52,7 @@ pub fn unit_from_recipe(
             {
                 file_actions.push(a.clone())
             }
+            RecipeAction::SetDxvkOption { .. } => file_actions.push(a.clone()),
             _ => return None,
         }
     }
@@ -76,6 +77,7 @@ pub fn unit_from_recipe(
         .and_then(|g| g.discovered_at.clone())
         .or_else(|| related.iter().filter_map(|f| f.published_at.clone()).max());
     Some(Unit {
+        preview_files: None,
         hardware: r.hardware.clone(),
         file_actions,
         app_id: Some(app_id.to_owned()),
@@ -141,6 +143,22 @@ pub fn discover(
                 title: title_of(&a.finding_id),
                 status: Some(DynStatus::Invalid),
                 reason: "Descoberta sem vínculo verificável com o AppID selecionado; preservada fora dos pacotes.".into(),
+            });
+            continue;
+        }
+        if !v.availability.can_compose() {
+            excluded.push(Excluded {
+                performance_warnings: a.performance_warnings.clone(),
+                id: a.finding_id.clone(),
+                title: title_of(&a.finding_id),
+                status: Some(a.status),
+                reason: v
+                    .availability
+                    .reasons
+                    .iter()
+                    .map(|r| r.message.as_str())
+                    .collect::<Vec<_>>()
+                    .join(" "),
             });
             continue;
         }

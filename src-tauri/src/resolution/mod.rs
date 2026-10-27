@@ -127,14 +127,17 @@ pub fn diagnose(
             &sha256_hex(finding.id.as_bytes())[..16]
         );
         let recipe_id = view.assessment.recipe_id.clone();
-        let check = recipe_id.as_ref().and_then(|r| engine.check(r, game).ok());
+        let availability = view.availability.clone();
+        let executable =
+            availability.state == crate::fix_engine::availability::AvailabilityState::Available;
         let mut limitations = view.assessment.reasons.clone();
-        if let Some(c) = &check {
-            limitations.extend(c.reasons.clone());
-        }
-        let recipe = view.assessment.recipe.as_ref();
+        limitations.extend(availability.reasons.iter().map(|r| r.message.clone()));
+        let recipe = recipe_id
+            .as_ref()
+            .and_then(|id| engine.resolve(id, game).ok());
         let topic = category_topic(finding.category);
         plans.push(ResolutionPlan {
+            availability,
             id: id.clone(),
             app_id: game.app_id.clone(),
             title: finding.title.clone(),
@@ -143,7 +146,7 @@ pub fn diagnose(
             ),
             problem_id: problem_id.clone(),
             recipe_id,
-            state: if check.as_ref().is_some_and(|c| c.executable()) {
+            state: if executable {
                 "applicable"
             } else {
                 "review"
@@ -163,13 +166,13 @@ pub fn diagnose(
             dependencies: vec![
                 "Revalidar jogo, hardware, fonte e estado atual na prévia do Fix Engine.".into(),
             ],
-            risks: recipe
+            risks: recipe.as_ref()
                 .map(|r| r.side_effects.clone())
                 .unwrap_or_else(|| {
                     vec!["Procedimento ainda não validado para aplicação automática.".into()]
                 }),
             sources,
-            reversible: check.as_ref().is_some_and(|c| c.executable()),
+            reversible: executable,
             verification_method: if topic == "performance" {
                 "Performance Lab: comparar sessões do mesmo cenário e ambiente"
             } else {
@@ -197,7 +200,7 @@ pub fn diagnose(
             limitations: vec![
                 "Problema conhecido relatado, não necessariamente presente nesta instalação.".into(),
             ],
-            next_action: if check.as_ref().is_some_and(|c| c.executable()) {
+            next_action: if executable {
                 "Revisar plano e seus riscos"
             } else {
                 "Consultar o impedimento e a fonte"
@@ -209,9 +212,12 @@ pub fn diagnose(
     // A documented diagnostic operation is useful even with no community recipe.
     if symptoms.iter().any(|s| s == "startup" || s == "crash") && game.uses_proton == Some(true) {
         let rid = "frx.diagnostics.proton-log";
-        let check = engine.check(rid, game)?;
+        let availability = engine.availability(rid, game);
+        let executable =
+            availability.state == crate::fix_engine::availability::AvailabilityState::Available;
         let id = format!("resolution.{}.proton-log", game.app_id);
         plans.push(ResolutionPlan {
+            availability: availability.clone(),
             id: id.clone(),
             app_id: game.app_id.clone(),
             title: "Preparar diagnóstico do Proton".into(),
@@ -220,7 +226,7 @@ pub fn diagnose(
                     .into(),
             problem_id: "diagnostic-log".into(),
             recipe_id: Some(rid.into()),
-            state: if check.executable() {
+            state: if executable {
                 "applicable"
             } else {
                 "review"
@@ -262,7 +268,7 @@ pub fn diagnose(
                     .into(),
             operation_id: None,
             verification: "Diagnóstico ainda não preparado.".into(),
-            limitations: check.reasons,
+            limitations: availability.reasons.iter().map(|r|r.message.clone()).collect(),
         });
         problems.push(Problem {
             id: "diagnostic-log".into(),

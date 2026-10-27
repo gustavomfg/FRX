@@ -34,6 +34,7 @@ pub fn env(pairs: &[(&str, &str)]) -> Vec<EnvPair> {
 pub fn unit(id: &str, pairs: &[(&str, &str)], ev: EvidenceLevel) -> Unit {
     let e = env(pairs);
     Unit {
+        preview_files: None,
         hardware: Default::default(),
         file_actions: vec![],
         app_id: Some(APP.into()),
@@ -1747,6 +1748,11 @@ fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_s
         catalog: &catalog,
     };
     let view = |f: &FixFinding| AssessmentView {
+        availability: crate::fix_engine::availability::Availability::reason(
+            crate::fix_engine::availability::AvailabilityState::Available,
+            "synthetic",
+            "Synthetic planner-approved fixture",
+        ),
         assessment: assess(f, &ctx),
         generated_at: "fixture".into(),
         updated_at: "fixture".into(),

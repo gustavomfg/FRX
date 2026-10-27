@@ -4,6 +4,60 @@ use crate::resolution::{
     models::*,
     persistence::{Inputs, Store},
 };
+
+#[test]
+fn resolution_availability_matches_preview_and_refreshes_operational_conditions() {
+    use crate::fix_engine::availability::AvailabilityState;
+    let fx = fixture();
+    let e = fx.engine();
+    let g = fx.game();
+    let symptoms = vec!["startup".into()];
+    let initial = report(&fx, &symptoms);
+    let plan = initial.plans.iter().find(|p| p.recipe_id.as_deref() == Some("frx.diagnostics.proton-log")).unwrap();
+    assert_eq!(plan.availability.state, AvailabilityState::Available);
+    let preview = e.prepare(plan.recipe_id.as_ref().unwrap(), &g).unwrap();
+    crate::commands::fix_engine::validate_listing(&preview, plan.availability.plan_fingerprint.as_deref()).unwrap();
+    let original = std::fs::read(&fx.config).unwrap();
+
+    fx.proc("2345", "wine64", "SteamAppId=200260\0");
+    let blocked = report(&fx, &symptoms);
+    let blocked = blocked.plans.iter().find(|p| p.id == plan.id).unwrap();
+    assert_ne!(blocked.state, "applicable");
+    assert_eq!(blocked.availability.state, AvailabilityState::Temporary);
+    assert!(blocked.limitations.iter().any(|s| s.contains("jogo")));
+    assert_eq!(std::fs::read(&fx.config).unwrap(), original);
+    assert!(e.operations(None).is_empty());
+}
+
+#[test]
+fn listing_fingerprint_rejects_changed_file_before_preview_consent() {
+    let fx = fixture();
+    let e = fx.engine();
+    let g = fx.game();
+    let available = e.availability("frx.diagnostics.proton-log", &g);
+    fx.set_line("gamescope -f -- %command% --changed-after-listing");
+    let original = std::fs::read(&fx.config).unwrap();
+    let preview = e.prepare("frx.diagnostics.proton-log", &g).unwrap();
+    let err = crate::commands::fix_engine::validate_listing(&preview, available.plan_fingerprint.as_deref()).unwrap_err();
+    assert!(err.contains("mudaram desde a listagem"));
+    assert_eq!(std::fs::read(&fx.config).unwrap(), original);
+    assert!(e.operations(None).is_empty());
+}
+
+#[test]
+fn legacy_resolution_report_does_not_inherit_executable_availability() {
+    use crate::fix_engine::availability::AvailabilityState;
+    let fx = fixture();
+    let original = report(&fx, &["startup".into()]);
+    let mut json = serde_json::to_value(&original).unwrap();
+    for plan in json["plans"].as_array_mut().unwrap() {
+        plan.as_object_mut().unwrap().remove("availability");
+    }
+    let loaded: Report = serde_json::from_value(json).unwrap();
+    assert!(loaded.plans.iter().all(|p| p.availability.state == AvailabilityState::Investigation && p.availability.plan_fingerprint.is_none()));
+    assert!(loaded.plans.iter().all(|p| p.recipe_id.is_some()));
+}
+
 fn report(fx: &Fx, symptoms: &[String]) -> Report {
     resolution::diagnose(&fx.engine(), &fx.game(), symptoms, None, vec![], &[]).unwrap()
 }

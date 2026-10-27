@@ -140,12 +140,48 @@ pub fn build(i: Input<'_>) -> Recipe {
     }
 }
 
-pub fn artifact_recipe(f: &FixFinding, app: &str, provenance: Vec<Provenance>) -> Recipe {
-    let hash = sha256_hex(&serde_json::to_vec(&(app, &f.artifacts)).unwrap_or_default());
+/// Preserve legacy source restrictions when translating a complete structured
+/// procedure. Two declarations are conjunctive, never alternative permissions.
+pub fn structured_hardware(
+    f: &FixFinding,
+) -> Result<crate::system::context::HardwareRequirements, String> {
     let mut hardware = f.requirements.hardware.clone();
-    if hardware.gpu_vendor.is_none() {
-        hardware.gpu_vendor = f.requirements.gpu_vendor;
+    if let Some(legacy) = f.requirements.gpu_vendor {
+        if hardware.gpu_vendor.is_some_and(|vendor| vendor != legacy) {
+            return Err(
+                "A fonte declara fabricantes de GPU contraditórios; requer revisão.".into(),
+            );
+        }
+        hardware.gpu_vendor = Some(legacy);
     }
+    if !f.requirements.proton_versions.is_empty() {
+        if hardware.proton_versions.is_empty() {
+            hardware.proton_versions = f.requirements.proton_versions.clone();
+        } else {
+            hardware.proton_versions.retain(|version| {
+                f.requirements
+                    .proton_versions
+                    .iter()
+                    .any(|legacy| legacy.eq_ignore_ascii_case(version))
+            });
+            if hardware.proton_versions.is_empty() {
+                return Err(
+                    "A fonte declara versões do Proton contraditórias; requer revisão.".into(),
+                );
+            }
+        }
+    }
+    Ok(hardware)
+}
+
+pub fn artifact_recipe(
+    f: &FixFinding,
+    app: &str,
+    provenance: Vec<Provenance>,
+    hardware: crate::system::context::HardwareRequirements,
+) -> Recipe {
+    let hash =
+        sha256_hex(&serde_json::to_vec(&(app, &f.artifacts, &f.requirements)).unwrap_or_default());
     Recipe{
         hardware,schema:RECIPE_SCHEMA,id:format!("gen.{app}.{}",&hash[..16]),version:GENERATOR_VERSION.into(),trust:Trust::Generated,
         title:cut(f.title.clone(),120),summary:cut(format!("Baixa e instala {} artefato(s) de configuração para este jogo.",f.artifacts.len()),400),

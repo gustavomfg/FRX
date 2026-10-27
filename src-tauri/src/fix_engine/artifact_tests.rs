@@ -609,3 +609,69 @@ fn manual_recovery_is_persisted_and_presence_cannot_falsely_complete_it() {
             .manual_recovery_required
     );
 }
+
+#[test]
+fn downloaded_configuration_dxvk_and_environment_execute_and_rollback_as_one_solution() {
+    let fx = fixture();
+    let payload = b"[fixture]\nvalue=controlled\n";
+    let (candidate, transport) = direct(payload, None);
+    let (engine, mut g, _) = setup(&fx, candidate, transport);
+    g.findings[0].actions = vec![
+        FixAction {
+            kind: ActionKind::ConfigFile,
+            label: "Synthetic DXVK config step".into(),
+            value: "dxvk.conf: dxgi.maxFrameLatency=1".into(),
+            conditional: false,
+        },
+        FixAction {
+            kind: ActionKind::Env,
+            label: "Synthetic Proton step".into(),
+            value: "PROTON_NO_ESYNC=1".into(),
+            conditional: false,
+        },
+    ];
+    let launch = fx.line();
+    let a = engine.analyze(&g).unwrap().remove(0).assessment;
+    let p = engine.prepare(a.recipe_id.as_ref().unwrap(), &g).unwrap();
+    assert_eq!(p.status, PlanStatus::Ready, "{p:#?}");
+    assert_eq!(p.changes.len(), 3);
+    let op = engine
+        .apply(&p.plan_id, &p.fingerprint, &g, &|_| {})
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied);
+    assert_eq!(
+        std::fs::read(fx.library.join("Config/frx.ini")).unwrap(),
+        payload
+    );
+    assert!(std::fs::read_to_string(fx.library.join("dxvk.conf"))
+        .unwrap()
+        .contains("dxgi.maxFrameLatency = 1"));
+    assert!(fx.line().unwrap().contains("PROTON_NO_ESYNC=1"));
+    let restarted = fx.engine();
+    let rb = restarted.prepare_rollback(&op.id).unwrap();
+    restarted
+        .rollback(&op.id, &rb.fingerprint, &|_| {})
+        .unwrap();
+    assert!(!fx.library.join("Config/frx.ini").exists());
+    assert!(!fx.library.join("dxvk.conf").exists());
+    assert_eq!(fx.line(), launch);
+}
+
+#[test]
+fn artifact_plus_unsupported_dependency_is_not_partially_generated() {
+    let fx = fixture();
+    let (candidate, transport) = direct(b"value=1\n", None);
+    let (engine, mut g, _) = setup(&fx, candidate, transport);
+    g.findings[0].actions = vec![FixAction {
+        kind: ActionKind::Winetricks,
+        label: "Dependency needs installer".into(),
+        value: "physx".into(),
+        conditional: false,
+    }];
+    assert!(engine.analyze(&g).unwrap()[0]
+        .assessment
+        .recipe_id
+        .is_none());
+    assert!(!fx.library.join("Config/frx.ini").exists());
+    assert!(engine.operations(None).is_empty());
+}

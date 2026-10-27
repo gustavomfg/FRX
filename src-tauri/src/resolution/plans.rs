@@ -52,6 +52,7 @@ pub fn add_documented_reviews(
         let problem_id = format!("review-component-{symptom}");
         let limitations=vec![version_limit.into(),"O mecanismo baixa componentes e pode fazer fallback de versão. Retirar a variável não restaura os arquivos atualizados; falta política de artefato fixado, backup e rollback desse mecanismo.".into()];
         plans.push(ResolutionPlan{
+            availability: Default::default(),
             id:id.clone(),app_id:game.app_id.clone(),title:title.into(),
             objective:format!("Avaliar o mecanismo {option} documentado pelo mantenedor antes de substituir bibliotecas manualmente."),
             problem_id:problem_id.clone(),recipe_id:None,state:"review".into(),

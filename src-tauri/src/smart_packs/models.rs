@@ -8,7 +8,7 @@ use crate::fixes::models::{ArtifactCandidate, GpuReq};
 
 pub const PACK_SCHEMA: u32 = 1;
 /// Versão do compositor: mudou → os pacotes são recompostos e registrados de novo.
-pub const COMPOSER_VERSION: &str = "1.3.0";
+pub const COMPOSER_VERSION: &str = "1.4.0";
 /// Versão da metodologia de ranking (critérios e limites documentados).
 pub const RANKING_VERSION: &str = "1.3.0";
 
@@ -75,6 +75,9 @@ pub struct FileFixRef {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Unit {
+    /// Hashes of merged local configuration computed by the current planner.
+    #[serde(default)]
+    pub preview_files: Option<Vec<FileFixRef>>,
     #[serde(default)]
     pub hardware: crate::system::context::HardwareRequirements,
     #[serde(default)]
@@ -173,6 +176,10 @@ pub struct PackMemberView {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SmartPack {
+    /// Revalidated by the same planner used by preview; legacy caches cannot
+    /// claim an executable action before being checked again.
+    #[serde(default)]
+    pub availability: crate::fix_engine::availability::Availability,
     #[serde(default)]
     pub artifacts: Vec<ArtifactCandidate>,
     #[serde(default)]

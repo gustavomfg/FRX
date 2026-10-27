@@ -1943,3 +1943,13 @@ mod resolution_acceptance {
     use super::*;
     include!("../resolution/acceptance_tests.rs");
 }
+
+mod availability_acceptance {
+    use super::*;
+    include!("availability_tests.rs");
+}
+
+mod structured_config_cases {
+    use super::*;
+    include!("structured_config_tests.rs");
+}

@@ -14,6 +14,7 @@
 //! aqui antes de qualquer escrita.
 
 pub mod artifacts;
+pub mod availability;
 pub mod catalog;
 pub mod confined;
 pub mod dynamic;
@@ -234,6 +235,16 @@ impl FixEngine {
             .into_iter()
             .zip(list)
             .map(|(e, assessment)| AssessmentView {
+                availability: assessment
+                    .recipe_id
+                    .as_ref()
+                    .map(|id| self.availability(id, game))
+                    .unwrap_or_else(|| {
+                        availability::without_recipe(
+                            &assessment,
+                            game.findings.iter().find(|f| f.id == assessment.finding_id),
+                        )
+                    }),
                 assessment,
                 generated_at: e.generated_at,
                 updated_at: e.updated_at,
@@ -325,13 +336,173 @@ impl FixEngine {
 
     fn compute(&self, recipe: &Recipe, game: &GameCtx) -> Computed {
         let others = self.journal.list();
-        planner::compute(&self.catalog, recipe, game, &others, &self.proc_root)
+        let mut computed = planner::compute(&self.catalog, recipe, game, &others, &self.proc_root);
+        planner::validate_storage(&mut computed, &self.root);
+        computed
     }
 
     /// Compatibilidade sem guardar plano.
     pub fn check(&self, recipe_id: &str, game: &GameCtx) -> Result<FixPlan, String> {
         let r = self.resolve(recipe_id, game)?;
         Ok(self.compute(&r, game).plan)
+    }
+
+    pub(crate) fn preview_file_fixes(
+        &self,
+        recipe_id: &str,
+        game: &GameCtx,
+    ) -> Result<Vec<crate::smart_packs::models::FileFixRef>, String> {
+        let recipe = self.resolve(recipe_id, game)?;
+        let computed = self.compute(&recipe, game);
+        if !availability::from_plan(&computed.plan).can_compose() {
+            return Err(computed.plan.reasons.join(" "));
+        }
+        let expected: Vec<_> = recipe
+            .actions
+            .iter()
+            .filter_map(|a| match a {
+                RecipeAction::SetDxvkOption { path, .. } => Some(path),
+                _ => None,
+            })
+            .collect();
+        let mut files = Vec::new();
+        for step in computed.steps {
+            if let Step::GameFile {
+                rel,
+                content,
+                artifact,
+                ..
+            } = step
+            {
+                let hash = if let Some(a) = &artifact {
+                    a.files
+                        .iter()
+                        .find(|f| f.target_path == rel)
+                        .and_then(|f| f.sha256.clone())
+                        .or_else(|| a.sha256.clone())
+                        .ok_or("Hash de artefato ausente")?
+                } else {
+                    sha256_hex(content.as_bytes())
+                };
+                files.push(crate::smart_packs::models::FileFixRef {
+                    target_path: rel,
+                    sha256: hash,
+                    artifact_id: artifact.as_ref().map(|a| a.id.clone()),
+                    artifact_version: artifact.as_ref().map(|a| a.release_tag.clone()),
+                    artifact_sha256: artifact.as_ref().and_then(|a| a.sha256.clone()),
+                });
+            }
+        }
+        // Fully matching plans deliberately have no write steps. Keep their
+        // observed file identity so an applied pack remains visible after a
+        // restart, without pretending a write or benchmark happened.
+        for path in &expected {
+            if files.iter().any(|f| &f.target_path == *path) {
+                continue;
+            }
+            let root = game
+                .install_path
+                .as_ref()
+                .ok_or("Pasta do jogo desconhecida")?;
+            let current = confined::Target::open(root, path, None)?
+                .read()?
+                .ok_or("Configuração correspondente não encontrada")?;
+            let text = std::str::from_utf8(&current).map_err(|_| "Configuração não é UTF-8")?;
+            let options: Vec<_> = recipe
+                .actions
+                .iter()
+                .filter_map(|a| match a {
+                    RecipeAction::SetDxvkOption {
+                        path: p,
+                        key,
+                        value,
+                    } if p == *path => Some((key.clone(), value.clone())),
+                    _ => None,
+                })
+                .collect();
+            if security::merge_dxvk_options(path, text, &options)?.as_bytes() != current {
+                return Err(
+                    "A configuração mudou durante a composição; atualize os Smart Packs.".into(),
+                );
+            }
+            files.push(crate::smart_packs::models::FileFixRef {
+                target_path: (*path).clone(),
+                sha256: sha256_hex(&current),
+                artifact_id: None,
+                artifact_version: None,
+                artifact_sha256: None,
+            });
+        }
+        let artifact_actions: Vec<_> = recipe
+            .actions
+            .iter()
+            .filter(|a| matches!(a, RecipeAction::InstallArtifact { .. }))
+            .cloned()
+            .collect();
+        for reference in
+            crate::smart_packs::benchmark::action_file_fixes(&game.app_id, &artifact_actions)?
+        {
+            if files.iter().any(|f| f.target_path == reference.target_path) {
+                continue;
+            }
+            let root = game
+                .install_path
+                .as_ref()
+                .ok_or("Pasta do jogo desconhecida")?;
+            if confined::Target::open(root, &reference.target_path, None)?
+                .sha()?
+                .as_deref()
+                != Some(reference.sha256.as_str())
+            {
+                return Err(
+                    "O arquivo do artefato mudou durante a composição; atualize os Smart Packs."
+                        .into(),
+                );
+            }
+            files.push(reference);
+        }
+        if expected
+            .iter()
+            .any(|path| !files.iter().any(|f| &f.target_path == *path))
+        {
+            return Err(
+                "Não foi possível calcular integralmente os arquivos da configuração.".into(),
+            );
+        }
+        files.sort();
+        Ok(files)
+    }
+
+    pub fn availability(&self, recipe_id: &str, game: &GameCtx) -> availability::Availability {
+        use availability::{Availability, AvailabilityState};
+        let mut result = match self.check(recipe_id, game) {
+            Ok(plan) => availability::from_plan(&plan),
+            Err(error) => Availability::reason(
+                AvailabilityState::Investigation,
+                "recipe-revalidation",
+                &error,
+            ),
+        };
+        if result.state == AvailabilityState::Applied
+            && self
+                .applied(Some(&game.app_id))
+                .iter()
+                .any(|a| a.recipe_id == recipe_id && a.effective != Effective::Active)
+        {
+            return Availability::reason(AvailabilityState::Temporary, "applied-state-drift", "A configuração aplicada divergiu. Revise o histórico e a restauração antes de aplicar novamente.");
+        }
+        if matches!(
+            result.state,
+            AvailabilityState::Available | AvailabilityState::Temporary
+        ) && self.status().busy
+        {
+            result.state = AvailabilityState::Temporary;
+            result.reasons.push(availability::AvailabilityReason {
+                code: "engine-busy".into(),
+                message: "Outra operação está em andamento. Aguarde sua conclusão.".into(),
+            });
+        }
+        result
     }
 
     pub fn prepare(&self, recipe_id: &str, game: &GameCtx) -> Result<FixPlan, String> {

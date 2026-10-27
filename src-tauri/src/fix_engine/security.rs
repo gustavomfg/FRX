@@ -268,6 +268,9 @@ pub fn validate_recipe(r: &Recipe) -> Result<(), String> {
                     check_arg(a).map_err(|e| format!("{}: {e}", r.id))?;
                 }
             }
+            RecipeAction::SetDxvkOption { path, key, value } => {
+                validate_dxvk_option(path, key, value)?
+            }
             RecipeAction::WriteGameFile { path, content } => {
                 check_rel_path(path).map_err(|e| format!("{}: {e}", r.id))?;
                 if content.len() > MAX_FILE_BYTES || content.contains('\0') {
@@ -350,6 +353,9 @@ pub fn validate_pack(r: &Recipe) -> Result<(), String> {
     for a in &r.actions {
         let RecipeAction::SetLaunchEnv { key, value } = a else {
             match a {
+                RecipeAction::SetDxvkOption { path, key, value } => {
+                    validate_dxvk_option(path, key, value)?
+                }
                 RecipeAction::InstallArtifact { artifact } => {
                     super::artifacts::validate(artifact, app)?
                 }
@@ -425,6 +431,9 @@ pub fn validate_generated(r: &Recipe) -> Result<(), String> {
     for a in &r.actions {
         let RecipeAction::SetLaunchEnv { key, value } = a else {
             match a {
+                RecipeAction::SetDxvkOption { path, key, value } => {
+                    validate_dxvk_option(path, key, value)?
+                }
                 RecipeAction::InstallArtifact { artifact } => {
                     super::artifacts::validate(artifact, app)?
                 }
@@ -490,6 +499,106 @@ fn validate_config_patch(
         super::artifacts::validate_text(path, r.replace.as_bytes())?;
     }
     Ok(())
+}
+
+/// Reviewed against the primary DXVK configuration reference, 2026-10-27:
+/// https://github.com/doitsujin/dxvk/blob/master/dxvk.conf
+/// This capability does not assert that DXVK is loaded or a feature works.
+pub fn validate_dxvk_option(path: &str, key: &str, value: &str) -> Result<(), String> {
+    check_rel_path(path)?;
+    if std::path::Path::new(path)
+        .file_name()
+        .and_then(|x| x.to_str())
+        != Some("dxvk.conf")
+    {
+        return Err("Configuração dinâmica suportada somente em dxvk.conf documentado.".into());
+    }
+    let valid = match key {
+        "dxgi.enableHDR" | "dxgi.deferSurfaceCreation" | "d3d9.deferSurfaceCreation" => {
+            matches!(value, "True" | "False")
+        }
+        "dxgi.maxFrameLatency" | "d3d9.maxFrameLatency" => {
+            value.parse::<u32>().is_ok_and(|v| v <= 16) && value.bytes().all(|b| b.is_ascii_digit())
+        }
+        "dxgi.maxFrameRate" | "d3d9.maxFrameRate" => {
+            value.parse::<u32>().is_ok_and(|v| v <= 360)
+                && value.bytes().all(|b| b.is_ascii_digit())
+        }
+        _ => false,
+    };
+    if !valid {
+        return Err(format!(
+            "Opção DXVK não suportada ou valor fora dos limites: {key}."
+        ));
+    }
+    Ok(())
+}
+
+/// Merge only global assignments, retaining unrelated lines verbatim. Sectioned
+/// files or duplicate keys need review instead of guessing runtime precedence.
+pub fn merge_dxvk_options(
+    path: &str,
+    original: &str,
+    options: &[(String, String)],
+) -> Result<String, String> {
+    if original.len() > super::confined::MAX_CONFIG || original.contains('\0') {
+        return Err("Configuração DXVK inválida ou grande demais.".into());
+    }
+    if options.is_empty() || options.len() > 8 {
+        return Err("Quantidade inválida de opções DXVK.".into());
+    }
+    let mut keys = std::collections::BTreeSet::new();
+    for (key, value) in options {
+        validate_dxvk_option(path, key, value)?;
+        if !keys.insert(key) {
+            return Err("Opção DXVK repetida na solução.".into());
+        }
+    }
+    let mut found = std::collections::BTreeSet::new();
+    let mut output = String::new();
+    let newline = if original.contains("\r\n") {
+        "\r\n"
+    } else {
+        "\n"
+    };
+    for line in original.split_inclusive('\n') {
+        let trim = line.trim();
+        if trim.starts_with('[') {
+            return Err("Configuração DXVK com seções por executável exige revisão; o FRX não presume o escopo.".into());
+        }
+        let assignment = if trim.starts_with('#') || trim.is_empty() {
+            None
+        } else {
+            trim.split('#').next().and_then(|x| x.split_once('='))
+        };
+        if let Some((key, _)) = assignment {
+            let key = key.trim();
+            if let Some((_, value)) = options.iter().find(|(k, _)| k == key) {
+                if !found.insert(key.to_owned()) {
+                    return Err(format!("Opção DXVK duplicada no arquivo: {key}."));
+                }
+                output.push_str(&format!("{key} = {value}{newline}"));
+                continue;
+            }
+        } else if !trim.is_empty() && !trim.starts_with('#') {
+            return Err(
+                "Configuração DXVK contém linha não interpretada; nada será sobrescrito.".into(),
+            );
+        }
+        output.push_str(line);
+    }
+    for (key, value) in options {
+        if !found.contains(key) {
+            if !output.is_empty() && !output.ends_with('\n') {
+                output.push_str(newline);
+            }
+            output.push_str(&format!("{key} = {value}{newline}"));
+        }
+    }
+    if output.len() > super::confined::MAX_CONFIG {
+        return Err("Configuração resultante excede o limite.".into());
+    }
+    Ok(output)
 }
 
 #[cfg(test)]

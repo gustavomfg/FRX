@@ -83,6 +83,50 @@ pub fn action_file_fixes(
     Ok(refs)
 }
 
+/// Local edits preserve unrelated bytes, so their exact resulting hash comes
+/// from the planner, never from a hash of option names or claimed discovery text.
+pub fn unit_file_fixes(
+    app_id: &str,
+    unit: &super::models::Unit,
+) -> Result<Vec<FileFixRef>, String> {
+    if unit
+        .file_actions
+        .iter()
+        .any(|a| matches!(a, RecipeAction::SetDxvkOption { .. }))
+    {
+        let files = unit
+            .preview_files
+            .clone()
+            .ok_or("A configuração local ainda não teve o resultado calculado pelo planejador.")?;
+        if files.iter().any(|f| {
+            crate::fix_engine::security::check_rel_path(&f.target_path).is_err()
+                || !crate::fix_engine::artifacts::sha_valid(&f.sha256)
+        }) {
+            return Err("Prévia de arquivo inválida".into());
+        }
+        return Ok(files);
+    }
+    action_file_fixes(app_id, &unit.file_actions)
+}
+pub fn units_file_fixes(
+    app_id: &str,
+    units: &[super::models::Unit],
+) -> Result<Vec<FileFixRef>, String> {
+    let mut files = Vec::new();
+    for unit in units {
+        files.extend(unit_file_fixes(app_id, unit)?);
+    }
+    let mut paths = std::collections::BTreeSet::new();
+    if files
+        .iter()
+        .any(|f| !paths.insert(f.target_path.to_ascii_lowercase()))
+    {
+        return Err("As receitas disputam o mesmo arquivo de destino".into());
+    }
+    files.sort();
+    Ok(files)
+}
+
 pub fn operation_file_fixes(op: &Operation) -> Vec<FileFixRef> {
     let mut files: Vec<_> = op
         .steps

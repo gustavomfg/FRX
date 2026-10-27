@@ -42,7 +42,8 @@ use crate::fix_engine::{security, FixEngine};
 use crate::performance::models::SessionMeta;
 use crate::time::now_iso;
 use benchmark::{
-    action_file_fixes, baseline_id, current_env, current_file_fixes, pack_id_with_files,
+    baseline_id, current_env, current_file_fixes, pack_id_with_files, unit_file_fixes,
+    units_file_fixes,
 };
 use composition::SingleResults;
 use models::*;
@@ -71,6 +72,21 @@ pub struct BuildInput<'a> {
     pub launch_line: Option<String>,
 }
 
+fn populate_preview_files(
+    engine: &FixEngine,
+    game: &GameCtx,
+    unit: &mut Unit,
+) -> Result<(), String> {
+    if unit
+        .file_actions
+        .iter()
+        .any(|a| matches!(a, RecipeAction::SetDxvkOption { .. }))
+    {
+        unit.preview_files = Some(engine.preview_file_fixes(&unit.recipe_id, game)?);
+    }
+    Ok(())
+}
+
 pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, String> {
     let app = i.game.app_id.as_str();
     if !crate::art::valid_app_id(app) {
@@ -78,9 +94,27 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     }
     let store = store_for(engine);
     let views = engine.analyze(i.game)?;
-    let found = discovery::discover(app, &views, &i.game.findings, |id| {
+    let mut found = discovery::discover(app, &views, &i.game.findings, |id| {
         engine.recipe(id).ok().cloned()
     });
+    found.units = found
+        .units
+        .into_iter()
+        .filter_map(|mut unit| {
+            if let Err(reason) = populate_preview_files(engine, i.game, &mut unit) {
+                found.excluded.push(Excluded {
+                    performance_warnings: vec![],
+                    id: unit.recipe_id.clone(),
+                    title: unit.title.clone(),
+                    status: None,
+                    reason,
+                });
+                None
+            } else {
+                Some(unit)
+            }
+        })
+        .collect();
     let base_id = baseline_id(app);
     let context_sessions: Vec<SessionMeta> = i.sessions.iter().map(|m| {
         let mut local = m.clone();
@@ -127,7 +161,7 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
     };
     let mut singles: SingleResults = HashMap::new();
     for u in &found.units {
-        if let Ok(files) = action_file_fixes(app, &u.file_actions) {
+        if let Ok(files) = unit_file_fixes(app, u) {
             if let Some(v) = vs_for(&u.env, &files) {
                 let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
                 let stability = if ["fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
@@ -165,6 +199,16 @@ pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, S
             .as_deref()
             .map(|r| engine.check(r, i.game));
         lifecycle::derive(p, plan, &ops, &applied, &cur_env, &cur_files);
+        p.availability = p.apply_recipe_id.as_deref().map_or_else(
+            || {
+                crate::fix_engine::availability::Availability::reason(
+                    crate::fix_engine::availability::AvailabilityState::Applied,
+                    "baseline-reference",
+                    "Baseline é uma referência; restaure as operações ativas para voltar a ela.",
+                )
+            },
+            |id| engine.availability(id, i.game),
+        );
     }
 
     let mut vs: HashMap<String, VsBaseline> = HashMap::new();
@@ -351,6 +395,13 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
             .iter()
             .any(|u| u.recipe_id == *m && u.app_id.as_deref() == Some(&game.app_id))
         {
+            if let Some(view) = views
+                .iter()
+                .find(|v| v.assessment.recipe_id.as_ref() == Some(m))
+            {
+                return Err(format!("Uma receita deixou de ser aplicável: {} Reabra os Smart Packs para revalidar a composição.",
+                    view.availability.reasons.iter().map(|r| r.message.as_str()).collect::<Vec<_>>().join(" ")));
+            }
             return Err("Uma receita não possui mais descoberta verificável para este AppID. Reabra os Smart Packs deste jogo.".into());
         }
         let r = engine.resolve(m, game)?;
@@ -361,7 +412,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
         }) {
             return Err("A receita mudou desde a composição do pacote. Reabra os Smart Packs para revisar a nova configuração.".into());
         }
-        let u = discovery::unit_from_recipe(
+        let mut u = discovery::unit_from_recipe(
             &game.app_id,
             &r,
             EvidenceLevel::None,
@@ -373,6 +424,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
             &game.findings,
         )
         .ok_or("Uma receita do pacote inclui uma ação de arquivo não validada integralmente.")?;
+        populate_preview_files(engine, game, &mut u)?;
         units.push(u);
         recipes.push(r);
     }
@@ -388,7 +440,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
     env.sort();
     env.dedup();
     let file_actions: Vec<_> = units.iter().flat_map(|u| u.file_actions.clone()).collect();
-    let file_fixes = action_file_fixes(&game.app_id, &file_actions)?;
+    let file_fixes = units_file_fixes(&game.app_id, &units)?;
     if pack_id_with_files(&game.app_id, &env, &file_fixes) != id {
         return Err(
             "As receitas do pacote mudaram desde a composição. Abra Smart Packs de novo.".into(),

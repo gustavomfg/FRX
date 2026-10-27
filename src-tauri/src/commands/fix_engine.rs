@@ -133,9 +133,26 @@ pub async fn prepare_fix_plan(
     ctx: State<'_, AppCtx>,
     recipe_id: String,
     app_id: String,
+    expected_fingerprint: Option<String>,
 ) -> Result<FixPlan, String> {
     let (e, cache) = (engine(&ctx), ctx.cache.clone());
-    blocking(move || e.prepare(&recipe_id, &game_ctx(&cache, &app_id)?)).await
+    blocking(move || {
+        let game = game_ctx(&cache, &app_id)?;
+        let plan = e.prepare(&recipe_id, &game).map_err(|error| {
+            if expected_fingerprint.is_some() {
+                format!("A descoberta ou seus requisitos mudaram desde a listagem. Reavalie as correções deste jogo. Detalhe: {error}")
+            } else { error }
+        })?;
+        validate_listing(&plan, expected_fingerprint.as_deref())?;
+        Ok(plan)
+    }).await
+}
+
+pub(crate) fn validate_listing(plan: &FixPlan, expected: Option<&str>) -> Result<(), String> {
+    if expected.is_some_and(|expected| expected != plan.fingerprint) {
+        return Err(format!("A fonte, o ambiente ou os arquivos mudaram desde a listagem; nenhuma alteração foi aplicada. Reavalie as correções para obter a prévia atual. {}", plan.reasons.join(" ")));
+    }
+    Ok(())
 }
 
 #[tauri::command]

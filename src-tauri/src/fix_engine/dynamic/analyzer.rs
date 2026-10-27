@@ -98,8 +98,12 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     if hw.state == crate::system::context::MatchState::Incompatible {
         return finish(a, DynStatus::Incompatible, hw.reasons);
     }
-    if !f.artifacts.is_empty() {
-        return assess_artifacts(f, ctx, a);
+    if !f.artifacts.is_empty()
+        || f.actions
+            .iter()
+            .any(|a| a.kind == crate::fixes::models::ActionKind::ConfigFile)
+    {
+        return assess_structured(f, ctx, a, interp);
     }
     if f.compatibility == Compatibility::AlreadyIncluded {
         return finish(
@@ -368,26 +372,189 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     a
 }
 
-fn assess_artifacts(f: &FixFinding, ctx: &Ctx<'_>, mut a: Assessment) -> Assessment {
-    if !f.actions.is_empty() || f.analysis != AnalysisState::Parsed {
-        return finish(a,DynStatus::NeedsValidation,vec!["A correção por arquivo inclui outros passos não validados; nenhuma parte será aplicada isoladamente.".into()]);
+fn assess_structured(
+    f: &FixFinding,
+    ctx: &Ctx<'_>,
+    mut a: Assessment,
+    interp: &dyn Interpreter,
+) -> Assessment {
+    let hardware = match generator::structured_hardware(f) {
+        Ok(hardware) => hardware,
+        Err(reason) => return finish(a, DynStatus::NeedsValidation, vec![reason]),
+    };
+    let mut environment = ctx.environment.cloned().unwrap_or_default();
+    if environment.proton_version.is_none() {
+        environment.proton_version = ctx.tool_name.map(str::to_owned);
     }
-    let mut reasons = Vec::new();
-    a.actions=f.artifacts.iter().map(|artifact|{
-        let validation=crate::fix_engine::artifacts::validate(artifact,ctx.app_id);
-        if let Err(e)=&validation{reasons.push(e.clone());}
-        ActionView{kind:crate::fixes::models::ActionKind::ConfigFile,raw:format!("{} → {}",artifact.asset_name,artifact.files.iter().map(|f|f.target_path.as_str()).collect::<Vec<_>>().join(", ")),supported:validation.is_ok(),note:validation.err().unwrap_or_else(||"Download HTTPS, staging privado, integridade, backup e rollback; configuração UTF-8 apenas.".into())}
-    }).collect();
-    if !reasons.is_empty() {
-        return finish(a, DynStatus::NeedsValidation, reasons);
+    let matched = hardware.evaluate(Some(&environment));
+    match matched.state {
+        crate::system::context::MatchState::Incompatible => {
+            return finish(a, DynStatus::Incompatible, matched.reasons);
+        }
+        crate::system::context::MatchState::Unknown => {
+            return finish(a, DynStatus::NeedsValidation, matched.limitations);
+        }
+        crate::system::context::MatchState::Compatible => (),
     }
-    let recipe = generator::artifact_recipe(f, ctx.app_id, a.provenance.clone());
+    // Every generated-plan lookup repeats this check against the actual build;
+    // a persisted recipe is never executed without current source regeneration.
+    if let Some(required) = f.requirements.game_version.as_deref() {
+        match ctx.game_build_id {
+            Some(actual) if actual == required => (),
+            Some(_) => return finish(a, DynStatus::Incompatible, vec![
+                "A versão/build do jogo difere da exigida pela solução; pesquise uma solução compatível.".into()
+            ]),
+            None => return finish(a, DynStatus::NeedsValidation, vec![
+                "A versão/build do jogo exigida pela solução não foi confirmada; requer revisão.".into()
+            ]),
+        }
+    }
+    if f.analysis != AnalysisState::Parsed || f.actions.iter().any(|a| a.conditional) {
+        return finish(
+            a,
+            DynStatus::NeedsValidation,
+            vec![
+                "Procedimento incompleto ou condicional; nenhuma etapa será aplicada isoladamente."
+                    .into(),
+            ],
+        );
+    }
+    if f.compatibility == Compatibility::Incompatible {
+        return finish(
+            a,
+            DynStatus::Incompatible,
+            vec![f.compatibility_note.clone()],
+        );
+    }
+    if f.compatibility == Compatibility::AlreadyIncluded {
+        return finish(
+            a,
+            DynStatus::AlreadyIncluded,
+            vec![f.compatibility_note.clone()],
+        );
+    }
+    if a.evidence == EvidenceLevel::Contested {
+        let note = a.evidence_note.clone();
+        return finish(a, DynStatus::Contested, vec![note]);
+    }
+    let mut extras = vec![];
+    for action in f
+        .actions
+        .iter()
+        .filter(|a| a.kind == crate::fixes::models::ActionKind::ConfigFile)
+    {
+        match super::extraction::dxvk_option(&action.value) {
+            Ok((path, key, value)) => extras.push(RecipeAction::SetDxvkOption { path, key, value }),
+            Err(e) => return finish(a, DynStatus::NeedsValidation, vec![e]),
+        }
+    }
+    let mut remaining = f.clone();
+    remaining.artifacts.clear();
+    remaining
+        .actions
+        .retain(|a| a.kind != crate::fixes::models::ActionKind::ConfigFile);
+    let mut env_recipe = None;
+    if !remaining.actions.is_empty() {
+        let result = assess_with(&remaining, ctx, interp);
+        if !matches!(result.status, DynStatus::Generated | DynStatus::Reviewed) {
+            return finish(a, result.status, result.reasons);
+        }
+        env_recipe = result.recipe.or_else(|| {
+            result
+                .recipe_id
+                .as_ref()
+                .and_then(|id| ctx.catalog.get(id).cloned())
+        });
+        let Some(recipe) = &env_recipe else {
+            return finish(
+                a,
+                DynStatus::Invalid,
+                vec!["Receita das etapas adicionais não pôde ser resolvida.".into()],
+            );
+        };
+        extras.extend(recipe.actions.clone());
+        a.performance_warnings = result.performance_warnings;
+        a.performance_evidence = result.performance_evidence;
+    }
+    for artifact in &f.artifacts {
+        if let Err(e) = crate::fix_engine::artifacts::validate(artifact, ctx.app_id) {
+            return finish(a, DynStatus::NeedsValidation, vec![e]);
+        }
+    }
+    let mut recipe = generator::artifact_recipe(f, ctx.app_id, a.provenance.clone(), hardware);
+    recipe.scope.requires_proton =
+        !extras.is_empty() || !recipe.hardware.proton_versions.is_empty();
+    if let Some(env) = env_recipe {
+        recipe.scope.gpu_vendor = env.scope.gpu_vendor.or(recipe.scope.gpu_vendor);
+        recipe.side_effects.extend(env.side_effects);
+    }
+    recipe.actions.extend(extras);
+    if !f.actions.is_empty() {
+        recipe.id = format!(
+            "gen.{}.{}",
+            ctx.app_id,
+            &crate::fix_engine::files::sha256_hex(
+                &serde_json::to_vec(&(ctx.app_id, &recipe.actions, &f.requirements))
+                    .unwrap_or_default()
+            )[..16]
+        );
+        recipe.summary =
+            "Aplica integralmente as opções e configurações documentadas para este jogo.".into();
+        recipe.description = "Gerada de instruções explícitas da fonte para este AppID. Todas as etapas precisam ser suportadas e compatíveis. A confirmação autoriza somente as alterações da prévia; configuração aplicada não comprova funcionamento do recurso.".into();
+        if f.artifacts.is_empty() {
+            recipe.effects.clear();
+        }
+        if recipe
+            .actions
+            .iter()
+            .any(|action| matches!(action, RecipeAction::SetDxvkOption { .. }))
+        {
+            recipe.effects.push("Mescla somente opções DXVK reconhecidas e preserva as demais linhas; aplica as outras etapas suportadas da mesma solução.".into());
+            recipe.side_effects.push("As opções podem alterar apresentação, qualidade ou latência. Presença/configuração não comprova que o jogo carregou DXVK ou que o recurso funciona.".into());
+            if recipe.actions.iter().any(|action| matches!(action, RecipeAction::SetDxvkOption { key, .. } if key.ends_with(".maxFrameRate"))) {
+                recipe.side_effects.push("maxFrameRate limita o FPS; não é uma otimização universal. A documentação DXVK alerta que seu limitador interno pode produzir resultados inferiores aos de limitadores externos, dependendo do jogo.".into());
+            }
+            recipe.sources.truncate(7);
+            recipe
+                .sources
+                .push(crate::fix_engine::models::RecipeSource {
+                    label: "DXVK — referência de configuração (consultada 2026-10-27)".into(),
+                    url: "https://github.com/doitsujin/dxvk/blob/master/dxvk.conf".into(),
+                });
+        }
+    }
+    if let Some(g) = recipe.generated.as_mut() {
+        g.interpreter = format!("{}+structured-operations", interp.name());
+        g.evidence = a.evidence;
+        g.evidence_note = a.evidence_note.clone();
+        g.performance_evidence = a.performance_evidence.clone();
+    }
     if let Err(e) = validate_generated(&recipe) {
         return finish(a, DynStatus::NeedsValidation, vec![e]);
     }
+    a.actions = f
+        .actions
+        .iter()
+        .map(|x| ActionView {
+            kind: x.kind,
+            raw: x.value.clone(),
+            supported: true,
+            note: "Etapa estruturada e validada junto com toda a solução.".into(),
+        })
+        .collect();
+    a.actions.extend(f.artifacts.iter().map(|x| ActionView {
+        kind: crate::fixes::models::ActionKind::ConfigFile,
+        raw: x.asset_name.clone(),
+        supported: true,
+        note: "Download verificado, staging, backup e rollback.".into(),
+    }));
+    a.experimental = !matches!(
+        a.evidence,
+        EvidenceLevel::Documented | EvidenceLevel::Corroborated
+    );
     a.recipe_id = Some(recipe.id.clone());
     a.recipe = Some(recipe);
-    finish(a,DynStatus::Generated,vec!["Instalação estruturada de configuração publicada para este AppID. O FRX reconsulta a release antes do download; confira destinos, requisitos e riscos na prévia.".into()])
+    finish(a,DynStatus::Generated,vec!["Solução estruturada completa; o planejador valida destinos, requisitos e estado atual antes de oferecer aplicação.".into()])
 }
 
 /// Mesmas ações em descobertas diferentes → uma receita só, com todas as

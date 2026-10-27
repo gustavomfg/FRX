@@ -35,11 +35,11 @@ use crate::fixes::models::ActionKind;
 use provenance::Provenance;
 
 /// Versão do gerador. Mudou → todas as receitas geradas são reavaliadas.
-pub const GENERATOR_VERSION: &str = "1.2.0";
+pub const GENERATOR_VERSION: &str = "1.3.0";
 /// Versão das regras de segurança e do conhecimento de variáveis
 /// (`security::ENV_ALLOWLIST` + `compatibility::KNOWLEDGE`). Aumente ao mudar
 /// qualquer uma das duas.
-pub const RULES_VERSION: &str = "2026.10.27-3";
+pub const RULES_VERSION: &str = "2026.10.27-4";
 
 pub use game_evidence::GamePerformanceEvidence;
 
@@ -141,6 +141,8 @@ pub struct Assessment {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct AssessmentView {
+    #[serde(default)]
+    pub availability: super::availability::Availability,
     #[serde(flatten)]
     pub assessment: Assessment,
     pub generated_at: String,

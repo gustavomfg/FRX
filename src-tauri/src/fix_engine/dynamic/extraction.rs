@@ -5,8 +5,8 @@
 //! estática do UMU-Protonfixes, extração de comentários) e reinterpreta cada
 //! uma com parsers estritos. Um interpretador futuro (ex.: modelo de IA) teria
 //! de devolver o mesmo `Extracted` — e passaria pelas mesmas validações.
-//! Nenhum texto vira comando: o resultado é sempre um par `NOME=valor` ou uma
-//! ação marcada como não suportada.
+//! Nenhum texto vira comando: variáveis e configurações DXVK documentadas têm
+//! parsers próprios; ações sem interpretação completa continuam em revisão.
 
 use super::DynClass;
 use crate::fixes::models::{ActionKind, FixFinding};
@@ -177,7 +177,7 @@ impl Interpreter for Deterministic {
                     a.kind,
                     v,
                     DynClass::NeedsValidation,
-                    "Modifica arquivos do jogo. Só uma receita revisada para este jogo pode fazer isso.".into(),
+                    "A instrução de configuração não foi reconhecida pelo adaptador: exige destino relativo explícito, chave DXVK permitida e valor tipado; outros formatos permanecem em investigação.".into(),
                 )),
                 ActionKind::ProtonVersion => out.push(unsupported(
                     a.kind,
@@ -195,4 +195,26 @@ impl Interpreter for Deterministic {
         }
         Ok(out)
     }
+}
+
+/// An explicit relative destination followed by one typed DXVK assignment.
+/// No filename guessing, JSON catalogue entry or executable instruction.
+pub fn dxvk_option(raw: &str) -> Result<(String, String, String), String> {
+    if raw.len() > 400 || raw.chars().any(char::is_control) {
+        return Err("Instrução DXVK malformada.".into());
+    }
+    let (path, assignment) = raw
+        .split_once(':')
+        .ok_or("Informe o destino relativo documentado: dxvk.conf: chave=valor.")?;
+    let (key, value) = assignment
+        .split_once('=')
+        .ok_or("Opção DXVK sem valor explícito.")?;
+    let (path, key, value) = (path.trim(), key.trim(), value.trim());
+    let value = match value.to_ascii_lowercase().as_str() {
+        "true" => "True".into(),
+        "false" => "False".into(),
+        _ => value.to_owned(),
+    };
+    crate::fix_engine::security::validate_dxvk_option(path, key, &value)?;
+    Ok((path.into(), key.into(), value))
 }

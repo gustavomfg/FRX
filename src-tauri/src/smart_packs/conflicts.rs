@@ -131,14 +131,8 @@ pub fn edge(a: &Unit, b: &Unit) -> Edge {
             );
         }
     }
-    let a_files = super::benchmark::action_file_fixes(
-        a.app_id.as_deref().unwrap_or_default(),
-        &a.file_actions,
-    );
-    let b_files = super::benchmark::action_file_fixes(
-        b.app_id.as_deref().unwrap_or_default(),
-        &b.file_actions,
-    );
+    let a_files = super::benchmark::unit_file_fixes(a.app_id.as_deref().unwrap_or_default(), a);
+    let b_files = super::benchmark::unit_file_fixes(b.app_id.as_deref().unwrap_or_default(), b);
     let (Ok(a_files), Ok(b_files)) = (a_files, b_files) else {
         return excl(a,b,ConflictKind::SameFile,"Uma ação de arquivo não passou na validação integral; o pacote não pode ser aplicado parcialmente.".into());
     };

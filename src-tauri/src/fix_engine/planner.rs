@@ -106,15 +106,19 @@ pub fn compute(
     let mut steps = Vec::new();
     let mut changes = Vec::new();
     let mut manual_possible = true;
-    let environment = game
+    let mut environment = game
         .performance_conditions
         .as_ref()
-        .and_then(|c| c.environment.as_ref());
+        .and_then(|c| c.environment.clone())
+        .unwrap_or_default();
+    if environment.proton_version.is_none() && game.uses_proton == Some(true) {
+        environment.proton_version = game.tool_name.clone();
+    }
     let mut hardware = recipe.hardware.clone();
     if hardware.gpu_vendor.is_none() {
         hardware.gpu_vendor = recipe.scope.gpu_vendor;
     }
-    let hardware_match = hardware.evaluate(environment);
+    let hardware_match = hardware.evaluate(Some(&environment));
     match hardware_match.state {
         crate::system::context::MatchState::Incompatible => b.block(
             PlanStatus::Incompatible,
@@ -122,10 +126,12 @@ pub fn compute(
             hardware_match.reasons.join(" "),
         ),
         crate::system::context::MatchState::Unknown
-            if recipe
-                .actions
-                .iter()
-                .any(|a| matches!(a, RecipeAction::InstallArtifact { .. })) =>
+            if recipe.actions.iter().any(|a| {
+                matches!(
+                    a,
+                    RecipeAction::InstallArtifact { .. } | RecipeAction::SetDxvkOption { .. }
+                )
+            }) =>
         {
             b.block(
                 PlanStatus::Incompatible,
@@ -267,6 +273,22 @@ pub fn compute(
         );
     }
 
+    // A pending transaction must be recovered even when its files/variables do
+    // not overlap this recipe. This gate belongs to preview and execution too,
+    // not only to the availability DTO displayed by the frontend.
+    if let Some(pending) = others.iter().find(|op| {
+        op.app_id == game.app_id
+            && (op.state.in_flight()
+                || matches!(
+                    op.state,
+                    OpState::RequiresManualStep | OpState::RecoveryRequired
+                ))
+    }) {
+        b.block(PlanStatus::Conflict, "Operação pendente", format!(
+            "Resolva a operação pendente “{}” no histórico antes de continuar. A conferência e a restauração continuam disponíveis.", pending.recipe_title
+        ));
+    }
+
     // Relação com outras operações do mesmo jogo.
     let mine = recipe.env_keys();
     let file_targets: Vec<&str> = recipe
@@ -279,7 +301,8 @@ pub fn compute(
                 .map(|f| f.target_path.as_str())
                 .collect(),
             RecipeAction::WriteGameFile { path, .. }
-            | RecipeAction::PatchKnownConfig { path, .. } => vec![path.as_str()],
+            | RecipeAction::PatchKnownConfig { path, .. }
+            | RecipeAction::SetDxvkOption { path, .. } => vec![path.as_str()],
             _ => vec![],
         })
         .collect();
@@ -287,6 +310,14 @@ pub fn compute(
         .iter()
         .filter(|o| o.app_id == game.app_id && o.holds_changes())
     {
+        if op.state.in_flight()
+            || matches!(
+                op.state,
+                OpState::RequiresManualStep | OpState::RecoveryRequired
+            )
+        {
+            continue;
+        }
         if op.recipe_id == recipe.id {
             b.block(
                 PlanStatus::AlreadyApplied,
@@ -359,6 +390,57 @@ pub fn compute(
         );
     }
 
+    // One merged file step per documented DXVK destination; no duplicate writes.
+    let mut dxvk = std::collections::BTreeMap::<String, Vec<(String, String)>>::new();
+    for action in &recipe.actions {
+        if let RecipeAction::SetDxvkOption { path, key, value } = action {
+            dxvk.entry(path.clone())
+                .or_default()
+                .push((key.clone(), value.clone()));
+        }
+    }
+    for (path, options) in dxvk {
+        manual_possible = false;
+        let result: Result<(Step, PlannedChange), String> = (|| {
+            if recipe.actions.iter().any(|a| match a {
+                RecipeAction::InstallArtifact { artifact } => {
+                    artifact.files.iter().any(|f| f.target_path == path)
+                }
+                RecipeAction::WriteGameFile { path: p, .. }
+                | RecipeAction::PatchKnownConfig { path: p, .. } => p == &path,
+                _ => false,
+            }) {
+                return Err("A solução mistura instalação/substituição e edição do mesmo arquivo; requer plano explícito sem etapas ambíguas.".into());
+            }
+            let root = game
+                .install_path
+                .as_ref()
+                .ok_or("Pasta do jogo desconhecida")?;
+            let target = super::confined::Target::open(root, &path, None)?;
+            let original_bytes = target.read()?;
+            let bytes = original_bytes.as_deref().unwrap_or_default();
+            let original =
+                std::str::from_utf8(bytes).map_err(|_| "dxvk.conf não é UTF-8 válido")?;
+            let content = super::security::merge_dxvk_options(&path, original, &options)?;
+            let (step, change) = game_file_step_impl(game, &path, &content, true)?;
+            if !matches!(&step, Step::GameFile { before_sha, identity: Some(identity), .. }
+                if *before_sha == original_bytes.as_deref().map(sha256_hex) && *identity == target.identity)
+            {
+                return Err(
+                    "O arquivo ou diretório DXVK mudou durante a prévia; atualize a análise."
+                        .into(),
+                );
+            }
+            Ok((step, change))
+        })();
+        match result {
+            Ok((step, change)) => {
+                steps.push(step);
+                changes.push(change);
+            }
+            Err(e) => b.block(PlanStatus::Conflict, "Configuração DXVK", e),
+        }
+    }
     // Arquivos do jogo.
     for a in &recipe.actions {
         if let RecipeAction::WriteGameFile { path, content } = a {
@@ -438,6 +520,12 @@ pub fn compute(
                 .files
                 .iter()
                 .any(|f| f.target_path == *rel && f.sha256 == *before_sha),
+            Step::GameFile {
+                artifact: None,
+                before_sha,
+                content,
+                ..
+            } => before_sha.as_deref() == Some(sha256_hex(content.as_bytes()).as_str()),
             _ => false,
         })
     {
@@ -513,7 +601,7 @@ pub fn compute(
         proton: Option<bool>,
     }
     let fp = serde_json::to_vec(&Fp {
-        environment,
+        environment: Some(&environment),
         game_build: game
             .performance_conditions
             .as_ref()
@@ -533,7 +621,7 @@ pub fn compute(
     .unwrap_or_default();
     let plan = FixPlan {
         artifacts: recipe.actions.iter().filter_map(|a|match a {RecipeAction::InstallArtifact{artifact}=>Some((**artifact).clone()),_=>None}).collect(),
-        environment: environment.cloned(),
+        environment: Some(environment),
         hardware_match: Some(hardware_match),
         performance_warnings: recipe.performance_warnings(),
         plan_id: format!("plan-{}", &crate::performance::persistence::new_id()[2..]),
@@ -689,7 +777,8 @@ fn launch_step(
                     }
                 }
             }
-            RecipeAction::WriteGameFile { .. }
+            RecipeAction::SetDxvkOption { .. }
+            | RecipeAction::WriteGameFile { .. }
             | RecipeAction::InstallArtifact { .. }
             | RecipeAction::PatchKnownConfig { .. } => {}
         }
@@ -741,6 +830,15 @@ fn game_file_step(
     rel: &str,
     content: &str,
 ) -> Result<(Step, PlannedChange), String> {
+    game_file_step_impl(game, rel, content, false)
+}
+
+fn game_file_step_impl(
+    game: &GameCtx,
+    rel: &str,
+    content: &str,
+    retain_matching_member: bool,
+) -> Result<(Step, PlannedChange), String> {
     let root = game
         .install_path
         .as_ref()
@@ -749,7 +847,8 @@ fn game_file_step(
     let target = security::resolve_in_root(root, rel)?;
     let opened = super::confined::Target::open(root, rel, None)?;
     let existing = opened.read()?;
-    if existing.as_deref() == Some(content.as_bytes()) {
+    let matching = existing.as_deref() == Some(content.as_bytes());
+    if matching && !retain_matching_member {
         return Err("O arquivo já tem exatamente este conteúdo.".into());
     }
     let change = PlannedChange {
@@ -759,7 +858,9 @@ fn game_file_step(
             .as_ref()
             .map(|b| String::from_utf8_lossy(b).chars().take(4000).collect()),
         after: Some(content.chars().take(4000).collect()),
-        summary: if existing.is_some() {
+        summary: if matching {
+            format!("preserva {rel}, já correspondente à solução composta")
+        } else if existing.is_some() {
             format!("substitui {rel}")
         } else {
             format!("cria {rel}")
@@ -923,4 +1024,79 @@ fn artifact_steps(
         ));
     }
     Ok(output)
+}
+
+/// Read-only effective-access checks for the transaction's storage. No probe
+/// files are created. ACLs and the effective process credentials are considered;
+/// actual writes still revalidate identity and handle later races or I/O errors.
+pub fn validate_storage(computed: &mut Computed, engine_root: &Path) {
+    if computed.steps.is_empty() {
+        return;
+    }
+    let mut failures = Vec::new();
+    for name in ["backups", "operations"] {
+        if let Err(error) = writable_directory(&engine_root.join(name)) {
+            failures.push((
+                "Backup e recuperação",
+                format!("O armazenamento de {name} não permite backup e recuperação: {error}"),
+            ));
+        }
+    }
+    let mut checked = std::collections::BTreeSet::new();
+    for step in &computed.steps {
+        let target = match step {
+            Step::LaunchOptions { config, .. } => config,
+            Step::GameFile { target, .. } => target,
+        };
+        let Some(parent) = target.parent() else {
+            continue;
+        };
+        if checked.insert(parent.to_owned()) {
+            if let Err(error) = writable_directory(parent) {
+                failures.push(("Permissão de escrita", format!("O diretório de destino não permite instalar e restaurar o arquivo: {error}")));
+            }
+        }
+    }
+    if failures.is_empty() {
+        return;
+    }
+    for (label, message) in failures {
+        computed.plan.checks.push(Check {
+            label: label.into(),
+            state: CheckState::Fail,
+            detail: message.clone(),
+        });
+        computed.plan.reasons.push(message);
+    }
+    computed.plan.status = PlanStatus::NotExecutable;
+    computed.plan.mode = None;
+    computed.plan.backup_note = None;
+    computed.plan.fingerprint = sha256_hex(
+        &serde_json::to_vec(&(&computed.plan.fingerprint, &computed.plan.reasons))
+            .unwrap_or_default(),
+    )[..32]
+        .to_owned();
+}
+fn writable_directory(path: &Path) -> Result<(), String> {
+    use std::ffi::CString;
+    use std::os::unix::ffi::OsStrExt;
+    let metadata = std::fs::symlink_metadata(path).map_err(|e| e.to_string())?;
+    if !metadata.is_dir() || metadata.file_type().is_symlink() {
+        return Err("Destino não é um diretório regular autorizado.".into());
+    }
+    let path = CString::new(path.as_os_str().as_bytes()).map_err(|_| "Caminho inválido")?;
+    // SAFETY: path is NUL terminated; faccessat performs no writes and reports
+    // effective credential access, including ACLs, for this existing directory.
+    if unsafe {
+        libc::faccessat(
+            libc::AT_FDCWD,
+            path.as_ptr(),
+            libc::W_OK | libc::X_OK,
+            libc::AT_EACCESS,
+        )
+    } != 0
+    {
+        return Err(std::io::Error::last_os_error().to_string());
+    }
+    Ok(())
 }

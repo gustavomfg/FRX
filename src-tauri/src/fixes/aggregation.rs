@@ -123,6 +123,11 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
                     conditional: false,
                 }],
             ),
+            Tweak::Configuration(actions) => (
+                "Configuração DXVK documentada".into(),
+                Category::Graphics,
+                actions.clone(),
+            ),
             Tweak::Verb(v) => (
                 format!("Componente {v} (winetricks)"),
                 category_for_verb(v),

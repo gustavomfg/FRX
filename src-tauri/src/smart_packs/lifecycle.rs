@@ -4,7 +4,7 @@
 //! | Estado | Quando |
 //! |---|---|
 //! | `candidate` | composição válida, prévia indisponível agora (ex.: jogo fora da biblioteca) |
-//! | `ready` | a prévia permite aplicar (automático ou passo manual) |
+//! | `ready` | a prévia permite aplicar automaticamente após confirmação |
 //! | `conflict` | a prévia encontrou conflito (outra correção ativa, jogo aberto…) |
 //! | `testing` | operação em andamento ou aguardando o passo manual na Steam |
 //! | `applied` | o diário diz aplicada, mas o estado real não pôde ser lido agora |
@@ -125,12 +125,8 @@ pub fn derive(
         None => set(pack, PackState::Candidate, "Prévia não calculada."),
         Some(Err(e)) => set(pack, PackState::Candidate, e),
         Some(Ok(p)) => match p.status {
-            PlanStatus::Ready | PlanStatus::RequiresManualStep => {
-                let detail = if p.status == PlanStatus::Ready {
-                    "Pode ser aplicado agora, com prévia, backup e rollback."
-                } else {
-                    "Pode ser aplicado com um passo manual (a Steam está aberta)."
-                };
+            PlanStatus::Ready => {
+                let detail = "Pode ser aplicado agora, com prévia, backup e rollback.";
                 match latest.map(|o| o.state) {
                     Some(OpState::RolledBack) => set(
                         pack,
@@ -147,6 +143,25 @@ pub fn derive(
                     ),
                     _ => set(pack, PackState::Ready, detail),
                 }
+            }
+            PlanStatus::RequiresManualStep => {
+                let availability = crate::fix_engine::availability::from_plan(&p);
+                let temporary = availability.state
+                    == crate::fix_engine::availability::AvailabilityState::Temporary;
+                set(
+                    pack,
+                    if temporary {
+                        PackState::Conflict
+                    } else {
+                        PackState::Unsupported
+                    },
+                    availability
+                        .reasons
+                        .iter()
+                        .map(|r| r.message.as_str())
+                        .collect::<Vec<_>>()
+                        .join(" "),
+                );
             }
             PlanStatus::Conflict => set(
                 pack,

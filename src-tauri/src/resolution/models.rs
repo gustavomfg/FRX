@@ -62,6 +62,8 @@ pub struct Problem {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct ResolutionPlan {
+    #[serde(default)]
+    pub availability: crate::fix_engine::availability::Availability,
     pub id: String,
     pub app_id: String,
     pub title: String,

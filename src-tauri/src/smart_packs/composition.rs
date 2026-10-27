@@ -22,7 +22,7 @@
 
 use std::collections::HashMap;
 
-use super::benchmark::{action_file_fixes, baseline_id, pack_id_with_files};
+use super::benchmark::{baseline_id, pack_id_with_files, unit_file_fixes, units_file_fixes};
 use super::conflicts::{graph, validate_combination};
 use super::models::*;
 use crate::fix_engine::dynamic::compatibility::performance_warnings;
@@ -79,6 +79,7 @@ pub fn eligible(u: &Unit, single: Option<&(Outcome, Outcome)>) -> bool {
 
 pub fn baseline(app_id: &str) -> SmartPack {
     SmartPack {
+        availability: Default::default(),
         artifacts: vec![],
         file_fixes: vec![],
         performance_evidence: Default::default(),
@@ -127,8 +128,11 @@ fn make(
         .iter()
         .flat_map(|u| u.file_actions.clone())
         .collect();
-    let file_fixes = action_file_fixes(app_id, &file_actions)
-        .expect("composition only accepts validated complete file actions");
+    let file_fixes = units_file_fixes(
+        app_id,
+        &members.iter().map(|u| (*u).clone()).collect::<Vec<_>>(),
+    )
+    .expect("composition only accepts validated complete file actions");
     let artifacts = file_actions
         .iter()
         .filter_map(|a| match a {
@@ -177,6 +181,7 @@ fn make(
         .max()
         .unwrap_or(EvidenceLevel::None);
     SmartPack {
+        availability: Default::default(),
         artifacts,
         performance_evidence: if members.len() == 1 {
             members[0].performance_evidence.clone()
@@ -281,7 +286,7 @@ pub fn compose(app_id: &str, units: &[Unit], singles: &SingleResults, limits: Li
         let reason = if u.app_id.as_deref() != Some(app_id) || !crate::art::valid_app_id(app_id) {
             Some("Receita de outro AppID ou sem atribuição confirmada: não pode integrar os pacotes deste jogo.".to_owned())
         } else {
-            action_file_fixes(app_id, &u.file_actions).err()
+            unit_file_fixes(app_id, u).err()
         };
         if let Some(reason) = reason {
             excluded.push(Excluded { performance_warnings: vec![], id: u.recipe_id.clone(), title: u.title.clone(), status: None, reason });

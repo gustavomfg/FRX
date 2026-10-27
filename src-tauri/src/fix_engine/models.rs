@@ -66,6 +66,12 @@ pub enum RecipeAction {
     InstallArtifact {
         artifact: Box<crate::fixes::models::ArtifactCandidate>,
     },
+    /// Typed, bounded DXVK configuration merge; never arbitrary file content.
+    SetDxvkOption {
+        path: String,
+        key: String,
+        value: String,
+    },
     /// Literal edits of an exact known original. Never regex or executable code.
     PatchKnownConfig {
         path: String,
