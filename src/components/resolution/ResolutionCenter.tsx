@@ -35,6 +35,7 @@ const PLAN_STATES: Record<string, string> = {
   'applied-unverified': 'Aplicada — funcionamento ainda não verificado',
   'verified-configuration': 'Configuração conferida — funcionamento ainda não verificado',
   'rolled-back': 'Alteração desfeita', error: 'Verificação requer atenção',
+  'already-present': 'Já presente neste ambiente — nada a instalar',
 }
 const EVIDENCE_KINDS: Record<string, string> = {
   'official-documentation': 'Documentação oficial', 'community-report': 'Relato comunitário',
@@ -118,7 +119,8 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   const applicablePlans = safePlans.filter((p) => p.availability?.state === 'available' && p.availability.planFingerprint && p.recipeId && p.reversible && (!p.operationId || p.state === 'rolled-back'))
   const temporaryPlans = safePlans.filter((p) => p.availability?.state === 'temporary' && !p.operationId)
   const recordedPlans = safePlans.filter((p) => !!p.operationId && !(p.state === 'rolled-back' && p.availability?.state === 'available'))
-  const investigationPlans = safePlans.filter((p) => !p.operationId && !applicablePlans.includes(p) && !temporaryPlans.includes(p))
+  const presentPlans = safePlans.filter((p) => !p.operationId && p.state === 'already-present')
+  const investigationPlans = safePlans.filter((p) => !p.operationId && !applicablePlans.includes(p) && !temporaryPlans.includes(p) && !presentPlans.includes(p))
   const renderPlan = (plan: ResolutionPlan) => <PlanDetails key={plan.id} plan={plan} busy={!!busy} onOpen={open} onPreview={() => { if (plan.recipeId && plan.availability?.state === 'available') setTarget({ kind: 'apply', expectedFingerprint: plan.availability?.planFingerprint ?? undefined, recipeId: plan.recipeId, appId, title: plan.title }) }} onVerify={() => void run('verify', () => api.verifyResolutionPlan(appId, plan.id))} onRollback={() => void rollback(plan)} />
 
   return <section aria-labelledby="resolution-center" className="mt-10 border-t border-line pt-7" aria-busy={!!busy}>
@@ -190,6 +192,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
         {applicablePlans.length ? <div className="mt-3 space-y-6">{applicablePlans.map(renderPlan)}</div> : <p className="mt-2 text-[13px] text-fg-2">Nenhuma correção automática disponível para este jogo no momento.</p>}
       </section>
       {!!temporaryPlans.length && <section><h3 className="font-medium text-[15px]">Aguardando condição local</h3><div className="mt-3 space-y-6">{temporaryPlans.map(renderPlan)}</div><Button size="sm" disabled={!!busy} onClick={() => void diagnose()}>Revalidar condições</Button></section>}
+      {!!presentPlans.length && <section aria-label="Já resolvido neste ambiente"><h3 className="font-medium text-[15px]">Já resolvido neste ambiente</h3><div className="mt-3 space-y-6">{presentPlans.map(renderPlan)}</div></section>}
       {!!recordedPlans.length && <section><h3 className="font-medium text-[15px]">Aplicação e restauração</h3><div className="mt-3 space-y-6">{recordedPlans.map(renderPlan)}</div></section>}
       <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[14px] font-medium">Descobertas em investigação ({investigationPlans.length})</summary><p className="mt-2 text-[12.5px] text-fg-3">Fontes e procedimentos que ainda não têm aplicação completa e segura para este ambiente.</p><div className="mt-3 space-y-6">{investigationPlans.map(renderPlan)}</div></details>
       {!!report.packs.filter((pack) => pack.appId === appId).length && <div>
@@ -206,7 +209,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
 function PlanDetails({ plan, busy, onOpen, onPreview, onVerify, onRollback }: { plan: ResolutionPlan; busy: boolean; onOpen: (url: string) => void; onPreview: () => void; onVerify: () => void; onRollback: () => void }) {
   const applied = plan.state === 'applied-unverified' || plan.state === 'verified-configuration'
   return <article aria-label={plan.title} className="space-y-3">
-    <div><h4 className="text-[14px] font-medium">{plan.title}</h4><p className={`mt-1 text-[12px] ${plan.state === 'review' || plan.state === 'error' ? 'text-caution' : 'text-fg-2'}`}>{plan.operationId && plan.state !== 'rolled-back' ? PLAN_STATES[plan.state] ?? 'Operação registrada' : plan.availability?.state === 'temporary' ? 'Aguardando condição local' : plan.availability?.state === 'incompatible' ? 'Incompatível com este ambiente' : plan.availability?.state === 'available' ? 'Prévia disponível' : plan.state === 'rolled-back' ? PLAN_STATES[plan.state] : 'Requer revisão'}</p></div>
+    <div><h4 className="text-[14px] font-medium">{plan.title}</h4><p className={`mt-1 text-[12px] ${plan.state === 'review' || plan.state === 'error' ? 'text-caution' : 'text-fg-2'}`}>{plan.operationId && plan.state !== 'rolled-back' ? PLAN_STATES[plan.state] ?? 'Operação registrada' : plan.availability?.state === 'temporary' ? 'Aguardando condição local' : plan.availability?.state === 'incompatible' ? 'Incompatível com este ambiente' : plan.availability?.state === 'available' ? 'Prévia disponível' : plan.state === 'rolled-back' || plan.state === 'already-present' ? PLAN_STATES[plan.state] : 'Requer revisão'}</p></div>
     {!!plan.availability?.reasons.length && <TextList items={plan.availability.reasons.map((r) => r.message)} />}
     <Detail title="Plano de resolução"><p>{plan.objective}</p><TextList items={plan.actions} /></Detail>
     {!!plan.dependencies.length && <Detail title="Compatibilidade e dependências"><TextList items={plan.dependencies} /></Detail>}
