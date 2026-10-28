@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useCallback, useState } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, ShieldCheck, Wifi } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, Wifi } from 'lucide-react'
 import { Page } from '@/layouts/Page'
 import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
@@ -10,7 +10,8 @@ import { SourceTag } from '@/components/game/LibraryNotices'
 import { ProviderStatusList } from '@/components/fix/FindingCard'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { OperationHistory } from '@/components/fix/OperationHistory'
-import { useRecipes } from '@/components/fix/RecipesPanel'
+import { RecipesPanel } from '@/components/fix/RecipesPanel'
+import { TechnicalFindingsBrowser } from '@/components/fix/TechnicalFindingsBrowser'
 import { useAssessments } from '@/components/fix/useAssessments'
 import { Button } from '@/components/ui/Button'
 import { ActionableFindings } from '@/components/fix/ActionableFindings'
@@ -21,15 +22,27 @@ import { useFixEngine } from '@/state/fixEngine'
 import { useToast } from '@/state/store'
 import { openExternal } from '@/services/opener'
 import { TOOL_SOURCE_LABEL, toolLabel } from '@/lib/steamGame'
-import { fmtDateTime, fmtNum, fmtRelative } from '@/lib/format'
+import { fmtNum, fmtRelative } from '@/lib/format'
 import type { Game } from '@/types'
 import { cn } from '@/lib/cn'
-import { useSmartPacks } from '@/components/smart/SmartPacksPanel'
+import { SmartPacksPanel } from '@/components/smart/SmartPacksPanel'
 import { ResolutionCenter } from '@/components/resolution/ResolutionCenter'
 
 /** Detalhes de um jogo real detectado na Steam. Mesmo desenho da página demonstrativa. */
 export function SteamGameDetail({ game }: { game: Game }) {
   const navigate = useNavigate()
+  // Sugestões deste jogo ficam nesta página: a seção aberta vai na própria URL.
+  const [params, setParams] = useSearchParams()
+  const secao = params.get('secao')
+  const update = useCallback((patch: Record<string, string | null>) => setParams((prev) => {
+    const next = new URLSearchParams(prev)
+    for (const [key, value] of Object.entries(patch)) {
+      if (value) next.set(key, value)
+      else next.delete(key)
+    }
+    return next
+  }, { replace: true }), [setParams])
+  const showSection = (name: string | null) => update({ secao: name, pack: null, recipe: null, finding: null })
   const s = game.steam!
   const c = s.compatibility
   const { system } = useLibrary()
@@ -40,14 +53,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
   const error = fixes.errors[game.id]
   const engine = useFixEngine()
   const [target, setTarget] = useState<ApplyTarget | null>(null)
-  const { recipes, checks } = useRecipes(game.id)
-  const applicable = recipes.filter((r) => {
-    const c = checks[r.id]
-    return r.executable && typeof c === 'object' && c.status === 'ready' && c.mode === 'automatic'
-  }).length
-  const applied = engine.applied.filter((a) => a.appId === game.id)
   const analysis = useAssessments(game.id)
-  const generated = new Set(Object.values(analysis.byFinding).filter((a) => a.status === 'generated' && a.availability?.state === 'available').map((a) => a.recipeId)).size
 
   const search = (force: boolean) =>
     fixes.search(game.id, game.title, force).then((r) => {
@@ -111,16 +117,25 @@ export function SteamGameDetail({ game }: { game: Game }) {
         ))}
       </dl>
 
-      <ResolutionCenter appId={game.id} available={engine.available} />
-
-      <div className="mt-10 grid grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] gap-12">
-        <div className="min-w-0 space-y-12">
-          {/* Correções descobertas */}
+      {secao ? (
+        <div className="mt-10 space-y-6">
+          <button type="button" onClick={() => showSection(null)} className="inline-flex items-center gap-1.5 rounded-xs text-[13px] text-fg-3 transition-colors hover:text-fg">
+            <ArrowLeft className="size-3.5" /> Visão do jogo
+          </button>
+          {secao === 'smart' && <SmartPacksPanel appId={game.id} selectedPackId={params.get('pack')} onAct={setTarget} />}
+          {secao === 'receitas' && (
+            <RecipesPanel games={[game]} gameSelector={false} appId={game.id} recipeId={params.get('recipe')} onSelect={(p) => update({ recipe: p.recipe ?? null })} onAct={setTarget} onShowFinding={(findingId) => update({ secao: 'descobertas', finding: findingId })} />
+          )}
+          {secao === 'descobertas' && <TechnicalFindingsBrowser gameFilter={game.id} selectedId={params.get('finding')} update={update} onAct={setTarget} />}
+        </div>
+      ) : (
+        <>
+                    {/* Correções descobertas */}
           <section aria-labelledby="descobertas" aria-busy={searching}>
             <div className="mb-4 flex items-end justify-between gap-4">
               <div>
                 <h2 id="descobertas" className="font-display text-[20px] font-semibold tracking-[-0.02em]">
-                  Correções para este jogo e hardware
+                  Soluções para este jogo
                 </h2>
                 <p className="mt-1 text-[12.5px] text-fg-3">
                   {report ? (
@@ -134,13 +149,16 @@ export function SteamGameDetail({ game }: { game: Game }) {
                   )}
                 </p>
               </div>
-              {report && (
-                <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {report && (
                   <Button size="sm" variant="outline" icon={<RefreshCw className={cn('size-3.5', searching && 'animate-spin')} />} onClick={() => void search(true)} disabled={searching}>
                     Pesquisar de novo
                   </Button>
-                </div>
-              )}
+                )}
+                <Button size="sm" variant="ghost" onClick={() => showSection('smart')}>Smart Packs</Button>
+                <Button size="sm" variant="ghost" onClick={() => showSection('receitas')}>Catálogo técnico</Button>
+                {report && <Button size="sm" variant="ghost" onClick={() => showSection('descobertas')}>Pesquisa técnica</Button>}
+              </div>
             </div>
 
             {error && (
@@ -176,8 +194,20 @@ export function SteamGameDetail({ game }: { game: Game }) {
                 <ActionableFindings appId={game.id} findings={report.findings} assessments={analysis.byFinding} loading={analysis.loading} error={analysis.error} refresh={analysis.refresh} onApply={(a, f) => setTarget({ kind: 'apply', expectedFingerprint: a.availability?.planFingerprint ?? undefined, recipeId: a.recipeId!, appId: game.id, title: a.recipe?.title ?? f.title })} />
               </>
             )}
+            <details className="mt-8 border-t border-line pt-5">
+              <summary className="cursor-pointer text-[14px] font-medium">Histórico de aplicações</summary>
+              <div className="mt-4">
+                <OperationHistory appId={game.id} onAct={setTarget} compact />
+              </div>
+            </details>
           </section>
 
+          <details className="mt-10 border-t border-line pt-6">
+            <summary className="cursor-pointer font-display text-[18px] font-semibold tracking-[-0.02em]">Diagnóstico e detalhes técnicos</summary>
+            <div className="mt-8 space-y-10">
+              <ResolutionCenter appId={game.id} available={engine.available} />
+              <div className="grid gap-10 md:grid-cols-2">
+                <div className="min-w-0 space-y-9">
           {/* Instalação */}
           <section aria-labelledby="instalacao">
             <h2 id="instalacao" className="mb-4 font-display text-[20px] font-semibold tracking-[-0.02em]">
@@ -191,9 +221,8 @@ export function SteamGameDetail({ game }: { game: Game }) {
             </div>
             <p className="mt-3 text-[12px] text-fg-3">Lido de appmanifest_{s.appId}.acf. O FRX nunca altera estes arquivos.</p>
           </section>
-        </div>
-
-        <aside className="min-w-0 space-y-9">
+                </div>
+                <div className="min-w-0 space-y-9">
           <InfoBlock title="Proton">
             <InfoRow k="Ferramenta" v={toolLabel(c.tool) ?? 'Não identificada'} />
             <InfoRow k="Origem" v={TOOL_SOURCE_LABEL[c.toolSource]} />
@@ -233,56 +262,13 @@ export function SteamGameDetail({ game }: { game: Game }) {
             </InfoBlock>
           )}
 
-          {engine.available && <SmartPacksSummary appId={game.id} onOpen={() => navigate(`/correcoes?view=smart&game=${game.id}`)} />}
-
-          <section className="rounded-lg border border-line bg-surface p-5" aria-labelledby="fix-engine">
-            <h3 id="fix-engine" className="flex items-center gap-2 text-[14px] font-medium">
-              <ShieldCheck className="size-4 text-fg-3" aria-hidden /> Correções do FRX
-            </h3>
-            <p className="mt-2 text-[12.5px] text-fg-2">
-              {engine.available
-                ? `${applied.length ? `${applied.length} aplicada${applied.length === 1 ? '' : 's'}` : 'Nenhuma aplicada'} · ${applicable} receita${applicable === 1 ? '' : 's'} revisada${applicable === 1 ? '' : 's'} aplicáve${applicable === 1 ? 'l' : 'is'} agora${generated ? ` · ${generated} gerada${generated === 1 ? '' : 's'} a partir das descobertas` : ''}. Tudo passa por prévia, backup e pode ser desfeito.`
-                : 'Disponível no app desktop.'}
-            </p>
-            <div className="mt-4">
-              <OperationHistory appId={game.id} onAct={setTarget} compact />
+                </div>
+              </div>
             </div>
-            <Button size="sm" variant="outline" className="mt-4" onClick={() => navigate(`/correcoes?view=receitas&game=${game.id}`)}>
-              Ver receitas para este jogo
-            </Button>
-            {report && <p className="mt-3 text-[11.5px] text-fg-3">Relatório de descobertas gerado em {fmtDateTime(report.retrievedAt)}.</p>}
-          </section>
-        </aside>
-      </div>
+          </details>
+        </>
+      )}
       {target && <ApplyFixDialog target={target} onClose={() => { setTarget(null); void engine.refresh(); analysis.refresh() }} />}
     </Page>
-  )
-}
-
-/** Resumo dos Smart Packs do jogo (perfil equilibrado), com atalho para a análise completa. */
-function SmartPacksSummary({ appId, onOpen }: { appId: string; onOpen: () => void }) {
-  const { report, loading } = useSmartPacks(appId, 'balanced')
-  // Pacotes (sem o baseline) por grupo; em “não recomendados” entram também as descobertas fora dos pacotes.
-  const count = (t: string) => report?.ranking.entries.filter((e) => e.tier === t && e.packId !== report.baselineId).length ?? 0
-  return (
-    <section className="rounded-lg border border-line bg-surface p-5" aria-labelledby="smart-packs">
-      <h3 id="smart-packs" className="flex items-center gap-2 text-[14px] font-medium">
-        <Mascot pose={loading && !report ? 'analyze' : report?.ranking.winner ? 'celebrate' : 'inspect'} scale={2} /> Smart Packs
-      </h3>
-      {report ? (
-        <>
-          <p className="mt-2 text-[12.5px] text-fg-2">{report.ranking.summary}</p>
-          <p className="mt-1 text-[12px] text-fg-3">
-            {count('measured')} no ranking medido · {count('candidate')} para testar · {count('performance-risk')} com risco de perda · {count('not-recommended')} não recomendado{count('not-recommended') === 1 ? '' : 's'}
-          </p>
-          {report.ranking.nextTest && <p className="mt-2 text-[12px] text-fg-2">Próximo teste: {report.ranking.nextTest.reason}</p>}
-        </>
-      ) : (
-        <p className="mt-2 text-[12.5px] text-fg-3">{loading ? 'Analisando combinações…' : 'Pesquise correções para montar os pacotes.'}</p>
-      )}
-      <Button size="sm" variant="outline" className="mt-4" onClick={onOpen}>
-        Abrir Smart Packs
-      </Button>
-    </section>
   )
 }

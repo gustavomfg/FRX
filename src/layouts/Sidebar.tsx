@@ -4,26 +4,19 @@ import { NAV } from '@/app/routes'
 import { Logo } from '@/components/brand/Logo'
 import { DemoTag } from '@/components/ui/Status'
 import { Kbd } from '@/components/ui/Controls'
-import { useDispatch, useFixSummary, useSettings } from '@/state/store'
+import { useDispatch, useSettings } from '@/state/store'
 import { systemInfo } from '@/data/system'
 import { useLibrary } from '@/state/library'
-import { useFixReports } from '@/state/fixes'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { cn } from '@/lib/cn'
-import { isRelevant } from '@/lib/findings'
 import { APP_VERSION } from '@/services/platform'
 
 export function Sidebar({ narrow }: { narrow: boolean }) {
   const settings = useSettings()
   const dispatch = useDispatch()
-  const { available } = useFixSummary()
-  const { reports } = useFixReports()
   const compact = narrow || settings.compactSidebar
   const { mode, system } = useLibrary()
   const real = mode === 'real'
-  const fixBadge = real
-    ? Object.values(reports).reduce((n, r) => n + r.findings.filter((f) => isRelevant(f) && f.kind !== 'report').length, 0)
-    : available.length
   const gpu = system?.primaryGpu
   const sysRows: [string, string][] = real
     ? [
@@ -79,11 +72,6 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
                 {!compact && (
                   <>
                     <span className="flex-1 truncate">{item.label}</span>
-                    {item.to === '/correcoes' && fixBadge > 0 && (
-                      <span className="tnum rounded-[4px] bg-accent-soft px-1.5 font-mono text-[11px] leading-[18px] text-accent" aria-label={`${fixBadge} ${real ? 'descobertas' : 'disponíveis'}`}>
-                        {fixBadge}
-                      </span>
-                    )}
                   </>
                 )}
               </>

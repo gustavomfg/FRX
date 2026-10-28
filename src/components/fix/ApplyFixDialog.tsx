@@ -9,7 +9,7 @@ import { Pill } from './FindingCard'
 import { PerformanceWarning } from './PerformanceWarning'
 import { ArtifactDetails, artifactBytes } from './ArtifactDetails'
 import { HardwareContext } from './HardwareContext'
-import { APPLY_STAGES, FILE_APPLY_STAGES, EVIDENCE, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
+import { APPLY_STAGES, FILE_APPLY_STAGES, EVIDENCE, isImprovement, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
 import { openExternal } from '@/services/opener'
 import { applyFixPlan, cancelFixOperation, onFixProgress, prepareFixPlan, prepareFixRollback, rollbackFix, verifyFixOperation } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
@@ -255,7 +255,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
               Voltar
             </Button>
             <Button variant="primary" disabled={!ack || (hasDownloads && !downloadAck)} onClick={() => void run()}>
-              {manualMode ? 'Registrar e mostrar a linha' : hasDownloads ? 'Baixar e instalar correção' : 'Aplicar correção'}
+              {manualMode ? 'Registrar e mostrar a linha' : hasDownloads ? 'Baixar e instalar correção' : isImprovement(plan?.purpose) ? 'Aplicar melhoria' : 'Aplicar correção'}
             </Button>
           </>
         )

@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import type { Game } from '@/types'
 import type { FixReport } from '@/types/fixes'
 import { getCachedFixReports, searchGameFixes } from '@/services/fixes'
 import { errorMessage } from '@/services/native'
@@ -17,7 +18,7 @@ interface FixReportsState {
 const Ctx = createContext<FixReportsState | null>(null)
 
 export function FixReportsProvider({ children }: { children: ReactNode }) {
-  const { mode } = useLibrary()
+  const { mode, games } = useLibrary()
   const { fixCacheHours } = useSettings()
   const dispatch = useDispatch()
   const [reports, setReports] = useState<Record<string, FixReport>>({})
@@ -40,6 +41,12 @@ export function FixReportsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void reload()
   }, [reload])
+
+  // Jogo da Steam que entra na biblioteca é analisado sozinho, um de cada vez.
+  // O cache do núcleo evita repetir consultas dentro do prazo.
+  const queue = useRef<Game[]>([])
+  const seen = useRef(new Set<string>())
+  const draining = useRef(false)
 
   const search = useCallback(
     async (appId: string, name: string, force = false) => {
@@ -65,6 +72,28 @@ export function FixReportsProvider({ children }: { children: ReactNode }) {
     },
     [mode, fixCacheHours, dispatch],
   )
+
+  const drain = useCallback(async () => {
+    if (draining.current) return
+    draining.current = true
+    try {
+      for (let next = queue.current.shift(); next; next = queue.current.shift()) {
+        await search(next.id, next.title)
+      }
+    } finally {
+      draining.current = false
+    }
+  }, [search])
+
+  useEffect(() => {
+    if (mode !== 'real') return
+    for (const game of games) {
+      if (game.origin !== 'steam' || seen.current.has(game.id)) continue
+      seen.current.add(game.id)
+      queue.current.push(game)
+    }
+    void drain()
+  }, [mode, games, drain])
 
   const value = useMemo(() => ({ reports, searching, errors, search, reload }), [reports, searching, errors, search, reload])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

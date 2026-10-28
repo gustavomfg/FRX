@@ -53,6 +53,7 @@ describe('Resolution Center — IPC e estados honestos', () => {
         case 'get_installed_games': case 'scan_installed_games': return scan
         case 'get_system_profile': return { gpus: [], primaryGpu: null, vulkanDrivers: [], arch: 'x86_64' }
         case 'get_cached_fix_reports': case 'get_applied_fixes': case 'list_fix_operations': return []
+        case 'detected_symptoms': return []
         case 'get_fix_engine_status': return { catalogVersion: 'fixture', recipes: 1, reviewed: 1, issues: [], recoveryRequired: 0, pendingManual: 0, busy: false, dataDir: '/synthetic' }
         case 'get_resolution_report':
           if (delayFirst && args.appId === '200260') return new Promise<ResolutionReport>((resolve) => { finishDelayed = resolve })

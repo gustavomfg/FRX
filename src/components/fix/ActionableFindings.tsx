@@ -1,7 +1,6 @@
 import type { FixFinding } from '@/types/fixes'
 import type { Assessment } from '@/types/fixEngine'
 import { FindingCard } from './FindingCard'
-import { Button } from '@/components/ui/Button'
 
 /** Only a complete planner assessment can promote a discovery to the main list. */
 export function ActionableFindings({ appId, findings, assessments, loading, error, refresh, onApply, technicalOnly = false }: {
@@ -27,7 +26,6 @@ export function ActionableFindings({ appId, findings, assessments, loading, erro
   const cards = (list: FixFinding[]) => <ul className="mt-3 space-y-3">{list.map((f) => <FindingCard key={f.id} finding={f} assessment={assessment(f)} analyzing={loading} onRefresh={refresh} onApply={(a) => onApply(a, f)} />)}</ul>
   return <div className="space-y-6" aria-busy={loading}>
     {error && <p role="alert" className="text-[13px] text-bad">Não foi possível verificar os planos: {error}</p>}
-    <Button size="sm" variant="ghost" loading={loading} disabled={loading} onClick={refresh}>Revalidar correções</Button>
     {!technicalOnly && <>
       <section aria-label="Correções disponíveis">
         <h3 className="text-[15px] font-medium">Correções disponíveis</h3>

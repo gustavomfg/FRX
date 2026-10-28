@@ -53,7 +53,7 @@ export function SessionPackResult({ meta }: { meta: SessionMeta }) {
         <h2 id="smart-pack-result" className="font-display text-[20px] font-semibold tracking-[-0.02em]">
           Smart Pack · resultado
         </h2>
-        <Button size="sm" variant="ghost" onClick={() => navigate(`/correcoes?view=smart&game=${e.appId}`)}>
+        <Button size="sm" variant="ghost" onClick={() => navigate(`/biblioteca/${encodeURIComponent(e.appId)}?secao=smart`)}>
           Abrir Smart Packs
         </Button>
       </div>

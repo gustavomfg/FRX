@@ -1,4 +1,5 @@
-import type { DynStatus, EvidenceLevel, OpState, PlanStatus, Purpose, Risk, Trust } from '@/types/fixEngine'
+import type { DynStatus, EvidenceLevel, OpState, Outlook, PlanStatus, Purpose, Risk, Trust } from '@/types/fixEngine'
+import type { GpuReq } from '@/types/fixes'
 
 type Meta = { label: string; color: string; soft: string; help?: string }
 
@@ -61,6 +62,14 @@ export const OP_STATE: Record<OpState, Meta> = {
   cancelled: { label: 'Cancelada antes da instalação', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
 }
 
+export const OUTLOOK: Record<Outlook, Meta & { short: string }> = {
+  helps: { label: 'Pode ajudar', short: 'Resolve uma falta documentada', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
+  uncertain: { label: 'Efeito incerto', short: 'Pode ajudar ou atrapalhar; depende do jogo e precisa de medição', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' },
+  'may-hurt': { label: 'Pode piorar', short: 'Costuma reduzir desempenho ou recursos', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)' },
+}
+
+export const GPU_LABEL: Record<GpuReq, string> = { nvidia: 'NVIDIA', amd: 'AMD', intel: 'Intel' }
+
 export const RISK: Record<Risk, Meta> = {
   low: { label: 'Risco baixo', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
   moderate: { label: 'Risco moderado', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' },
@@ -71,7 +80,11 @@ export const PURPOSE: Record<Purpose, string> = {
   diagnostic: 'Diagnóstico',
   compatibility: 'Compatibilidade',
   performance: 'Desempenho',
+  quality: 'Qualidade de imagem',
 }
+
+/** Melhoria opcional (desempenho ou imagem) × correção de um problema. */
+export const isImprovement = (purpose?: Purpose | null) => purpose === 'performance' || purpose === 'quality'
 
 /** Etapas reais do executor, na ordem em que o núcleo as percorre. */
 export const APPLY_STAGES: { state: OpState; label: string }[] = [

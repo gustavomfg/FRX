@@ -44,6 +44,18 @@ export function ArtifactDetails({ artifacts }: { artifacts?: ArtifactCandidate[]
             </li>)}
           </ul> : <p className="text-caution">Destino não confirmado. O FRX mantém a descoberta para revisão.</p>}
           {!!artifact.reasons.length && <ul className="space-y-1 text-caution">{artifact.reasons.map((reason) => <li key={reason} className="flex gap-2"><TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />{reason}</li>)}</ul>}
+          {artifact.trust !== 'origin-and-integrity' && (
+            <div className="space-y-1.5 rounded-md border border-line bg-bg/50 px-3.5 py-3">
+              <p className="font-medium text-fg">Se você quiser instalar por conta própria</p>
+              <p>O FRX não baixa nem instala este arquivo. Se decidir usá-lo, faça à mão:</p>
+              <ol className="list-decimal space-y-1 pl-5">
+                <li>Abra a release original (botão abaixo) e baixe o arquivo {artifact.assetName}.</li>
+                <li>Confira o SHA-256 publicado com o arquivo que você baixou.</li>
+                <li>Copie apenas para os destinos listados acima. Se não houver destino, siga a documentação do projeto.</li>
+              </ol>
+              <p className="text-fg-3">O FRX não reconhece nem verifica o que você copiar à mão.</p>
+            </div>
+          )}
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-fg-3">
             <button type="button" className="inline-flex items-center gap-1 hover:text-accent" onClick={() => void openExternal(artifact.releaseUrl).catch(() => {})}>Ver release original <ExternalLink className="size-3" aria-hidden /></button>
             <button type="button" className="inline-flex items-center gap-1 hover:text-accent" onClick={() => void openExternal(artifact.recommendationSource.url).catch(() => {})}>Origem da recomendação <ExternalLink className="size-3" aria-hidden /></button>

@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Check, ChevronDown, ExternalLink, FlaskConical, Package, ShieldCheck, Rocket, SquareTerminal, KeyRound, FileCode2, Layers, CircleHelp, ThumbsDown, ThumbsUp, Wrench, X } from 'lucide-react'
 import type { FixAction, FixFinding, ProviderStatus } from '@/types/fixes'
 import type { Assessment, RecipeView } from '@/types/fixEngine'
-import { DYN_STATUS, EVIDENCE, TRUST } from './engineMeta'
+import { DYN_STATUS, EVIDENCE, GPU_LABEL, isImprovement, OUTLOOK, PURPOSE, TRUST } from './engineMeta'
 import { PerformanceWarning } from './PerformanceWarning'
 import { GameEvidence } from './GameEvidence'
 import { ArtifactBadge, ArtifactDetails } from './ArtifactDetails'
@@ -243,7 +243,7 @@ export function FindingCard({
                   </span>
                 ) : canApply ? (
                   <Button size="sm" variant="primary" icon={<Wrench className="size-3.5" />} onClick={() => onApply!(assessment!)}>
-                    Aplicar correção
+                    {isImprovement(assessment!.recipe?.purpose) ? 'Aplicar melhoria' : 'Aplicar correção'}
                   </Button>
                 ) : assessment?.availability?.state === 'temporary' ? (
                   <div className="max-w-[55%] space-y-2 text-[12.5px] text-caution">
@@ -265,7 +265,13 @@ export function FindingCard({
 /** Generation is not proof that the complete plan is executable in this environment. */
 function assessmentMeta(a: Assessment) {
   const state = a.availability?.state
-  if (state === 'available' && a.recipeId && a.availability?.planFingerprint) return DYN_STATUS.generated
+  if (state === 'available' && a.recipeId && a.availability?.planFingerprint) {
+    // Um único comentário não é verificação: não pode aparecer como "correção aplicável".
+    // Relatos de comentários não são verificação do FRX: nunca "correção aplicável".
+    if (a.evidence === 'single' || a.evidence === 'none') return { label: 'Relato único · não verificada', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' }
+    if (a.evidence !== 'documented') return { label: 'Relatos · não testada pelo FRX', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' }
+    return isImprovement(a.recipe?.purpose) ? { ...DYN_STATUS.generated, label: `Melhoria aplicável · ${PURPOSE[a.recipe!.purpose]}` } : DYN_STATUS.generated
+  }
   if (state === 'applied') return { label: 'Correção aplicada', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' }
   if (state === 'temporary') return { label: 'Aguardando condição local', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' }
   if (state === 'incompatible') return DYN_STATUS.incompatible
@@ -299,6 +305,16 @@ function AnalysisBlock({ a, applied }: { a: Assessment; applied: boolean }) {
             <span className="inline-flex h-6 items-center gap-1 rounded-xs bg-caution-soft px-2 text-[12px] font-medium text-caution">
               <FlaskConical className="size-3" aria-hidden /> Experimental
             </span>
+          )}
+          {a.outlook && (
+            <Pill color={OUTLOOK[a.outlook].color} soft={OUTLOOK[a.outlook].soft} title={OUTLOOK[a.outlook].short}>
+              {OUTLOOK[a.outlook].label}
+            </Pill>
+          )}
+          {a.recipe && (
+            <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
+              {a.recipe.scope.gpuVendor ? `Só GPU ${GPU_LABEL[a.recipe.scope.gpuVendor]}` : 'Qualquer GPU'}
+            </Pill>
           )}
           <span className="text-[12px] text-fg-3" title={a.evidenceNote}>
             {EVIDENCE[a.evidence]}

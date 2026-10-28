@@ -6,7 +6,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { act, useState, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { clearMocks, mockIPC } from '@tauri-apps/api/mocks'
 import { MotionGlobalConfig } from 'motion/react'
 import { AppStoreProvider } from '@/state/store'
@@ -15,7 +15,7 @@ import { FixReportsProvider } from '@/state/fixes'
 import { FixEngineProvider } from '@/state/fixEngine'
 import { PerformanceProvider } from '@/state/performance'
 import { SmartPacksPanel } from '@/components/smart/SmartPacksPanel'
-import { FindingsPage } from '@/pages/FindingsPage'
+import { GameDetailPage } from '@/pages/GameDetail'
 import { FindingCard } from '@/components/fix/FindingCard'
 import { GameEvidence } from '@/components/fix/GameEvidence'
 import { useAssessments } from '@/components/fix/useAssessments'
@@ -96,6 +96,10 @@ const syntheticScan = {
 function Providers({ children }: { children: ReactNode }) {
   return <AppStoreProvider><LibraryProvider><FixReportsProvider><FixEngineProvider><PerformanceProvider><MemoryRouter>{children}</MemoryRouter></PerformanceProvider></FixEngineProvider></FixReportsProvider></LibraryProvider></AppStoreProvider>
 }
+/** A página de um jogo, pela própria rota `/biblioteca/:gameId`, sem outro roteador. */
+function GameRoute({ entry }: { entry: string }) {
+  return <AppStoreProvider><LibraryProvider><FixReportsProvider><FixEngineProvider><PerformanceProvider><MemoryRouter initialEntries={[entry]}><Routes><Route path="/biblioteca/:gameId" element={<GameDetailPage />} /></Routes></MemoryRouter></PerformanceProvider></FixEngineProvider></FixReportsProvider></LibraryProvider></AppStoreProvider>
+}
 function mount(node: ReactNode) {
   const el = document.createElement('div')
   document.body.appendChild(el)
@@ -137,6 +141,7 @@ describe('Game-specific fix intelligence — integração sintética', () => {
         case 'get_installed_games': case 'scan_installed_games': return syntheticScan
         case 'get_system_profile': return { gpus: [], primaryGpu: null, vulkanDrivers: [], arch: 'x86_64' }
         case 'get_cached_fix_reports': return cachedReports
+        case 'detected_symptoms': return []
         case 'get_fix_engine_status': return { catalogVersion: 'fixture', catalogSha256: 'fixture', recipes: 0, reviewed: 0, issues: [], recoveryRequired: 0, pendingManual: 0, busy: false, dataDir: '/synthetic/fix-engine' }
         case 'list_fix_operations': case 'get_applied_fixes': case 'list_benchmark_sessions': case 'list_fix_recipes': return []
         case 'detect_mangohud': return { installed: false, version: null, path: null, vulkanLayer: false, openglLib: false, notes: [] }
@@ -222,19 +227,18 @@ describe('Game-specific fix intelligence — integração sintética', () => {
     mounted.unmount()
   })
 
-  it('a página completa de descobertas renderiza os dois relatórios e navega para Smart Packs sem erro de execução', async () => {
+  it('a página de um jogo mostra só as correções dele, e Smart Packs e pesquisa técnica abrem nessa mesma página', async () => {
     cachedReports = [A, B].map((appId) => ({ ...discovery(appId), findings: [{ ...currentFinding(appId), id: `fixture-${appId}-d3d11` }] }))
     analyze = (appId) => [{ ...assessment(appId), findingId: `fixture-${appId}-d3d11` }]
     const runtimeErrors: unknown[] = []
     const element = document.createElement('div')
     document.body.appendChild(element)
     const root = createRoot(element, { onUncaughtError: (error) => runtimeErrors.push(error) })
-    act(() => root.render(<Providers><FindingsPage /></Providers>))
+    act(() => root.render(<GameRoute entry={`/biblioteca/${A}`} />))
     await flush(120)
     expect(runtimeErrors).toEqual([])
-    expect(text()).toContain('Correções')
     expect(text()).toContain(`Jogo sintético ${A}`)
-    expect(text()).toContain(`Jogo sintético ${B}`)
+    expect(text()).not.toContain(`Jogo sintético ${B}`)
     expect(document.querySelector('[aria-label="Correções disponíveis"]')).not.toBeNull()
     expect(calls.some((c) => c.cmd === 'analyze_fix_findings')).toBe(true)
     await click(button('Smart Packs'))
@@ -242,16 +246,14 @@ describe('Game-specific fix intelligence — integração sintética', () => {
     expect(runtimeErrors).toEqual([])
     expect(text()).toContain(`Classificação sintética exclusiva ${A}`)
     expect(text()).toContain(POSITIVE)
+    expect(text()).not.toContain(`Classificação sintética exclusiva ${B}`)
+    await click(button('Visão do jogo'))
+    await flush(40)
     await click(button('Pesquisa técnica'))
     await flush(60)
-    expect(document.querySelector('[aria-label="Descobertas"]')).not.toBeNull()
-    expect(text()).toContain('Todos os jogos')
-    expect(text()).toContain('Análise exclusiva da fixture')
-    await click(button('Correções disponíveis'))
-    await flush(60)
     expect(runtimeErrors).toEqual([])
-    expect(text()).toContain('Correções')
-    expect(document.querySelector('[aria-label="Correções disponíveis"]')).not.toBeNull()
+    expect(document.querySelector('[aria-label="Descobertas"]')).not.toBeNull()
+    expect(text()).not.toContain('Todos os jogos')
     act(() => root.unmount())
   })
 

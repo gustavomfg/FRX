@@ -3,7 +3,7 @@ import type { ArtifactCandidate, FixAction, FixCategory, GpuReq, ProviderId } fr
 import type { EnvironmentContext, HardwareMatch, HardwareRequirements } from './steam'
 
 export type Trust = 'discovered' | 'candidate' | 'reviewed' | 'unsupported' | 'revoked' | 'generated' | 'pack'
-export type Purpose = 'diagnostic' | 'compatibility' | 'performance'
+export type Purpose = 'diagnostic' | 'compatibility' | 'performance' | 'quality'
 export type Risk = 'low' | 'moderate' | 'high'
 
 export type RecipeAction =
@@ -100,6 +100,7 @@ export interface Assessment {
   actions: { kind: FixAction['kind']; raw: string; supported: boolean; note: string }[]
   recipeId: string | null
   recipe: Recipe | null
+  outlook?: Outlook | null
   provenance: Provenance[]
   interpreter: string
   generatedAt: string
@@ -108,11 +109,21 @@ export interface Assessment {
   reevaluated: string | null
 }
 
+/** Efeito provável: ajuda num problema documentado, incerto, ou pode piorar. */
+export type Outlook = 'helps' | 'uncertain' | 'may-hurt'
+
+export interface Relevance {
+  relevant: boolean
+  reason: string
+}
+
 export interface RecipeView extends Recipe {
   performanceWarnings?: string[]
   executable: boolean
   integrity: boolean
   relatedFindings: string[]
+  outlook?: Outlook | null
+  relevance?: Relevance | null
 }
 
 export type PlanStatus = 'ready' | 'requires-manual-step' | 'conflict' | 'incompatible' | 'already-applied' | 'already-included' | 'not-executable'

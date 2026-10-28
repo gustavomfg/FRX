@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArchiveRestore, ArrowUpRight, Check, Cpu, Layers, RotateCcw, ShieldCheck, Wrench, X } from 'lucide-react'
 import { Page } from '@/layouts/Page'
@@ -19,13 +19,14 @@ import { Mascot } from '@/mascot/Mascot'
 import type { FixPack } from '@/types'
 import { cn } from '@/lib/cn'
 import { useLibrary } from '@/state/library'
-import { FindingsPage } from './FindingsPage'
+import { gameFixTarget } from '@/app/routes'
 
 type StateFilter = 'todas' | 'disponivel' | 'aplicado'
 
 export function FixPacksPage() {
   const { mode } = useLibrary()
-  return mode === 'real' ? <FindingsPage /> : <DemoFixPacks />
+  const [params] = useSearchParams()
+  return mode === 'real' ? <Navigate to={gameFixTarget(params)} replace /> : <DemoFixPacks />
 }
 
 function DemoFixPacks() {

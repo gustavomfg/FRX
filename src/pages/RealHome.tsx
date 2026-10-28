@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/Button'
 import { CoverImage } from '@/components/game/CoverImage'
 import { InstallBadge } from '@/components/game/InstallBadge'
 import { SourceTag } from '@/components/game/LibraryNotices'
-import { ConfidencePill } from '@/components/fix/FindingCard'
 import { ActivityList, BigNumber, SummaryColumn } from './Home'
 import { useLibrary } from '@/state/library'
 import { useFixReports } from '@/state/fixes'
@@ -41,11 +40,11 @@ export function RealHome() {
   const findings = useMemo(
     () =>
       Object.values(reports)
-        .flatMap((r) => r.findings.map((f) => ({ f, name: r.gameName })))
+        .flatMap((r) => r.findings.map((f) => ({ f, name: r.gameName, appId: r.appId })))
         .filter(({ f }) => isRelevant(f) && f.kind !== 'report'),
     [reports],
   )
-  const gamesWithFindings = new Set(findings.map(({ f }) => f.gameAppId)).size
+  const gamesWithFindings = new Set(findings.map(({ appId }) => appId)).size
   const latest = sessions[0]
   const realActivity = activity.filter((a) => !a.demo)
 
@@ -140,18 +139,16 @@ export function RealHome() {
           <InstallDistribution />
         </SummaryColumn>
 
-        <SummaryColumn eyebrow="Correções" to="/correcoes" cta="Ver descobertas">
+        <SummaryColumn eyebrow="Correções" to="/biblioteca" cta="Ver jogos">
           <BigNumber value={findings.length} label="descobertas técnicas relevantes" aside={`${Object.keys(reports).length} jogo${Object.keys(reports).length === 1 ? '' : 's'} pesquisado${Object.keys(reports).length === 1 ? '' : 's'}`} />
           {findings.length > 0 ? (
+            // Cada correção fica na página do seu jogo: aqui só o resumo por jogo.
             <ul className="mt-5 space-y-2.5">
-              {findings.slice(0, 3).map(({ f, name }) => (
-                <li key={f.id}>
-                  <Link to={`/correcoes?finding=${encodeURIComponent(f.id)}`} className="group flex items-center justify-between gap-3 rounded-sm text-[13px]">
-                    <span className="min-w-0">
-                      <span className="block truncate text-fg group-hover:text-accent">{f.title}</span>
-                      <span className="block truncate text-[12px] text-fg-3">{name}</span>
-                    </span>
-                    <ConfidencePill finding={f} />
+              {[...new Map(findings.map(({ appId, name }) => [appId, name])).entries()].map(([appId, name]) => (
+                <li key={appId}>
+                  <Link to={`/biblioteca/${encodeURIComponent(appId)}?secao=descobertas`} className="group flex items-center justify-between gap-3 rounded-sm text-[13px]">
+                    <span className="min-w-0 truncate text-fg group-hover:text-accent">{name}</span>
+                    <span className="tnum shrink-0 text-fg-3">{findings.filter((entry) => entry.appId === appId).length}</span>
                   </Link>
                 </li>
               ))}

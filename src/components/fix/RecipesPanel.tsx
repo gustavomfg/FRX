@@ -6,7 +6,7 @@ import { Select } from '@/components/ui/Controls'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Pill } from './FindingCard'
 import { ChecksList, type ApplyTarget } from './ApplyFixDialog'
-import { PLAN_STATUS, PURPOSE, RISK, TRUST } from './engineMeta'
+import { GPU_LABEL, isImprovement, OUTLOOK, PLAN_STATUS, PURPOSE, RISK, TRUST } from './engineMeta'
 import { checkFixCompatibility, listFixRecipes } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
@@ -73,6 +73,7 @@ export function useRecipes(appId: string | null, withChecks = true) {
 
 export function RecipesPanel({
   games,
+  gameSelector = true,
   appId,
   recipeId,
   onSelect,
@@ -80,6 +81,8 @@ export function RecipesPanel({
   onShowFinding,
 }: {
   games: Game[]
+  /** Na página de um jogo, ele já está escolhido: o seletor some. */
+  gameSelector?: boolean
   appId: string | null
   recipeId: string | null
   onSelect: (patch: { game?: string; recipe?: string }) => void
@@ -91,18 +94,23 @@ export function RecipesPanel({
   const steamGames = games.filter((g) => g.origin === 'steam')
   // Ordem estável (revisadas primeiro): a lista não pula quando o estado muda.
   const ordered = useMemo(() => [...recipes].sort((a, b) => Number(b.executable) - Number(a.executable)), [recipes])
-  const selected = ordered.find((r) => r.id === recipeId) ?? ordered[0]
+  // Só entra como sugestão o que tem motivo neste jogo; o resto fica recolhido.
+  const relevant = ordered.filter((r) => r.relevance?.relevant !== false)
+  const elsewhere = ordered.filter((r) => r.relevance?.relevant === false)
+  const selected = ordered.find((r) => r.id === recipeId) ?? relevant[0] ?? ordered[0]
   const game = steamGames.find((g) => g.id === appId)
 
   return (
     <div className="mt-5">
       <div className="mb-4 flex items-center gap-3">
-        <Select
-          label="Jogo"
-          value={appId ?? ''}
-          onChange={(v) => onSelect({ game: v, recipe: undefined })}
-          options={[{ value: '', label: 'Escolha um jogo' }, ...steamGames.map((g) => ({ value: g.id, label: g.title }))]}
-        />
+        {gameSelector && (
+          <Select
+            label="Jogo"
+            value={appId ?? ''}
+            onChange={(v) => onSelect({ game: v, recipe: undefined })}
+            options={[{ value: '', label: 'Escolha um jogo' }, ...steamGames.map((g) => ({ value: g.id, label: g.title }))]}
+          />
+        )}
         <p className="text-[12.5px] text-fg-3">
           Catálogo local {engine.status?.catalogVersion ?? '…'} · {engine.status?.reviewed ?? 0} receita{engine.status?.reviewed === 1 ? '' : 's'} revisada{engine.status?.reviewed === 1 ? '' : 's'} de {engine.status?.recipes ?? 0}
         </p>
@@ -114,40 +122,57 @@ export function RecipesPanel({
         <EmptyState pose="idle" title="Escolha um jogo" body="O FRX confere cada receita contra o estado real do jogo e da Steam: Proton em uso, opções de inicialização atuais, Steam aberta ou fechada." />
       ) : (
         <div className="grid grid-cols-[minmax(280px,360px)_minmax(0,1fr)] gap-8">
-          <ul className="space-y-1" aria-label="Receitas" aria-busy={loading}>
-            {ordered.map((r) => {
-              const c = checks[r.id]
-              const st = typeof c === 'object' ? c.status : null
-              const meta = st ? PLAN_STATUS[st] : null
-              const active = selected?.id === r.id
-              return (
-                <li key={r.id}>
-                  <button
-                    onClick={() => onSelect({ recipe: r.id })}
-                    aria-current={active ? 'true' : undefined}
-                    className={cn('group relative flex w-full items-start gap-3 rounded-md px-3 py-3 text-left transition-colors duration-(--frx-dur-fast)', active ? 'bg-surface' : 'hover:bg-surface/60')}
-                  >
-                    <span className={cn('absolute top-3 bottom-3 left-0 w-[3px] transition-opacity', active ? 'bg-accent opacity-100' : 'opacity-0')} aria-hidden />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-medium text-fg">{r.title}</span>
-                      <span className="block truncate text-[12px] text-fg-3">
-                        {TRUST[r.trust].label} · {PURPOSE[r.purpose]}
-                        {r.relatedFindings.length > 0 && ` · citada em ${r.relatedFindings.length} descoberta${r.relatedFindings.length === 1 ? '' : 's'}`}
+          <div className="min-w-0">
+            <ul className="space-y-1" aria-label="Receitas" aria-busy={loading}>
+              {relevant.map((r) => {
+                const c = checks[r.id]
+                const st = typeof c === 'object' ? c.status : null
+                const meta = st ? PLAN_STATUS[st] : null
+                const active = selected?.id === r.id
+                return (
+                  <li key={r.id}>
+                    <button
+                      onClick={() => onSelect({ recipe: r.id })}
+                      aria-current={active ? 'true' : undefined}
+                      className={cn('group relative flex w-full items-start gap-3 rounded-md px-3 py-3 text-left transition-colors duration-(--frx-dur-fast)', active ? 'bg-surface' : 'hover:bg-surface/60')}
+                    >
+                      <span className={cn('absolute top-3 bottom-3 left-0 w-[3px] transition-opacity', active ? 'bg-accent opacity-100' : 'opacity-0')} aria-hidden />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[13.5px] font-medium text-fg">{r.title}</span>
+                        <span className="block truncate text-[12px] text-fg-3">
+                          {TRUST[r.trust].label} · {PURPOSE[r.purpose]}
+                          {r.relatedFindings.length > 0 && ` · citada em ${r.relatedFindings.length} descoberta${r.relatedFindings.length === 1 ? '' : 's'}`}
+                        </span>
+                        <PerformanceWarning warnings={r.performanceWarnings} compact />
                       </span>
-                      <PerformanceWarning warnings={r.performanceWarnings} compact />
-                    </span>
-                    {meta ? (
-                      <Pill color={meta.color} soft={meta.soft}>
-                        {st === 'not-executable' ? TRUST[r.trust].label : meta.label}
-                      </Pill>
-                    ) : (
-                      <span className="h-6 w-16 rounded-xs skeleton" aria-hidden />
-                    )}
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
+                      {meta ? (
+                        <Pill color={meta.color} soft={meta.soft}>
+                          {st === 'not-executable' ? TRUST[r.trust].label : meta.label}
+                        </Pill>
+                      ) : (
+                        <span className="h-6 w-16 rounded-xs skeleton" aria-hidden />
+                      )}
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+            {elsewhere.length > 0 && (
+              <details className="mt-4">
+                <summary className="cursor-pointer px-3 text-[12.5px] text-fg-3">Fora deste jogo ({elsewhere.length})</summary>
+                <ul className="mt-1 space-y-1" aria-label="Receitas fora deste jogo">
+                  {elsewhere.map((r) => (
+                    <li key={r.id}>
+                      <button onClick={() => onSelect({ recipe: r.id })} aria-current={selected?.id === r.id ? 'true' : undefined} className="block w-full rounded-md px-3 py-2 text-left hover:bg-surface/60">
+                        <span className="block truncate text-[13px] text-fg-2">{r.title}</span>
+                        <span className="block text-[11.5px] text-fg-3">{r.relevance?.reason}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
+          </div>
           <AnimatePresence mode="wait" initial={false}>
             {selected && game && (
               <motion.div key={selected.id + appId} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -4 }} transition={{ duration: 0.18 }} className="min-w-0">
@@ -183,12 +208,21 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
           <Pill color={RISK[recipe.risk].color} soft={RISK[recipe.risk].soft}>
             {RISK[recipe.risk].label}
           </Pill>
+          {recipe.outlook && (
+            <Pill color={OUTLOOK[recipe.outlook].color} soft={OUTLOOK[recipe.outlook].soft} title={OUTLOOK[recipe.outlook].short}>
+              {OUTLOOK[recipe.outlook].label}
+            </Pill>
+          )}
+          <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
+            {recipe.scope.gpuVendor ? `Só GPU ${GPU_LABEL[recipe.scope.gpuVendor]}` : 'Qualquer GPU'}
+          </Pill>
           <span className="text-[12px] text-fg-3">
             {PURPOSE[recipe.purpose]} · v{recipe.version}
           </span>
         </div>
         <h2 className="mt-3 font-display text-[22px] font-semibold tracking-[-0.02em]">{recipe.title}</h2>
         <p className="mt-1.5 text-[13.5px] text-fg-2">{recipe.summary}</p>
+        {recipe.relevance && <p className="mt-2 text-[12.5px] text-fg-3">{recipe.relevance.reason}</p>}
       </header>
 
       <PerformanceWarning warnings={recipe.performanceWarnings} />
@@ -293,7 +327,7 @@ function RecipeDetail({ recipe, check, game, onAct, onShowFinding }: { recipe: R
             </Button>
           )}
           {canApply && <Button size="sm" variant="primary" onClick={() => onAct({ kind: 'apply', expectedFingerprint: plan?.fingerprint, recipeId: recipe.id, appId: game.id, title: recipe.title })}>
-            Aplicar correção
+            {isImprovement(recipe.purpose) ? 'Aplicar melhoria' : 'Aplicar correção'}
           </Button>}
           {!canApply && plan?.status === 'requires-manual-step' && <p className="max-w-[30ch] text-[12.5px] text-caution">Feche a Steam normalmente e reabra esta receita para permitir a aplicação automática.</p>}
         </div>

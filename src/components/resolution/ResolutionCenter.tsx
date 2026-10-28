@@ -50,7 +50,7 @@ const EVIDENCE_KINDS: Record<string, string> = {
 
 /** A keyed scope prevents a request or application dialog following the user to another game. */
 export function ResolutionCenter({ appId, available }: { appId: string; available: boolean }) {
-  if (!available) return <section aria-label="Resolution Center" className="mt-10 border-t border-line pt-6"><h2 className="font-display text-[24px] font-semibold tracking-[-0.025em]">Resolution Center</h2><p className="mt-2 text-[13px] text-fg-2">O diagnóstico real está disponível no app desktop, com a biblioteca real. O modo demonstrativo não pesquisa nem aplica correções.</p></section>
+  if (!available) return <section aria-label="Diagnóstico do ambiente" className="mt-10 border-t border-line pt-6"><h3 className="font-display text-[20px] font-semibold tracking-[-0.02em]">Diagnóstico do ambiente</h3><p className="mt-2 text-[13px] text-fg-2">O diagnóstico real está disponível no app desktop, com a biblioteca real. O modo demonstrativo não pesquisa nem aplica correções.</p></section>
   return <ScopedResolutionCenter key={appId} appId={appId} />
 }
 
@@ -75,7 +75,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
       if (result && result.appId !== appId) throw new Error('O diagnóstico retornou outro AppID. Nada foi associado a este jogo; tente diagnosticar novamente.')
       setReport(result)
       setPlansValidated(true)
-      if (result?.symptoms) setSymptoms(result.symptoms)
+      if (result?.symptoms?.length) setSymptoms(result.symptoms)
     } catch (e) {
       if (alive.current && request === sequence.current) { setError(errorMessage(e)); setPlansValidated(false) }
     } finally {
@@ -86,6 +86,8 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   useEffect(() => {
     alive.current = true
     void run('load', () => api.getResolutionReport(appId))
+    // Sem seleção salva, começa com os problemas que os relatos deste jogo citam.
+    void api.detectedSymptoms(appId).then((ids) => { if (alive.current) setSymptoms((old) => (old.length ? old : ids)) }).catch(() => undefined)
     return () => { alive.current = false; sequence.current++ }
   }, [appId, run])
 
@@ -126,7 +128,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   return <section aria-labelledby="resolution-center" className="mt-10 border-t border-line pt-7" aria-busy={!!busy}>
     <div className="flex flex-wrap items-start justify-between gap-5">
       <div className="max-w-[65ch]">
-        <h2 id="resolution-center" className="font-display text-[26px] font-semibold tracking-[-0.025em]">Resolution Center</h2>
+        <h3 id="resolution-center" className="font-display text-[20px] font-semibold tracking-[-0.02em]">Diagnóstico do ambiente</h3>
         <p className="mt-1.5 text-[13px] leading-relaxed text-fg-2">Diagnóstico, fontes e soluções para este jogo e ambiente. Aplicar uma correção e verificar seu funcionamento são etapas distintas.</p>
         {report && <p className="mt-2 text-[12px] text-fg-3">AppID {report.appId} · Diagnóstico de {sourceDate(report.generatedAt)}</p>}
       </div>
@@ -134,7 +136,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
     </div>
 
     <fieldset disabled={!!busy} className="mt-5">
-      <legend className="mb-2 text-[13px] font-medium text-fg">O que você quer investigar? <span className="font-normal text-fg-3">Opcional</span></legend>
+      <legend className="mb-2 text-[13px] font-medium text-fg">O que você quer investigar? <span className="font-normal text-fg-3">Opcional · já vêm marcados os problemas citados nos relatos deste jogo</span></legend>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         {SYMPTOMS.map(([id, label]) => <label key={id} className="inline-flex cursor-pointer items-center gap-2 text-[12.5px] text-fg-2"><input type="checkbox" className="size-3.5 accent-accent" checked={symptoms.includes(id)} onChange={(e) => setSymptoms((old) => e.target.checked ? [...old, id] : old.filter((s) => s !== id))} />{label}</label>)}
       </div>
@@ -197,7 +199,7 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
       <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[14px] font-medium">Descobertas em investigação ({investigationPlans.length})</summary><p className="mt-2 text-[12.5px] text-fg-3">Fontes e procedimentos que ainda não têm aplicação completa e segura para este ambiente.</p><div className="mt-3 space-y-6">{investigationPlans.map(renderPlan)}</div></details>
       {!!report.packs.filter((pack) => pack.appId === appId).length && <div>
         <h3 className="font-medium text-[15px]">Smart Resolution Packs</h3>
-        <ul className="mt-2 divide-y divide-line">{report.packs.filter((pack) => pack.appId === appId).map((pack) => <li key={pack.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div className="min-w-0"><p className="text-[13px] font-medium">{pack.title}</p><p className="mt-1 max-w-[65ch] text-[12px] text-fg-2">{pack.explanation}</p></div>{pack.smartPackId && <Link className="text-[13px] text-accent underline underline-offset-4" to={`/correcoes?view=smart&game=${encodeURIComponent(appId)}&pack=${encodeURIComponent(pack.smartPackId)}`}>Ver pacote</Link>}</li>)}</ul>
+        <ul className="mt-2 divide-y divide-line">{report.packs.filter((pack) => pack.appId === appId).map((pack) => <li key={pack.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div className="min-w-0"><p className="text-[13px] font-medium">{pack.title}</p><p className="mt-1 max-w-[65ch] text-[12px] text-fg-2">{pack.explanation}</p></div>{pack.smartPackId && <Link className="text-[13px] text-accent underline underline-offset-4" to={`/biblioteca/${encodeURIComponent(appId)}?secao=smart&pack=${encodeURIComponent(pack.smartPackId)}`}>Ver pacote</Link>}</li>)}</ul>
       </div>}
       {!!report.knowledge.length && <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[13px] font-medium">Fontes consultadas ({report.knowledge.length})</summary><div className="mt-3"><EvidenceList evidence={report.knowledge} onOpen={open} /></div></details>}
       {!!report.limitations.length && <Detail title="O que ainda não sabemos"><TextList items={report.limitations} /></Detail>}

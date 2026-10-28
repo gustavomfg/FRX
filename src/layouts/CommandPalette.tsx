@@ -42,7 +42,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
         ),
       })),
       ...(mode === 'demo'
-        ? fixPacks.map((f) => ({ id: f.id, group: 'Fix Packs' as const, label: f.name, hint: games.find((g) => g.id === f.gameId)?.title, to: `/correcoes?pack=${f.id}`, icon: <Wrench className="size-4 text-fg-3" /> }))
+        ? fixPacks.map((f) => ({ id: f.id, group: 'Fix Packs' as const, label: f.name, hint: games.find((g) => g.id === f.gameId)?.title, to: `/biblioteca/${encodeURIComponent(f.gameId)}?secao=smart&pack=${encodeURIComponent(f.id)}`, icon: <Wrench className="size-4 text-fg-3" /> }))
         : []),
     ],
     [games, mode],
