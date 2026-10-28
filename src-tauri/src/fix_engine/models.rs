@@ -41,6 +41,8 @@ pub enum Purpose {
     Diagnostic,
     Compatibility,
     Performance,
+    /// Melhoria opcional de imagem (upscalers mais novos, por exemplo).
+    Quality,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
@@ -578,6 +580,32 @@ pub struct RecipeView {
     pub integrity: bool,
     /// Achados da pesquisa (v0.2) que citam o mesmo ajuste.
     pub related_findings: Vec<String>,
+    /// Efeito provável: ajuda, incerto ou pode piorar (pior caso entre as variáveis).
+    #[serde(default)]
+    pub outlook: Option<Outlook>,
+    /// Se a receita tem motivo para este jogo; preenchido ao listar um jogo.
+    #[serde(default)]
+    pub relevance: Option<Relevance>,
+}
+
+/// O que uma receita costuma fazer com desempenho ou funcionamento.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
+#[serde(rename_all = "kebab-case")]
+pub enum Outlook {
+    /// Resolve uma falta documentada (componente ausente, CUDA para PhysX).
+    Helps,
+    /// Depende do jogo e da máquina: pode ajudar ou atrapalhar.
+    Uncertain,
+    /// Costuma reduzir desempenho ou recursos do jogo.
+    MayHurt,
+}
+
+/// Vínculo de uma receita com o jogo escolhido, com o motivo.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Relevance {
+    pub relevant: bool,
+    pub reason: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

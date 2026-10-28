@@ -39,7 +39,7 @@ pub const GENERATOR_VERSION: &str = "1.3.0";
 /// Versão das regras de segurança e do conhecimento de variáveis
 /// (`security::ENV_ALLOWLIST` + `compatibility::KNOWLEDGE`). Aumente ao mudar
 /// qualquer uma das duas.
-pub const RULES_VERSION: &str = "2026.10.27-4";
+pub const RULES_VERSION: &str = "2026.10.28-3";
 
 pub use game_evidence::GamePerformanceEvidence;
 
@@ -133,6 +133,9 @@ pub struct Assessment {
     /// Receita a abrir no Fix Engine (gerada ou do catálogo).
     pub recipe_id: Option<String>,
     pub recipe: Option<Recipe>,
+    /// Efeito provável da receita gerada pior entre as variáveis.
+    #[serde(default)]
+    pub outlook: Option<crate::fix_engine::models::Outlook>,
     pub provenance: Vec<Provenance>,
     pub interpreter: String,
 }

@@ -28,6 +28,8 @@ pub struct Input<'a> {
     pub performance_evidence: super::GamePerformanceEvidence,
     pub provenance: Vec<Provenance>,
     pub interpreter: &'static str,
+    /// Opções da fonte que a ferramenta instalada não lê (sem efeito aqui).
+    pub omitted: Vec<String>,
 }
 
 fn cut(s: String, max: usize) -> String {
@@ -58,9 +60,10 @@ pub fn build(i: Input<'_>) -> Recipe {
     let first = i.provenance.first();
     let description = cut(
         format!(
-            "Gerada automaticamente pelo FRX a partir de {} ({}). As ações foram reconhecidas e validadas pelo núcleo, mas a receita não foi revisada por pessoas.",
+            "Gerada automaticamente pelo FRX a partir de {} ({}). As ações foram reconhecidas e validadas pelo núcleo, mas a receita não foi revisada por pessoas.{}",
             if i.provenance.len() == 1 { "uma fonte pública".to_owned() } else { format!("{} fontes públicas", i.provenance.len()) },
-            first.map(|p| p.label.as_str()).unwrap_or("fonte")
+            first.map(|p| p.label.as_str()).unwrap_or("fonte"),
+            if i.omitted.is_empty() { String::new() } else { format!(" Omitidas por não terem efeito na ferramenta instalada: {}.", i.omitted.join(", ")) }
         ),
         1200,
     );
@@ -96,8 +99,8 @@ pub fn build(i: Input<'_>) -> Recipe {
         ),
         description,
         category: ks[0].category,
-        purpose: if ks.iter().all(|k| k.purpose == Purpose::Performance) {
-            Purpose::Performance
+        purpose: if ks.iter().all(|k| k.purpose == ks[0].purpose) {
+            ks[0].purpose
         } else {
             Purpose::Compatibility
         },
@@ -117,7 +120,11 @@ pub fn build(i: Input<'_>) -> Recipe {
         already_included_by_protonfixes: i.finding.kind == FindingKind::Protonfix,
         conflicts_with: vec![],
         related_keys: pairs.iter().map(|(k, v)| format!("env:{k}={v}")).collect(),
-        effects: ks.iter().map(|k| k.effect.to_owned()).collect(),
+        effects: i
+            .actions
+            .iter()
+            .map(|(_, v, k)| super::compatibility::describe(k, v))
+            .collect(),
         side_effects: ks
             .iter()
             .filter_map(|k| k.side_effect.map(str::to_owned))

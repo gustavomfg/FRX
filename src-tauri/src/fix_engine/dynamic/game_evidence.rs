@@ -288,6 +288,7 @@ mod hardware_tests {
                 gpu: Some(vendor),
                 tool_name: Some("Proton 10"),
                 catalog: &catalog,
+                game: None,
             };
             let result = assess(&finding, &ctx, &[("PROTON_NO_D3D11".into(), "1".into())]);
             assert_eq!((result.positive, result.negative), (pos, neg));

@@ -34,6 +34,10 @@ const FILES: &[(&str, &str)] = &[
         "frx.nvidia.gpu-physx.json",
         include_str!("../../recipes/frx.nvidia.gpu-physx.json"),
     ),
+    (
+        "frx.proton.dlss-upgrade.json",
+        include_str!("../../recipes/frx.proton.dlss-upgrade.json"),
+    ),
 ];
 
 #[derive(Deserialize)]

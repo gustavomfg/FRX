@@ -1746,6 +1746,7 @@ fn separate_contested_report_is_not_lost_when_a_positive_recipe_exists_for_the_s
         gpu: None,
         tool_name: Some("Proton Experimental"),
         catalog: &catalog,
+        game: None,
     };
     let view = |f: &FixFinding| AssessmentView {
         availability: crate::fix_engine::availability::Availability::reason(

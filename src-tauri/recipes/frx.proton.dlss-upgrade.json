@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "frx.proton.dlss-upgrade",
+  "version": "1.0.0",
+  "trust": "reviewed",
+  "title": "Atualizar o DLSS pelo Proton",
+  "summary": "Define PROTON_DLSS_UPGRADE=1 para o próprio Proton usar a versão mais recente do DLSS no lugar da que acompanha o jogo.",
+  "description": "Melhoria opcional de imagem, não correção de problema. O Proton-CachyOS baixa do manifesto dele a versão mais nova de nvngx_dlss, nvngx_dlssd e nvngx_dlssg, confere a integridade, guarda os arquivos na pasta de compatibilidade do jogo e os usa no lugar dos que acompanham o jogo. O FRX só liga a opção e só a oferece quando a GPU é NVIDIA, o jogo traz nvngx_dlss.dll, a ferramenta selecionada reconhece a opção e o jogo não está já na versão mais recente que o Proton oferece.",
+  "category": "graphics",
+  "purpose": "quality",
+  "risk": "moderate",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": "nvidia"
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_DLSS_UPGRADE",
+      "value": "1"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [],
+  "relatedKeys": [
+    "env:PROTON_DLSS_UPGRADE=1"
+  ],
+  "effects": [
+    "Na próxima execução, o Proton baixa e usa a versão mais recente do DLSS (super resolução, ray reconstruction e geração de quadros) e ativa as substituições de preset do DLSS pela NVAPI.",
+    "Os arquivos do jogo não são alterados; desfazer a receita volta a usar o DLSS que acompanha o jogo."
+  ],
+  "sideEffects": [
+    "Uma versão mais nova pode mudar nitidez, artefatos e desempenho; o ganho não é garantido e precisa ser comparado no Performance Lab.",
+    "A primeira execução depois de aplicar precisa de internet para o Proton baixar os arquivos."
+  ],
+  "sources": [
+    {
+      "label": "Proton-CachyOS — PROTON_DLSS_UPGRADE (README)",
+      "url": "https://github.com/CachyOS/proton-cachyos/blob/cachyos_main/README.md"
+    },
+    {
+      "label": "Manifesto de upscalers usado pelo Proton-CachyOS",
+      "url": "https://loathingkernel.github.io/proton-upscalers/manifest.json"
+    }
+  ],
+  "review": {
+    "by": "FRX",
+    "at": "2026-10-28",
+    "notes": "Conferido em proton-cachyos 11.0-20261015: o script lê PROTON_DLSS_UPGRADE (check_environment → dlss) e protonfixes/upscalers.py baixa do manifesto, confere MD5, registra os arquivos em upscaler_files e define WINE_UPSCALER_REPLACE. Só altera LaunchOptions deste jogo; reversível."
+  }
+}

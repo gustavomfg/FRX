@@ -129,7 +129,9 @@ fn explicit_app_ids(text: &str) -> Vec<String> {
         "app id of the game",
     ] {
         for (i, _) in low.match_indices(prefix) {
-            let tail = low[i + prefix.len()..].trim_start_matches([' ', ':', '=', '`', '#']);
+            // Formulários de issue costumam destacar o valor em Markdown: `**3321460**`.
+            let tail =
+                low[i + prefix.len()..].trim_start_matches([' ', ':', '=', '`', '#', '*', '_']);
             let id: String = tail.chars().take_while(char::is_ascii_digit).collect();
             if crate::art::valid_app_id(&id) && !ids.contains(&id) {
                 ids.push(id);
@@ -190,26 +192,35 @@ fn issue_scope(issue: &Issue, app_id: &str) -> DiscoveryScope {
 fn inherited_scope(parent: &DiscoveryScope, text: &str) -> DiscoveryScope {
     let ids = identity_hints(text);
     let low = text.to_ascii_lowercase();
-    if parent
+    // Com AppID explícito no texto, só identificadores explícitos decidem:
+    // números entre parênteses podem ser modelos de GPU, como "(4070)".
+    let explicit = explicit_app_ids(text);
+    let hints = if explicit.is_empty() { &ids } else { &explicit };
+    let other_id = parent
         .app_id
         .as_deref()
-        .is_some_and(|app| ids.iter().any(|id| id != app))
-        || [
-            "another game",
-            "other game",
-            "different game",
-            "outro jogo",
-            "outros jogos",
-            "another title",
-            "different title",
-            "for me in ",
-            "also works in ",
-            "also works for ",
-            "in game ",
-            "for game ",
-        ]
-        .iter()
-        .any(|p| low.contains(p))
+        .is_some_and(|app| hints.iter().any(|id| id != app));
+    // Um AppID explícito do mesmo jogo (ex.: "AppID **3321460**") prevalece
+    // sobre as frases genéricas abaixo, comuns em "in game settings".
+    let confirmed = !other_id && parent.app_id.is_some() && !explicit.is_empty();
+    if other_id
+        || !confirmed
+            && [
+                "another game",
+                "other game",
+                "different game",
+                "outro jogo",
+                "outros jogos",
+                "another title",
+                "different title",
+                "for me in ",
+                "also works in ",
+                "also works for ",
+                "in game ",
+                "for game ",
+            ]
+            .iter()
+            .any(|p| low.contains(p))
     {
         DiscoveryScope { basis: "A fonte discute outro jogo ou vários jogos; a issue original não basta para atribuir estas ações.".into(), ..DiscoveryScope::default() }
     } else {
@@ -1115,6 +1126,18 @@ mod tests {
                 .matches_game("200260")
         );
         assert!(inherited_scope(&parent, "PROTON_NO_D3D11=1 fixed my crash").matches_game("200260"));
+        // AppID explícito do mesmo jogo vence a frase genérica "in game ".
+        assert!(inherited_scope(&parent, "Game: Arkham City (AppID **200260**). Changed in game settings, PROTON_NO_D3D11=1 fixed it").matches_game("200260"));
+        assert!(!inherited_scope(
+            &parent,
+            "AppID 200260 and AppID 570: in game PROTON_NO_D3D11=1"
+        )
+        .matches_game("200260"));
+        assert!(inherited_scope(
+            &parent,
+            "AppID 200260 on RTX (4070): PROTON_NO_D3D11=1 fixed it"
+        )
+        .matches_game("200260"));
     }
 
     #[test]
@@ -1149,6 +1172,11 @@ mod tests {
             "explicit AppID in title is itself a source identity"
         );
         assert!(explicit_app_ids("RTX (4060), year (2024), 90 FPS").is_empty());
+        // Formulário do tracker do Proton, com o valor em negrito.
+        assert_eq!(
+            explicit_app_ids("- Steam AppID of the game: **3321460**"),
+            ["3321460"]
+        );
     }
 
     #[test]

@@ -93,6 +93,7 @@ pub fn run() {
             commands::performance::reset_capture,
             commands::fix_engine::get_fix_engine_status,
             commands::fix_engine::list_fix_recipes,
+            commands::fix_engine::detected_symptoms,
             commands::fix_engine::get_fix_recipe,
             commands::fix_engine::analyze_fix_findings,
             commands::smart_packs::get_smart_packs,

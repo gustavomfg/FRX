@@ -10,6 +10,7 @@ pub mod http;
 pub mod models;
 pub mod providers;
 pub mod pyscan;
+pub mod symptoms;
 pub mod tweaks;
 
 use crate::cache::{Cache, Entry};

@@ -9,10 +9,11 @@ use tauri::{AppHandle, Emitter, State};
 use super::AppCtx;
 use crate::cache::Cache;
 use crate::fix_engine::dynamic::AssessmentView;
+
 use crate::fix_engine::models::*;
 use crate::fix_engine::{FixEngine, PROGRESS_EVENT};
 use crate::fixes::compat::HardwareContext;
-use crate::fixes::models::FixReport;
+use crate::fixes::models::{FixFinding, FixReport};
 use crate::steam::{self, discovery::DiscoveryEnv, models::ScanResult};
 
 /// Estado real do jogo, com uma varredura nova (a do cache pode estar velha),
@@ -89,16 +90,23 @@ pub fn cancel_fix_operation(ctx: State<'_, AppCtx>, operation_id: String) -> boo
 /// Catálogo local, com os achados da última pesquisa que citam o mesmo ajuste.
 #[tauri::command]
 pub fn list_fix_recipes(ctx: State<'_, AppCtx>, app_id: Option<String>) -> Vec<RecipeView> {
+    let app_id = app_id.filter(|a| crate::art::valid_app_id(a));
     let findings = app_id
-        .filter(|a| crate::art::valid_app_id(a))
+        .as_deref()
         .and_then(|a| {
             ctx.cache
-                .get::<FixReport>("fixes", &a)
+                .get::<FixReport>("fixes", a)
                 .filter(|e| e.data.app_id == a)
         })
         .map(|e| e.data.findings)
         .unwrap_or_default();
-    ctx.engine.recipes(&findings)
+    let mut views = ctx.engine.recipes(&findings);
+    if let Some(game) = app_id.and_then(|a| game_ctx(&ctx.cache, &a).ok()) {
+        for v in &mut views {
+            v.relevance = Some(relevance_for(&game, v, &game.findings));
+        }
+    }
+    views
 }
 
 /// Gerador dinâmico: analisa as descobertas do jogo e devolve, para cada uma,
@@ -231,4 +239,67 @@ pub async fn verify_fix_operation(
 ) -> Result<Operation, String> {
     let e = engine(&ctx);
     blocking(move || e.verify(&operation_id, &emitter(app))).await
+}
+
+/// Por que esta receita interessa a este jogo: só se ele tem um dos problemas
+/// que ela resolve (sintomas lidos das fontes do próprio jogo).
+fn relevance_for(game: &GameCtx, view: &RecipeView, findings: &[FixFinding]) -> Relevance {
+    if view.recipe.purpose == Purpose::Diagnostic {
+        return Relevance {
+            relevant: true,
+            reason: "Ferramenta de diagnóstico: não é correção e não depende do jogo.".into(),
+        };
+    }
+    if view.recipe.scope.app_ids.iter().any(|a| a == &game.app_id) {
+        return Relevance {
+            relevant: true,
+            reason: "Receita específica deste jogo.".into(),
+        };
+    }
+    let aims = crate::fix_engine::dynamic::compatibility::recipe_aims(&view.recipe.actions);
+    let problems = crate::fixes::symptoms::of_game(findings, &game.app_id);
+    let names = |ids: &[&str]| {
+        ids.iter()
+            .map(|id| crate::fixes::symptoms::label(id))
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    let matched: Vec<&str> = aims
+        .iter()
+        .copied()
+        .filter(|a| problems.contains(a))
+        .collect();
+    if !matched.is_empty() {
+        return Relevance {
+            relevant: true,
+            reason: format!("Este jogo tem relatos de {}.", names(&matched)),
+        };
+    }
+    let reason = if aims.is_empty() {
+        "Não resolve um problema descrito nas fontes deste jogo.".to_owned()
+    } else {
+        format!("Este jogo não tem relatos de {}.", names(&aims))
+    };
+    Relevance {
+        relevant: false,
+        reason,
+    }
+}
+
+/// Problemas que os relatos deste jogo citam (mesmos sintomas da resolução).
+#[tauri::command]
+pub fn detected_symptoms(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> {
+    if !crate::art::valid_app_id(&app_id) {
+        return vec![];
+    }
+    let findings = ctx
+        .cache
+        .get::<FixReport>("fixes", &app_id)
+        .filter(|e| e.data.app_id == app_id)
+        .map(|e| e.data.findings)
+        .unwrap_or_default();
+    crate::fixes::symptoms::of_game(&findings, &app_id)
+        .into_iter()
+        .map(str::to_owned)
+        .collect()
 }

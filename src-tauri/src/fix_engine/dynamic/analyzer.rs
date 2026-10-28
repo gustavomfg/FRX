@@ -4,12 +4,14 @@
 //! levam exatamente às mesmas ações viram **uma** receita, com todas as
 //! origens preservadas.
 
+use super::compatibility::{describe, vendor_bound};
 use super::extraction::{Deterministic, Extracted, Interpreter};
 use super::generator::{self, Input};
 use super::validation::{self, EnvVerdict};
 use super::{provenance, ActionView, Assessment, DynStatus, EvidenceLevel};
 use crate::fix_engine::catalog::Catalog;
-use crate::fix_engine::models::{Recipe, RecipeAction, Trust};
+use crate::fix_engine::environment;
+use crate::fix_engine::models::{PlanStatus, Recipe, RecipeAction, Trust};
 use crate::fix_engine::security::validate_generated;
 use crate::fixes::compat::vendor_name;
 use crate::fixes::models::{AnalysisState, Compatibility, FindingKind, FixFinding, GpuReq};
@@ -22,6 +24,8 @@ pub struct Ctx<'a> {
     pub gpu: Option<GpuReq>,
     pub tool_name: Option<&'a str>,
     pub catalog: &'a Catalog,
+    /// Jogo, ferramenta e pastas atuais: confere o que o ambiente comprova.
+    pub game: Option<&'a crate::fix_engine::models::GameCtx>,
 }
 
 fn finish(mut a: Assessment, status: DynStatus, reasons: Vec<String>) -> Assessment {
@@ -64,6 +68,7 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
         actions: vec![],
         recipe_id: None,
         recipe: None,
+        outlook: None,
         provenance: provenance::collect(f),
         interpreter: interp.name().into(),
     };
@@ -174,6 +179,54 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
         }
     }
 
+    // Opções que a ferramenta instalada não lê não têm efeito aqui: saem do
+    // plano, registradas, sem invalidar o restante da mesma fonte.
+    let tool = ctx.tool_name.unwrap_or("a ferramenta selecionada");
+    let mut omitted: Vec<String> = Vec::new();
+    if let Some(root) = ctx.game.and_then(|g| g.tool_path.as_deref()) {
+        envs.retain(|(k, _)| {
+            let ignored = environment::tool_recognizes(root, k) == Some(false);
+            if ignored {
+                omitted.push(k.clone());
+            }
+            !ignored
+        });
+    }
+    for (view, item) in a.actions.iter_mut().zip(&items) {
+        if let Extracted::Env { key, .. } = item {
+            if omitted.contains(key) {
+                view.note = format!(
+                    "Ignorada: {tool} não reconhece esta opção, então ela não teria efeito."
+                );
+            }
+        }
+    }
+    if envs.is_empty() && !omitted.is_empty() && unsupported.is_empty() {
+        return finish(
+            a,
+            DynStatus::Incompatible,
+            vec![format!(
+                "{tool} não reconhece {}: aplicar não teria efeito nesta versão.",
+                omitted.join(", ")
+            )],
+        );
+    }
+    if let Some((key, req)) = envs.iter().find_map(|(k, _)| {
+        vendor_bound(k)
+            .filter(|r| ctx.gpu.is_some_and(|g| g != *r))
+            .map(|r| (k, r))
+    }) {
+        return finish(
+            a,
+            DynStatus::Incompatible,
+            vec![format!(
+                "{key} só afeta o driver Mesa RADV de GPUs {}; seu sistema usa {}.",
+                vendor_name(req),
+                ctx.gpu.map(vendor_name).unwrap_or("outra GPU")
+            )],
+        );
+    }
+
     a.performance_warnings = super::compatibility::performance_warnings(
         envs.iter().map(|(k, v)| (k.as_str(), v.as_str())),
     );
@@ -214,7 +267,11 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     for (k, v) in &envs {
         match validation::env(k, v) {
             EnvVerdict::Ok(kn) => {
-                notes.push((k.clone(), true, kn.effect.into()));
+                let mut note = describe(kn, v);
+                if let Some(seen) = ctx.game.and_then(|g| environment::component_note(g, k, v)) {
+                    note = format!("{note} {seen}");
+                }
+                notes.push((k.clone(), true, note));
                 known.push((k.clone(), v.clone(), kn));
             }
             EnvVerdict::Blocked(r) => {
@@ -240,6 +297,20 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     }
     if !unknown.is_empty() {
         return finish(a, DynStatus::NeedsValidation, unknown);
+    }
+    // O ambiente atual comprova que cada opção teria efeito? (mesma
+    // verificação do planejador, feita de novo na prévia e na aplicação)
+    if let Some(game) = ctx.game {
+        for (k, v, _) in &known {
+            if let Err((status, why)) = environment::check_launch_env(game, k, v) {
+                let status = if status == PlanStatus::AlreadyIncluded {
+                    DynStatus::AlreadyIncluded
+                } else {
+                    DynStatus::Incompatible
+                };
+                return finish(a, status, vec![why]);
+            }
+        }
     }
 
     // Uma receita do catálogo faz exatamente isto?
@@ -338,6 +409,7 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
         performance_evidence: a.performance_evidence.clone(),
         provenance: a.provenance.clone(),
         interpreter: interp.name(),
+        omitted: omitted.clone(),
     });
     if let Err(e) = validate_generated(&recipe) {
         return finish(
@@ -356,6 +428,12 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     if experimental {
         reasons.push(format!("Experimental: {}", a.evidence_note));
     }
+    if !omitted.is_empty() {
+        reasons.push(format!(
+            "A fonte também cita {}; {tool} não reconhece essas opções, então elas ficaram de fora sem mudar o efeito.",
+            omitted.join(", ")
+        ));
+    }
     if !f.requirements.proton_versions.is_empty() {
         reasons.push(format!(
             "Relatada com {}{}.",
@@ -368,6 +446,7 @@ pub fn assess_with(f: &FixFinding, ctx: &Ctx<'_>, interp: &dyn Interpreter) -> A
     let mut a = finish(a, DynStatus::Generated, reasons);
     a.experimental = experimental;
     a.recipe_id = Some(recipe.id.clone());
+    a.outlook = super::compatibility::recipe_outlook(&recipe.actions);
     a.recipe = Some(recipe);
     a
 }
@@ -553,6 +632,7 @@ fn assess_structured(
         EvidenceLevel::Documented | EvidenceLevel::Corroborated
     );
     a.recipe_id = Some(recipe.id.clone());
+    a.outlook = super::compatibility::recipe_outlook(&recipe.actions);
     a.recipe = Some(recipe);
     finish(a,DynStatus::Generated,vec!["Solução estruturada completa; o planejador valida destinos, requisitos e estado atual antes de oferecer aplicação.".into()])
 }

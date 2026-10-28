@@ -18,6 +18,8 @@ enum Rule {
     Digits(usize),
     /// Lista simples (`fps,devinfo`): letras minúsculas, dígitos, `,` `=` `.`.
     HudList,
+    /// Opções do VKD3D-Proton com efeito conhecido, separadas por vírgula.
+    Vkd3dFlags,
 }
 
 /// Variáveis que uma receita pode definir. Nada de `LD_*`, `WINEDLLOVERRIDES`,
@@ -42,6 +44,13 @@ const ENV_ALLOWLIST: &[(&str, Rule)] = &[
     // Proton-CachyOS; incompatíveis com WoW64, por isso só o valor 0 aqui.
     ("PROTON_NVIDIA_LIBS", Rule::OneOf(&["1"])),
     ("PROTON_USE_WOW64", Rule::OneOf(&["0"])),
+    // Atualizações de upscalers feitas pelo próprio Proton (manifesto e
+    // integridade conferidos por ele); a pasta do jogo não é alterada.
+    ("PROTON_DLSS_UPGRADE", Rule::OneOf(&["1"])),
+    ("PROTON_XESS_UPGRADE", Rule::OneOf(&["1"])),
+    ("PROTON_ENABLE_WAYLAND", Rule::OneOf(&["1"])),
+    ("PROTON_USE_WAYLAND", Rule::OneOf(&["1"])),
+    ("VKD3D_CONFIG", Rule::Vkd3dFlags),
     ("DXVK_FRAME_RATE", Rule::Digits(3)),
     ("VKD3D_FRAME_RATE", Rule::Digits(3)),
     ("DXVK_HUD", Rule::HudList),
@@ -75,6 +84,7 @@ pub fn check_env(key: &str, value: &str) -> Result<(), String> {
         Rule::Digits(n) => {
             !value.is_empty() && value.len() <= *n && value.bytes().all(|b| b.is_ascii_digit())
         }
+        Rule::Vkd3dFlags => crate::fix_engine::dynamic::compatibility::vkd3d_flags(value).is_some(),
         Rule::HudList => {
             !value.is_empty()
                 && value.len() <= 64

@@ -106,6 +106,7 @@ fn ctx(c: &Catalog) -> Ctx<'_> {
         gpu: Some(GpuReq::Nvidia),
         tool_name: Some("proton-cachyos-11.0-20261015"),
         catalog: c,
+        game: None,
     }
 }
 

@@ -396,7 +396,7 @@ pub fn add(
         ok.push("Runtime PhysX legado instalado no prefixo do jogo.".into());
     } else {
         deps.push(format!(
-            "Runtime PhysX legado no prefixo: a Steam instala o PhysX System Software do jogo na primeira execução. Ainda não encontrado em {}.",
+            "Runtime PhysX legado no prefixo: a Steam instala o PhysX System Software do jogo na primeira execução. Ainda não encontrado em {}. Fonte oficial da NVIDIA (PhysX System Software 9.23.1019, endereço usado pelo winetricks; confira no site da NVIDIA): https://us.download.nvidia.com/Windows/9.23.1019/PhysX_9.23.1019_SystemSoftware.exe. O FRX não baixa nem executa esse instalador: ele vai no prefixo do jogo, não na pasta do jogo.",
             c.prefix.as_deref().map(|p| p.display().to_string()).unwrap_or_else(|| "o prefixo do jogo".into())
         ));
     }

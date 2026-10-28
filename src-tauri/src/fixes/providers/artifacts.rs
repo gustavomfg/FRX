@@ -702,10 +702,19 @@ pub async fn discover<F: Fetcher>(
                         .path_segments()
                         .and_then(|mut p| p.next_back())
                         .unwrap_or("");
+                    // `steam-<AppID>.*` é o log do PROTON_LOG anexado ao relato, e
+                    // `/user-attachments/assets/` são imagens e vídeos: não são correções.
+                    let proton_log = name
+                        .strip_prefix("steam-")
+                        .and_then(|rest| rest.split_once('.'))
+                        .is_some_and(|(id, _)| {
+                            !id.is_empty() && id.bytes().all(|b| b.is_ascii_digit())
+                        });
                     if ([".zip", ".dll", ".ini", ".cfg", ".conf", ".tar.xz"]
                         .iter()
                         .any(|ext| name.ends_with(ext))
-                        || url.path().contains("/user-attachments/"))
+                        || url.path().contains("/user-attachments/files/"))
+                        && !proton_log
                         && url.username().is_empty()
                         && url.password().is_none()
                     {

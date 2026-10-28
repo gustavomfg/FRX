@@ -47,6 +47,20 @@ pub fn launch_options(text: &str, app_id: &str) -> Result<Option<String>, String
         .filter(|s| !s.trim().is_empty()))
 }
 
+/// O bloco do jogo tem a chave `LaunchOptions`, mesmo vazia?
+pub fn has_launch_options_key(text: &str, app_id: &str) -> bool {
+    let mut keys: Vec<&str> = APPS_PATH.to_vec();
+    keys.push(app_id);
+    vdf::parse(text)
+        .ok()
+        .and_then(|doc| {
+            doc.path(&keys)
+                .and_then(|a| a.str_at("LaunchOptions"))
+                .map(|_| ())
+        })
+        .is_some()
+}
+
 #[derive(Debug, Clone, PartialEq)]
 enum Tok {
     Str {
@@ -255,6 +269,48 @@ pub fn set_launch_options(text: &str, app_id: &str, value: &str) -> Result<Strin
     Ok(out)
 }
 
+/// Remove a linha `LaunchOptions` do jogo, para o rollback devolver o arquivo
+/// ao estado anterior quando a chave não existia. Só quando a linha contém
+/// exatamente esse par; caso contrário, `Err` e quem chama grava o valor.
+pub fn remove_launch_options(text: &str, app_id: &str) -> Result<String, String> {
+    let toks = lex(text).map_err(|e| format!("localconfig.vdf ilegível: {e}"))?;
+    let (mut from, mut to) = (0, toks.len());
+    for key in APPS_PATH.iter().chain(std::iter::once(&app_id)) {
+        let b = find_child(&toks, from, to, key).ok_or("Bloco do jogo não encontrado.")?;
+        (from, to) = (b.open + 1, b.close);
+    }
+    let mut i = from;
+    while i < to {
+        match (&toks[i], toks.get(i + 1)) {
+            (
+                Tok::Str {
+                    value: k, start, ..
+                },
+                Some(Tok::Str { end, .. }),
+            ) if k.eq_ignore_ascii_case("LaunchOptions") => {
+                let line_start = text[..*start].rfind('\n').map_or(0, |p| p + 1);
+                let line_end = text[*end..].find('\n').map_or(text.len(), |p| *end + p + 1);
+                let blank = |s: &str| {
+                    s.chars()
+                        .all(|c| c == '\t' || c == ' ' || c == '\n' || c == '\r')
+                };
+                if !blank(&text[line_start..*start]) || !blank(&text[*end..line_end]) {
+                    return Err("LaunchOptions divide a linha com outra chave.".into());
+                }
+                let mut out = text.to_owned();
+                out.replace_range(line_start..line_end, "");
+                return Ok(out);
+            }
+            (Tok::Str { .. }, Some(Tok::Open(_))) => {
+                i = matching(&toks, i + 1).ok_or("bloco sem fechamento")? + 1
+            }
+            (Tok::Str { .. }, Some(Tok::Str { .. })) => i += 2,
+            _ => return Err("Estrutura inesperada no bloco do jogo.".into()),
+        }
+    }
+    Err("O jogo não tem LaunchOptions.".into())
+}
+
 #[cfg(test)]
 pub mod fixtures {
     /// Trecho no formato real do Steam (tabs, chaves em maiúsculas variadas).
@@ -274,6 +330,15 @@ mod tests {
         );
         assert_eq!(launch_options(LOCALCONFIG, "620").unwrap(), None);
         assert_eq!(launch_options(LOCALCONFIG, "999").unwrap(), None);
+    }
+
+    #[test]
+    fn rollback_can_remove_a_key_that_did_not_exist() {
+        assert!(!has_launch_options_key(LOCALCONFIG, "620"));
+        let set =
+            set_launch_options(LOCALCONFIG, "620", "PROTON_DLSS_UPGRADE=1 %command%").unwrap();
+        assert!(has_launch_options_key(&set, "620"));
+        assert_eq!(remove_launch_options(&set, "620").unwrap(), LOCALCONFIG);
     }
 
     #[test]

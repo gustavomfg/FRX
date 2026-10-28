@@ -721,6 +721,17 @@ fn launch_step(
                 } {
                     return b.block(PlanStatus::NotExecutable, "Segurança", e);
                 }
+                // A ferramenta, o jogo e a sessão atuais comprovam efeito?
+                if !internal {
+                    if let Err((status, why)) =
+                        super::environment::check_launch_env(game, key, value)
+                    {
+                        return b.block(status, "Ambiente atual", why);
+                    }
+                    if let Some(seen) = super::environment::evidence(game, key, value) {
+                        b.ok("Ambiente atual", seen);
+                    }
+                }
                 if let Some(cur) = line.as_deref().filter(|l| !l.trim().is_empty()) {
                     match LaunchLine::parse(cur) {
                         Ok(parsed) => match env_anywhere(&parsed, key) {

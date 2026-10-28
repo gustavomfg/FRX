@@ -6,7 +6,7 @@
 //! com efeito conhecido e reversível. Variáveis de diagnóstico (`PROTON_LOG`,
 //! `DXVK_HUD`) ficam de fora: não são correções.
 
-use crate::fix_engine::models::{Purpose, Risk};
+use crate::fix_engine::models::{Outlook, Purpose, RecipeAction, Risk};
 use crate::fixes::models::{Category, GpuReq};
 
 pub const PROTON_README: &str = "https://github.com/ValveSoftware/Proton#runtime-config-options";
@@ -16,7 +16,51 @@ pub enum Value {
     Exact(&'static str),
     /// Limite de FPS entre 10 e 360.
     FrameRate,
+    /// Lista separada por vírgulas, cada item com efeito descrito em `VKD3D_FLAGS`.
+    Vkd3dFlags,
 }
+
+/// O que precisa existir no ambiente para a opção ter efeito. Conferido em
+/// `fix_engine::environment` na análise, na prévia e na aplicação.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Needs {
+    Nothing,
+    /// Sessão Wayland: fora dela o Proton ignora a opção.
+    Wayland,
+    /// O jogo traz este arquivo; `manifest` é a entrada correspondente no
+    /// manifesto de atualização que o próprio Proton usa.
+    Component {
+        file: &'static str,
+        manifest: &'static str,
+    },
+    /// O jogo traz um destes arquivos (sem versão a comparar).
+    GameFile(&'static [&'static str]),
+}
+
+/// Opções do VKD3D-Proton com efeito conhecido. Antes de aplicar, cada uma é
+/// procurada na tabela de opções do VKD3D-Proton da ferramenta instalada.
+pub const VKD3D_FLAGS: &[(&str, &str)] = &[
+    (
+        "descriptor_heap",
+        "usa o modelo de descriptor heap do Vulkan para os descritores do Direct3D 12",
+    ),
+    (
+        "enable_experimental_features",
+        "liga recursos experimentais do VKD3D-Proton",
+    ),
+    (
+        "no_upload_hvv",
+        "não usa memória de vídeo visível pela CPU (ReBAR) para uploads",
+    ),
+    (
+        "nodxr",
+        "desativa o ray tracing do Direct3D 12 (DXR); efeitos de ray tracing deixam de existir",
+    ),
+    (
+        "single_queue",
+        "usa uma única fila da GPU, sem filas assíncronas de cópia e computação",
+    ),
+];
 
 pub struct Knowledge {
     pub key: &'static str,
@@ -28,6 +72,7 @@ pub struct Knowledge {
     pub purpose: Purpose,
     pub risk: Risk,
     pub gpu: Option<GpuReq>,
+    pub needs: Needs,
 }
 
 const fn k(
@@ -49,6 +94,7 @@ const fn k(
         purpose: Purpose::Compatibility,
         risk,
         gpu: None,
+        needs: Needs::Nothing,
     }
 }
 
@@ -206,6 +252,84 @@ pub const KNOWLEDGE: &[Knowledge] = &[
             Risk::Low,
         )
     },
+    // Atualizações feitas pelo próprio Proton: ele baixa a versão do manifesto
+    // dele, confere a integridade e a usa no lugar da que acompanha o jogo,
+    // sem alterar os arquivos do jogo. O FRX só liga a opção.
+    Knowledge {
+        gpu: Some(GpuReq::Nvidia),
+        purpose: Purpose::Quality,
+        needs: Needs::Component { file: "nvngx_dlss.dll", manifest: "dlss" },
+        ..k(
+            "PROTON_DLSS_UPGRADE",
+            Exact("1"),
+            "Atualizar o DLSS pelo Proton",
+            "Na próxima execução, o próprio Proton baixa a versão mais recente do DLSS (super resolução, geração de quadros e ray reconstruction), confere a integridade e a usa no lugar da que acompanha o jogo, sem alterar os arquivos do jogo.",
+            Some("Uma versão mais nova pode mudar a nitidez, artefatos e desempenho; compare no Performance Lab. A primeira execução precisa de internet."),
+            Graphics,
+            Risk::Moderate,
+        )
+    },
+    Knowledge {
+        purpose: Purpose::Quality,
+        needs: Needs::Component { file: "libxess.dll", manifest: "xess" },
+        ..k(
+            "PROTON_XESS_UPGRADE",
+            Exact("1"),
+            "Atualizar o XeSS pelo Proton",
+            "Na próxima execução, o próprio Proton baixa a versão mais recente do XeSS, confere a integridade e a usa no lugar da que acompanha o jogo, sem alterar os arquivos do jogo.",
+            Some("Uma versão mais nova pode mudar a nitidez, artefatos e desempenho; compare no Performance Lab. A primeira execução precisa de internet."),
+            Graphics,
+            Risk::Moderate,
+        )
+    },
+    Knowledge {
+        needs: Needs::Wayland,
+        ..k(
+            "PROTON_ENABLE_WAYLAND",
+            Exact("1"),
+            "Janela Wayland nativa",
+            "O jogo abre como janela Wayland pelo driver Wayland do Wine, sem passar pelo XWayland.",
+            Some("Sobreposições, captura de tela e alguns controles podem se comportar diferente; desfaça se algo piorar."),
+            Compatibility,
+            Risk::Moderate,
+        )
+    },
+    Knowledge {
+        needs: Needs::Wayland,
+        ..k(
+            "PROTON_USE_WAYLAND",
+            Exact("1"),
+            "Janela Wayland nativa",
+            "O jogo abre como janela Wayland pelo driver Wayland do Wine, sem passar pelo XWayland.",
+            Some("Sobreposições, captura de tela e alguns controles podem se comportar diferente; desfaça se algo piorar."),
+            Compatibility,
+            Risk::Moderate,
+        )
+    },
+    // Bibliotecas NVIDIA alternativas do Proton-CachyOS: só têm alvo em jogos
+    // que trazem o PhysX legado (CUDA dentro do Wine).
+    Knowledge {
+        gpu: Some(GpuReq::Nvidia),
+        needs: Needs::GameFile(&["physxloader.dll", "physxloader64.dll", "physxcore.dll", "physxdevice.dll"]),
+        ..k(
+            "PROTON_NVIDIA_LIBS",
+            Exact("1"),
+            "CUDA real do Proton (nvidia-libs)",
+            "O Proton instala no prefixo o nvcuda.dll do nvidia-libs no lugar do stub, para o PhysX legado encontrar CUDA.",
+            Some("As bibliotecas alternativas valem para todo o jogo; compare no Performance Lab."),
+            Physics,
+            Risk::Moderate,
+        )
+    },
+    k(
+        "VKD3D_CONFIG",
+        Vkd3dFlags,
+        "Opções do VKD3D-Proton (Direct3D 12)",
+        "O VKD3D-Proton, que traduz Direct3D 12 para Vulkan, muda de comportamento conforme as opções indicadas.",
+        Some("Contornos citados para problemas específicos; podem causar artefatos ou perda de desempenho em outros cenários. Desfaça se não houver o problema."),
+        Graphics,
+        Risk::Moderate,
+    ),
 ];
 
 pub fn knowledge(key: &str, value: &str) -> Option<&'static Knowledge> {
@@ -216,8 +340,127 @@ pub fn knowledge(key: &str, value: &str) -> Option<&'static Knowledge> {
                 FrameRate => value
                     .parse::<u16>()
                     .is_ok_and(|n| (10..=360).contains(&n) && !value.starts_with('0')),
+                Vkd3dFlags => vkd3d_flags(value).is_some(),
             }
     })
+}
+
+/// Opções válidas, sem repetição, todas com efeito descrito.
+pub fn vkd3d_flags(value: &str) -> Option<Vec<&'static str>> {
+    let mut out: Vec<&'static str> = Vec::new();
+    for f in value.split(',') {
+        let (name, _) = VKD3D_FLAGS.iter().find(|(n, _)| *n == f)?;
+        if out.contains(name) {
+            return None;
+        }
+        out.push(name);
+    }
+    (!out.is_empty()).then_some(out)
+}
+
+/// Efeito desta atribuição, com o detalhe de cada opção quando é uma lista.
+pub fn describe(k: &Knowledge, value: &str) -> String {
+    match (k.value, vkd3d_flags(value)) {
+        (Vkd3dFlags, Some(flags)) => {
+            let parts: Vec<String> = flags
+                .iter()
+                .filter_map(|f| VKD3D_FLAGS.iter().find(|(n, _)| n == f))
+                .map(|(n, d)| format!("{n}: {d}"))
+                .collect();
+            format!("{} {}.", k.effect, parts.join("; "))
+        }
+        _ => k.effect.to_owned(),
+    }
+}
+
+/// Variáveis lidas só pelo driver Mesa RADV (AMD): sem efeito em outra GPU.
+pub fn vendor_bound(key: &str) -> Option<GpuReq> {
+    key.starts_with("RADV_").then_some(GpuReq::Amd)
+}
+
+/// Efeito provável de `NOME=valor`. Tabela curada: o padrão é `Uncertain`
+/// (depende do jogo e precisa de medição), não uma promessa de ganho.
+pub fn outlook(key: &str, value: &str) -> Outlook {
+    use Outlook::*;
+    match (key, value) {
+        ("PROTON_NVIDIA_LIBS", "1") | ("PROTON_ENABLE_NVAPI", "1") => Helps,
+        ("PROTON_NO_ESYNC" | "PROTON_NO_FSYNC" | "PROTON_NO_NTSYNC", "1") => MayHurt,
+        ("PROTON_USE_WINED3D", "1") | ("PROTON_NO_D3D11" | "PROTON_NO_D3D10", "1") => MayHurt,
+        ("PROTON_DISABLE_NVAPI" | "PROTON_HIDE_NVIDIA_GPU", "1") => MayHurt,
+        ("DXVK_FRAME_RATE" | "VKD3D_FRAME_RATE", _) => MayHurt,
+        _ => Uncertain,
+    }
+}
+
+/// Problemas que `NOME=valor` costuma resolver (ids de sintoma da resolução).
+/// Vazio = não ajuda com nenhum problema descrito, então não é sugestão.
+pub fn aims(key: &str, value: &str) -> Vec<&'static str> {
+    match (key, value) {
+        ("PROTON_NVIDIA_LIBS", "1") => vec!["physx"],
+        ("PROTON_DLSS_UPGRADE", "1") => vec!["dlss"],
+        ("PROTON_XESS_UPGRADE", "1") => vec!["graphics"],
+        ("PROTON_ENABLE_NVAPI" | "PROTON_DISABLE_NVAPI", "1") => vec!["dlss", "frame-generation"],
+        ("PROTON_ENABLE_WAYLAND" | "PROTON_USE_WAYLAND", "1") => vec!["graphics"],
+        ("PROTON_USE_XALIA", "0") => vec!["controls"],
+        ("PROTON_USE_WINED3D", "1") => vec!["startup", "graphics"],
+        ("PROTON_NO_D3D11" | "PROTON_NO_D3D10", "1") => vec!["startup"],
+        ("PROTON_NO_ESYNC" | "PROTON_NO_FSYNC" | "PROTON_NO_NTSYNC", "1") => {
+            vec!["startup", "stuttering"]
+        }
+        (
+            "PROTON_FORCE_LARGE_ADDRESS_AWARE"
+            | "PROTON_HEAP_DELAY_FREE"
+            | "PROTON_OLD_GL_STRING"
+            | "PROTON_HIDE_NVIDIA_GPU",
+            "1",
+        ) => vec!["startup"],
+        ("DXVK_FRAME_RATE" | "VKD3D_FRAME_RATE", _) => vec!["stuttering"],
+        ("VKD3D_CONFIG", flags) => {
+            let mut out = Vec::new();
+            for flag in flags.split(',') {
+                let more: &[&'static str] = match flag {
+                    "nodxr" => &["ray-tracing"],
+                    "descriptor_heap" => &["startup", "graphics"],
+                    "enable_experimental_features" => &["startup"],
+                    "no_upload_hvv" | "single_queue" => &["stuttering"],
+                    _ => &[],
+                };
+                for id in more {
+                    if !out.contains(id) {
+                        out.push(*id);
+                    }
+                }
+            }
+            out
+        }
+        _ => vec![],
+    }
+}
+
+/// Problemas de todas as variáveis de uma receita, sem repetição.
+pub fn recipe_aims(actions: &[RecipeAction]) -> Vec<&'static str> {
+    let mut out: Vec<&'static str> = Vec::new();
+    for a in actions {
+        if let RecipeAction::SetLaunchEnv { key, value } = a {
+            for id in aims(key, value) {
+                if !out.contains(&id) {
+                    out.push(id);
+                }
+            }
+        }
+    }
+    out
+}
+
+/// Pior efeito entre as variáveis da receita; `None` se não houver nenhuma.
+pub fn recipe_outlook(actions: &[RecipeAction]) -> Option<Outlook> {
+    actions
+        .iter()
+        .filter_map(|a| match a {
+            RecipeAction::SetLaunchEnv { key, value } => Some(outlook(key, value)),
+            _ => None,
+        })
+        .max()
 }
 
 /// A variável existe na base, mas com outro valor?
@@ -258,6 +501,7 @@ mod tests {
             let v = match k.value {
                 Exact(v) => v,
                 FrameRate => "60",
+                Vkd3dFlags => "descriptor_heap,nodxr",
             };
             assert!(check_env(k.key, v).is_ok(), "{}", k.key);
             assert!(knowledge(k.key, v).is_some());
@@ -269,5 +513,7 @@ mod tests {
             "diagnóstico não é correção"
         );
         assert!(knowledge("PROTON_USE_XALIA", "1").is_none());
+        assert!(knowledge("VKD3D_CONFIG", "nodxr,nodxr").is_none());
+        assert!(knowledge("VKD3D_CONFIG", "nodxr,unknown_flag").is_none());
     }
 }

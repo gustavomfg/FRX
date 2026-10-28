@@ -18,6 +18,7 @@ pub mod availability;
 pub mod catalog;
 pub mod confined;
 pub mod dynamic;
+pub mod environment;
 pub mod files;
 pub mod journal;
 pub mod models;
@@ -128,6 +129,8 @@ impl FixEngine {
                     .filter(|f| related(r, f))
                     .map(|f| f.id.clone())
                     .collect(),
+                outlook: dynamic::compatibility::recipe_outlook(&r.actions),
+                relevance: None,
                 recipe: r.clone(),
             })
             .collect()
@@ -153,6 +156,7 @@ impl FixEngine {
             gpu: game.gpu,
             tool_name: game.tool_name.as_deref(),
             catalog: &self.catalog,
+            game: Some(game),
         }
     }
 
@@ -741,7 +745,17 @@ impl FixEngine {
                         }
                         emit(op);
                     },
-                )?;
+                )
+                .map_err(|e| {
+                    // Cancelamento e recuperação mantêm o texto exato: o núcleo os reconhece por ele.
+                    if e.starts_with("CANCELADO") || e.starts_with("RECUPERAÇÃO:") {
+                        return e;
+                    }
+                    format!(
+                        "Não foi possível baixar {} pelo FRX ({e}). Fonte publicada: {}. O jogo não foi alterado.",
+                        artifact.asset_name, artifact.release_url
+                    )
+                })?;
                 for (path, text) in content {
                     if all.insert(path, text).is_some() {
                         return Err("Arquivos de artefatos distintos têm o mesmo destino.".into());
@@ -1085,7 +1099,20 @@ impl FixEngine {
                         summary: "remove só o que esta correção adicionou".into(),
                     });
                     manual_line = Some(new.clone());
-                    match localconfig::set_launch_options(&text, app_id, &new) {
+                    // A chave não existia no original (backup): removê-la devolve o arquivo.
+                    let absent_before = rec
+                        .backup
+                        .as_ref()
+                        .filter(|b| b.existed)
+                        .and_then(|b| std::fs::read_to_string(&b.path).ok())
+                        .is_some_and(|orig| !localconfig::has_launch_options_key(&orig, app_id));
+                    let removed = (new.is_empty() && absent_before)
+                        .then(|| localconfig::remove_launch_options(&text, app_id).ok())
+                        .flatten();
+                    match removed
+                        .map(Ok)
+                        .unwrap_or_else(|| localconfig::set_launch_options(&text, app_id, &new))
+                    {
                         Ok(t) => writes.push(Some(t.into_bytes())),
                         Err(e) => {
                             // Sem edição posicional segura: só o modo manual.
