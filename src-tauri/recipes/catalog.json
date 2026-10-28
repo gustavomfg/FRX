@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "catalogVersion": "2026.10.25",
+  "catalogVersion": "2026.10.27",
   "recipes": [
     {
       "file": "frx.diagnostics.proton-log.json",
@@ -17,6 +17,10 @@
     {
       "file": "frx.compat.no-d3d11.json",
       "sha256": "7252d0bbd50ebef4bfa9764c2543f124bb96502952d23d8595c86db7e6d72539"
+    },
+    {
+      "file": "frx.nvidia.gpu-physx.json",
+      "sha256": "37a047057eb2c4d5edb651a422597d8b5911077a5ecc6e7ebf8173b849bf8655"
     }
   ],
   "revoked": [],

@@ -45,6 +45,7 @@ pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
         install_path: game.install_path.clone().map(Into::into),
         uses_proton: game.compatibility.uses_proton,
         tool_name: tool.map(|t| crate::fixes::short_tool_name(&t.display_name)),
+        tool_path: tool.and_then(|t| t.install_path.clone()).map(Into::into),
         tool_includes_protonfixes: tool.is_some_and(|t| t.includes_protonfixes),
         gpu: hw.primary_req(),
         driver: hw.primary.as_ref().and_then(|g| g.driver_version.clone()),

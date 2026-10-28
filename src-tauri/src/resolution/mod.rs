@@ -2,6 +2,7 @@
 pub mod detection;
 pub mod models;
 pub mod persistence;
+pub mod physx;
 mod plans;
 pub mod research;
 use crate::fix_engine::files::sha256_hex;
@@ -106,7 +107,7 @@ pub fn diagnose(
         ))
         .map_err(|e| e.to_string())?,
     );
-    let technologies = detection::technologies(game, log, &knowledge);
+    let mut technologies = detection::technologies(game, log, &knowledge);
     let mut problems = detection::problems(game, &technologies, log, symptoms);
     let mut plans = vec![];
     let views = engine.analyze(game)?;
@@ -286,6 +287,17 @@ pub fn diagnose(
                 .into(),
             plan_ids: vec![id],
         });
+    }
+    // PhysX por GPU: verifica a cadeia real (jogo, driver, Proton, opções, prefixo).
+    if let Some((problem, plan)) = physx::add(
+        engine,
+        game,
+        crate::smart_packs::launch_line(game).as_deref(),
+        std::path::Path::new("/"),
+        &mut technologies,
+    ) {
+        problems.push(problem);
+        plans.push(plan);
     }
     plans::add_documented_reviews(game, symptoms, &knowledge, &mut problems, &mut plans);
     synchronize(engine, game, &mut plans);

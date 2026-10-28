@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "frx.nvidia.gpu-physx",
+  "version": "1.0.0",
+  "trust": "reviewed",
+  "title": "Ativar CUDA real do Proton para PhysX por GPU",
+  "summary": "Define PROTON_NVIDIA_LIBS=1 e PROTON_USE_WOW64=0 para o Proton instalar no prefixo o nvcuda.dll do nvidia-libs em vez do stub.",
+  "description": "Jogos com PhysX por GPU precisam de CUDA dentro do Wine. O nvcuda.dll padrão do Proton é um stub; o Proton-CachyOS traz o nvcuda do nvidia-libs (32 e 64 bits) e o instala no prefixo quando PROTON_NVIDIA_LIBS está ativo. Essas bibliotecas são incompatíveis com WoW64, por isso o modo WoW64 fica desligado. O FRX só oferece esta receita quando a ferramenta selecionada traz o nvcuda do nvidia-libs e o driver tem a libcuda da arquitetura do jogo.",
+  "category": "physics",
+  "purpose": "compatibility",
+  "risk": "moderate",
+  "scope": {
+    "appIds": [],
+    "requiresProton": true,
+    "gpuVendor": "nvidia"
+  },
+  "actions": [
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_NVIDIA_LIBS",
+      "value": "1"
+    },
+    {
+      "type": "set_launch_env",
+      "key": "PROTON_USE_WOW64",
+      "value": "0"
+    }
+  ],
+  "alreadyIncludedByProtonfixes": false,
+  "conflictsWith": [],
+  "relatedKeys": [
+    "env:PROTON_NVIDIA_LIBS=1",
+    "env:PROTON_USE_WOW64=0"
+  ],
+  "effects": [
+    "Na próxima execução, o Proton copia o nvcuda.dll do nvidia-libs para system32/syswow64 do prefixo e ativa nvcuda, nvenc, nvml e nvoptix alternativos.",
+    "O PhysX por GPU passa a encontrar um dispositivo CUDA, desde que o runtime PhysX do jogo esteja instalado no prefixo."
+  ],
+  "sideEffects": [
+    "As bibliotecas alternativas valem para todo o jogo; a documentação recomenda ativá-las só quando necessário.",
+    "Em RTX 4000/5000, bibliotecas de 32 bits podem causar lentidão ou falhas em alguns jogos (README do Proton-CachyOS); compare com o Performance Lab."
+  ],
+  "sources": [
+    {
+      "label": "Proton-CachyOS — PROTON_NVIDIA_LIBS (README)",
+      "url": "https://github.com/CachyOS/proton-cachyos/blob/cachyos_main/README.md"
+    },
+    {
+      "label": "GE-Proton #196 — PhysX/CUDA em Batman: Arkham City (nvcuda do Proton é stub)",
+      "url": "https://github.com/GloriousEggroll/proton-ge-custom/issues/196"
+    },
+    {
+      "label": "SveSop/nvidia-libs — nvcuda para Wine/Proton",
+      "url": "https://github.com/SveSop/nvidia-libs"
+    }
+  ],
+  "review": {
+    "by": "FRX",
+    "at": "2026-10-27",
+    "notes": "Opção documentada pelo Proton-CachyOS e conferida no script proton 11.0-20261015 (copia nvidia-libs/nvcuda para o prefixo quando nvidialibs está ativo, NVAPI ativa e sem wow64). Só altera LaunchOptions deste jogo; reversível."
+  }
+}

@@ -605,6 +605,8 @@ pub struct GameCtx {
     pub install_path: Option<PathBuf>,
     pub uses_proton: Option<bool>,
     pub tool_name: Option<String>,
+    /// Pasta da ferramenta de compatibilidade (Proton) selecionada.
+    pub tool_path: Option<PathBuf>,
     pub tool_includes_protonfixes: bool,
     pub gpu: Option<GpuReq>,
     /// Versão do driver da GPU principal (para reavaliar receitas geradas).

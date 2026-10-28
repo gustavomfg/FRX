@@ -30,6 +30,10 @@ const FILES: &[(&str, &str)] = &[
         "frx.compat.no-d3d11.json",
         include_str!("../../recipes/frx.compat.no-d3d11.json"),
     ),
+    (
+        "frx.nvidia.gpu-physx.json",
+        include_str!("../../recipes/frx.nvidia.gpu-physx.json"),
+    ),
 ];
 
 #[derive(Deserialize)]

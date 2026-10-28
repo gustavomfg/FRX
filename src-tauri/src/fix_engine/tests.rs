@@ -1953,3 +1953,104 @@ mod structured_config_cases {
     use super::*;
     include!("structured_config_tests.rs");
 }
+
+/// PhysX por GPU: diagnóstico real da cadeia → plano aplicável → prévia →
+/// aplicação → rollback byte a byte → após a execução, "já resolvido".
+#[test]
+fn gpu_physx_plan_applies_the_reviewed_recipe_and_rolls_back() {
+    use crate::fix_engine::availability::AvailabilityState;
+    use crate::resolution::physx;
+    let fx = fixture();
+    let root = fx.library.parent().unwrap().parent().unwrap().to_path_buf(); // .../steamapps
+    let put = |p: std::path::PathBuf, b: &[u8]| {
+        std::fs::create_dir_all(p.parent().unwrap()).unwrap();
+        std::fs::write(p, b).unwrap();
+    };
+    let mut pe = vec![0u8; 256];
+    pe[..2].copy_from_slice(b"MZ");
+    pe[0x3c] = 0x80;
+    pe[0x80..0x84].copy_from_slice(b"PE\0\0");
+    pe[0x84..0x86].copy_from_slice(&0x14cu16.to_le_bytes());
+    put(fx.library.join("Binaries/Win32/PhysXLoader.dll"), &pe);
+    let tool = root.parent().unwrap().join("tool");
+    put(tool.join("proton"), b"PROTON_NVIDIA_LIBS");
+    put(
+        tool.join("files/lib/wine/nvidia-libs/nvcuda/i386-windows/nvcuda.dll.so"),
+        b"real-32",
+    );
+    let pfx = root.join("compatdata/200260/pfx/drive_c");
+    put(
+        pfx.join("Program Files (x86)/NVIDIA Corporation/PhysX/Common/PhysXLoader.dll"),
+        &pe,
+    );
+    let sys = root.parent().unwrap().join("sys");
+    put(sys.join("usr/lib32/libcuda.so.1"), b"elf");
+    fx.set_line("mangohud %command%");
+    let original = std::fs::read(&fx.config).unwrap();
+    let e = fx.engine();
+    let g = GameCtx {
+        gpu: Some(crate::fixes::models::GpuReq::Nvidia),
+        tool_path: Some(tool.clone()),
+        ..fx.game()
+    };
+    let diag = |line: Option<String>| {
+        physx::add(&e, &g, line.as_deref(), &sys, &mut [])
+            .unwrap()
+            .1
+    };
+
+    let plan = diag(fx.line());
+    assert_eq!(plan.state, "applicable", "{:?}", plan.availability.reasons);
+    assert_eq!(plan.availability.state, AvailabilityState::Available);
+    assert_eq!(plan.recipe_id.as_deref(), Some(physx::RECIPE));
+    let p = e.prepare(physx::RECIPE, &g).unwrap();
+    assert_eq!(
+        p.changes[0].after.as_deref(),
+        Some("PROTON_USE_WOW64=0 PROTON_NVIDIA_LIBS=1 mangohud %command%")
+    );
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        original,
+        "prévia não grava"
+    );
+    let op = e.apply(&p.plan_id, &p.fingerprint, &g, &noop).unwrap();
+    assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+    assert_eq!(
+        op.steps[0].backup.as_ref().unwrap().sha256.as_deref(),
+        Some(sha256_hex(&original).as_str())
+    );
+
+    // Antes da execução: configurado, aguardando o Proton instalar o nvcuda.
+    assert_eq!(
+        diag(fx.line()).availability.state,
+        AvailabilityState::Temporary
+    );
+    // "Execução": o Proton copia o nvcuda do nvidia-libs para o prefixo.
+    put(pfx.join("windows/syswow64/nvcuda.dll"), b"real-32");
+    let done = diag(fx.line());
+    assert_eq!(
+        (done.state.as_str(), done.availability.state),
+        ("already-present", AvailabilityState::Applied)
+    );
+
+    let rb = e.prepare_rollback(&op.id).unwrap();
+    assert_eq!(
+        e.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state,
+        OpState::RolledBack
+    );
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        original,
+        "restaurado byte a byte"
+    );
+
+    // Ferramenta sem nvidia-libs: nada aplicável, motivo específico.
+    std::fs::remove_dir_all(tool.join("files/lib/wine/nvidia-libs")).unwrap();
+    let blocked = diag(fx.line());
+    assert!(blocked.recipe_id.is_none());
+    assert!(blocked
+        .availability
+        .reasons
+        .iter()
+        .any(|r| r.code == "tool" && r.message.contains("stub")));
+}

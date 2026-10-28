@@ -38,6 +38,10 @@ const ENV_ALLOWLIST: &[(&str, Rule)] = &[
     ("PROTON_OLD_GL_STRING", Rule::OneOf(&["1"])),
     ("PROTON_USE_XALIA", Rule::OneOf(&["0", "1"])),
     ("PROTON_DISABLE_NVAPI", Rule::OneOf(&["1"])),
+    // Bibliotecas NVIDIA alternativas (nvcuda real do nvidia-libs) do
+    // Proton-CachyOS; incompatíveis com WoW64, por isso só o valor 0 aqui.
+    ("PROTON_NVIDIA_LIBS", Rule::OneOf(&["1"])),
+    ("PROTON_USE_WOW64", Rule::OneOf(&["0"])),
     ("DXVK_FRAME_RATE", Rule::Digits(3)),
     ("VKD3D_FRAME_RATE", Rule::Digits(3)),
     ("DXVK_HUD", Rule::HudList),
