@@ -12,7 +12,8 @@ use serde::Deserialize;
 use super::super::aggregation::{component_keys, finding_id, group_mentions, Mention};
 use super::super::http::{Ctx, Outcome};
 use super::super::models::*;
-use super::super::tweaks::scan_text;
+use super::super::reports::{analyze, OptionReport, Outcome as Reported};
+use super::super::tweaks::{scan_text, Tweak};
 use super::{summarize, GameQuery, ProviderResult};
 use crate::net::{Fetcher, HttpRequest};
 
@@ -698,6 +699,14 @@ fn collect(
     let scope = inherited_scope(parent, text);
     let s = scan_text(text);
     for (tweak, line) in s.tweaks {
+        // Resultado relatado para esta opção, não o tom do comentário inteiro.
+        let report = report_for(text, &tweak);
+        let (positive, negative) = match report.as_ref().map(|r| r.outcome) {
+            Some(Reported::Positive) => (true, false),
+            Some(Reported::NotResolved | Reported::Worsened) => (false, true),
+            _ => (false, false),
+        };
+        let line = report.map_or(line, |r| r.quote);
         out.push(Mention {
             scope: scope.clone(),
             performance_reports: performance_reports(
@@ -718,12 +727,23 @@ fn collect(
                 snippet: Some(line),
                 published_at: date.clone(),
             },
-            positive: s.positive,
-            negative: s.negative,
+            positive,
+            negative,
             gpus: s.gpus.clone(),
             proton_versions: s.proton_versions.clone(),
         });
     }
+}
+
+/// Relato do autor sobre o ajuste. Quem desligou a opção relatou o efeito de
+/// desligá-la: não vale para quem a liga.
+fn report_for(text: &str, tweak: &Tweak) -> Option<OptionReport> {
+    let (option, off) = match tweak {
+        Tweak::Env { name, value } => (name.as_str(), value == "0"),
+        Tweak::Verb(v) => (v.as_str(), false),
+        Tweak::Launch(_) | Tweak::Configuration(_) => return None,
+    };
+    analyze(text, option).filter(|r| r.disabled == off)
 }
 
 fn maintainer_statement(
@@ -1211,6 +1231,33 @@ mod tests {
         .unwrap();
         let found = release_mentions(&q(), "ValveSoftware/Proton", &exact);
         assert!(found[0].scope.matches_game("200260"));
+    }
+
+    #[test]
+    fn each_option_gets_the_result_reported_for_it_not_the_comment_tone() {
+        let scope = DiscoveryScope::verified("3321280", "fixture: title AppID");
+        let mut mentions = Vec::new();
+        collect(
+            &mut mentions,
+            "PROTON_VKD3D_HEAP=1 fixed the crashes for me. \
+             I also tried `VKD3D_CONFIG=descriptor_heap`, but that caused badly distorted cloth/geometry and a different crash. \
+             You could also try PROTON_NO_NTSYNC=1.",
+            "https://github.com/ValveSoftware/Proton/issues/1#issuecomment-1",
+            "fixture",
+            None,
+            &scope,
+            (false, None),
+        );
+        let flags = |name: &str| {
+            let m = mentions
+                .iter()
+                .find(|m| matches!(&m.tweak, Tweak::Env { name: n, .. } if n == name))
+                .unwrap();
+            (m.positive, m.negative)
+        };
+        assert_eq!(flags("PROTON_VKD3D_HEAP"), (true, false));
+        assert_eq!(flags("VKD3D_CONFIG"), (false, true));
+        assert_eq!(flags("PROTON_NO_NTSYNC"), (false, false));
     }
 
     #[test]

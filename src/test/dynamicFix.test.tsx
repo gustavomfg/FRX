@@ -273,7 +273,7 @@ describe('Gerador dinâmico na interface', () => {
     const temporary: Assessment = { ...assessments[0], availability: { state: 'temporary', reasons: [{ code: 'game-running', message: 'Feche o jogo para continuar.' }], checkedAt: '2026-10-27', planStatus: 'conflict', planFingerprint: null } }
     const m = mount(<ActionableFindings appId="200260" findings={[findings[0]]} assessments={{ 'f-gen': temporary }} loading={false} error={null} refresh={() => { refreshes++ }} onApply={() => { throw Error('must not apply') }} />)
     await flush()
-    expect(byText('Nenhuma correção automática disponível')).toBe(true)
+    expect(byText('Tudo certo: nenhuma correção automática é necessária')).toBe(true)
     const pending = document.querySelector('[aria-label="Aguardando condição local"]')!
     await click(pending.querySelector<HTMLButtonElement>('button')!)
     expect(pending.textContent).toContain('Feche o jogo para continuar.')

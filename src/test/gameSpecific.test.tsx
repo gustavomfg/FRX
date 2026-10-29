@@ -142,6 +142,7 @@ describe('Game-specific fix intelligence — integração sintética', () => {
         case 'get_system_profile': return { gpus: [], primaryGpu: null, vulkanDrivers: [], arch: 'x86_64' }
         case 'get_cached_fix_reports': return cachedReports
         case 'detected_symptoms': return []
+        case 'game_technologies': return []
         case 'get_fix_engine_status': return { catalogVersion: 'fixture', catalogSha256: 'fixture', recipes: 0, reviewed: 0, issues: [], recoveryRequired: 0, pendingManual: 0, busy: false, dataDir: '/synthetic/fix-engine' }
         case 'list_fix_operations': case 'get_applied_fixes': case 'list_benchmark_sessions': case 'list_fix_recipes': return []
         case 'detect_mangohud': return { installed: false, version: null, path: null, vulkanLayer: false, openglLib: false, notes: [] }

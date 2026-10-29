@@ -54,6 +54,7 @@ describe('Resolution Center — IPC e estados honestos', () => {
         case 'get_system_profile': return { gpus: [], primaryGpu: null, vulkanDrivers: [], arch: 'x86_64' }
         case 'get_cached_fix_reports': case 'get_applied_fixes': case 'list_fix_operations': return []
         case 'detected_symptoms': return []
+        case 'game_technologies': return []
         case 'get_fix_engine_status': return { catalogVersion: 'fixture', recipes: 1, reviewed: 1, issues: [], recoveryRequired: 0, pendingManual: 0, busy: false, dataDir: '/synthetic' }
         case 'get_resolution_report':
           if (delayFirst && args.appId === '200260') return new Promise<ResolutionReport>((resolve) => { finishDelayed = resolve })
@@ -86,7 +87,8 @@ describe('Resolution Center — IPC e estados honestos', () => {
 
   it('preserva sintomas carregados e pesquisa somente após ação explícita', async () => {
     const m = mount(<ResolutionCenter appId="200260" available />); await flush()
-    expect(document.body.querySelector<HTMLInputElement>('input[type=checkbox]')?.checked).toBe(true)
+    expect(text()).toContain('Investigação automática:')
+    expect(text()).toContain('Não inicia / crash')
     await click(button('Pesquisar soluções'))
     expect(calls.find((c) => c.cmd === 'research_game_resolutions')?.args).toEqual({ appId: '200260', symptoms: ['startup'] })
     m.unmount()

@@ -143,6 +143,63 @@ pub fn find_game_file(install: &Path, names: &[&str]) -> Option<PathBuf> {
     walk(install, 0, names, &mut 0)
 }
 
+/// Tecnologias gráficas que a instalação traz, pelos arquivos do jogo. Presença
+/// indica que a biblioteca está no jogo, não que ela é usada em execução.
+pub fn installed_technologies(install: &Path) -> Vec<&'static str> {
+    const FILES: &[(&str, &str)] = &[
+        ("nvngx_dlss.dll", "dlss"),
+        ("sl.dlss.dll", "dlss"),
+        ("nvngx_dlssd.dll", "ray-reconstruction"),
+        ("nvngx_dlssg.dll", "frame-generation"),
+        ("sl.dlss_g.dll", "frame-generation"),
+        ("libxess.dll", "xess"),
+        ("amd_fidelityfx_upscaler_dx12.dll", "fsr"),
+        ("amd_fidelityfx_dx12.dll", "fsr"),
+        ("ffx_fsr2_api_x64.dll", "fsr"),
+        (
+            "amd_fidelityfx_framegeneration_dx12.dll",
+            "fsr-frame-generation",
+        ),
+        ("physxloader.dll", "physx"),
+        ("physxloader64.dll", "physx"),
+        ("physxcore.dll", "physx"),
+        ("physxdevice.dll", "physx"),
+    ];
+    fn walk(dir: &Path, depth: usize, seen: &mut usize, found: &mut Vec<&'static str>) {
+        let Ok(entries) = std::fs::read_dir(dir) else {
+            return;
+        };
+        let mut dirs = Vec::new();
+        for e in entries.flatten() {
+            *seen += 1;
+            if *seen > 20_000 {
+                return;
+            }
+            let Ok(kind) = e.file_type() else { continue };
+            if kind.is_dir() && depth < 4 {
+                dirs.push(e.path());
+            } else if kind.is_file() {
+                let name = e.file_name().to_string_lossy().to_ascii_lowercase();
+                if let Some((_, tech)) = FILES.iter().find(|(file, _)| *file == name) {
+                    if !found.contains(tech) {
+                        found.push(tech);
+                    }
+                }
+            }
+        }
+        for d in dirs {
+            walk(&d, depth + 1, seen, found);
+        }
+    }
+    let mut found = Vec::new();
+    walk(install, 0, &mut 0, &mut found);
+    // Ray reconstruction só é usado com ray tracing: a biblioteca indica o uso.
+    if found.contains(&"ray-reconstruction") && !found.contains(&"ray-tracing") {
+        found.push("ray-tracing");
+    }
+    found
+}
+
 /// Versão de arquivo (`VS_FIXEDFILEINFO`) lida só da seção de recursos.
 pub fn pe_version(path: &Path) -> Option<[u16; 4]> {
     let mut f = File::open(path).ok()?;
@@ -343,6 +400,29 @@ mod tests {
         b[r + 8..r + 12].copy_from_slice(&(((v[0] as u32) << 16) | v[1] as u32).to_le_bytes());
         b[r + 12..r + 16].copy_from_slice(&(((v[2] as u32) << 16) | v[3] as u32).to_le_bytes());
         b
+    }
+
+    #[test]
+    fn technologies_come_from_the_files_the_game_ships() {
+        let tmp = tempfile::tempdir().unwrap();
+        let bin = tmp.path().join("bin64");
+        std::fs::create_dir_all(&bin).unwrap();
+        // Sem PhysX, com ray reconstruction: o jogo usa ray tracing, não física.
+        for name in ["nvngx_dlss.dll", "nvngx_dlssd.dll", "nvngx_dlssg.dll"] {
+            std::fs::write(bin.join(name), b"x").unwrap();
+        }
+        let found = installed_technologies(tmp.path());
+        assert!(found.contains(&"dlss") && found.contains(&"frame-generation"));
+        assert!(
+            found.contains(&"ray-tracing"),
+            "ray reconstruction implica ray tracing"
+        );
+        assert!(!found.contains(&"physx"));
+        assert!(!crate::fixes::symptoms::applies("physx", &found));
+        assert!(crate::fixes::symptoms::applies("dlss", &found));
+        std::fs::write(bin.join("PhysXLoader.dll"), b"x").unwrap();
+        assert!(installed_technologies(tmp.path()).contains(&"physx"));
+        assert!(installed_technologies(&tmp.path().join("missing")).is_empty());
     }
 
     #[test]
