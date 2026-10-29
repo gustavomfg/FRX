@@ -5,6 +5,8 @@ import type { ResolutionReport } from '@/types/resolution'
 export const getResolutionReport = (appId: string) => call<ResolutionReport | null>('get_resolution_report', { appId })
 /** Problemas que os relatos deste jogo citam: pré-marcam os checkboxes, sem pesquisar nada. */
 export const detectedSymptoms = (appId: string) => call<string[]>('detected_symptoms', { appId })
+/** Tecnologias gráficas que os arquivos do jogo trazem (DLSS, frame generation, PhysX…). */
+export const gameTechnologies = (appId: string) => call<string[]>('game_technologies', { appId })
 export const diagnoseGame = (appId: string, symptoms: string[]) => call<ResolutionReport>('diagnose_game', { appId, symptoms })
 export const researchGameResolutions = (appId: string, symptoms: string[]) => call<ResolutionReport>('research_game_resolutions', { appId, symptoms })
 export const importResolutionLog = (appId: string, path: string) => call<ResolutionReport>('import_resolution_log', { appId, path })

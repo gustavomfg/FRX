@@ -4,6 +4,7 @@ import { Check, ChevronDown, ExternalLink, FlaskConical, Package, ShieldCheck, R
 import type { FixAction, FixFinding, ProviderStatus } from '@/types/fixes'
 import type { Assessment, RecipeView } from '@/types/fixEngine'
 import { DYN_STATUS, EVIDENCE, GPU_LABEL, isImprovement, OUTLOOK, PURPOSE, TRUST } from './engineMeta'
+import { problemReports } from '@/lib/outcomes'
 import { PerformanceWarning } from './PerformanceWarning'
 import { GameEvidence } from './GameEvidence'
 import { ArtifactBadge, ArtifactDetails } from './ArtifactDetails'
@@ -99,6 +100,7 @@ export function FindingCard({
   const dyn = assessment ? assessmentMeta(assessment) : null
   const canApply = !!assessment && assessment.appId === finding.gameAppId && assessment.availability?.state === 'available' && !!assessment.recipeId && !!assessment.availability.planFingerprint && !!onApply && !applied
   const openUrl = useOpen()
+  const problems = problemReports(finding.sources)
   const id = `finding-${finding.id}`
   const dim = finding.compatibility === 'incompatible'
   return (
@@ -216,6 +218,20 @@ export function FindingCard({
                 </p>
               )}
 
+              {problems.length > 0 && (
+                <div>
+                  <div className="eyebrow mb-2.5">Relatos de problema com este ajuste</div>
+                  <ul className="space-y-2">
+                    {problems.map((p) => (
+                      <li key={p.url + p.quote} className="rounded-md border border-caution/25 bg-caution-soft/40 px-3.5 py-2.5 text-[12.5px] text-fg-2">
+                        <p className="italic">“{p.quote}”</p>
+                        <button onClick={() => openUrl(p.url)} className="mt-1.5 text-[12px] text-fg-3 hover:text-accent">{p.source} →</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <div>
                 <div className="eyebrow mb-2.5">Fontes</div>
                 <ul className="space-y-2">
@@ -325,6 +341,22 @@ function AnalysisBlock({ a, applied }: { a: Assessment; applied: boolean }) {
             <li key={r}>{r}</li>
           ))}
         </ul>
+        {a.recipe && (a.recipe.effects.length > 0 || a.recipe.sideEffects.length > 0) && (
+          <dl className="space-y-1.5 text-[12.5px]">
+            {a.recipe.effects.length > 0 && (
+              <div>
+                <dt className="text-fg-3">O que faz</dt>
+                <dd className="text-fg-2">{a.recipe.effects.join(' ')}</dd>
+              </div>
+            )}
+            {a.recipe.sideEffects.length > 0 && (
+              <div>
+                <dt className="text-caution">Pode perder desempenho ou recursos</dt>
+                <dd className="text-fg-2">{a.recipe.sideEffects.join(' ')}</dd>
+              </div>
+            )}
+          </dl>
+        )}
         {a.actions.length > 0 && (
           <ul className="space-y-1.5 border-t border-line pt-3">
             {a.actions.map((x, i) => (

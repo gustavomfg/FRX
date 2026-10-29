@@ -4,7 +4,6 @@ import { ExternalLink, FileText, RefreshCw, RotateCcw, ScanSearch, Search } from
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { HardwareContext } from '@/components/fix/HardwareContext'
 import { Button } from '@/components/ui/Button'
-import { Mascot } from '@/mascot/Mascot'
 import { useFixEngine } from '@/state/fixEngine'
 import { getFixOperation } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
@@ -54,12 +53,13 @@ export function ResolutionCenter({ appId, available }: { appId: string; availabl
   return <ScopedResolutionCenter key={appId} appId={appId} />
 }
 
-function ScopedResolutionCenter({ appId }: { appId: string }) {
+/** Diagnóstico e soluções de um jogo, num único estado: a seção de soluções e o diagnóstico leem o mesmo. */
+export function useResolution(appId: string, available = true) {
   const engine = useFixEngine()
   const [report, setReport] = useState<ResolutionReport | null>(null)
   const [plansValidated, setPlansValidated] = useState(false)
   const [symptoms, setSymptoms] = useState<string[]>([])
-  const [busy, setBusy] = useState<string | null>('load')
+  const [busy, setBusy] = useState<string | null>(available ? 'load' : null)
   const [error, setError] = useState<string | null>(null)
   const [target, setTarget] = useState<ApplyTarget | null>(null)
   const alive = useRef(true)
@@ -84,12 +84,13 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   }, [appId])
 
   useEffect(() => {
+    if (!available) return
     alive.current = true
     void run('load', () => api.getResolutionReport(appId))
     // Sem seleção salva, começa com os problemas que os relatos deste jogo citam.
     void api.detectedSymptoms(appId).then((ids) => { if (alive.current) setSymptoms((old) => (old.length ? old : ids)) }).catch(() => undefined)
     return () => { alive.current = false; sequence.current++ }
-  }, [appId, run])
+  }, [appId, available, run])
 
   const diagnose = () => run('diagnose', () => api.diagnoseGame(appId, symptoms))
   const research = () => run('research', () => api.researchGameResolutions(appId, symptoms))
@@ -125,33 +126,52 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
   const investigationPlans = safePlans.filter((p) => !p.operationId && !applicablePlans.includes(p) && !temporaryPlans.includes(p) && !presentPlans.includes(p))
   const renderPlan = (plan: ResolutionPlan) => <PlanDetails key={plan.id} plan={plan} busy={!!busy} onOpen={open} onPreview={() => { if (plan.recipeId && plan.availability?.state === 'available') setTarget({ kind: 'apply', expectedFingerprint: plan.availability?.planFingerprint ?? undefined, recipeId: plan.recipeId, appId, title: plan.title }) }} onVerify={() => void run('verify', () => api.verifyResolutionPlan(appId, plan.id))} onRollback={() => void rollback(plan)} />
 
-  return <section aria-labelledby="resolution-center" className="mt-10 border-t border-line pt-7" aria-busy={!!busy}>
-    <div className="flex flex-wrap items-start justify-between gap-5">
-      <div className="max-w-[65ch]">
-        <h3 id="resolution-center" className="font-display text-[20px] font-semibold tracking-[-0.02em]">Diagnóstico do ambiente</h3>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-fg-2">Diagnóstico, fontes e soluções para este jogo e ambiente. Aplicar uma correção e verificar seu funcionamento são etapas distintas.</p>
-        {report && <p className="mt-2 text-[12px] text-fg-3">AppID {report.appId} · Diagnóstico de {sourceDate(report.generatedAt)}</p>}
-      </div>
-      <Mascot pose={busy && busy !== 'load' ? 'inspect' : error ? 'confused' : 'prepare'} scale={2} />
+  return { appId, report, busy, error, target, setTarget, symptoms, diagnose, research, importLog, open, closeDialog, applicablePlans, temporaryPlans, recordedPlans, presentPlans, investigationPlans, renderPlan }
+}
+
+export type Resolution = ReturnType<typeof useResolution>
+
+/** Ações deste jogo: correções prontas, em espera e já registradas. Fica junto das correções do jogo. */
+export function ResolutionSolutions({ r, hideWhenEmpty = false }: { r: Resolution; hideWhenEmpty?: boolean }) {
+  const { applicablePlans, temporaryPlans, presentPlans, recordedPlans, busy, target, closeDialog, diagnose, renderPlan } = r
+  return <div className="space-y-8">
+    {(!hideWhenEmpty || applicablePlans.length > 0) && <section aria-label="Soluções aplicáveis">
+      <h3 className="font-medium text-[15px]">Soluções aplicáveis</h3>
+      {applicablePlans.length ? <div className="mt-3 space-y-6">{applicablePlans.map(renderPlan)}</div> : <p className="mt-2 text-[13px] text-fg-2">Nenhuma correção automática disponível para este jogo no momento.</p>}
+    </section>}
+    {!!temporaryPlans.length && <section aria-label="Aguardando condição local"><h3 className="font-medium text-[15px]">Aguardando condição local</h3><div className="mt-3 space-y-6">{temporaryPlans.map(renderPlan)}</div><Button size="sm" disabled={!!busy} onClick={() => void diagnose()}>Revalidar condições</Button></section>}
+    {!!presentPlans.length && <section aria-label="Já resolvido neste ambiente"><h3 className="font-medium text-[15px]">Já resolvido neste ambiente</h3><div className="mt-3 space-y-6">{presentPlans.map(renderPlan)}</div></section>}
+    {!!recordedPlans.length && <section aria-label="Aplicação e restauração"><h3 className="font-medium text-[15px]">Aplicação e restauração</h3><div className="mt-3 space-y-6">{recordedPlans.map(renderPlan)}</div></section>}
+    <ApplyFixDialog target={target} onClose={closeDialog} />
+  </div>
+}
+
+/** Diagnóstico do ambiente: só leitura. As ações ficam em ResolutionSolutions. */
+export function ResolutionDiagnosis({ r, available = true }: { r: Resolution; available?: boolean }) {
+  if (!available) return <p className="text-[13px] text-fg-2">O diagnóstico real está disponível no app desktop, com a biblioteca real. O modo demonstrativo não pesquisa nem aplica correções.</p>
+  const { report, busy, error, symptoms, diagnose, research, importLog, open, investigationPlans, renderPlan, applicablePlans } = r
+  return <section aria-labelledby="resolution-center" className="space-y-6" aria-busy={!!busy}>
+    <div className="max-w-[65ch]">
+      <h3 id="resolution-center" className="font-display text-[20px] font-semibold tracking-[-0.02em]">Diagnóstico do ambiente</h3>
+      <p className="mt-1.5 text-[13px] leading-relaxed text-fg-2">Verifica o ambiente e as tecnologias deste jogo. Diagnosticar e pesquisar só leem; aplicar uma correção acontece na seção de soluções, com prévia e confirmação.</p>
+      {report && <p className="mt-2 text-[12px] text-fg-3">AppID {report.appId} · Diagnóstico de {sourceDate(report.generatedAt)}</p>}
     </div>
 
-    <fieldset disabled={!!busy} className="mt-5">
-      <legend className="mb-2 text-[13px] font-medium text-fg">O que você quer investigar? <span className="font-normal text-fg-3">Opcional · já vêm marcados os problemas citados nos relatos deste jogo</span></legend>
-      <div className="flex flex-wrap gap-x-4 gap-y-2">
-        {SYMPTOMS.map(([id, label]) => <label key={id} className="inline-flex cursor-pointer items-center gap-2 text-[12.5px] text-fg-2"><input type="checkbox" className="size-3.5 accent-accent" checked={symptoms.includes(id)} onChange={(e) => setSymptoms((old) => e.target.checked ? [...old, id] : old.filter((s) => s !== id))} />{label}</label>)}
-      </div>
-    </fieldset>
-    <div className="mt-4 flex flex-wrap gap-2">
+    <p className="text-[13px] text-fg-2">
+      <span className="font-medium text-fg">Investigação automática:</span>{' '}
+      {symptoms.length ? symptoms.map((id) => SYMPTOMS.find(([key]) => key === id)?.[1] ?? id).join(', ') : 'diagnóstico geral (nenhum problema citado nos relatos deste jogo)'}
+    </p>
+    <div className="flex flex-wrap gap-2">
       <Button variant="primary" icon={<ScanSearch className="size-4" />} disabled={!!busy} loading={busy === 'diagnose'} onClick={() => void diagnose()}>Diagnosticar</Button>
       <Button icon={<Search className="size-4" />} disabled={!!busy} loading={busy === 'research'} onClick={() => void research()}>Pesquisar soluções</Button>
       <Button variant="ghost" icon={<FileText className="size-4" />} disabled={!!busy} loading={busy === 'import'} onClick={() => void importLog()}>Importar log deste jogo</Button>
     </div>
-    <p className="mt-2 text-[12px] leading-relaxed text-fg-3">O diagnóstico é somente leitura. Pesquisar consulta fontes públicas; importar analisa apenas o log escolhido, localmente. Nenhum jogo será iniciado.</p>
-    {error && <div role="alert" className="mt-4 rounded-md border border-bad/25 bg-bad-soft p-3 text-[13px] text-bad">{error} <span className="block mt-1">Você pode tentar diagnosticar novamente. Nenhuma ação será aplicada sem prévia e confirmação.</span></div>}
-    {busy && <p role="status" className="mt-4 text-[13px] text-fg-2">{busy === 'load' ? 'Carregando diagnóstico salvo…' : busy === 'research' ? 'Consultando fontes e verificando o contexto…' : busy === 'import' ? 'Aguardando e analisando o log selecionado…' : busy === 'verify' ? 'Conferindo a alteração registrada…' : 'Analisando o ambiente do jogo…'}</p>}
-    {!report && !busy && <p className="mt-6 text-[13px] text-fg-2">Ainda não há diagnóstico salvo. Use Diagnosticar para inspecionar o ambiente ou Pesquisar soluções para consultar fontes.</p>}
+    <p className="text-[12px] leading-relaxed text-fg-3">O diagnóstico é somente leitura. Pesquisar consulta fontes públicas; importar analisa apenas o log escolhido, localmente. Nenhum jogo será iniciado.</p>
+    {error && <div role="alert" className="rounded-md border border-bad/25 bg-bad-soft p-3 text-[13px] text-bad">{error} <span className="block mt-1">Você pode tentar diagnosticar novamente. Nenhuma ação será aplicada sem prévia e confirmação.</span></div>}
+    {busy && <p role="status" className="text-[13px] text-fg-2">{busy === 'load' ? 'Carregando diagnóstico salvo…' : busy === 'research' ? 'Consultando fontes e verificando o contexto…' : busy === 'import' ? 'Aguardando e analisando o log selecionado…' : busy === 'verify' ? 'Conferindo a alteração registrada…' : 'Analisando o ambiente do jogo…'}</p>}
+    {!report && !busy && <p className="text-[13px] text-fg-2">Ainda não há diagnóstico salvo. Use Diagnosticar para inspecionar o ambiente ou Pesquisar soluções para consultar fontes.</p>}
 
-    {report && <div className="mt-7 space-y-7">
+    {report && <div className="space-y-7">
       <HardwareContext environment={report.environment} />
       {!!report.technologies.length && <div>
         <h3 className="font-medium text-[15px]">Tecnologias e compatibilidade</h3>
@@ -182,30 +202,26 @@ function ScopedResolutionCenter({ appId }: { appId: string }) {
                 <Detail title="Próxima ação"><p>{problem.nextAction}</p></Detail>
               </div>
               <div className="min-w-0 space-y-5">
-                {!applicablePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) && <p className="text-[13px] text-fg-2">Problema identificado — nenhuma solução aplicável confirmada.</p>}
-                {applicablePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) && <p className="text-[13px] text-fg-2">Há um plano completo na seção Soluções aplicáveis abaixo.</p>}
+                {applicablePlans.some((p) => p.problemId === problem.id || problem.planIds.includes(p.id)) ? <p className="text-[13px] text-fg-2">Há um plano completo na seção de soluções deste jogo.</p> : <p className="text-[13px] text-fg-2">Problema identificado — nenhuma solução aplicável confirmada.</p>}
               </div>
             </div>
           </details>)}
         </div>
       </div>
-      <section aria-label="Soluções aplicáveis">
-        <h3 className="font-medium text-[15px]">Soluções aplicáveis</h3>
-        {applicablePlans.length ? <div className="mt-3 space-y-6">{applicablePlans.map(renderPlan)}</div> : <p className="mt-2 text-[13px] text-fg-2">Nenhuma correção automática disponível para este jogo no momento.</p>}
-      </section>
-      {!!temporaryPlans.length && <section><h3 className="font-medium text-[15px]">Aguardando condição local</h3><div className="mt-3 space-y-6">{temporaryPlans.map(renderPlan)}</div><Button size="sm" disabled={!!busy} onClick={() => void diagnose()}>Revalidar condições</Button></section>}
-      {!!presentPlans.length && <section aria-label="Já resolvido neste ambiente"><h3 className="font-medium text-[15px]">Já resolvido neste ambiente</h3><div className="mt-3 space-y-6">{presentPlans.map(renderPlan)}</div></section>}
-      {!!recordedPlans.length && <section><h3 className="font-medium text-[15px]">Aplicação e restauração</h3><div className="mt-3 space-y-6">{recordedPlans.map(renderPlan)}</div></section>}
-      <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[14px] font-medium">Descobertas em investigação ({investigationPlans.length})</summary><p className="mt-2 text-[12.5px] text-fg-3">Fontes e procedimentos que ainda não têm aplicação completa e segura para este ambiente.</p><div className="mt-3 space-y-6">{investigationPlans.map(renderPlan)}</div></details>
-      {!!report.packs.filter((pack) => pack.appId === appId).length && <div>
-        <h3 className="font-medium text-[15px]">Smart Resolution Packs</h3>
-        <ul className="mt-2 divide-y divide-line">{report.packs.filter((pack) => pack.appId === appId).map((pack) => <li key={pack.id} className="flex flex-wrap items-center justify-between gap-3 py-3"><div className="min-w-0"><p className="text-[13px] font-medium">{pack.title}</p><p className="mt-1 max-w-[65ch] text-[12px] text-fg-2">{pack.explanation}</p></div>{pack.smartPackId && <Link className="text-[13px] text-accent underline underline-offset-4" to={`/biblioteca/${encodeURIComponent(appId)}?secao=smart&pack=${encodeURIComponent(pack.smartPackId)}`}>Ver pacote</Link>}</li>)}</ul>
-      </div>}
+      <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[14px] font-medium">Descobertas em investigação ({investigationPlans.length})</summary><p className="mt-2 text-[12.5px] text-fg-3">Procedimentos sem aplicação completa e segura para este ambiente.</p><div className="mt-3 space-y-6">{investigationPlans.map(renderPlan)}</div></details>
       {!!report.knowledge.length && <details className="border-t border-line pt-4"><summary className="cursor-pointer text-[13px] font-medium">Fontes consultadas ({report.knowledge.length})</summary><div className="mt-3"><EvidenceList evidence={report.knowledge} onOpen={open} /></div></details>}
       {!!report.limitations.length && <Detail title="O que ainda não sabemos"><TextList items={report.limitations} /></Detail>}
     </div>}
-    <ApplyFixDialog target={target} onClose={closeDialog} />
   </section>
+}
+
+/** Versão completa, com diagnóstico e soluções lado a lado, para usos fora da página do jogo. */
+function ScopedResolutionCenter({ appId }: { appId: string }) {
+  const r = useResolution(appId)
+  return <div className="mt-10 space-y-10 border-t border-line pt-7">
+    <ResolutionDiagnosis r={r} />
+    <ResolutionSolutions r={r} />
+  </div>
 }
 
 function PlanDetails({ plan, busy, onOpen, onPreview, onVerify, onRollback }: { plan: ResolutionPlan; busy: boolean; onOpen: (url: string) => void; onPreview: () => void; onVerify: () => void; onRollback: () => void }) {

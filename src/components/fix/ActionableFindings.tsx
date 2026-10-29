@@ -29,7 +29,7 @@ export function ActionableFindings({ appId, findings, assessments, loading, erro
     {!technicalOnly && <>
       <section aria-label="Correções disponíveis">
         <h3 className="text-[15px] font-medium">Correções disponíveis</h3>
-        {ready.length ? cards(ready) : <p className="mt-2 text-[13px] text-fg-2">{loading ? 'Verificando planos no ambiente atual…' : 'Nenhuma correção automática disponível para este jogo no momento.'}</p>}
+        {ready.length ? cards(ready) : <p className="mt-2 text-[13px] text-fg-2">{loading ? 'Verificando planos no ambiente atual…' : 'Tudo certo: nenhuma correção automática é necessária para este jogo.'}</p>}
       </section>
       {!!temporary.length && <section aria-label="Aguardando condição local"><h3 className="text-[15px] font-medium">Aguardando condição local</h3><p className="mt-1 text-[12.5px] text-fg-3">Estas operações são suportadas. Resolva a condição indicada e revalide para continuar.</p>{cards(temporary)}</section>}
       {!!applied.length && <section aria-label="Correções aplicadas"><h3 className="text-[15px] font-medium">Correções aplicadas</h3>{cards(applied)}</section>}

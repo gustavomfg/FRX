@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { ArrowLeft, ExternalLink, Gauge, RefreshCw, ScanSearch, Wifi } from 'lucide-react'
@@ -26,7 +26,8 @@ import { fmtNum, fmtRelative } from '@/lib/format'
 import type { Game } from '@/types'
 import { cn } from '@/lib/cn'
 import { SmartPacksPanel } from '@/components/smart/SmartPacksPanel'
-import { ResolutionCenter } from '@/components/resolution/ResolutionCenter'
+import { ResolutionDiagnosis, ResolutionSolutions, useResolution } from '@/components/resolution/ResolutionCenter'
+import { gameTechnologies } from '@/services/resolution'
 
 /** Detalhes de um jogo real detectado na Steam. Mesmo desenho da página demonstrativa. */
 export function SteamGameDetail({ game }: { game: Game }) {
@@ -53,6 +54,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
   const error = fixes.errors[game.id]
   const engine = useFixEngine()
   const [target, setTarget] = useState<ApplyTarget | null>(null)
+  const resolution = useResolution(game.id, engine.available)
   const analysis = useAssessments(game.id)
 
   const search = (force: boolean) =>
@@ -116,6 +118,8 @@ export function SteamGameDetail({ game }: { game: Game }) {
           </div>
         ))}
       </dl>
+
+      <DetectedTechnologies appId={game.id} />
 
       {secao ? (
         <div className="mt-10 space-y-6">
@@ -194,6 +198,9 @@ export function SteamGameDetail({ game }: { game: Game }) {
                 <ActionableFindings appId={game.id} findings={report.findings} assessments={analysis.byFinding} loading={analysis.loading} error={analysis.error} refresh={analysis.refresh} onApply={(a, f) => setTarget({ kind: 'apply', expectedFingerprint: a.availability?.planFingerprint ?? undefined, recipeId: a.recipeId!, appId: game.id, title: a.recipe?.title ?? f.title })} />
               </>
             )}
+            <div className="mt-8">
+              <ResolutionSolutions r={resolution} hideWhenEmpty />
+            </div>
             <details className="mt-8 border-t border-line pt-5">
               <summary className="cursor-pointer text-[14px] font-medium">Histórico de aplicações</summary>
               <div className="mt-4">
@@ -205,7 +212,7 @@ export function SteamGameDetail({ game }: { game: Game }) {
           <details className="mt-10 border-t border-line pt-6">
             <summary className="cursor-pointer font-display text-[18px] font-semibold tracking-[-0.02em]">Diagnóstico e detalhes técnicos</summary>
             <div className="mt-8 space-y-10">
-              <ResolutionCenter appId={game.id} available={engine.available} />
+              <ResolutionDiagnosis r={resolution} available={engine.available} />
               <div className="grid gap-10 md:grid-cols-2">
                 <div className="min-w-0 space-y-9">
           {/* Instalação */}
@@ -270,5 +277,46 @@ export function SteamGameDetail({ game }: { game: Game }) {
       )}
       {target && <ApplyFixDialog target={target} onClose={() => { setTarget(null); void engine.refresh(); analysis.refresh() }} />}
     </Page>
+  )
+}
+
+const TECHNOLOGY_LABEL: Record<string, string> = {
+  physx: 'PhysX (física)',
+  dlss: 'DLSS',
+  'ray-reconstruction': 'Ray reconstruction',
+  'ray-tracing': 'Ray tracing',
+  'frame-generation': 'Frame generation',
+  xess: 'XeSS',
+  fsr: 'FSR',
+  'fsr-frame-generation': 'FSR frame generation',
+}
+
+/** Tecnologias que os arquivos do jogo trazem: só elas geram problemas e soluções nesta página. */
+function DetectedTechnologies({ appId }: { appId: string }) {
+  const [ids, setIds] = useState<string[] | null>(null)
+  useEffect(() => {
+    let alive = true
+    void gameTechnologies(appId).then((list) => alive && setIds(list ?? [])).catch(() => alive && setIds([]))
+    return () => {
+      alive = false
+    }
+  }, [appId])
+  return (
+    <div className="mt-6">
+      <p className="text-[12.5px] text-fg-3">Tecnologias detectadas nos arquivos do jogo</p>
+      {ids === null ? (
+        <p className="mt-2 text-[13px] text-fg-2">Verificando…</p>
+      ) : ids.length ? (
+        <ul className="mt-2 flex flex-wrap gap-2" aria-label="Tecnologias detectadas">
+          {ids.map((id) => (
+            <li key={id} className="rounded-xs border border-line px-2 py-1 text-[12px] text-fg-2">
+              {TECHNOLOGY_LABEL[id] ?? id}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-[13px] text-fg-2">Nenhuma tecnologia gráfica conhecida nos arquivos do jogo. Só aparecem soluções ligadas a problemas relatados.</p>
+      )}
+    </div>
   )
 }
