@@ -102,8 +102,9 @@ pub fn list_fix_recipes(ctx: State<'_, AppCtx>, app_id: Option<String>) -> Vec<R
         .unwrap_or_default();
     let mut views = ctx.engine.recipes(&findings);
     if let Some(game) = app_id.and_then(|a| game_ctx(&ctx.cache, &a).ok()) {
+        let techs = technologies_of(&game);
         for v in &mut views {
-            v.relevance = Some(relevance_for(&game, v, &game.findings));
+            v.relevance = Some(relevance_for(&game, v, &game.findings, &techs));
         }
     }
     views
@@ -241,9 +242,33 @@ pub async fn verify_fix_operation(
     blocking(move || e.verify(&operation_id, &emitter(app))).await
 }
 
+/// Tecnologias que a instalação do jogo traz (DLSS, frame generation, PhysX…).
+fn technologies_of(game: &GameCtx) -> Vec<&'static str> {
+    game.install_path
+        .as_deref()
+        .map(crate::fix_engine::environment::installed_technologies)
+        .unwrap_or_default()
+}
+
+/// Tecnologias gráficas que a instalação do jogo traz. Vazio se não houver instalação.
+#[tauri::command]
+pub fn game_technologies(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> {
+    if !crate::art::valid_app_id(&app_id) {
+        return vec![];
+    }
+    game_ctx(&ctx.cache, &app_id)
+        .map(|g| technologies_of(&g).into_iter().map(str::to_owned).collect())
+        .unwrap_or_default()
+}
+
 /// Por que esta receita interessa a este jogo: só se ele tem um dos problemas
-/// que ela resolve (sintomas lidos das fontes do próprio jogo).
-fn relevance_for(game: &GameCtx, view: &RecipeView, findings: &[FixFinding]) -> Relevance {
+/// que ela resolve, e a tecnologia que a opção mexe está instalada.
+fn relevance_for(
+    game: &GameCtx,
+    view: &RecipeView,
+    findings: &[FixFinding],
+    techs: &[&str],
+) -> Relevance {
     if view.recipe.purpose == Purpose::Diagnostic {
         return Relevance {
             relevant: true,
@@ -257,7 +282,7 @@ fn relevance_for(game: &GameCtx, view: &RecipeView, findings: &[FixFinding]) -> 
         };
     }
     let aims = crate::fix_engine::dynamic::compatibility::recipe_aims(&view.recipe.actions);
-    let problems = crate::fixes::symptoms::of_game(findings, &game.app_id);
+    let problems = crate::fixes::symptoms::of_game(findings, &game.app_id, techs);
     let names = |ids: &[&str]| {
         ids.iter()
             .map(|id| crate::fixes::symptoms::label(id))
@@ -275,7 +300,15 @@ fn relevance_for(game: &GameCtx, view: &RecipeView, findings: &[FixFinding]) -> 
             reason: format!("Este jogo tem relatos de {}.", names(&matched)),
         };
     }
-    let reason = if aims.is_empty() {
+    // Opção de uma tecnologia que o jogo não traz: o motivo é a ausência, não o problema.
+    let absent: Vec<&str> = aims
+        .iter()
+        .copied()
+        .filter(|a| !crate::fixes::symptoms::applies(a, techs))
+        .collect();
+    let reason = if !aims.is_empty() && absent.len() == aims.len() {
+        format!("O jogo não usa {}.", names(&absent))
+    } else if aims.is_empty() {
         "Não resolve um problema descrito nas fontes deste jogo.".to_owned()
     } else {
         format!("Este jogo não tem relatos de {}.", names(&aims))
@@ -286,7 +319,7 @@ fn relevance_for(game: &GameCtx, view: &RecipeView, findings: &[FixFinding]) -> 
     }
 }
 
-/// Problemas que os relatos deste jogo citam (mesmos sintomas da resolução).
+/// Problemas que os relatos deste jogo citam, só nas tecnologias que ele traz.
 #[tauri::command]
 pub fn detected_symptoms(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> {
     if !crate::art::valid_app_id(&app_id) {
@@ -298,7 +331,10 @@ pub fn detected_symptoms(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> 
         .filter(|e| e.data.app_id == app_id)
         .map(|e| e.data.findings)
         .unwrap_or_default();
-    crate::fixes::symptoms::of_game(&findings, &app_id)
+    let techs = game_ctx(&ctx.cache, &app_id)
+        .map(|g| technologies_of(&g))
+        .unwrap_or_default();
+    crate::fixes::symptoms::of_game(&findings, &app_id, &techs)
         .into_iter()
         .map(str::to_owned)
         .collect()

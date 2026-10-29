@@ -135,12 +135,30 @@ pub fn of_finding(f: &FixFinding) -> Vec<&'static str> {
     out
 }
 
-/// Problemas do jogo: união dos sintomas dos achados dele.
-pub fn of_game(findings: &[FixFinding], app_id: &str) -> Vec<&'static str> {
+/// Tecnologia que um problema exige na instalação. Sem ela, o problema não existe para o jogo.
+pub fn required_technology(id: &str) -> Option<&'static str> {
+    match id {
+        "physx" => Some("physx"),
+        "dlss" => Some("dlss"),
+        "frame-generation" => Some("frame-generation"),
+        "ray-tracing" => Some("ray-tracing"),
+        "fsr" => Some("fsr"),
+        _ => None,
+    }
+}
+
+/// O problema se aplica ao jogo, dado o que a instalação traz.
+pub fn applies(id: &str, technologies: &[&str]) -> bool {
+    required_technology(id).is_none_or(|t| technologies.contains(&t))
+}
+
+/// Problemas do jogo: união dos sintomas dos achados dele, só os que se aplicam
+/// às tecnologias que a instalação traz.
+pub fn of_game(findings: &[FixFinding], app_id: &str, technologies: &[&str]) -> Vec<&'static str> {
     let mut out: Vec<&'static str> = Vec::new();
     for f in findings.iter().filter(|f| f.game_app_id == app_id) {
         for id in of_finding(f) {
-            if !out.contains(&id) {
+            if applies(id, technologies) && !out.contains(&id) {
                 out.push(id);
             }
         }
