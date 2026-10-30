@@ -1,0 +1,2792 @@
+[
+  {
+    "id": "development-0",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-1063643558",
+    "document_id": "1063643558",
+    "reporter_id": "github:7109806",
+    "source_sha256": "541ca4630e094f5580d9771eabb57e05e9fcc1b9ee8875af9fff02b4ec934398",
+    "source_offset": 0,
+    "paragraph_length": 312,
+    "paragraph_sha256": "10d03f1111071f0d567d546af9b456918e57fd0a835180f14f7934ee8612900b",
+    "published_at": "2022-03-10T04:07:41Z",
+    "updated_at": "2022-03-10T04:07:41Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          23,
+          29
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          30,
+          52
+        ],
+        "status_span": [
+          17,
+          29
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:7109806",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic submission, not a correction. Software patch speculation is not an executed operation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-1",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-517662449",
+    "document_id": "517662449",
+    "reporter_id": "github:15913880",
+    "source_sha256": "e7791460cb73305653b517761a8ce936d86863281d0a3380a9340f593fe3273b",
+    "source_offset": 0,
+    "paragraph_length": 210,
+    "paragraph_sha256": "03961f651025bee118473d7061311d3f9f436c8704fbda92b15aeca249ccce92",
+    "published_at": "2019-08-02T11:12:08Z",
+    "updated_at": "2019-08-02T11:13:24Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          119,
+          153
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Existing-version behavior; software reports are not user-performed operations.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-2",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-575744719",
+    "document_id": "575744719",
+    "reporter_id": "github:34554541",
+    "source_sha256": "b48699bfc0f52f72223a8a44799932f713f7acbe219af2a01708274d372e4680",
+    "source_offset": 125,
+    "paragraph_length": 223,
+    "paragraph_sha256": "0605ad4c5be9c08298b3dc408399cd39ca3bf75ddb10ed4ae795641251fe5d1e",
+    "published_at": "2020-01-17T18:37:30Z",
+    "updated_at": "2020-01-17T18:37:30Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          61,
+          69
+        ],
+        "status": "suggested",
+        "direction": "enable",
+        "target": [
+          70,
+          93
+        ],
+        "status_span": [
+          19,
+          69
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Advice with expected outcome; not an observed successful trial.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-3",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-487251841",
+    "document_id": "487251841",
+    "reporter_id": "github:5234084",
+    "source_sha256": "8b2c26eb2f38f074b1d1ce6bc88bc80992a01f00b3122bbe56b57a8b9fabfb0d",
+    "source_offset": 0,
+    "paragraph_length": 163,
+    "paragraph_sha256": "7de87b021f5b1aae154864848babb660ab357c0535eec3e04058733a9d957495",
+    "published_at": "2019-04-27T03:49:25Z",
+    "updated_at": "2019-12-31T03:15:56Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          45,
+          51
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          57,
+          90
+        ],
+        "status_span": [
+          45,
+          68
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          144,
+          162
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Elliptical actual version trial, actor not explicitly identified.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-4",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-586821874",
+    "document_id": "586821874",
+    "reporter_id": "github:13387832",
+    "source_sha256": "67ce350040d0f5a685cc6e83374715d475105a1a0f96fbf7da70e7a5696cf590",
+    "source_offset": 0,
+    "paragraph_length": 45,
+    "paragraph_sha256": "67ce350040d0f5a685cc6e83374715d475105a1a0f96fbf7da70e7a5696cf590",
+    "published_at": "2020-02-17T05:18:50Z",
+    "updated_at": "2020-02-17T05:18:50Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          13
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          14,
+          18
+        ],
+        "status_span": [
+          0,
+          18
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          30,
+          44
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Retrospective necessity plus reported result; exact package/version unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-5",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-569862139",
+    "document_id": "569862139",
+    "reporter_id": "github:20600978",
+    "source_sha256": "2404bcc647e210f6642cffdba127521ffcb5502b776ed87a360103e5958684b9",
+    "source_offset": 0,
+    "paragraph_length": 104,
+    "paragraph_sha256": "2404bcc647e210f6642cffdba127521ffcb5502b776ed87a360103e5958684b9",
+    "published_at": "2019-12-31T04:35:09Z",
+    "updated_at": "2019-12-31T04:35:09Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          15
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          16,
+          24
+        ],
+        "status_span": [
+          0,
+          15
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:20600978",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          29,
+          38
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Successful reproduction/run, not evidence of a changed correction.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-6",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-818973349",
+    "document_id": "818973349",
+    "reporter_id": "github:50769252",
+    "source_sha256": "9856781ee63d6d4796e321a268165e08aa11f006227a867f22186cb8f36cbdcd",
+    "source_offset": 0,
+    "paragraph_length": 263,
+    "paragraph_sha256": "bd60c9692563f4280dd3912af461f824ef95812a0bbe5d1fabd310de075eb184",
+    "published_at": "2021-04-13T18:47:28Z",
+    "updated_at": "2021-04-13T18:47:28Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          35,
+          40
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          41,
+          53
+        ],
+        "status_span": [
+          35,
+          53
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:50769252",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          205,
+          213
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          214,
+          221
+        ],
+        "status_span": [
+          199,
+          221
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          222,
+          262
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Later crash after logging is not proof that logging caused a regression.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-7",
+    "source_thread_app_id": "632360",
+    "app_id": "632360",
+    "thread": 2476,
+    "title": "Risk of Rain 2 (632360)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-720293999",
+    "document_id": "720293999",
+    "reporter_id": "github:7478148",
+    "source_sha256": "a6b2a40f963bc46cf772311c1940e981e50fe03cc0bbd184db0151776e2bbe81",
+    "source_offset": 0,
+    "paragraph_length": 202,
+    "paragraph_sha256": "a6b2a40f963bc46cf772311c1940e981e50fe03cc0bbd184db0151776e2bbe81",
+    "published_at": "2020-11-02T07:34:55Z",
+    "updated_at": "2020-11-02T07:34:55Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          52,
+          59
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          60,
+          80
+        ],
+        "status_span": [
+          52,
+          80
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          99,
+          105
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          114,
+          121
+        ],
+        "status_span": [
+          85,
+          105
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          109,
+          113
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          114,
+          121
+        ],
+        "status_span": [
+          106,
+          121
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          182,
+          189
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          190,
+          201
+        ],
+        "status_span": [
+          171,
+          189
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Conditional reproduction description, not an explicit author-executed corrective procedure.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-8",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-1065969435",
+    "document_id": "1065969435",
+    "reporter_id": "github:63820902",
+    "source_sha256": "ee52334ce51adf4de2208e8fae0ce8b115df6b5fb70c857206ebb348bc1442f5",
+    "source_offset": 0,
+    "paragraph_length": 112,
+    "paragraph_sha256": "ee52334ce51adf4de2208e8fae0ce8b115df6b5fb70c857206ebb348bc1442f5",
+    "published_at": "2022-03-12T21:42:12Z",
+    "updated_at": "2022-03-12T21:42:12Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          64,
+          90
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-9",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-708865925",
+    "document_id": "708865925",
+    "reporter_id": "github:16887983",
+    "source_sha256": "d0a66e4ac444a298a375f35bbe988603f7ddc433f34c845af9375dd3ab82516a",
+    "source_offset": 0,
+    "paragraph_length": 154,
+    "paragraph_sha256": "6e684fc0f713a3ec52f4d7d6a6d49df7e955cedfa51bdc94e342bb6843637d3d",
+    "published_at": "2020-10-15T03:05:23Z",
+    "updated_at": "2020-10-15T03:05:23Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted report; no executed user operation trigger.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-10",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-770439502",
+    "document_id": "770439502",
+    "reporter_id": "github:24358216",
+    "source_sha256": "fc23fd8449006d3d7327635e988b31257cb0dcad4546a90e1c29743f321b7f5e",
+    "source_offset": 240,
+    "paragraph_length": 254,
+    "paragraph_sha256": "fd5e7d6e1b3019835bb51a40366c332c6a0bf9b5b0a6d87fbc87634fb40a968d",
+    "published_at": "2021-01-31T19:48:06Z",
+    "updated_at": "2021-01-31T19:48:06Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Template question does not identify the content or action of a system update.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-11",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-423424265",
+    "document_id": "423424265",
+    "reporter_id": "github:43463252",
+    "source_sha256": "2e9bc0662285de064499ea7ab75c6612fe2e7b456d25b2a5fb8191f2e537fbc4",
+    "source_offset": 0,
+    "paragraph_length": 586,
+    "paragraph_sha256": "2e9bc0662285de064499ea7ab75c6612fe2e7b456d25b2a5fb8191f2e537fbc4",
+    "published_at": "2018-09-21T06:09:42Z",
+    "updated_at": "2018-09-21T07:04:31Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          240,
+          249
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          250,
+          275
+        ],
+        "status_span": [
+          238,
+          249
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:43463252",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          282,
+          286
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          287,
+          294
+        ],
+        "status_span": [
+          277,
+          294
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:43463252",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          299,
+          307
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          308,
+          323
+        ],
+        "status_span": [
+          299,
+          323
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:43463252",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          372,
+          381
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      },
+      {
+        "span": [
+          401,
+          432
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Historical untrusted procedure involving executable provenance/DRM; never recommend or execute it. FFXV abbreviation alone is not a verified AppID link.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-12",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-553915415",
+    "document_id": "553915415",
+    "reporter_id": "github:4117456",
+    "source_sha256": "135e3f8fc2d8ab1ea0e49ba713b205f7850446af8f0f41d37df89764c87b0959",
+    "source_offset": 477,
+    "paragraph_length": 285,
+    "paragraph_sha256": "034a7d3bb5b40c39479aab98a328081455183291f1303c38fe778b5b235f3a4f",
+    "published_at": "2019-11-14T14:37:12Z",
+    "updated_at": "2019-11-14T14:37:12Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          34,
+          37
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          39,
+          72
+        ],
+        "status_span": [
+          23,
+          37
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:4117456",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          212,
+          219
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          220,
+          230
+        ],
+        "status_span": [
+          200,
+          219
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:4117456",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Conditional negation describes a requirement, not a completed change or a measured cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-13",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-671732341",
+    "document_id": "671732341",
+    "reporter_id": "github:32948792",
+    "source_sha256": "407e94e6bd4f069ea5dea1e13d8fd1450505f94d55e6ea411a392760445cef4b",
+    "source_offset": 0,
+    "paragraph_length": 195,
+    "paragraph_sha256": "407e94e6bd4f069ea5dea1e13d8fd1450505f94d55e6ea411a392760445cef4b",
+    "published_at": "2020-08-11T05:22:49Z",
+    "updated_at": "2020-08-11T05:22:49Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          52,
+          57
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          58,
+          85
+        ],
+        "status_span": [
+          47,
+          57
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:32948792",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          147,
+          194
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-14",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-1332536825",
+    "document_id": "1332536825",
+    "reporter_id": "github:1975567",
+    "source_sha256": "3f86b8548adad5db4c66250c9ffb768018737ff69397221e5496ef9728cefe0f",
+    "source_offset": 0,
+    "paragraph_length": 515,
+    "paragraph_sha256": "2f15201156117c90658467a136b44e5c75bca07c8f277249817253dc1c605d03",
+    "published_at": "2022-11-30T17:56:43Z",
+    "updated_at": "2022-11-30T18:10:09Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          102,
+          109
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          110,
+          125
+        ],
+        "status_span": [
+          102,
+          125
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1975567",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          180,
+          185
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          186,
+          205
+        ],
+        "status_span": [
+          178,
+          205
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1975567",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          38,
+          65
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          269,
+          295
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Separate freeze scenarios and two steps; do not credit a Proton version with the earlier FPS-limit improvement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-15",
+    "source_thread_app_id": "637650",
+    "app_id": "637650",
+    "thread": 74,
+    "title": "Final Fantasy XV (637650)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/74#issuecomment-2498852706",
+    "document_id": "2498852706",
+    "reporter_id": "github:7422982",
+    "source_sha256": "4ea156f1d1bd98705e36c7b71efc920f9c4bcfcb81badec01e14d8535652d9d9",
+    "source_offset": 0,
+    "paragraph_length": 277,
+    "paragraph_sha256": "de1eb9d7805eb575ac072950ac2d5952f7d2081f321eaba843a59aa20dead2ce",
+    "published_at": "2024-11-25T19:23:44Z",
+    "updated_at": "2024-11-25T19:23:44Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          237,
+          247
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          248,
+          250
+        ],
+        "status_span": [
+          224,
+          250
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:7422982",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          104,
+          128
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-16",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-473100733",
+    "document_id": "473100733",
+    "reporter_id": "github:48539181",
+    "source_sha256": "66b552b0dab7792ce17c51b3a46816b705832afdb8a6d7e79aca5d3b020e9ec3",
+    "source_offset": 0,
+    "paragraph_length": 429,
+    "paragraph_sha256": "7cd77f4677807f78e048f3359c19ad4565a3dbc0e35b6e661ffeab30a61a0916",
+    "published_at": "2019-03-14T23:14:08Z",
+    "updated_at": "2019-03-14T23:14:08Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          122,
+          129
+        ],
+        "status": "suggested",
+        "direction": "update",
+        "target": [
+          133,
+          140
+        ],
+        "status_span": [
+          115,
+          129
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted program/log instruction, not an executed update by the current author. Personal path stays in external source cache only.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-17",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-1073260174",
+    "document_id": "1073260174",
+    "reporter_id": "github:6344099",
+    "source_sha256": "dbbe2959d70abf23eb9fb51f7ce50cfbc4aaff7e4a6230f75890cbaa01557856",
+    "source_offset": 0,
+    "paragraph_length": 90,
+    "paragraph_sha256": "58fba715ddf086fb8a8f7939e74982129d778fffe327b204d505ff65c285a915",
+    "published_at": "2022-03-20T14:11:32Z",
+    "updated_at": "2022-03-20T14:11:32Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          11,
+          17
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          24,
+          56
+        ],
+        "status_span": [
+          2,
+          17
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted first person is a different/unknown speaker. To fix expresses a purpose, not an explicit observed outcome here.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-18",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-1006031427",
+    "document_id": "1006031427",
+    "reporter_id": "github:24358216",
+    "source_sha256": "478011f05dd92ba5e23a2c55f00258d3db0c2ea03f8a5a3f5d35c910257a000c",
+    "source_offset": 171,
+    "paragraph_length": 390,
+    "paragraph_sha256": "45bd97e95ddb3d860ef3b82f06d55aefcfb6a37eb2d2f38ad4ea721c4e849fe4",
+    "published_at": "2022-01-05T19:54:19Z",
+    "updated_at": "2022-01-05T19:54:19Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          35,
+          42
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          43,
+          55
+        ],
+        "status_span": [
+          0,
+          42
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:24358216",
+        "game_app_id": "412020",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          274,
+          283
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          284,
+          312
+        ],
+        "status_span": [
+          268,
+          294
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:24358216",
+        "game_app_id": "412020",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Only explicitly named game in coherent account is Metro Exodus. Obtaining an error report is not fixing the game.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-19",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-586742759",
+    "document_id": "586742759",
+    "reporter_id": "github:1786438",
+    "source_sha256": "b9f655ab10953690ead369c7d6c201f0ac8fdac8a55d1d9c85fd5c2f3d63bdab",
+    "source_offset": 0,
+    "paragraph_length": 288,
+    "paragraph_sha256": "b9f655ab10953690ead369c7d6c201f0ac8fdac8a55d1d9c85fd5c2f3d63bdab",
+    "published_at": "2020-02-16T19:23:28Z",
+    "updated_at": "2020-02-16T19:23:28Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          9,
+          15
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          22,
+          54
+        ],
+        "status_span": [
+          0,
+          15
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1786438",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          198,
+          203
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          205,
+          215
+        ],
+        "status_span": [
+          187,
+          203
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1786438",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          113,
+          136
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Actual launch and later general functioning; conditional button-click ability remains unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-20",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-587397893",
+    "document_id": "587397893",
+    "reporter_id": "github:61187379",
+    "source_sha256": "ed93e694ccc2ce48be7fdaa0aea19f6cabac8354b0f9df9daaf3aca0751c6f30",
+    "source_offset": 283,
+    "paragraph_length": 274,
+    "paragraph_sha256": "a191ae1a53e24487af25aabafb969cf2f149cb9966175f3b522f81aa19b29d06",
+    "published_at": "2020-02-18T10:46:26Z",
+    "updated_at": "2020-02-21T08:10:33Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          24,
+          34
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          35,
+          57
+        ],
+        "status_span": [
+          21,
+          57
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61187379",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          62,
+          70
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          71,
+          91
+        ],
+        "status_span": [
+          62,
+          91
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61187379",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          97,
+          106
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          107,
+          159
+        ],
+        "status_span": [
+          97,
+          126
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61187379",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          232,
+          239
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          240,
+          273
+        ],
+        "status_span": [
+          230,
+          255
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61187379",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          5,
+          20
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The by-group supports a joint result. The later also-change is not individually credited.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-21",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-472846219",
+    "document_id": "472846219",
+    "reporter_id": "github:24358216",
+    "source_sha256": "69236f4a570a7bd2abecefa4d3cbf828ce2d99b1a1dfbb30367786bbba3bd819",
+    "source_offset": 0,
+    "paragraph_length": 376,
+    "paragraph_sha256": "34e19570e158619ca8be344246c0e3c65ee199f78c8d77ea65269d445209825c",
+    "published_at": "2019-03-14T13:10:27Z",
+    "updated_at": "2019-03-14T13:11:58Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          118,
+          125
+        ],
+        "status": "suggested",
+        "direction": "update",
+        "target": [
+          129,
+          136
+        ],
+        "status_span": [
+          111,
+          125
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Inline quoted log message; not an author-executed operation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-22",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-524113179",
+    "document_id": "524113179",
+    "reporter_id": "github:1386373",
+    "source_sha256": "0193f30dc6932e012619775b48df219ec96b2da2876488b2240b6902d3336636",
+    "source_offset": 205,
+    "paragraph_length": 63,
+    "paragraph_sha256": "bc3abcd91ae3a3d2578ddb366ad5f27fe675c079f01f849705015dd660c2e209",
+    "published_at": "2019-08-22T23:17:10Z",
+    "updated_at": "2019-08-22T23:17:10Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          21
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          22,
+          50
+        ],
+        "status_span": [
+          14,
+          50
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Will fix is a hypothesis/proposal, not a measured result.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-23",
+    "source_thread_app_id": "412020",
+    "app_id": "412020",
+    "thread": 2414,
+    "title": "Metro: Exodus (412020)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2414#issuecomment-590054751",
+    "document_id": "590054751",
+    "reporter_id": "github:2991620",
+    "source_sha256": "2ca1b4967aa0ae948070fa274aac77da0bcb472df2714bcd7b3e6d4356a20d4c",
+    "source_offset": 0,
+    "paragraph_length": 247,
+    "paragraph_sha256": "2ca1b4967aa0ae948070fa274aac77da0bcb472df2714bcd7b3e6d4356a20d4c",
+    "published_at": "2020-02-23T10:40:52Z",
+    "updated_at": "2020-02-23T10:40:52Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          160,
+          166
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          167,
+          191
+        ],
+        "status_span": [
+          158,
+          183
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:2991620",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic issue submission; cause remains unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-24",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-530776897",
+    "document_id": "530776897",
+    "reporter_id": "github:9367616",
+    "source_sha256": "1c0bd2eeac6ff6ef154ab761ef3ac662662a5e82ebb064d380217a7c387df1a0",
+    "source_offset": 0,
+    "paragraph_length": 259,
+    "paragraph_sha256": "57a2300b661f1e7a13da4df3cb80a980f0060457ecae08ecce1a2f6416e7c99a",
+    "published_at": "2019-09-12T11:07:36Z",
+    "updated_at": "2019-09-12T11:07:36Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          33,
+          39
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          40,
+          62
+        ],
+        "status_span": [
+          19,
+          39
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted inability to assign a button, not a completed correction.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-25",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-472655542",
+    "document_id": "472655542",
+    "reporter_id": "github:35786377",
+    "source_sha256": "dd7e022cf0a6c1f2ef3398b630d344f4f1b330c07fe53e91153535efd91bb405",
+    "source_offset": 0,
+    "paragraph_length": 101,
+    "paragraph_sha256": "2f7d43981245acadf7c28cc42f28c2ba07dab4590d478e22fe5f8d33a494cfd2",
+    "published_at": "2019-03-14T00:16:02Z",
+    "updated_at": "2019-03-14T00:16:31Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          31,
+          38
+        ],
+        "status": "unknown",
+        "direction": "install",
+        "target": [
+          39,
+          46
+        ],
+        "status_span": [
+          20,
+          38
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted installation question; did it right is insufficient to certify the installation event.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-26",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-427648574",
+    "document_id": "427648574",
+    "reporter_id": "github:1321256",
+    "source_sha256": "6dd5849deb1a276f0ee25089ec4db757f38068aa12308f68aaf5284a1c966596",
+    "source_offset": 0,
+    "paragraph_length": 89,
+    "paragraph_sha256": "6dd5849deb1a276f0ee25089ec4db757f38068aa12308f68aaf5284a1c966596",
+    "published_at": "2018-10-07T12:12:09Z",
+    "updated_at": "2018-10-07T12:12:09Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-27",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-464494718",
+    "document_id": "464494718",
+    "reporter_id": "github:35786377",
+    "source_sha256": "f8077ee646e045f37f47425e8585524815df9f253e29d0337eba2ac5bf643219",
+    "source_offset": 0,
+    "paragraph_length": 207,
+    "paragraph_sha256": "e8fe9a022ae5cc5aa6f459f8d9f5c4ce14408322b8c6e39d12a0ff7af4407e18",
+    "published_at": "2019-02-17T18:55:23Z",
+    "updated_at": "2019-02-17T18:55:41Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          33,
+          42
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          19,
+          28
+        ],
+        "status_span": [
+          13,
+          42
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          118,
+          124
+        ],
+        "status": "unknown",
+        "direction": "replace",
+        "target": [
+          132,
+          150
+        ],
+        "status_span": [
+          118,
+          131
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:35786377",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          125,
+          131
+        ],
+        "status": "unknown",
+        "direction": "remove",
+        "target": [
+          132,
+          150
+        ],
+        "status_span": [
+          118,
+          131
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:35786377",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          154,
+          161
+        ],
+        "status": "unknown",
+        "direction": "install",
+        "target": [
+          162,
+          169
+        ],
+        "status_span": [
+          154,
+          169
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:35786377",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          189,
+          196
+        ],
+        "status": "unknown",
+        "direction": "disable",
+        "target": [
+          197,
+          207
+        ],
+        "status_span": [
+          189,
+          207
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:35786377",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          43,
+          83
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Completed passive installation is distinct from a later required list without an explicit reported completion or result.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-28",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-629716833",
+    "document_id": "629716833",
+    "reporter_id": "github:42102157",
+    "source_sha256": "b58660f1b2b4a414f0e989ca6bf33eee69eadd15e87435d84ada483deeb82082",
+    "source_offset": 544,
+    "paragraph_length": 106,
+    "paragraph_sha256": "b150de96c2440a258a34bd30f36554bbb4e3363f04356475f6d62ffd30492a92",
+    "published_at": "2020-05-16T22:59:52Z",
+    "updated_at": "2020-05-16T23:05:46Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          33,
+          36
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          14,
+          24
+        ],
+        "status_span": [
+          25,
+          36
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:42102157",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-29",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-516640919",
+    "document_id": "516640919",
+    "reporter_id": "github:5076722",
+    "source_sha256": "174e21e18b38664490ab94d8e971cfffec819060335fa49869844e85a029efaf",
+    "source_offset": 0,
+    "paragraph_length": 134,
+    "paragraph_sha256": "174e21e18b38664490ab94d8e971cfffec819060335fa49869844e85a029efaf",
+    "published_at": "2019-07-31T00:02:53Z",
+    "updated_at": "2019-07-31T00:02:53Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          107,
+          114
+        ],
+        "status": "unknown",
+        "direction": "install",
+        "target": [
+          115,
+          124
+        ],
+        "status_span": [
+          89,
+          114
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          22,
+          72
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Release efficacy assertion is not a user-executed update. No longer required is not proof of a denied installation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-30",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-455757340",
+    "document_id": "455757340",
+    "reporter_id": "github:2451426",
+    "source_sha256": "473b2eac86d2186367aae6349a53fba732e76f8662ec3663d0befce69056f25a",
+    "source_offset": 0,
+    "paragraph_length": 307,
+    "paragraph_sha256": "77cda0a538afb50c960f1263bdfae06fc201b7c0a4e31d94b2d6151f37ef9194",
+    "published_at": "2019-01-19T07:31:34Z",
+    "updated_at": "2019-01-19T07:34:53Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          6
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          0,
+          17
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          35,
+          76
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-31",
+    "source_thread_app_id": "570940",
+    "app_id": "570940",
+    "thread": 1026,
+    "title": "Dark Souls: Remastered (570940)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1026#issuecomment-1105746444",
+    "document_id": "1105746444",
+    "reporter_id": "github:24358216",
+    "source_sha256": "7ac65a1591c80fed85820c9b0f14098e6aecaa2312860063d10f885024e7293c",
+    "source_offset": 165,
+    "paragraph_length": 236,
+    "paragraph_sha256": "50895a5b2c32e7bbf6e11d000338e8960f224604b071c4a9550368127736b961",
+    "published_at": "2022-04-21T20:50:53Z",
+    "updated_at": "2022-04-21T20:50:53Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          67,
+          75
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          48,
+          57
+        ],
+        "status_span": [
+          48,
+          75
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": "570940",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          88,
+          95
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          102,
+          107
+        ],
+        "status_span": [
+          88,
+          107
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": "570940",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          96,
+          101
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          102,
+          107
+        ],
+        "status_span": [
+          96,
+          107
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": "570940",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          108,
+          130
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          224,
+          235
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Window text explicitly names Dark Souls: Remastered. No author identity is stated. Different version observations remain separate.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-32",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-845571349",
+    "document_id": "845571349",
+    "reporter_id": "github:22435766",
+    "source_sha256": "b19810c5cedd2ccbe4ca8f62543923a3af4cf95ecc5c177113ba176d88f2be85",
+    "source_offset": 0,
+    "paragraph_length": 88,
+    "paragraph_sha256": "020035bce3a71c496912bd0ac79a0c74596175c2b0b351bbc3cb59da2a48cd76",
+    "published_at": "2021-05-21T00:36:43Z",
+    "updated_at": "2021-05-21T18:25:51Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-33",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-851068602",
+    "document_id": "851068602",
+    "reporter_id": "github:11287837",
+    "source_sha256": "4d1312d0d314042c97fd6907ebc568162daeb0f23457459baecbcaa3674c2b8c",
+    "source_offset": 0,
+    "paragraph_length": 121,
+    "paragraph_sha256": "94ba25b5672dfe8c57ccf352c723f0e473f2bdda47a40629a2ced276570b7bc0",
+    "published_at": "2021-05-30T22:07:40Z",
+    "updated_at": "2021-05-30T22:07:40Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          85,
+          88
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": [
+          89,
+          120
+        ],
+        "status_span": [
+          80,
+          88
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-34",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-851067136",
+    "document_id": "851067136",
+    "reporter_id": "github:975131",
+    "source_sha256": "0a90cb6995345ecbbc75cb4f7dd7a4486aec26b64d1d2d70bd9f941d348238ac",
+    "source_offset": 40,
+    "paragraph_length": 75,
+    "paragraph_sha256": "992c32190689a46046a23da218cecab7dd109917e9f6715f0f6ed840a0f4cf4d",
+    "published_at": "2021-05-30T21:56:07Z",
+    "updated_at": "2021-05-30T21:56:07Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          39,
+          42
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": [
+          43,
+          74
+        ],
+        "status_span": [
+          34,
+          42
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-35",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-1091184222",
+    "document_id": "1091184222",
+    "reporter_id": "github:103016847",
+    "source_sha256": "b76a2d9aa611bb48c7b448053401833b5e13d4d5e1484ef7956020869e4266d5",
+    "source_offset": 0,
+    "paragraph_length": 301,
+    "paragraph_sha256": "b76a2d9aa611bb48c7b448053401833b5e13d4d5e1484ef7956020869e4266d5",
+    "published_at": "2022-04-07T07:29:51Z",
+    "updated_at": "2022-04-07T07:29:51Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          57,
+          66
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          67,
+          83
+        ],
+        "status_span": [
+          57,
+          83
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          223,
+          231
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          232,
+          240
+        ],
+        "status_span": [
+          212,
+          231
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:103016847",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          259,
+          266
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          267,
+          275
+        ],
+        "status_span": [
+          257,
+          275
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:103016847",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          84,
+          95
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          276,
+          300
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The reported movie workaround is distinct from runs with no configuration change.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-36",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-1094335125",
+    "document_id": "1094335125",
+    "reporter_id": "github:18540032",
+    "source_sha256": "36f9dde1b8a4560efd6615bfefde017d640818758d8d7a396bae5c18f280e106",
+    "source_offset": 0,
+    "paragraph_length": 222,
+    "paragraph_sha256": "ddd7285d6e94bf930d772e7305bacdd22a69df37451e41193040a1e3c461c945",
+    "published_at": "2022-04-10T17:43:39Z",
+    "updated_at": "2022-04-10T17:43:39Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          40,
+          69
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "System upgrade is a context noun without an asserted user operation trigger.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-37",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-953736440",
+    "document_id": "953736440",
+    "reporter_id": "github:16490",
+    "source_sha256": "3e7bbdfecbac33f6fefb53c79deac22f5cd04a019cc6f2467f973742292befc0",
+    "source_offset": 183,
+    "paragraph_length": 192,
+    "paragraph_sha256": "8c813253de435b396c5c68a7078b7126486718c249f9ad77139108b8f43b008f",
+    "published_at": "2021-10-28T10:59:29Z",
+    "updated_at": "2021-10-28T14:37:17Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          8,
+          31
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Release metadata does not identify a user-executed update or its absence.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-38",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-953263327",
+    "document_id": "953263327",
+    "reporter_id": "github:4337981",
+    "source_sha256": "ef77f8aa0763bafb9d0a1b33ee4cd607ac8e32a1602d3af8ce5b6909e96472ae",
+    "source_offset": 163,
+    "paragraph_length": 105,
+    "paragraph_sha256": "a12f91003e50bb5009c2c7ef3113e0f91967be86251e2932345e70334a9686a9",
+    "published_at": "2021-10-27T19:58:43Z",
+    "updated_at": "2021-10-28T14:37:09Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          49,
+          56
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          57,
+          59
+        ],
+        "status_span": [
+          45,
+          69
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          71,
+          76
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          80,
+          85
+        ],
+        "status_span": [
+          71,
+          85
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          86,
+          105
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Downgrade/version trial is source reported; no individual causal proof.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-39",
+    "source_thread_app_id": "1259420",
+    "app_id": "1259420",
+    "thread": 4832,
+    "title": "Days Gone (1259420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4832#issuecomment-845736981",
+    "document_id": "845736981",
+    "reporter_id": "github:71544926",
+    "source_sha256": "5ad7cdc996ffa3d3368ebdaeecc6119486f09f6f381b46cb3e8744d2fd4f26e1",
+    "source_offset": 103,
+    "paragraph_length": 79,
+    "paragraph_sha256": "1299c90a4ea4b753077fd19a1a8ef2106fc4b9d83dd536fbc2b58f6003b5d03d",
+    "published_at": "2021-05-21T07:47:02Z",
+    "updated_at": "2021-05-21T07:47:02Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          9
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          10,
+          14
+        ],
+        "status_span": [
+          0,
+          14
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:71544926",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "No subsequent result. Linked project code is data only and is never executed.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-40",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-3543487485",
+    "document_id": "3543487485",
+    "reporter_id": "github:115885800",
+    "source_sha256": "9bfcc47a3dd7334d02e0b4af02383783521e9b5df8c74020da47bbd5f4d0c167",
+    "source_offset": 0,
+    "paragraph_length": 89,
+    "paragraph_sha256": "48a86a885caaa0fd19da8f7c00099402ae7e3430347b943c01b8301c4fb7bb44",
+    "published_at": "2025-11-17T19:17:29Z",
+    "updated_at": "2025-11-17T19:52:33Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-41",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1535951682",
+    "document_id": "1535951682",
+    "reporter_id": "github:8393780",
+    "source_sha256": "c00ac20d70da84b1a2290cb3106ed4f68f1996294af485f23cb007339c1a9c0d",
+    "source_offset": 0,
+    "paragraph_length": 308,
+    "paragraph_sha256": "4900ab9e89e2e66fd35e35c614f1d33f209ef136d98c7c5cbbf2df0c4d2ae727",
+    "published_at": "2023-05-05T09:02:47Z",
+    "updated_at": "2023-05-05T09:02:47Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          142,
+          147
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          148,
+          185
+        ],
+        "status_span": [
+          135,
+          147
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": "1593500",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          187,
+          210
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted original report; not an independent author confirmation. Natural duplicate withdevelopment43; cluster by thread/source text.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-42",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1019273991",
+    "document_id": "1019273991",
+    "reporter_id": "github:24358216",
+    "source_sha256": "52493e762b859611ccd40aee82093f28cbe74356858c53c9aa79ba1de7c27e31",
+    "source_offset": 0,
+    "paragraph_length": 210,
+    "paragraph_sha256": "52493e762b859611ccd40aee82093f28cbe74356858c53c9aa79ba1de7c27e31",
+    "published_at": "2022-01-22T13:56:07Z",
+    "updated_at": "2022-01-22T13:56:07Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          23,
+          27
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          28,
+          51
+        ],
+        "status_span": [
+          16,
+          27
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          111,
+          114
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          115,
+          129
+        ],
+        "status_span": [
+          111,
+          129
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          162,
+          169
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          170,
+          188
+        ],
+        "status_span": [
+          162,
+          188
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-43",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1535777561",
+    "document_id": "1535777561",
+    "reporter_id": "github:107794202",
+    "source_sha256": "e022c7bd90facf80b6fb175eb7209a12282a9a3b55852a6e942c68076b34fc2b",
+    "source_offset": 0,
+    "paragraph_length": 209,
+    "paragraph_sha256": "a0005e3fccd389e9f928cdea111baa58c5a73b21c6da153cf0c91b09c8ff59b0",
+    "published_at": "2023-05-05T06:32:12Z",
+    "updated_at": "2023-05-05T06:32:12Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          140,
+          145
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          146,
+          183
+        ],
+        "status_span": [
+          133,
+          145
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:107794202",
+        "game_app_id": "1593500",
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          185,
+          208
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Original of the quoted developmental41; not an independent incident.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-44",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1401924345",
+    "document_id": "1401924345",
+    "reporter_id": "github:31102194",
+    "source_sha256": "b78dfd30b75d232cedd17dfa353d4692116b7ce06f68e8fc1201b8f5581b6fb0",
+    "source_offset": 0,
+    "paragraph_length": 100,
+    "paragraph_sha256": "b78dfd30b75d232cedd17dfa353d4692116b7ce06f68e8fc1201b8f5581b6fb0",
+    "published_at": "2023-01-24T13:10:02Z",
+    "updated_at": "2023-01-24T13:10:02Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          25,
+          31
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          32,
+          45
+        ],
+        "status_span": [
+          11,
+          31
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:31102194",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      },
+      {
+        "trigger": [
+          85,
+          90
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          91,
+          99
+        ],
+        "status_span": [
+          83,
+          99
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:31102194",
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          47,
+          76
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reboot is a response to earlier crashes, not their preceding cause. The since-start relation belongs to event1.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-45",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1359345410",
+    "document_id": "1359345410",
+    "reporter_id": "github:8393780",
+    "source_sha256": "bcd1d8f51902c6f3451305d7bc3d976d525e5e0dad0c77e8eb0852e6703f9b4f",
+    "source_offset": 0,
+    "paragraph_length": 160,
+    "paragraph_sha256": "bcd1d8f51902c6f3451305d7bc3d976d525e5e0dad0c77e8eb0852e6703f9b4f",
+    "published_at": "2022-12-20T13:25:05Z",
+    "updated_at": "2022-12-20T13:25:05Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          117,
+          123
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          124,
+          133
+        ],
+        "status_span": [
+          110,
+          133
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Generic hypothetical activity while tabbed out, not an author-executed corrective trial.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-46",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1536481581",
+    "document_id": "1536481581",
+    "reporter_id": "github:107794202",
+    "source_sha256": "31d3449ff4d1490e1e6520790b74c0bed72ad1ff6cd687b1ee2c3e36af9fc997",
+    "source_offset": 20,
+    "paragraph_length": 72,
+    "paragraph_sha256": "1b2b3e0e936a59f3c13ead781c42278913ef6beeacca9583239d6dff1536eefe",
+    "published_at": "2023-05-05T16:14:24Z",
+    "updated_at": "2023-05-05T16:14:24Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          3
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          4,
+          27
+        ],
+        "status_span": [
+          0,
+          27
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          45,
+          57
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Elliptical retrospective thanks. Actor identity is not explicit enough for a verified first-person assignment.",
+    "annotation_complete": true
+  },
+  {
+    "id": "development-47",
+    "source_thread_app_id": "1593500",
+    "app_id": "1593500",
+    "thread": 5511,
+    "title": "God of War (1593500)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5511#issuecomment-1536250846",
+    "document_id": "1536250846",
+    "reporter_id": "github:24358216",
+    "source_sha256": "95f05e0e174e8f461832744d0224291314e28f5b519c241dfd884c8b3d5e92da",
+    "source_offset": 0,
+    "paragraph_length": 656,
+    "paragraph_sha256": "95f05e0e174e8f461832744d0224291314e28f5b519c241dfd884c8b3d5e92da",
+    "published_at": "2023-05-05T13:18:15Z",
+    "updated_at": "2023-05-05T13:18:15Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          19,
+          26
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          30,
+          45
+        ],
+        "status_span": [
+          19,
+          45
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic observation; program backtrace is not a user operation or a package-install recommendation.",
+    "annotation_complete": true
+  }
+]

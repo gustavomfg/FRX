@@ -1,0 +1,7 @@
+{
+  "all_six_comparators_identical": true,
+  "main_and_challenge_identical": true,
+  "per_game_identical": true,
+  "source": "separate rehydrated external directory, empty parse caches, no API requests",
+  "known_replay_not_independent": true
+}

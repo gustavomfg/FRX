@@ -1,0 +1,36 @@
+[
+  {
+    "id": "identity-0",
+    "app_id": "418370",
+    "source_thread_app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-497741292",
+    "document_id": "497741292",
+    "reporter_id": "github:5076722",
+    "source_sha256": "bc1dd606efb7d2b91758cab766efca1e48029e415aeacb46b23d60ec30314d91",
+    "source_offset": 287,
+    "paragraph_length": 158,
+    "paragraph_sha256": "c2cad08f50fc261abf482a5d18e3c48b7c4ceb44405cd2bf912d8d8cc310841f",
+    "published_at": "2019-05-31T15:01:02Z",
+    "updated_at": "2019-05-31T15:42:27Z",
+    "stratum": "explicit-catalog-name"
+  },
+  {
+    "id": "identity-1",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1777122435",
+    "document_id": "1777122435",
+    "reporter_id": "github:24358216",
+    "source_sha256": "a86b6b6ab1e66fcfa70dcc86b82bafb96c93324c6f3268c252f2ccfe4296db83",
+    "source_offset": 1454,
+    "paragraph_length": 403,
+    "paragraph_sha256": "e7c222f403731c2c4d8ce58e740fa82d64c89096fccaa356c51f7ed016665534",
+    "published_at": "2023-10-24T12:36:44Z",
+    "updated_at": "2023-10-24T12:36:44Z",
+    "stratum": "explicit-catalog-name"
+  }
+]

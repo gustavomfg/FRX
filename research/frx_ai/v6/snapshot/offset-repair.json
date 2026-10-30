@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-30T21:55:49.202777+00:00",
+  "reason": "First acceptance attempt aborted before metrics or saved predictions: indirect-speech subject can follow verb and produced reversed evidence offsets.",
+  "kind": "infrastructure literal-span bound repair; no model/label/threshold change",
+  "old_sha256": "33d2bd64040e75a84a0f1e9febb453aed5f02e60e1320d6071ee28febe940383",
+  "new_sha256": "2369fb89003629e869024d7f5e6a1774ef8c8fc1780a24bda33f91b81fe28be4",
+  "labels_sha256": "3f9ce43f1e0c9e88ae0e492d7679f3bd4a5a2ad9ca5abd15d40edb2e5ac78140",
+  "predictions_inspected": false,
+  "source": "actor_quote=evidence(text,subject[0]['span'][0],w['span'][1])",
+  "replacement": "actor_quote=evidence(text,min(subject[0]['span'][0],w['span'][0]),max(subject[0]['span'][1],w['span'][1]))"
+}

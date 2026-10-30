@@ -1,0 +1,9 @@
+{
+  "cli_cases": 11,
+  "experimental_statuses": 11,
+  "execution_authorizations": 0,
+  "rebased_literal_citations_verified": 106,
+  "external_memory": true,
+  "tests_passed": 23,
+  "learning_connected_to_fix_engine": false
+}

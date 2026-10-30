@@ -1,0 +1,19 @@
+{
+  "old_training_units": 83,
+  "new_source_game_overlap_with_training": [],
+  "canonical_exact_overlap_with_training": {
+    "development-reserved.jsonl": 0,
+    "acceptance-reserved.jsonl": 0,
+    "identity-challenge-reserved.jsonl": 0,
+    "context-challenge-reserved.jsonl": 0
+  },
+  "development_acceptance_exact_overlap": 0,
+  "within_cohort_repeated_dequoted_units": {
+    "development-reserved.jsonl": 0,
+    "acceptance-reserved.jsonl": 1,
+    "identity-challenge-reserved.jsonl": 0,
+    "context-challenge-reserved.jsonl": 0
+  },
+  "bodies_inspected_for_acceptance": false,
+  "warning": "Canonical exact deduplication does not prove absence of all semantic overlap; cluster by discussion."
+}

@@ -1,0 +1,373 @@
+{
+  "status": "known historical public log views plus explicit controls; not independent real-game diagnostic validation",
+  "records": [
+    {
+      "id": "historical-SDL-symbol",
+      "kind": "historical-public-log-view; not-local-telemetry",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "verify-component-symbol-versions",
+              "top1": false,
+              "top3": false,
+              "got": [
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "verify-component-symbol-versions",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "verify-component-symbol-versions",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": true
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "historical-audio-format",
+      "kind": "historical-public-log-view; not-local-telemetry",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "verify-audio-format-route",
+              "top1": false,
+              "top3": false,
+              "got": [
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "verify-audio-format-route",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "verify-audio-format-route",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": true
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "historical-unknown",
+      "kind": "historical-symptom-only-view",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "identify-proton",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log",
+                "identify-proton"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            },
+            {
+              "expected": "identify-proton",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "identify-proton",
+                "identify-active-environment"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "failed-attempt",
+      "kind": "synthetic-policy-control",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": false,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": true,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "hardware-analogy",
+      "kind": "synthetic-policy-control",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": false,
+          "analogy_retained": false,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": true,
+          "analogy_retained": true,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "missing-library",
+      "kind": "synthetic-log-control",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "origin:fixture.dll",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "origin:fixture.dll"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": true
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "origin:fixture.dll",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "origin:fixture.dll"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": true
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    },
+    {
+      "id": "gpu-not-game-technology",
+      "kind": "synthetic-policy-control",
+      "variants": {
+        "v5": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        },
+        "v6": {
+          "steps": [
+            {
+              "expected": "collect-relevant-log",
+              "top1": true,
+              "top3": true,
+              "got": [
+                "collect-relevant-log"
+              ],
+              "unconfirmed": true,
+              "evidence_closure": false
+            }
+          ],
+          "candidate_contract": null,
+          "analogy_retained": null,
+          "confirmed_causes": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "v5": {
+      "steps": 10,
+      "top1": 8,
+      "top3": 8
+    },
+    "v6": {
+      "steps": 10,
+      "top1": 10,
+      "top3": 10
+    }
+  },
+  "learned_root_cause_model": false,
+  "probabilities_fitted": false,
+  "limitations": [
+    "Expected checks are provisional agent milestones.",
+    "SDL/audio templates were developed from these known reports.",
+    "No real game was executed or fixed."
+  ]
+}
