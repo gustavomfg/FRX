@@ -1,0 +1,23 @@
+__pycache__/
+.venv/
+artifacts/
+data/
+models/
+*.npy
+*.npz
+*.joblib
+*.onnx
+*.gguf
+*.pt
+*.safetensors
+*.pkl
+.cache/
+baseline/target/
+
+# Original corpora, training runs and local model checkpoints
+bodies/
+checkpoints/
+runs/
+*.jsonl
+*.bin
+*.log
