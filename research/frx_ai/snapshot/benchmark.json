@@ -1,0 +1,10 @@
+{
+  "startup_seconds": 1.0498429009967367,
+  "warm_samples": 20,
+  "p50_ms": 112.08969699873705,
+  "p95_ms": 139.00686999841128,
+  "peakRSS_KiB": 849504,
+  "threads": 4,
+  "device": "CPU",
+  "models_bytes": 119562960
+}

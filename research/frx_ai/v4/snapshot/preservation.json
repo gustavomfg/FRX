@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-10-30T06:10:57.424032+00:00",
+  "initial_entries_verified": 444,
+  "preexisting_file_hashes_verified": 418,
+  "preexisting_absences_preserved": 26,
+  "changed_preexisting_files": [],
+  "git_status_unchanged": true,
+  "index_unchanged_empty": true,
+  "branch": "feat/frx-ai-local",
+  "head": "c2433b8",
+  "new_scope": "research/frx_ai/v4 only",
+  "new_files": 62,
+  "new_file_bytes": 843166,
+  "main_application_modified": false,
+  "steam_modified": false,
+  "commits_tags_push": false
+}

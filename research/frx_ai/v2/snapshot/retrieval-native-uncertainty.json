@@ -1,0 +1,29 @@
+{
+  "p3": {
+    "gain": -0.008547008547008517,
+    "game_cluster_95_interval": [
+      -0.02631578947368421,
+      4.382459307730881e-18
+    ]
+  },
+  "ndcg5": {
+    "gain": 0.06114104944344645,
+    "game_cluster_95_interval": [
+      0.031326460344534804,
+      0.09891651707264687
+    ]
+  },
+  "mrr": {
+    "gain": 0.09233821733821734,
+    "game_cluster_95_interval": [
+      0.03727461013645225,
+      0.15238357843137257
+    ]
+  },
+  "scope": "descriptive post-evaluation uncertainty analysis; no model or threshold changes",
+  "first_relevant_rank_one": {
+    "frozen": 22,
+    "native": 28,
+    "queries": 39
+  }
+}

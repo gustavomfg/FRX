@@ -1,0 +1,173 @@
+{
+  "E01-frozen-clean": {
+    "name": "E01-frozen-clean",
+    "layers": 0,
+    "epochs": 8,
+    "save": true,
+    "train_file": "train-stage1.jsonl"
+  },
+  "E02-last2-clean": {
+    "name": "E02-last2-clean",
+    "layers": 2,
+    "epochs": 7,
+    "save": true,
+    "train_file": "train-stage1.jsonl"
+  },
+  "E03-last2-synthetic": {
+    "name": "E03-last2-synthetic",
+    "layers": 2,
+    "epochs": 5,
+    "synthetic": 320,
+    "save": true,
+    "train_file": "train-stage1.jsonl"
+  },
+  "E04-last2-contrast": {
+    "name": "E04-last2-contrast",
+    "layers": 2,
+    "epochs": 5,
+    "synthetic": 320,
+    "contrast": 0.15,
+    "save": true,
+    "train_file": "train-stage1.jsonl"
+  },
+  "E05-full-clauses": {
+    "name": "E05-full-clauses",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "save": true,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E06-full-masked": {
+    "name": "E06-full-masked",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "masked",
+    "save": true,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E07-full-contrast005": {
+    "name": "E07-full-contrast005",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "contrast": 0.05,
+    "save": true,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E08-full-synthetic640": {
+    "name": "E08-full-synthetic640",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 640,
+    "mode": "clauses",
+    "save": false,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E09-oracle-spans": {
+    "name": "E09-oracle-spans",
+    "layers": 2,
+    "epochs": 6,
+    "synthetic": 320,
+    "mode": "oracle",
+    "save": false,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E10-full-real-only": {
+    "name": "E10-full-real-only",
+    "layers": 6,
+    "epochs": 9,
+    "synthetic": 0,
+    "mode": "clauses",
+    "save": false,
+    "train_file": "train-stage2.jsonl"
+  },
+  "E11-expanded-control": {
+    "name": "E11-expanded-control",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E12-curriculum": {
+    "name": "E12-curriculum",
+    "layers": 6,
+    "epochs": 8,
+    "synthetic": 320,
+    "mode": "clauses",
+    "curriculum_after": 3,
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E13-hard-relations": {
+    "name": "E13-hard-relations",
+    "layers": 6,
+    "epochs": 7,
+    "hard": 320,
+    "mode": "clauses",
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E14-weighted-weak": {
+    "name": "E14-weighted-weak",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "weak": true,
+    "weak_weight": 0.25,
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E15-role-loss": {
+    "name": "E15-role-loss",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "task_weights": [
+      1.0,
+      1.0,
+      0.7,
+      0.5
+    ],
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E16-edge-pairs": {
+    "name": "E16-edge-pairs",
+    "epochs": 4,
+    "pair": true,
+    "save": true,
+    "mode": "pair",
+    "train_file": "train-stage3.jsonl"
+  },
+  "E17-hard-balanced-loss": {
+    "name": "E17-hard-balanced-loss",
+    "layers": 6,
+    "epochs": 7,
+    "hard": 320,
+    "mode": "clauses",
+    "outcome_class_balance": true,
+    "save": true,
+    "train_file": "train-stage3.jsonl"
+  },
+  "E18-goal-conditioned": {
+    "name": "E18-goal-conditioned",
+    "layers": 4,
+    "epochs": 5,
+    "synthetic": 160,
+    "hard": 160,
+    "goal_pairs": true,
+    "mode": "pair",
+    "train_file": "train-goals.jsonl",
+    "dev_file": "dev-goals.jsonl",
+    "save": true,
+    "task": "goal-pair"
+  }
+}

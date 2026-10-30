@@ -1,0 +1,14 @@
+{
+  "files_added_after_language_retrieval_freeze": [
+    "benchmark_review.py",
+    "case_review.py",
+    "hydrate_final.py",
+    "make_demo.py",
+    "memory.py",
+    "reproduce.py",
+    "snapshot.py",
+    "structure.py",
+    "test_memory.py"
+  ],
+  "explanation": "Conservative baseline wrapper, local memory, separate synthetic-structure experiment and reproduction/reporting tools; no alteration of frozen language/retrieval code, selected challenger or first final results. Whole assembled diagnosis workflow is not independently validated."
+}

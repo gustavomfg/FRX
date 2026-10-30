@@ -1,0 +1,6 @@
+{
+  "pipeline": "S3-contrast-events/verified-word",
+  "neural_model": "S3-contrast-events",
+  "criterion": "development performed-correct minus twice false-performed; >=3 claims and >=.8 precision if available; trigger F1 tiebreak",
+  "automatic_approval": false
+}

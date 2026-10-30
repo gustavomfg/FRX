@@ -1,0 +1,58 @@
+{
+  "encoder": {
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "repository": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+    "license": "Apache-2.0",
+    "files": [
+      {
+        "file": "onnx/model_quint8_avx2.onnx",
+        "sha256": "b941bf19f1f1283680f449fa6a7336bb5600bdcd5f84d10ddc5cd72218a0fd21",
+        "bytes": 23046789,
+        "upstream_lfs_sha256": "b941bf19f1f1283680f449fa6a7336bb5600bdcd5f84d10ddc5cd72218a0fd21"
+      },
+      {
+        "file": "tokenizer.json",
+        "sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+        "bytes": 466247,
+        "upstream_lfs_sha256": null
+      },
+      {
+        "file": "README.md",
+        "sha256": "dcd602d2fd35c203a247304a06fec6654a12f7941b739f9221a064fe8dc3b7f0",
+        "bytes": 10502,
+        "upstream_lfs_sha256": null
+      }
+    ]
+  },
+  "nli": {
+    "repository": "https://huggingface.co/cross-encoder/nli-deberta-v3-xsmall",
+    "revision": "a150876415327c80daeff35ca6f68f5ed8cf5c24",
+    "license": "Apache-2.0",
+    "files": [
+      {
+        "file": "onnx/model_quint8_avx2.onnx",
+        "bytes": 87377068,
+        "sha256": "21b14751a95520953bfcc607ceeb617de7cbeaeb6d60f4c8966716c743985337",
+        "upstream_lfs_sha256": "21b14751a95520953bfcc607ceeb617de7cbeaeb6d60f4c8966716c743985337"
+      },
+      {
+        "file": "tokenizer.json",
+        "bytes": 8656624,
+        "sha256": "5124ef2ead1a10a717703bc436de7f353da76d6340e4587719b42b1693707964",
+        "upstream_lfs_sha256": null
+      },
+      {
+        "file": "config.json",
+        "bytes": 1053,
+        "sha256": "8d9f07bf7ba54a6fc3b1962483056f94c39dcf188db4cf61843e1c88f94b2342",
+        "upstream_lfs_sha256": null
+      },
+      {
+        "file": "README.md",
+        "bytes": 2871,
+        "sha256": "4aeb5585a9eeb71b2d572249f9faa22ef3378c6abee3eeaffaae8c961068a2c6",
+        "upstream_lfs_sha256": null
+      }
+    ]
+  }
+}

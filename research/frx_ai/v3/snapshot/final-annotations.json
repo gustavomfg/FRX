@@ -1,0 +1,2309 @@
+[
+  {
+    "index": 0,
+    "id": 895950886,
+    "topics": [
+      "graphics",
+      "startup"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "DLL overwrite reported working; proposal is full sentence, not an atomic action.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-895950886",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "c77edb138220c5ae20a800a4e31dbcb1f0a2c24bfeb15508136c94af3285196c",
+    "action_span": [
+      0,
+      357
+    ],
+    "observation_span": [
+      0,
+      357
+    ]
+  },
+  {
+    "index": 1,
+    "id": 883363635,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Question about upstream progress, no performed procedure.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-883363635",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "c838924f7f08430814c742c266aee80274a311e2eacab3debc981828ceefb5f0",
+    "action_span": [
+      91,
+      171
+    ],
+    "observation_span": [
+      91,
+      171
+    ]
+  },
+  {
+    "index": 2,
+    "id": 951930824,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Video symptom; no fix outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-951930824",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "ad3915cc0fbf553455df2ec0839d13713f2837a1a276913af74d31aa647c757c",
+    "action_span": [
+      0,
+      61
+    ],
+    "observation_span": [
+      0,
+      61
+    ]
+  },
+  {
+    "index": 3,
+    "id": 3575864409,
+    "topics": [
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Information request and baseline observation; no changed configuration.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-3575864409",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "5fcdc1c77bd32916023e7f992b1c2b4974a9f5fbfd385aae6624858431b070fa",
+    "action_span": [
+      0,
+      210
+    ],
+    "observation_span": [
+      211,
+      312
+    ]
+  },
+  {
+    "index": 4,
+    "id": 885961898,
+    "topics": [
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "worsened",
+    "note": "Reports memory leak without override; historical version-specific observation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-885961898",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "5369fb4bf4bb2bed8c5b47d2dafcb65e61abce821eead2a75850ad92560f9821",
+    "action_span": [
+      192,
+      306
+    ],
+    "observation_span": [
+      192,
+      306
+    ]
+  },
+  {
+    "index": 5,
+    "id": 1291276325,
+    "topics": [
+      "controls"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "not-resolved",
+    "note": "Action proposal is introductory symptom; selected observation reports multiple Proton versions failing.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-1291276325",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "f8ced8dcf5800124d13c617316ae1574d4daa5eb92acbdc0ec57f0376e7c09fb",
+    "action_span": [
+      0,
+      54
+    ],
+    "observation_span": [
+      55,
+      161
+    ]
+  },
+  {
+    "index": 6,
+    "id": 911746798,
+    "topics": [
+      "crash"
+    ],
+    "modality": "suggested",
+    "observation_outcome": "unknown",
+    "note": "Asks another person to test a branch; no result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-911746798",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "280a9b1a2d8600805b31804abdd069e52444c2b2cca370b6fab3f03f90359289",
+    "action_span": [
+      0,
+      118
+    ],
+    "observation_span": [
+      0,
+      118
+    ]
+  },
+  {
+    "index": 7,
+    "id": 2842057173,
+    "topics": [],
+    "modality": "suggested",
+    "observation_outcome": "unknown",
+    "note": "Requests save and diagnostic information; no fix result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-2842057173",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "235b5caf13fc7e1be22620bd4e3801f3b5b52dc8f75fda83a013694140c46b2d",
+    "action_span": [
+      50,
+      151
+    ],
+    "observation_span": [
+      153,
+      407
+    ]
+  },
+  {
+    "index": 8,
+    "id": 1407386927,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "not-resolved",
+    "note": "Action proposal is symptom, observation is crash on a specified tested build.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-1407386927",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "d3bfe516cb4659a5fe19668b2df5e88e3b0f62a9b32146d500ebbbe004005903",
+    "action_span": [
+      0,
+      74
+    ],
+    "observation_span": [
+      77,
+      119
+    ]
+  },
+  {
+    "index": 9,
+    "id": 2842937413,
+    "topics": [
+      "startup"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Short reply lacks a concrete performed action and attributable outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-2842937413",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "7999947c7bd53b3b70ed33c5b534f80e79b2ee038809392dff76314f39661997",
+    "action_span": [
+      148,
+      171
+    ],
+    "observation_span": [
+      148,
+      171
+    ]
+  },
+  {
+    "index": 10,
+    "id": 909409603,
+    "topics": [
+      "dependency"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "not-resolved",
+    "note": "Passive failed installation claim; selected observation explicitly reports failed build attempt.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-909409603",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "8f4dd66a3f520bdcbc3a0e08892084b5fb752e7229bc8a429026fb15b0e86574",
+    "action_span": [
+      72,
+      126
+    ],
+    "observation_span": [
+      127,
+      197
+    ]
+  },
+  {
+    "index": 11,
+    "id": 1518377973,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Logging attempted; selected crash description predates outcome of logging.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-1518377973",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "7de2bc6df6404e6c8e723c19a01ab43f1e8781cba1d9f7e283c7a16d8e5ede2d",
+    "action_span": [
+      792,
+      923
+    ],
+    "observation_span": [
+      552,
+      754
+    ]
+  },
+  {
+    "index": 12,
+    "id": 910243167,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Negative reply without recoverable action identity in the supplied text.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-910243167",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "f08538f7f982e53c37d301948550f69748ab5bb56e9bebb9a70c13b0b787ce46",
+    "action_span": [
+      21,
+      40
+    ],
+    "observation_span": [
+      21,
+      40
+    ]
+  },
+  {
+    "index": 13,
+    "id": 911154020,
+    "topics": [
+      "crash"
+    ],
+    "modality": "suggested",
+    "observation_outcome": "unknown",
+    "note": "Conditional diagnostic suggestion, no result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-911154020",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "85e29124ed5035ba9aedc9892c811dc80b6c0b7b59806f041c02d3b11085fb7e",
+    "action_span": [
+      0,
+      81
+    ],
+    "observation_span": [
+      0,
+      81
+    ]
+  },
+  {
+    "index": 14,
+    "id": 911398368,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "not-resolved",
+    "note": "Explicitly still crashes with the line commented out.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-911398368",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "c684769bf5bf6db5e5ae431bd950541b0a42ab4794500cc3bb45f7907c807ac0",
+    "action_span": [
+      146,
+      200
+    ],
+    "observation_span": [
+      146,
+      200
+    ]
+  },
+  {
+    "index": 15,
+    "id": 883924452,
+    "topics": [
+      "startup",
+      "performance",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "positive",
+    "note": "Selected observation reports launch after driver update; later text reports severe performance and crashes, so no overall success.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-883924452",
+    "app_id": "1196590",
+    "thread": 4811,
+    "title": "Resident Evil Village (1196590)",
+    "body_sha256": "a780bac7a515625aacbd7758cbd1d49782c770ca93fad2b971550ac6e86c25b4",
+    "action_span": [
+      183,
+      292
+    ],
+    "observation_span": [
+      295,
+      395
+    ]
+  },
+  {
+    "index": 16,
+    "id": 1934494196,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "GE session observed; selected observation is a menu symptom, with no fix attribution and later hotfix edit.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1934494196",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "ad651656f2d86bddb1553892c137fd3c019d61706cf3ec657f89a517c9d1dfa1",
+    "action_span": [
+      0,
+      66
+    ],
+    "observation_span": [
+      104,
+      169
+    ]
+  },
+  {
+    "index": 17,
+    "id": 1952170692,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "DX12 fails; distinct selected DX11 observation reports success. No individual causal guarantee.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1952170692",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "ea84be8279cbdc303c88f231b0dcffe7303e8552c74ef08bb895ed51544e13de",
+    "action_span": [
+      234,
+      261
+    ],
+    "observation_span": [
+      262,
+      293
+    ]
+  },
+  {
+    "index": 18,
+    "id": 1950571117,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Requests a way to limit GPU utilization; no performed fix.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1950571117",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "aae39cfa93a87bfd69fd44bb22850684cb118baade018b46f0ab7ecae3e95530",
+    "action_span": [
+      473,
+      698
+    ],
+    "observation_span": [
+      473,
+      698
+    ]
+  },
+  {
+    "index": 19,
+    "id": 1949484580,
+    "topics": [
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Speculative explanation of an ongoing freeze, not a result of a procedure.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1949484580",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "ddcbc48a46296cc81415273344600cfa261466f064bf2d986a8020b2c0c9bdaa",
+    "action_span": [
+      176,
+      216
+    ],
+    "observation_span": [
+      217,
+      301
+    ]
+  },
+  {
+    "index": 20,
+    "id": 1936855335,
+    "topics": [
+      "startup",
+      "crash",
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Hotfix plus file validation precede successful launch; later graphics-setting crashes remain.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1936855335",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "41203743813fddf3dce94532d747d7f5358a0b2cbf51408ca970af101ceff278",
+    "action_span": [
+      321,
+      413
+    ],
+    "observation_span": [
+      414,
+      509
+    ]
+  },
+  {
+    "index": 21,
+    "id": 1954889480,
+    "topics": [
+      "startup",
+      "network"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Selected introductory sentence has no performed action/result; later reinstall failures are separate.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1954889480",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "1bd23a8bf2ffb9640add725d06126e5a43c475994c764a7d42affd138a7842f5",
+    "action_span": [
+      269,
+      334
+    ],
+    "observation_span": [
+      269,
+      334
+    ]
+  },
+  {
+    "index": 22,
+    "id": 1946532785,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Generic hardware-known-issue speculation with no defined procedure or symptom in authored text.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1946532785",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "80e90d95d0e484d84ab12559bc50231f14a0e4e140425eb0249c47305bb36d46",
+    "action_span": [
+      93,
+      311
+    ],
+    "observation_span": [
+      93,
+      311
+    ]
+  },
+  {
+    "index": 23,
+    "id": 1943051731,
+    "topics": [
+      "startup"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Guesses another user setting; not a tested change or clear recommendation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1943051731",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "154a70ebcdde1272082b899c7b4cc4a56570ae02159804ad4ed69161066aa8f2",
+    "action_span": [
+      435,
+      468
+    ],
+    "observation_span": [
+      435,
+      468
+    ]
+  },
+  {
+    "index": 24,
+    "id": 1952405382,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Explicit mission without crashes on DX11 workaround, bounded session observation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1952405382",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "d69909d189c91e70d0180bea996bbd1c06467490bc54e69ca9af55d639a7167f",
+    "action_span": [
+      234,
+      328
+    ],
+    "observation_span": [
+      234,
+      328
+    ]
+  },
+  {
+    "index": 25,
+    "id": 1936143720,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "positive",
+    "note": "Action proposal is speculative server update; observation credits newer Proton but does not establish server cause.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1936143720",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "ad521271e6a432153cd1b9ccd7eca5ff94d25a467bc7bd3bf47b4eb661374f71",
+    "action_span": [
+      58,
+      161
+    ],
+    "observation_span": [
+      164,
+      340
+    ]
+  },
+  {
+    "index": 26,
+    "id": 1937765128,
+    "topics": [
+      "network"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Action proposal catches issue-template update noun; selected observation is a request for help.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1937765128",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "e9939d708afb287fc5ff838251d444fde636727f50d8190a93f0e8713d2352e0",
+    "action_span": [
+      761,
+      794
+    ],
+    "observation_span": [
+      1467,
+      1491
+    ]
+  },
+  {
+    "index": 27,
+    "id": 1952005275,
+    "topics": [
+      "startup",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Selected unit describes purpose of entering settings; earlier resolution and FPS-limit outcomes refer to other units.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1952005275",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "7d8700d5c09964e14ebde4e755451736a8e1136e1dbfcc3c09a84f141231f65b",
+    "action_span": [
+      582,
+      676
+    ],
+    "observation_span": [
+      582,
+      676
+    ]
+  },
+  {
+    "index": 28,
+    "id": 1962411877,
+    "topics": [
+      "network"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Firewall disabled for checking, but selected observation states the problem, not the check result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1962411877",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "3c05e9c0f2933e2b89a126938209b3af52515b45f39b26c9d9d5dbb3a8cef8c6",
+    "action_span": [
+      233,
+      265
+    ],
+    "observation_span": [
+      140,
+      225
+    ]
+  },
+  {
+    "index": 29,
+    "id": 1936952530,
+    "topics": [
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "First-person comparative FPS report with explicit caveat; not a local FRX measurement.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1936952530",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "1181c286da6c3a813dac6913492287452b2bcdaa05a9663b241b7ccd807e8acf",
+    "action_span": [
+      0,
+      81
+    ],
+    "observation_span": [
+      0,
+      81
+    ]
+  },
+  {
+    "index": 30,
+    "id": 1945057612,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Action is failed game update; selected observation is future kernel suggestion. Later kernel failure is a separate event.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1945057612",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "9e9eb862f367c8b9fc3439e36b1e8998dce61b71b37ce836280fbb8a5f01b95a",
+    "action_span": [
+      165,
+      209
+    ],
+    "observation_span": [
+      210,
+      328
+    ]
+  },
+  {
+    "index": 31,
+    "id": 1939425447,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "not-resolved",
+    "note": "Explicitly lowering graphics did not help freezing.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1939425447",
+    "app_id": "553850",
+    "thread": 7486,
+    "title": "HELLDIVERS™ 2 (553850)",
+    "body_sha256": "7a264ccf9d8186554122b33081f83d84deb0a9d8ae5626b333ae0d1de55a78f0",
+    "action_span": [
+      160,
+      280
+    ],
+    "observation_span": [
+      106,
+      280
+    ]
+  },
+  {
+    "index": 32,
+    "id": 1837268029,
+    "topics": [
+      "startup",
+      "dependency"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Action fixes one diagnostic error; selected later distro update has different successful outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1837268029",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "d7fe24e4cb4043b753ec1f7caa36e4df1546fa46c6637eca9453e59bcd0fd4af",
+    "action_span": [
+      21,
+      99
+    ],
+    "observation_span": [
+      1033,
+      1100
+    ]
+  },
+  {
+    "index": 33,
+    "id": 2558148709,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Action proposal is copying diagnostics; selected edit reports a distinct Steam beta-to-release fix.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2558148709",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "b8df8e2ac3599cb9c132a035e83f378626d5e74edb380a57474823e72a98bb85",
+    "action_span": [
+      906,
+      971
+    ],
+    "observation_span": [
+      1122,
+      1260
+    ]
+  },
+  {
+    "index": 34,
+    "id": 2143861528,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Enabling HDR tested and washed out; selected observation is a request, not an outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2143861528",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "001cbe6161cba949764217055ed2b0d575ed1c78e9b100a7a495157aa1f2da50",
+    "action_span": [
+      304,
+      374
+    ],
+    "observation_span": [
+      149,
+      232
+    ]
+  },
+  {
+    "index": 35,
+    "id": 1826348829,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "mixed",
+    "note": "Template update noun is not a procedure; observation contrasts failing default Proton and working Experimental HDR.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1826348829",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "b7b4fa7ca48026dac5cf56acf07de663c0cd92795750a9510fb931040f78c894",
+    "action_span": [
+      678,
+      711
+    ],
+    "observation_span": [
+      953,
+      1097
+    ]
+  },
+  {
+    "index": 36,
+    "id": 996248914,
+    "topics": [
+      "dependency",
+      "startup"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Explicit file-copy procedure and success; provenance still needs file-engine review.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-996248914",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "40787f5a94826dd80343085e18265f6287a076f9ecb962162460e9af33e4421f",
+    "action_span": [
+      19,
+      85
+    ],
+    "observation_span": [
+      0,
+      85
+    ]
+  },
+  {
+    "index": 37,
+    "id": 2565940732,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Introductory agreement is not a concrete action; crash on beta is a symptom, release success is another unit.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2565940732",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "615f2f013c9c3ff75059086a2eb1781422a0c3f0200d50c6b4ed52851f17830d",
+    "action_span": [
+      0,
+      26
+    ],
+    "observation_span": [
+      27,
+      64
+    ]
+  },
+  {
+    "index": 38,
+    "id": 2558527296,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Switch to release fixed crash, but selected observation is only thanks.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2558527296",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "dfe75dd743d4f8eb68441f1bb3b5669543fa8b0e5ee0466527ed7f3c4e457925",
+    "action_span": [
+      169,
+      224
+    ],
+    "observation_span": [
+      225,
+      245
+    ]
+  },
+  {
+    "index": 39,
+    "id": 996286840,
+    "topics": [
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Resolution changes have FPS regression elsewhere; selected observation is initial baseline scene.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-996286840",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "495dbee964818a7cde1e880a552332557bc82f0735d5fa3d977e0ec9694f2227",
+    "action_span": [
+      102,
+      181
+    ],
+    "observation_span": [
+      184,
+      237
+    ]
+  },
+  {
+    "index": 40,
+    "id": 2558488414,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Explicit secondhand performed Steam-channel switch; not a local measurement.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2558488414",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "0a87cc2e10e163de1951f0d9937f67c6cb1e3777352853139adfaf26227c26f2",
+    "action_span": [
+      77,
+      131
+    ],
+    "observation_span": [
+      45,
+      131
+    ]
+  },
+  {
+    "index": 41,
+    "id": 1361130575,
+    "topics": [
+      "crash",
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Volume change is a reproduction action, not a corrective procedure; workaround and VRR trade-off elsewhere.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1361130575",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "a4a5b7cda330c3159ff1d3f4c251cd84825dff1ad47bb143d23529b16ea77506",
+    "action_span": [
+      138,
+      157
+    ],
+    "observation_span": [
+      0,
+      157
+    ]
+  },
+  {
+    "index": 42,
+    "id": 1827271609,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Log collected; selected observation describes original launch failure, not effect of logging.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1827271609",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "719d53807cd7e418fd0acd9fc3d53afd568c952a5be98e198c2ff89e058c5c30",
+    "action_span": [
+      583,
+      666
+    ],
+    "observation_span": [
+      669,
+      776
+    ]
+  },
+  {
+    "index": 43,
+    "id": 1361511133,
+    "topics": [
+      "graphics",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Tentative driver/desktop hypothesis, not an executed procedure or proven cause.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1361511133",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "deba63c9df3c7e03c0273a1ec3eeeebfa117bbfe646fde1c408b8adfe1bc64b9",
+    "action_span": [
+      0,
+      80
+    ],
+    "observation_span": [
+      0,
+      80
+    ]
+  },
+  {
+    "index": 44,
+    "id": 2143909632,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Hardware clarification with missing cross-platform evidence.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-2143909632",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "49a08bca864bb55e1cd3f6a0f3c220cf56ccac4321d6a85b1f806ec62ba0ca8d",
+    "action_span": [
+      476,
+      558
+    ],
+    "observation_span": [
+      476,
+      558
+    ]
+  },
+  {
+    "index": 45,
+    "id": 996232308,
+    "topics": [
+      "dependency",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Unimplemented function is diagnostic evidence, not a tested solution outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-996232308",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "8bf8f46de66a3a7b3aeeb4c2ae5b150add32f37713e0307f82b4b714bcab2955",
+    "action_span": [
+      0,
+      202
+    ],
+    "observation_span": [
+      0,
+      202
+    ]
+  },
+  {
+    "index": 46,
+    "id": 1065525212,
+    "topics": [
+      "dependency"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Upstream stub change and future hope; no measured or reported user result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-1065525212",
+    "app_id": "1462040",
+    "thread": 5415,
+    "title": "FINAL FANTASY VII REMAKE INTERGRADE (1462040)",
+    "body_sha256": "ce0731c6684d68c8a6f832171b14a0287c7ddbd75ffc5ce57bfae91b5b276d14",
+    "action_span": [
+      0,
+      132
+    ],
+    "observation_span": [
+      0,
+      132
+    ]
+  },
+  {
+    "index": 47,
+    "id": 1690126561,
+    "topics": [
+      "startup"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Selected symptom precedes later successful reinstall edit; do not attach the edit result to this unit.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1690126561",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "cce34af3566dd4da22c4a9583604706890537286b0b3b2d65dc478f5a4cc86ad",
+    "action_span": [
+      0,
+      126
+    ],
+    "observation_span": [
+      0,
+      126
+    ]
+  },
+  {
+    "index": 48,
+    "id": 1425862129,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "External issue link alone lacks the relevant symptom in supplied text.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1425862129",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "6f859ab10efdbae8265f8a5777a9f5d47b0c22abd76f787f4266bd6f1d44d057",
+    "action_span": [
+      0,
+      89
+    ],
+    "observation_span": [
+      0,
+      89
+    ]
+  },
+  {
+    "index": 49,
+    "id": 652391728,
+    "topics": [
+      "performance",
+      "controls"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Template update noun and original stuttering symptom; later config attempts are separate.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-652391728",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "639f48b76ae6e9b22cd223e86009f9491795ae559222025fe89d5b9cddc2b655",
+    "action_span": [
+      823,
+      856
+    ],
+    "observation_span": [
+      997,
+      1072
+    ]
+  },
+  {
+    "index": 50,
+    "id": 657211108,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Baseline flickering symptom; no corrective action/result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-657211108",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "6d8d4458afca1b7d76cf94a741ac7fa6e667675dd17fb3abefd03e610d08d06f",
+    "action_span": [
+      0,
+      109
+    ],
+    "observation_span": [
+      0,
+      109
+    ]
+  },
+  {
+    "index": 51,
+    "id": 3069684515,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "positive",
+    "note": "Popup stopped after launch-option change, but game still does not reach menu; positive concerns popup only.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-3069684515",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "f2b9ad18b63ce871ebc9de8fb0c847c22300d7212db1a72dd2942fb72b93d48a",
+    "action_span": [
+      842,
+      874
+    ],
+    "observation_span": [
+      1646,
+      1808
+    ]
+  },
+  {
+    "index": 52,
+    "id": 924792407,
+    "topics": [
+      "graphics",
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Reports both settings tested; selected observation is general FreeSync explanation, not game-specific success.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-924792407",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "21ce82231fb13cd7a68a1d30e7791dead3fe33e196f40400da4f63a0049bae2c",
+    "action_span": [
+      67,
+      89
+    ],
+    "observation_span": [
+      215,
+      375
+    ]
+  },
+  {
+    "index": 53,
+    "id": 1913698335,
+    "topics": [
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Windows/YouTube comparison and causal opinion, no executed procedure in selected span.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1913698335",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "14cc85da87c4281635c31915a9cc1327ab5eea98d3a3bcbb69f3c0fd1140d6f1",
+    "action_span": [
+      322,
+      600
+    ],
+    "observation_span": [
+      322,
+      600
+    ]
+  },
+  {
+    "index": 54,
+    "id": 1704553871,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Graphical symptom under a specified environment, no changed configuration outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1704553871",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "f475ed51b206cc414e4bde3650713d502bbaa2fb47ce24718c32b6e5c8af6d2d",
+    "action_span": [
+      0,
+      85
+    ],
+    "observation_span": [
+      0,
+      85
+    ]
+  },
+  {
+    "index": 55,
+    "id": 666758219,
+    "topics": [
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Played through is an observed experience; works perfectly is baseline, with an exit issue elsewhere.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-666758219",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "0a810b14599eb6bc87191f90be104eb02cb8a5eab23968cf42e10e19cc80c112",
+    "action_span": [
+      0,
+      36
+    ],
+    "observation_span": [
+      37,
+      68
+    ]
+  },
+  {
+    "index": 56,
+    "id": 6084525801,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Only a log attachment link; its contents were not downloaded.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-6084525801",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "47926f154ea663051d7d64178a699864d390d67c916f0fc6c22f206213ee468d",
+    "action_span": [
+      0,
+      14
+    ],
+    "observation_span": [
+      0,
+      14
+    ]
+  },
+  {
+    "index": 57,
+    "id": 850912017,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "positive",
+    "note": "Explicit no-longer-seeing-issues observation; the concrete change is missing, not invented.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-850912017",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "2abb9b67d687893ee87681d4c4f8d4972d630d2041d98783b98d87f9d3e7222d",
+    "action_span": [
+      0,
+      67
+    ],
+    "observation_span": [
+      0,
+      67
+    ]
+  },
+  {
+    "index": 58,
+    "id": 5786083272,
+    "topics": [
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Installed-on-SSD describes storage state, not a fix attempt; worse refers to comparison with other reports.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-5786083272",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "fdb52965c325b82d97e1c1ea9278b5783593c6dcd7c94d2b49ce6978d9d5891e",
+    "action_span": [
+      1116,
+      1202
+    ],
+    "observation_span": [
+      0,
+      104
+    ]
+  },
+  {
+    "index": 59,
+    "id": 1196118215,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Requirement to increase zram is not clearly a completed change; selected observation expresses a wish.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1196118215",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "771dc247821151db0839e2fce2828bfbb52206762b47337b0d1a36de5d18a87f",
+    "action_span": [
+      589,
+      769
+    ],
+    "observation_span": [
+      426,
+      504
+    ]
+  },
+  {
+    "index": 60,
+    "id": 6083814445,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Proton/channel changes failed, but selected observation only introduces subsequent launch sequence.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-6083814445",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "8b0422ac4aa3e999e6ab4d20987fef6bbf4e00e537bc6e5fa2d42bde92c2669e",
+    "action_span": [
+      45,
+      165
+    ],
+    "observation_span": [
+      166,
+      217
+    ]
+  },
+  {
+    "index": 61,
+    "id": 1925445235,
+    "topics": [
+      "performance"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "A trial is explicitly reported without identifying it; selected observation is cross-platform comparison.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-1925445235",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "0242c1ed0d41311b16e43e49fa12a8c91cca5ab9e32ed1b24dd20384b4de3db7",
+    "action_span": [
+      0,
+      26
+    ],
+    "observation_span": [
+      381,
+      600
+    ]
+  },
+  {
+    "index": 62,
+    "id": 654393260,
+    "topics": [
+      "crash",
+      "startup"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Specific RADV failure versus AMDVLK first-chapter success; bounded contextual observation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4003#issuecomment-654393260",
+    "app_id": "1222140",
+    "thread": 4003,
+    "title": "Detroit: Become Human (1222140)",
+    "body_sha256": "0a21d4132bf498395f2da7eb8276b121df6336d3bf047213146d1a78f8fbb269",
+    "action_span": [
+      0,
+      96
+    ],
+    "observation_span": [
+      97,
+      148
+    ]
+  },
+  {
+    "index": 63,
+    "id": 2452963790,
+    "topics": [
+      "crash",
+      "performance",
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Selected observation explicitly doubts crash prevention; low FPS and poor quality are reported elsewhere.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2452963790",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "a8e9fa2ce212400df9c6caafafe90b6a4110dbd6e162ed31c16d3b77c2e6e966",
+    "action_span": [
+      268,
+      357
+    ],
+    "observation_span": [
+      493,
+      686
+    ]
+  },
+  {
+    "index": 64,
+    "id": 2452682224,
+    "topics": [
+      "crash",
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Original GPU crash and FSR symptom; different gamemode attempt result is outside the selected unit.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2452682224",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "745cacf00ca9c5c21edb9d8d404dc64f6dfddc6712968ae25af498fc0a0cf838",
+    "action_span": [
+      0,
+      110
+    ],
+    "observation_span": [
+      0,
+      110
+    ]
+  },
+  {
+    "index": 65,
+    "id": 2451354448,
+    "topics": [
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Action proposal is a hardware initialization log; observation is unrelated Wi-Fi warning, not a fix event.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451354448",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "8f1001e0ba43ebf68b1be318d8f7ad937c2d4a74552848e7d3149e9a6d5018b9",
+    "action_span": [
+      1186,
+      1225
+    ],
+    "observation_span": [
+      1740,
+      1880
+    ]
+  },
+  {
+    "index": 66,
+    "id": 2636321888,
+    "topics": [
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Kernel reset report; selected enabled table/Wi-Fi warning is not a user procedure/result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2636321888",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "d6cd2318f37491564c8090841a48cfaf64aab0ec0655601ad87e8be514aed570",
+    "action_span": [
+      1219,
+      1257
+    ],
+    "observation_span": [
+      161,
+      285
+    ]
+  },
+  {
+    "index": 67,
+    "id": 2451943969,
+    "topics": [
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Configuration values without a performed change or reported outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451943969",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "60e9a4141d8f00899cdf607be9d165d5c922e03c5d095af688cc0b390b0de300",
+    "action_span": [
+      0,
+      24
+    ],
+    "observation_span": [
+      0,
+      24
+    ]
+  },
+  {
+    "index": 68,
+    "id": 2452991658,
+    "topics": [
+      "crash",
+      "performance",
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "mixed",
+    "note": "Explicit workaround helps playability with large FPS and quality costs; preserve trade-off.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2452991658",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "7430a6ed6ce464171ec6256e1a74b03228ce69a395471af101dad7bd238f3ce1",
+    "action_span": [
+      268,
+      335
+    ],
+    "observation_span": [
+      268,
+      335
+    ]
+  },
+  {
+    "index": 69,
+    "id": 2452329816,
+    "topics": [
+      "crash",
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "mixed",
+    "note": "Driver switch fixes some failures but adds artifacts and full-system freezes.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2452329816",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "3fcbd9fc4d104595ce0d643103a63c8779768694df012bf32e6822e2214dc320",
+    "action_span": [
+      0,
+      180
+    ],
+    "observation_span": [
+      0,
+      296
+    ]
+  },
+  {
+    "index": 70,
+    "id": 2451303557,
+    "topics": [
+      "graphics",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Problems under listed versions; no specific corrective transition.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451303557",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "9d4df9c738b040cb0497c023fcbf4b970dc8edf63c361472a9d34411444df150",
+    "action_span": [
+      0,
+      140
+    ],
+    "observation_span": [
+      0,
+      140
+    ]
+  },
+  {
+    "index": 71,
+    "id": 2451622066,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Cross-platform contextual reply, not a performed local test result.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451622066",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "1aec2a6e8afc75416587748dbf1f34a9f3bffb09d87034cfb6b5d5d2e5bb9721",
+    "action_span": [
+      207,
+      272
+    ],
+    "observation_span": [
+      207,
+      272
+    ]
+  },
+  {
+    "index": 72,
+    "id": 2451355084,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Original stutter/freeze symptoms and speculative cause.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451355084",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "7ba3c58ac1698ba892bbd039490f213e2fc743b2a43c035a62065244bcab5ba5",
+    "action_span": [
+      0,
+      142
+    ],
+    "observation_span": [
+      143,
+      379
+    ]
+  },
+  {
+    "index": 73,
+    "id": 2451407934,
+    "topics": [
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Enabled GART log is not an action; full comment documents GPU hang.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451407934",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "83ee70a4f2d09e55723631d72b5deb8dc34e76182ca7b3ce90546f496c3c048d",
+    "action_span": [
+      588,
+      627
+    ],
+    "observation_span": [
+      588,
+      627
+    ]
+  },
+  {
+    "index": 74,
+    "id": 2451744330,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Conditional kernel/GPU-name anecdote with no recoverable symptom or fix result in supplied text.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451744330",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "22c17daedd60d7c076173a1a0142d480ef732e4fc062df2b057b73071cdff1e8",
+    "action_span": [
+      143,
+      259
+    ],
+    "observation_span": [
+      262,
+      436
+    ]
+  },
+  {
+    "index": 75,
+    "id": 2451579175,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "tested",
+    "observation_outcome": "worsened",
+    "note": "Specific FSR/XeSS activation produces black screen; unsupported HAGS cause remains speculation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451579175",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "6217e3fe3d3b0338ac5c2929547457177224662edce98aabd1aa4af4e1daf08f",
+    "action_span": [
+      0,
+      202
+    ],
+    "observation_span": [
+      0,
+      202
+    ]
+  },
+  {
+    "index": 76,
+    "id": 2451829084,
+    "topics": [
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "VRAM accounting question, no performed correction.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2451829084",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "74933292abe5b1c542aaf1656b65f39e1c8a6c1cf02e71e0bd92a78472daab0d",
+    "action_span": [
+      0,
+      85
+    ],
+    "observation_span": [
+      0,
+      85
+    ]
+  },
+  {
+    "index": 77,
+    "id": 2453114273,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "worsened",
+    "note": "Action proposal is OS metadata; selected observation explicitly reports unchanged crashing and worse frames after workaround.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2453114273",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "7ca2763c674f207a08cdcb3abe59aad5bd275483511f7f77397a95521f383161",
+    "action_span": [
+      5,
+      38
+    ],
+    "observation_span": [
+      193,
+      314
+    ]
+  },
+  {
+    "index": 78,
+    "id": 2452277045,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "not-resolved",
+    "note": "Gamescope permits configuration but not game progression; selected observation reports the remaining freeze.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2452277045",
+    "app_id": "2246340",
+    "thread": 8206,
+    "title": "Monster Hunter Wilds (2246340)",
+    "body_sha256": "cb4fa4fe08d2ad3f02bf37b51d573dc78efa59257d1a669e31aadf3c669aa4ed",
+    "action_span": [
+      0,
+      83
+    ],
+    "observation_span": [
+      84,
+      164
+    ]
+  },
+  {
+    "index": 79,
+    "id": 3970253828,
+    "topics": [
+      "controls"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Author reports workaround working on a handheld; no extension to other hardware is validated.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3970253828",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "9a2abdc316f62f8c6e4ab291cc8542aa852d893d48c7b1623e7dcd244e891c75",
+    "action_span": [
+      0,
+      91
+    ],
+    "observation_span": [
+      0,
+      91
+    ]
+  },
+  {
+    "index": 80,
+    "id": 3816410446,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Log link only; no attachment executed or read.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3816410446",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "e52159c60aa02d790887a8b32909a121236046ff407ee920ca9f0028d74b0bb2",
+    "action_span": [
+      0,
+      89
+    ],
+    "observation_span": [
+      0,
+      89
+    ]
+  },
+  {
+    "index": 81,
+    "id": 3656685766,
+    "topics": [
+      "controls"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Baseline controller failure and speculation about developer support.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3656685766",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "8cd4d4141754303984ffbcecfaf8ce2c613bc363a7555cfc8eaa05d713546cdd",
+    "action_span": [
+      0,
+      139
+    ],
+    "observation_span": [
+      0,
+      139
+    ]
+  },
+  {
+    "index": 82,
+    "id": 3700030111,
+    "topics": [
+      "controls"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "not-resolved",
+    "note": "Action template noun is not procedure; observation explicitly reports firmware update failing.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3700030111",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "0c3e94a91faf4be44e12fac769f39e22f4976c45f42ac5cf30dc37c259a09560",
+    "action_span": [
+      835,
+      867
+    ],
+    "observation_span": [
+      943,
+      1017
+    ]
+  },
+  {
+    "index": 83,
+    "id": 4225263256,
+    "topics": [
+      "crash",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Baseline freeze and telemetry; missing Xid/OOM do not prove a cause. Failed mitigation elsewhere.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-4225263256",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "d11bc921b6cef2dfb80988f91d9544bb8427e1f0a4286e30f206f27299123b54",
+    "action_span": [
+      0,
+      41
+    ],
+    "observation_span": [
+      42,
+      130
+    ]
+  },
+  {
+    "index": 84,
+    "id": 3700055030,
+    "topics": [
+      "controls"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "USB connection state, no described change or effect.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3700055030",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "560271f5b722a8925bcdfdfbcd2180b354d5b1d855677b1d7883a02fc9534fb0",
+    "action_span": [
+      0,
+      32
+    ],
+    "observation_span": [
+      0,
+      32
+    ]
+  },
+  {
+    "index": 85,
+    "id": 3817050795,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Image-only comment; no image contents inferred.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3817050795",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "0d987eec79e6827ac5af11d72f2fc3b2303332ca4e53ae2969a40a57eea0dee0",
+    "action_span": [
+      0,
+      132
+    ],
+    "observation_span": [
+      0,
+      132
+    ]
+  },
+  {
+    "index": 86,
+    "id": 5385099755,
+    "topics": [
+      "controls",
+      "dependency"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Redistributable installed and loads, but service still fails. Observation is an author root-cause claim, not independently confirmed. GOG build via non-Steam shortcut differs from Steam edition.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-5385099755",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "c642de501b566e8abdc47f86aa32fa02c7d3f7b6c3d74a70226e59557228afcd",
+    "action_span": [
+      680,
+      720
+    ],
+    "observation_span": [
+      155,
+      368
+    ]
+  },
+  {
+    "index": 87,
+    "id": 3694268979,
+    "topics": [
+      "controls",
+      "performance"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Selected unit is an opinion; later GE9 workaround has lag relative to Proton10 with keyboard/mouse.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3694268979",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "4e6b03496b34940c7dffc84f45208e1c422044161763e31992a23bcef62a17d1",
+    "action_span": [
+      0,
+      123
+    ],
+    "observation_span": [
+      0,
+      123
+    ]
+  },
+  {
+    "index": 88,
+    "id": 2953779585,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Mesa update and Proton condition report success; provenance does not authorize system installation.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-2953779585",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "04f2ddb436b7f69c9902e1521970f574340b303d7e111d04327eac32f6bd692f",
+    "action_span": [
+      69,
+      224
+    ],
+    "observation_span": [
+      225,
+      306
+    ]
+  },
+  {
+    "index": 89,
+    "id": 2954180949,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Reply reports issue fixed referencing quoted procedure; exact independent cause remains unproven.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-2954180949",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "064a42e31212c167f7870f63586675114b4f7ffddb5b6fbcb909aa40cb301a75",
+    "action_span": [
+      310,
+      349
+    ],
+    "observation_span": [
+      310,
+      349
+    ]
+  },
+  {
+    "index": 90,
+    "id": 3813341444,
+    "topics": [
+      "graphics"
+    ],
+    "modality": "suggested",
+    "observation_outcome": "unknown",
+    "note": "Requests logging, screenshots and checking driver versions; no observed fix.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3813341444",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "da4f6e773b1e57c3c66386d9584dd6333446a09cdc5e4601b94f2d5bacf84844",
+    "action_span": [
+      36,
+      216
+    ],
+    "observation_span": [
+      0,
+      525
+    ]
+  },
+  {
+    "index": 91,
+    "id": 3813308261,
+    "topics": [
+      "graphics",
+      "startup"
+    ],
+    "modality": "tested",
+    "observation_outcome": "unknown",
+    "note": "Update is a reported regression; selected observation instead describes older baseline, not a new fix outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3813308261",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "2183e47dcf8dda27b8fac9ae04fad22624956b058081bfc406770a16f8a9d670",
+    "action_span": [
+      228,
+      380
+    ],
+    "observation_span": [
+      993,
+      1065
+    ]
+  },
+  {
+    "index": 92,
+    "id": 5385107732,
+    "topics": [],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "External encoded-log retrieval instructions are untrusted data, not an executed event.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-5385107732",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "d2996c272bf13382821a57fb2044d85a3d6e36e9f15bf7b31745c54adc4a1595",
+    "action_span": [
+      0,
+      115
+    ],
+    "observation_span": [
+      0,
+      115
+    ]
+  },
+  {
+    "index": 93,
+    "id": 4346495160,
+    "topics": [
+      "startup",
+      "crash"
+    ],
+    "modality": "unknown",
+    "observation_outcome": "unknown",
+    "note": "Template update noun and baseline startup crash; no fix outcome.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-4346495160",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "f78460ee7700098c750265a7ae3f220d21fe94030c89ca87defc57e500a6248e",
+    "action_span": [
+      599,
+      631
+    ],
+    "observation_span": [
+      867,
+      976
+    ]
+  },
+  {
+    "index": 94,
+    "id": 2952753249,
+    "topics": [
+      "graphics",
+      "crash",
+      "startup"
+    ],
+    "modality": "tested",
+    "observation_outcome": "positive",
+    "note": "Specific Mesa upgrade explicitly reported to remove prior issue; original attempts were unsuccessful.",
+    "annotation": "provisional research-agent; no independent human review",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-2952753249",
+    "app_id": "1771300",
+    "thread": 8727,
+    "title": "Kingdom Come: Deliverance II (1771300)",
+    "body_sha256": "7e233cfe01131dabe8b4e71b888826fb5761a63d6e7e435ebcb20ee81ffcb4fe",
+    "action_span": [
+      113,
+      178
+    ],
+    "observation_span": [
+      273,
+      320
+    ]
+  }
+]

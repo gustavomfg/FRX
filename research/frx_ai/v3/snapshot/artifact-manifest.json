@@ -1,0 +1,20 @@
+[
+  {
+    "file": "events/modality.joblib",
+    "bytes": 15253,
+    "sha256": "a9178e2b1dca13bc32a8670d55b9d0f1549cde76181dc9117636da6f072881bc",
+    "in_git": false
+  },
+  {
+    "file": "events/outcome.joblib",
+    "bytes": 77380,
+    "sha256": "9078a5ff243059537d2a62bef077b1435bfda7aed4b364f37a58292ddac54a68",
+    "in_git": false
+  },
+  {
+    "file": "structure/models.json",
+    "bytes": 43943,
+    "sha256": "8a19d5de484c997f5087019d16bd0f03b952ddcd945b4663b59f801cf79b83aa",
+    "in_git": false
+  }
+]

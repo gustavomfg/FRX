@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-30T04:06:16Z",
+  "annotator": "research-agent",
+  "independent_human_review": false,
+  "model_predictions_seen": false,
+  "final_labels_created_after_freeze": true,
+  "n": 95,
+  "sha256": "1f215ea12a658680e2f977459d1b91115251377bb8c52ec1e6606f4feea80227"
+}

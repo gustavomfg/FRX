@@ -1,0 +1,124 @@
+{
+  "synthetic_only": true,
+  "prior_only_accuracy": 0.3016666666666667,
+  "selection": {
+    "model": "naive",
+    "policy": "static",
+    "dev_cost": 4.567333333333334
+  },
+  "results": {
+    "synthetic-final": {
+      "naive": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.8433333333333334,
+          "cost": 4.620666666666667,
+          "inspections": 3.7783333333333333,
+          "brier": 0.2317507071230962,
+          "false_confident": 31
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.825,
+          "cost": 3.954333333333333,
+          "inspections": 3.5816666666666666,
+          "brier": 0.2912340297947255,
+          "false_confident": 52
+        }
+      },
+      "learned-dedup": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.8433333333333334,
+          "cost": 4.620666666666667,
+          "inspections": 3.7783333333333333,
+          "brier": 0.2317507071230962,
+          "false_confident": 31
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.8516666666666667,
+          "cost": 4.285833333333334,
+          "inspections": 3.7666666666666666,
+          "brier": 0.23221764684368518,
+          "false_confident": 33
+        }
+      },
+      "tree": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.8433333333333334,
+          "cost": 4.620666666666667,
+          "inspections": 3.7783333333333333,
+          "brier": 0.23185394423467917,
+          "false_confident": 31
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.8383333333333334,
+          "cost": 4.311999999999999,
+          "inspections": 3.74,
+          "brier": 0.2493297792279915,
+          "false_confident": 35
+        }
+      }
+    },
+    "noise-shift-final": {
+      "naive": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.5683333333333334,
+          "cost": 4.894500000000002,
+          "inspections": 3.9966666666666666,
+          "brier": 0.6546058708669903,
+          "false_confident": 98
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.545,
+          "cost": 3.950333333333334,
+          "inspections": 3.5766666666666667,
+          "brier": 0.7849266569168363,
+          "false_confident": 172
+        }
+      },
+      "learned-dedup": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.5683333333333334,
+          "cost": 4.894500000000002,
+          "inspections": 3.9966666666666666,
+          "brier": 0.6546058708669903,
+          "false_confident": 98
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.5716666666666667,
+          "cost": 4.626,
+          "inspections": 3.9966666666666666,
+          "brier": 0.6645222570307514,
+          "false_confident": 117
+        }
+      },
+      "tree": {
+        "static": {
+          "n": 600,
+          "accuracy": 0.5683333333333334,
+          "cost": 4.894500000000002,
+          "inspections": 3.9966666666666666,
+          "brier": 0.6603567013734443,
+          "false_confident": 98
+        },
+        "eig": {
+          "n": 600,
+          "accuracy": 0.5666666666666667,
+          "cost": 4.639166666666667,
+          "inspections": 4.0,
+          "brier": 0.6740691677101389,
+          "false_confident": 107
+        }
+      }
+    }
+  },
+  "seconds": 8.265233386002365
+}

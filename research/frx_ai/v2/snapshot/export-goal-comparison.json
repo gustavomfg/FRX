@@ -1,0 +1,262 @@
+{
+  "results": {
+    "relation-float.onnx": {
+      "bytes": 91278365,
+      "dev": {
+        "n": 44,
+        "accepted": 9,
+        "correct": 5,
+        "precision": 0.5555555555555556,
+        "coverage": 0.20454545454545456,
+        "wilson": [
+          0.2666473457440297,
+          0.811224570528086
+        ],
+        "severe_inversions": 0,
+        "false_success": 0,
+        "relation_macro_f1": 0.4660317460317461,
+        "relation_accuracy": 0.6590909090909091,
+        "exact_all_accuracy": 0.3409090909090909,
+        "direction_accuracy": 0.7272727272727273,
+        "modality_accuracy": 0.8636363636363636,
+        "grouping_accuracy": 0.8636363636363636,
+        "ece": 0.18340688740665262,
+        "nll": 0.8723504543304443,
+        "confusion": [
+          [
+            12,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            3,
+            12,
+            2,
+            1,
+            0
+          ],
+          [
+            0,
+            5,
+            4,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes": {
+          "unknown": {
+            "precision": 0.75,
+            "recall": 0.8571428571428571,
+            "f1-score": 0.8,
+            "support": 14.0
+          },
+          "positive": {
+            "precision": 0.7058823529411765,
+            "recall": 0.6666666666666666,
+            "f1-score": 0.6857142857142857,
+            "support": 18.0
+          },
+          "not-resolved": {
+            "precision": 0.4444444444444444,
+            "recall": 0.4444444444444444,
+            "f1-score": 0.4444444444444444,
+            "support": 9.0
+          },
+          "worsened": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.4,
+            "support": 3.0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+          },
+          "accuracy": 0.6590909090909091,
+          "macro avg": {
+            "precision": 0.48006535947712425,
+            "recall": 0.4603174603174603,
+            "f1-score": 0.4660317460317461,
+            "support": 44.0
+          },
+          "weighted avg": {
+            "precision": 0.6524064171122995,
+            "recall": 0.6590909090909091,
+            "f1-score": 0.6532467532467533,
+            "support": 44.0
+          }
+        },
+        "by_game": {
+          "1086940": {
+            "n": 25,
+            "accepted": 6,
+            "correct": 3
+          },
+          "1245620": {
+            "n": 10,
+            "accepted": 3,
+            "correct": 2
+          },
+          "2050650": {
+            "n": 8,
+            "accepted": 0,
+            "correct": 0
+          },
+          "2322010": {
+            "n": 1,
+            "accepted": 0,
+            "correct": 0
+          }
+        }
+      }
+    },
+    "relation-int8.onnx": {
+      "bytes": 23204756,
+      "dev": {
+        "n": 44,
+        "accepted": 10,
+        "correct": 6,
+        "precision": 0.6,
+        "coverage": 0.22727272727272727,
+        "wilson": [
+          0.3126695474501864,
+          0.8318224187964902
+        ],
+        "severe_inversions": 0,
+        "false_success": 0,
+        "relation_macro_f1": 0.49098623978948525,
+        "relation_accuracy": 0.7045454545454546,
+        "exact_all_accuracy": 0.38636363636363635,
+        "direction_accuracy": 0.7272727272727273,
+        "modality_accuracy": 0.8636363636363636,
+        "grouping_accuracy": 0.8636363636363636,
+        "ece": 0.11231581595810976,
+        "nll": 0.8269640207290649,
+        "confusion": [
+          [
+            12,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            14,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            5,
+            4,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "classes": {
+          "unknown": {
+            "precision": 0.8,
+            "recall": 0.8571428571428571,
+            "f1-score": 0.8275862068965517,
+            "support": 14.0
+          },
+          "positive": {
+            "precision": 0.7368421052631579,
+            "recall": 0.7777777777777778,
+            "f1-score": 0.7567567567567568,
+            "support": 18.0
+          },
+          "not-resolved": {
+            "precision": 0.5,
+            "recall": 0.4444444444444444,
+            "f1-score": 0.47058823529411764,
+            "support": 9.0
+          },
+          "worsened": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.4,
+            "support": 3.0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+          },
+          "accuracy": 0.7045454545454546,
+          "macro avg": {
+            "precision": 0.5073684210526316,
+            "recall": 0.4825396825396825,
+            "f1-score": 0.49098623978948525,
+            "support": 44.0
+          },
+          "weighted avg": {
+            "precision": 0.6923444976076555,
+            "recall": 0.7045454545454546,
+            "f1-score": 0.6964346053595546,
+            "support": 44.0
+          }
+        },
+        "by_game": {
+          "1086940": {
+            "n": 25,
+            "accepted": 6,
+            "correct": 3
+          },
+          "1245620": {
+            "n": 10,
+            "accepted": 3,
+            "correct": 2
+          },
+          "2050650": {
+            "n": 8,
+            "accepted": 1,
+            "correct": 1
+          },
+          "2322010": {
+            "n": 1,
+            "accepted": 0,
+            "correct": 0
+          }
+        }
+      }
+    }
+  },
+  "chosen": "relation-int8.onnx",
+  "parameters": 22938452
+}

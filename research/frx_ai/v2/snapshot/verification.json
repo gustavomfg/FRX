@@ -1,0 +1,13 @@
+{
+  "new_research_contracts": 13,
+  "previous_research_contracts": 8,
+  "passed": 21,
+  "python_compileall": true,
+  "frozen_inference_sources_unchanged": true,
+  "initial_tracked_files_preserved": true,
+  "index_empty": true,
+  "reconstruction_model_input_digests_verified": true,
+  "live_prototype_exit_code": 0,
+  "steam_or_games_modified": false,
+  "scope": "Research laboratory only; tests are software contracts, not linguistic quality evidence"
+}

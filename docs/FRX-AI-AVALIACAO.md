@@ -1,5 +1,7 @@
 # Avaliação da FRX AI com modelos locais
 
+Rodada posterior: [pesquisa local de 29/10/2026](FRX-AI-RND-2026-10-29.md), com novos experimentos e teste em quatro jogos não vistos. O relatório abaixo registra os resultados históricos, não a validação da nova rodada.
+
 Data: 2026-10-29. Branch `feat/frx-ai-local`. Sem integração ao aplicativo e sem modelo nos instaladores.
 
 ## Objetivo

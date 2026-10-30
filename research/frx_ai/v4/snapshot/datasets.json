@@ -1,0 +1,48 @@
+{
+  "label_quality": "provisional research-agent annotations; no independent human review",
+  "datasets": {
+    "train": {
+      "paragraphs": 45,
+      "events": 58,
+      "games": [
+        "1091500",
+        "1174180",
+        "200260",
+        "3321460",
+        "582010",
+        "870780",
+        "990080"
+      ],
+      "file_sha256": "9916be99669b1cf4addebdd9ac332dc723d1a96de465cd551b3979131ba2c907"
+    },
+    "dev": {
+      "paragraphs": 24,
+      "events": 33,
+      "games": [
+        "1172380",
+        "1252330",
+        "1716740",
+        "1888930",
+        "2515020",
+        "275850",
+        "782330",
+        "814380"
+      ],
+      "file_sha256": "4e3a53b6a54358860eade1acb794213979917fd0c8236223a5319bc51ad8356e"
+    },
+    "final": {
+      "paragraphs": 57,
+      "events": 64,
+      "games": [
+        "1182900",
+        "1282100",
+        "1627720",
+        "1693980",
+        "2358720"
+      ],
+      "file_sha256": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443"
+    }
+  },
+  "body_redistribution": false,
+  "offsets": "Unicode code points; preserve CRLF"
+}

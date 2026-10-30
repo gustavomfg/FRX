@@ -1,0 +1,952 @@
+{
+  "n": 305,
+  "counts": {
+    "no-recognized-action-trigger": 47,
+    "possible-multiple-events": 16,
+    "possible-metadata-or-nonprocedure": 2,
+    "broad-action-span": 3
+  },
+  "findings": [
+    {
+      "id": "16f0d4871445be6b",
+      "app_id": "3321460",
+      "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4464162415",
+      "action_span": [
+        571,
+        587
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "f637295f3696e19f",
+      "app_id": "3321460",
+      "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4316823132",
+      "action_span": [
+        504,
+        521
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "5a285f6441e63e5a",
+      "app_id": "200260",
+      "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-3830387891",
+      "action_span": [
+        583,
+        614
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "da3b5920ee406e27",
+      "app_id": "1091500",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742197056",
+      "action_span": [
+        325,
+        348
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "0d985ad7484a7853",
+      "app_id": "1091500",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742197056",
+      "action_span": [
+        489,
+        508
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "93847923143d821d",
+      "app_id": "3321460",
+      "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4317980243",
+      "action_span": [
+        364,
+        383
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "b696061c03144117",
+      "app_id": "3321460",
+      "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4328293596",
+      "action_span": [
+        764,
+        796
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "9f7c936cdf643e7c",
+      "app_id": "1091500",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742271223",
+      "action_span": [
+        104,
+        162
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "d96c35d204385b21",
+      "app_id": "582010",
+      "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-415227915",
+      "action_span": [
+        269,
+        290
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "8da4fe1bf9f9b123",
+      "app_id": "870780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-683383593",
+      "action_span": [
+        402,
+        459
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "b1400c97a82c3c60",
+      "app_id": "870780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-886222484",
+      "action_span": [
+        50,
+        100
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "d08e39e06be09327",
+      "app_id": "990080",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1423557849",
+      "action_span": [
+        591,
+        631
+      ],
+      "old_modality": "tested",
+      "old_outcome": "worsened",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "0be78da6e1ddebcd",
+      "app_id": "990080",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1423557849",
+      "action_span": [
+        1498,
+        1519
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "b7a07cfe1ec34713",
+      "app_id": "200260",
+      "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-420437434",
+      "action_span": [
+        63,
+        77
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "f7208da642265123",
+      "app_id": "990080",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1426879086",
+      "action_span": [
+        152,
+        168
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "178ba1af99e65d11",
+      "app_id": "3321460",
+      "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4481389025",
+      "action_span": [
+        270,
+        316
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "837a137c4ac3a97c",
+      "app_id": "1151640",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4125#issuecomment-688628011",
+      "action_span": [
+        24,
+        34
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "dd2d4e3d5b614720",
+      "app_id": "1151640",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4125#issuecomment-688985751",
+      "action_span": [
+        293,
+        333
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "c07b53bc39dc0365",
+      "app_id": "1151640",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4125#issuecomment-677954407",
+      "action_span": [
+        414,
+        429
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "5d8d2f72927ac7c4",
+      "app_id": "292030",
+      "url": "https://github.com/ValveSoftware/Proton/issues/607#issuecomment-436641081",
+      "action_span": [
+        41,
+        119
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "b8f7241082777aa5",
+      "app_id": "292030",
+      "url": "https://github.com/ValveSoftware/Proton/issues/607#issuecomment-429667303",
+      "action_span": [
+        19,
+        40
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "d6781cf6b85fd829",
+      "app_id": "582010",
+      "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-416174818",
+      "action_span": [
+        1303,
+        1361
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "5a46eef9beb6f635",
+      "app_id": "870780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-3476613108",
+      "action_span": [
+        995,
+        1033
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "4849e143ba7bd748",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-1181641679",
+      "action_span": [
+        87,
+        122
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "0e891198f4eca315",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-1182444947",
+      "action_span": [
+        197,
+        221
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "0b90113ae620012d",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-2209380223",
+      "action_span": [
+        1075,
+        1094
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "c699b7b15039ac01",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-1661528953",
+      "action_span": [
+        190,
+        220
+      ],
+      "old_modality": "tested",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "fdc7d68e982c0770",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-743481065",
+      "action_span": [
+        182,
+        234
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "f9341c43fc4d979b",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-432369236",
+      "action_span": [
+        0,
+        34
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "a975c8d882cb19c2",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-432369236",
+      "action_span": [
+        183,
+        296
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "281d724882d0db70",
+      "app_id": "582160",
+      "url": "https://github.com/ValveSoftware/Proton/issues/928#issuecomment-617963817",
+      "action_span": [
+        165,
+        183
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "c26164e15bb20f3b",
+      "app_id": "374320",
+      "url": "https://github.com/ValveSoftware/Proton/issues/478#issuecomment-421758210",
+      "action_span": [
+        60,
+        82
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "5f3df7ddc2d90031",
+      "app_id": "374320",
+      "url": "https://github.com/ValveSoftware/Proton/issues/478#issuecomment-914479137",
+      "action_span": [
+        329,
+        341
+      ],
+      "old_modality": "tested",
+      "old_outcome": "unknown",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "daac381dbc18c2dd",
+      "app_id": "374320",
+      "url": "https://github.com/ValveSoftware/Proton/issues/478#issuecomment-440288367",
+      "action_span": [
+        267,
+        277
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "74013a5295f20daf",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-1035469803",
+      "action_span": [
+        283,
+        302
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "a0a749d47253c068",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-604728056",
+      "action_span": [
+        0,
+        50
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "b993d20c8b744fda",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-601025649",
+      "action_span": [
+        30,
+        48
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "6cf79c4697da6400",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-600938638",
+      "action_span": [
+        1014,
+        1068
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "d2ff502eec6c284e",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-604144505",
+      "action_span": [
+        446,
+        453
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "e90513b1cdf03555",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-609384413",
+      "action_span": [
+        46,
+        81
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "657f965e09a1c10d",
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-1035500540",
+      "action_span": [
+        465,
+        491
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "d87dfe6bd51b5d93",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1228514235",
+      "action_span": [
+        1556,
+        1600
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "f6416866eebb59be",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-2101126001",
+      "action_span": [
+        221,
+        260
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "6306a0b06eb43a35",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1773920505",
+      "action_span": [
+        446,
+        474
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "e0d875e5258be6b8",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1024281396",
+      "action_span": [
+        241,
+        266
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "1bb880b4b1e5ade1",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1039454418",
+      "action_span": [
+        63,
+        87
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "5fb9c75122897d59",
+      "app_id": "1446780",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1636055936",
+      "action_span": [
+        688,
+        704
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "9ba202c48325732d",
+      "app_id": "1245620",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+      "action_span": [
+        181,
+        200
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "6bef3be757b79055",
+      "app_id": "1245620",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+      "action_span": [
+        421,
+        455
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "138beab6dd899531",
+      "app_id": "1086940",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706028884",
+      "action_span": [
+        525,
+        587
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "ab49d7afb42bcce6",
+      "app_id": "1086940",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705326184",
+      "action_span": [
+        221,
+        240
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "faddb116d8e639fb",
+      "app_id": "1245620",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+      "action_span": [
+        94,
+        146
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "2e1df08deed803b9",
+      "app_id": "1086940",
+      "url": "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705443128",
+      "action_span": [
+        105,
+        179
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "566fbbf0266a4841",
+      "app_id": "814380",
+      "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-475911174",
+      "action_span": [
+        46,
+        181
+      ],
+      "old_modality": "tested",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "3a55d8348bde29fe",
+      "app_id": "814380",
+      "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-3148733287",
+      "action_span": [
+        225,
+        310
+      ],
+      "old_modality": "tested",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "b952103a84502d89",
+      "app_id": "1716740",
+      "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1702701422",
+      "action_span": [
+        346,
+        364
+      ],
+      "old_modality": "unknown",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "24ec31e7520ed041",
+      "app_id": "1252330",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5156#issuecomment-1214981473",
+      "action_span": [
+        919,
+        1016
+      ],
+      "old_modality": "tested",
+      "old_outcome": "worsened",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "f860434b7c859310",
+      "app_id": "1252330",
+      "url": "https://github.com/ValveSoftware/Proton/issues/5156#issuecomment-924923231",
+      "action_span": [
+        900,
+        948
+      ],
+      "old_modality": "tested",
+      "old_outcome": "worsened",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "3ceb89747dd491b6",
+      "app_id": "275850",
+      "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483869526",
+      "action_span": [
+        19,
+        154
+      ],
+      "old_modality": "unknown",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "8069805f062c01e1",
+      "app_id": "2515020",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-3140892603",
+      "action_span": [
+        33,
+        51
+      ],
+      "old_modality": "unknown",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-metadata-or-nonprocedure"
+      ]
+    },
+    {
+      "id": "3b630cb7d9dfb9d9",
+      "app_id": "2515020",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-2571634786",
+      "action_span": [
+        751,
+        782
+      ],
+      "old_modality": "unknown",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-metadata-or-nonprocedure"
+      ]
+    },
+    {
+      "id": "778216d632c234fc",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1493721962",
+      "action_span": [
+        31,
+        211
+      ],
+      "old_modality": "tested",
+      "old_outcome": "not-resolved",
+      "findings": [
+        "broad-action-span"
+      ]
+    },
+    {
+      "id": "12c778dd6892bd78",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-2688214660",
+      "action_span": [
+        127,
+        272
+      ],
+      "old_modality": "suggested",
+      "old_outcome": "unknown",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "35ff6cbeef6f4898",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1705286818",
+      "action_span": [
+        193,
+        222
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "no-recognized-action-trigger"
+      ]
+    },
+    {
+      "id": "a3cbd475575f19b6",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-2226129227",
+      "action_span": [
+        233,
+        272
+      ],
+      "old_modality": "tested",
+      "old_outcome": "positive",
+      "findings": [
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "1067d676a5078947",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1875713287",
+      "action_span": [
+        0,
+        154
+      ],
+      "old_modality": "tested",
+      "old_outcome": "worsened",
+      "findings": [
+        "broad-action-span",
+        "possible-multiple-events"
+      ]
+    },
+    {
+      "id": "488e9202dcdf2e1e",
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1658482917",
+      "action_span": [
+        292,
+        492
+      ],
+      "old_modality": "tested",
+      "old_outcome": "mixed",
+      "findings": [
+        "broad-action-span"
+      ]
+    }
+  ],
+  "labels_changed": false,
+  "scope": "Heuristic flags for manual inspection, not confirmed annotation errors."
+}

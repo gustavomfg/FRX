@@ -1,0 +1,14 @@
+{
+  "selected": "report_nli",
+  "threshold": 0.5,
+  "automatic_acceptance": false,
+  "reason": "No approach met precision+coverage+direction criteria on development. Restricted report detection and semantic evidence retrieval are experimental only.",
+  "outcome_comparator": "nli_zero_shot",
+  "outcome_threshold": 0.7,
+  "hashes": {
+    "experiments/nli-head-research.joblib": "d17b411a8d971411ee35f051e2c95058714dae20ab4224e7db970b7741d28193",
+    "experiments/reportability-research.joblib": "0ebe2fb7bc8cf1e68a400faf755b7ec10948cf4080d9f5164d140603468ff97f",
+    "train.jsonl": "7c322cab593e89af2dee5a282b95e8be91cb899e00f2d2bed9636705b73a5dd2",
+    "dev.jsonl": "3209ceaab62f5fa54df7d1e820ca03878b70f80a596e3fc1e29ac259982fcc08"
+  }
+}

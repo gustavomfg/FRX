@@ -1,0 +1,58 @@
+[
+  {
+    "split": "train",
+    "examples": 100,
+    "sha256": "7c322cab593e89af2dee5a282b95e8be91cb899e00f2d2bed9636705b73a5dd2",
+    "threads": [
+      "https://github.com/ValveSoftware/Proton/issues/175",
+      "https://github.com/ValveSoftware/Proton/issues/309",
+      "https://github.com/ValveSoftware/Proton/issues/3291",
+      "https://github.com/ValveSoftware/Proton/issues/4157",
+      "https://github.com/ValveSoftware/Proton/issues/4450",
+      "https://github.com/ValveSoftware/Proton/issues/6510",
+      "https://github.com/ValveSoftware/Proton/issues/9595"
+    ],
+    "labels": {
+      "0": 60,
+      "1": 21,
+      "2": 7,
+      "3": 3,
+      "4": 9
+    }
+  },
+  {
+    "split": "dev",
+    "examples": 50,
+    "sha256": "3209ceaab62f5fa54df7d1e820ca03878b70f80a596e3fc1e29ac259982fcc08",
+    "threads": [
+      "https://github.com/ValveSoftware/Proton/issues/4069",
+      "https://github.com/ValveSoftware/Proton/issues/4243",
+      "https://github.com/ValveSoftware/Proton/issues/5613"
+    ],
+    "labels": {
+      "0": 24,
+      "1": 14,
+      "2": 9,
+      "3": 0,
+      "4": 3
+    }
+  },
+  {
+    "split": "final",
+    "examples": 80,
+    "sha256": "a2465ee958c63af2c85b2a36e72822821b3a5913ed134e85b85452d1de92906e",
+    "threads": [
+      "https://github.com/ValveSoftware/Proton/issues/4125",
+      "https://github.com/ValveSoftware/Proton/issues/607",
+      "https://github.com/ValveSoftware/Proton/issues/6641",
+      "https://github.com/ValveSoftware/Proton/issues/8107"
+    ],
+    "labels": {
+      "0": 45,
+      "1": 15,
+      "2": 13,
+      "3": 2,
+      "4": 5
+    }
+  }
+]

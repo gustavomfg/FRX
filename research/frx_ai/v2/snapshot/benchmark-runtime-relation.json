@@ -1,0 +1,19 @@
+{
+  "provided_action": {
+    "n": 30,
+    "median_ms": 14.822931509115733,
+    "p95_ms": 15.076018501713406
+  },
+  "automatic_proposals": {
+    "n": 12,
+    "median_ms": 26.899470503849443,
+    "p95_ms": 28.622770691436017
+  },
+  "model": "E07-full-contrast005",
+  "cold_seconds": 0.34791226500237826,
+  "peak_rss_kib": 849504,
+  "model_bytes": 91278365,
+  "tokenizer_bytes": 466247,
+  "torch_loaded": false,
+  "caveat": "Three real development comments repeated; no network, game or renderer measurement."
+}

@@ -1,0 +1,19 @@
+{
+  "provided_action": {
+    "n": 30,
+    "median_ms": 14.348566495755222,
+    "p95_ms": 41.51679205824621
+  },
+  "automatic_proposals": {
+    "n": 12,
+    "median_ms": 26.50623749650549,
+    "p95_ms": 87.81112354481593
+  },
+  "model": "E18-goal-conditioned",
+  "cold_seconds": 0.2487892630015267,
+  "peak_rss_kib": 200044,
+  "model_bytes": 23204756,
+  "tokenizer_bytes": 466247,
+  "torch_loaded": false,
+  "caveat": "Three real development comments repeated; no network, game or renderer measurement."
+}

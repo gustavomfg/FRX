@@ -1,0 +1,362 @@
+{
+  "trained_configurations": 6,
+  "development_readouts": 34,
+  "configs": [
+    {
+      "name": "S1-legacy-span",
+      "config": {
+        "legacy": true,
+        "synthetic": 0,
+        "layers": 2,
+        "contrast": 0.0
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 0,
+      "seconds": 52.64577443699818,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.9815109570821126,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 2,
+          "loss": 1.8242672681808472,
+          "selection_score": 0.00980392156862745
+        },
+        {
+          "epoch": 3,
+          "loss": 1.6328300436337788,
+          "selection_score": 0.029197080291970802
+        },
+        {
+          "epoch": 4,
+          "loss": 1.4311545491218567,
+          "selection_score": 0.03409090909090909
+        },
+        {
+          "epoch": 5,
+          "loss": 1.217236300309499,
+          "selection_score": 0.034313725490196074
+        },
+        {
+          "epoch": 6,
+          "loss": 1.0213854014873505,
+          "selection_score": 0.03383458646616541
+        },
+        {
+          "epoch": 7,
+          "loss": 0.9263430039087931,
+          "selection_score": 0.03755868544600939
+        },
+        {
+          "epoch": 8,
+          "loss": 0.8752202192942301,
+          "selection_score": 0.03260869565217391
+        }
+      ],
+      "early_selection_score": 0.03755868544600939,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    },
+    {
+      "name": "S2-audited-real",
+      "config": {
+        "legacy": false,
+        "synthetic": 0,
+        "layers": 2,
+        "contrast": 0.0
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 0,
+      "seconds": 51.419518839000375,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.9670507907867432,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 2,
+          "loss": 1.8499967654546101,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 3,
+          "loss": 1.7352079153060913,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 4,
+          "loss": 1.6496078570683796,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 5,
+          "loss": 1.5631053845087688,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 6,
+          "loss": 1.4156644543011982,
+          "selection_score": 0.02857142857142857
+        },
+        {
+          "epoch": 7,
+          "loss": 1.3181699514389038,
+          "selection_score": 0.02631578947368421
+        },
+        {
+          "epoch": 8,
+          "loss": 1.155132641394933,
+          "selection_score": 0.13793103448275862
+        }
+      ],
+      "early_selection_score": 0.13793103448275862,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    },
+    {
+      "name": "S3-contrast-events",
+      "config": {
+        "legacy": false,
+        "synthetic": 160,
+        "layers": 2,
+        "contrast": 0.05
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 160,
+      "seconds": 182.15250511199702,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.925079698746021,
+          "selection_score": 0.07692307692307693
+        },
+        {
+          "epoch": 2,
+          "loss": 1.3967764285894542,
+          "selection_score": 0.21212121212121213
+        },
+        {
+          "epoch": 3,
+          "loss": 1.0884557710244105,
+          "selection_score": 0.23728813559322032
+        },
+        {
+          "epoch": 4,
+          "loss": 0.8810630498024133,
+          "selection_score": 0.2602739726027397
+        },
+        {
+          "epoch": 5,
+          "loss": 0.7305552993829434,
+          "selection_score": 0.379746835443038
+        },
+        {
+          "epoch": 6,
+          "loss": 0.5745163410902023,
+          "selection_score": 0.369047619047619
+        },
+        {
+          "epoch": 7,
+          "loss": 0.5325814124483329,
+          "selection_score": 0.3804347826086956
+        },
+        {
+          "epoch": 8,
+          "loss": 0.4589794793954262,
+          "selection_score": 0.375
+        }
+      ],
+      "early_selection_score": 0.3804347826086956,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    },
+    {
+      "name": "S4-frozen-body",
+      "config": {
+        "legacy": false,
+        "synthetic": 160,
+        "layers": 0,
+        "contrast": 0.05
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 160,
+      "seconds": 149.40581756799656,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 2.141749991820409,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 2,
+          "loss": 2.1038880348205566,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 3,
+          "loss": 2.077846577534309,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 4,
+          "loss": 2.048299408875979,
+          "selection_score": 0.0
+        },
+        {
+          "epoch": 5,
+          "loss": 2.0136703619590173,
+          "selection_score": 0.022727272727272728
+        },
+        {
+          "epoch": 6,
+          "loss": 1.959302585858565,
+          "selection_score": 0.025
+        },
+        {
+          "epoch": 7,
+          "loss": 1.9343610681020296,
+          "selection_score": 0.02564102564102564
+        },
+        {
+          "epoch": 8,
+          "loss": 1.922488836141733,
+          "selection_score": 0.02631578947368421
+        }
+      ],
+      "early_selection_score": 0.02631578947368421,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    },
+    {
+      "name": "S5-balanced-events",
+      "config": {
+        "legacy": false,
+        "synthetic": 160,
+        "layers": 2,
+        "contrast": 0.05,
+        "balanced": true
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 160,
+      "seconds": 183.56283935700776,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.9329369710041926,
+          "selection_score": 0.22619047619047622
+        },
+        {
+          "epoch": 2,
+          "loss": 1.416149547466865,
+          "selection_score": 0.27956989247311825
+        },
+        {
+          "epoch": 3,
+          "loss": 1.1043211771891668,
+          "selection_score": 0.32584269662921345
+        },
+        {
+          "epoch": 4,
+          "loss": 0.9033283018148862,
+          "selection_score": 0.31372549019607837
+        },
+        {
+          "epoch": 5,
+          "loss": 0.7580364369429075,
+          "selection_score": 0.3620689655172414
+        },
+        {
+          "epoch": 6,
+          "loss": 0.5976990541586509,
+          "selection_score": 0.3652173913043478
+        },
+        {
+          "epoch": 7,
+          "loss": 0.5410510192696865,
+          "selection_score": 0.319327731092437
+        },
+        {
+          "epoch": 8,
+          "loss": 0.47064119978592944,
+          "selection_score": 0.3684210526315789
+        }
+      ],
+      "early_selection_score": 0.3684210526315789,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    },
+    {
+      "name": "S6-balanced-no-contrast",
+      "config": {
+        "legacy": false,
+        "synthetic": 160,
+        "layers": 2,
+        "contrast": 0.0,
+        "balanced": true
+      },
+      "real_training_paragraphs": 45,
+      "synthetic_training": 160,
+      "seconds": 182.90839592399425,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.8018298745155334,
+          "selection_score": 0.19047619047619047
+        },
+        {
+          "epoch": 2,
+          "loss": 1.2812762260437012,
+          "selection_score": 0.2954545454545454
+        },
+        {
+          "epoch": 3,
+          "loss": 0.9748809543939737,
+          "selection_score": 0.3103448275862069
+        },
+        {
+          "epoch": 4,
+          "loss": 0.7791837935264294,
+          "selection_score": 0.32653061224489793
+        },
+        {
+          "epoch": 5,
+          "loss": 0.6403120996860358,
+          "selection_score": 0.3620689655172414
+        },
+        {
+          "epoch": 6,
+          "loss": 0.4977776241990236,
+          "selection_score": 0.3620689655172414
+        },
+        {
+          "epoch": 7,
+          "loss": 0.4468557851818892,
+          "selection_score": 0.3247863247863248
+        },
+        {
+          "epoch": 8,
+          "loss": 0.3678873204267942,
+          "selection_score": 0.36607142857142855
+        }
+      ],
+      "early_selection_score": 0.36607142857142855,
+      "early_metric": "exploratory any-overlap, not definitive strict extraction quality"
+    }
+  ],
+  "post_freeze_files": [
+    "benchmark.py",
+    "review.py",
+    "run.py",
+    "test_intake.py",
+    "snapshot.py",
+    "hydrate.py",
+    "reproduce.py",
+    "make_demo.py",
+    "parity.py",
+    "retrieval_replay.py",
+    "integration.py",
+    "counterfactuals.py"
+  ],
+  "notes": [
+    "Only six fitted configurations; decoding readouts are not additional fits.",
+    "Preserve first independent event result; later tools do not tune its inference."
+  ]
+}

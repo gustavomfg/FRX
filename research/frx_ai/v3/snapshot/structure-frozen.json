@@ -1,0 +1,13 @@
+{
+  "selection": {
+    "model": "naive",
+    "policy": "static",
+    "dev_cost": 4.567333333333334
+  },
+  "final_seeds_unseen": [
+    131,
+    137
+  ],
+  "model_sha256": "8a19d5de484c997f5087019d16bd0f03b952ddcd945b4663b59f801cf79b83aa",
+  "code_sha256": "ecab8159135d86619575398792d7744c1e0cc8ee431bbaa4e518add7fb73719a"
+}

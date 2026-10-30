@@ -1,0 +1,888 @@
+{
+  "config": {
+    "name": "E07-full-contrast005",
+    "layers": 6,
+    "epochs": 7,
+    "synthetic": 320,
+    "mode": "clauses",
+    "contrast": 0.05,
+    "save": true
+  },
+  "curve": {
+    "0.0": {
+      "n": 42,
+      "accepted": 26,
+      "correct": 9,
+      "precision": 0.34615384615384615,
+      "coverage": 0.6190476190476191,
+      "wilson": [
+        0.19412014972852126,
+        0.5377977099036699
+      ],
+      "severe_inversions": 0,
+      "false_success": 3,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 12,
+          "correct": 5
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 10,
+          "correct": 2
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 4,
+          "correct": 2
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.4": {
+      "n": 42,
+      "accepted": 23,
+      "correct": 8,
+      "precision": 0.34782608695652173,
+      "coverage": 0.5476190476190477,
+      "wilson": [
+        0.18811054636982238,
+        0.5511002309310836
+      ],
+      "severe_inversions": 0,
+      "false_success": 3,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 12,
+          "correct": 5
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 8,
+          "correct": 1
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 3,
+          "correct": 2
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.5": {
+      "n": 42,
+      "accepted": 13,
+      "correct": 3,
+      "precision": 0.23076923076923078,
+      "coverage": 0.30952380952380953,
+      "wilson": [
+        0.08179379092465713,
+        0.5025687399512693
+      ],
+      "severe_inversions": 0,
+      "false_success": 1,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 7,
+          "correct": 2
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 4,
+          "correct": 0
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 2,
+          "correct": 1
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.6": {
+      "n": 42,
+      "accepted": 11,
+      "correct": 2,
+      "precision": 0.18181818181818182,
+      "coverage": 0.2619047619047619,
+      "wilson": [
+        0.05136660067100063,
+        0.4769861375782448
+      ],
+      "severe_inversions": 0,
+      "false_success": 1,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 6,
+          "correct": 1
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 3,
+          "correct": 0
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 2,
+          "correct": 1
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.7": {
+      "n": 42,
+      "accepted": 4,
+      "correct": 1,
+      "precision": 0.25,
+      "coverage": 0.09523809523809523,
+      "wilson": [
+        0.045586062644636216,
+        0.6993639475573634
+      ],
+      "severe_inversions": 0,
+      "false_success": 1,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 3,
+          "correct": 1
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 0,
+          "correct": 0
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 1,
+          "correct": 0
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.8": {
+      "n": 42,
+      "accepted": 3,
+      "correct": 0,
+      "precision": 0.0,
+      "coverage": 0.07142857142857142,
+      "wilson": [
+        0.0,
+        0.5615060804490177
+      ],
+      "severe_inversions": 0,
+      "false_success": 1,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 2,
+          "correct": 0
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 0,
+          "correct": 0
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 1,
+          "correct": 0
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    },
+    "0.9": {
+      "n": 42,
+      "accepted": 2,
+      "correct": 0,
+      "precision": 0.0,
+      "coverage": 0.047619047619047616,
+      "wilson": [
+        0.0,
+        0.6576280471103807
+      ],
+      "severe_inversions": 0,
+      "false_success": 0,
+      "relation_macro_f1": 0.5806747638326586,
+      "relation_accuracy": 0.6190476190476191,
+      "exact_all_accuracy": 0.35714285714285715,
+      "direction_accuracy": 0.6428571428571429,
+      "modality_accuracy": 0.7619047619047619,
+      "grouping_accuracy": 0.7619047619047619,
+      "ece": 0.21202503215698967,
+      "nll": 1.5714596509933472,
+      "confusion": [
+        [
+          11,
+          0,
+          2,
+          0,
+          1
+        ],
+        [
+          4,
+          7,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "unknown": {
+          "precision": 0.6875,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7333333333333333,
+          "support": 14.0
+        },
+        "positive": {
+          "precision": 0.7,
+          "recall": 0.4375,
+          "f1-score": 0.5384615384615384,
+          "support": 16.0
+        },
+        "not-resolved": {
+          "precision": 0.5454545454545454,
+          "recall": 0.75,
+          "f1-score": 0.631578947368421,
+          "support": 8.0
+        },
+        "worsened": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "mixed": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 2.0
+        },
+        "accuracy": 0.6190476190476191,
+        "macro avg": {
+          "precision": 0.586590909090909,
+          "recall": 0.5946428571428571,
+          "f1-score": 0.5806747638326586,
+          "support": 42.0
+        },
+        "weighted avg": {
+          "precision": 0.6473484848484848,
+          "recall": 0.6190476190476191,
+          "f1-score": 0.6174924490713964,
+          "support": 42.0
+        }
+      },
+      "by_game": {
+        "1086940": {
+          "n": 24,
+          "accepted": 1,
+          "correct": 0
+        },
+        "1245620": {
+          "n": 10,
+          "accepted": 0,
+          "correct": 0
+        },
+        "2050650": {
+          "n": 7,
+          "accepted": 1,
+          "correct": 0
+        },
+        "2322010": {
+          "n": 1,
+          "accepted": 0,
+          "correct": 0
+        }
+      }
+    }
+  }
+}

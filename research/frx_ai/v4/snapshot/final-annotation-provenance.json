@@ -1,0 +1,22 @@
+{
+  "annotated_at": "2026-10-30T05:51:54.572036+00:00",
+  "annotator": "research-agent",
+  "independent_human_review": false,
+  "predictions_seen": false,
+  "model_frozen_before_body_inspection": true,
+  "paragraphs": 57,
+  "events": 64,
+  "statuses": {
+    "preexisting": 7,
+    "performed": 33,
+    "unknown": 11,
+    "negated": 1,
+    "suggested": 12
+  },
+  "sha256": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443",
+  "notes": [
+    "Provisional labels; event-enriched paragraph stress cohort.",
+    "Annotation interface enforces literal character offsets.",
+    "No model-based relabeling."
+  ]
+}

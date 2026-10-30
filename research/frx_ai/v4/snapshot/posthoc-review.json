@@ -1,0 +1,1606 @@
+{
+  "posthoc": true,
+  "no_model_changes": true,
+  "per_game": {
+    "1182900": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 14,
+      "gold_events": 17,
+      "predicted_events": 15,
+      "matched": 12,
+      "trigger_precision": 0.8,
+      "trigger_recall": 0.7058823529411765,
+      "trigger_f1": 0.75,
+      "exact_trigger_matches": 11,
+      "status_accuracy_on_matched": 0.5,
+      "direction_accuracy_on_matched": 0.4166666666666667,
+      "performed_claims": 2,
+      "performed_correct": 2,
+      "performed_precision": 1.0,
+      "false_performed": 0,
+      "accepted_status_claims": 6,
+      "accepted_status_correct": 4,
+      "accepted_tuple_precision": 0.6666666666666666,
+      "claim_coverage": 0.35294117647058826,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "1282100": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 14,
+      "gold_events": 14,
+      "predicted_events": 18,
+      "matched": 8,
+      "trigger_precision": 0.4444444444444444,
+      "trigger_recall": 0.5714285714285714,
+      "trigger_f1": 0.5,
+      "exact_trigger_matches": 8,
+      "status_accuracy_on_matched": 0.25,
+      "direction_accuracy_on_matched": 0.5,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "performed_precision": null,
+      "false_performed": 0,
+      "accepted_status_claims": 3,
+      "accepted_status_correct": 1,
+      "accepted_tuple_precision": 0.3333333333333333,
+      "claim_coverage": 0.21428571428571427,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "1627720": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 1,
+      "gold_events": 4,
+      "predicted_events": 6,
+      "matched": 4,
+      "trigger_precision": 0.6666666666666666,
+      "trigger_recall": 1.0,
+      "trigger_f1": 0.8,
+      "exact_trigger_matches": 4,
+      "status_accuracy_on_matched": 0.0,
+      "direction_accuracy_on_matched": 0.5,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "performed_precision": null,
+      "false_performed": 0,
+      "accepted_status_claims": 0,
+      "accepted_status_correct": 0,
+      "accepted_tuple_precision": null,
+      "claim_coverage": 0.0,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 6,
+          "false_performed": 0
+        }
+      ]
+    },
+    "1693980": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 14,
+      "gold_events": 14,
+      "predicted_events": 17,
+      "matched": 8,
+      "trigger_precision": 0.47058823529411764,
+      "trigger_recall": 0.5714285714285714,
+      "trigger_f1": 0.5161290322580645,
+      "exact_trigger_matches": 8,
+      "status_accuracy_on_matched": 0.375,
+      "direction_accuracy_on_matched": 0.5,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "performed_precision": null,
+      "false_performed": 0,
+      "accepted_status_claims": 3,
+      "accepted_status_correct": 1,
+      "accepted_tuple_precision": 0.3333333333333333,
+      "claim_coverage": 0.21428571428571427,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        }
+      ]
+    },
+    "2358720": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 14,
+      "gold_events": 15,
+      "predicted_events": 8,
+      "matched": 6,
+      "trigger_precision": 0.75,
+      "trigger_recall": 0.4,
+      "trigger_f1": 0.5217391304347826,
+      "exact_trigger_matches": 5,
+      "status_accuracy_on_matched": 0.6666666666666666,
+      "direction_accuracy_on_matched": 0.8333333333333334,
+      "performed_claims": 3,
+      "performed_correct": 3,
+      "performed_precision": 1.0,
+      "false_performed": 0,
+      "accepted_status_claims": 4,
+      "accepted_status_correct": 2,
+      "accepted_tuple_precision": 0.5,
+      "claim_coverage": 0.26666666666666666,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    }
+  },
+  "status_confusion": [
+    {
+      "reference": "no-gold-event",
+      "predicted": "preexisting",
+      "count": 1
+    },
+    {
+      "reference": "no-gold-event",
+      "predicted": "suggested",
+      "count": 1
+    },
+    {
+      "reference": "no-gold-event",
+      "predicted": "unknown",
+      "count": 24
+    },
+    {
+      "reference": "performed",
+      "predicted": "performed",
+      "count": 5
+    },
+    {
+      "reference": "performed",
+      "predicted": "unknown",
+      "count": 15
+    },
+    {
+      "reference": "preexisting",
+      "predicted": "preexisting",
+      "count": 1
+    },
+    {
+      "reference": "preexisting",
+      "predicted": "unknown",
+      "count": 2
+    },
+    {
+      "reference": "suggested",
+      "predicted": "suggested",
+      "count": 5
+    },
+    {
+      "reference": "suggested",
+      "predicted": "unknown",
+      "count": 3
+    },
+    {
+      "reference": "unknown",
+      "predicted": "negated",
+      "count": 1
+    },
+    {
+      "reference": "unknown",
+      "predicted": "suggested",
+      "count": 2
+    },
+    {
+      "reference": "unknown",
+      "predicted": "unknown",
+      "count": 4
+    }
+  ],
+  "direction_errors_on_matched": 18,
+  "literal_integrity_errors": 0,
+  "literal_identities": 5,
+  "observed_performed_recall": 0.15151515151515152,
+  "reference_observations": 20,
+  "relation_rule_with_supplied_gold_events": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 57,
+    "gold_events": 64,
+    "predicted_events": 64,
+    "matched": 64,
+    "trigger_precision": 1.0,
+    "trigger_recall": 1.0,
+    "trigger_f1": 1.0,
+    "exact_trigger_matches": 64,
+    "status_accuracy_on_matched": 1.0,
+    "direction_accuracy_on_matched": 1.0,
+    "performed_claims": 33,
+    "performed_correct": 33,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 53,
+    "accepted_status_correct": 53,
+    "accepted_tuple_precision": 1.0,
+    "claim_coverage": 0.828125,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "final-0",
+        "app_id": "1627720",
+        "gold": 4,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "final-1",
+        "app_id": "2358720",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-2",
+        "app_id": "2358720",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-3",
+        "app_id": "2358720",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-4",
+        "app_id": "2358720",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-5",
+        "app_id": "2358720",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-6",
+        "app_id": "2358720",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-7",
+        "app_id": "2358720",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-8",
+        "app_id": "2358720",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-9",
+        "app_id": "2358720",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-10",
+        "app_id": "2358720",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-11",
+        "app_id": "2358720",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-12",
+        "app_id": "2358720",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-13",
+        "app_id": "2358720",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-14",
+        "app_id": "2358720",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-15",
+        "app_id": "1182900",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-16",
+        "app_id": "1182900",
+        "gold": 4,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "final-17",
+        "app_id": "1182900",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-18",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-19",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-20",
+        "app_id": "1182900",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-21",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-22",
+        "app_id": "1182900",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-23",
+        "app_id": "1182900",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-24",
+        "app_id": "1182900",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-25",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-26",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-27",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-28",
+        "app_id": "1182900",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-29",
+        "app_id": "1693980",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-30",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-31",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-32",
+        "app_id": "1693980",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-33",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-34",
+        "app_id": "1693980",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-35",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-36",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-37",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-38",
+        "app_id": "1693980",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-39",
+        "app_id": "1693980",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-40",
+        "app_id": "1693980",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-41",
+        "app_id": "1693980",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-42",
+        "app_id": "1693980",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "final-43",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-44",
+        "app_id": "1282100",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-45",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-46",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-47",
+        "app_id": "1282100",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-48",
+        "app_id": "1282100",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-49",
+        "app_id": "1282100",
+        "gold": 3,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "final-50",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-51",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-52",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-53",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "final-54",
+        "app_id": "1282100",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-55",
+        "app_id": "1282100",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "final-56",
+        "app_id": "1282100",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      }
+    ]
+  },
+  "result_claims_default_disabled": true,
+  "documents": [
+    {
+      "id": "final-0",
+      "app_id": "1627720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8780#issuecomment-2951490414",
+      "gold_events": 4,
+      "matched": 4,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-1",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2314359502",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-2",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645890298",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-3",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2316792508",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 1,
+      "performed_correct": 1,
+      "false_performed": 0
+    },
+    {
+      "id": "final-4",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2308926326",
+      "gold_events": 3,
+      "matched": 2,
+      "performed_claims": 2,
+      "performed_correct": 2,
+      "false_performed": 0
+    },
+    {
+      "id": "final-5",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2300233881",
+      "gold_events": 2,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-6",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2311941497",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-7",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645893461",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-8",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-4962761135",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-9",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2585194800",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-10",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-3939073383",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-11",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2318056899",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-12",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2299540565",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-13",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645907403",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-14",
+      "app_id": "2358720",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2306811290",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-15",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1312289099",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-16",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-2266721317",
+      "gold_events": 4,
+      "matched": 4,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-17",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3265247175",
+      "gold_events": 3,
+      "matched": 3,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-18",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1283541129",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-19",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3266381439",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-20",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3268126848",
+      "gold_events": 3,
+      "matched": 2,
+      "performed_claims": 2,
+      "performed_correct": 2,
+      "false_performed": 0
+    },
+    {
+      "id": "final-21",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3263315943",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-22",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1283522051",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-23",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1468665461",
+      "gold_events": 3,
+      "matched": 2,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-24",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3266348154",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-25",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1475015501",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-26",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1475016043",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-27",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3735468421",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-28",
+      "app_id": "1182900",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1468702550",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-29",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407427305",
+      "gold_events": 3,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-30",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1409500665",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-31",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407385214",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-32",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1825662718",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-33",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1616060132",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-34",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1411146611",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-35",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1410587685",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-36",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1421424950",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-37",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407459507",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-38",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407405073",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-39",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407401370",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-40",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1565019017",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-41",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407430110",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-42",
+      "app_id": "1693980",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-3602418490",
+      "gold_events": 2,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-43",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1657047814",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-44",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1651981862",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-45",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1652622515",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-46",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1651988617",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-47",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1743331203",
+      "gold_events": 3,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-48",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1647074665",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-49",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1745619121",
+      "gold_events": 3,
+      "matched": 3,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-50",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1739737551",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-51",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1649641523",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-52",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1673568497",
+      "gold_events": 1,
+      "matched": 1,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-53",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1649946093",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-54",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1646876215",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-55",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1691187529",
+      "gold_events": 0,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    },
+    {
+      "id": "final-56",
+      "app_id": "1282100",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1745628274",
+      "gold_events": 1,
+      "matched": 0,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "false_performed": 0
+    }
+  ]
+}

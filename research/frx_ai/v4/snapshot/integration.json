@@ -1,0 +1,34 @@
+{
+  "origin": "synthetic research contract; not real telemetry or diagnostic accuracy",
+  "independent_process_per_request": true,
+  "checks": [
+    {
+      "scenario": "restart-same-context",
+      "retained": 1,
+      "candidate": "previously-failed-same-context"
+    },
+    {
+      "scenario": "different-app_id",
+      "retained": 0
+    },
+    {
+      "scenario": "different-gpu",
+      "retained": 0
+    },
+    {
+      "scenario": "different-driver",
+      "retained": 0
+    },
+    {
+      "scenario": "different-game_version",
+      "retained": 0
+    },
+    {
+      "scenario": "explicit-mismatched-attempt",
+      "retained": 0,
+      "rejected": true
+    }
+  ],
+  "steam_modified": false,
+  "execution_authorized": false
+}

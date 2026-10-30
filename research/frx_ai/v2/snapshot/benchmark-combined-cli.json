@@ -1,0 +1,7 @@
+{
+  "n": 5,
+  "median_cold_process_seconds": 0.541846613996313,
+  "max_cold_process_seconds": 0.5476614810031606,
+  "peak_child_rss_kib": 200488,
+  "scope": "Five fresh CLI processes, one known development comment, both goal and retrieval models; no network."
+}

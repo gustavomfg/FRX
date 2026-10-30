@@ -1,0 +1,20 @@
+{
+  "platform": "Linux x86_64",
+  "cpu_model": "AMD Ryzen 5 4600G",
+  "threads": 4,
+  "gpu_used": false,
+  "versions": {
+    "python": "3.14.8 (main, Oct 13 2026, 10:33:10) [GCC 16.2.1 20260810]",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.10.0+cpu",
+      "transformers": "4.57.6",
+      "onnxruntime": "1.31.1",
+      "tokenizers": "0.22.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "onnx": "1.23.2"
+    }
+  },
+  "new_model_download_bytes": 0
+}
