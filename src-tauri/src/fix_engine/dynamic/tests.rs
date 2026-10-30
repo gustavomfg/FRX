@@ -692,45 +692,12 @@ fn unconfirmed_general_and_other_game_sources_cannot_generate_recipes() {
         f.scope = scope;
         let a = assess(&f, &ctx(&c));
         assert!(a.recipe_id.is_none());
-        assert!(!a.performance_evidence.contextual_candidate(APP));
     }
     let mut other = ctx(&c);
     other.app_id = "620";
     assert!(assess(&original, &other).recipe_id.is_none());
     let a = assess(&original, &ctx(&c));
-    assert!(a.performance_evidence.contextual_candidate(APP));
-    assert!(!a.performance_evidence.contextual_candidate("620"));
     assert!(!a.performance_warnings.is_empty());
-}
-
-#[test]
-fn contextual_reports_require_independent_authors_matching_actions_and_environment() {
-    let c = Catalog::bundled();
-    let f = performance_finding(APP, "PROTON_NO_D3D11");
-    assert!(assess(&f, &ctx(&c))
-        .performance_evidence
-        .contextual_candidate(APP));
-    let mut same_author = f.clone();
-    same_author.performance_evidence.reports[1].author =
-        same_author.performance_evidence.reports[0].author.clone();
-    assert!(!assess(&same_author, &ctx(&c))
-        .performance_evidence
-        .contextual_candidate(APP));
-    let mut mismatch = f.clone();
-    mismatch.performance_evidence.reports[0].proton_version = Some("another Proton".into());
-    assert!(!assess(&mismatch, &ctx(&c))
-        .performance_evidence
-        .contextual_candidate(APP));
-    let mut conflict = f.clone();
-    conflict.performance_evidence.reports[1].outcome = PerformanceOutcome::Negative;
-    let a = assess(&conflict, &ctx(&c));
-    assert!(a.performance_evidence.conflicting());
-    assert!(!a.performance_evidence.contextual_candidate(APP));
-    let mut wrong_action = f;
-    wrong_action.performance_evidence.reports[0].action_key = "env:PROTON_NO_FSYNC=1".into();
-    assert!(!assess(&wrong_action, &ctx(&c))
-        .performance_evidence
-        .contextual_candidate(APP));
 }
 
 #[test]
@@ -739,9 +706,6 @@ fn authoritative_specific_performance_report_can_be_candidate_but_never_bypass_s
     let mut f = performance_finding(APP, "PROTON_NO_D3D11");
     f.performance_evidence.reports.truncate(1);
     f.performance_evidence.reports[0].confidence = Confidence::Verified;
-    assert!(assess(&f, &ctx(&c))
-        .performance_evidence
-        .contextual_candidate(APP));
     for key in [
         "LD_PRELOAD",
         "WINEDLLOVERRIDES",

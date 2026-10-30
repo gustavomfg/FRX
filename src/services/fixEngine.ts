@@ -1,6 +1,6 @@
 import { listen, type UnlistenFn } from '@tauri-apps/api/event'
 import { call } from './native'
-import type { AppliedFix, Assessment, EngineStatus, FixPlan, Operation, Recipe, RecipeView, RollbackPlan } from '@/types/fixEngine'
+import type { AppliedFix, EngineStatus, FixPlan, Operation, RollbackPlan } from '@/types/fixEngine'
 
 /**
  * Fix Engine (Rust: `src-tauri/src/commands/fix_engine.rs`).
@@ -9,11 +9,6 @@ import type { AppliedFix, Assessment, EngineStatus, FixPlan, Operation, Recipe, 
  */
 
 export const getFixEngineStatus = () => call<EngineStatus>('get_fix_engine_status')
-export const listFixRecipes = (appId?: string | null) => call<RecipeView[]>('list_fix_recipes', { appId: appId ?? null })
-/** Gerador dinâmico: categoria, motivo e receita gerada de cada descoberta (o núcleo lê as descobertas do próprio cache). */
-export const analyzeFixFindings = (appId: string) => call<Assessment[]>('analyze_fix_findings', { appId })
-export const getFixRecipe = (recipeId: string) => call<Recipe>('get_fix_recipe', { recipeId })
-export const checkFixCompatibility = (recipeId: string, appId: string) => call<FixPlan>('check_fix_compatibility', { recipeId, appId })
 export const prepareFixPlan = (recipeId: string, appId: string, expectedFingerprint?: string) => call<FixPlan>('prepare_fix_plan', { recipeId, appId, ...(expectedFingerprint ? { expectedFingerprint } : {}) })
 export const applyFixPlan = (plan: Pick<FixPlan, 'planId' | 'fingerprint' | 'appId'>) =>
   call<Operation>('apply_fix_plan', { planId: plan.planId, fingerprint: plan.fingerprint, appId: plan.appId })
@@ -26,3 +21,5 @@ export const verifyFixOperation = (operationId: string) => call<Operation>('veri
 export const cancelFixOperation = (operationId: string) => call<boolean>('cancel_fix_operation', { operationId })
 
 export const onFixProgress = (cb: (op: Operation) => void): Promise<UnlistenFn> => listen<Operation>('fix-engine://progress', (e) => cb(e.payload))
+/** Tecnologias gráficas que os arquivos do jogo trazem (DLSS, frame generation, PhysX…). */
+export const gameTechnologies = (appId: string) => call<string[]>('game_technologies', { appId })

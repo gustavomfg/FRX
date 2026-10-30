@@ -411,10 +411,7 @@ fn concurrent_replacement_preserves_displaced_external_content() {
 
 #[test]
 fn mixed_smart_pack_installs_files_and_launch_options_as_one_operation() {
-    use crate::smart_packs::{
-        self, benchmark,
-        models::{Limits, PackKind, Profile},
-    };
+    use crate::smart_packs::{benchmark, experience};
     let fx = fixture();
     let (candidate, transport) = direct(b"value=new\n", None);
     let (e, mut g, _) = setup(&fx, candidate, transport);
@@ -425,22 +422,12 @@ fn mixed_smart_pack_installs_files_and_launch_options_as_one_operation() {
         2,
         0,
     ));
-    let report = smart_packs::build(
-        &e,
-        smart_packs::BuildInput {
-            game: &g,
-            sessions: &[],
-            profile: Profile::Performance,
-            limits: Limits::default(),
-            launch_line: fx.line(),
-        },
-    )
-    .unwrap();
-    let combined = report
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Combination && !p.env.is_empty() && !p.file_fixes.is_empty())
-        .expect("synthetic mixed candidate");
+    let combined = experience::build(&e, &g, fx.line().as_deref(), &[]).unwrap();
+    assert!(
+        combined.actions.len() >= 2 && !combined.file_fixes.is_empty(),
+        "synthetic mixed candidate: {:?}",
+        combined.left_out
+    );
     let id = combined.apply_recipe_id.as_ref().unwrap();
     let plan = e.prepare(id, &g).unwrap();
     assert_eq!(plan.status, PlanStatus::Ready, "{:?}", plan.reasons);
@@ -453,7 +440,7 @@ fn mixed_smart_pack_installs_files_and_launch_options_as_one_operation() {
     let capture = benchmark::snapshot(&e, APP);
     assert!(capture.verified);
     assert_eq!(capture.file_fixes, combined.file_fixes);
-    assert_eq!(capture.pack_id, combined.id);
+    assert_eq!(Some(capture.pack_id), combined.pack_id);
     let restarted = fx.engine();
     assert_eq!(
         benchmark::snapshot(&restarted, APP).file_fixes,

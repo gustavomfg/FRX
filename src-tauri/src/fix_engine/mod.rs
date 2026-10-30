@@ -33,7 +33,6 @@ use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex, TryLockError};
 
-use crate::fixes::models::{ActionKind, FixFinding};
 use crate::steam::launch_options::{remove_args, revert_env, LaunchLine, Revert};
 use crate::steam::{localconfig, processes};
 use crate::time::{now_iso, now_unix};
@@ -115,26 +114,6 @@ impl FixEngine {
     }
 
     // ── Catálogo e estado ────────────────────────────────────────────────
-
-    pub fn recipes(&self, findings: &[FixFinding]) -> Vec<RecipeView> {
-        self.catalog
-            .recipes
-            .iter()
-            .map(|r| RecipeView {
-                performance_warnings: r.performance_warnings(),
-                executable: r.trust == Trust::Reviewed,
-                integrity: true,
-                related_findings: findings
-                    .iter()
-                    .filter(|f| related(r, f))
-                    .map(|f| f.id.clone())
-                    .collect(),
-                outlook: dynamic::compatibility::recipe_outlook(&r.actions),
-                relevance: None,
-                recipe: r.clone(),
-            })
-            .collect()
-    }
 
     pub fn recipe(&self, id: &str) -> Result<&Recipe, String> {
         self.catalog
@@ -1524,33 +1503,6 @@ fn effective(op: &Operation) -> (Effective, String) {
         Ok(_) => (Effective::Drifted, "A configuração foi alterada fora do FRX depois da aplicação; a correção não está mais completa.".into()),
         Err(e) => (Effective::Unknown, e),
     }
-}
-
-/// Achado e receita falam do mesmo ajuste? Compara as ações do achado
-/// (`KEY=valor`, linhas de inicialização) com as chaves da receita.
-pub fn related(r: &Recipe, f: &FixFinding) -> bool {
-    if !f.scope.matches_game(&f.game_app_id)
-        || (!r.scope.app_ids.is_empty() && !r.scope.app_ids.contains(&f.game_app_id))
-    {
-        return false;
-    }
-    let mut keys: Vec<String> = f.keys.clone();
-    for a in &f.actions {
-        match a.kind {
-            ActionKind::Env => keys.push(format!("env:{}", a.value.trim())),
-            ActionKind::LaunchOption => {
-                if let Ok(l) = LaunchLine::parse(&a.value) {
-                    keys.extend(
-                        l.leading_env()
-                            .into_iter()
-                            .map(|(_, k, v)| format!("env:{k}={v}")),
-                    );
-                }
-            }
-            _ => {}
-        }
-    }
-    keys.iter().any(|k| r.related_keys.contains(k))
 }
 
 pub fn data_root(app_data: &Path) -> PathBuf {

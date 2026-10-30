@@ -8,12 +8,11 @@ use tauri::{AppHandle, Emitter, State};
 
 use super::AppCtx;
 use crate::cache::Cache;
-use crate::fix_engine::dynamic::AssessmentView;
 
 use crate::fix_engine::models::*;
 use crate::fix_engine::{FixEngine, PROGRESS_EVENT};
 use crate::fixes::compat::HardwareContext;
-use crate::fixes::models::{FixFinding, FixReport};
+use crate::fixes::models::FixReport;
 use crate::steam::{self, discovery::DiscoveryEnv, models::ScanResult};
 
 /// Estado real do jogo, com uma varredura nova (a do cache pode estar velha),
@@ -85,56 +84,6 @@ pub fn get_fix_engine_status(ctx: State<'_, AppCtx>) -> EngineStatus {
 #[tauri::command]
 pub fn cancel_fix_operation(ctx: State<'_, AppCtx>, operation_id: String) -> bool {
     ctx.engine.cancel_artifact_operation(&operation_id)
-}
-
-/// Catálogo local, com os achados da última pesquisa que citam o mesmo ajuste.
-#[tauri::command]
-pub fn list_fix_recipes(ctx: State<'_, AppCtx>, app_id: Option<String>) -> Vec<RecipeView> {
-    let app_id = app_id.filter(|a| crate::art::valid_app_id(a));
-    let findings = app_id
-        .as_deref()
-        .and_then(|a| {
-            ctx.cache
-                .get::<FixReport>("fixes", a)
-                .filter(|e| e.data.app_id == a)
-        })
-        .map(|e| e.data.findings)
-        .unwrap_or_default();
-    let mut views = ctx.engine.recipes(&findings);
-    if let Some(game) = app_id.and_then(|a| game_ctx(&ctx.cache, &a).ok()) {
-        let techs = technologies_of(&game);
-        for v in &mut views {
-            v.relevance = Some(relevance_for(&game, v, &game.findings, &techs));
-        }
-    }
-    views
-}
-
-/// Gerador dinâmico: analisa as descobertas do jogo e devolve, para cada uma,
-/// a categoria (aplicável, requer validação, informativa), o motivo e a
-/// receita gerada quando houver. Não grava nada no jogo.
-#[tauri::command]
-pub async fn analyze_fix_findings(
-    ctx: State<'_, AppCtx>,
-    app_id: String,
-) -> Result<Vec<AssessmentView>, String> {
-    let (e, cache) = (engine(&ctx), ctx.cache.clone());
-    blocking(move || e.analyze(&game_ctx(&cache, &app_id)?)).await
-}
-
-#[tauri::command]
-pub fn get_fix_recipe(ctx: State<'_, AppCtx>, recipe_id: String) -> Result<Recipe, String> {
-    ctx.engine.recipe(&recipe_id).cloned()
-}
-
-#[tauri::command]
-pub async fn check_fix_compatibility(
-    ctx: State<'_, AppCtx>,
-    recipe_id: String,
-    app_id: String,
-) -> Result<FixPlan, String> {
-    let (e, cache) = (engine(&ctx), ctx.cache.clone());
-    blocking(move || e.check(&recipe_id, &game_ctx(&cache, &app_id)?)).await
 }
 
 /// Prévia (dry-run): o que mudaria, onde, e se dá para aplicar agora.
@@ -259,83 +208,4 @@ pub fn game_technologies(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> 
     game_ctx(&ctx.cache, &app_id)
         .map(|g| technologies_of(&g).into_iter().map(str::to_owned).collect())
         .unwrap_or_default()
-}
-
-/// Por que esta receita interessa a este jogo: só se ele tem um dos problemas
-/// que ela resolve, e a tecnologia que a opção mexe está instalada.
-fn relevance_for(
-    game: &GameCtx,
-    view: &RecipeView,
-    findings: &[FixFinding],
-    techs: &[&str],
-) -> Relevance {
-    if view.recipe.purpose == Purpose::Diagnostic {
-        return Relevance {
-            relevant: true,
-            reason: "Ferramenta de diagnóstico: não é correção e não depende do jogo.".into(),
-        };
-    }
-    if view.recipe.scope.app_ids.iter().any(|a| a == &game.app_id) {
-        return Relevance {
-            relevant: true,
-            reason: "Receita específica deste jogo.".into(),
-        };
-    }
-    let aims = crate::fix_engine::dynamic::compatibility::recipe_aims(&view.recipe.actions);
-    let problems = crate::fixes::symptoms::of_game(findings, &game.app_id, techs);
-    let names = |ids: &[&str]| {
-        ids.iter()
-            .map(|id| crate::fixes::symptoms::label(id))
-            .collect::<Vec<_>>()
-            .join(", ")
-    };
-    let matched: Vec<&str> = aims
-        .iter()
-        .copied()
-        .filter(|a| problems.contains(a))
-        .collect();
-    if !matched.is_empty() {
-        return Relevance {
-            relevant: true,
-            reason: format!("Este jogo tem relatos de {}.", names(&matched)),
-        };
-    }
-    // Opção de uma tecnologia que o jogo não traz: o motivo é a ausência, não o problema.
-    let absent: Vec<&str> = aims
-        .iter()
-        .copied()
-        .filter(|a| !crate::fixes::symptoms::applies(a, techs))
-        .collect();
-    let reason = if !aims.is_empty() && absent.len() == aims.len() {
-        format!("O jogo não usa {}.", names(&absent))
-    } else if aims.is_empty() {
-        "Não resolve um problema descrito nas fontes deste jogo.".to_owned()
-    } else {
-        format!("Este jogo não tem relatos de {}.", names(&aims))
-    };
-    Relevance {
-        relevant: false,
-        reason,
-    }
-}
-
-/// Problemas que os relatos deste jogo citam, só nas tecnologias que ele traz.
-#[tauri::command]
-pub fn detected_symptoms(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> {
-    if !crate::art::valid_app_id(&app_id) {
-        return vec![];
-    }
-    let findings = ctx
-        .cache
-        .get::<FixReport>("fixes", &app_id)
-        .filter(|e| e.data.app_id == app_id)
-        .map(|e| e.data.findings)
-        .unwrap_or_default();
-    let techs = game_ctx(&ctx.cache, &app_id)
-        .map(|g| technologies_of(&g))
-        .unwrap_or_default();
-    crate::fixes::symptoms::of_game(&findings, &app_id, &techs)
-        .into_iter()
-        .map(str::to_owned)
-        .collect()
 }

@@ -143,22 +143,12 @@ fn with_config(fx: &Fx) -> GameCtx {
         ));
     game
 }
-fn packs(engine: &FixEngine, game: &GameCtx) -> crate::smart_packs::models::SmartPackReport {
-    crate::smart_packs::build(
-        engine,
-        crate::smart_packs::BuildInput {
-            game,
-            sessions: &[],
-            profile: crate::smart_packs::models::Profile::Balanced,
-            limits: Default::default(),
-            launch_line: None,
-        },
-    )
-    .unwrap()
+fn pack(engine: &FixEngine, game: &GameCtx) -> crate::smart_packs::experience::ExperiencePack {
+    crate::smart_packs::experience::build(engine, game, None, &[]).unwrap()
 }
 #[test]
 fn smart_pack_config_and_variable_use_actual_merged_bytes_and_persist_rollback() {
-    use crate::smart_packs::{benchmark, models::PackKind};
+    use crate::smart_packs::benchmark;
     let fx = fixture();
     let e = fx.engine();
     let g = with_config(&fx);
@@ -166,12 +156,8 @@ fn smart_pack_config_and_variable_use_actual_merged_bytes_and_persist_rollback()
     let original = "# synthetic fixture\ndxgi.maxFrameLatency = 3\ndxgi.enableHDR = False\n";
     std::fs::write(&path, original).unwrap();
     let launch = fx.line();
-    let report = packs(&e, &g);
-    let combo = report
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Combination)
-        .expect("supported env and config compose");
+    let combo = pack(&e, &g);
+    assert_eq!(combo.actions.len(), 2, "variável e configuração entram juntas: {:?}", combo.left_out);
     assert_eq!(combo.availability.state, State::Available);
     assert_eq!(combo.file_fixes.len(), 1);
     let plan = e
@@ -190,10 +176,11 @@ fn smart_pack_config_and_variable_use_actual_merged_bytes_and_persist_rollback()
     );
     let restarted = fx.engine();
     let snapshot = benchmark::snapshot(&restarted, "200260");
-    assert_eq!(snapshot.pack_id, combo.id);
+    assert_eq!(Some(snapshot.pack_id), combo.pack_id);
     assert!(snapshot.verified);
-    assert!(
-        packs(&restarted, &g).packs.iter().any(|p| p.id == combo.id),
+    assert_eq!(
+        pack(&restarted, &g).pack_id,
+        combo.pack_id,
         "applied composed config remains visible after restart"
     );
     let undo = restarted.prepare_rollback(&op.id).unwrap();
@@ -205,27 +192,16 @@ fn smart_pack_config_and_variable_use_actual_merged_bytes_and_persist_rollback()
 }
 #[test]
 fn current_config_changes_invalidate_pack_identity_without_discarding_other_fixes() {
-    use crate::smart_packs::models::PackKind;
     let fx = fixture();
     let e = fx.engine();
     let mut g = with_config(&fx);
     let path = fx.library.join("Config/dxvk.conf");
     std::fs::write(&path, "# before\n").unwrap();
-    let report = packs(&e, &g);
-    let old = report
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Combination)
-        .unwrap();
+    let old = pack(&e, &g);
     std::fs::write(&path, "# externally changed\n").unwrap();
     assert!(e.check(old.apply_recipe_id.as_ref().unwrap(), &g).is_err());
-    let new = packs(&e, &g);
-    let changed = new
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Combination)
-        .unwrap();
-    assert_ne!(old.id, changed.id);
+    let changed = pack(&e, &g);
+    assert_ne!(old.pack_id, changed.pack_id);
     g.findings.push(crate::fix_engine::dynamic::tests::finding(
         "synthetic-unsupported",
         ActionKind::Winetricks,
@@ -245,27 +221,20 @@ fn current_config_changes_invalidate_pack_identity_without_discarding_other_fixe
         .reasons
         .iter()
         .any(|r| r.code == "configuration-mismatch"));
-    let report = packs(&e, &g);
-    assert!(report
-        .packs
-        .iter()
-        .any(|p| p.kind == PackKind::Single && !p.env.is_empty()));
-    assert!(!report.packs.iter().any(|p| !p.file_fixes.is_empty()));
-    assert!(report.excluded.len() >= 2);
+    let p = pack(&e, &g);
+    assert_eq!(p.actions.len(), 1, "só a variável continua no pacote");
+    assert!(p.file_fixes.is_empty());
+    assert!(p.left_out.len() >= 2);
 }
 #[test]
 fn smart_pack_operational_blocker_is_explicit_and_never_ready() {
-    use crate::smart_packs::models::{PackKind, PackState};
+    use crate::smart_packs::models::PackState;
     let fx = fixture();
     let e = fx.engine();
     let g = finding_game(&fx);
     fx.proc("11", "steam", "SteamAppId=0\0");
-    let report = packs(&e, &g);
-    let fix = report
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Single)
-        .unwrap();
+    let fix = pack(&e, &g);
+    assert_eq!(fix.actions.len(), 1);
     assert_eq!(fix.availability.state, State::Temporary);
     assert_eq!(fix.state, PackState::Conflict);
     assert!(fix
@@ -311,7 +280,7 @@ fn config_requirements_and_hardware_changes_refresh_current_availability_and_pac
     });
     let ready = e.analyze(&g).unwrap().remove(0);
     assert_eq!(ready.availability.state, State::Available, "{ready:#?}");
-    assert_eq!(packs(&e, &g).packs.len(), 2);
+    assert_eq!(pack(&e, &g).actions.len(), 1);
     g.performance_conditions
         .as_mut()
         .unwrap()
@@ -324,7 +293,7 @@ fn config_requirements_and_hardware_changes_refresh_current_availability_and_pac
         e.analyze(&g).unwrap()[0].availability.state,
         State::Incompatible
     );
-    assert_eq!(packs(&e, &g).packs.len(), 1);
+    assert!(pack(&e, &g).actions.is_empty());
     g.performance_conditions
         .as_mut()
         .unwrap()
@@ -403,12 +372,10 @@ fn legacy_cached_assessments_and_packs_never_invent_current_availability() {
     let legacy: crate::fix_engine::dynamic::AssessmentView = serde_json::from_value(json).unwrap();
     assert_eq!(legacy.availability.state, State::Investigation);
     assert_eq!(legacy.availability.reasons[0].code, "not-validated");
-    let pack = packs(&e, &g)
-        .packs
-        .into_iter()
-        .find(|p| p.apply_recipe_id.is_some())
+    let stored = crate::smart_packs::store_for(&e)
+        .pack(&g.app_id, pack(&e, &g).pack_id.as_deref().unwrap())
         .unwrap();
-    let mut json = serde_json::to_value(pack).unwrap();
+    let mut json = serde_json::to_value(stored).unwrap();
     json.as_object_mut().unwrap().remove("availability");
     let legacy: crate::smart_packs::models::SmartPack = serde_json::from_value(json).unwrap();
     assert_eq!(legacy.availability.state, State::Investigation);

@@ -119,9 +119,6 @@ fn when(m: &SessionMeta) -> &str {
 
 pub struct Grouped {
     pub measurements: BTreeMap<String, Measurements>,
-    pub unassigned: Vec<SessionRef>,
-    pub reference: Option<String>,
-    pub notes: Vec<String>,
 }
 
 fn session_ref(m: &SessionMeta, snap: Option<&PackSnapshot>) -> SessionRef {
@@ -137,15 +134,6 @@ fn session_ref(m: &SessionMeta, snap: Option<&PackSnapshot>) -> SessionRef {
         excluded: None,
         notes: vec![],
     }
-}
-
-pub fn group(
-    app_id: &str,
-    sessions: &[SessionMeta],
-    config: impl Fn(&SessionMeta) -> Option<PackSnapshot>,
-    baseline_id: &str,
-) -> Grouped {
-    group_in_context(app_id, sessions, config, baseline_id, None)
 }
 
 /// Keep historical results, but never promote an old hardware/software cohort
@@ -214,8 +202,6 @@ pub fn group_in_context(
         .filter(|m| m.app_id.as_deref() == Some(app_id))
         .map(|m| (m, config(m)))
         .collect();
-    let mut notes = Vec::new();
-    let mut unassigned = Vec::new();
     let usable = |m: &SessionMeta| {
         context_differences(m).is_empty()
             && m.quality.level != QualityLevel::Unsuitable
@@ -247,19 +233,11 @@ pub fn group_in_context(
             .map(|(m, _)| *m)
     };
     let reference = latest(&|s| s.pack_id == baseline_id).or_else(|| latest(&|_| true));
-    if reference.is_some_and(|r| {
-        mine.iter()
-            .any(|(m, s)| m.id == r.id && s.as_ref().is_some_and(|s| s.pack_id != baseline_id))
-    }) {
-        notes.push("Ainda não há baseline medido; as condições de referência vêm da sessão conhecida mais recente.".into());
-    }
 
     let mut groups: BTreeMap<String, Vec<(SessionRef, &SessionMeta)>> = BTreeMap::new();
     for (m, snap) in &mine {
         let mut r = session_ref(m, snap.as_ref());
         let Some(snap) = snap else {
-            r.excluded = Some("Configuração do FRX não registrada (sessão importada ou anterior à v0.4). Declare a configuração para usá-la.".into());
-            unassigned.push(r);
             continue;
         };
         if !super::benchmark::snapshot_matches_app(app_id, snap) {
@@ -359,12 +337,7 @@ pub fn group_in_context(
             (id, m)
         })
         .collect();
-    Grouped {
-        measurements,
-        unassigned,
-        reference: reference.map(|r| r.id.clone()),
-        notes,
-    }
+    Grouped { measurements }
 }
 
 fn metric_stats<'a>(m: &'a Measurements, key: &str) -> Option<&'a MetricStats> {

@@ -14,8 +14,6 @@ use super::models::*;
 use crate::fix_engine::files::{atomic_write, private_dir};
 use crate::time::now_iso;
 
-const MAX_HISTORY: usize = 500;
-
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct StoredPack {
@@ -42,26 +40,6 @@ pub struct PackFile {
 
 pub struct SmartStore {
     dir: PathBuf,
-}
-
-fn signature(r: &Ranking) -> Vec<(String, Option<u32>, Tier, Outcome)> {
-    r.entries
-        .iter()
-        .map(|e| {
-            (
-                e.pack_id.clone(),
-                e.position,
-                // O histórico mantém o vocabulário anterior, com a distinção no
-                // campo aditivo preventive_risks; versões antigas não corrompem o registro.
-                if e.tier == Tier::PerformanceRisk {
-                    Tier::NotRecommended
-                } else {
-                    e.tier
-                },
-                e.outcome,
-            )
-        })
-        .collect()
 }
 
 /// Validate contained identity as well as the per-game file name. Legacy
@@ -161,86 +139,6 @@ impl SmartStore {
         self.save(&f)
     }
 
-    /// Registra os pacotes atuais e, se a ordem mudou, um ponto no histórico.
-    pub fn record(
-        &self,
-        app_id: &str,
-        packs: &[SmartPack],
-        ranking: &Ranking,
-        sessions: usize,
-    ) -> Result<PackFile, String> {
-        if packs.iter().any(|p| !belongs(app_id, p)) {
-            return Err(
-                "Registro recusado: um pacote pertence a outro jogo ou tem identidade inválida."
-                    .into(),
-            );
-        }
-        let mut f = self.load(app_id)?;
-        let now = now_iso();
-        for s in &mut f.packs {
-            s.retired = !packs.iter().any(|p| p.id == s.pack.id);
-        }
-        for p in packs {
-            match f.packs.iter_mut().find(|s| s.pack.id == p.id) {
-                Some(s) => {
-                    s.pack = p.clone();
-                    s.last_seen = now.clone();
-                    s.retired = false;
-                }
-                None => f.packs.push(StoredPack {
-                    pack: p.clone(),
-                    first_seen: now.clone(),
-                    last_seen: now.clone(),
-                    retired: false,
-                }),
-            }
-        }
-        let sig = signature(ranking);
-        let preventive_risks: Vec<String> = ranking
-            .entries
-            .iter()
-            .filter(|e| e.tier == Tier::PerformanceRisk)
-            .map(|e| e.pack_id.clone())
-            .collect();
-        let last = f
-            .history
-            .iter()
-            .rev()
-            .find(|h| h.profile == ranking.profile);
-        if last.is_none_or(|h| {
-            h.entries != sig
-                || h.version != ranking.version
-                || h.preventive_risks != preventive_risks
-        }) {
-            let reason = match last {
-                None => "Primeira classificação.".to_owned(),
-                Some(h) if h.version != ranking.version => {
-                    "Nova versão da metodologia de ranking.".to_owned()
-                }
-                Some(h) if h.sessions != sessions => {
-                    format!("Sessões comparáveis: {} → {sessions}.", h.sessions)
-                }
-                Some(_) => "Pacotes, receitas ou estado mudaram.".to_owned(),
-            };
-            f.history.push(RankingSnapshot {
-                preventive_risks,
-                at: now,
-                profile: ranking.profile,
-                version: ranking.version.clone(),
-                reason,
-                entries: sig,
-                sessions,
-            });
-            if f.history.len() > MAX_HISTORY {
-                let cut = f.history.len() - MAX_HISTORY;
-                f.history.drain(..cut);
-            }
-        }
-        f.composer_version = COMPOSER_VERSION.into();
-        self.save(&f)?;
-        Ok(f)
-    }
-
     /// Receitas de um pacote registrado (ponteiro: tudo é revalidado ao aplicar).
     pub fn members(&self, app_id: &str, pack_id: &str) -> Option<Vec<String>> {
         self.load(app_id)
@@ -258,14 +156,5 @@ impl SmartStore {
             .into_iter()
             .find(|s| s.pack.id == pack_id && belongs(app_id, &s.pack))
             .map(|s| s.pack)
-    }
-
-    /// Referência Windows, se o usuário tiver importado uma (nenhuma fonte é
-    /// integrada nesta versão). Formato inválido = indisponível.
-    pub fn windows(&self, app_id: &str) -> Option<WindowsReference> {
-        let p = self.dir.join("windows").join(format!("{app_id}.json"));
-        let w: WindowsReference = serde_json::from_slice(&std::fs::read(p).ok()?).ok()?;
-        (!w.origin.trim().is_empty() && w.avg_fps.is_none_or(|v| v.is_finite() && v > 0.0))
-            .then_some(w)
     }
 }

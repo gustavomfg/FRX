@@ -9,9 +9,6 @@ use super::models::*;
 use crate::fixes::compat::vendor_name;
 use crate::steam::launch_options::LaunchLine;
 
-/// Versão destas regras: mudou → os pacotes são recompostos.
-pub const RULES: &str = "2026.10.26-1";
-
 /// Pares mutuamente exclusivos, com o motivo.
 const EXCLUSIVE: &[(&str, &str, &str)] = &[
     ("PROTON_USE_WINED3D", "PROTON_NO_D3D11", "WineD3D e “sem Direct3D 11” são contornos alternativos de renderização; o FRX não os combina."),

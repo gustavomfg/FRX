@@ -569,25 +569,6 @@ pub struct RollbackPlan {
     pub game_running: bool,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RecipeView {
-    #[serde(default)]
-    pub performance_warnings: Vec<String>,
-    #[serde(flatten)]
-    pub recipe: Recipe,
-    pub executable: bool,
-    pub integrity: bool,
-    /// Achados da pesquisa (v0.2) que citam o mesmo ajuste.
-    pub related_findings: Vec<String>,
-    /// Efeito provável: ajuda, incerto ou pode piorar (pior caso entre as variáveis).
-    #[serde(default)]
-    pub outlook: Option<Outlook>,
-    /// Se a receita tem motivo para este jogo; preenchido ao listar um jogo.
-    #[serde(default)]
-    pub relevance: Option<Relevance>,
-}
-
 /// O que uma receita costuma fazer com desempenho ou funcionamento.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[serde(rename_all = "kebab-case")]
@@ -598,14 +579,6 @@ pub enum Outlook {
     Uncertain,
     /// Costuma reduzir desempenho ou recursos do jogo.
     MayHurt,
-}
-
-/// Vínculo de uma receita com o jogo escolhido, com o motivo.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Relevance {
-    pub relevant: bool,
-    pub reason: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

@@ -16,7 +16,6 @@ import { INSTALL_LABEL } from '@/lib/steamGame'
 import { fmtNum, fmtRelative, greeting } from '@/lib/format'
 import type { InstallationStatus } from '@/types/steam'
 import { cn } from '@/lib/cn'
-import { isRelevant } from '@/lib/findings'
 
 const INSTALL_ORDER: InstallationStatus[] = ['installed', 'incomplete', 'unavailable', 'unknown']
 const INSTALL_COLOR: Record<InstallationStatus, string> = {
@@ -37,14 +36,8 @@ export function RealHome() {
   const today = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date())
 
   const recent = useMemo(() => [...games].filter((g) => g.lastPlayed).sort((a, b) => +new Date(b.lastPlayed!) - +new Date(a.lastPlayed!))[0] ?? games[0], [games])
-  const findings = useMemo(
-    () =>
-      Object.values(reports)
-        .flatMap((r) => r.findings.map((f) => ({ f, name: r.gameName, appId: r.appId })))
-        .filter(({ f }) => isRelevant(f) && f.kind !== 'report'),
-    [reports],
-  )
-  const gamesWithFindings = new Set(findings.map(({ appId }) => appId)).size
+  // Um jogo pesquisado tem um pacote; descobertas não são contadas como melhorias.
+  const researched = useMemo(() => Object.values(reports).map((r) => ({ appId: r.appId, name: r.gameName })), [reports])
   const latest = sessions[0]
   const realActivity = activity.filter((a) => !a.demo)
 
@@ -62,12 +55,12 @@ export function RealHome() {
             ) : (
               <>
                 {games.length} jogo{games.length === 1 ? '' : 's'} da Steam na estante.{' '}
-                {gamesWithFindings > 0 ? (
+                {researched.length > 0 ? (
                   <>
-                    <span className="text-fg">{gamesWithFindings} com descobertas técnicas</span> esperando sua revisão.
+                    <span className="text-fg">{researched.length} com pacote de melhorias</span> pronto para revisar.
                   </>
                 ) : (
-                  'Abra um jogo para pesquisar correções conhecidas.'
+                  'Abra um jogo e busque melhorias.'
                 )}
               </>
             )}
@@ -139,22 +132,21 @@ export function RealHome() {
           <InstallDistribution />
         </SummaryColumn>
 
-        <SummaryColumn eyebrow="Correções" to="/biblioteca" cta="Ver jogos">
-          <BigNumber value={findings.length} label="descobertas técnicas relevantes" aside={`${Object.keys(reports).length} jogo${Object.keys(reports).length === 1 ? '' : 's'} pesquisado${Object.keys(reports).length === 1 ? '' : 's'}`} />
-          {findings.length > 0 ? (
-            // Cada correção fica na página do seu jogo: aqui só o resumo por jogo.
+        <SummaryColumn eyebrow="Melhorias" to="/biblioteca" cta="Ver jogos">
+          <BigNumber value={researched.length} label={researched.length === 1 ? 'jogo pesquisado' : 'jogos pesquisados'} />
+          {researched.length > 0 ? (
             <ul className="mt-5 space-y-2.5">
-              {[...new Map(findings.map(({ appId, name }) => [appId, name])).entries()].map(([appId, name]) => (
+              {researched.map(({ appId, name }) => (
                 <li key={appId}>
-                  <Link to={`/biblioteca/${encodeURIComponent(appId)}?secao=descobertas`} className="group flex items-center justify-between gap-3 rounded-sm text-[13px]">
+                  <Link to={`/biblioteca/${encodeURIComponent(appId)}`} className="group flex items-center justify-between gap-3 rounded-sm text-[13px]">
                     <span className="min-w-0 truncate text-fg group-hover:text-accent">{name}</span>
-                    <span className="tnum shrink-0 text-fg-3">{findings.filter((entry) => entry.appId === appId).length}</span>
+                    <span className="shrink-0 text-fg-3">Ver pacote</span>
                   </Link>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="mt-5 text-[13px] text-fg-3">Nenhuma pesquisa ainda. Abra um jogo e clique em “Pesquisar correções”.</p>
+            <p className="mt-5 text-[13px] text-fg-3">Nenhuma pesquisa ainda. Abra um jogo e clique em “Buscar melhorias”.</p>
           )}
         </SummaryColumn>
 

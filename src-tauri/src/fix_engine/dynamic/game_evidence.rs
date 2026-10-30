@@ -27,15 +27,6 @@ impl GamePerformanceEvidence {
         self.positive > 0 && self.negative > 0
     }
 
-    pub fn contextual_candidate(&self, app_id: &str) -> bool {
-        self.app_id.as_deref() == Some(app_id)
-            && self.context_compatible
-            && (self.authoritative_positive && self.positive > 0
-                || self.positive >= 2
-                    && self.source_urls.iter().collect::<BTreeSet<_>>().len() >= 2)
-            && self.negative == 0
-    }
-
     /// Mescla apenas relatos do mesmo jogo. Contradições nunca desaparecem
     /// ao escolher a descoberta de maior confiança.
     pub fn merge(&mut self, other: &Self) {
@@ -296,7 +287,6 @@ mod hardware_tests {
                 !result.conflicting(),
                 "reports from an incompatible GPU do not make this cohort contradictory"
             );
-            assert_eq!(result.contextual_candidate("200260"), pos >= 2);
             assert_eq!(
                 finding.performance_evidence.reports.len(),
                 6,

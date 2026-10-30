@@ -6,7 +6,6 @@ pub mod fix_engine;
 pub mod fixes;
 pub mod games;
 pub mod performance;
-pub mod resolution;
 pub mod smart_packs;
 pub mod system;
 
@@ -18,7 +17,6 @@ pub struct AppCtx {
     pub cache: Cache,
     pub fetcher: ReqwestFetcher,
     /// Evita duas varreduras simultâneas da biblioteca.
-    pub resolution_lock: tokio::sync::Mutex<()>,
     pub scan_lock: tokio::sync::Mutex<()>,
     pub fixes: crate::fixes::EngineState,
     pub perf: performance::PerfCtx,

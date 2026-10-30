@@ -1,4 +1,3 @@
-use crate::system::context::EnvironmentContext;
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -29,21 +28,6 @@ pub struct Technology {
     pub runtime: String,
     pub evidence: Vec<Evidence>,
     pub limitations: Vec<String>,
-}
-impl Technology {
-    pub fn unknown(id: &str, name: &str) -> Self {
-        Self {
-            id: id.into(),
-            name: name.into(),
-            hardware: "unknown".into(),
-            game_support: "unknown".into(),
-            environment: "unknown".into(),
-            configured: "unknown".into(),
-            runtime: "unknown".into(),
-            evidence: vec![],
-            limitations: vec![],
-        }
-    }
 }
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -80,43 +64,5 @@ pub struct ResolutionPlan {
     pub success_criterion: String,
     pub operation_id: Option<String>,
     pub verification: String,
-    pub limitations: Vec<String>,
-}
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ResolutionPack {
-    pub id: String,
-    pub app_id: String,
-    pub purpose: String,
-    pub title: String,
-    pub plan_ids: Vec<String>,
-    pub smart_pack_id: Option<String>,
-    pub explanation: String,
-}
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Report {
-    #[serde(default)]
-    pub symptoms: Vec<String>,
-    pub schema: u32,
-    pub app_id: String,
-    pub game_name: String,
-    pub generated_at: String,
-    pub context_fingerprint: String,
-    pub environment: Option<EnvironmentContext>,
-    pub technologies: Vec<Technology>,
-    pub problems: Vec<Problem>,
-    pub plans: Vec<ResolutionPlan>,
-    pub packs: Vec<ResolutionPack>,
-    pub knowledge: Vec<Evidence>,
-    pub limitations: Vec<String>,
-}
-#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct LogObservation {
-    pub app_id: String,
-    pub imported_at: String,
-    pub digest: String,
-    pub evidence: Vec<Evidence>,
     pub limitations: Vec<String>,
 }

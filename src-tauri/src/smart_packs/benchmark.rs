@@ -477,11 +477,13 @@ pub fn session_config(engine: &FixEngine, meta: &SessionMeta) -> Option<PackSnap
     })
 }
 
-/// Configuração declarada pelo usuário para uma sessão sem registro.
+/// Configuração declarada de uma sessão (sessões sintéticas dos testes).
+#[cfg(test)]
 pub fn declared(app_id: &str, env: Vec<EnvPair>) -> PackSnapshot {
     declared_with_files(app_id, env, vec![])
 }
 
+#[cfg(test)]
 pub fn declared_with_files(
     app_id: &str,
     env: Vec<EnvPair>,
@@ -532,21 +534,4 @@ pub fn tag_capture(
             "A configuração do FRX mudou durante a captura. Repita com o pacote esperado ativo e o jogo reaberto; esta sessão não entra no ranking.",
         ));
     }
-}
-
-/// New captures record full recipe hashes. Legacy hashes are never guessed:
-/// historical operation identity and exact writes remain the only evidence.
-pub fn recipe_context_matches(
-    engine: &FixEngine,
-    game: &crate::fix_engine::models::GameCtx,
-    snapshot: &PackSnapshot,
-) -> bool {
-    snapshot_matches_app(&game.app_id, snapshot)
-        && snapshot.recipes.iter().all(|r| {
-            r.fingerprint.as_ref().is_none_or(|hash| {
-                engine.resolve(&r.recipe_id, game).is_ok_and(|current| {
-                    current.version == r.version && super::discovery::fingerprint(&current) == *hash
-                })
-            })
-        })
 }
