@@ -1,0 +1,15 @@
+{
+  "n": 96,
+  "per_game": {
+    "782330": 12,
+    "814380": 12,
+    "1716740": 12,
+    "1172380": 12,
+    "1252330": 12,
+    "275850": 12,
+    "2515020": 12,
+    "1888930": 12
+  },
+  "sha256": "1d62ead4f967653e711fc8b262eba677ff8b7c965ff1babb6e58dfc6d4cb1e32",
+  "selection": "one deterministic parser proposal/comment, <=12 comments/game; no label conditioning"
+}

@@ -1,0 +1,1 @@
+{"experiment": "E13", "stage": "before-training", "reason": "local select.py shadowed Python select module", "resolution": "renamed to freeze.py; no data or model metrics changed"}

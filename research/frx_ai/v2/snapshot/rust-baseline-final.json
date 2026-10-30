@@ -1,0 +1,149 @@
+{
+  "variable_rows": 12,
+  "full": {
+    "n": 96,
+    "accepted": 2,
+    "correct": 1,
+    "precision": 0.5,
+    "coverage": 0.020833333333333332,
+    "wilson": [
+      0.09452865480086614,
+      0.9054713451991339
+    ],
+    "severe_inversions": 0,
+    "false_success": 0,
+    "relation_macro_f1": 0.22528860028860026,
+    "relation_accuracy": 0.6458333333333334,
+    "exact_all_accuracy": 0.14583333333333334,
+    "direction_accuracy": 0.16666666666666666,
+    "modality_accuracy": 0.3125,
+    "grouping_accuracy": 0.8229166666666666,
+    "ece": 0.35416666666666663,
+    "nll": 7.339489983918521,
+    "confusion": [
+      [
+        60,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        7,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        14,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "classes": {
+      "unknown": {
+        "precision": 0.6382978723404256,
+        "recall": 1.0,
+        "f1-score": 0.7792207792207793,
+        "support": 60.0
+      },
+      "positive": {
+        "precision": 1.0,
+        "recall": 0.125,
+        "f1-score": 0.2222222222222222,
+        "support": 8.0
+      },
+      "not-resolved": {
+        "precision": 1.0,
+        "recall": 0.06666666666666667,
+        "f1-score": 0.125,
+        "support": 15.0
+      },
+      "worsened": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 7.0
+      },
+      "mixed": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 6.0
+      },
+      "accuracy": 0.6458333333333334,
+      "macro avg": {
+        "precision": 0.5276595744680851,
+        "recall": 0.23833333333333334,
+        "f1-score": 0.22528860028860026,
+        "support": 96.0
+      },
+      "weighted avg": {
+        "precision": 0.6385195035460993,
+        "recall": 0.6458333333333334,
+        "f1-score": 0.5250627555315056,
+        "support": 96.0
+      }
+    },
+    "by_game": {
+      "1172380": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "1252330": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "1716740": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "1888930": {
+        "n": 12,
+        "accepted": 2,
+        "correct": 1
+      },
+      "2515020": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "275850": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "782330": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      },
+      "814380": {
+        "n": 12,
+        "accepted": 0,
+        "correct": 0
+      }
+    }
+  },
+  "scope": "Original Rust variable extractor; unsupported procedures abstain."
+}

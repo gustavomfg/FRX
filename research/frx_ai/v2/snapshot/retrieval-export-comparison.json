@@ -1,0 +1,881 @@
+{
+  "chosen": "retriever-int8.onnx",
+  "comparison": {
+    "retriever-float.onnx": {
+      "bytes": 90362723,
+      "metrics": {
+        "n_comments": 39,
+        "n_answerable_queries": 9,
+        "n_total_queries": 32,
+        "alpha": 1.0,
+        "summary": {
+          "overlap": {
+            "p3": 0.40740740740740733,
+            "ndcg5": 0.5443566475072277,
+            "mrr": 0.7175925925925927
+          },
+          "tfidf": {
+            "p3": 0.4074074074074074,
+            "ndcg5": 0.5335131722977386,
+            "mrr": 0.6566137566137566
+          },
+          "semantic": {
+            "p3": 0.5925925925925926,
+            "ndcg5": 0.8063405065602532,
+            "mrr": 0.9444444444444444
+          },
+          "hybrid": {
+            "p3": 0.5925925925925926,
+            "ndcg5": 0.8063405065602532,
+            "mrr": 0.9444444444444444
+          }
+        },
+        "details": [
+          {
+            "app_id": "1086940",
+            "topic": "startup",
+            "relevant": 13,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.6992148198508501,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.639945385422766,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-711075033"
+              ]
+            },
+            "semantic": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.830419897363192,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705390349"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.830419897363192,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705390349"
+              ]
+            }
+          },
+          {
+            "app_id": "1086940",
+            "topic": "crash",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.125,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.1,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976"
+              ]
+            }
+          },
+          {
+            "app_id": "1086940",
+            "topic": "dependency",
+            "relevant": 11,
+            "overlap": {
+              "p3": 1.0,
+              "ndcg5": 0.8539316501572937,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705505312",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "tfidf": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705505312",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "semantic": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705294547",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704707653",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "hybrid": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705294547",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704707653",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "startup",
+            "relevant": 6,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7860137352654724,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "tfidf": {
+              "p3": 1.0,
+              "ndcg5": 0.8687949224876582,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715"
+              ]
+            },
+            "semantic": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            },
+            "hybrid": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "crash",
+            "relevant": 1,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.14285714285714285,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "performance",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "semantic": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "network",
+            "relevant": 1,
+            "overlap": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            }
+          },
+          {
+            "app_id": "2050650",
+            "topic": "startup",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1487301890"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1487301890",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.38685280723454163,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.38685280723454163,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211"
+              ]
+            }
+          },
+          {
+            "app_id": "2050650",
+            "topic": "graphics",
+            "relevant": 3,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.9469024295259745,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6797310500037655,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "semantic": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7039180890341347,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7039180890341347,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "retriever-int8.onnx": {
+      "bytes": 22950006,
+      "metrics": {
+        "n_comments": 39,
+        "n_answerable_queries": 9,
+        "n_total_queries": 32,
+        "alpha": 1.0,
+        "summary": {
+          "overlap": {
+            "p3": 0.40740740740740733,
+            "ndcg5": 0.5443566475072277,
+            "mrr": 0.7175925925925927
+          },
+          "tfidf": {
+            "p3": 0.4074074074074074,
+            "ndcg5": 0.5335131722977386,
+            "mrr": 0.6566137566137566
+          },
+          "semantic": {
+            "p3": 0.6296296296296297,
+            "ndcg5": 0.7943745815915597,
+            "mrr": 0.9444444444444444
+          },
+          "hybrid": {
+            "p3": 0.6296296296296297,
+            "ndcg5": 0.7943745815915597,
+            "mrr": 0.9444444444444444
+          }
+        },
+        "details": [
+          {
+            "app_id": "1086940",
+            "topic": "startup",
+            "relevant": 13,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.6992148198508501,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.639945385422766,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-711075033"
+              ]
+            },
+            "semantic": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358"
+              ]
+            },
+            "hybrid": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358"
+              ]
+            }
+          },
+          {
+            "app_id": "1086940",
+            "topic": "crash",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.125,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.1,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705533358",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-709872556",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705259799",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-706637976"
+              ]
+            }
+          },
+          {
+            "app_id": "1086940",
+            "topic": "dependency",
+            "relevant": 11,
+            "overlap": {
+              "p3": 1.0,
+              "ndcg5": 0.8539316501572937,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705505312",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "tfidf": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704590818",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705505312",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "semantic": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705294547",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704707653",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            },
+            "hybrid": {
+              "p3": 1.0,
+              "ndcg5": 0.7227265726449519,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-705294547",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704707653",
+                "https://github.com/ValveSoftware/Proton/issues/4243#issuecomment-704654414"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "startup",
+            "relevant": 6,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7860137352654724,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "tfidf": {
+              "p3": 1.0,
+              "ndcg5": 0.8687949224876582,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715"
+              ]
+            },
+            "semantic": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            },
+            "hybrid": {
+              "p3": 1.0,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "crash",
+            "relevant": 1,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.14285714285714285,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051805715",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "performance",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6131471927654584,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051808287"
+              ]
+            },
+            "semantic": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050895929",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616"
+              ]
+            }
+          },
+          {
+            "app_id": "1245620",
+            "topic": "network",
+            "relevant": 1,
+            "overlap": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1050690388",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051515858"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 1.0,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051021966",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051061616",
+                "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1051998100"
+              ]
+            }
+          },
+          {
+            "app_id": "2050650",
+            "topic": "startup",
+            "relevant": 2,
+            "overlap": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1487301890"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.0,
+              "ndcg5": 0.0,
+              "mrr": 0.16666666666666666,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1487301890",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "semantic": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.38685280723454163,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.38685280723454163,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211"
+              ]
+            }
+          },
+          {
+            "app_id": "2050650",
+            "topic": "graphics",
+            "relevant": 3,
+            "overlap": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.9469024295259745,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "tfidf": {
+              "p3": 0.3333333333333333,
+              "ndcg5": 0.6797310500037655,
+              "mrr": 0.5,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1508965211",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1518444417"
+              ]
+            },
+            "semantic": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7039180890341347,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200"
+              ]
+            },
+            "hybrid": {
+              "p3": 0.6666666666666666,
+              "ndcg5": 0.7039180890341347,
+              "mrr": 1.0,
+              "top_urls": [
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-3383452216",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1937022677",
+                "https://github.com/ValveSoftware/Proton/issues/6641#issuecomment-1499723200"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
