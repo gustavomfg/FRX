@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-10-30T05:41:27Z",
+  "final_source_bodies_inspected": false,
+  "final_labels_seen": false,
+  "files": {
+    "reservation.json": "9825ba11dced098fcea6772dd9eb41ec20eeeae65d00240d24111a1957a807d7",
+    "final-paragraphs.jsonl": "c34f8ac8e4b3cbe0ec72db4e980af79c6ff99202ef1df7b0a12f98b5666bb4ba",
+    "train-audited.jsonl": "9916be99669b1cf4addebdd9ac332dc723d1a96de465cd551b3979131ba2c907",
+    "dev-audited.jsonl": "4e3a53b6a54358860eade1acb794213979917fd0c8236223a5319bc51ad8356e",
+    "selection.json": "6aea0bde7c10055c5054b918b0ea8170f6b074e0b463cf884f63027e45c2a6eb",
+    "lexicon.json": "ec84751b5fc357feecd7ecf7a45791e789f36969fb3fc178e10059e62a8e7a0d",
+    "runtime-events/runtime.json": "c57ef4f11e96c3b356c0980ea3e15e3c3956891b8d284a1b597d1cd6fa4ad185",
+    "runtime-events/tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+    "runtime-events/events-float.onnx": "c13cd60a2feb84eb420a6f77ec29d7dbdd5194cc333d055758ae62b86dffaf94"
+  },
+  "code": {
+    "data.py": "d695c82c1551269bad938a525ba92a2e6782dec7d4317142bae95eca0c4f024d",
+    "reserve.py": "d11bc793e44586df7d34ced03f2a94d49e47edb9c21b3aada0e71fbb742b5179",
+    "proof.py": "147e5296ca0d169e8fb12f3824196310f0ba5e9d06a6f85947c9f80069f048ca",
+    "metrics.py": "e66f558e548c4ec912eefe06f5882909530edea35ccbd1ed89fa433b7db68492",
+    "synthetic.py": "55dffe1fcc3a124a97066c2580dc6f13e97639949ce1b251300a4aaa550bcad5",
+    "model.py": "a517efac9846f08b8eb1239c37977261fb643d7c22f11d6861d647ff7244dd03",
+    "train.py": "4b491e7e9ee9236bed6635e7e9c37544af0c97a1d93cb51fd17aa293941e3e8f",
+    "proposals.py": "2c30955f327e89158c3c6c04c08ebd998a6c57c7d4a53949737771a02ec64c39",
+    "diagnosis.py": "f22e792d21dbd763411c36c957c9eea9cc0ad875e9fcd1882a8623ed296e1123",
+    "context_memory.py": "fc25c6a665947488329a898f9e98f0f334930f0c0ee4cf6a10924c211e3e5b05",
+    "study.py": "de4989d90169b4de509974c2702924fbd06364f3f1e38cc868f279fb33117ddb",
+    "decode.py": "46fd13eb004e3be4a4df9a989cf7fcd749d92fbff3736111c954dee7601a6674",
+    "native.py": "e4f32a62aad37c4e3cb06f8f017ef7ce5ad61bd9d4cba5665481f1b91a5c0c81",
+    "export.py": "89ec4cb55d171f4fad8d4f1b358e61665f8183adce815cef5cc19d8262488e2e",
+    "test_contracts.py": "1d9d51d7dcb3b9a1999d4ec00c747bd497a977c21ac8e8b9fbc53b83232604b7",
+    "prototype.py": "ca792131863b5989e3eeebfe0ffe886a1ad92aaf67e26e3783429a07ac3477c5",
+    "seal.py": "4072950ec2ebfbb18478a8bc758ad982dd9b5fdc389ab4d3bb50eabdffe31322",
+    "final_evaluate.py": "8f861f5114c107de14bb15de19e02c7214b20e47429178de94dfd911915724b2",
+    "diagnostic_study.py": "aa4421b405502db4f64b4b0f89d35d0c2605c88962b75ce5ef22601923e4d163"
+  },
+  "selected_model": {
+    "model_name": "S3-contrast-events",
+    "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+    "source_checkpoint_sha256": "ccd757643337d9e90d77b11156be4746ca6689ca368c5c2afd32afb5007eb33f",
+    "threshold": 0.6,
+    "head_projection": false,
+    "automatic_approval": false,
+    "model_file": "events-float.onnx",
+    "sha256": "c13cd60a2feb84eb420a6f77ec29d7dbdd5194cc333d055758ae62b86dffaf94"
+  },
+  "result_associations_default_enabled": false,
+  "automatic_approval": false
+}

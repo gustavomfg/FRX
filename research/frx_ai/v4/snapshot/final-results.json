@@ -1,0 +1,2585 @@
+{
+  "status": "first-v4-new-game-evaluation; provisional-agent-labels",
+  "games": [
+    "1182900",
+    "1282100",
+    "1627720",
+    "1693980",
+    "2358720"
+  ],
+  "paragraphs": 57,
+  "metrics": {
+    "native_verified": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 64,
+      "matched": 38,
+      "trigger_precision": 0.59375,
+      "trigger_recall": 0.59375,
+      "trigger_f1": 0.59375,
+      "exact_trigger_matches": 36,
+      "status_accuracy_on_matched": 0.39473684210526316,
+      "direction_accuracy_on_matched": 0.5263157894736842,
+      "performed_claims": 5,
+      "performed_correct": 5,
+      "performed_precision": 1.0,
+      "false_performed": 0,
+      "accepted_status_claims": 16,
+      "accepted_status_correct": 8,
+      "accepted_tuple_precision": 0.5,
+      "claim_coverage": 0.25,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 6,
+          "false_performed": 0
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "native_ungated": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 64,
+      "matched": 38,
+      "trigger_precision": 0.59375,
+      "trigger_recall": 0.59375,
+      "trigger_f1": 0.59375,
+      "exact_trigger_matches": 36,
+      "status_accuracy_on_matched": 0.47368421052631576,
+      "direction_accuracy_on_matched": 0.7105263157894737,
+      "performed_claims": 41,
+      "performed_correct": 14,
+      "performed_precision": 0.34146341463414637,
+      "false_performed": 27,
+      "accepted_status_claims": 63,
+      "accepted_status_correct": 10,
+      "accepted_tuple_precision": 0.15873015873015872,
+      "claim_coverage": 0.984375,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 6,
+          "false_performed": 2
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 1
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 1
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 2
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 3
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 2
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 2
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 1
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 5,
+          "false_performed": 2
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "fixed_lexical_verifier": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 79,
+      "matched": 41,
+      "trigger_precision": 0.5189873417721519,
+      "trigger_recall": 0.640625,
+      "trigger_f1": 0.5734265734265734,
+      "exact_trigger_matches": 41,
+      "status_accuracy_on_matched": 0.36585365853658536,
+      "direction_accuracy_on_matched": 0.6097560975609756,
+      "performed_claims": 8,
+      "performed_correct": 7,
+      "performed_precision": 0.875,
+      "false_performed": 1,
+      "accepted_status_claims": 22,
+      "accepted_status_correct": 9,
+      "accepted_tuple_precision": 0.4090909090909091,
+      "claim_coverage": 0.34375,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 5,
+          "false_performed": 1
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 14,
+          "false_performed": 0
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "training_lexicon_verifier": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 86,
+      "matched": 42,
+      "trigger_precision": 0.4883720930232558,
+      "trigger_recall": 0.65625,
+      "trigger_f1": 0.56,
+      "exact_trigger_matches": 42,
+      "status_accuracy_on_matched": 0.35714285714285715,
+      "direction_accuracy_on_matched": 0.5952380952380952,
+      "performed_claims": 8,
+      "performed_correct": 7,
+      "performed_precision": 0.875,
+      "false_performed": 1,
+      "accepted_status_claims": 24,
+      "accepted_status_correct": 9,
+      "accepted_tuple_precision": 0.375,
+      "claim_coverage": 0.375,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 5,
+          "false_performed": 0
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 5,
+          "false_performed": 1
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 16,
+          "false_performed": 0
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 0,
+          "false_performed": 0
+        }
+      ]
+    },
+    "supplied_spans_verifier": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 64,
+      "matched": 64,
+      "trigger_precision": 1.0,
+      "trigger_recall": 1.0,
+      "trigger_f1": 1.0,
+      "exact_trigger_matches": 64,
+      "status_accuracy_on_matched": 0.359375,
+      "direction_accuracy_on_matched": 0.5625,
+      "performed_claims": 8,
+      "performed_correct": 8,
+      "performed_precision": 1.0,
+      "false_performed": 0,
+      "accepted_status_claims": 22,
+      "accepted_status_correct": 12,
+      "accepted_tuple_precision": 0.5454545454545454,
+      "claim_coverage": 0.34375,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        }
+      ]
+    },
+    "supplied_spans_v3_learned": {
+      "match_criterion": "character-IoU>=0.5",
+      "documents": 57,
+      "gold_events": 64,
+      "predicted_events": 64,
+      "matched": 64,
+      "trigger_precision": 1.0,
+      "trigger_recall": 1.0,
+      "trigger_f1": 1.0,
+      "exact_trigger_matches": 64,
+      "status_accuracy_on_matched": 0.484375,
+      "direction_accuracy_on_matched": 0.5625,
+      "performed_claims": 49,
+      "performed_correct": 28,
+      "performed_precision": 0.5714285714285714,
+      "false_performed": 21,
+      "accepted_status_claims": 51,
+      "accepted_status_correct": 14,
+      "accepted_tuple_precision": 0.27450980392156865,
+      "claim_coverage": 0.796875,
+      "result_claims": 0,
+      "result_correct": 0,
+      "result_precision": null,
+      "false_success": 0,
+      "details": [
+        {
+          "id": "final-0",
+          "app_id": "1627720",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 1
+        },
+        {
+          "id": "final-1",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-2",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-3",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 1
+        },
+        {
+          "id": "final-4",
+          "app_id": "2358720",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-5",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-6",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-7",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-8",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-9",
+          "app_id": "2358720",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-10",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-11",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-12",
+          "app_id": "2358720",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-13",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-14",
+          "app_id": "2358720",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-15",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-16",
+          "app_id": "1182900",
+          "gold": 4,
+          "predicted": 4,
+          "false_performed": 0
+        },
+        {
+          "id": "final-17",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 2
+        },
+        {
+          "id": "final-18",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-19",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-20",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-21",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-22",
+          "app_id": "1182900",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-23",
+          "app_id": "1182900",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 2
+        },
+        {
+          "id": "final-24",
+          "app_id": "1182900",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-25",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-26",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-27",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-28",
+          "app_id": "1182900",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-29",
+          "app_id": "1693980",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 3
+        },
+        {
+          "id": "final-30",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-31",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-32",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-33",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-34",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-35",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-36",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-37",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-38",
+          "app_id": "1693980",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-39",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-40",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-41",
+          "app_id": "1693980",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-42",
+          "app_id": "1693980",
+          "gold": 2,
+          "predicted": 2,
+          "false_performed": 0
+        },
+        {
+          "id": "final-43",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-44",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-45",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-46",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-47",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 1
+        },
+        {
+          "id": "final-48",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-49",
+          "app_id": "1282100",
+          "gold": 3,
+          "predicted": 3,
+          "false_performed": 0
+        },
+        {
+          "id": "final-50",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-51",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 1
+        },
+        {
+          "id": "final-52",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-53",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        },
+        {
+          "id": "final-54",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-55",
+          "app_id": "1282100",
+          "gold": 0,
+          "predicted": 0,
+          "false_performed": 0
+        },
+        {
+          "id": "final-56",
+          "app_id": "1282100",
+          "gold": 1,
+          "predicted": 1,
+          "false_performed": 0
+        }
+      ]
+    }
+  },
+  "performed_wilson_descriptive": [
+    0.5655085052479191,
+    1.0000000000000002
+  ],
+  "supplied_trigger_false_performed_reduction_cluster_interval": [
+    0.23076923076923078,
+    0.425
+  ],
+  "final_annotation_sha256": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443",
+  "automatic_approval": false,
+  "limitations": [
+    "Agent labels are not independent human validation.",
+    "Event-enriched bounded paragraphs; no population prevalence claim.",
+    "Supplied-span controls do not measure detection.",
+    "Result associations are experimental and disabled by default."
+  ]
+}

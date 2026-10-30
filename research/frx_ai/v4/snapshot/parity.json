@@ -1,0 +1,395 @@
+{
+  "scope": "known development units; engineering parity, not independent accuracy",
+  "documents": 24,
+  "event_content_disagreements": [],
+  "torch_metrics": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 59,
+    "matched": 22,
+    "trigger_precision": 0.3728813559322034,
+    "trigger_recall": 0.6666666666666666,
+    "trigger_f1": 0.4782608695652174,
+    "exact_trigger_matches": 20,
+    "status_accuracy_on_matched": 0.7272727272727273,
+    "direction_accuracy_on_matched": 0.7727272727272727,
+    "performed_claims": 7,
+    "performed_correct": 7,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 20,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.6,
+    "claim_coverage": 0.6060606060606061,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      }
+    ]
+  },
+  "native_metrics": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 59,
+    "matched": 22,
+    "trigger_precision": 0.3728813559322034,
+    "trigger_recall": 0.6666666666666666,
+    "trigger_f1": 0.4782608695652174,
+    "exact_trigger_matches": 20,
+    "status_accuracy_on_matched": 0.7272727272727273,
+    "direction_accuracy_on_matched": 0.7727272727272727,
+    "performed_claims": 7,
+    "performed_correct": 7,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 20,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.6,
+    "claim_coverage": 0.6060606060606061,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      }
+    ]
+  }
+}

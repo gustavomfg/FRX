@@ -1,0 +1,106 @@
+{
+  "posthoc": true,
+  "model_modified": false,
+  "supplied_trigger_control": true,
+  "n": 8,
+  "status_correct": 8,
+  "direction_correct": 5,
+  "cases": [
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "I enabled OPTION_Z and the crash stopped.",
+      "trigger": "enabled",
+      "expected_status": "performed",
+      "expected_direction": "enable",
+      "actual_status": "performed",
+      "actual_direction": "enable",
+      "status_correct": true,
+      "direction_correct": true,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "Enabling OPTION_Z caused a crash.",
+      "trigger": "Enabling",
+      "expected_status": "performed",
+      "expected_direction": "enable",
+      "actual_status": "performed",
+      "actual_direction": "unknown",
+      "status_correct": true,
+      "direction_correct": false,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "Disabling OPTION_Z fixed the crash.",
+      "trigger": "Disabling",
+      "expected_status": "performed",
+      "expected_direction": "disable",
+      "actual_status": "performed",
+      "actual_direction": "unknown",
+      "status_correct": true,
+      "direction_correct": false,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "Try enabling OPTION_Z.",
+      "trigger": "enabling",
+      "expected_status": "suggested",
+      "expected_direction": "enable",
+      "actual_status": "suggested",
+      "actual_direction": "unknown",
+      "status_correct": true,
+      "direction_correct": false,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "I haven't tried OPTION_Z.",
+      "trigger": "tried",
+      "expected_status": "negated",
+      "expected_direction": "configure",
+      "actual_status": "negated",
+      "actual_direction": "configure",
+      "status_correct": true,
+      "direction_correct": true,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "OPTION_Z was already enabled before this incident.",
+      "trigger": "enabled",
+      "expected_status": "preexisting",
+      "expected_direction": "enable",
+      "actual_status": "preexisting",
+      "actual_direction": "enable",
+      "status_correct": true,
+      "direction_correct": true,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "I disabled OPTION_Z and installed the missing library.",
+      "trigger": "disabled",
+      "expected_status": "performed",
+      "expected_direction": "disable",
+      "actual_status": "performed",
+      "actual_direction": "disable",
+      "status_correct": true,
+      "direction_correct": true,
+      "target_identity": null
+    },
+    {
+      "origin": "synthetic supplied-trigger stress fixture; not independent final data",
+      "text": "I disabled OPTION_Z and installed the missing library.",
+      "trigger": "installed",
+      "expected_status": "performed",
+      "expected_direction": "install",
+      "actual_status": "performed",
+      "actual_direction": "install",
+      "status_correct": true,
+      "direction_correct": true,
+      "target_identity": null
+    }
+  ]
+}

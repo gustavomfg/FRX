@@ -1,0 +1,103 @@
+[
+  {
+    "case": {
+      "id": "suggested-not-performed",
+      "context": {
+        "app_id": "990080"
+      },
+      "symptom": "A suggested launch option has not been tested in this report.",
+      "origin": "historical-community-demonstration; not-local-telemetry"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1422761622",
+    "source_sha256": "4bfa90b028f200783dc251791ad8b133b4c178e994c4bb8aed2f253f2ebb3cb8",
+    "offset": 0,
+    "length": 337,
+    "view_sha256": "4bfa90b028f200783dc251791ad8b133b4c178e994c4bb8aed2f253f2ebb3cb8",
+    "view_is_symptom": false,
+    "view_is_log": false
+  },
+  {
+    "case": {
+      "id": "failed-trial",
+      "context": {
+        "app_id": "582010"
+      },
+      "symptom": "The game still hangs after a DXVK library replacement.",
+      "origin": "historical-community-demonstration; not-local-telemetry"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-418249643",
+    "source_sha256": "b0e29a3c6f18b1fe6f1fdc411b19f1f9cfc2fa99e4a1b3ee42cb7d84b28ca268",
+    "offset": 0,
+    "length": 146,
+    "view_sha256": "b0e29a3c6f18b1fe6f1fdc411b19f1f9cfc2fa99e4a1b3ee42cb7d84b28ca268",
+    "view_is_symptom": false,
+    "view_is_log": false
+  },
+  {
+    "case": {
+      "id": "reported-regression",
+      "context": {
+        "app_id": "3321460"
+      },
+      "symptom": "Distorted geometry and a crash after trying a graphics option.",
+      "origin": "historical-community-demonstration; not-local-telemetry"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-6001922940",
+    "source_sha256": "b94aab85985f9ad8c27b4a7671c6b2ac09b5fb3ce4397ae8394775b87d420532",
+    "offset": 2184,
+    "length": 188,
+    "view_sha256": "1f9e44cb9f150585c9eba98999f5f761815140d6790b7408ca67ad2ee58e67ec",
+    "view_is_symptom": false,
+    "view_is_log": false
+  },
+  {
+    "case": {
+      "id": "joint-procedure",
+      "context": {
+        "app_id": "292030"
+      },
+      "symptom": "A report combines uninstalling one driver with installing another.",
+      "origin": "historical-community-demonstration; not-local-telemetry"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/607#issuecomment-436641081",
+    "source_sha256": "2a137cb424ad8e12917d5711d2362992c15e599432f51928a9ac16c410b60b6d",
+    "offset": 0,
+    "length": 477,
+    "view_sha256": "2a137cb424ad8e12917d5711d2362992c15e599432f51928a9ac16c410b60b6d",
+    "view_is_symptom": false,
+    "view_is_log": false
+  },
+  {
+    "case": {
+      "id": "dependency-function",
+      "context": {
+        "app_id": "1462040"
+      },
+      "symptom": "The game fails with an unimplemented function exception.",
+      "origin": "historical-quoted-log; not-local-telemetry"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/5415#issuecomment-996232308",
+    "source_sha256": "8bf8f46de66a3a7b3aeeb4c2ae5b150add32f37713e0307f82b4b714bcab2955",
+    "offset": 22,
+    "length": 180,
+    "view_sha256": "eee8c9933e4cab7a082348b9ca26d1ab65e3e82dd6e759c4118bf7b3f632450a",
+    "view_is_symptom": false,
+    "view_is_log": true
+  },
+  {
+    "case": {
+      "id": "cause-unknown",
+      "context": {
+        "app_id": "553850"
+      },
+      "origin": "controlled-symptom-only-view-of-real-report"
+    },
+    "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1949484580",
+    "source_sha256": "ddcbc48a46296cc81415273344600cfa261466f064bf2d986a8020b2c0c9bdaa",
+    "offset": 0,
+    "length": 433,
+    "view_sha256": "ddcbc48a46296cc81415273344600cfa261466f064bf2d986a8020b2c0c9bdaa",
+    "view_is_symptom": true,
+    "view_is_log": false
+  }
+]

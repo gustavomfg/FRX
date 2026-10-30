@@ -1,0 +1,14 @@
+{
+  "requests": 24,
+  "distinct_known_cases": 6,
+  "initialization_seconds": 0.34773939799924847,
+  "median_seconds": 0.04068294299941044,
+  "p95_seconds": 0.07907513590107551,
+  "proc_memory_kib": {
+    "VmHWM": 248600,
+    "VmRSS": 248600
+  },
+  "torch_loaded": false,
+  "model_bytes": 113348603,
+  "scope": "4 CPU threads; 6 known public-source demonstrations repeated; no network, no game metrics; post-freeze measurement only"
+}

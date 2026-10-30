@@ -1,0 +1,6632 @@
+{
+  "S1-legacy-span/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 180,
+    "matched": 4,
+    "trigger_precision": 0.022222222222222223,
+    "trigger_recall": 0.12121212121212122,
+    "trigger_f1": 0.03755868544600939,
+    "exact_trigger_matches": 3,
+    "status_accuracy_on_matched": 0.25,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 180,
+    "performed_correct": 1,
+    "performed_precision": 0.005555555555555556,
+    "false_performed": 179,
+    "accepted_status_claims": 180,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 5.454545454545454,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 22,
+        "false_performed": 22
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 8
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 11,
+        "false_performed": 10
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 14,
+        "false_performed": 14
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 7,
+        "false_performed": 7
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 13,
+        "false_performed": 13
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 11,
+        "false_performed": 11
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 23,
+        "false_performed": 23
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 18,
+        "false_performed": 18
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 5,
+        "false_performed": 5
+      }
+    ]
+  },
+  "S1-legacy-span/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 168,
+    "matched": 6,
+    "trigger_precision": 0.03571428571428571,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.05970149253731343,
+    "exact_trigger_matches": 5,
+    "status_accuracy_on_matched": 0.3333333333333333,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 168,
+    "performed_correct": 2,
+    "performed_precision": 0.011904761904761904,
+    "false_performed": 166,
+    "accepted_status_claims": 168,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 5.090909090909091,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 22,
+        "false_performed": 22
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 8
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 11,
+        "false_performed": 10
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 11,
+        "false_performed": 11
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 7,
+        "false_performed": 7
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 13,
+        "false_performed": 13
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 10
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 22,
+        "false_performed": 22
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 16,
+        "false_performed": 16
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 5,
+        "false_performed": 5
+      }
+    ]
+  },
+  "S1-legacy-span/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 168,
+    "matched": 6,
+    "trigger_precision": 0.03571428571428571,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.05970149253731343,
+    "exact_trigger_matches": 5,
+    "status_accuracy_on_matched": 0.8333333333333334,
+    "direction_accuracy_on_matched": 0.8333333333333334,
+    "performed_claims": 1,
+    "performed_correct": 1,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 17,
+    "accepted_status_correct": 4,
+    "accepted_tuple_precision": 0.23529411764705882,
+    "claim_coverage": 0.5151515151515151,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 22,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 11,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 11,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 13,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 22,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 16,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 5,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S1-legacy-span/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 168,
+    "matched": 6,
+    "trigger_precision": 0.03571428571428571,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.05970149253731343,
+    "exact_trigger_matches": 5,
+    "status_accuracy_on_matched": 0.3333333333333333,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 168,
+    "performed_correct": 2,
+    "performed_precision": 0.011904761904761904,
+    "false_performed": 166,
+    "accepted_status_claims": 168,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 5.090909090909091,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 22,
+        "false_performed": 22
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 8
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 11,
+        "false_performed": 10
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 11,
+        "false_performed": 11
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 7,
+        "false_performed": 7
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 13,
+        "false_performed": 13
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 10
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 22,
+        "false_performed": 22
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 16,
+        "false_performed": 16
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 5,
+        "false_performed": 5
+      }
+    ]
+  },
+  "S1-legacy-span/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 168,
+    "matched": 6,
+    "trigger_precision": 0.03571428571428571,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.05970149253731343,
+    "exact_trigger_matches": 5,
+    "status_accuracy_on_matched": 0.8333333333333334,
+    "direction_accuracy_on_matched": 0.8333333333333334,
+    "performed_claims": 1,
+    "performed_correct": 1,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 17,
+    "accepted_status_correct": 4,
+    "accepted_tuple_precision": 0.23529411764705882,
+    "claim_coverage": 0.5151515151515151,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 22,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 11,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 6,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 11,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 13,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 22,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 16,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 5,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S2-audited-real/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 25,
+    "matched": 5,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.15151515151515152,
+    "trigger_f1": 0.1724137931034483,
+    "exact_trigger_matches": 5,
+    "status_accuracy_on_matched": 0.4,
+    "direction_accuracy_on_matched": 0.4,
+    "performed_claims": 23,
+    "performed_correct": 1,
+    "performed_precision": 0.043478260869565216,
+    "false_performed": 22,
+    "accepted_status_claims": 25,
+    "accepted_status_correct": 1,
+    "accepted_tuple_precision": 0.04,
+    "claim_coverage": 0.7575757575757576,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 6,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      }
+    ]
+  },
+  "S2-audited-real/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 24,
+    "matched": 6,
+    "trigger_precision": 0.25,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.21052631578947367,
+    "exact_trigger_matches": 6,
+    "status_accuracy_on_matched": 0.3333333333333333,
+    "direction_accuracy_on_matched": 0.3333333333333333,
+    "performed_claims": 22,
+    "performed_correct": 1,
+    "performed_precision": 0.045454545454545456,
+    "false_performed": 21,
+    "accepted_status_claims": 24,
+    "accepted_status_correct": 1,
+    "accepted_tuple_precision": 0.041666666666666664,
+    "claim_coverage": 0.7272727272727273,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 6,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      }
+    ]
+  },
+  "S2-audited-real/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 24,
+    "matched": 6,
+    "trigger_precision": 0.25,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.21052631578947367,
+    "exact_trigger_matches": 6,
+    "status_accuracy_on_matched": 0.8333333333333334,
+    "direction_accuracy_on_matched": 0.6666666666666666,
+    "performed_claims": 0,
+    "performed_correct": 0,
+    "performed_precision": null,
+    "false_performed": 0,
+    "accepted_status_claims": 12,
+    "accepted_status_correct": 4,
+    "accepted_tuple_precision": 0.3333333333333333,
+    "claim_coverage": 0.36363636363636365,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 6,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S2-audited-real/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 24,
+    "matched": 6,
+    "trigger_precision": 0.25,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.21052631578947367,
+    "exact_trigger_matches": 6,
+    "status_accuracy_on_matched": 0.3333333333333333,
+    "direction_accuracy_on_matched": 0.3333333333333333,
+    "performed_claims": 22,
+    "performed_correct": 1,
+    "performed_precision": 0.045454545454545456,
+    "false_performed": 21,
+    "accepted_status_claims": 24,
+    "accepted_status_correct": 1,
+    "accepted_tuple_precision": 0.041666666666666664,
+    "claim_coverage": 0.7272727272727273,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 6,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 3
+      }
+    ]
+  },
+  "S2-audited-real/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 24,
+    "matched": 6,
+    "trigger_precision": 0.25,
+    "trigger_recall": 0.18181818181818182,
+    "trigger_f1": 0.21052631578947367,
+    "exact_trigger_matches": 6,
+    "status_accuracy_on_matched": 0.8333333333333334,
+    "direction_accuracy_on_matched": 0.6666666666666666,
+    "performed_claims": 0,
+    "performed_correct": 0,
+    "performed_precision": null,
+    "false_performed": 0,
+    "accepted_status_claims": 12,
+    "accepted_status_correct": 4,
+    "accepted_tuple_precision": 0.3333333333333333,
+    "claim_coverage": 0.36363636363636365,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 6,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S3-contrast-events/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 59,
+    "matched": 19,
+    "trigger_precision": 0.3220338983050847,
+    "trigger_recall": 0.5757575757575758,
+    "trigger_f1": 0.41304347826086957,
+    "exact_trigger_matches": 16,
+    "status_accuracy_on_matched": 0.5263157894736842,
+    "direction_accuracy_on_matched": 0.6842105263157895,
+    "performed_claims": 40,
+    "performed_correct": 8,
+    "performed_precision": 0.2,
+    "false_performed": 32,
+    "accepted_status_claims": 59,
+    "accepted_status_correct": 7,
+    "accepted_tuple_precision": 0.11864406779661017,
+    "claim_coverage": 1.7878787878787878,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      }
+    ]
+  },
+  "S3-contrast-events/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 59,
+    "matched": 22,
+    "trigger_precision": 0.3728813559322034,
+    "trigger_recall": 0.6666666666666666,
+    "trigger_f1": 0.4782608695652174,
+    "exact_trigger_matches": 20,
+    "status_accuracy_on_matched": 0.5454545454545454,
+    "direction_accuracy_on_matched": 0.6363636363636364,
+    "performed_claims": 42,
+    "performed_correct": 10,
+    "performed_precision": 0.23809523809523808,
+    "false_performed": 32,
+    "accepted_status_claims": 59,
+    "accepted_status_correct": 7,
+    "accepted_tuple_precision": 0.11864406779661017,
+    "claim_coverage": 1.7878787878787878,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 7
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      }
+    ]
+  },
+  "S3-contrast-events/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 59,
+    "matched": 22,
+    "trigger_precision": 0.3728813559322034,
+    "trigger_recall": 0.6666666666666666,
+    "trigger_f1": 0.4782608695652174,
+    "exact_trigger_matches": 20,
+    "status_accuracy_on_matched": 0.7272727272727273,
+    "direction_accuracy_on_matched": 0.7727272727272727,
+    "performed_claims": 7,
+    "performed_correct": 7,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 20,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.6,
+    "claim_coverage": 0.6060606060606061,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S3-contrast-events/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 60,
+    "matched": 21,
+    "trigger_precision": 0.35,
+    "trigger_recall": 0.6363636363636364,
+    "trigger_f1": 0.45161290322580644,
+    "exact_trigger_matches": 21,
+    "status_accuracy_on_matched": 0.5714285714285714,
+    "direction_accuracy_on_matched": 0.6666666666666666,
+    "performed_claims": 43,
+    "performed_correct": 10,
+    "performed_precision": 0.23255813953488372,
+    "false_performed": 33,
+    "accepted_status_claims": 60,
+    "accepted_status_correct": 7,
+    "accepted_tuple_precision": 0.11666666666666667,
+    "claim_coverage": 1.8181818181818181,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 7
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 2
+      }
+    ]
+  },
+  "S3-contrast-events/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 60,
+    "matched": 21,
+    "trigger_precision": 0.35,
+    "trigger_recall": 0.6363636363636364,
+    "trigger_f1": 0.45161290322580644,
+    "exact_trigger_matches": 21,
+    "status_accuracy_on_matched": 0.7619047619047619,
+    "direction_accuracy_on_matched": 0.7619047619047619,
+    "performed_claims": 7,
+    "performed_correct": 7,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 20,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.6,
+    "claim_coverage": 0.6060606060606061,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 8,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S4-frozen-body/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 5,
+    "matched": 1,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.030303030303030304,
+    "trigger_f1": 0.05263157894736842,
+    "exact_trigger_matches": 1,
+    "status_accuracy_on_matched": 0.0,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 1,
+    "performed_correct": 0,
+    "performed_precision": 0.0,
+    "false_performed": 1,
+    "accepted_status_claims": 4,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 0.12121212121212122,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S4-frozen-body/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 5,
+    "matched": 1,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.030303030303030304,
+    "trigger_f1": 0.05263157894736842,
+    "exact_trigger_matches": 1,
+    "status_accuracy_on_matched": 0.0,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 1,
+    "performed_correct": 0,
+    "performed_precision": 0.0,
+    "false_performed": 1,
+    "accepted_status_claims": 4,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 0.12121212121212122,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S4-frozen-body/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 5,
+    "matched": 1,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.030303030303030304,
+    "trigger_f1": 0.05263157894736842,
+    "exact_trigger_matches": 1,
+    "status_accuracy_on_matched": 1.0,
+    "direction_accuracy_on_matched": 1.0,
+    "performed_claims": 0,
+    "performed_correct": 0,
+    "performed_precision": null,
+    "false_performed": 0,
+    "accepted_status_claims": 1,
+    "accepted_status_correct": 1,
+    "accepted_tuple_precision": 1.0,
+    "claim_coverage": 0.030303030303030304,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S4-frozen-body/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 5,
+    "matched": 1,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.030303030303030304,
+    "trigger_f1": 0.05263157894736842,
+    "exact_trigger_matches": 1,
+    "status_accuracy_on_matched": 0.0,
+    "direction_accuracy_on_matched": 0.0,
+    "performed_claims": 1,
+    "performed_correct": 0,
+    "performed_precision": 0.0,
+    "false_performed": 1,
+    "accepted_status_claims": 4,
+    "accepted_status_correct": 0,
+    "accepted_tuple_precision": 0.0,
+    "claim_coverage": 0.12121212121212122,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S4-frozen-body/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 5,
+    "matched": 1,
+    "trigger_precision": 0.2,
+    "trigger_recall": 0.030303030303030304,
+    "trigger_f1": 0.05263157894736842,
+    "exact_trigger_matches": 1,
+    "status_accuracy_on_matched": 1.0,
+    "direction_accuracy_on_matched": 1.0,
+    "performed_claims": 0,
+    "performed_correct": 0,
+    "performed_precision": null,
+    "false_performed": 0,
+    "accepted_status_claims": 1,
+    "accepted_status_correct": 1,
+    "accepted_tuple_precision": 1.0,
+    "claim_coverage": 0.030303030303030304,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S5-balanced-events/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 81,
+    "matched": 26,
+    "trigger_precision": 0.32098765432098764,
+    "trigger_recall": 0.7878787878787878,
+    "trigger_f1": 0.45614035087719296,
+    "exact_trigger_matches": 20,
+    "status_accuracy_on_matched": 0.5384615384615384,
+    "direction_accuracy_on_matched": 0.6153846153846154,
+    "performed_claims": 55,
+    "performed_correct": 12,
+    "performed_precision": 0.21818181818181817,
+    "false_performed": 43,
+    "accepted_status_claims": 80,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.1125,
+    "claim_coverage": 2.4242424242424243,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S5-balanced-events/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 81,
+    "matched": 27,
+    "trigger_precision": 0.3333333333333333,
+    "trigger_recall": 0.8181818181818182,
+    "trigger_f1": 0.47368421052631576,
+    "exact_trigger_matches": 24,
+    "status_accuracy_on_matched": 0.5555555555555556,
+    "direction_accuracy_on_matched": 0.6296296296296297,
+    "performed_claims": 53,
+    "performed_correct": 13,
+    "performed_precision": 0.24528301886792453,
+    "false_performed": 40,
+    "accepted_status_claims": 79,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.11392405063291139,
+    "claim_coverage": 2.393939393939394,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S5-balanced-events/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 81,
+    "matched": 27,
+    "trigger_precision": 0.3333333333333333,
+    "trigger_recall": 0.8181818181818182,
+    "trigger_f1": 0.47368421052631576,
+    "exact_trigger_matches": 24,
+    "status_accuracy_on_matched": 0.6666666666666666,
+    "direction_accuracy_on_matched": 0.7407407407407407,
+    "performed_claims": 9,
+    "performed_correct": 8,
+    "performed_precision": 0.8888888888888888,
+    "false_performed": 1,
+    "accepted_status_claims": 26,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.46153846153846156,
+    "claim_coverage": 0.7878787878787878,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S5-balanced-events/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 82,
+    "matched": 26,
+    "trigger_precision": 0.3170731707317073,
+    "trigger_recall": 0.7878787878787878,
+    "trigger_f1": 0.45217391304347826,
+    "exact_trigger_matches": 26,
+    "status_accuracy_on_matched": 0.5769230769230769,
+    "direction_accuracy_on_matched": 0.6923076923076923,
+    "performed_claims": 54,
+    "performed_correct": 13,
+    "performed_precision": 0.24074074074074073,
+    "false_performed": 41,
+    "accepted_status_claims": 80,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.1125,
+    "claim_coverage": 2.4242424242424243,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S5-balanced-events/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 82,
+    "matched": 26,
+    "trigger_precision": 0.3170731707317073,
+    "trigger_recall": 0.7878787878787878,
+    "trigger_f1": 0.45217391304347826,
+    "exact_trigger_matches": 26,
+    "status_accuracy_on_matched": 0.6923076923076923,
+    "direction_accuracy_on_matched": 0.7307692307692307,
+    "performed_claims": 9,
+    "performed_correct": 8,
+    "performed_precision": 0.8888888888888888,
+    "false_performed": 1,
+    "accepted_status_claims": 26,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.46153846153846156,
+    "claim_coverage": 0.7878787878787878,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 10,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S6-balanced-no-contrast/raw-subword": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 79,
+    "matched": 25,
+    "trigger_precision": 0.31645569620253167,
+    "trigger_recall": 0.7575757575757576,
+    "trigger_f1": 0.44642857142857145,
+    "exact_trigger_matches": 19,
+    "status_accuracy_on_matched": 0.56,
+    "direction_accuracy_on_matched": 0.68,
+    "performed_claims": 54,
+    "performed_correct": 12,
+    "performed_precision": 0.2222222222222222,
+    "false_performed": 42,
+    "accepted_status_claims": 78,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.11538461538461539,
+    "claim_coverage": 2.3636363636363638,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 9,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 6
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S6-balanced-no-contrast/raw-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 79,
+    "matched": 26,
+    "trigger_precision": 0.3291139240506329,
+    "trigger_recall": 0.7878787878787878,
+    "trigger_f1": 0.4642857142857143,
+    "exact_trigger_matches": 23,
+    "status_accuracy_on_matched": 0.5769230769230769,
+    "direction_accuracy_on_matched": 0.6538461538461539,
+    "performed_claims": 51,
+    "performed_correct": 13,
+    "performed_precision": 0.2549019607843137,
+    "false_performed": 38,
+    "accepted_status_claims": 77,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.11688311688311688,
+    "claim_coverage": 2.3333333333333335,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 9,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 4
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S6-balanced-no-contrast/verified-word": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 79,
+    "matched": 26,
+    "trigger_precision": 0.3291139240506329,
+    "trigger_recall": 0.7878787878787878,
+    "trigger_f1": 0.4642857142857143,
+    "exact_trigger_matches": 23,
+    "status_accuracy_on_matched": 0.6923076923076923,
+    "direction_accuracy_on_matched": 0.7692307692307693,
+    "performed_claims": 9,
+    "performed_correct": 8,
+    "performed_precision": 0.8888888888888888,
+    "false_performed": 1,
+    "accepted_status_claims": 25,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.48,
+    "claim_coverage": 0.7575757575757576,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 9,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 0
+      }
+    ]
+  },
+  "S6-balanced-no-contrast/raw-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 80,
+    "matched": 25,
+    "trigger_precision": 0.3125,
+    "trigger_recall": 0.7575757575757576,
+    "trigger_f1": 0.4424778761061947,
+    "exact_trigger_matches": 25,
+    "status_accuracy_on_matched": 0.6,
+    "direction_accuracy_on_matched": 0.68,
+    "performed_claims": 52,
+    "performed_correct": 13,
+    "performed_precision": 0.25,
+    "false_performed": 39,
+    "accepted_status_claims": 78,
+    "accepted_status_correct": 9,
+    "accepted_tuple_precision": 0.11538461538461539,
+    "claim_coverage": 2.3636363636363638,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 9,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 2
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 3
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 5
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 8
+      }
+    ]
+  },
+  "S6-balanced-no-contrast/verified-head": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 80,
+    "matched": 25,
+    "trigger_precision": 0.3125,
+    "trigger_recall": 0.7575757575757576,
+    "trigger_f1": 0.4424778761061947,
+    "exact_trigger_matches": 25,
+    "status_accuracy_on_matched": 0.72,
+    "direction_accuracy_on_matched": 0.76,
+    "performed_claims": 9,
+    "performed_correct": 8,
+    "performed_precision": 0.8888888888888888,
+    "false_performed": 1,
+    "accepted_status_claims": 25,
+    "accepted_status_correct": 12,
+    "accepted_tuple_precision": 0.48,
+    "claim_coverage": 0.7575757575757576,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 9,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 11,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 7,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 8,
+        "false_performed": 0
+      }
+    ]
+  },
+  "fixed-lexical-verifier": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 60,
+    "matched": 24,
+    "trigger_precision": 0.4,
+    "trigger_recall": 0.7272727272727273,
+    "trigger_f1": 0.5161290322580645,
+    "exact_trigger_matches": 24,
+    "status_accuracy_on_matched": 0.75,
+    "direction_accuracy_on_matched": 0.7083333333333334,
+    "performed_claims": 10,
+    "performed_correct": 7,
+    "performed_precision": 0.7,
+    "false_performed": 3,
+    "accepted_status_claims": 27,
+    "accepted_status_correct": 11,
+    "accepted_tuple_precision": 0.4074074074074074,
+    "claim_coverage": 0.8181818181818182,
+    "result_claims": 1,
+    "result_correct": 1,
+    "result_precision": 1.0,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 12,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 6,
+        "false_performed": 0
+      }
+    ]
+  },
+  "training-lexicon-verifier": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 66,
+    "matched": 25,
+    "trigger_precision": 0.3787878787878788,
+    "trigger_recall": 0.7575757575757576,
+    "trigger_f1": 0.5050505050505051,
+    "exact_trigger_matches": 25,
+    "status_accuracy_on_matched": 0.72,
+    "direction_accuracy_on_matched": 0.72,
+    "performed_claims": 10,
+    "performed_correct": 7,
+    "performed_precision": 0.7,
+    "false_performed": 3,
+    "accepted_status_claims": 27,
+    "accepted_status_correct": 11,
+    "accepted_tuple_precision": 0.4074074074074074,
+    "claim_coverage": 0.8181818181818182,
+    "result_claims": 1,
+    "result_correct": 1,
+    "result_precision": 1.0,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 5,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 4,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 12,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 3,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 6,
+        "false_performed": 0
+      }
+    ]
+  },
+  "supplied-spans/verifier": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 33,
+    "matched": 33,
+    "trigger_precision": 1.0,
+    "trigger_recall": 1.0,
+    "trigger_f1": 1.0,
+    "exact_trigger_matches": 33,
+    "status_accuracy_on_matched": 0.6666666666666666,
+    "direction_accuracy_on_matched": 0.7575757575757576,
+    "performed_claims": 11,
+    "performed_correct": 11,
+    "performed_precision": 1.0,
+    "false_performed": 0,
+    "accepted_status_claims": 22,
+    "accepted_status_correct": 15,
+    "accepted_tuple_precision": 0.6818181818181818,
+    "claim_coverage": 0.6666666666666666,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 5,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  },
+  "supplied-spans/v3-learned": {
+    "match_criterion": "character-IoU>=0.5",
+    "documents": 24,
+    "gold_events": 33,
+    "predicted_events": 33,
+    "matched": 33,
+    "trigger_precision": 1.0,
+    "trigger_recall": 1.0,
+    "trigger_f1": 1.0,
+    "exact_trigger_matches": 33,
+    "status_accuracy_on_matched": 0.45454545454545453,
+    "direction_accuracy_on_matched": 0.7575757575757576,
+    "performed_claims": 20,
+    "performed_correct": 12,
+    "performed_precision": 0.6,
+    "false_performed": 8,
+    "accepted_status_claims": 24,
+    "accepted_status_correct": 11,
+    "accepted_tuple_precision": 0.4583333333333333,
+    "claim_coverage": 0.7272727272727273,
+    "result_claims": 0,
+    "result_correct": 0,
+    "result_precision": null,
+    "false_success": 0,
+    "details": [
+      {
+        "id": "dev-0",
+        "app_id": "782330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-1",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-2",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-3",
+        "app_id": "1172380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-4",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-5",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-6",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-7",
+        "app_id": "1888930",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-8",
+        "app_id": "782330",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-9",
+        "app_id": "814380",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-10",
+        "app_id": "1716740",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-11",
+        "app_id": "1172380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-12",
+        "app_id": "1252330",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-13",
+        "app_id": "275850",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-14",
+        "app_id": "2515020",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-15",
+        "app_id": "1888930",
+        "gold": 1,
+        "predicted": 1,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-16",
+        "app_id": "782330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-17",
+        "app_id": "814380",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-18",
+        "app_id": "1716740",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-19",
+        "app_id": "1172380",
+        "gold": 5,
+        "predicted": 5,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-20",
+        "app_id": "1252330",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-21",
+        "app_id": "275850",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      },
+      {
+        "id": "dev-22",
+        "app_id": "2515020",
+        "gold": 2,
+        "predicted": 2,
+        "false_performed": 1
+      },
+      {
+        "id": "dev-23",
+        "app_id": "1888930",
+        "gold": 0,
+        "predicted": 0,
+        "false_performed": 0
+      }
+    ]
+  }
+}
