@@ -1,0 +1,14 @@
+# Scientific grounding and decisions
+
+Read on 2026-10-30. These papers motivate hypotheses; their benchmark results are not FRX results.
+
+| Primary work | Contribution actually relevant here | v4 decision |
+| --- | --- | --- |
+| [Li et al., Efficient Document-level Event Relation Extraction, 2025](https://aclanthology.org/2025.repl4nlp-1.7/) | Retrieval of related event pairs precedes cross-encoder relation classification; event coreference helps document-level relationships. | Separate trigger proposal, modality evidence and relationship evaluation. No reproduction of their document-level relation model or claim of general coreference. |
+| [Min et al., Multi-Document Event Extraction Using Large and Small Language Models, 2025](https://aclanthology.org/2025.emnlp-main.972/) | A collaborative framework assigns subtasks to fine-tuned small models while a larger model handles multi-step reasoning. Introduces a benchmark and aggregate-event metric. [Authors' implementation](https://github.com/taolusi/MEET). | Decompose tasks instead of forcing a comment-level class. The paper does not establish that a small local model alone can perform FRX diagnosis. No larger teacher was used for labels. |
+| [Srivastava et al., Instruction-Tuning LLMs for Event Extraction with Annotation Guidelines, 2025](https://aclanthology.org/2025.findings-acl.677/) | Studies event/argument annotation guidelines, schema transfer and rare event types. [Authors' code/data](https://github.com/Ziyu-Yao-NLP-Lab/PyCode-TextEE). | Write an explicit annotation contract and audit literal spans first. Its larger-model experiments are not reproduced by MiniLM fine-tuning. |
+| [Northcutt et al., Confident Learning, JAIR 2021](https://research.google/pubs/confident-learning-estimating-uncertainty-in-dataset-labels/) | Estimates noisy-label structure using confidence/counting, under a class-conditional noise assumption. Open-source cleanlab is reported. | Do not turn model disagreement into corrected truth. Old action spans and new event triggers are different annotation units; class-conditional label-noise assumptions are doubtful. Use structural flags and a blind human-review queue instead of automatic pruning. |
+
+Span QA/NLI verification remains a candidate, not an implemented capability. Existing v1/v3 heads already failed to ground outcomes. This round first tested a cheaper, genuinely fine-tuned token detector plus explicit evidence constraints. It did not train another generic outcome classifier or download a larger model after observing failure.
+
+Bayesian information-gain experiments from v3 were simulations. v4 has no fitted real-incident likelihoods or independent causal labels, so it emits evidence requests and unknown causes rather than invented numerical posteriors. The next-check controls are deterministic demonstrations, not learned diagnosis. A representative dataset of actual report → troubleshooting-request pairs is still missing.
