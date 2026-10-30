@@ -1,0 +1,10 @@
+{
+  "python": "3.14.8 (main, Oct 13 2026, 10:33:10) [GCC 16.2.1 20260810]",
+  "numpy": "2.5.4",
+  "onnxruntime": "1.31.1",
+  "tokenizers": "0.23.3",
+  "sklearn": "1.9.1",
+  "baseline_source_sha256": "1061035c51b919847cda8fdff8419c977455f3562d99c0409d1199fe9985df61",
+  "git_head": "c2433b878d00fe48bc2e08b5af5c7407b5faf95c",
+  "cpu_model": "AMD Ryzen 5 4600G with Radeon Graphics"
+}

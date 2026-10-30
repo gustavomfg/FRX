@@ -1,0 +1,151 @@
+{
+  "n": 80,
+  "threads": 4,
+  "known_reports": 35,
+  "report_detection": {
+    "accepted": 29,
+    "correct": 14,
+    "precision": 0.4827586206896552,
+    "wilson95": [
+      0.3138581933079522,
+      0.6556926202943085
+    ],
+    "coverage": 0.3625,
+    "errors": [
+      "3083aaeaab93",
+      "dc02dea99194",
+      "48aece18a751",
+      "d4471c8a82b3",
+      "4e6a04097c18",
+      "d95753797971",
+      "9363217dcaf7",
+      "393d4fdefcab",
+      "bdc146b03ee8",
+      "0eb20528c47f",
+      "0df19ecf9cc8",
+      "79d05fdc4fd5",
+      "463867af5e48",
+      "6fa9ef5133be",
+      "1cf2c10f0809"
+    ]
+  },
+  "outcome_nli": {
+    "accepted": 15,
+    "correct": 3,
+    "precision": 0.2,
+    "coverage": 0.1875,
+    "known_recall": 0.08571428571428572,
+    "inversions": 0,
+    "false_success": 4,
+    "errors": [
+      {
+        "id": "484c989bf134",
+        "gold": "not-resolved",
+        "predicted": "not-resolved",
+        "state": "remove",
+        "gold_state": "install",
+        "confidence": 0.965
+      },
+      {
+        "id": "bc68ec917219",
+        "gold": "not-resolved",
+        "predicted": "mixed",
+        "state": "update",
+        "gold_state": "install",
+        "confidence": 0.93
+      },
+      {
+        "id": "7ba215d26900",
+        "gold": "unknown",
+        "predicted": "positive",
+        "state": "install",
+        "gold_state": "unknown",
+        "confidence": 0.874
+      },
+      {
+        "id": "377456519959",
+        "gold": "unknown",
+        "predicted": "not-resolved",
+        "state": "install",
+        "gold_state": "unknown",
+        "confidence": 0.875
+      },
+      {
+        "id": "d95753797971",
+        "gold": "unknown",
+        "predicted": "positive",
+        "state": "update",
+        "gold_state": "unknown",
+        "confidence": 0.965
+      },
+      {
+        "id": "feff396fd207",
+        "gold": "not-resolved",
+        "predicted": "mixed",
+        "state": "replace",
+        "gold_state": "install",
+        "confidence": 0.777
+      },
+      {
+        "id": "9363217dcaf7",
+        "gold": "unknown",
+        "predicted": "positive",
+        "state": "enable",
+        "gold_state": "unknown",
+        "confidence": 0.783
+      },
+      {
+        "id": "bdc146b03ee8",
+        "gold": "unknown",
+        "predicted": "positive",
+        "state": "replace",
+        "gold_state": "unknown",
+        "confidence": 0.744
+      },
+      {
+        "id": "3c0a6aa9cf1e",
+        "gold": "positive",
+        "predicted": "mixed",
+        "state": "enable",
+        "gold_state": "enable",
+        "confidence": 0.968
+      },
+      {
+        "id": "5aa25f12b890",
+        "gold": "not-resolved",
+        "predicted": "mixed",
+        "state": "replace",
+        "gold_state": "install",
+        "confidence": 0.897
+      },
+      {
+        "id": "edea74b0dfbb",
+        "gold": "worsened",
+        "predicted": "not-resolved",
+        "state": "enable",
+        "gold_state": "enable",
+        "confidence": 0.702
+      },
+      {
+        "id": "31861d180240",
+        "gold": "not-resolved",
+        "predicted": "mixed",
+        "state": "enable",
+        "gold_state": "enable",
+        "confidence": 0.853
+      }
+    ],
+    "wilson95": [
+      0.07047420643610414,
+      0.4518593533465045
+    ]
+  },
+  "existing_rules": {
+    "accepted": 4,
+    "outcome_correct": 3,
+    "action_outcome_correct": 3
+  },
+  "seconds": 13.896803855895996,
+  "peakRSS_KiB": 704064,
+  "automatic_acceptance": false
+}

@@ -1,0 +1,6 @@
+# Research runtime, no network inference or PyTorch dependency.
+onnxruntime==1.31.1
+tokenizers==0.23.3
+numpy==2.5.4
+# Training/evaluation only:
+scikit-learn==1.9.1
