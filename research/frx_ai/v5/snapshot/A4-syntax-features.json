@@ -1,0 +1,63 @@
+{
+  "name": "A4-syntax-features",
+  "config": {
+    "synthetic": 120,
+    "scope": "sentence",
+    "features": true
+  },
+  "real_training_events": 91,
+  "synthetic_training_events": 120,
+  "seconds": 94.56015832499997,
+  "epochs": [
+    {
+      "epoch": 1,
+      "loss": 1.0445951024691265,
+      "supplied_span_accuracy": 0.171875,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "selection_score": 0
+    },
+    {
+      "epoch": 2,
+      "loss": 0.9652230110433366,
+      "supplied_span_accuracy": 0.234375,
+      "performed_claims": 4,
+      "performed_correct": 3,
+      "selection_score": 1
+    },
+    {
+      "epoch": 3,
+      "loss": 0.8529264330863953,
+      "supplied_span_accuracy": 0.28125,
+      "performed_claims": 12,
+      "performed_correct": 6,
+      "selection_score": -6
+    },
+    {
+      "epoch": 4,
+      "loss": 0.7239835129843818,
+      "supplied_span_accuracy": 0.453125,
+      "performed_claims": 20,
+      "performed_correct": 12,
+      "selection_score": -4
+    },
+    {
+      "epoch": 5,
+      "loss": 0.588040217757225,
+      "supplied_span_accuracy": 0.453125,
+      "performed_claims": 28,
+      "performed_correct": 16,
+      "selection_score": -8
+    },
+    {
+      "epoch": 6,
+      "loss": 0.45968037512567306,
+      "supplied_span_accuracy": 0.515625,
+      "performed_claims": 29,
+      "performed_correct": 19,
+      "selection_score": -1
+    }
+  ],
+  "seed": 55,
+  "quality": "agent-provisional labels; supplied-trigger development control; not end-to-end extraction"
+}

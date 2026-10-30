@@ -1,0 +1,4135 @@
+[
+  {
+    "id": "final-0",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-476318621",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "8f1d77b8edb442c04328bbfb8a3547266a1b5d243e057cd67207f16647873b99",
+    "source_offset": 0,
+    "paragraph_length": 222,
+    "paragraph_sha256": "2dde99157099c83b23898479bc786b45a0233c83a7cf3fd55a7170e63f9878c6",
+    "published_at": "2019-03-25T18:16:55Z",
+    "updated_at": "2019-03-25T18:16:55Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          32,
+          41
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          42,
+          44
+        ],
+        "status_span": [
+          18,
+          41
+        ]
+      },
+      {
+        "trigger": [
+          66,
+          69
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          82,
+          91
+        ],
+        "status_span": [
+          66,
+          77
+        ]
+      },
+      {
+        "trigger": [
+          100,
+          107
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          108,
+          116
+        ],
+        "status_span": [
+          92,
+          107
+        ]
+      },
+      {
+        "trigger": [
+          125,
+          128
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          118,
+          128
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "First is an asserted reproduction; future tests and a conditional menu instruction are not performed corrections."
+  },
+  {
+    "id": "final-1",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-520824576",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "21ff10dcdd62463f997e4c63c28f8351bbaa7c92439b8f405e91c1521f7658d4",
+    "source_offset": 0,
+    "paragraph_length": 456,
+    "paragraph_sha256": "8d3fad0bf38b263a6f21a1396c594c11e3725aacaa3049261751b73bdcd82204",
+    "published_at": "2019-08-13T13:00:54Z",
+    "updated_at": "2019-08-13T13:00:54Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          77,
+          84
+        ],
+        "status": "preexisting",
+        "direction": "enable",
+        "target": [
+          71,
+          76
+        ],
+        "status_span": [
+          71,
+          84
+        ]
+      },
+      {
+        "trigger": [
+          321,
+          325
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          326,
+          337
+        ],
+        "status_span": [
+          304,
+          325
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          185,
+          194
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Existing fsync configuration and a hang; need to kill is not proof of an executed termination."
+  },
+  {
+    "id": "final-2",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-873410725",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "cc4dcb5d95697b2e1dceaf251a21fb22c224a59fcbafb3902de45b5c46da7060",
+    "source_offset": 325,
+    "paragraph_length": 384,
+    "paragraph_sha256": "414eeef5b0bed2b7748d0af646bdd83cdd029034d59ce13155de339435132bdc",
+    "published_at": "2021-07-03T13:50:21Z",
+    "updated_at": "2021-07-03T13:50:21Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          343,
+          348
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          349,
+          366
+        ],
+        "status_span": [
+          333,
+          348
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          372,
+          383
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-3",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-437626977",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "0e3ae0bd381c97c10fce710cfe66f2051c3ad39bb3c0b29a81892e16a3db42cb",
+    "source_offset": 0,
+    "paragraph_length": 89,
+    "paragraph_sha256": "0e3ae0bd381c97c10fce710cfe66f2051c3ad39bb3c0b29a81892e16a3db42cb",
+    "published_at": "2018-11-10T22:36:27Z",
+    "updated_at": "2018-11-10T22:36:27Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          83,
+          88
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Software internal connection attempt, not a user configuration operation."
+  },
+  {
+    "id": "final-4",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-437631087",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "23274489cd31ca98cda29a3ae5007ea153ab658b9a09d6b0ecb252149aa8dfa5",
+    "source_offset": 0,
+    "paragraph_length": 54,
+    "paragraph_sha256": "23274489cd31ca98cda29a3ae5007ea153ab658b9a09d6b0ecb252149aa8dfa5",
+    "published_at": "2018-11-10T23:49:35Z",
+    "updated_at": "2018-11-10T23:49:35Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          24,
+          32
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          33,
+          53
+        ],
+        "status_span": [
+          18,
+          32
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          13,
+          17
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Tentative source report, not causal proof."
+  },
+  {
+    "id": "final-5",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-521244465",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "5cb6e84521118e9c1d367f08def7eb3aecc62b7f397d2dd17bbc906c0adf2091",
+    "source_offset": 56,
+    "paragraph_length": 250,
+    "paragraph_sha256": "2f7d7c3abd50fe58c0d73fa7521bedf8a53366c1edbac00db09fa613a4fbbc6a",
+    "published_at": "2019-08-14T13:25:08Z",
+    "updated_at": "2019-08-14T13:42:30Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          162,
+          169
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          170,
+          178
+        ],
+        "status_span": [
+          152,
+          169
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Generic conditional advice; do not invent a completed restart."
+  },
+  {
+    "id": "final-6",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-1074698127",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "f3faffb967d681a1736c99834a3c59b0141973be03e40adff92f76062d68f67f",
+    "source_offset": 116,
+    "paragraph_length": 250,
+    "paragraph_sha256": "14d5bfad3a4d4b06df84c169554039a697a8c9697d709af9e40e4deacea733bb",
+    "published_at": "2022-03-22T03:55:58Z",
+    "updated_at": "2022-03-22T03:55:58Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          42,
+          47
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          48,
+          70
+        ],
+        "status_span": [
+          42,
+          70
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          17,
+          31
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-7",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-476249071",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "c34af297f3609fc0ae3645218b92467100c6d506deac81879952ef4aa15f52d6",
+    "source_offset": 0,
+    "paragraph_length": 393,
+    "paragraph_sha256": "c34af297f3609fc0ae3645218b92467100c6d506deac81879952ef4aa15f52d6",
+    "published_at": "2019-03-25T15:30:17Z",
+    "updated_at": "2019-03-25T15:30:17Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          40,
+          43
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          33,
+          43
+        ]
+      },
+      {
+        "trigger": [
+          123,
+          130
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          132,
+          135
+        ],
+        "status_span": [
+          115,
+          130
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Proposed reproduction and log collection, no executed trial."
+  },
+  {
+    "id": "final-8",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-1705587169",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "e23dd6a900615bcff3985f60f37ecb53ab0532daae746f1d79d719bff2e88ef6",
+    "source_offset": 219,
+    "paragraph_length": 116,
+    "paragraph_sha256": "afe3e346b8b10948f9e22d61be9a72341a2cff0a09a49fa0f6a75c12bfc77c0c",
+    "published_at": "2023-09-04T18:03:01Z",
+    "updated_at": "2023-09-07T23:50:46Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          12
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          13,
+          40
+        ],
+        "status_span": [
+          0,
+          12
+        ]
+      },
+      {
+        "trigger": [
+          60,
+          65
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          66,
+          86
+        ],
+        "status_span": [
+          60,
+          86
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-9",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-437647785",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "3207a1fff5f8228a2a8691b073c526f2f63939ffdc6d5a5856e98a68b9086b85",
+    "source_offset": 0,
+    "paragraph_length": 241,
+    "paragraph_sha256": "3207a1fff5f8228a2a8691b073c526f2f63939ffdc6d5a5856e98a68b9086b85",
+    "published_at": "2018-11-11T06:48:01Z",
+    "updated_at": "2018-11-11T06:49:19Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          83,
+          89
+        ],
+        "status": "suggested",
+        "direction": "enable",
+        "target": [
+          97,
+          101
+        ],
+        "status_span": [
+          117,
+          135
+        ]
+      },
+      {
+        "trigger": [
+          124,
+          130
+        ],
+        "status": "suggested",
+        "direction": "enable",
+        "target": [
+          131,
+          135
+        ],
+        "status_span": [
+          146,
+          160
+        ]
+      },
+      {
+        "trigger": [
+          185,
+          191
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          217,
+          239
+        ],
+        "status_span": [
+          185,
+          212
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Documentation/instructions only; URL wording is not a performed event."
+  },
+  {
+    "id": "final-10",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-447646625",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "4e02b39e9eff266bba0a82f16de7381585645d5d59a7739b099caabfc5d458de",
+    "source_offset": 0,
+    "paragraph_length": 58,
+    "paragraph_sha256": "4e02b39e9eff266bba0a82f16de7381585645d5d59a7739b099caabfc5d458de",
+    "published_at": "2018-12-16T14:14:26Z",
+    "updated_at": "2018-12-16T14:14:26Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          28,
+          50
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Version-level efficacy report, no explicit performed change."
+  },
+  {
+    "id": "final-11",
+    "app_id": "480490",
+    "thread": 251,
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-479912129",
+    "title": "Prey (2017) (480490)",
+    "source_sha256": "1b0915ab8770bf3a9f66f0b0b88561928c7b17d4c83fdc2470f31680a2c26ca3",
+    "source_offset": 110,
+    "paragraph_length": 156,
+    "paragraph_sha256": "89925fa2eb40a839fa96f7f5e8b01254c19407e3d783de6acf4843bbfe51c9dd",
+    "published_at": "2019-04-04T14:07:44Z",
+    "updated_at": "2019-04-04T14:07:44Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          33,
+          54
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Menu workaround assertion lacks an explicit executed action span in this unit."
+  },
+  {
+    "id": "final-12",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-469552406",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "0c5a2227ddfb15296fe53781bd390feb1e2b25cfcf15e731375b473868b72018",
+    "source_offset": 1326,
+    "paragraph_length": 195,
+    "paragraph_sha256": "7b965e4521dd7bc18b952baa2e0e310e8d46283be2ca72d34d81a74541e870e0",
+    "published_at": "2019-03-05T06:10:44Z",
+    "updated_at": "2019-03-05T06:16:00Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          12
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          25,
+          30
+        ],
+        "status_span": [
+          0,
+          12
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          17,
+          73
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unidentified combined options; no individual credit or invented names."
+  },
+  {
+    "id": "final-13",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-451023909",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "78efd152e3b5f4b5fc85f487118ef15586f0fe4e00e295b71d5889893bc02787",
+    "source_offset": 0,
+    "paragraph_length": 225,
+    "paragraph_sha256": "f6eaf0ac45745abdeb02d5550378fce157ad3f2106f40ada246e3d960505d854",
+    "published_at": "2019-01-03T00:07:16Z",
+    "updated_at": "2019-01-03T09:14:45Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          194,
+          199
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          200,
+          220
+        ],
+        "status_span": [
+          194,
+          220
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          73,
+          89
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Existing Proton is context, not evidence of a performed switch or an individually attributed fix."
+  },
+  {
+    "id": "final-14",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-419612066",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "5220642b46ef168eb8b8226962a4e08f9aa0ffa90507c475c31463d4b4283372",
+    "source_offset": 883,
+    "paragraph_length": 224,
+    "paragraph_sha256": "261800683b8d5f7b593a7b8cdd36369f9e3314801c2ed5a761ed3e56b5da522e",
+    "published_at": "2018-09-08T04:30:28Z",
+    "updated_at": "2018-09-08T04:30:28Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          32,
+          39
+        ],
+        "status": "suggested",
+        "direction": "disable",
+        "target": [
+          40,
+          54
+        ],
+        "status_span": [
+          12,
+          39
+        ]
+      },
+      {
+        "trigger": [
+          152,
+          159
+        ],
+        "status": "suggested",
+        "direction": "disable",
+        "target": [
+          160,
+          170
+        ],
+        "status_span": [
+          142,
+          159
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-15",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-451023179",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "66cd9925c0d7766b8157f00ace18c0e79e121b99e9bbd2e1c472cadbb60986db",
+    "source_offset": 1475,
+    "paragraph_length": 556,
+    "paragraph_sha256": "1b532317050dc2e11a6bc6bffdbf340d3ed4bc93650ddd983244d4cbe5fcc6a8",
+    "published_at": "2019-01-03T00:02:43Z",
+    "updated_at": "2019-01-03T00:02:43Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          10
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          23,
+          47
+        ],
+        "status_span": [
+          2,
+          22
+        ]
+      },
+      {
+        "trigger": [
+          15,
+          22
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          23,
+          47
+        ],
+        "status_span": [
+          2,
+          22
+        ]
+      },
+      {
+        "trigger": [
+          52,
+          58
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          59,
+          67
+        ],
+        "status_span": [
+          52,
+          67
+        ]
+      },
+      {
+        "trigger": [
+          398,
+          405
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          398,
+          418
+        ]
+      },
+      {
+        "trigger": [
+          504,
+          509
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          522,
+          530
+        ],
+        "status_span": [
+          504,
+          530
+        ]
+      },
+      {
+        "trigger": [
+          514,
+          521
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          522,
+          530
+        ],
+        "status_span": [
+          504,
+          530
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Reproduction instructions, not a completed user procedure; launcher internal activity is not a user operation."
+  },
+  {
+    "id": "final-16",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-480256528",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "c991bb3ef9f65ab057c25ce65329e0fb6577573f202527626ca16da01209f5af",
+    "source_offset": 0,
+    "paragraph_length": 355,
+    "paragraph_sha256": "746a39eda6f2a05fb2775a68d7b4064853bee012c4edccfe0af242cb1284d99e",
+    "published_at": "2019-04-05T12:25:25Z",
+    "updated_at": "2019-04-05T12:25:25Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          15,
+          20
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          21,
+          37
+        ],
+        "status_span": [
+          5,
+          20
+        ]
+      },
+      {
+        "trigger": [
+          93,
+          102
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          103,
+          111
+        ],
+        "status_span": [
+          91,
+          134
+        ]
+      },
+      {
+        "trigger": [
+          178,
+          185
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          186,
+          223
+        ],
+        "status_span": [
+          166,
+          185
+        ]
+      },
+      {
+        "trigger": [
+          321,
+          325
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          326,
+          343
+        ],
+        "status_span": [
+          300,
+          325
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          136,
+          165
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          246,
+          261
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Earlier editing succeeded under Lutris; failure in Proton4.2 is a different context. Do not conflate both as one local attempt."
+  },
+  {
+    "id": "final-17",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-454453738",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "8dfb5fd1f71f546e24778bd0897d392d5d98727f3bb3e6716885bdc059fb0a9f",
+    "source_offset": 0,
+    "paragraph_length": 155,
+    "paragraph_sha256": "16598c990bfd49e3b3f4cd867addcb9e7e7457fe22e1fe8efe8de55177630b87",
+    "published_at": "2019-01-15T16:22:06Z",
+    "updated_at": "2019-01-16T09:35:43Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          56,
+          67
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          68,
+          80
+        ],
+        "status_span": [
+          54,
+          67
+        ]
+      },
+      {
+        "trigger": [
+          85,
+          93
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          102,
+          115
+        ],
+        "status_span": [
+          85,
+          115
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          120,
+          154
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-18",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-485806485",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "262321d8c5b70e0ef33c3519a07c417ad6d87841f777a057d04ff91ca5b28753",
+    "source_offset": 0,
+    "paragraph_length": 364,
+    "paragraph_sha256": "262321d8c5b70e0ef33c3519a07c417ad6d87841f777a057d04ff91ca5b28753",
+    "published_at": "2019-04-23T13:38:26Z",
+    "updated_at": "2019-04-23T13:38:26Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          207,
+          210
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          156,
+          175
+        ],
+        "status_span": [
+          197,
+          210
+        ]
+      },
+      {
+        "trigger": [
+          332,
+          339
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          340,
+          350
+        ],
+        "status_span": [
+          322,
+          339
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Future suggestions, no system configuration was executed by the researcher or confirmed in this text."
+  },
+  {
+    "id": "final-19",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-460991425",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "9731ae24b1d1aaed08b9384f9669a6e412ef4a6d05b3c86af85578132611567d",
+    "source_offset": 0,
+    "paragraph_length": 423,
+    "paragraph_sha256": "9731ae24b1d1aaed08b9384f9669a6e412ef4a6d05b3c86af85578132611567d",
+    "published_at": "2019-02-06T11:31:44Z",
+    "updated_at": "2019-02-06T11:31:44Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          211,
+          219
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          220,
+          271
+        ],
+        "status_span": [
+          206,
+          219
+        ]
+      },
+      {
+        "trigger": [
+          405,
+          414
+        ],
+        "status": "unknown",
+        "direction": "install",
+        "target": [
+          393,
+          401
+        ],
+        "status_span": [
+          388,
+          414
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          114,
+          149
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reference to an earlier multi-step procedure, whose complete executed actions are not identified in this bounded unit."
+  },
+  {
+    "id": "final-20",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-469554286",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "c73ad43fb5b916db9f522dd05a959a06997cc4da55a6e3c5b742dceef3996787",
+    "source_offset": 0,
+    "paragraph_length": 172,
+    "paragraph_sha256": "ee37ed0e350b48d2af6682e4b4b6e381b0904a15b34c2c09a16728646275f429",
+    "published_at": "2019-03-05T06:18:35Z",
+    "updated_at": "2019-03-05T06:18:35Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          86,
+          96
+        ],
+        "status": "unknown",
+        "direction": "enable",
+        "target": [
+          97,
+          116
+        ],
+        "status_span": [
+          71,
+          96
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question does not assert a completed trial."
+  },
+  {
+    "id": "final-21",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-469656007",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "f67a7b9fbaa8463ea0aef520b8ba5f1b5fe59742382053f57a5ba1a799ab7da7",
+    "source_offset": 163,
+    "paragraph_length": 83,
+    "paragraph_sha256": "0268a2732c10eb235121c72905719cddf2f7d9a8e161385d6c7c0d13e11dce9c",
+    "published_at": "2019-03-05T12:06:18Z",
+    "updated_at": "2019-03-05T12:06:18Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-22",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-475826488",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "dbfa8f110b20031dd490c621d8235fa24486d232ff8f0763ae6522c5926ce536",
+    "source_offset": 0,
+    "paragraph_length": 67,
+    "paragraph_sha256": "66b6c54b7de955c638d39a678d232c25f2e33c19931623a4698d0580b7535e5d",
+    "published_at": "2019-03-23T01:10:10Z",
+    "updated_at": "2019-03-23T01:10:10Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          11
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          12,
+          25
+        ],
+        "status_span": [
+          0,
+          11
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic capture artifact; not a corrective configuration."
+  },
+  {
+    "id": "final-23",
+    "app_id": "39210",
+    "thread": 580,
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-475837077",
+    "title": "FINAL FANTASY XIV Online (39210)",
+    "source_sha256": "ed6adcbf7350772efc6a0a2d2f991cf9c3b415f048837c6d8abd8b007e81e350",
+    "source_offset": 0,
+    "paragraph_length": 318,
+    "paragraph_sha256": "ed6adcbf7350772efc6a0a2d2f991cf9c3b415f048837c6d8abd8b007e81e350",
+    "published_at": "2019-03-23T04:01:52Z",
+    "updated_at": "2019-03-23T04:01:52Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          38,
+          52
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "General input-related symptom, not an executed corrective trial."
+  },
+  {
+    "id": "final-24",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-3676884455",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "cfd35010638d3225d2fd8b3189ed3b1ec93ef238c8040656baa050712b2716e6",
+    "source_offset": 0,
+    "paragraph_length": 249,
+    "paragraph_sha256": "80ef6dee7385a99d4e285bf99e303790a7b58276c15103c878b356d581d581e5",
+    "published_at": "2025-12-19T22:27:00Z",
+    "updated_at": "2025-12-19T22:27:00Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          130,
+          140
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": null,
+        "status_span": [
+          130,
+          140
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          186,
+          248
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Elliptical tested procedure. Other steps have no explicit operation trigger, so do not give reinstall individual credit for the joint failure."
+  },
+  {
+    "id": "final-25",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-3688398961",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "8fcaba59db82d89934068edbd8962cee813f8ad1e475b5a38eb6e65a68d801ed",
+    "source_offset": 0,
+    "paragraph_length": 362,
+    "paragraph_sha256": "24090bbdf4d2b187c631caae9ee47c34171916ec1fd1b3fdd55b78b36838313e",
+    "published_at": "2025-12-24T01:58:08Z",
+    "updated_at": "2025-12-24T01:58:50Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          7
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          8,
+          28
+        ],
+        "status_span": [
+          0,
+          28
+        ]
+      },
+      {
+        "trigger": [
+          30,
+          37
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          38,
+          63
+        ],
+        "status_span": [
+          30,
+          63
+        ]
+      },
+      {
+        "trigger": [
+          65,
+          72
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          73,
+          101
+        ],
+        "status_span": [
+          65,
+          101
+        ]
+      },
+      {
+        "trigger": [
+          103,
+          110
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          111,
+          121
+        ],
+        "status_span": [
+          103,
+          121
+        ]
+      },
+      {
+        "trigger": [
+          195,
+          198
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          199,
+          218
+        ],
+        "status_span": [
+          195,
+          218
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          176,
+          193
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The later low-settings change has no reported subsequent outcome in this unit."
+  },
+  {
+    "id": "final-26",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-2494984264",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "c989c86403c0dc611e94ddf37f0c8587743fee42b03efdd6a1b319a1e5558945",
+    "source_offset": 0,
+    "paragraph_length": 121,
+    "paragraph_sha256": "c989c86403c0dc611e94ddf37f0c8587743fee42b03efdd6a1b319a1e5558945",
+    "published_at": "2024-11-22T22:35:14Z",
+    "updated_at": "2024-11-22T22:35:14Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          40,
+          45
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          14,
+          23
+        ],
+        "status_span": [
+          32,
+          45
+        ]
+      },
+      {
+        "trigger": [
+          69,
+          72
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          73,
+          94
+        ],
+        "status_span": [
+          51,
+          72
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic question; not evidence of a completed HDR-off trial."
+  },
+  {
+    "id": "final-27",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-4361131142",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "99923142e3dbcf82761e03f500153ee8b26edeb6112be814d9da19e63ac98628",
+    "source_offset": 0,
+    "paragraph_length": 346,
+    "paragraph_sha256": "99923142e3dbcf82761e03f500153ee8b26edeb6112be814d9da19e63ac98628",
+    "published_at": "2026-05-01T19:11:44Z",
+    "updated_at": "2026-05-01T19:12:00Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          71,
+          76
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          77,
+          110
+        ],
+        "status_span": [
+          64,
+          76
+        ]
+      },
+      {
+        "trigger": [
+          207,
+          212
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          213,
+          223
+        ],
+        "status_span": [
+          197,
+          212
+        ]
+      },
+      {
+        "trigger": [
+          342,
+          345
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          333,
+          345
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Denial concerns exhaustive testing, not the earlier partial set. No literal result is attributed here."
+  },
+  {
+    "id": "final-28",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-4359585514",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "85031d03bc2a0eae414da310582920fc2b4c775efb8dfc5d84ada80e24506469",
+    "source_offset": 312,
+    "paragraph_length": 419,
+    "paragraph_sha256": "b89d91ea6a543e7b55d6653dbd8dc1df98219d854b98d74fdc9e82cc67d5387a",
+    "published_at": "2026-05-01T13:48:37Z",
+    "updated_at": "2026-05-01T13:53:38Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          179,
+          185
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          191,
+          196
+        ],
+        "status_span": [
+          167,
+          196
+        ]
+      },
+      {
+        "trigger": [
+          265,
+          270
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          247,
+          262
+        ],
+        "status_span": [
+          247,
+          270
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          198,
+          210
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          212,
+          238
+        ],
+        "outcome": "regression",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Specific driver trial and separate Proton list; no invented installed driver operation for590.x."
+  },
+  {
+    "id": "final-29",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-2497007055",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "db14fbc014e83896652ed77f6940401f71078a41cc28c29175d736047d57bef9",
+    "source_offset": 426,
+    "paragraph_length": 355,
+    "paragraph_sha256": "61b56f8bc9bee026f0cd5d5bf11d80178faa08307574cc8541f033f09c902ca7",
+    "published_at": "2024-11-25T06:53:55Z",
+    "updated_at": "2024-11-26T03:04:54Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          23
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          24,
+          45
+        ],
+        "status_span": [
+          12,
+          23
+        ]
+      },
+      {
+        "trigger": [
+          55,
+          61
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          66,
+          80
+        ],
+        "status_span": [
+          55,
+          80
+        ]
+      },
+      {
+        "trigger": [
+          213,
+          220
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": [
+          234,
+          256
+        ],
+        "status_span": [
+          192,
+          220
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          90,
+          116
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint tentative improvement. The X11 suggestion is not executed; the quoted percentage is not a local measurement."
+  },
+  {
+    "id": "final-30",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-6424276023",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "23ba5cd4ec412fe3ba6807d5a46fed36529e058fced1bb436760528fb10be6cd",
+    "source_offset": 328,
+    "paragraph_length": 439,
+    "paragraph_sha256": "fcf2545b1f90c2e1e939dbbbfa7a83f32b9c34ccf9afbef04942a293815cccb2",
+    "published_at": "2026-10-26T18:35:22Z",
+    "updated_at": "2026-10-26T18:35:22Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          254,
+          261
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          262,
+          286
+        ],
+        "status_span": [
+          239,
+          261
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question explicitly requests a controlled separation of two changes; no independent firmware effect is established."
+  },
+  {
+    "id": "final-31",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-6410937487",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "81a50bac3ee12249a896d367c2d459184e75c97a4aee8cf26a4a7c03c3a821b9",
+    "source_offset": 734,
+    "paragraph_length": 446,
+    "paragraph_sha256": "7b3e88b4a06a82a26a48a6d0b87db92db9b4f4fe5ff5622619664f03c634e2dd",
+    "published_at": "2026-10-26T07:50:40Z",
+    "updated_at": "2026-10-26T07:50:40Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          21,
+          27
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          28,
+          61
+        ],
+        "status_span": [
+          14,
+          27
+        ]
+      },
+      {
+        "trigger": [
+          87,
+          95
+        ],
+        "status": "preexisting",
+        "direction": "disable",
+        "target": [
+          68,
+          86
+        ],
+        "status_span": [
+          68,
+          95
+        ]
+      },
+      {
+        "trigger": [
+          123,
+          132
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          133,
+          160
+        ],
+        "status_span": [
+          121,
+          132
+        ]
+      },
+      {
+        "trigger": [
+          284,
+          291
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          292,
+          296
+        ],
+        "status_span": [
+          277,
+          296
+        ]
+      },
+      {
+        "trigger": [
+          320,
+          326
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          315,
+          319
+        ],
+        "status_span": [
+          302,
+          326
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          161,
+          186
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      },
+      {
+        "span": [
+          327,
+          360
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          4
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Different firmware environments in the same report; these are source associations, explicitly not controlled comparisons or independent causal attribution."
+  },
+  {
+    "id": "final-32",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-3688204765",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "19e471d75f4fa8addc7913202c0c8fb59d410621957dfc4bd8057bcb0bf732f5",
+    "source_offset": 436,
+    "paragraph_length": 163,
+    "paragraph_sha256": "4a404b03589074e4a55deb4c8a103f752cc4cd4467add6d25ea3a21ea046f834",
+    "published_at": "2025-12-23T23:28:44Z",
+    "updated_at": "2025-12-23T23:28:44Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          10,
+          17
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          18,
+          30
+        ],
+        "status_span": [
+          0,
+          17
+        ]
+      },
+      {
+        "trigger": [
+          88,
+          95
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          96,
+          120
+        ],
+        "status_span": [
+          78,
+          95
+        ]
+      },
+      {
+        "trigger": [
+          133,
+          137
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          138,
+          161
+        ],
+        "status_span": [
+          128,
+          137
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Future deletion is only untrusted source data; no destructive operation exists in this lab."
+  },
+  {
+    "id": "final-33",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-3707311362",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "91bd71de878fd19d61166edf951a381480b105c631b258deecad203144b1dde8",
+    "source_offset": 285,
+    "paragraph_length": 51,
+    "paragraph_sha256": "4a2fd8091cbf671297e65e1bfc692d2fd68ad1536d4d46085fa4ec698d92a4f4",
+    "published_at": "2026-01-03T19:51:42Z",
+    "updated_at": "2026-01-03T19:51:42Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          8,
+          16
+        ],
+        "status": "unknown",
+        "direction": "update",
+        "target": [
+          17,
+          19
+        ],
+        "status_span": [
+          0,
+          16
+        ]
+      },
+      {
+        "trigger": [
+          29,
+          39
+        ],
+        "status": "unknown",
+        "direction": "update",
+        "target": [
+          40,
+          50
+        ],
+        "status_span": [
+          21,
+          39
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-34",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-2509641218",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "4ed15a6ee90f53f3fb8cac40feb0ae0f8f4a53e50d839f2c2b8ed8de98cab756",
+    "source_offset": 237,
+    "paragraph_length": 96,
+    "paragraph_sha256": "5b2366cd08f9aa8f1ed3e8e463ed0463b943f42e67fbb69e94419959a23e200d",
+    "published_at": "2024-12-01T08:53:31Z",
+    "updated_at": "2024-12-01T08:54:17Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-35",
+    "app_id": "1643320",
+    "thread": 8260,
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-2494161562",
+    "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl (1643320)",
+    "source_sha256": "37dd7f93c909cbb33501ef0db37b923d1ac1b58efec70b98471beb11d3f323ee",
+    "source_offset": 110,
+    "paragraph_length": 88,
+    "paragraph_sha256": "5dfd057ddd4b7ef4ffa8a68364bee397ccabff44569611c782687e852d280f56",
+    "published_at": "2024-11-22T16:31:28Z",
+    "updated_at": "2024-11-23T06:22:15Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Shader compilation duration, not a performed user correction."
+  },
+  {
+    "id": "final-36",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2024201100",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "9520f6deee6664811e184f3c126fd62d653880dec45ff2f96b80f42531675af1",
+    "source_offset": 449,
+    "paragraph_length": 228,
+    "paragraph_sha256": "4e1b131ae76b0b13053677e1cbe9efc1cc46d4c9ca06c5b77f90edb4e8d09578",
+    "published_at": "2024-03-28T00:35:03Z",
+    "updated_at": "2024-03-28T01:39:02Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          22,
+          31
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          32,
+          46
+        ],
+        "status_span": [
+          22,
+          46
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          138,
+          171
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          100,
+          124
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Several driver versions are reported as tried;470 has a distinct startup failure, not a universal driver verdict."
+  },
+  {
+    "id": "final-37",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2034705834",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "c411524f23300365533d92c073aa3ec250a7c277f4129ca2583be0fdd2c10dff",
+    "source_offset": 0,
+    "paragraph_length": 269,
+    "paragraph_sha256": "f4b371dc8ecb6915b4f764e64bd622fc80ea45cca23bf61ec4f0d638a375fdf0",
+    "published_at": "2024-04-03T14:01:52Z",
+    "updated_at": "2024-04-03T14:01:52Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          75,
+          78
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          95,
+          117
+        ],
+        "status_span": [
+          69,
+          86
+        ]
+      },
+      {
+        "trigger": [
+          124,
+          136
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          137,
+          143
+        ],
+        "status_span": [
+          124,
+          143
+        ]
+      },
+      {
+        "trigger": [
+          218,
+          222
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          256,
+          268
+        ],
+        "status_span": [
+          210,
+          228
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          144,
+          163
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Diagnostic search is distinct from uninstalling the conflicting driver. No package removal is executed here."
+  },
+  {
+    "id": "final-38",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2017436890",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "751310dfeb5bdf1017d3022914a2a257a835abe1179ffd6773f59e2de7375148",
+    "source_offset": 0,
+    "paragraph_length": 341,
+    "paragraph_sha256": "4a576a468560b7fa610d73b08647b8b7a261a5735b5e928ea651bbca97c7ee2a",
+    "published_at": "2024-03-25T08:13:33Z",
+    "updated_at": "2024-03-29T20:08:06Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          44,
+          49
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          50,
+          70
+        ],
+        "status_span": [
+          44,
+          70
+        ]
+      },
+      {
+        "trigger": [
+          185,
+          190
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          191,
+          197
+        ],
+        "status_span": [
+          185,
+          197
+        ]
+      },
+      {
+        "trigger": [
+          238,
+          244
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          245,
+          250
+        ],
+        "status_span": [
+          238,
+          250
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          85,
+          110
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          198,
+          221
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          255,
+          288
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Source-reported outcomes, no independently established driver/overclock cause."
+  },
+  {
+    "id": "final-39",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2050713541",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "afeb394723d9c33d88f4cdf9e945c365dcce5988b97d05831f7054cbdfb1eb40",
+    "source_offset": 187,
+    "paragraph_length": 718,
+    "paragraph_sha256": "b28d4b8ec215890f627116b6969958ffd1b8a23782e3f450fcc700186b99d589",
+    "published_at": "2024-04-11T23:29:44Z",
+    "updated_at": "2024-04-11T23:29:44Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Entire body is an email quote of another report. It is not this author’s executed trial and is not an independent confirmation."
+  },
+  {
+    "id": "final-40",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2028958455",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "8a3d93ebcb73805e31378cb5c9f5ce24b3bc2ea9eaaf94490c72243513a57518",
+    "source_offset": 93,
+    "paragraph_length": 328,
+    "paragraph_sha256": "3378d8c165db76e71d319b62f97c4701ede060a713ed41d59ca86cf1e820c3e4",
+    "published_at": "2024-04-01T00:08:04Z",
+    "updated_at": "2024-04-01T12:26:07Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          90,
+          99
+        ],
+        "status": "preexisting",
+        "direction": "install",
+        "target": [
+          81,
+          89
+        ],
+        "status_span": [
+          74,
+          99
+        ]
+      },
+      {
+        "trigger": [
+          123,
+          132
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          133,
+          145
+        ],
+        "status_span": [
+          118,
+          145
+        ]
+      },
+      {
+        "trigger": [
+          186,
+          193
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          194,
+          223
+        ],
+        "status_span": [
+          181,
+          209
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          225,
+          255
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Multi-machine procedure; do not infer save-copy method or causal credit for a single step."
+  },
+  {
+    "id": "final-41",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2106436321",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "dcabe9acaebbb224f77b9f54a9a74076519d9994840bcb302246f7a783355e63",
+    "source_offset": 103,
+    "paragraph_length": 450,
+    "paragraph_sha256": "a62f3deee6bfba4a5b0bc8360871664d0f082dae3d7d23ed041da1220802c957",
+    "published_at": "2024-05-13T00:36:05Z",
+    "updated_at": "2024-05-13T00:36:05Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          10
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          13,
+          35
+        ],
+        "status_span": [
+          0,
+          10
+        ]
+      },
+      {
+        "trigger": [
+          135,
+          141
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          142,
+          178
+        ],
+        "status_span": [
+          135,
+          155
+        ]
+      },
+      {
+        "trigger": [
+          263,
+          267
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          268,
+          291
+        ],
+        "status_span": [
+          256,
+          267
+        ]
+      },
+      {
+        "trigger": [
+          351,
+          354
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          355,
+          369
+        ],
+        "status_span": [
+          351,
+          369
+        ]
+      },
+      {
+        "trigger": [
+          402,
+          409
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          410,
+          428
+        ],
+        "status_span": [
+          402,
+          428
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Maintainer log/system-information request, not a performed fix."
+  },
+  {
+    "id": "final-42",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2016881247",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "e2bc47250abf2e37d4eca8996351ce022566fd54f2fa9a8048049f13938d0d87",
+    "source_offset": 0,
+    "paragraph_length": 163,
+    "paragraph_sha256": "e2bc47250abf2e37d4eca8996351ce022566fd54f2fa9a8048049f13938d0d87",
+    "published_at": "2024-03-24T17:36:18Z",
+    "updated_at": "2024-03-24T17:37:28Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          38,
+          42
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          33,
+          37
+        ],
+        "status_span": [
+          30,
+          42
+        ]
+      },
+      {
+        "trigger": [
+          44,
+          49
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          50,
+          58
+        ],
+        "status_span": [
+          44,
+          58
+        ]
+      },
+      {
+        "trigger": [
+          63,
+          66
+        ],
+        "status": "preexisting",
+        "direction": "enable",
+        "target": [
+          67,
+          82
+        ],
+        "status_span": [
+          63,
+          85
+        ]
+      },
+      {
+        "trigger": [
+          88,
+          95
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          96,
+          110
+        ],
+        "status_span": [
+          88,
+          113
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          114,
+          144
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          3
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Narrative observed configuration; overclock failure remains a conjecture."
+  },
+  {
+    "id": "final-43",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2013647730",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "27618b587a2207ad4b2de476959e2b40f5aae353c4a4ff55ee90f16863f056d1",
+    "source_offset": 0,
+    "paragraph_length": 279,
+    "paragraph_sha256": "cfbb781ce917272f6f231db541679e1e0c8a535234520aebe9cb3075d40f3749",
+    "published_at": "2024-03-21T20:16:11Z",
+    "updated_at": "2024-03-21T20:16:11Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          201,
+          206
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          207,
+          278
+        ],
+        "status_span": [
+          199,
+          213
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          8,
+          59
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "No literal outcome specifically attributed to one of the listed versions."
+  },
+  {
+    "id": "final-44",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2025631643",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "be3faa8a07078c28aae7943a22d085e205700f59f43dc74d9b5e79d75874dd6a",
+    "source_offset": 3341,
+    "paragraph_length": 347,
+    "paragraph_sha256": "f0571293ef872e8726c5d83111645a711128386e184dedfbd904cf60bc37c2f5",
+    "published_at": "2024-03-28T16:29:39Z",
+    "updated_at": "2024-03-28T16:34:14Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          171,
+          176
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          177,
+          203
+        ],
+        "status_span": [
+          169,
+          181
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "An update is mentioned as context, not asserted as a user-executed operation. No subsequent outcome is given."
+  },
+  {
+    "id": "final-45",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2013677421",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "a732e1592e8ea727e5705dee7d3dd7835ccba1e65e78e8cd7b4f308bf4798b59",
+    "source_offset": 0,
+    "paragraph_length": 135,
+    "paragraph_sha256": "fa758098cbdc2cbfb95457d56d7fb85422e1431dfe5beecdc554c11df8b95454",
+    "published_at": "2024-03-21T20:33:39Z",
+    "updated_at": "2024-03-21T20:33:39Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          28,
+          33
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          6,
+          19
+        ],
+        "status_span": [
+          20,
+          33
+        ]
+      },
+      {
+        "trigger": [
+          83,
+          86
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          87,
+          100
+        ],
+        "status_span": [
+          76,
+          100
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question about active GPU; do not infer that a laptop uses either GPU."
+  },
+  {
+    "id": "final-46",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2028050704",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "3acaf09680208da920bb769f1570e5c350d25e165889c071f2ff6667f8f121fa",
+    "source_offset": 93,
+    "paragraph_length": 65,
+    "paragraph_sha256": "f4f0b56b9377f4fe023f56338215339b3efd912aa3d9de5ebe4313e6b4e1ce39",
+    "published_at": "2024-03-30T13:14:13Z",
+    "updated_at": "2024-03-30T13:18:58Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-47",
+    "app_id": "2420110",
+    "thread": 7590,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2013684447",
+    "title": "Horizon Forbidden West (2420110)",
+    "source_sha256": "ff2a406e6a6172bd6eccfd95f50f55a40dba50458579a199516a5b09cb720a6f",
+    "source_offset": 366,
+    "paragraph_length": 669,
+    "paragraph_sha256": "a9dae94f76ae262109a0c87c1eb3ba77b0ee9d31b111f866e1af88b766babfe3",
+    "published_at": "2024-03-21T20:37:40Z",
+    "updated_at": "2024-03-21T20:59:04Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          579,
+          598
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Supplied crash-log excerpt; access violation is not a unique root cause or a DLL identity."
+  },
+  {
+    "id": "final-48",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1520087609",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "78978a87a9ab57d798a22b4e2e04a9208ab94cebdaca5d773d29e483696e98f3",
+    "source_offset": 0,
+    "paragraph_length": 671,
+    "paragraph_sha256": "78978a87a9ab57d798a22b4e2e04a9208ab94cebdaca5d773d29e483696e98f3",
+    "published_at": "2023-04-24T12:44:07Z",
+    "updated_at": "2023-04-24T12:44:07Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          127,
+          132
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          133,
+          163
+        ],
+        "status_span": [
+          121,
+          132
+        ]
+      },
+      {
+        "trigger": [
+          267,
+          272
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          273,
+          290
+        ],
+        "status_span": [
+          262,
+          290
+        ],
+        "scope_app_id": "1151640",
+        "scope": "other-game"
+      },
+      {
+        "trigger": [
+          377,
+          382
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          383,
+          394
+        ],
+        "status_span": [
+          372,
+          394
+        ],
+        "scope_app_id": null,
+        "scope": "other-unidentified-games"
+      },
+      {
+        "trigger": [
+          477,
+          482
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          488,
+          506
+        ],
+        "status_span": [
+          467,
+          506
+        ]
+      },
+      {
+        "trigger": [
+          534,
+          537
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          543,
+          555
+        ],
+        "status_span": [
+          529,
+          555
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          168,
+          183
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          356,
+          369
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          442,
+          464
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          511,
+          527
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          3
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Events1/2 are EXPLICIT OTHER GAMES, not Spider-Man outcomes. Conditional7.0.6 wording is not an explicit completed switch. Requires per-event scope review."
+  },
+  {
+    "id": "final-49",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1217318377",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "024de981a94489a860fa7417a3516b0ed15b56298adc3cab3472a49613244e04",
+    "source_offset": 409,
+    "paragraph_length": 288,
+    "paragraph_sha256": "13dc793cac929c89cbde157467f48b2e3beef9bc6d191b954dda69d0e214532e",
+    "published_at": "2022-08-17T00:50:09Z",
+    "updated_at": "2022-08-17T01:13:17Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          11
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          21,
+          36
+        ],
+        "status_span": [
+          0,
+          11
+        ]
+      },
+      {
+        "trigger": [
+          40,
+          51
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": null,
+        "status_span": [
+          38,
+          51
+        ]
+      },
+      {
+        "trigger": [
+          56,
+          67
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          71,
+          92
+        ],
+        "status_span": [
+          56,
+          92
+        ]
+      },
+      {
+        "trigger": [
+          96,
+          104
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          128,
+          163
+        ],
+        "status_span": [
+          94,
+          104
+        ]
+      },
+      {
+        "trigger": [
+          169,
+          176
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          177,
+          194
+        ],
+        "status_span": [
+          169,
+          194
+        ]
+      },
+      {
+        "trigger": [
+          198,
+          206
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          212,
+          230
+        ],
+        "status_span": [
+          196,
+          206
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          259,
+          287
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint failure of a reported sequence, not separate causal conclusions for each action."
+  },
+  {
+    "id": "final-50",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1409340656",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "f9160762edb96ef60ec12bca0114720be1d098587a69a4ec8799d0fbe1201a4a",
+    "source_offset": 442,
+    "paragraph_length": 167,
+    "paragraph_sha256": "7dd879408107f84ad8e3595fe3d0fa545c48a4cee23fe66d00f7358ca1efcdfb",
+    "published_at": "2023-01-30T21:08:01Z",
+    "updated_at": "2023-01-30T21:08:01Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          35,
+          38
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          21,
+          38
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Other games’ DLSS/raytracing reports must not become current-game measured evidence."
+  },
+  {
+    "id": "final-51",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1565673732",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "c2443f4ca8e0ec528b6db1d1689aa2ba2dca561c6a6ca4b0b22a10f7bf065fee",
+    "source_offset": 0,
+    "paragraph_length": 106,
+    "paragraph_sha256": "c2443f4ca8e0ec528b6db1d1689aa2ba2dca561c6a6ca4b0b22a10f7bf065fee",
+    "published_at": "2023-05-27T20:46:02Z",
+    "updated_at": "2023-05-27T20:46:02Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          41,
+          48
+        ],
+        "status": "unknown",
+        "direction": "disable",
+        "target": [
+          49,
+          60
+        ],
+        "status_span": [
+          35,
+          48
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          65,
+          105
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Ability/result statement does not explicitly establish a completed disable operation."
+  },
+  {
+    "id": "final-52",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1217334996",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "fa73239f0a25d4eef8db68819949770e7869f61a6401fddc1757a8612bac92df",
+    "source_offset": 93,
+    "paragraph_length": 221,
+    "paragraph_sha256": "21dfbb68e9f2d928d491266392a4daa4b1a59ad708608fbfceafbba239f27f9e",
+    "published_at": "2022-08-17T01:06:37Z",
+    "updated_at": "2022-08-17T01:19:28Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          114,
+          119
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          103,
+          111
+        ],
+        "status_span": [
+          103,
+          119
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          100,
+          161
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Driver cause is only the author’s hypothesis."
+  },
+  {
+    "id": "final-53",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1213644900",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "af52f3b25efd4d25ca582f281b4a9e9c2248843b74537804425188ba7ab589cf",
+    "source_offset": 158,
+    "paragraph_length": 181,
+    "paragraph_sha256": "017bcf23e04fd55382b2e5e73fa1ac7d7fae1d1bd5fd720751ee2a75dfd5d6f8",
+    "published_at": "2022-08-13T03:41:37Z",
+    "updated_at": "2022-08-13T11:22:18Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          72,
+          77
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          78,
+          97
+        ],
+        "status_span": [
+          72,
+          97
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          6,
+          20
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Mesa+Proton requirements stated; do not invent an executed install/switch or credit Mesa alone."
+  },
+  {
+    "id": "final-54",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1217728606",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "7e497399cced03a797ee88d83695a0df6f99bb611cc174b66ac4535ea02bef75",
+    "source_offset": 0,
+    "paragraph_length": 286,
+    "paragraph_sha256": "7e497399cced03a797ee88d83695a0df6f99bb611cc174b66ac4535ea02bef75",
+    "published_at": "2022-08-17T09:15:09Z",
+    "updated_at": "2022-08-17T09:15:19Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          5
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          6,
+          40
+        ],
+        "status_span": [
+          0,
+          40
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          51,
+          74
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          140,
+          181
+        ],
+        "outcome": "regression",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Different operating-system contexts in the same trial description; informal FPS observations are not FRX benchmarks."
+  },
+  {
+    "id": "final-55",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1223282810",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "d444410915c1e30b47615b2cf9e2331181f7551c9a79f94b6846f0317c0b8287",
+    "source_offset": 674,
+    "paragraph_length": 90,
+    "paragraph_sha256": "ce6f4891de66f1f9b99a136f1830a29ddd651d25b0c7239968101246eabe3ad2",
+    "published_at": "2022-08-22T22:46:51Z",
+    "updated_at": "2022-08-22T22:46:51Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          13,
+          90
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-56",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1218931136",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "7243432be7ac93ca81e9c40a2f8a69a4de3bff653b083b97dc3d63b34d485ac5",
+    "source_offset": 147,
+    "paragraph_length": 114,
+    "paragraph_sha256": "ce0a9b216ee53719aa2500a31f9d44a283bb5c869eed9fad38f7f800232a6a2c",
+    "published_at": "2022-08-18T02:32:42Z",
+    "updated_at": "2022-08-18T02:32:42Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          8,
+          13
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          18,
+          47
+        ],
+        "status_span": [
+          0,
+          13
+        ]
+      },
+      {
+        "trigger": [
+          96,
+          100
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          101,
+          105
+        ],
+        "status_span": [
+          84,
+          100
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-57",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1213575632",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "0c095811b7b24f99b5f3488a195e517e9bbe200854177300f3dafb47479fe25d",
+    "source_offset": 0,
+    "paragraph_length": 65,
+    "paragraph_sha256": "0c095811b7b24f99b5f3488a195e517e9bbe200854177300f3dafb47479fe25d",
+    "published_at": "2022-08-12T22:55:21Z",
+    "updated_at": "2022-08-12T22:55:21Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          7
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          8,
+          17
+        ],
+        "status_span": [
+          0,
+          17
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          32,
+          64
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Informal source report, not a registered local benchmark."
+  },
+  {
+    "id": "final-58",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1255735462",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "7c035ae798331553728943b7149057799eb4cda891c3d604556a32f03fc698cd",
+    "source_offset": 0,
+    "paragraph_length": 106,
+    "paragraph_sha256": "7c035ae798331553728943b7149057799eb4cda891c3d604556a32f03fc698cd",
+    "published_at": "2022-09-23T02:21:56Z",
+    "updated_at": "2022-09-23T02:21:56Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          27,
+          55
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Configuration string alone is not a performed operation."
+  },
+  {
+    "id": "final-59",
+    "app_id": "1817070",
+    "thread": 6088,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1229452788",
+    "title": "Marvel’s Spider-Man Remastered (1817070)",
+    "source_sha256": "212f742cd53ee8d6f223f4ca0c7f1f8146fd45065afe703b0e74ec48f59d10f6",
+    "source_offset": 0,
+    "paragraph_length": 192,
+    "paragraph_sha256": "212f742cd53ee8d6f223f4ca0c7f1f8146fd45065afe703b0e74ec48f59d10f6",
+    "published_at": "2022-08-28T13:01:34Z",
+    "updated_at": "2022-08-28T13:01:34Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          37,
+          66
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unknown earlier attempted action; no confirmed Nvidia driver root cause."
+  },
+  {
+    "id": "final-60",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1682224550",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "6921dc4d9a061941c2cddaff3a8ca2082643ad6dda6f59f70aff4d19c0411837",
+    "source_offset": 0,
+    "paragraph_length": 731,
+    "paragraph_sha256": "6921dc4d9a061941c2cddaff3a8ca2082643ad6dda6f59f70aff4d19c0411837",
+    "published_at": "2023-08-17T12:46:06Z",
+    "updated_at": "2023-08-17T12:46:06Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          111,
+          114
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          115,
+          118
+        ],
+        "status_span": [
+          101,
+          118
+        ]
+      },
+      {
+        "trigger": [
+          335,
+          343
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          344,
+          369
+        ],
+        "status_span": [
+          335,
+          369
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          230,
+          302
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          395,
+          427
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Historical author observations, not FRX benchmarks. Exact simultaneous X11/KDE configuration belongs to the described procedure."
+  },
+  {
+    "id": "final-61",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-2543091226",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "eba93634f28d0149d941d79aa1a8b60e23564b47eea8227483e7221777addfb4",
+    "source_offset": 670,
+    "paragraph_length": 296,
+    "paragraph_sha256": "a4a737cf0f51619e296faa9e7779c9f36fec4be7d7ee253dd3f1412f30737a90",
+    "published_at": "2024-12-14T12:40:58Z",
+    "updated_at": "2024-12-14T12:40:58Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          194,
+          198
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          199,
+          207
+        ],
+        "status_span": [
+          188,
+          207
+        ]
+      },
+      {
+        "trigger": [
+          231,
+          237
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          238,
+          244
+        ],
+        "status_span": [
+          221,
+          237
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          13,
+          56
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unable/required operations do not prove that termination or reboot was completed."
+  },
+  {
+    "id": "final-62",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1674108662",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "137c02fa2949323d71bd737a3c576924c4ac403345bf8aa6c1ed53b5dbd9f8fd",
+    "source_offset": 197,
+    "paragraph_length": 325,
+    "paragraph_sha256": "9bc8f9e8d930214db5a968b2984822a7b7a053e786f684bd1c46f8c439100d72",
+    "published_at": "2023-08-11T01:14:27Z",
+    "updated_at": "2023-08-11T01:14:43Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          64,
+          68
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          69,
+          77
+        ],
+        "status_span": [
+          54,
+          77
+        ]
+      },
+      {
+        "trigger": [
+          175,
+          183
+        ],
+        "status": "unknown",
+        "direction": "remove",
+        "target": [
+          184,
+          194
+        ],
+        "status_span": [
+          163,
+          183
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          143,
+          161
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "An observed boot attempt; required repeated deletion is ambiguous instruction versus completed action and remains unknown."
+  },
+  {
+    "id": "final-63",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1585420813",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "094a1b1b89cdaca3ed0251e9aa8059c8c8cd0bc5c105ea41aeaba7d681d818cc",
+    "source_offset": 0,
+    "paragraph_length": 107,
+    "paragraph_sha256": "409594344ca89e67424464f7465192d19c040df465fe9d761dad27f7b9858b73",
+    "published_at": "2023-06-10T01:53:40Z",
+    "updated_at": "2023-06-10T01:53:40Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          45,
+          52
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          53,
+          84
+        ],
+        "status_span": [
+          36,
+          52
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          85,
+          106
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-64",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1650284522",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "7bf640691f18e2c27f9a24d5402ff82cef353ddb84cd7267b13b045c86d7af11",
+    "source_offset": 0,
+    "paragraph_length": 574,
+    "paragraph_sha256": "7bf640691f18e2c27f9a24d5402ff82cef353ddb84cd7267b13b045c86d7af11",
+    "published_at": "2023-07-25T17:51:25Z",
+    "updated_at": "2023-07-25T17:51:25Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          21,
+          24
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          27,
+          49
+        ],
+        "status_span": [
+          14,
+          24
+        ]
+      },
+      {
+        "trigger": [
+          149,
+          155
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          156,
+          192
+        ],
+        "status_span": [
+          149,
+          169
+        ]
+      },
+      {
+        "trigger": [
+          277,
+          281
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          282,
+          305
+        ],
+        "status_span": [
+          270,
+          281
+        ]
+      },
+      {
+        "trigger": [
+          473,
+          476
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          477,
+          493
+        ],
+        "status_span": [
+          473,
+          493
+        ]
+      },
+      {
+        "trigger": [
+          526,
+          533
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          534,
+          552
+        ],
+        "status_span": [
+          526,
+          552
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-65",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1600013249",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "816015561562d01295da013d8bb3cc036f62684c4d21b8c5d4923ad7940f9751",
+    "source_offset": 0,
+    "paragraph_length": 488,
+    "paragraph_sha256": "c46eb5f83ce80fa5e20b447a54fa783d3a9328cb952c64940eec392a1de5ce72",
+    "published_at": "2023-06-21T03:18:47Z",
+    "updated_at": "2023-06-21T03:18:47Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          13,
+          21
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          22,
+          32
+        ],
+        "status_span": [
+          8,
+          21
+        ]
+      },
+      {
+        "trigger": [
+          315,
+          320
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          321,
+          337
+        ],
+        "status_span": [
+          310,
+          320
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          200,
+          217
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      },
+      {
+        "span": [
+          276,
+          309
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Recurring gameplay triggers, not an executed correction or an identified causal component."
+  },
+  {
+    "id": "final-66",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1595495268",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "8593c8a0db8b7ee86e3869786d22a026d00db54ee42c7bdf558da631f3508ba5",
+    "source_offset": 209,
+    "paragraph_length": 1081,
+    "paragraph_sha256": "7ccf78b9a2d42d02d44b663b4d7d277259bfc270df1461b802619794629355b7",
+    "published_at": "2023-06-16T23:59:41Z",
+    "updated_at": "2023-06-16T23:59:41Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          34,
+          37
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          38,
+          59
+        ],
+        "status_span": [
+          34,
+          59
+        ]
+      },
+      {
+        "trigger": [
+          736,
+          743
+        ],
+        "status": "suggested",
+        "direction": "disable",
+        "target": [
+          744,
+          769
+        ],
+        "status_span": [
+          728,
+          743
+        ]
+      },
+      {
+        "trigger": [
+          979,
+          985
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          986,
+          1002
+        ],
+        "status_span": [
+          966,
+          985
+        ]
+      },
+      {
+        "trigger": [
+          1018,
+          1025
+        ],
+        "status": "suggested",
+        "direction": "disable",
+        "target": [
+          1026,
+          1048
+        ],
+        "status_span": [
+          1006,
+          1025
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Untrusted instructional text with privileged snippets; all remain suggestions/data. No command is executed; expected improvement is not an observed result."
+  },
+  {
+    "id": "final-67",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1575949417",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "539f9e3c00c58e5f73792bf32672c0f90d172645c96b9d6ae0e00bc0864d329e",
+    "source_offset": 0,
+    "paragraph_length": 138,
+    "paragraph_sha256": "539f9e3c00c58e5f73792bf32672c0f90d172645c96b9d6ae0e00bc0864d329e",
+    "published_at": "2023-06-05T02:30:35Z",
+    "updated_at": "2023-06-05T02:30:35Z",
+    "stratum": "action-result",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          13
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          14,
+          51
+        ],
+        "status_span": [
+          0,
+          13
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          75,
+          123
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-68",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1664162187",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "c62b2d62fcd8312da56b98d93328e60448db7360642c449216e84f7f2f9e91e1",
+    "source_offset": 0,
+    "paragraph_length": 122,
+    "paragraph_sha256": "279cef400dcf9a0ac4566dfe51ceb24f96bcefa6b6bca013cd6dab52ab9ce3af",
+    "published_at": "2023-08-03T15:07:23Z",
+    "updated_at": "2023-08-03T15:07:23Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          14
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          15,
+          25
+        ],
+        "status_span": [
+          5,
+          25
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Gameplay trigger hypothesis, no concrete executed correction."
+  },
+  {
+    "id": "final-69",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1657690679",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "25d2769302a47517221fc32cc9181553240572bf215ed399e35d1621badde195",
+    "source_offset": 392,
+    "paragraph_length": 114,
+    "paragraph_sha256": "c0e0a86dcc305e9972801084239566120165a8261284063578b618e39512382a",
+    "published_at": "2023-07-31T05:55:14Z",
+    "updated_at": "2023-07-31T06:01:14Z",
+    "stratum": "action",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Update context is not an asserted user-executed operation."
+  },
+  {
+    "id": "final-70",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1656531174",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "d2c6164710b966539774fe0768825156447aaf1a403704c65cdf5e6c95a36a22",
+    "source_offset": 33,
+    "paragraph_length": 158,
+    "paragraph_sha256": "b8ec6be2676203f2d45c77ccd50b08ad7ccda6f05003809a22fc3369b5774b0a",
+    "published_at": "2023-07-29T03:01:25Z",
+    "updated_at": "2023-07-29T03:01:25Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          31,
+          62
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": ""
+  },
+  {
+    "id": "final-71",
+    "app_id": "1364780",
+    "thread": 6817,
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1656375458",
+    "title": "Street Fighter 6 (1364780)",
+    "source_sha256": "00a1de922def92beb81d58627a0b9ec55aa0f0f3f639976b34e518d4d980120f",
+    "source_offset": 2086,
+    "paragraph_length": 93,
+    "paragraph_sha256": "4c64cabd73a4856cfa464087d3d79517b54cb661e2da7280d3321e7c5fe72757",
+    "published_at": "2023-07-28T22:02:58Z",
+    "updated_at": "2023-07-29T01:45:43Z",
+    "stratum": "hash-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Log attachment link alone is not its content or a dependency diagnosis."
+  }
+]

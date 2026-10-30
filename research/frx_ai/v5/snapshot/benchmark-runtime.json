@@ -1,0 +1,16 @@
+{
+  "cpu_only": true,
+  "requests": 12,
+  "init_seconds": 0.26751909899940074,
+  "first_request_seconds": 3.457140108001113,
+  "uncached_warm_median_ms": 141.76938200034783,
+  "uncached_warm_p95_ms": 348.02262499943026,
+  "max_rss_mib": 796.921875,
+  "retrieval_model_bytes": 22950006,
+  "quality_evaluation": false,
+  "limitations": [
+    "Known development texts, controlled nonce to force parser cache misses.",
+    "Cold process does not imply cold OS page cache.",
+    "Does not include Python environment installation size."
+  ]
+}

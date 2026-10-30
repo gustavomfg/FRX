@@ -1,0 +1,3368 @@
+[
+  {
+    "id": "train-0",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1422761622",
+    "source_offset": 0,
+    "old_id": "81f5ae9c1017db0c",
+    "legacy_span": [
+      195,
+      212
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "4bfa90b028f200783dc251791ad8b133b4c178e994c4bb8aed2f253f2ebb3cb8",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          179,
+          188
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          195,
+          212
+        ],
+        "status_span": [
+          165,
+          188
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 337,
+    "paragraph_sha256": "4bfa90b028f200783dc251791ad8b133b4c178e994c4bb8aed2f253f2ebb3cb8"
+  },
+  {
+    "id": "train-1",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4973653697",
+    "source_offset": 538,
+    "old_id": "bea303d57433cc3a",
+    "legacy_span": [
+      0,
+      37
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "worsened",
+    "source_sha256": "fca95aade54340ea6a65f45192608fb5170cd26a6fe6dc0b3cee39cb7045cabb",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          8
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          30,
+          36
+        ],
+        "status_span": [
+          0,
+          28
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          38,
+          58
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reproduction assertion; not local observation or proven cause.",
+    "paragraph_length": 195,
+    "paragraph_sha256": "39b2d69bd9c2c180f0c94f04a461815dd581dade631daacbedbca6f6137643f9"
+  },
+  {
+    "id": "train-2",
+    "app_id": "1174180",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-565737656",
+    "source_offset": 0,
+    "old_id": "02c99f43c88d1dfe",
+    "legacy_span": [
+      14,
+      30
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "803f7477de0b28ea9d619744de4a95a7751dafa1324c25314218f00f4e8d59f5",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          21
+        ],
+        "status": "negated",
+        "direction": "install",
+        "target": [
+          22,
+          30
+        ],
+        "status_span": [
+          0,
+          21
+        ]
+      },
+      {
+        "trigger": [
+          68,
+          76
+        ],
+        "status": "preexisting",
+        "direction": "disable",
+        "target": [
+          46,
+          64
+        ],
+        "status_span": [
+          46,
+          76
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 122,
+    "paragraph_sha256": "803f7477de0b28ea9d619744de4a95a7751dafa1324c25314218f00f4e8d59f5"
+  },
+  {
+    "id": "train-3",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4351667886",
+    "source_offset": 336,
+    "old_id": "42c0e31976ce55ea",
+    "legacy_span": [
+      7,
+      33
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "a1905dfad7b2e0ebf20767ca3952d209bfd462cc48966d140f7ac83280dc357f",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          18
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          23,
+          32
+        ],
+        "status_span": [
+          7,
+          37
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          33,
+          57
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 61,
+    "paragraph_sha256": "aa8665aa7214165b03473f04e51d623319654205be04bc6b3981c92d3d9fcf1f"
+  },
+  {
+    "id": "train-4",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-420840548",
+    "source_offset": 0,
+    "old_id": "f2375f4507449034",
+    "legacy_span": [
+      9,
+      15
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "80b340f686acc33c21462db9571b7eac32501f094eabb65cf3b2c1d053a15845",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          61,
+          63
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          43,
+          72
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted driver instruction is not an executed action; proposed do has unknown target.",
+    "paragraph_length": 157,
+    "paragraph_sha256": "80b340f686acc33c21462db9571b7eac32501f094eabb65cf3b2c1d053a15845"
+  },
+  {
+    "id": "train-5",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1427169106",
+    "source_offset": 0,
+    "old_id": "96a5c88e8b2261a0",
+    "legacy_span": [
+      173,
+      211
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "7d019ffa5b427da81729bf8cfdc32440d7b13e572138cc9d1871935bb5dbc652",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          173,
+          194
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          173,
+          194
+        ],
+        "status_span": [
+          134,
+          171
+        ]
+      },
+      {
+        "trigger": [
+          195,
+          211
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          195,
+          211
+        ],
+        "status_span": [
+          134,
+          171
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Existing launch state; without-options outcome is not individually attributable.",
+    "paragraph_length": 381,
+    "paragraph_sha256": "7d019ffa5b427da81729bf8cfdc32440d7b13e572138cc9d1871935bb5dbc652"
+  },
+  {
+    "id": "train-6",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1424746035",
+    "source_offset": 0,
+    "old_id": "200347bf2293b460",
+    "legacy_span": [
+      160,
+      191
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "00cb96fdeb4b5723e4b0b0fdbb975aa3b868b993e3965cea4dd055d7005d146e",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          160,
+          167
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          168,
+          191
+        ],
+        "status_span": [
+          160,
+          174
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          193,
+          244
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Two named packages in one removal; informal community FPS, not a benchmark.",
+    "paragraph_length": 296,
+    "paragraph_sha256": "00cb96fdeb4b5723e4b0b0fdbb975aa3b868b993e3965cea4dd055d7005d146e"
+  },
+  {
+    "id": "train-7",
+    "app_id": "1174180",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-591747059",
+    "source_offset": 0,
+    "old_id": "f84dc84e147dffed",
+    "legacy_span": [
+      25,
+      31
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "a7a0cdc7a241948e09ce55a7bdf384c0b10112f78c4e0c926290a7f8d3f3e27a",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 32,
+    "paragraph_sha256": "a7a0cdc7a241948e09ce55a7bdf384c0b10112f78c4e0c926290a7f8d3f3e27a"
+  },
+  {
+    "id": "train-8",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4317144421",
+    "source_offset": 0,
+    "old_id": "35f6330457ecbb93",
+    "legacy_span": [
+      77,
+      137
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "da17420d10d55616745430075ffbcdbaeb7b303efecc802b2058f9aa650bcc7b",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          83,
+          90
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          98,
+          108
+        ],
+        "status_span": [
+          69,
+          90
+        ]
+      },
+      {
+        "trigger": [
+          113,
+          120
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          125,
+          137
+        ],
+        "status_span": [
+          113,
+          137
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          180,
+          201
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint procedure; individual causal attribution unknown.",
+    "paragraph_length": 217,
+    "paragraph_sha256": "4ddfdfce18772d918c87b5b54f646b4e41dba6f175244e5ae746698694b89f1a"
+  },
+  {
+    "id": "train-9",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4312456260",
+    "source_offset": 0,
+    "old_id": "bd0f94fb4de2b4ad",
+    "legacy_span": [
+      0,
+      13
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "fabf90677ddc19fe99f820c3461948b4b1c517362a741403d8340d0cc033eee7",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Apparent success with no explicit action; retraction and uncertainty retained in source.",
+    "paragraph_length": 374,
+    "paragraph_sha256": "ac4cdcf0f0f667d1208094673d3e2dffb99fd97271054080cfa6ae105f339197"
+  },
+  {
+    "id": "train-10",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4464162415",
+    "source_offset": 440,
+    "old_id": "5cb94388792d4f56",
+    "legacy_span": [
+      37,
+      94
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "fa0e3b11d890777cfa0d30a6b026eb40301d64b1a9c82e34cf02f0f4c6fc9c1a",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          9,
+          15
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          16,
+          33
+        ],
+        "status_span": [
+          0,
+          33
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Purpose clauses are not independent observed outcomes.",
+    "paragraph_length": 178,
+    "paragraph_sha256": "ed9a97b44c49610cb9a05bd354032615fa0da25a531358e423c7b2230d4770c5"
+  },
+  {
+    "id": "train-11",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4316823132",
+    "source_offset": 58,
+    "old_id": "423d8a2f5930a389",
+    "legacy_span": [
+      65,
+      116
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "eb9567bd8ca3258d889cc36db2128ffe610ff94e7bf871dcde10172026600023",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          4,
+          24
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          4,
+          24
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          25,
+          44
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          25,
+          44
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          45,
+          64
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          45,
+          64
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          65,
+          106
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          65,
+          106
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Bare command block does not prove execution in this paragraph.",
+    "paragraph_length": 120,
+    "paragraph_sha256": "4292dd555bdb674229b9686533a5f55bac49e81ed0fce76f5065c1b15f9c7cdb"
+  },
+  {
+    "id": "train-12",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-418643528",
+    "source_offset": 0,
+    "old_id": "45a76458a899c5d0",
+    "legacy_span": [
+      173,
+      200
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "ac4a92f53162a085e0dd95caf0feea98046183b00274fd00fa3d97026abbb418",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          36,
+          49
+        ],
+        "status": "preexisting",
+        "direction": "install",
+        "target": [
+          11,
+          32
+        ],
+        "status_span": [
+          11,
+          49
+        ]
+      },
+      {
+        "trigger": [
+          179,
+          185
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          186,
+          200
+        ],
+        "status_span": [
+          166,
+          185
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 201,
+    "paragraph_sha256": "ac4a92f53162a085e0dd95caf0feea98046183b00274fd00fa3d97026abbb418"
+  },
+  {
+    "id": "train-13",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-585195337",
+    "source_offset": 0,
+    "old_id": "743c0ee6aa1c7703",
+    "legacy_span": [
+      468,
+      488
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "746efaa5c60466de477bda8fbcc2434dbface5bff6646e78f1f35cbfed70ceac",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          92,
+          99
+        ],
+        "status": "preexisting",
+        "direction": "enable",
+        "target": [
+          75,
+          84
+        ],
+        "status_span": [
+          75,
+          110
+        ]
+      },
+      {
+        "trigger": [
+          402,
+          410
+        ],
+        "status": "suggested",
+        "direction": "update",
+        "target": [
+          414,
+          440
+        ],
+        "status_span": [
+          399,
+          440
+        ]
+      },
+      {
+        "trigger": [
+          463,
+          466
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          468,
+          488
+        ],
+        "status_span": [
+          455,
+          466
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Known technical risks do not establish measured regression.",
+    "paragraph_length": 674,
+    "paragraph_sha256": "746efaa5c60466de477bda8fbcc2434dbface5bff6646e78f1f35cbfed70ceac"
+  },
+  {
+    "id": "train-14",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-415800754",
+    "source_offset": 0,
+    "old_id": "a31abbedfb766c31",
+    "legacy_span": [
+      948,
+      968
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "c36e2872cea5438c86cb7830b19c4fdfafd17d6ea86a292c5133f73338ac0072",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          948,
+          954
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          958,
+          968
+        ],
+        "status_span": [
+          938,
+          968
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          895,
+          968
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted operations excluded; this is a scoped authored confirmation.",
+    "paragraph_length": 968,
+    "paragraph_sha256": "c36e2872cea5438c86cb7830b19c4fdfafd17d6ea86a292c5133f73338ac0072"
+  },
+  {
+    "id": "train-15",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-3830387891",
+    "source_offset": 516,
+    "old_id": "5a285f6441e63e5a",
+    "legacy_span": [
+      67,
+      98
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "63a373ba05817d37e7a5a9cf86b94eb719132f9f4576cf109c410c657b935060",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          47,
+          55
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          56,
+          58
+        ],
+        "status_span": [
+          43,
+          58
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          100,
+          133
+        ],
+        "outcome": "unknown",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "No installation verb or library filename is asserted. Do not invent either.",
+    "paragraph_length": 149,
+    "paragraph_sha256": "b45f1262b9da7ebcefd6b81dc0661fffb54ec26ed76361994e56a00a5deab6dd"
+  },
+  {
+    "id": "train-16",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1422745427",
+    "source_offset": 0,
+    "old_id": "e18fa8088ef05bec",
+    "legacy_span": [
+      55,
+      73
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "ddf573fa9a7a52b4d35d3b6b5e0e1fdf9a4feb7e2d2e35d34404fc79b2ceeb76",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          36,
+          42
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          43,
+          45
+        ],
+        "status_span": [
+          31,
+          53
+        ]
+      },
+      {
+        "trigger": [
+          55,
+          62
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          63,
+          65
+        ],
+        "status_span": [
+          55,
+          73
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Result pending; will keep updated is not a software update.",
+    "paragraph_length": 96,
+    "paragraph_sha256": "ddf573fa9a7a52b4d35d3b6b5e0e1fdf9a4feb7e2d2e35d34404fc79b2ceeb76"
+  },
+  {
+    "id": "train-17",
+    "app_id": "1174180",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-562904834",
+    "source_offset": 0,
+    "old_id": "7113821ebb0c2752",
+    "legacy_span": [
+      214,
+      226
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "abc6accbe3a6af11dafdb907687aa87d4df85819886b6b6ddbc2f053a04ea888",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Speculation about protontricks, no concrete executable procedure.",
+    "paragraph_length": 230,
+    "paragraph_sha256": "abc6accbe3a6af11dafdb907687aa87d4df85819886b6b6ddbc2f053a04ea888"
+  },
+  {
+    "id": "train-18",
+    "app_id": "1174180",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-619793082",
+    "source_offset": 0,
+    "old_id": "3fa7f678cae97358",
+    "legacy_span": [
+      40,
+      60
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "6337c7ee7e1e096970c5982f13685114069c0c1859ef0b9a2bfecc373dba4ca1",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          96,
+          101
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          102,
+          115
+        ],
+        "status_span": [
+          94,
+          115
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          261,
+          297
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 393,
+    "paragraph_sha256": "6337c7ee7e1e096970c5982f13685114069c0c1859ef0b9a2bfecc373dba4ca1"
+  },
+  {
+    "id": "train-19",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-756904293",
+    "source_offset": 0,
+    "old_id": "cafa0f5a31c7dd6d",
+    "legacy_span": [
+      263,
+      275
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "908f4f6198150bab47118295d7696bec1c2cc5bc1ab3ff7c283540cc4a87b906",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          230,
+          233
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          263,
+          275
+        ],
+        "status_span": [
+          225,
+          246
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 372,
+    "paragraph_sha256": "908f4f6198150bab47118295d7696bec1c2cc5bc1ab3ff7c283540cc4a87b906"
+  },
+  {
+    "id": "train-20",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4316004690",
+    "source_offset": 0,
+    "old_id": "e8d56b0da5591b03",
+    "legacy_span": [
+      336,
+      355
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "255f048e3be8842f4473cdf56233ede64051a32fe08ad3912e09c3955b6c62c4",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Upstream technical discussion is not a performed user procedure.",
+    "paragraph_length": 515,
+    "paragraph_sha256": "dda4ac12beb35da1eeca23280aef7bd1542b214aed997000be201b167474d60b"
+  },
+  {
+    "id": "train-21",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-417693736",
+    "source_offset": 0,
+    "old_id": "a819ba66707df7dc",
+    "legacy_span": [
+      243,
+      250
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "661559b4106da1cca0964c8a1bd61892908e89fc5e4d9d3cff23a5209584f6d1",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          243,
+          250
+        ],
+        "status": "negated",
+        "direction": "install",
+        "target": [
+          224,
+          239
+        ],
+        "status_span": [
+          211,
+          250
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 259,
+    "paragraph_sha256": "661559b4106da1cca0964c8a1bd61892908e89fc5e4d9d3cff23a5209584f6d1"
+  },
+  {
+    "id": "train-22",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4315242665",
+    "source_offset": 143,
+    "old_id": "e9e8c2c5c15d063d",
+    "legacy_span": [
+      22,
+      35
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "mixed",
+    "source_sha256": "c07e1ccb6f87e5e1e254dfb48c00d745c83b497ecba3f9516c5ad6aefd27c44b",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          29,
+          35
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          22,
+          28
+        ],
+        "status_span": [
+          0,
+          35
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          36,
+          73
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Only launching is reported; full-source later problems are not resolved.",
+    "paragraph_length": 109,
+    "paragraph_sha256": "eb44c88438ead72e7a2e92fda92d03cd8ad1951f3ca1acd7a635eca8ed267a07"
+  },
+  {
+    "id": "train-23",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-751406337",
+    "source_offset": 0,
+    "old_id": "1e962b1832ce1d8b",
+    "legacy_span": [
+      14,
+      42
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "fca2853b7a3e33dcd22c17a7c98980b08f77aea694717594ad0252c4aca265d0",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          23
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          24,
+          42
+        ],
+        "status_span": [
+          9,
+          42
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          251,
+          279
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 663,
+    "paragraph_sha256": "fca2853b7a3e33dcd22c17a7c98980b08f77aea694717594ad0252c4aca265d0"
+  },
+  {
+    "id": "train-24",
+    "app_id": "1174180",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-562857933",
+    "source_offset": 0,
+    "old_id": "d9cc62b74bfee44a",
+    "legacy_span": [
+      114,
+      123
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "0cbadda146890128b224b434e9adede0deb9123df5f3a4b3b08c6b307a8402a9",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question about logging configuration with no chosen action.",
+    "paragraph_length": 147,
+    "paragraph_sha256": "0cbadda146890128b224b434e9adede0deb9123df5f3a4b3b08c6b307a8402a9"
+  },
+  {
+    "id": "train-25",
+    "app_id": "1091500",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742197056",
+    "source_offset": 0,
+    "old_id": "da3b5920ee406e27",
+    "legacy_span": [
+      325,
+      348
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "9bec3f489d356643f0b02319a209684890922438d8a76ce872531bbe00ecb182",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          325,
+          328
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          329,
+          348
+        ],
+        "status_span": [
+          312,
+          348
+        ]
+      },
+      {
+        "trigger": [
+          377,
+          380
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          381,
+          403
+        ],
+        "status_span": [
+          364,
+          403
+        ]
+      },
+      {
+        "trigger": [
+          432,
+          435
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          436,
+          460
+        ],
+        "status_span": [
+          419,
+          460
+        ]
+      },
+      {
+        "trigger": [
+          489,
+          492
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          493,
+          508
+        ],
+        "status_span": [
+          476,
+          508
+        ]
+      },
+      {
+        "trigger": [
+          830,
+          839
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": null,
+        "status_span": [
+          796,
+          839
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          350,
+          359
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          405,
+          414
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          462,
+          471
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          510,
+          519
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          3
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 840,
+    "paragraph_sha256": "9bec3f489d356643f0b02319a209684890922438d8a76ce872531bbe00ecb182"
+  },
+  {
+    "id": "train-26",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4527353694",
+    "source_offset": 257,
+    "old_id": "a418808c1b50e18f",
+    "legacy_span": [
+      179,
+      193
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "worsened",
+    "source_sha256": "80bf7a4b074aa3cedf35295a2ecd0954cb21db6964529472bd901782786f6cc8",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          186,
+          193
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          179,
+          185
+        ],
+        "status_span": [
+          175,
+          202
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          175,
+          202
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Change reported; individual mechanism unknown.",
+    "paragraph_length": 294,
+    "paragraph_sha256": "f7ee267e322182d7e55bbcb06363f9b41ee01941935cffe2d744e6320ffaf070"
+  },
+  {
+    "id": "train-27",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4752104489",
+    "source_offset": 574,
+    "old_id": "12aca5f83f9418a8",
+    "legacy_span": [
+      0,
+      32
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "8837d0dcc8eae5013cc166782fd8f7cdb1b75f2f5dfc29ed1311d1c29bade0f2",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          6
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          7,
+          32
+        ],
+        "status_span": [
+          0,
+          32
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 199,
+    "paragraph_sha256": "30811da1009c5e50c9388f9fc0a84b59b0c0a4d0c69055dbf8eec639863a70b7"
+  },
+  {
+    "id": "train-28",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4317980243",
+    "source_offset": 224,
+    "old_id": "93847923143d821d",
+    "legacy_span": [
+      140,
+      159
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "1cb844b023f0fa6e21a8e630cd4f40294f083d0268436a43f58d09a229683230",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Combination works but identity of individual actions absent; attribution remains unknown.",
+    "paragraph_length": 160,
+    "paragraph_sha256": "bde28f9e0ed5d7577582e0d13f970efec7c9f930b3aa5f0b7dea5e0837e486fe"
+  },
+  {
+    "id": "train-29",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-415613035",
+    "source_offset": 0,
+    "old_id": "03faa7262cb996f5",
+    "legacy_span": [
+      62,
+      111
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "bdc63e99e9ee69b09501dc72489572c8357d465b8de93d70369fc71452bc784a",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          62,
+          69
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          70,
+          111
+        ],
+        "status_span": [
+          62,
+          118
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          119,
+          151
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Remaining install/set phrases are hypothetical explanations, not new attempts.",
+    "paragraph_length": 467,
+    "paragraph_sha256": "bdc63e99e9ee69b09501dc72489572c8357d465b8de93d70369fc71452bc784a"
+  },
+  {
+    "id": "train-30",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1426068813",
+    "source_offset": 0,
+    "old_id": "660f455e6b22e9c4",
+    "legacy_span": [
+      33,
+      45
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "e52a6ec95ed91be8f93de490a78a80bd6baea7696c01ddb97254edd55bc1cee2",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          27,
+          30
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          33,
+          45
+        ],
+        "status_span": [
+          20,
+          30
+        ]
+      },
+      {
+        "trigger": [
+          305,
+          309
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          310,
+          333
+        ],
+        "status_span": [
+          298,
+          333
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 784,
+    "paragraph_sha256": "e52a6ec95ed91be8f93de490a78a80bd6baea7696c01ddb97254edd55bc1cee2"
+  },
+  {
+    "id": "train-31",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4700526864",
+    "source_offset": 0,
+    "old_id": "0cc54aa5c4be0ca8",
+    "legacy_span": [
+      192,
+      269
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "mixed",
+    "source_sha256": "b1cfb9b30915b7970b98b663e66a6e88e27298394da27ab05de9625dc4215afe",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          192,
+          249
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          192,
+          249
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          250,
+          269
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          250,
+          269
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Reported success in source but command paragraph alone does not establish execution.",
+    "paragraph_length": 344,
+    "paragraph_sha256": "66926af2ad8cadc9be1e198811f385550a96a41380e0832193181bf1c4c8f59c"
+  },
+  {
+    "id": "train-32",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-751403348",
+    "source_offset": 0,
+    "old_id": "e2d2ed8b65c8bcac",
+    "legacy_span": [
+      139,
+      169
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "mixed",
+    "source_sha256": "aae1776c21a2d37c1faf75dabff0edaadb238873a6da4c7a70fc4db00723f3e6",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          139,
+          148
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          154,
+          169
+        ],
+        "status_span": [
+          120,
+          148
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          120,
+          135
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Still freezes sometimes; no overall resolution.",
+    "paragraph_length": 407,
+    "paragraph_sha256": "aae1776c21a2d37c1faf75dabff0edaadb238873a6da4c7a70fc4db00723f3e6"
+  },
+  {
+    "id": "train-33",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4315669554",
+    "source_offset": 0,
+    "old_id": "70eaaa96caf101f6",
+    "legacy_span": [
+      66,
+      107
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "56bd119a9dd230032a4e8de409aa2df246c651084ddbc4eb0969a30000628e3c",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          36,
+          41
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          66,
+          107
+        ],
+        "status_span": [
+          34,
+          65
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          142,
+          166
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 184,
+    "paragraph_sha256": "31afc1298a7ff1f642a9b46fd8e88b0374aeab5e354fbb3e7421311d33739830"
+  },
+  {
+    "id": "train-34",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-418249643",
+    "source_offset": 0,
+    "old_id": "8c6793230d322cea",
+    "legacy_span": [
+      52,
+      118
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "b0e29a3c6f18b1fe6f1fdc411b19f1f9cfc2fa99e4a1b3ee42cb7d84b28ca268",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          52,
+          60
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          61,
+          97
+        ],
+        "status_span": [
+          50,
+          60
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          120,
+          146
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 146,
+    "paragraph_sha256": "b0e29a3c6f18b1fe6f1fdc411b19f1f9cfc2fa99e4a1b3ee42cb7d84b28ca268"
+  },
+  {
+    "id": "train-35",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-420836614",
+    "source_offset": 0,
+    "old_id": "6453372b92e03d00",
+    "legacy_span": [
+      352,
+      365
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "484a227db97d02ee081a3f5d7f6b3d57b9b0dba6bc485231bdd77be30be469f0",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          358,
+          365
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": null,
+        "status_span": [
+          340,
+          365
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          370,
+          390
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 430,
+    "paragraph_sha256": "484a227db97d02ee081a3f5d7f6b3d57b9b0dba6bc485231bdd77be30be469f0"
+  },
+  {
+    "id": "train-36",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1421916724",
+    "source_offset": 0,
+    "old_id": "87fdd78a6e861a96",
+    "legacy_span": [
+      392,
+      433
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "worsened",
+    "source_sha256": "1e5b373a37ce4965e96326b73b9744f652dfeb7c170b4520e64436894a597498",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          5
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          6,
+          25
+        ],
+        "status_span": [
+          0,
+          25
+        ]
+      },
+      {
+        "trigger": [
+          368,
+          371
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          372,
+          390
+        ],
+        "status_span": [
+          361,
+          371
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Conditional diagnostic relation is not a performed configuration change.",
+    "paragraph_length": 484,
+    "paragraph_sha256": "1e5b373a37ce4965e96326b73b9744f652dfeb7c170b4520e64436894a597498"
+  },
+  {
+    "id": "train-37",
+    "app_id": "1091500",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742187860",
+    "source_offset": 0,
+    "old_id": "adca5f57bd2d8a42",
+    "legacy_span": [
+      253,
+      278
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "70484a03a042b74304333b421156505b4800b02a47c7d083d8bcc6b244ee5968",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Commands in a general driver instruction are not executed observations; no scripts parsed as authority.",
+    "paragraph_length": 279,
+    "paragraph_sha256": "70484a03a042b74304333b421156505b4800b02a47c7d083d8bcc6b244ee5968"
+  },
+  {
+    "id": "train-38",
+    "app_id": "1091500",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742411319",
+    "source_offset": 0,
+    "old_id": "73a8a2cc4be7d377",
+    "legacy_span": [
+      330,
+      356
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "b792e1415f97e82483d4497477c874310fb51005413295a220db989f2174f355",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          109,
+          113
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          114,
+          127
+        ],
+        "status_span": [
+          107,
+          127
+        ]
+      },
+      {
+        "trigger": [
+          221,
+          224
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          225,
+          246
+        ],
+        "status_span": [
+          221,
+          246
+        ]
+      },
+      {
+        "trigger": [
+          330,
+          339
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          340,
+          356
+        ],
+        "status_span": [
+          328,
+          356
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [
+      {
+        "before": 2,
+        "after": 1,
+        "cue": [
+          367,
+          378
+        ]
+      }
+    ],
+    "audit_note": "",
+    "paragraph_length": 381,
+    "paragraph_sha256": "b792e1415f97e82483d4497477c874310fb51005413295a220db989f2174f355"
+  },
+  {
+    "id": "train-39",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4328293596",
+    "source_offset": 755,
+    "old_id": "b696061c03144117",
+    "legacy_span": [
+      9,
+      41
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "46bd6027e98bf20012062dfd45b79cd5444b0b57fb1bfb8b88de0289bf63e6cb",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          9,
+          16
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          17,
+          41
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Generic effectiveness statement with no explicit performance trial.",
+    "paragraph_length": 151,
+    "paragraph_sha256": "3048c4a2845c3a9c6d9370835a0a9ec76eaa483c8dce06eb31be2b75dc2ea1bc"
+  },
+  {
+    "id": "train-40",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4466502465",
+    "source_offset": 0,
+    "old_id": "e69bb492a3c4e664",
+    "legacy_span": [
+      190,
+      217
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "mixed",
+    "source_sha256": "0584619ce45ccf261292544c96f0ca23d7459baa2e6c85e28c478e6375654f95",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          190,
+          202
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": null,
+        "status_span": [
+          170,
+          202
+        ]
+      },
+      {
+        "trigger": [
+          204,
+          217
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": null,
+        "status_span": [
+          170,
+          217
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          240,
+          254
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint workaround, temporary benefit; later repeat and menu reproduction are separate scoped descriptions.",
+    "paragraph_length": 741,
+    "paragraph_sha256": "0584619ce45ccf261292544c96f0ca23d7459baa2e6c85e28c478e6375654f95"
+  },
+  {
+    "id": "train-41",
+    "app_id": "1091500",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742271223",
+    "source_offset": 0,
+    "old_id": "9f7c936cdf643e7c",
+    "legacy_span": [
+      104,
+      162
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "f37cc9177c38c8bba26544a0c1243395c602bc38706e287f32afc956c9473788",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          104,
+          111
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          120,
+          162
+        ],
+        "status_span": [
+          91,
+          116
+        ]
+      },
+      {
+        "trigger": [
+          283,
+          289
+        ],
+        "status": "negated",
+        "direction": "update",
+        "target": [
+          293,
+          316
+        ],
+        "status_span": [
+          254,
+          289
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          163,
+          174
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Package-manager transcript is not an executed community instruction.",
+    "paragraph_length": 815,
+    "paragraph_sha256": "f37cc9177c38c8bba26544a0c1243395c602bc38706e287f32afc956c9473788"
+  },
+  {
+    "id": "train-42",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4758927666",
+    "source_offset": 269,
+    "old_id": "d85b44d4f8e62a32",
+    "legacy_span": [
+      291,
+      310
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "241cecc2c99c7cf38884d708755acb1499ab4fc1f4c126ccfbfe90f90eb0ea0a",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          291,
+          299
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          303,
+          310
+        ],
+        "status_span": [
+          289,
+          310
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          366,
+          428
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Some crashes fixed, not universal success.",
+    "paragraph_length": 462,
+    "paragraph_sha256": "ca0385d45e34baee79875df07bd29c55e6b11b9fc954fa297bcec97b82c6d282"
+  },
+  {
+    "id": "train-43",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4313185717",
+    "source_offset": 92,
+    "old_id": "861bd2a98a930dd0",
+    "legacy_span": [
+      64,
+      92
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "efa0c50a680a9ad755959d320d7250afac6f7d74df6e7b7ff0e7fc00980a4ad0",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Variable identification, not an executed action.",
+    "paragraph_length": 93,
+    "paragraph_sha256": "85dc2eaac393e029899b7b4719299ab88c09f84d2215c58dbe104f98d4a052eb"
+  },
+  {
+    "id": "train-44",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-418545605",
+    "source_offset": 0,
+    "old_id": "83361f9b779a74a1",
+    "legacy_span": [
+      60,
+      79
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "52b2a36f0b3ebdf696bc6780556e91f0c8846af526a562d23f613c62969b4e40",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          60,
+          66
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          67,
+          79
+        ],
+        "status_span": [
+          48,
+          79
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 132,
+    "paragraph_sha256": "52b2a36f0b3ebdf696bc6780556e91f0c8846af526a562d23f613c62969b4e40"
+  },
+  {
+    "id": "dev-0",
+    "app_id": "782330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3654#issuecomment-609432851",
+    "source_offset": 0,
+    "old_id": "784a14a792ae4db4",
+    "legacy_span": [
+      534,
+      545
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "8be3e5734267bd4dabf7b950d7b12e0ca37b21f1a0cef5ee408738de74158a5c",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          29,
+          37
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          38,
+          44
+        ],
+        "status_span": [
+          7,
+          44
+        ]
+      },
+      {
+        "trigger": [
+          241,
+          248
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          250,
+          283
+        ],
+        "status_span": [
+          237,
+          248
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Instructions and shell blocks remain data, not performed steps.",
+    "paragraph_length": 809,
+    "paragraph_sha256": "8be3e5734267bd4dabf7b950d7b12e0ca37b21f1a0cef5ee408738de74158a5c"
+  },
+  {
+    "id": "dev-1",
+    "app_id": "814380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-475911174",
+    "source_offset": 0,
+    "old_id": "566fbbf0266a4841",
+    "legacy_span": [
+      46,
+      181
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "566fbbf0266a4841afb19e80dca20ab9f37658446a7c565f5552e43e2f27ffb2",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          46,
+          53
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": null,
+        "status_span": null
+      },
+      {
+        "trigger": [
+          118,
+          125
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": null,
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Two mentions of one update, not independent confirmations; no coreference claim.",
+    "paragraph_length": 202,
+    "paragraph_sha256": "566fbbf0266a4841afb19e80dca20ab9f37658446a7c565f5552e43e2f27ffb2"
+  },
+  {
+    "id": "dev-2",
+    "app_id": "1716740",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1702150856",
+    "source_offset": 0,
+    "old_id": "e23cc9ba2aef3ed9",
+    "legacy_span": [
+      0,
+      105
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "mixed",
+    "source_sha256": "e68ebe50e2ee92b8167d1d64a6f59fe5842984eb00083b3f139e3fa15251b9ee",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          10
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          11,
+          33
+        ],
+        "status_span": [
+          0,
+          33
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          178,
+          241
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Startup benefit only; no claim of performance optimization.",
+    "paragraph_length": 242,
+    "paragraph_sha256": "e68ebe50e2ee92b8167d1d64a6f59fe5842984eb00083b3f139e3fa15251b9ee"
+  },
+  {
+    "id": "dev-3",
+    "app_id": "1172380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3224#issuecomment-1037948028",
+    "source_offset": 0,
+    "old_id": "149aa2fe4e58caf5",
+    "legacy_span": [
+      15,
+      52
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "149aa2fe4e58caf55fb4a2dfb61335df9ceee94abdf34a04249e58b3382b3288",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          15,
+          23
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          27,
+          35
+        ],
+        "status_span": [
+          7,
+          52
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 53,
+    "paragraph_sha256": "149aa2fe4e58caf55fb4a2dfb61335df9ceee94abdf34a04249e58b3382b3288"
+  },
+  {
+    "id": "dev-4",
+    "app_id": "1252330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5156#issuecomment-934757403",
+    "source_offset": 0,
+    "old_id": "3001e138e73cdd0f",
+    "legacy_span": [
+      197,
+      266
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "f00ca1b4d00b256303659399fcb32985c8572a9872784e158dbc36c7740c1c32",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          197,
+          204
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          205,
+          215
+        ],
+        "status_span": [
+          185,
+          215
+        ]
+      },
+      {
+        "trigger": [
+          248,
+          255
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          256,
+          266
+        ],
+        "status_span": [
+          248,
+          266
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          132,
+          168
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint attempts; negative observation precedes wording but describes their retained failure.",
+    "paragraph_length": 269,
+    "paragraph_sha256": "f00ca1b4d00b256303659399fcb32985c8572a9872784e158dbc36c7740c1c32"
+  },
+  {
+    "id": "dev-5",
+    "app_id": "275850",
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-487784596",
+    "source_offset": 0,
+    "old_id": "a213959138edcc28",
+    "legacy_span": [
+      28,
+      48
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "1aec995bfffe463ea2ab217a0b342dd0b53a98d291fb2a26243235e0683c2519",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          11,
+          16
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          22,
+          48
+        ],
+        "status_span": [
+          0,
+          16
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 78,
+    "paragraph_sha256": "1aec995bfffe463ea2ab217a0b342dd0b53a98d291fb2a26243235e0683c2519"
+  },
+  {
+    "id": "dev-6",
+    "app_id": "2515020",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-2568481221",
+    "source_offset": 0,
+    "old_id": "2e6c75ce5a6aafe2",
+    "legacy_span": [
+      200,
+      300
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "2fff1ad9b907aefe865eee3bd7ca42a9355d3e681c45baf42a73983eb2facb86",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          218,
+          223
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          229,
+          259
+        ],
+        "status_span": [
+          216,
+          259
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          261,
+          300
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Explicit later trial concerns Indiana Jones, a different game; exclude from this AppID.",
+    "paragraph_length": 537,
+    "paragraph_sha256": "2fff1ad9b907aefe865eee3bd7ca42a9355d3e681c45baf42a73983eb2facb86"
+  },
+  {
+    "id": "dev-7",
+    "app_id": "1888930",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1493721962",
+    "source_offset": 0,
+    "old_id": "778216d632c234fc",
+    "legacy_span": [
+      31,
+      211
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "6c4cbf3a2c2b595e908cfb88605fb48e0acc04d74424291c65afffa79939c552",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          53,
+          60
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          31,
+          52
+        ],
+        "status_span": [
+          31,
+          60
+        ]
+      },
+      {
+        "trigger": [
+          122,
+          131
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          132,
+          153
+        ],
+        "status_span": [
+          107,
+          131
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          25
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          271,
+          296
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 447,
+    "paragraph_sha256": "6c4cbf3a2c2b595e908cfb88605fb48e0acc04d74424291c65afffa79939c552"
+  },
+  {
+    "id": "dev-8",
+    "app_id": "782330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3654#issuecomment-601645082",
+    "source_offset": 0,
+    "old_id": "9f0d4928e82f6fca",
+    "legacy_span": [
+      18,
+      58
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "9f0d4928e82f6fca8e93e6d0b341ca6c8fc482f4842e2fdce35867737d2423c7",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          18,
+          25
+        ],
+        "status": "unknown",
+        "direction": "enable",
+        "target": [
+          0,
+          13
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Generic mechanism, not a reported executed configuration change.",
+    "paragraph_length": 58,
+    "paragraph_sha256": "9f0d4928e82f6fca8e93e6d0b341ca6c8fc482f4842e2fdce35867737d2423c7"
+  },
+  {
+    "id": "dev-9",
+    "app_id": "814380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-477399240",
+    "source_offset": 0,
+    "old_id": "274ffe34ed02684a",
+    "legacy_span": [
+      72,
+      87
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "d39bd999d2cdcbb781e66dd5d477de3cde725932c44b41a2dfa0532b3d854cce",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          36,
+          41
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          50,
+          56
+        ],
+        "status_span": [
+          34,
+          56
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          61,
+          87
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 89,
+    "paragraph_sha256": "d39bd999d2cdcbb781e66dd5d477de3cde725932c44b41a2dfa0532b3d854cce"
+  },
+  {
+    "id": "dev-10",
+    "app_id": "1716740",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1702133026",
+    "source_offset": 0,
+    "old_id": "d448e531e6ecc191",
+    "legacy_span": [
+      113,
+      122
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "d448e531e6ecc1916384d6850cdc2baef271f41aaeef23dc5d2c288d5e95ef30",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          113,
+          122
+        ],
+        "status": "preexisting",
+        "direction": "install",
+        "target": [
+          79,
+          94
+        ],
+        "status_span": [
+          79,
+          122
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          49,
+          73
+        ],
+        "outcome": "unknown",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unknown command identity; existing drivers do not prove the install happened now.",
+    "paragraph_length": 123,
+    "paragraph_sha256": "d448e531e6ecc1916384d6850cdc2baef271f41aaeef23dc5d2c288d5e95ef30"
+  },
+  {
+    "id": "dev-11",
+    "app_id": "1172380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3224#issuecomment-613049422",
+    "source_offset": 0,
+    "old_id": "356bc7577e964d67",
+    "legacy_span": [
+      336,
+      373
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "a93928dcca22e7734add759231dc1ad3a099b4eda7eedb7a367a5c630405ad4d",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          28,
+          36
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          17,
+          36
+        ]
+      },
+      {
+        "trigger": [
+          38,
+          47
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          48,
+          59
+        ],
+        "status_span": [
+          38,
+          59
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          119,
+          139
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint physical intervention; no software execution authority.",
+    "paragraph_length": 376,
+    "paragraph_sha256": "a93928dcca22e7734add759231dc1ad3a099b4eda7eedb7a367a5c630405ad4d"
+  },
+  {
+    "id": "dev-12",
+    "app_id": "1252330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5156#issuecomment-2518107142",
+    "source_offset": 0,
+    "old_id": "c3365e4c449ab4a2",
+    "legacy_span": [
+      67,
+      89
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "c3365e4c449ab4a230159b89160e0a3bc963ecab92724819d85d638647269eae",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          27,
+          30
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          31,
+          43
+        ],
+        "status_span": [
+          20,
+          48
+        ]
+      },
+      {
+        "trigger": [
+          67,
+          73
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": null,
+        "status_span": [
+          53,
+          78
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Third-person trial followed by a decision, not proof the second action occurred.",
+    "paragraph_length": 89,
+    "paragraph_sha256": "c3365e4c449ab4a230159b89160e0a3bc963ecab92724819d85d638647269eae"
+  },
+  {
+    "id": "dev-13",
+    "app_id": "275850",
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-488242775",
+    "source_offset": 0,
+    "old_id": "5b5e20004b73f645",
+    "legacy_span": [
+      75,
+      168
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "5b5e20004b73f645e78e2fcdc40308e11ad754516550b9aa1f0700dec3865326",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          70,
+          73
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          75,
+          104
+        ],
+        "status_span": [
+          62,
+          73
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "paragraph_length": 169,
+    "paragraph_sha256": "5b5e20004b73f645e78e2fcdc40308e11ad754516550b9aa1f0700dec3865326"
+  },
+  {
+    "id": "dev-14",
+    "app_id": "2515020",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-3340810683",
+    "source_offset": 595,
+    "old_id": "9be408f6974419e6",
+    "legacy_span": [
+      464,
+      567
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "worsened",
+    "source_sha256": "2dec049618b4194ea3752a298d396b1d711db28fd5abcdaa5c644a48e4906f7f",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          464,
+          471
+        ],
+        "status": "unknown",
+        "direction": "enable",
+        "target": [
+          453,
+          463
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Performance claim, but activation as a new executed action is not established.",
+    "paragraph_length": 568,
+    "paragraph_sha256": "8acc8d2f5463465d39fd7683723e526460153e2b7ce10e1cb35322e09bcc5208"
+  },
+  {
+    "id": "dev-15",
+    "app_id": "1888930",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-2181237933",
+    "source_offset": 0,
+    "old_id": "d86ebd0be540974a",
+    "legacy_span": [
+      145,
+      170
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "positive",
+    "source_sha256": "89e7d412cbe7364ab9fd445fcb484f0a4f97e27b2be4f17180c2a25d5c19068d",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          145,
+          169
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          145,
+          169
+        ],
+        "status_span": [
+          105,
+          143
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          105,
+          143
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Configuration use asserted by the result, not an inferred driver identity.",
+    "paragraph_length": 413,
+    "paragraph_sha256": "89e7d412cbe7364ab9fd445fcb484f0a4f97e27b2be4f17180c2a25d5c19068d"
+  },
+  {
+    "id": "dev-16",
+    "app_id": "782330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3654#issuecomment-612002236",
+    "source_offset": 0,
+    "old_id": "bbd2352118c1ad17",
+    "legacy_span": [
+      447,
+      515
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "4d3849dc555865f6ab13a80e8a16ccd3b3c361e0b33798d5881c1e7e0a3dca43",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Browser extension procedure is unrelated to the game; no game fix event.",
+    "paragraph_length": 591,
+    "paragraph_sha256": "4d3849dc555865f6ab13a80e8a16ccd3b3c361e0b33798d5881c1e7e0a3dca43"
+  },
+  {
+    "id": "dev-17",
+    "app_id": "814380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-475644953",
+    "source_offset": 0,
+    "old_id": "eddec97fed57ca00",
+    "legacy_span": [
+      94,
+      165
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "b43943605399ddd2e244e4087c4bbbd62fb8fbc41d825c79a688bf0990e0610b",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          10
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          16,
+          48
+        ],
+        "status_span": [
+          0,
+          48
+        ]
+      },
+      {
+        "trigger": [
+          226,
+          235
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          215,
+          235
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          54,
+          80
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Several past trials; other game comparisons are not fixes for Sekiro.",
+    "paragraph_length": 480,
+    "paragraph_sha256": "b43943605399ddd2e244e4087c4bbbd62fb8fbc41d825c79a688bf0990e0610b"
+  },
+  {
+    "id": "dev-18",
+    "app_id": "1716740",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1702684280",
+    "source_offset": 0,
+    "old_id": "a25a0262631d839f",
+    "legacy_span": [
+      748,
+      854
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "afb422fc6d407fdb5167a79a110e72a17e08d9696193bc2666691ae4bc1f9360",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          748,
+          759
+        ],
+        "status": "negated",
+        "direction": "update",
+        "target": [
+          763,
+          776
+        ],
+        "status_span": [
+          731,
+          759
+        ]
+      },
+      {
+        "trigger": [
+          923,
+          928
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          929,
+          951
+        ],
+        "status_span": [
+          906,
+          928
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted actions are excluded; a question about past attempts is not a confirmed trial.",
+    "paragraph_length": 975,
+    "paragraph_sha256": "afb422fc6d407fdb5167a79a110e72a17e08d9696193bc2666691ae4bc1f9360"
+  },
+  {
+    "id": "dev-19",
+    "app_id": "1172380",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3224#issuecomment-635988786",
+    "source_offset": 0,
+    "old_id": "cff3483818439851",
+    "legacy_span": [
+      15,
+      56
+    ],
+    "legacy_modality": "tested",
+    "legacy_outcome": "not-resolved",
+    "source_sha256": "3471a74ff4eabdabcfe0e9e42287a47bc9d66852f1eb403ab132600ade86bef2",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          15,
+          22
+        ],
+        "status": "negated",
+        "direction": "install",
+        "target": null,
+        "status_span": [
+          0,
+          22
+        ]
+      },
+      {
+        "trigger": [
+          58,
+          63
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          84,
+          87
+        ],
+        "status_span": [
+          58,
+          87
+        ]
+      },
+      {
+        "trigger": [
+          480,
+          486
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          487,
+          489
+        ],
+        "status_span": [
+          466,
+          489
+        ]
+      },
+      {
+        "trigger": [
+          737,
+          741
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          723,
+          736
+        ],
+        "status_span": [
+          706,
+          741
+        ]
+      },
+      {
+        "trigger": [
+          814,
+          817
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          818,
+          825
+        ],
+        "status_span": [
+          805,
+          825
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Installer-internal repeated attempts are observations, not completed user installation. No exact failed-fix association inferred.",
+    "paragraph_length": 1012,
+    "paragraph_sha256": "3471a74ff4eabdabcfe0e9e42287a47bc9d66852f1eb403ab132600ade86bef2"
+  },
+  {
+    "id": "dev-20",
+    "app_id": "1252330",
+    "url": "https://github.com/ValveSoftware/Proton/issues/5156#issuecomment-927390494",
+    "source_offset": 0,
+    "old_id": "6ce05ad25e12bc0c",
+    "legacy_span": [
+      460,
+      542
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "1277bad1e6c27b721bb329f9a0f7ae5d8712eb375cb19e2759545634284af16d",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Literal log errors and diagnostic questions, no executed corrective action.",
+    "paragraph_length": 696,
+    "paragraph_sha256": "1277bad1e6c27b721bb329f9a0f7ae5d8712eb375cb19e2759545634284af16d"
+  },
+  {
+    "id": "dev-21",
+    "app_id": "275850",
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483869526",
+    "source_offset": 0,
+    "old_id": "3ceb89747dd491b6",
+    "legacy_span": [
+      19,
+      154
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "3ceb89747dd491b61912b79c405681c04f3652d1046913d978ba6bd5e0f064bf",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Talos Principle report in NMS thread; do not attribute its update/performance to NMS.",
+    "paragraph_length": 215,
+    "paragraph_sha256": "3ceb89747dd491b61912b79c405681c04f3652d1046913d978ba6bd5e0f064bf"
+  },
+  {
+    "id": "dev-22",
+    "app_id": "2515020",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-3342115976",
+    "source_offset": 0,
+    "old_id": "bd0d3992b2c1cdf1",
+    "legacy_span": [
+      256,
+      327
+    ],
+    "legacy_modality": "suggested",
+    "legacy_outcome": "unknown",
+    "source_sha256": "6f676cad510c71124eaf60acd22f75f887d23d7711f5e453b95cdc850cab1775",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          63,
+          71
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          72,
+          92
+        ],
+        "status_span": [
+          60,
+          103
+        ]
+      },
+      {
+        "trigger": [
+          225,
+          231
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          232,
+          263
+        ],
+        "status_span": [
+          210,
+          231
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          93,
+          160
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Future Ultra reproduction is not a successful tested action.",
+    "paragraph_length": 328,
+    "paragraph_sha256": "6f676cad510c71124eaf60acd22f75f887d23d7711f5e453b95cdc850cab1775"
+  },
+  {
+    "id": "dev-23",
+    "app_id": "1888930",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-2552432908",
+    "source_offset": 0,
+    "old_id": "1afd34b92e88374f",
+    "legacy_span": [
+      519,
+      548
+    ],
+    "legacy_modality": "unknown",
+    "legacy_outcome": "unknown",
+    "source_sha256": "3142ae71cda819f3d3918354b3d52ba17249d8673a137d059f755a4f3abd718c",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Retraction and discussion of custom-build uncertainty; no supported new user procedure in this paragraph.",
+    "paragraph_length": 978,
+    "paragraph_sha256": "3142ae71cda819f3d3918354b3d52ba17249d8673a137d059f755a4f3abd718c"
+  }
+]

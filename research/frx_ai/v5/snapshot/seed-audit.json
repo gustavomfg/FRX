@@ -1,0 +1,9 @@
+{
+  "initial": "a828f46af2cab2b30ca7b1d34176dfecb9d82ce618de4a3af0ce6bcf8ba0d705",
+  "after_cold_parser": "61f2e1c8c07a04cfc2d8b9ad680ab053bac2f198d0a5715da289c49d68b50fd2",
+  "after_cache_hit": "a828f46af2cab2b30ca7b1d34176dfecb9d82ce618de4a3af0ce6bcf8ba0d705",
+  "cold_parser_changes_rng": true,
+  "cache_hit_changes_rng": false,
+  "quality_evaluation": false,
+  "conclusion": "Seed reset must happen after parser feature extraction, immediately before constructing the trainable model."
+}

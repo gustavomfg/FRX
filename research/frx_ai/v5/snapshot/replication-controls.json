@@ -1,0 +1,157 @@
+[
+  {
+    "record": {
+      "id": "replication/A5-audited-data",
+      "kind": "encoder-reproduction-control",
+      "seconds": 130.52223947399943,
+      "selected_epoch": 5,
+      "correct": 23,
+      "accepted": 40,
+      "real_events": 127,
+      "seed_after_encoding": false
+    },
+    "run": {
+      "name": "A5-audited-data",
+      "config": {
+        "synthetic": 120,
+        "scope": "sentence",
+        "features": true,
+        "selector": "coverage",
+        "extra": true
+      },
+      "real_training_events": 127,
+      "synthetic_training_events": 120,
+      "seconds": 130.52223947399943,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.057508939788455,
+          "supplied_span_accuracy": 0.171875,
+          "performed_claims": 0,
+          "performed_correct": 0,
+          "selection_score": 0
+        },
+        {
+          "epoch": 2,
+          "loss": 0.9646117971056983,
+          "supplied_span_accuracy": 0.1875,
+          "performed_claims": 4,
+          "performed_correct": 1,
+          "selection_score": 0.054054054054054064
+        },
+        {
+          "epoch": 3,
+          "loss": 0.8528549444107782,
+          "supplied_span_accuracy": 0.265625,
+          "performed_claims": 7,
+          "performed_correct": 3,
+          "selection_score": 0.15000000000000002
+        },
+        {
+          "epoch": 4,
+          "loss": 0.7227992954708281,
+          "supplied_span_accuracy": 0.375,
+          "performed_claims": 30,
+          "performed_correct": 15,
+          "selection_score": 0.47619047619047616
+        },
+        {
+          "epoch": 5,
+          "loss": 0.5874541643119994,
+          "supplied_span_accuracy": 0.46875,
+          "performed_claims": 40,
+          "performed_correct": 23,
+          "selection_score": 0.6301369863013698
+        },
+        {
+          "epoch": 6,
+          "loss": 0.4708485787823087,
+          "supplied_span_accuracy": 0.421875,
+          "performed_claims": 40,
+          "performed_correct": 21,
+          "selection_score": 0.5753424657534246
+        }
+      ],
+      "seed": 55,
+      "quality": "agent-provisional labels; supplied-trigger development control; not end-to-end extraction"
+    }
+  },
+  {
+    "record": {
+      "id": "replication/A6-seed-control",
+      "kind": "encoder-reproduction-control",
+      "seconds": 109.53203754400056,
+      "selected_epoch": 6,
+      "correct": 21,
+      "accepted": 37,
+      "real_events": 127,
+      "seed_after_encoding": true
+    },
+    "run": {
+      "name": "A6-seed-control",
+      "config": {
+        "synthetic": 120,
+        "scope": "sentence",
+        "features": true,
+        "selector": "coverage",
+        "extra": true,
+        "seed_after_encoding": true
+      },
+      "real_training_events": 127,
+      "synthetic_training_events": 120,
+      "seconds": 109.53203754400056,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.048884684131259,
+          "supplied_span_accuracy": 0.171875,
+          "performed_claims": 0,
+          "performed_correct": 0,
+          "selection_score": 0
+        },
+        {
+          "epoch": 2,
+          "loss": 0.9663553464980352,
+          "supplied_span_accuracy": 0.21875,
+          "performed_claims": 4,
+          "performed_correct": 3,
+          "selection_score": 0.16216216216216214
+        },
+        {
+          "epoch": 3,
+          "loss": 0.8474361499150594,
+          "supplied_span_accuracy": 0.359375,
+          "performed_claims": 19,
+          "performed_correct": 10,
+          "selection_score": 0.38461538461538464
+        },
+        {
+          "epoch": 4,
+          "loss": 0.7133374696686154,
+          "supplied_span_accuracy": 0.40625,
+          "performed_claims": 37,
+          "performed_correct": 19,
+          "selection_score": 0.5428571428571428
+        },
+        {
+          "epoch": 5,
+          "loss": 0.5754192854676928,
+          "supplied_span_accuracy": 0.4375,
+          "performed_claims": 38,
+          "performed_correct": 20,
+          "selection_score": 0.5633802816901409
+        },
+        {
+          "epoch": 6,
+          "loss": 0.45913272599379223,
+          "supplied_span_accuracy": 0.484375,
+          "performed_claims": 37,
+          "performed_correct": 21,
+          "selection_score": 0.6000000000000001
+        }
+      ],
+      "seed": 55,
+      "quality": "agent-provisional labels; supplied-trigger development control; not end-to-end extraction"
+    }
+  }
+]

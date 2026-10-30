@@ -1,0 +1,45 @@
+{
+  "cpu_only": true,
+  "processes": [
+    {
+      "kind": "stanza",
+      "artifact_validation_seconds": 0.1568452370001978,
+      "cold_first_request_seconds": 3.4920834679996915,
+      "uncached_warm": {
+        "median_ms": 125.37844199960091,
+        "p95_ms": 329.1677939996589
+      },
+      "cached": {
+        "median_ms": 0.47047200041561155,
+        "p95_ms": 1.666192999437044
+      },
+      "requests": 16,
+      "max_rss_mib": 729.125,
+      "quality_evaluation": false
+    },
+    {
+      "kind": "compact",
+      "artifact_validation_seconds": 0.011807287000010547,
+      "cold_first_request_seconds": 1.5290438250003717,
+      "uncached_warm": {
+        "median_ms": 6.4144609996219515,
+        "p95_ms": 14.037758000085887
+      },
+      "cached": {
+        "median_ms": 0.4718215004686499,
+        "p95_ms": 2.118289999998524
+      },
+      "requests": 16,
+      "max_rss_mib": 335.796875,
+      "quality_evaluation": false
+    }
+  ],
+  "stanza_model_bytes": 242912160,
+  "compact_installed_model_bytes": 15231350,
+  "limitations": [
+    "Warm process is not cold OS page-cache benchmark.",
+    "Python/Torch packages are not part of reported model bytes.",
+    "Disk parse cache timings are reported separately from inference.",
+    "No Rust integration or installer packaging benchmark."
+  ]
+}

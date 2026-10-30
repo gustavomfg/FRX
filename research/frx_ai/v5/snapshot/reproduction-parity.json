@@ -1,0 +1,12 @@
+{
+  "status": "known-source offline reconstruction, not independent evaluation",
+  "identical_metrics": true,
+  "variants": [
+    "v5-selected",
+    "syntax-initial-control",
+    "compact-challenger",
+    "v4-verified",
+    "v4-lexical"
+  ],
+  "network_requests": 0
+}

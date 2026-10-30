@@ -1,0 +1,329 @@
+[
+  {
+    "id": "final-1",
+    "trigger": [
+      77,
+      84
+    ],
+    "gold_status": "preexisting",
+    "type": "false-performed",
+    "url": "https://github.com/ValveSoftware/Proton/issues/251#issuecomment-520824576",
+    "source_sha256": "21ff10dcdd62463f997e4c63c28f8351bbaa7c92439b8f405e91c1521f7658d4",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-37",
+    "span": [
+      137,
+      163
+    ],
+    "outcome": "improved",
+    "type": "unmatched-result-association",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2034705834",
+    "source_sha256": "c411524f23300365533d92c073aa3ec250a7c277f4129ca2583be0fdd2c10dff",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-38",
+    "trigger": [
+      185,
+      190
+    ],
+    "gold_status": "preexisting",
+    "type": "false-performed",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2017436890",
+    "source_sha256": "751310dfeb5bdf1017d3022914a2a257a835abe1179ffd6773f59e2de7375148",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-38",
+    "span": [
+      198,
+      221
+    ],
+    "outcome": "regression",
+    "type": "unmatched-result-association",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2017436890",
+    "source_sha256": "751310dfeb5bdf1017d3022914a2a257a835abe1179ffd6773f59e2de7375148",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-40",
+    "trigger": [
+      90,
+      99
+    ],
+    "gold_status": "preexisting",
+    "type": "false-performed",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2028958455",
+    "source_sha256": "8a3d93ebcb73805e31378cb5c9f5ce24b3bc2ea9eaaf94490c72243513a57518",
+    "unit_offset": 93,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-48",
+    "trigger": [
+      534,
+      537
+    ],
+    "gold_status": "unknown",
+    "type": "false-performed",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1520087609",
+    "source_sha256": "78978a87a9ab57d798a22b4e2e04a9208ab94cebdaca5d773d29e483696e98f3",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-48",
+    "span": [
+      557,
+      573
+    ],
+    "outcome": "persistent",
+    "type": "unmatched-result-association",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1520087609",
+    "source_sha256": "78978a87a9ab57d798a22b4e2e04a9208ab94cebdaca5d773d29e483696e98f3",
+    "unit_offset": 0,
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-48",
+    "reason": "cross-game coreference",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1520087609",
+    "source_sha256": "78978a87a9ab57d798a22b4e2e04a9208ab94cebdaca5d773d29e483696e98f3",
+    "unit_offset": 0,
+    "events": [
+      {
+        "trigger": [
+          127,
+          132
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          133,
+          163
+        ],
+        "status_span": [
+          121,
+          132
+        ]
+      },
+      {
+        "trigger": [
+          267,
+          272
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          273,
+          290
+        ],
+        "status_span": [
+          262,
+          290
+        ],
+        "scope_app_id": "1151640",
+        "scope": "other-game"
+      },
+      {
+        "trigger": [
+          377,
+          382
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          383,
+          394
+        ],
+        "status_span": [
+          372,
+          394
+        ],
+        "scope_app_id": null,
+        "scope": "other-unidentified-games"
+      },
+      {
+        "trigger": [
+          477,
+          482
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          488,
+          506
+        ],
+        "status_span": [
+          467,
+          506
+        ]
+      },
+      {
+        "trigger": [
+          534,
+          537
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          543,
+          555
+        ],
+        "status_span": [
+          529,
+          555
+        ]
+      }
+    ],
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-17",
+    "reason": "joint result ownership",
+    "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-454453738",
+    "source_sha256": "8dfb5fd1f71f546e24778bd0897d392d5d98727f3bb3e6716885bdc059fb0a9f",
+    "unit_offset": 0,
+    "events": [
+      {
+        "trigger": [
+          56,
+          67
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          68,
+          80
+        ],
+        "status_span": [
+          54,
+          67
+        ]
+      },
+      {
+        "trigger": [
+          85,
+          93
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          102,
+          115
+        ],
+        "status_span": [
+          85,
+          115
+        ]
+      }
+    ],
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-29",
+    "reason": "joint tentative improvement",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8260#issuecomment-2497007055",
+    "source_sha256": "db14fbc014e83896652ed77f6940401f71078a41cc28c29175d736047d57bef9",
+    "unit_offset": 426,
+    "events": [
+      {
+        "trigger": [
+          14,
+          23
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          24,
+          45
+        ],
+        "status_span": [
+          12,
+          23
+        ]
+      },
+      {
+        "trigger": [
+          55,
+          61
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          66,
+          80
+        ],
+        "status_span": [
+          55,
+          80
+        ]
+      },
+      {
+        "trigger": [
+          213,
+          220
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": [
+          234,
+          256
+        ],
+        "status_span": [
+          192,
+          220
+        ]
+      }
+    ],
+    "review_status": "awaiting-independent-human-review"
+  },
+  {
+    "id": "final-62",
+    "reason": "required versus actually performed deletion",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-1674108662",
+    "source_sha256": "137c02fa2949323d71bd737a3c576924c4ac403345bf8aa6c1ed53b5dbd9f8fd",
+    "unit_offset": 197,
+    "events": [
+      {
+        "trigger": [
+          64,
+          68
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          69,
+          77
+        ],
+        "status_span": [
+          54,
+          77
+        ]
+      },
+      {
+        "trigger": [
+          175,
+          183
+        ],
+        "status": "unknown",
+        "direction": "remove",
+        "target": [
+          184,
+          194
+        ],
+        "status_span": [
+          163,
+          183
+        ]
+      }
+    ],
+    "review_status": "awaiting-independent-human-review"
+  }
+]

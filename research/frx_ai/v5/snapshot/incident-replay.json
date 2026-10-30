@@ -1,0 +1,178 @@
+{
+  "status": "known-source demonstrations plus controlled telemetry/context replay; not new real-game validation",
+  "records": [
+    {
+      "id": "suggested-not-performed",
+      "kind": "historical-community-demonstration; not-local-telemetry",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "failed-trial",
+      "kind": "historical-community-demonstration; not-local-telemetry",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "reported-regression",
+      "kind": "historical-community-demonstration; not-local-telemetry",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "joint-procedure",
+      "kind": "historical-community-demonstration; not-local-telemetry",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "dependency-function",
+      "kind": "historical-quoted-log; not-local-telemetry",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        },
+        {
+          "expected": "verify-component-function-version",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "verify-component-function-version",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "cause-unknown",
+      "kind": "controlled-symptom-only-view-of-real-report",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log",
+            "identify-proton"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    },
+    {
+      "id": "failed-context-memory",
+      "kind": "synthetic-policy-control",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": true
+    },
+    {
+      "id": "hardware-mismatch",
+      "kind": "synthetic-policy-control",
+      "steps": [
+        {
+          "expected": "collect-relevant-log",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "collect-relevant-log"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": true
+    },
+    {
+      "id": "missing-library-control",
+      "kind": "synthetic-log-control",
+      "steps": [
+        {
+          "expected": "origin:fixture.dll",
+          "top1": true,
+          "top3": true,
+          "got": [
+            "origin:fixture.dll"
+          ],
+          "unknown_cause": true
+        }
+      ],
+      "candidate_contract": null
+    }
+  ],
+  "steps": 10,
+  "next_check_top1": 10,
+  "next_check_top3": 10,
+  "unknown_cause_preserved": true,
+  "restart_retains_failed_attempt": true,
+  "driver_change_isolated": true,
+  "learned_diagnosis": false,
+  "probabilities_fitted": false,
+  "limitations": [
+    "Next-check selector is reused deterministic v3/v4 log logic.",
+    "Expected checks are agent provisional and intentionally limited.",
+    "Memory suppresses an identical reported failed attempt; it does not prove another alternative works."
+  ]
+}
