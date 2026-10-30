@@ -1,0 +1,10 @@
+{
+  "n": 24,
+  "distinct_known_sources": 8,
+  "init_seconds": 0.11218441498931497,
+  "median_seconds": 0.01766746949579101,
+  "p95_seconds": 0.019476909243530825,
+  "peak_rss_kib": 849504,
+  "torch_loaded": false,
+  "scope": "CPU four threads, repeated known public demonstrations, no network; not production latency or game performance"
+}

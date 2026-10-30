@@ -1,0 +1,17 @@
+{
+  "preexisting_files_checked": 390,
+  "preexisting_files_changed": [],
+  "v2_retriever_matches_preserved_seal": true,
+  "v3_frozen_language_retrieval_sources_unchanged": true,
+  "v1_contracts": 8,
+  "v2_contracts": 13,
+  "v3_contracts": 16,
+  "total_passed": 37,
+  "original_source_reconstruction": 95,
+  "index_empty": true,
+  "application_changes": false,
+  "steam_or_games_modified": false,
+  "game_launches": false,
+  "commits": false,
+  "push": false
+}

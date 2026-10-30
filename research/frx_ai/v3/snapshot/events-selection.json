@@ -1,0 +1,24 @@
+{
+  "modality": {
+    "name": "modality-frx-context-C3.0",
+    "mode": "frx-context",
+    "classes": [
+      "unknown",
+      "suggested",
+      "tested"
+    ],
+    "threshold": 0.8
+  },
+  "outcome": {
+    "name": "outcome-tfidf-C0.3",
+    "mode": "tfidf",
+    "classes": [
+      "unknown",
+      "positive",
+      "not-resolved",
+      "worsened",
+      "mixed"
+    ],
+    "threshold": 0.8
+  }
+}

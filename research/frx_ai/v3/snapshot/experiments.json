@@ -1,0 +1,1174 @@
+{
+  "configurations": 24,
+  "timed_stage_seconds": 9.130612674940494,
+  "timing_scope": "Recorded fitting/evaluation stages only; embedding generation, source annotation and later evaluation excluded",
+  "records": [
+    {
+      "name": "modality-tfidf-C0.3",
+      "family": "event",
+      "seconds": 0.03806875299778767,
+      "task": "modality",
+      "mode": "tfidf",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.2677945120693212,
+        "classes": {
+          "unknown": {
+            "precision": 0.3333333333333333,
+            "recall": 0.10714285714285714,
+            "f1-score": 0.16216216216216217,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.525,
+            "recall": 0.8235294117647058,
+            "f1-score": 0.6412213740458015,
+            "support": 51.0
+          },
+          "accuracy": 0.46875,
+          "macro avg": {
+            "precision": 0.28611111111111115,
+            "recall": 0.3102240896358543,
+            "f1-score": 0.2677945120693212,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.37612847222222223,
+            "recall": 0.46875,
+            "f1-score": 0.3879461522591294,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            3,
+            1,
+            24
+          ],
+          [
+            3,
+            0,
+            14
+          ],
+          [
+            3,
+            6,
+            42
+          ]
+        ],
+        "accepted": 0,
+        "correct": 0,
+        "precision": null,
+        "coverage": 0.0,
+        "false_tested": 0,
+        "false_success": null
+      }
+    },
+    {
+      "name": "modality-tfidf-C3.0",
+      "family": "event",
+      "seconds": 0.03435680099937599,
+      "task": "modality",
+      "mode": "tfidf",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.2681704260651629,
+        "classes": {
+          "unknown": {
+            "precision": 0.3,
+            "recall": 0.10714285714285714,
+            "f1-score": 0.15789473684210525,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.524390243902439,
+            "recall": 0.8431372549019608,
+            "f1-score": 0.6466165413533834,
+            "support": 51.0
+          },
+          "accuracy": 0.4791666666666667,
+          "macro avg": {
+            "precision": 0.2747967479674797,
+            "recall": 0.3167600373482726,
+            "f1-score": 0.2681704260651629,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.3660823170731708,
+            "recall": 0.4791666666666667,
+            "f1-score": 0.38956766917293234,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            3,
+            0,
+            25
+          ],
+          [
+            3,
+            0,
+            14
+          ],
+          [
+            4,
+            4,
+            43
+          ]
+        ],
+        "accepted": 13,
+        "correct": 8,
+        "precision": 0.6153846153846154,
+        "coverage": 0.13541666666666666,
+        "false_tested": 4,
+        "false_success": null
+      }
+    },
+    {
+      "name": "modality-original-context-C0.3",
+      "family": "event",
+      "seconds": 0.05399996000051033,
+      "task": "modality",
+      "mode": "original-context",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.46513056835637484,
+        "classes": {
+          "unknown": {
+            "precision": 0.6666666666666666,
+            "recall": 0.2857142857142857,
+            "f1-score": 0.4,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.36363636363636365,
+            "recall": 0.23529411764705882,
+            "f1-score": 0.2857142857142857,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.6027397260273972,
+            "recall": 0.8627450980392157,
+            "f1-score": 0.7096774193548387,
+            "support": 51.0
+          },
+          "accuracy": 0.5833333333333334,
+          "macro avg": {
+            "precision": 0.5443475854434758,
+            "recall": 0.46125116713352005,
+            "f1-score": 0.46513056835637484,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5790438632904386,
+            "recall": 0.5833333333333334,
+            "f1-score": 0.5442780337941628,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            8,
+            2,
+            18
+          ],
+          [
+            2,
+            4,
+            11
+          ],
+          [
+            2,
+            5,
+            44
+          ]
+        ],
+        "accepted": 57,
+        "correct": 40,
+        "precision": 0.7017543859649122,
+        "coverage": 0.59375,
+        "false_tested": 16,
+        "false_success": null
+      }
+    },
+    {
+      "name": "modality-original-context-C3.0",
+      "family": "event",
+      "seconds": 0.037436145008541644,
+      "task": "modality",
+      "mode": "original-context",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.44207407407407406,
+        "classes": {
+          "unknown": {
+            "precision": 0.6666666666666666,
+            "recall": 0.2857142857142857,
+            "f1-score": 0.4,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.3,
+            "recall": 0.17647058823529413,
+            "f1-score": 0.2222222222222222,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.5945945945945946,
+            "recall": 0.8627450980392157,
+            "f1-score": 0.704,
+            "support": 51.0
+          },
+          "accuracy": 0.5729166666666666,
+          "macro avg": {
+            "precision": 0.5204204204204204,
+            "recall": 0.4416433239962652,
+            "f1-score": 0.44207407407407406,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5634478228228228,
+            "recall": 0.5729166666666666,
+            "f1-score": 0.5300185185185184,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            8,
+            2,
+            18
+          ],
+          [
+            2,
+            3,
+            12
+          ],
+          [
+            2,
+            5,
+            44
+          ]
+        ],
+        "accepted": 68,
+        "correct": 44,
+        "precision": 0.6470588235294118,
+        "coverage": 0.7083333333333334,
+        "false_tested": 20,
+        "false_success": null
+      }
+    },
+    {
+      "name": "modality-frx-context-C0.3",
+      "family": "event",
+      "seconds": 0.056058432994177565,
+      "task": "modality",
+      "mode": "frx-context",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.46507936507936504,
+        "classes": {
+          "unknown": {
+            "precision": 0.6428571428571429,
+            "recall": 0.32142857142857145,
+            "f1-score": 0.42857142857142855,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.3076923076923077,
+            "recall": 0.23529411764705882,
+            "f1-score": 0.26666666666666666,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.6086956521739131,
+            "recall": 0.8235294117647058,
+            "f1-score": 0.7,
+            "support": 51.0
+          },
+          "accuracy": 0.5729166666666666,
+          "macro avg": {
+            "precision": 0.5197483675744546,
+            "recall": 0.46008403361344535,
+            "f1-score": 0.46507936507936504,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5653567447045708,
+            "recall": 0.5729166666666666,
+            "f1-score": 0.5440972222222221,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            9,
+            3,
+            16
+          ],
+          [
+            2,
+            4,
+            11
+          ],
+          [
+            3,
+            6,
+            42
+          ]
+        ],
+        "accepted": 58,
+        "correct": 40,
+        "precision": 0.6896551724137931,
+        "coverage": 0.6041666666666666,
+        "false_tested": 17,
+        "false_success": null
+      }
+    },
+    {
+      "name": "modality-frx-context-C3.0",
+      "family": "event",
+      "seconds": 0.03910295599780511,
+      "task": "modality",
+      "mode": "frx-context",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.4662161245233345,
+        "classes": {
+          "unknown": {
+            "precision": 0.6428571428571429,
+            "recall": 0.32142857142857145,
+            "f1-score": 0.42857142857142855,
+            "support": 28.0
+          },
+          "suggested": {
+            "precision": 0.3333333333333333,
+            "recall": 0.23529411764705882,
+            "f1-score": 0.27586206896551724,
+            "support": 17.0
+          },
+          "tested": {
+            "precision": 0.6,
+            "recall": 0.8235294117647058,
+            "f1-score": 0.6942148760330579,
+            "support": 51.0
+          },
+          "accuracy": 0.5729166666666666,
+          "macro avg": {
+            "precision": 0.5253968253968254,
+            "recall": 0.46008403361344535,
+            "f1-score": 0.4662161245233345,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5652777777777778,
+            "recall": 0.5729166666666666,
+            "f1-score": 0.5426522276052057,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            9,
+            2,
+            17
+          ],
+          [
+            2,
+            4,
+            11
+          ],
+          [
+            3,
+            6,
+            42
+          ]
+        ],
+        "accepted": 67,
+        "correct": 42,
+        "precision": 0.6268656716417911,
+        "coverage": 0.6979166666666666,
+        "false_tested": 21,
+        "false_success": null
+      }
+    },
+    {
+      "name": "outcome-tfidf-C0.3",
+      "family": "event",
+      "seconds": 0.021853104990441352,
+      "task": "outcome",
+      "mode": "tfidf",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.2674010828960614,
+        "classes": {
+          "unknown": {
+            "precision": 0.9032258064516129,
+            "recall": 0.4666666666666667,
+            "f1-score": 0.6153846153846154,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.15151515151515152,
+            "recall": 0.625,
+            "f1-score": 0.24390243902439024,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.2222222222222222,
+            "recall": 0.26666666666666666,
+            "f1-score": 0.24242424242424243,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.18181818181818182,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.23529411764705882,
+            "support": 6.0
+          },
+          "accuracy": 0.40625,
+          "macro avg": {
+            "precision": 0.2917562724014337,
+            "recall": 0.3383333333333333,
+            "f1-score": 0.2674010828960614,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.6232282502443793,
+            "recall": 0.40625,
+            "f1-score": 0.45752525809914624,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            28,
+            16,
+            10,
+            2,
+            4
+          ],
+          [
+            0,
+            5,
+            1,
+            0,
+            2
+          ],
+          [
+            2,
+            6,
+            4,
+            0,
+            3
+          ],
+          [
+            1,
+            3,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            0,
+            1,
+            2
+          ]
+        ],
+        "accepted": 0,
+        "correct": 0,
+        "precision": null,
+        "coverage": 0.0,
+        "false_tested": null,
+        "false_success": 0
+      }
+    },
+    {
+      "name": "outcome-tfidf-C3.0",
+      "family": "event",
+      "seconds": 0.026049093998153694,
+      "task": "outcome",
+      "mode": "tfidf",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.22654462242562928,
+        "classes": {
+          "unknown": {
+            "precision": 0.875,
+            "recall": 0.4666666666666667,
+            "f1-score": 0.6086956521739131,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.15789473684210525,
+            "recall": 0.75,
+            "f1-score": 0.2608695652173913,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.21739130434782608,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.2631578947368421,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 6.0
+          },
+          "accuracy": 0.40625,
+          "macro avg": {
+            "precision": 0.2500572082379863,
+            "recall": 0.31,
+            "f1-score": 0.22654462242562928,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5940002860411899,
+            "recall": 0.40625,
+            "f1-score": 0.44329233409610985,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            28,
+            20,
+            12,
+            0,
+            0
+          ],
+          [
+            0,
+            6,
+            1,
+            0,
+            1
+          ],
+          [
+            2,
+            6,
+            5,
+            0,
+            2
+          ],
+          [
+            2,
+            2,
+            3,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            2,
+            0,
+            0
+          ]
+        ],
+        "accepted": 0,
+        "correct": 0,
+        "precision": null,
+        "coverage": 0.0,
+        "false_tested": null,
+        "false_success": 0
+      }
+    },
+    {
+      "name": "outcome-original-context-C0.3",
+      "family": "event",
+      "seconds": 0.0695377409865614,
+      "task": "outcome",
+      "mode": "original-context",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.21346345629571378,
+        "classes": {
+          "unknown": {
+            "precision": 0.8888888888888888,
+            "recall": 0.4,
+            "f1-score": 0.5517241379310345,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.07692307692307693,
+            "recall": 0.25,
+            "f1-score": 0.11764705882352941,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.23076923076923078,
+            "recall": 0.4,
+            "f1-score": 0.2926829268292683,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.07692307692307693,
+            "recall": 0.16666666666666666,
+            "f1-score": 0.10526315789473684,
+            "support": 6.0
+          },
+          "accuracy": 0.34375,
+          "macro avg": {
+            "precision": 0.2547008547008547,
+            "recall": 0.24333333333333335,
+            "f1-score": 0.21346345629571378,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.6028311965811964,
+            "recall": 0.34375,
+            "f1-score": 0.40694216246101816,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            24,
+            11,
+            16,
+            4,
+            5
+          ],
+          [
+            2,
+            2,
+            2,
+            0,
+            2
+          ],
+          [
+            1,
+            6,
+            6,
+            0,
+            2
+          ],
+          [
+            0,
+            3,
+            1,
+            0,
+            3
+          ],
+          [
+            0,
+            4,
+            1,
+            0,
+            1
+          ]
+        ],
+        "accepted": 27,
+        "correct": 3,
+        "precision": 0.1111111111111111,
+        "coverage": 0.28125,
+        "false_tested": null,
+        "false_success": 11
+      }
+    },
+    {
+      "name": "outcome-original-context-C3.0",
+      "family": "event",
+      "seconds": 0.05177025299053639,
+      "task": "outcome",
+      "mode": "original-context",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.20822364518750228,
+        "classes": {
+          "unknown": {
+            "precision": 0.8620689655172413,
+            "recall": 0.4166666666666667,
+            "f1-score": 0.5617977528089888,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.07692307692307693,
+            "recall": 0.25,
+            "f1-score": 0.11764705882352941,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.20833333333333334,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.2564102564102564,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.07692307692307693,
+            "recall": 0.16666666666666666,
+            "f1-score": 0.10526315789473684,
+            "support": 6.0
+          },
+          "accuracy": 0.34375,
+          "macro avg": {
+            "precision": 0.24484969053934566,
+            "recall": 0.23333333333333334,
+            "f1-score": 0.20822364518750228,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5825631354995578,
+            "recall": 0.34375,
+            "f1-score": 0.407570567006769,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            25,
+            11,
+            15,
+            4,
+            5
+          ],
+          [
+            2,
+            2,
+            2,
+            0,
+            2
+          ],
+          [
+            2,
+            6,
+            5,
+            0,
+            2
+          ],
+          [
+            0,
+            3,
+            1,
+            0,
+            3
+          ],
+          [
+            0,
+            4,
+            1,
+            0,
+            1
+          ]
+        ],
+        "accepted": 37,
+        "correct": 5,
+        "precision": 0.13513513513513514,
+        "coverage": 0.3854166666666667,
+        "false_tested": null,
+        "false_success": 15
+      }
+    },
+    {
+      "name": "outcome-frx-context-C0.3",
+      "family": "event",
+      "seconds": 0.07758562499657273,
+      "task": "outcome",
+      "mode": "frx-context",
+      "C": 0.3,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.22305068833173144,
+        "classes": {
+          "unknown": {
+            "precision": 0.896551724137931,
+            "recall": 0.43333333333333335,
+            "f1-score": 0.5842696629213483,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.12,
+            "recall": 0.375,
+            "f1-score": 0.18181818181818182,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.19230769230769232,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.24390243902439024,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.07692307692307693,
+            "recall": 0.16666666666666666,
+            "f1-score": 0.10526315789473684,
+            "support": 6.0
+          },
+          "accuracy": 0.3645833333333333,
+          "macro avg": {
+            "precision": 0.2571564986737401,
+            "recall": 0.26166666666666666,
+            "f1-score": 0.22305068833173144,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.6052005968169761,
+            "recall": 0.3645833333333333,
+            "f1-score": 0.42500875794333975,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            26,
+            10,
+            16,
+            3,
+            5
+          ],
+          [
+            1,
+            3,
+            2,
+            0,
+            2
+          ],
+          [
+            1,
+            6,
+            5,
+            0,
+            3
+          ],
+          [
+            1,
+            3,
+            1,
+            0,
+            2
+          ],
+          [
+            0,
+            3,
+            2,
+            0,
+            1
+          ]
+        ],
+        "accepted": 25,
+        "correct": 4,
+        "precision": 0.16,
+        "coverage": 0.2604166666666667,
+        "false_tested": null,
+        "false_success": 11
+      }
+    },
+    {
+      "name": "outcome-frx-context-C3.0",
+      "family": "event",
+      "seconds": 0.051599721002276056,
+      "task": "outcome",
+      "mode": "frx-context",
+      "C": 3.0,
+      "dev": {
+        "n": 96,
+        "macro_f1": 0.21114479747756487,
+        "classes": {
+          "unknown": {
+            "precision": 0.8387096774193549,
+            "recall": 0.43333333333333335,
+            "f1-score": 0.5714285714285714,
+            "support": 60.0
+          },
+          "positive": {
+            "precision": 0.08695652173913043,
+            "recall": 0.25,
+            "f1-score": 0.12903225806451613,
+            "support": 8.0
+          },
+          "not-resolved": {
+            "precision": 0.2,
+            "recall": 0.3333333333333333,
+            "f1-score": 0.25,
+            "support": 15.0
+          },
+          "worsened": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 7.0
+          },
+          "mixed": {
+            "precision": 0.07692307692307693,
+            "recall": 0.16666666666666666,
+            "f1-score": 0.10526315789473684,
+            "support": 6.0
+          },
+          "accuracy": 0.3541666666666667,
+          "macro avg": {
+            "precision": 0.24051785521631244,
+            "recall": 0.23666666666666666,
+            "f1-score": 0.21114479747756487,
+            "support": 96.0
+          },
+          "weighted avg": {
+            "precision": 0.5674976175063834,
+            "recall": 0.3541666666666667,
+            "f1-score": 0.41353699268332117,
+            "support": 96.0
+          }
+        },
+        "confusion": [
+          [
+            26,
+            9,
+            16,
+            3,
+            6
+          ],
+          [
+            2,
+            2,
+            2,
+            0,
+            2
+          ],
+          [
+            2,
+            6,
+            5,
+            0,
+            2
+          ],
+          [
+            1,
+            3,
+            1,
+            0,
+            2
+          ],
+          [
+            0,
+            3,
+            1,
+            1,
+            1
+          ]
+        ],
+        "accepted": 34,
+        "correct": 4,
+        "precision": 0.11764705882352941,
+        "coverage": 0.3541666666666667,
+        "false_tested": null,
+        "false_success": 14
+      }
+    },
+    {
+      "name": "pairwise-hybrid-C0.03",
+      "family": "ranker",
+      "seconds": 0.007990924001205713,
+      "dev": {
+        "p3": 0.5128205128205128,
+        "recall5": 0.7344932844932844,
+        "ndcg5": 0.7095396000742854,
+        "mrr": 0.8062076812076813
+      },
+      "pairs": 3184,
+      "C": 0.03,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "pairwise-hybrid-C0.3",
+      "family": "ranker",
+      "seconds": 0.007466747993021272,
+      "dev": {
+        "p3": 0.5042735042735043,
+        "recall5": 0.7430402930402931,
+        "ndcg5": 0.7128756527746504,
+        "mrr": 0.806013431013431
+      },
+      "pairs": 3184,
+      "C": 0.3,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "pairwise-hybrid-C3.0",
+      "family": "ranker",
+      "seconds": 0.005849128996487707,
+      "dev": {
+        "p3": 0.5042735042735043,
+        "recall5": 0.7430402930402931,
+        "ndcg5": 0.7070732326328321,
+        "mrr": 0.7931929181929183
+      },
+      "pairs": 3184,
+      "C": 3.0,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "pairwise-window-C0.03",
+      "family": "ranker",
+      "seconds": 0.005093279993161559,
+      "dev": {
+        "p3": 0.5213675213675213,
+        "recall5": 0.7879120879120879,
+        "ndcg5": 0.7263228783776554,
+        "mrr": 0.7970085470085471
+      },
+      "pairs": 3184,
+      "C": 0.03,
+      "columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "pairwise-window-C0.3",
+      "family": "ranker",
+      "seconds": 0.006869831006042659,
+      "dev": {
+        "p3": 0.5213675213675213,
+        "recall5": 0.8007326007326007,
+        "ndcg5": 0.7261177400834526,
+        "mrr": 0.785042735042735
+      },
+      "pairs": 3184,
+      "C": 0.3,
+      "columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "pairwise-window-C3.0",
+      "family": "ranker",
+      "seconds": 0.0078993229981279,
+      "dev": {
+        "p3": 0.5213675213675213,
+        "recall5": 0.8007326007326007,
+        "ndcg5": 0.7261177400834526,
+        "mrr": 0.785042735042735
+      },
+      "pairs": 3184,
+      "C": 3.0,
+      "columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "pooled-a1",
+      "family": "simulation",
+      "seconds": 2.1860891399992397,
+      "alpha": 1.0,
+      "contextual": false,
+      "synthetic_only": true
+    },
+    {
+      "name": "context-a1",
+      "family": "simulation",
+      "seconds": 2.289711160992738,
+      "alpha": 1.0,
+      "contextual": true,
+      "synthetic_only": true
+    },
+    {
+      "name": "context-a5",
+      "family": "simulation",
+      "seconds": 2.4147032070031855,
+      "alpha": 5.0,
+      "contextual": true,
+      "synthetic_only": true
+    },
+    {
+      "name": "naive",
+      "family": "learned-structure",
+      "seconds": 0.5558918039896525
+    },
+    {
+      "name": "learned-dedup",
+      "family": "learned-structure",
+      "seconds": 0.48471571601112373
+    },
+    {
+      "name": "tree",
+      "family": "learned-structure",
+      "seconds": 0.6009138249937678
+    }
+  ]
+}

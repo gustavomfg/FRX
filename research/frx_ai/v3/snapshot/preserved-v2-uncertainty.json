@@ -1,0 +1,36 @@
+{
+  "scope": "Post-evaluation descriptive uncertainty; no model or threshold changes",
+  "comparison": "preregistered preserved-v2 baseline minus preregistered original-int8 baseline",
+  "n_games": 6,
+  "queries": 31,
+  "metrics": {
+    "p3": {
+      "gain": 0.043010752688172116,
+      "game_cluster_95_interval": [
+        -0.01075268817204301,
+        0.11111111111111112
+      ]
+    },
+    "recall5": {
+      "gain": 0.06073988735279079,
+      "game_cluster_95_interval": [
+        -0.007002801120448175,
+        0.1466845878136201
+      ]
+    },
+    "ndcg5": {
+      "gain": 0.06907968407991094,
+      "game_cluster_95_interval": [
+        0.027660573392418245,
+        0.12431212448997175
+      ]
+    },
+    "mrr": {
+      "gain": 0.02611367127496167,
+      "game_cluster_95_interval": [
+        -0.001488095238095238,
+        0.06547619047619048
+      ]
+    }
+  }
+}

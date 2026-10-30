@@ -1,0 +1,30 @@
+{
+  "created_utc": "2026-10-30T04:00:24Z",
+  "final_texts_inspected": false,
+  "final_labels_seen": false,
+  "code": {
+    "common.py": "7e452f6e8c0136d36e7ddf4434c3335ae05058c4156ae3d93ccb4199b2cebf83",
+    "events.py": "64d5a6ecf4d160038d122ea9296dd55fe552ea200f12867f260495e411e18aa2",
+    "ranking.py": "81aecc8dea150564326d24b3e8f192f21084e3cdbc25f8e72a84efdc68395cac",
+    "investigation.py": "3f66081c1162e6a917e659d778da08c5f8e0c1d56fdb2b4b9c6fe2d899b94696",
+    "simulation.py": "a1877a575b06e2cbeb90ea260dae38815b61d487ab0244098af7603dbb6023b9",
+    "prepare.py": "e0365655f81caf5fbffa3c998b348aa51f24c4091fd770195bfd0ea19f3c3e90",
+    "prototype.py": "6c0190c88b396aa4605a3a6bbb7c60d1bbfac3efd5c6bf24c7c44acdc0cadb44",
+    "seal.py": "bf4c3fc150a60880a9133f584b976350409e71e7f21d429f39e27a71a3726961",
+    "final_evaluate.py": "73612603c0d422afeb16131b701015e4293ccdf75a4bf6754a0f536dd07ae5b1",
+    "test_research.py": "bc779d6a8cb7b9e95dfce1d2af378c733ed0708d510a1cd800e94e4e48950a37",
+    "diagnostic_study.py": "f1289ac013db823b0de3351a44ab554e43ac9e7aa35e5cc2d946fdbbfa9d6050"
+  },
+  "artifacts": {
+    "events/modality.joblib": "a9178e2b1dca13bc32a8670d55b9d0f1549cde76181dc9117636da6f072881bc",
+    "events/outcome.joblib": "9078a5ff243059537d2a62bef077b1435bfda7aed4b364f37a58292ddac54a68",
+    "events/selection.json": "e9ed5271d9f9faa1837eba652daa114d24550d30e42eb20fc1ff39a064f3bac5",
+    "ranking/selection.json": "d1e7a350de20e7a5fac6d39f6d103adb6eb5417a6b65be4137f7c2f190550b41"
+  },
+  "inputs": {
+    "reservation.json": "88edd37e764688493fc70355e4828382213daf18acd1b5599f82a5090201034e",
+    "final-candidates.jsonl": "2440847e7fd5f8360088cde73f7c0a612cdd8c600af2bc7190277a2476876387"
+  },
+  "selection_uses": "v2 final is known development; v3 reservation unseen",
+  "automatic_approval": false
+}

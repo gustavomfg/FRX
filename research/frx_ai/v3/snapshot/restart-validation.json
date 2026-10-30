@@ -1,0 +1,10 @@
+{
+  "synthetic_only": true,
+  "separate_processes": 3,
+  "statuses": [
+    "previously-failed-same-context",
+    "previously-failed-same-context",
+    "investigate"
+  ],
+  "execution_authorized": false
+}

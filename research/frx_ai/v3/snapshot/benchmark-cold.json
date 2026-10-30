@@ -1,0 +1,7 @@
+{
+  "n": 5,
+  "median_cold_process_seconds": 0.9868244569952367,
+  "max_cold_process_seconds": 1.0340075890126172,
+  "peak_child_rss_kib": 214724,
+  "scope": "Five fresh processes; one known public source, no network"
+}

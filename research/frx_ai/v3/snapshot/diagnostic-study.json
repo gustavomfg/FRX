@@ -1,0 +1,164 @@
+{
+  "historical_demonstrations": [
+    {
+      "app_id": "1716740",
+      "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1701988449",
+      "source_sha256": "a61d0b16f56625d6a419edc58f3abc18f11c72ca400d2051612b48b8bb1593e7",
+      "observations": 4,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "2515020",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-2654018290",
+      "source_sha256": "dd2af28792e80fb2a88ad6aef921cf438f850721da9f3b7b8c729750909cbf47",
+      "observations": 8,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "2515020",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-3262399446",
+      "source_sha256": "3b507ddcc7ba437de4115af9da2b97a7ea4056a1fe63428c860525fda8b6b15a",
+      "observations": 2,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "2515020",
+      "url": "https://github.com/ValveSoftware/Proton/issues/8317#issuecomment-4642172544",
+      "source_sha256": "b0dd35494c83a17690a8853ac56b21b67f2995d95e140e0111403d086e020318",
+      "observations": 2,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1832479795",
+      "source_sha256": "caad23ddd3382e15558e5b35380043b4f574e0886808bf82bee856c3d9d98782",
+      "observations": 1,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-library-not-found"
+      ],
+      "components": [
+        "AVRT.dll"
+      ],
+      "confirmed_causes": [],
+      "next_checks": [
+        "origin:AVRT.dll",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "1888930",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1874738759",
+      "source_sha256": "d2ac33d0b850f3be7d63072c07aae5443b12bfc370857f35dc4fd1f253b47cec",
+      "observations": 5,
+      "hypotheses": 4,
+      "predicates": [
+        "reported-library-not-found"
+      ],
+      "components": [
+        "EOSSDK-Win64-Shipping.dll",
+        "GFSDK_Aftermath_Lib.x64.dll",
+        "IPHLPAPI.DLL",
+        "OLEAUT32.dll"
+      ],
+      "confirmed_causes": [],
+      "next_checks": [
+        "origin:OLEAUT32.dll",
+        "origin:GFSDK_Aftermath_Lib.x64.dll",
+        "origin:IPHLPAPI.DLL",
+        "origin:EOSSDK-Win64-Shipping.dll",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-1003130694",
+      "source_sha256": "623155e8e59e464f67b96c628e013497463012abaa1c2aa4f5b9386bfb7c9e1f",
+      "observations": 1,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    },
+    {
+      "app_id": "397540",
+      "url": "https://github.com/ValveSoftware/Proton/issues/3635#issuecomment-1003133235",
+      "source_sha256": "d6fe5d4f9b5b2d65d3cb174ade9c81c074a668a1c8cd30d5da26f644f0d1a3e7",
+      "observations": 1,
+      "hypotheses": 1,
+      "predicates": [
+        "reported-device-or-queue-failure"
+      ],
+      "components": [],
+      "confirmed_causes": [],
+      "next_checks": [
+        "graphics-environment",
+        "identify-proton"
+      ]
+    }
+  ],
+  "historical_scope": "Parser-selected public log reports, manually inspected; demonstrations, NOT an independent sensitivity/precision test.",
+  "synthetic_context_contract": {
+    "cases": 6,
+    "expected": [
+      "compatible",
+      "incompatible",
+      "incompatible",
+      "incompatible",
+      "incompatible",
+      "unknown"
+    ],
+    "observed": [
+      "compatible",
+      "incompatible",
+      "incompatible",
+      "incompatible",
+      "incompatible",
+      "unknown"
+    ],
+    "passed": true
+  },
+  "learned_diagnosis_validated_on_real_games": false
+}
