@@ -294,48 +294,6 @@ impl Store {
         Ok(meta)
     }
 
-    /// Declara (ou remove) a configuração do FRX de uma sessão sem registro.
-    /// Sessões capturadas pelo FRX já têm a configuração conferida e não mudam.
-    pub fn set_smart_pack(
-        &self,
-        id: &str,
-        snapshot: Option<crate::smart_packs::models::PackSnapshot>,
-    ) -> Result<SessionMeta, String> {
-        use crate::smart_packs::models::SnapshotSource;
-        let _guard = self.access.lock().map_err(|_| "histórico indisponível")?;
-        let mut meta = self.load_meta(id).ok_or("sessão não encontrada")?;
-        let recorded = meta.source == SessionSource::Assisted
-            || meta.active_fixes.is_some()
-            || meta
-                .smart_pack
-                .as_ref()
-                .is_some_and(|s| s.source == SnapshotSource::Assisted);
-        if recorded {
-            return Err("A configuração desta sessão foi registrada pelo FRX na captura e não pode ser alterada.".into());
-        }
-        if snapshot
-            .as_ref()
-            .is_some_and(|s| s.source != SnapshotSource::Declared)
-        {
-            return Err("Só é possível declarar a configuração.".into());
-        }
-        if let Some(s) = &snapshot {
-            let app_id = meta
-                .app_id
-                .as_deref()
-                .ok_or("Informe explicitamente o AppID desta sessão antes de declarar o pacote.")?;
-            if !crate::smart_packs::benchmark::snapshot_matches_app(app_id, s) {
-                return Err(
-                    "O pacote declarado não pertence ao AppID e à configuração desta sessão."
-                        .into(),
-                );
-            }
-        }
-        meta.smart_pack = snapshot;
-        self.write_meta(&meta)?;
-        Ok(meta)
-    }
-
     pub fn delete(&self, id: &str) -> Result<(), String> {
         let _guard = self.access.lock().map_err(|_| "histórico indisponível")?;
         let dir = self.dir(id).ok_or("identificador de sessão inválido")?;
@@ -417,15 +375,6 @@ mod tests {
         let tmp = tempfile::tempdir().unwrap();
         let store = Store::new(tmp.path());
         let s = sample(&store, &vec![10.0; 3000]);
-        assert!(
-            store
-                .set_smart_pack(
-                    &s.meta.id,
-                    Some(crate::smart_packs::benchmark::declared("200260", vec![]))
-                )
-                .is_err(),
-            "a sessão sem AppID não herda o jogo aberto"
-        );
         let assigned = store
             .update(
                 &s.meta.id,
@@ -436,17 +385,10 @@ mod tests {
             )
             .unwrap();
         assert!(assigned.smart_pack.is_none());
-        assert!(store
-            .set_smart_pack(
-                &s.meta.id,
-                Some(crate::smart_packs::benchmark::declared("480", vec![]))
-            )
-            .is_err());
+        let mut tagged = store.get(&s.meta.id).unwrap();
+        tagged.meta.smart_pack = Some(crate::smart_packs::benchmark::declared("200260", vec![]));
         store
-            .set_smart_pack(
-                &s.meta.id,
-                Some(crate::smart_packs::benchmark::declared("200260", vec![])),
-            )
+            .save(&tagged, per_frame(&vec![10.0; 3000], 90.0).as_bytes())
             .unwrap();
         let moved = store
             .update(

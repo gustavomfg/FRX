@@ -26,10 +26,10 @@ pub mod conflicts;
 pub mod discovery;
 pub mod evaluation;
 pub mod evidence;
+pub mod experience;
 pub mod lifecycle;
 pub mod models;
 pub mod persistence;
-pub mod ranking;
 
 #[cfg(test)]
 pub(crate) mod tests;
@@ -40,12 +40,9 @@ use crate::fix_engine::dynamic::EvidenceLevel;
 use crate::fix_engine::models::*;
 use crate::fix_engine::{security, FixEngine};
 use crate::performance::models::SessionMeta;
-use crate::time::now_iso;
 use benchmark::{
-    baseline_id, current_env, current_file_fixes, pack_id_with_files, unit_file_fixes,
-    units_file_fixes,
+    baseline_id, current_env, current_file_fixes, pack_id_with_files, units_file_fixes,
 };
-use composition::SingleResults;
 use models::*;
 use persistence::SmartStore;
 
@@ -64,15 +61,7 @@ pub fn launch_line(game: &GameCtx) -> Option<String> {
         .flatten()
 }
 
-pub struct BuildInput<'a> {
-    pub game: &'a GameCtx,
-    pub sessions: &'a [SessionMeta],
-    pub profile: Profile,
-    pub limits: Limits,
-    pub launch_line: Option<String>,
-}
-
-fn populate_preview_files(
+pub(crate) fn populate_preview_files(
     engine: &FixEngine,
     game: &GameCtx,
     unit: &mut Unit,
@@ -87,228 +76,8 @@ fn populate_preview_files(
     Ok(())
 }
 
-pub fn build(engine: &FixEngine, i: BuildInput<'_>) -> Result<SmartPackReport, String> {
-    let app = i.game.app_id.as_str();
-    if !crate::art::valid_app_id(app) {
-        return Err("AppID inválido para Smart Packs.".into());
-    }
-    let store = store_for(engine);
-    let views = engine.analyze(i.game)?;
-    let mut found = discovery::discover(app, &views, &i.game.findings, |id| {
-        engine.recipe(id).ok().cloned()
-    });
-    found.units = found
-        .units
-        .into_iter()
-        .filter_map(|mut unit| {
-            if let Err(reason) = populate_preview_files(engine, i.game, &mut unit) {
-                found.excluded.push(Excluded {
-                    performance_warnings: vec![],
-                    id: unit.recipe_id.clone(),
-                    title: unit.title.clone(),
-                    status: None,
-                    reason,
-                });
-                None
-            } else {
-                Some(unit)
-            }
-        })
-        .collect();
-    let base_id = baseline_id(app);
-    let context_sessions: Vec<SessionMeta> = i.sessions.iter().map(|m| {
-        let mut local = m.clone();
-        if m.app_id.as_deref() == Some(app) && benchmark::session_config(engine, m).as_ref()
-            .is_some_and(|snapshot| !benchmark::recipe_context_matches(engine, i.game, snapshot)) {
-            local.quality.issues.push(crate::performance::models::Issue::new(
-                crate::performance::models::Severity::Warning, "pack-recipe-changed",
-                "A receita mudou desde esta medição; o histórico foi preservado, mas não avalia a composição atual.",
-            ));
-        }
-        local
-    }).collect();
-    let fallback_conditions = crate::performance::models::Conditions {
-        proton: i.game.tool_name.clone(),
-        driver: i.game.driver.clone(),
-        ..Default::default()
-    };
-    let grouped = evidence::group_in_context(
-        app,
-        &context_sessions,
-        |m| benchmark::session_config(engine, m),
-        &base_id,
-        Some(
-            i.game
-                .performance_conditions
-                .as_ref()
-                .unwrap_or(&fallback_conditions),
-        ),
-    );
-    let metas: HashMap<&str, &SessionMeta> = i
-        .sessions
-        .iter()
-        .filter(|m| m.app_id.as_deref() == Some(app))
-        .map(|m| (m.id.as_str(), m))
-        .collect();
-    let base_m = grouped.measurements.get(&base_id);
-
-    let vs_for = |env: &[EnvPair], files: &[FileFixRef]| -> Option<VsBaseline> {
-        let pm = grouped
-            .measurements
-            .get(&pack_id_with_files(app, env, files))?;
-        let b = base_m?;
-        (b.used() > 0 && pm.used() > 0).then(|| evidence::compare(b, pm, &metas))
-    };
-    let mut singles: SingleResults = HashMap::new();
-    for u in &found.units {
-        if let Ok(files) = unit_file_fixes(app, u) {
-            if let Some(v) = vs_for(&u.env, &files) {
-                let get = |k: &str| v.get(k).map(|d| d.outcome).unwrap_or(Outcome::NotMeasured);
-                let stability = if ["fpsLow1", "fpsLow01", "ftP99", "spikesPerMin"]
-                    .iter()
-                    .any(|k| get(k) == Outcome::Regression)
-                {
-                    Outcome::Regression
-                } else {
-                    get("fpsLow1")
-                };
-                let r = (get("fpsAvg"), stability);
-                // Conclusivo sempre conta; preliminar só quando indica regressão
-                // (bloqueia combinações até ser repetido).
-                if !v.limited || r.0 == Outcome::Regression || r.1 == Outcome::Regression {
-                    singles.insert(u.recipe_id.clone(), r);
-                }
-            }
-        }
-    }
-    let composed = composition::compose(app, &found.units, &singles, i.limits);
-    let mut packs = composed.packs;
-
-    // Registra antes da prévia: a receita composta é resolvida pelo registro.
-    store.remember(app, &packs)?;
-    let (cur_env, _, _) = current_env(engine, app);
-    let cur_files = current_file_fixes(engine, app);
-    let ops = engine.operations(Some(app));
-    let applied = engine.applied(Some(app));
-    let line = i.launch_line.as_deref();
-    for p in &mut packs {
-        p.compatibility
-            .extend(conflicts::launch_notes(&p.env, line));
-        let plan = p
-            .apply_recipe_id
-            .as_deref()
-            .map(|r| engine.check(r, i.game));
-        lifecycle::derive(p, plan, &ops, &applied, &cur_env, &cur_files);
-        p.availability = p.apply_recipe_id.as_deref().map_or_else(
-            || {
-                crate::fix_engine::availability::Availability::reason(
-                    crate::fix_engine::availability::AvailabilityState::Applied,
-                    "baseline-reference",
-                    "Baseline é uma referência; restaure as operações ativas para voltar a ela.",
-                )
-            },
-            |id| engine.availability(id, i.game),
-        );
-    }
-
-    let mut vs: HashMap<String, VsBaseline> = HashMap::new();
-    for p in packs.iter().filter(|p| p.kind != PackKind::Baseline) {
-        if let Some(v) = vs_for(&p.env, &p.file_fixes) {
-            vs.insert(p.id.clone(), v);
-        }
-    }
-    let mut excluded = found.excluded;
-    excluded.extend(composed.excluded);
-    let ranking = ranking::rank(ranking::Input {
-        profile: i.profile,
-        packs: &packs,
-        baseline_id: &base_id,
-        measured: &grouped.measurements,
-        vs: &vs,
-        excluded: &excluded,
-    });
-    let used: usize = grouped.measurements.values().map(|m| m.used()).sum();
-    let file = store.record(app, &packs, &ranking, used)?;
-
-    let cur_id = pack_id_with_files(app, &cur_env, &cur_files);
-    let current_note = if cur_env.is_empty() && cur_files.is_empty() {
-        "Baseline ativo: nenhuma correção do FRX aplicada neste jogo.".to_owned()
-    } else if let Some(p) = packs.iter().find(|p| p.id == cur_id) {
-        format!("Ativo agora: {}.", p.name)
-    } else {
-        "As correções do FRX ativas agora não correspondem a nenhum pacote composto (ex.: uma receita de diagnóstico).".to_owned()
-    };
-    let mut notes = composed.notes;
-    notes.extend(grouped.notes.clone());
-    let evaluations =
-        latest_evaluations(engine, app, i.sessions, &grouped, &metas, &base_id, &packs);
-    Ok(SmartPackReport {
-        app_id: app.to_owned(),
-        game_name: i.game.name.clone(),
-        profile: i.profile,
-        generated_at: now_iso(),
-        composer_version: COMPOSER_VERSION.into(),
-        rules_version: conflicts::RULES.into(),
-        limits: i.limits,
-        reference_session_id: grouped.reference.clone(),
-        baseline_id: base_id,
-        units: found.units,
-        graph: composed.graph,
-        excluded,
-        measurements: grouped.measurements.into_values().collect(),
-        ranking,
-        history: file.history,
-        unassigned_sessions: grouped.unassigned,
-        current_pack_id: Some(cur_id),
-        current_note,
-        windows: store.windows(app),
-        evaluations,
-        packs,
-        notes,
-    })
-}
-
 fn name_lookup(packs: &[SmartPack]) -> impl Fn(&str) -> Option<String> + '_ {
     move |id: &str| packs.iter().find(|p| p.id == id).map(|p| p.name.clone())
-}
-
-/// Avaliação da sessão comparável mais recente de cada configuração medida.
-fn latest_evaluations(
-    engine: &FixEngine,
-    app: &str,
-    sessions: &[SessionMeta],
-    grouped: &evidence::Grouped,
-    metas: &HashMap<&str, &SessionMeta>,
-    base_id: &str,
-    packs: &[SmartPack],
-) -> Vec<PackEvaluation> {
-    let name_of = name_lookup(packs);
-    let ctx = evaluation::Ctx {
-        app_id: app,
-        baseline_id: base_id,
-        grouped,
-        metas,
-        name_of: &name_of,
-    };
-    let mut out = Vec::new();
-    for m in grouped.measurements.values() {
-        let latest = m
-            .sessions
-            .iter()
-            .filter(|s| s.excluded.is_none())
-            .max_by(|a, b| a.captured_at.cmp(&b.captured_at).then(a.id.cmp(&b.id)));
-        if let Some(meta) = latest.and_then(|s| sessions.iter().find(|x| x.id == s.id)) {
-            let cfg = benchmark::session_config(engine, meta);
-            let mut e = evaluation::evaluate(&ctx, meta, cfg.as_ref());
-            e.current_pack_id = Some(pack_id_with_files(
-                app,
-                &current_env(engine, app).0,
-                &current_file_fixes(engine, app),
-            ));
-            out.push(e);
-        }
-    }
-    out
 }
 
 /// Avalia uma sessão (normalmente a que acabou de ser capturada) contra o
@@ -384,9 +153,12 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
         return Err("Composição inválida.".into());
     }
     let views = engine.analyze(game)?;
-    let relevant = discovery::discover(&game.app_id, &views, &game.findings, |rid| {
+    let mut relevant = discovery::discover(&game.app_id, &views, &game.findings, |rid| {
         engine.recipe(rid).ok().cloned()
     });
+    relevant
+        .units
+        .extend(experience::catalog_units(engine, game));
     let mut recipes = Vec::new();
     let mut units = Vec::new();
     for m in &ids {
@@ -428,7 +200,7 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
         units.push(u);
         recipes.push(r);
     }
-    if let Err(bad) = conflicts::validate_combination(&units, Limits::default().max_pack_size) {
+    if let Err(bad) = conflicts::validate_combination(&units, experience::MAX_MEMBERS) {
         return Err(format!(
             "A composição não passa mais na validação: {}",
             bad.first()
@@ -518,141 +290,4 @@ pub fn resolve_pack(engine: &FixEngine, id: &str, game: &GameCtx) -> Result<Reci
     };
     security::validate_pack(&r).map_err(|e| format!("Smart Pack recusado: {e}"))?;
     Ok(r)
-}
-
-/// Transição da configuração atual para outro pacote, passo a passo.
-pub fn switch_plan(engine: &FixEngine, app_id: &str, to: &SmartPack) -> SwitchPlan {
-    if to.app_id != app_id || to.id != pack_id_with_files(app_id, &to.env, &to.file_fixes) {
-        return SwitchPlan { to: to.id.clone(), from: None, keep: vec![], remove: vec![], add: vec![], steps: vec![], possible: false,
-            notes: vec!["O pacote pertence a outro jogo ou possui identidade inválida. Reabra os Smart Packs deste jogo.".into()] };
-    }
-    let ops: Vec<Operation> = engine
-        .operations(Some(app_id))
-        .into_iter()
-        .filter(|o| {
-            !crate::fix_engine::is_capture_setup(&o.recipe_id)
-                && (o.holds_changes() || o.state == OpState::RequiresManualStep)
-        })
-        .collect();
-    let (cur, _, _) = current_env(engine, app_id);
-    let cur_files = current_file_fixes(engine, app_id);
-    let keep: Vec<EnvPair> = cur.iter().filter(|p| to.env.contains(p)).cloned().collect();
-    let remove: Vec<EnvPair> = cur
-        .iter()
-        .filter(|p| !to.env.contains(p))
-        .cloned()
-        .collect();
-    let add: Vec<EnvPair> = to
-        .env
-        .iter()
-        .filter(|p| !cur.contains(p))
-        .cloned()
-        .collect();
-    let mut notes = vec!["Cada passo abre a própria prévia e pede confirmação. Desfazer remove só o que o FRX adicionou; mudanças feitas por outros programas são preservadas — se houver, o passo é recusado e nada é sobrescrito.".to_owned()];
-    let blocked = ops.iter().find(|o| {
-        matches!(
-            o.state,
-            OpState::RecoveryRequired | OpState::RequiresManualStep
-        )
-    });
-    if let Some(b) = blocked {
-        notes.insert(0, format!("Resolva antes a operação pendente “{}” no Histórico (passo manual ou recuperação).", b.recipe_title));
-    }
-    let same = cur == to.env && cur_files == to.file_fixes;
-    if same {
-        notes.insert(0, "Este pacote já é a configuração ativa.".into());
-    }
-    let mut steps: Vec<SwitchStep> = ops
-        .iter()
-        .filter(|o| o.state != OpState::RequiresManualStep)
-        .map(|o| SwitchStep {
-            kind: "rollback".into(),
-            operation_id: Some(o.id.clone()),
-            recipe_id: None,
-            title: format!("Desfazer “{}”", o.recipe_title),
-            detail: "Desfaz somente as alterações desta operação, com conferência dos arquivos e backup.".into(),
-        })
-        .collect();
-    if let Some(r) = &to.apply_recipe_id {
-        steps.push(SwitchStep {
-            kind: "apply".into(),
-            operation_id: None,
-            recipe_id: Some(r.clone()),
-            title: format!("Aplicar “{}”", to.name),
-            detail: "Prévia, confirmação, backup verificado e gravação.".into(),
-        });
-    }
-    SwitchPlan {
-        to: to.id.clone(),
-        from: (!cur.is_empty() || !cur_files.is_empty())
-            .then(|| pack_id_with_files(app_id, &cur, &cur_files)),
-        keep,
-        remove,
-        add,
-        possible: blocked.is_none() && !same && !steps.is_empty(),
-        steps: if same { vec![] } else { steps },
-        notes,
-    }
-}
-
-/// Pacote A × pacote B com a mesma metodologia do ranking.
-pub fn compare_packs(
-    engine: &FixEngine,
-    app_id: &str,
-    sessions: &[SessionMeta],
-    a: &str,
-    b: &str,
-) -> Result<PackComparison, String> {
-    if !crate::art::valid_app_id(app_id)
-        || ![a, b]
-            .iter()
-            .all(|id| id.starts_with(&format!("pack.{app_id}.")))
-    {
-        return Err("Comparação recusada: os pacotes precisam pertencer ao mesmo AppID.".into());
-    }
-    let grouped = evidence::group(
-        app_id,
-        sessions,
-        |m| benchmark::session_config(engine, m),
-        &baseline_id(app_id),
-    );
-    let metas: HashMap<&str, &SessionMeta> = sessions
-        .iter()
-        .filter(|m| m.app_id.as_deref() == Some(app_id))
-        .map(|m| (m.id.as_str(), m))
-        .collect();
-    let ma = grouped.measurements.get(a).filter(|m| m.used() > 0);
-    let mb = grouped.measurements.get(b).filter(|m| m.used() > 0);
-    let (Some(ma), Some(mb)) = (ma, mb) else {
-        return Ok(PackComparison {
-            a: a.into(),
-            b: b.into(),
-            deltas: vec![],
-            limited: true,
-            summary: "Os dois pacotes precisam de pelo menos uma sessão comparável cada para serem comparados.".into(),
-            notes: vec![],
-        });
-    };
-    let v = evidence::compare(ma, mb, &metas);
-    let avg = v.get("fpsAvg").map(|d| d.outcome);
-    let summary = match (avg, v.limited) {
-        (Some(Outcome::Improvement), false) => {
-            "B teve FPS médio maior que A além da variação medida."
-        }
-        (Some(Outcome::Regression), false) => {
-            "B teve FPS médio menor que A além da variação medida."
-        }
-        (Some(_), false) => "Sem diferença de FPS médio além da variação medida.",
-        (_, true) => "Resultado indicativo: poucas sessões para concluir. Repita as capturas.",
-        (None, false) => "Faltam dados de FPS médio em um dos pacotes.",
-    }
-    .to_owned();
-    Ok(PackComparison {
-        a: a.into(),
-        b: b.into(),
-        deltas: v.deltas,
-        limited: v.limited,
-        summary,
-        notes: v.notes,
-    })
 }

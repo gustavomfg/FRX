@@ -1,5 +1,5 @@
 /** Fix Engine — espelho de `src-tauri/src/fix_engine/models.rs`. */
-import type { ArtifactCandidate, FixAction, FixCategory, GpuReq, ProviderId } from './fixes'
+import type { ArtifactCandidate, FixCategory, GpuReq, ProviderId } from './fixes'
 import type { EnvironmentContext, HardwareMatch, HardwareRequirements } from './steam'
 
 export type Trust = 'discovered' | 'candidate' | 'reviewed' | 'unsupported' | 'revoked' | 'generated' | 'pack'
@@ -73,8 +73,6 @@ export interface GeneratedInfo {
   discoveredAt: string | null
 }
 
-/** Gerador dinâmico — espelho de `fix_engine/dynamic/mod.rs`. */
-export type DynClass = 'applicable' | 'needs-validation' | 'informational'
 export type DynStatus = 'generated' | 'reviewed' | 'already-included' | 'incompatible' | 'needs-validation' | 'blocked' | 'contested' | 'no-actions' | 'insufficient-data' | 'invalid'
 
 export interface Availability {
@@ -83,47 +81,6 @@ export interface Availability {
   checkedAt: string
   planStatus: PlanStatus | null
   planFingerprint: string | null
-}
-
-export interface Assessment {
-  availability?: Availability
-  performanceEvidence?: GamePerformanceEvidence
-  performanceWarnings?: string[]
-  findingId: string
-  appId: string
-  class: DynClass
-  status: DynStatus
-  reasons: string[]
-  evidence: EvidenceLevel
-  evidenceNote: string
-  experimental: boolean
-  actions: { kind: FixAction['kind']; raw: string; supported: boolean; note: string }[]
-  recipeId: string | null
-  recipe: Recipe | null
-  outlook?: Outlook | null
-  provenance: Provenance[]
-  interpreter: string
-  generatedAt: string
-  updatedAt: string
-  discoveredAt: string | null
-  reevaluated: string | null
-}
-
-/** Efeito provável: ajuda num problema documentado, incerto, ou pode piorar. */
-export type Outlook = 'helps' | 'uncertain' | 'may-hurt'
-
-export interface Relevance {
-  relevant: boolean
-  reason: string
-}
-
-export interface RecipeView extends Recipe {
-  performanceWarnings?: string[]
-  executable: boolean
-  integrity: boolean
-  relatedFindings: string[]
-  outlook?: Outlook | null
-  relevance?: Relevance | null
 }
 
 export type PlanStatus = 'ready' | 'requires-manual-step' | 'conflict' | 'incompatible' | 'already-applied' | 'already-included' | 'not-executable'

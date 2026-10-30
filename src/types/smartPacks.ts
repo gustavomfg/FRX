@@ -3,14 +3,12 @@ import type { Availability, DynStatus, EvidenceLevel, GamePerformanceEvidence, P
 import type { ArtifactCandidate, GpuReq } from './fixes'
 import type { HardwareRequirements } from './steam'
 
-export type Profile = 'performance' | 'balanced' | 'compatibility'
 export type PackKind = 'baseline' | 'single' | 'combination'
 export type Goal = 'reference' | 'compatibility' | 'performance' | 'balanced'
 export type PerfHint = 'unknown' | 'penalty' | 'frame-cap'
 export type PackState = 'candidate' | 'ready' | 'conflict' | 'testing' | 'applied' | 'verified' | 'failed' | 'partially_recovered' | 'rolled_back' | 'unsupported'
 export type ConflictKind = 'same-key-different-value' | 'mutually-exclusive' | 'redundant' | 'proton-versions' | 'gpu-mismatch' | 'frame-limiter' | 'game-scope' | 'same-file'
 export type Outcome = 'improvement' | 'regression' | 'no-difference' | 'mixed' | 'inconclusive' | 'not-measured'
-export type Tier = 'measured' | 'candidate' | 'performance-risk' | 'not-recommended'
 
 export interface EnvPair {
   key: string
@@ -167,96 +165,12 @@ export interface VsBaseline {
   notes: string[]
 }
 
-export interface RankEntry {
-  packId: string
-  title: string
-  tier: Tier
-  position: number | null
-  outcome: Outcome
-  headline: string
-  reasons: string[]
-  vsBaseline: VsBaseline | null
-}
-
-export interface Ranking {
-  profile: Profile
-  version: string
-  entries: RankEntry[]
-  winner: string | null
-  summary: string
-  nextTest: { packId: string; reason: string } | null
-  criteria: string[]
-}
-
-export interface RankingSnapshot {
-  preventiveRisks?: string[]
-  at: string
-  profile: Profile
-  version: string
-  reason: string
-  entries: [string, number | null, Tier, Outcome][]
-  sessions: number
-}
-
 export interface Excluded {
   performanceWarnings?: string[]
   id: string
   title: string
   status: DynStatus | null
   reason: string
-}
-
-export interface WindowsReference {
-  origin: string
-  url: string | null
-  avgFps: number | null
-  low1: number | null
-  conditions: string
-}
-
-export interface SmartPackReport {
-  appId: string
-  gameName: string
-  profile: Profile
-  generatedAt: string
-  composerVersion: string
-  rulesVersion: string
-  limits: { maxUnits: number; maxPacks: number; maxPackSize: number }
-  referenceSessionId: string | null
-  baselineId: string
-  packs: SmartPack[]
-  units: Unit[]
-  graph: Edge[]
-  excluded: Excluded[]
-  measurements: Measurements[]
-  ranking: Ranking
-  history: RankingSnapshot[]
-  unassignedSessions: SessionRef[]
-  currentPackId: string | null
-  currentNote: string
-  windows: WindowsReference | null
-  evaluations: PackEvaluation[]
-  notes: string[]
-}
-
-export interface PackComparison {
-  a: string
-  b: string
-  deltas: MetricDelta[]
-  limited: boolean
-  summary: string
-  notes: string[]
-}
-
-export interface SwitchPlan {
-  to: string
-  from: string | null
-  keep: EnvPair[]
-  remove: EnvPair[]
-  add: EnvPair[]
-  steps: { kind: 'rollback' | 'apply'; operationId: string | null; recipeId: string | null; title: string; detail: string }[]
-  possible: boolean
-  notes: string[]
 }
 
 export interface PackSnapshot {
@@ -270,4 +184,50 @@ export interface PackSnapshot {
   verified: boolean
   source: 'assisted' | 'declared'
   recordedAt: string
+}
+
+/** Complete Experience Pack — espelho de `smart_packs/experience.rs`. */
+export type LeftOutKind = 'negative' | 'incompatible' | 'conflict' | 'risky' | 'already-included' | 'weak-evidence' | 'unsupported' | 'no-action'
+
+export interface PackAction {
+  recipeId: string
+  title: string
+  area: string
+  changes: string[]
+  effects: string[]
+  sideEffects: string[]
+  risk: Risk
+  evidence: EvidenceLevel
+  evidenceNote: string
+  positive: number
+  negative: number
+  sources: { label: string; url: string }[]
+  selected: boolean
+}
+
+export interface LeftOut {
+  title: string
+  reason: string
+  kind: LeftOutKind
+  changes: string[]
+  count: number
+}
+
+export interface ExperiencePack {
+  appId: string
+  gameName: string
+  generatedAt: string
+  environment: string[]
+  actions: PackAction[]
+  leftOut: LeftOut[]
+  areas: string[]
+  risks: string[]
+  compatibility: string[]
+  packId: string | null
+  applyRecipeId: string | null
+  availability: Availability
+  state: PackState
+  stateDetail: string
+  operationId: string | null
+  partial: boolean
 }

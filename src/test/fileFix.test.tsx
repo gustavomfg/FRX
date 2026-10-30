@@ -12,12 +12,10 @@ import { FixReportsProvider } from '@/state/fixes'
 import { FixEngineProvider } from '@/state/fixEngine'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { OperationHistory } from '@/components/fix/OperationHistory'
-import { FindingCard } from '@/components/fix/FindingCard'
-import { HardwareContext } from '@/components/fix/HardwareContext'
 import type { ArtifactCandidate } from '@/types/fixes'
-import type { Assessment, FixPlan, Operation } from '@/types/fixEngine'
+import type { FixPlan, Operation } from '@/types/fixEngine'
 import type { EnvironmentContext, GpuInfo } from '@/types/steam'
-import { finding, scan } from './fixtures'
+import { scan } from './fixtures'
 
 ;(globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true
 MotionGlobalConfig.skipAnimations = true
@@ -135,19 +133,6 @@ describe('File Fix Engine — interface com fixtures isoladas', () => {
     expect(text()).toContain('SHA-256 diferente. Os destinos não foram instalados.')
     expect(button('Medir desempenho')).toBeUndefined()
     expect(text()).not.toContain('Fixture aplicada e verificada.')
-    m.unmount()
-  })
-
-  it('mantém DLL sem confiança como descoberta para revisão e distingue inventário de GPU medida', async () => {
-    const a: Assessment = { findingId: 'synthetic-finding', appId: plan.appId, class: 'needs-validation', status: 'needs-validation', reasons: ['DLL binária exige revisão de procedência; não é instalada automaticamente.'], evidence: 'none', evidenceNote: '', experimental: false, actions: [], recipeId: null, recipe: null, provenance: [], interpreter: 'fixture', generatedAt: plan.createdAt, updatedAt: plan.createdAt, discoveredAt: null, reevaluated: null }
-    const m = mount(<ul><FindingCard finding={finding({ id: 'synthetic-finding', artifacts: [{ ...artifact, assetName: 'unknown.dll', trust: 'partial', sha256: null, files: [], reasons: ['Procedência insuficiente e destino não confirmado.'] }] })} assessment={a} defaultOpen onApply={() => { throw new Error('must not apply') }} /><HardwareContext environment={{ ...environment, selectedGpu: environment.detectedGpus[0], selection: 'unknown' }} /></ul>)
-    await flush()
-    expect(text()).toContain('Correção por arquivo · download necessário')
-    expect(text()).toContain('Requer revisão adicional')
-    expect(text()).toContain('Destino não confirmado')
-    expect(text()).toContain('Não confirmada por uma captura')
-    expect(button('Aplicar correção')).toBeUndefined()
-    expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
     m.unmount()
   })
 })

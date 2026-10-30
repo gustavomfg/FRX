@@ -14,18 +14,8 @@ export const NAV: NavItem[] = [
   { to: '/configuracoes', label: 'Configurações', icon: Settings2, shortcut: '4' },
 ]
 
-/** Sugestões são de um jogo: a visão antiga `/correcoes?game=` vai para a página desse jogo. */
+/** A visão antiga `/correcoes?game=` vai para a página do jogo, onde fica o pacote. */
 export function gameFixTarget(params: URLSearchParams): string {
   const game = params.get('game')
-  if (!game) return '/biblioteca'
-  const section: Record<string, string> = { smart: 'smart', receitas: 'receitas', descobertas: 'descobertas' }
-  const next = new URLSearchParams()
-  const secao = section[params.get('view') ?? '']
-  if (secao) next.set('secao', secao)
-  for (const key of ['pack', 'recipe', 'finding']) {
-    const value = params.get(key)
-    if (value) next.set(key, value)
-  }
-  const query = next.toString()
-  return `/biblioteca/${encodeURIComponent(game)}${query ? `?${query}` : ''}`
+  return game ? `/biblioteca/${encodeURIComponent(game)}` : '/biblioteca'
 }

@@ -9,9 +9,6 @@ use crate::fixes::models::{ArtifactCandidate, GpuReq};
 pub const PACK_SCHEMA: u32 = 1;
 /// Versão do compositor: mudou → os pacotes são recompostos e registrados de novo.
 pub const COMPOSER_VERSION: &str = "1.4.0";
-/// Versão da metodologia de ranking (critérios e limites documentados).
-pub const RANKING_VERSION: &str = "1.3.0";
-
 /// Perfil de otimização: muda os critérios de ordenação, nunca os dados.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[serde(rename_all = "kebab-case")]
@@ -370,40 +367,6 @@ pub enum Tier {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct RankEntry {
-    pub pack_id: String,
-    pub title: String,
-    pub tier: Tier,
-    /// Só no ranking medido; empates técnicos dividem a mesma posição.
-    pub position: Option<u32>,
-    pub outcome: Outcome,
-    pub headline: String,
-    pub reasons: Vec<String>,
-    pub vs_baseline: Option<VsBaseline>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct NextTest {
-    pub pack_id: String,
-    pub reason: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Ranking {
-    pub profile: Profile,
-    pub version: String,
-    pub entries: Vec<RankEntry>,
-    /// Só quando os dados sustentam um vencedor.
-    pub winner: Option<String>,
-    pub summary: String,
-    pub next_test: Option<NextTest>,
-    pub criteria: Vec<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
 pub struct RankingSnapshot {
     /// IDs separados preventivamente; campo aditivo para leitores antigos.
     #[serde(default)]
@@ -426,76 +389,6 @@ pub struct Excluded {
     pub title: String,
     pub status: Option<DynStatus>,
     pub reason: String,
-}
-
-/// Referência externa de Windows (modelo preparado; nenhuma fonte integrada).
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct WindowsReference {
-    pub origin: String,
-    pub url: Option<String>,
-    pub game_version: Option<String>,
-    pub cpu: Option<String>,
-    pub gpu: Option<String>,
-    pub driver: Option<String>,
-    pub resolution: Option<String>,
-    pub preset: Option<String>,
-    pub avg_fps: Option<f64>,
-    pub low1: Option<f64>,
-    pub measured_at: Option<String>,
-    pub conditions: String,
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Limits {
-    /// Receitas consideradas na composição (as demais ficam fora, com motivo).
-    pub max_units: usize,
-    /// Pacotes oferecidos, incluindo o baseline.
-    pub max_packs: usize,
-    /// Receitas por pacote.
-    pub max_pack_size: usize,
-}
-
-impl Default for Limits {
-    fn default() -> Self {
-        Self {
-            max_units: 8,
-            max_packs: 12,
-            max_pack_size: 4,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SmartPackReport {
-    pub app_id: String,
-    pub game_name: String,
-    pub profile: Profile,
-    pub generated_at: String,
-    pub composer_version: String,
-    pub rules_version: String,
-    pub limits: Limits,
-    /// Sessão cujas condições servem de referência para a comparabilidade.
-    pub reference_session_id: Option<String>,
-    pub baseline_id: String,
-    pub packs: Vec<SmartPack>,
-    pub units: Vec<Unit>,
-    pub graph: Vec<Edge>,
-    pub excluded: Vec<Excluded>,
-    pub measurements: Vec<Measurements>,
-    pub ranking: Ranking,
-    pub history: Vec<RankingSnapshot>,
-    /// Sessões do jogo sem configuração registrada (podem ser declaradas).
-    pub unassigned_sessions: Vec<SessionRef>,
-    /// Pacote equivalente à configuração atual do FRX neste jogo.
-    pub current_pack_id: Option<String>,
-    pub current_note: String,
-    pub windows: Option<WindowsReference>,
-    /// Última avaliação de cada pacote com sessão registrada.
-    pub evaluations: Vec<PackEvaluation>,
-    pub notes: Vec<String>,
 }
 
 /// Conclusão do teste de um pacote, a partir de uma sessão.
@@ -543,44 +436,6 @@ pub struct PackEvaluation {
     pub baseline_id: String,
     /// Configuração do FRX ativa agora neste jogo (para oferecer restaurar).
     pub current_pack_id: Option<String>,
-}
-
-/// Comparação direta entre dois pacotes (mesma metodologia do ranking).
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct PackComparison {
-    pub a: String,
-    pub b: String,
-    pub deltas: Vec<MetricDelta>,
-    pub limited: bool,
-    pub summary: String,
-    pub notes: Vec<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SwitchStep {
-    /// `rollback` (desfazer uma operação) ou `apply` (aplicar o pacote).
-    pub kind: String,
-    pub operation_id: Option<String>,
-    pub recipe_id: Option<String>,
-    pub title: String,
-    pub detail: String,
-}
-
-/// Transição entre a configuração atual e outro pacote — sempre passo a
-/// passo, cada passo com a própria prévia e confirmação.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SwitchPlan {
-    pub to: String,
-    pub from: Option<String>,
-    pub keep: Vec<EnvPair>,
-    pub remove: Vec<EnvPair>,
-    pub add: Vec<EnvPair>,
-    pub steps: Vec<SwitchStep>,
-    pub possible: bool,
-    pub notes: Vec<String>,
 }
 
 fn default_true() -> bool {

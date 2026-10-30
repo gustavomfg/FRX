@@ -418,8 +418,6 @@ mod tests {
             "ray reconstruction implica ray tracing"
         );
         assert!(!found.contains(&"physx"));
-        assert!(!crate::fixes::symptoms::applies("physx", &found));
-        assert!(crate::fixes::symptoms::applies("dlss", &found));
         std::fs::write(bin.join("PhysXLoader.dll"), b"x").unwrap();
         assert!(installed_technologies(tmp.path()).contains(&"physx"));
         assert!(installed_technologies(&tmp.path().join("missing")).is_empty());

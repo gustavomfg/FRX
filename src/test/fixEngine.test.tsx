@@ -15,11 +15,10 @@ import { LibraryProvider } from '@/state/library'
 import { FixReportsProvider } from '@/state/fixes'
 import { FixEngineProvider, useFixEngine } from '@/state/fixEngine'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
-import { RecipesPanel } from '@/components/fix/RecipesPanel'
 import { OperationHistory } from '@/components/fix/OperationHistory'
 import { ComparisonView } from '@/components/performance/ComparisonView'
-import type { FixPlan, Operation, RecipeView, RollbackPlan } from '@/types/fixEngine'
-import { batman, scan } from './fixtures'
+import type { FixPlan, Operation, RollbackPlan } from '@/types/fixEngine'
+import { scan } from './fixtures'
 import { comparison, meta, session } from './perfFixtures'
 
 ;(globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true
@@ -31,32 +30,6 @@ g.ResizeObserver ??= class {
   unobserve() {}
   disconnect() {}
 }
-
-const recipe = (id: string, trust: RecipeView['trust'], extra: Partial<RecipeView> = {}): RecipeView => ({
-  schema: 1,
-  id,
-  version: '1.0.0',
-  trust,
-  title: id === 'frx.diagnostics.proton-log' ? 'Log de diagnóstico do Proton' : 'Forçar o modo Direct3D 9 (sem d3d11)',
-  summary: 's',
-  description: 'd',
-  category: 'other',
-  purpose: id === 'frx.diagnostics.proton-log' ? 'diagnostic' : 'compatibility',
-  risk: trust === 'reviewed' ? 'low' : 'high',
-  scope: { appIds: [], requiresProton: true, gpuVendor: null },
-  actions: [{ type: 'set_launch_env', key: id === 'frx.diagnostics.proton-log' ? 'PROTON_LOG' : 'PROTON_NO_D3D11', value: '1' }],
-  alreadyIncludedByProtonfixes: false,
-  conflictsWith: [],
-  relatedKeys: [],
-  effects: [],
-  sideEffects: [],
-  sources: [{ label: 'Proton README', url: 'https://github.com/ValveSoftware/Proton' }],
-  review: trust === 'reviewed' ? { by: 'FRX', at: '2026-10-25', notes: 'ok' } : null,
-  executable: trust === 'reviewed',
-  integrity: true,
-  relatedFindings: [],
-  ...extra,
-})
 
 const BEFORE = 'PROTON_NVIDIA_LIBS=1 PROTON_USE_WOW64=0 %command%'
 const AFTER = 'PROTON_LOG=1 PROTON_NVIDIA_LIBS=1 PROTON_USE_WOW64=0 %command%'
@@ -187,10 +160,6 @@ describe('Fix Engine na interface', () => {
             return operations
           case 'get_applied_fixes':
             return operations.filter((o) => o.state === 'applied').map((o) => ({ operationId: o.id, recipeId: o.recipeId, recipeVersion: o.recipeVersion, recipeTitle: o.recipeTitle, appId: o.appId, gameName: o.gameName, appliedAt: o.appliedAt, mode: o.mode, effective: 'active', detail: '' }))
-          case 'list_fix_recipes':
-            return [recipe('frx.diagnostics.proton-log', 'reviewed'), recipe('frx.compat.no-d3d11', 'candidate')]
-          case 'check_fix_compatibility':
-            return (args as { recipeId: string }).recipeId === 'frx.compat.no-d3d11' ? plan('not-executable', { recipeId: 'frx.compat.no-d3d11' }) : current
           case 'prepare_fix_plan':
             return current
           case 'apply_fix_plan': {
@@ -229,16 +198,6 @@ describe('Fix Engine na interface', () => {
     expect(probe.e!.available).toBe(true)
     expect(probe.e!.status?.reviewed).toBe(1)
     expect(probe.e!.applied.map((a) => a.recipeId)).toEqual(['frx.diagnostics.proton-log'])
-    m.unmount()
-  })
-
-  it('lista receitas com o estado calculado para o jogo: aplicável × candidata', async () => {
-    const m = mount(<RecipesPanel games={[{ id: '200260', title: batman.name, origin: 'steam' } as never]} appId="200260" recipeId={null} onSelect={() => {}} onAct={() => {}} onShowFinding={() => {}} />)
-    await flush(60)
-    expect(byText('Aplicável')).toBeTruthy()
-    expect(byText('Candidata')).toBeTruthy()
-    // A receita candidata não pode ser aplicada.
-    expect(calls.filter((c) => c.cmd === 'check_fix_compatibility')).toHaveLength(2)
     m.unmount()
   })
 

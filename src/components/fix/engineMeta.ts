@@ -1,5 +1,4 @@
-import type { DynStatus, EvidenceLevel, OpState, Outlook, PlanStatus, Purpose, Risk, Trust } from '@/types/fixEngine'
-import type { GpuReq } from '@/types/fixes'
+import type { EvidenceLevel, OpState, PlanStatus, Purpose, Risk, Trust } from '@/types/fixEngine'
 
 type Meta = { label: string; color: string; soft: string; help?: string }
 
@@ -11,20 +10,6 @@ export const TRUST: Record<Trust, Meta> = {
   revoked: { label: 'Revogada', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)', help: 'Retirada do catálogo por um problema conhecido.' },
   pack: { label: 'Smart Pack', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)', help: 'Composição de receitas validadas uma a uma e em conjunto, aplicada como uma única operação.' },
   generated: { label: 'Gerada automaticamente', color: 'var(--frx-accent)', soft: 'var(--frx-accent-soft)', help: 'Gerada pelo FRX a partir de uma descoberta pública, com ações do conjunto restrito e validação do núcleo. Não foi revisada por pessoas.' },
-}
-
-/** Estado de cada descoberta depois do gerador dinâmico. */
-export const DYN_STATUS: Record<DynStatus, Meta & { action: string }> = {
-  generated: { label: 'Correção aplicável', action: 'Aplicar correção', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
-  reviewed: { label: 'Correção aplicável', action: 'Aplicar correção', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
-  'already-included': { label: 'Já incluída no Proton', action: 'Já incluída no Proton', color: 'var(--frx-info)', soft: 'var(--frx-info-soft)' },
-  incompatible: { label: 'Incompatível com seu sistema', action: 'Incompatível com seu sistema', color: 'var(--frx-text-3)', soft: 'var(--frx-raised)' },
-  'needs-validation': { label: 'Requer validação adicional', action: 'Requer validação adicional', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' },
-  blocked: { label: 'Bloqueada por segurança', action: 'Bloqueada por segurança', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)' },
-  contested: { label: 'Relatos contestados', action: 'Relatos contestados', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' },
-  'no-actions': { label: 'Sem procedimento automatizável', action: 'Sem procedimento automatizável', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
-  'insufficient-data': { label: 'Faltam informações', action: 'Faltam informações', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
-  invalid: { label: 'Descoberta inválida', action: 'Descoberta inválida', color: 'var(--frx-text-3)', soft: 'var(--frx-raised)' },
 }
 
 export const EVIDENCE: Record<EvidenceLevel, string> = {
@@ -61,14 +46,6 @@ export const OP_STATE: Record<OpState, Meta> = {
   'recovery-required': { label: 'Requer recuperação', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)' },
   cancelled: { label: 'Cancelada antes da instalação', color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' },
 }
-
-export const OUTLOOK: Record<Outlook, Meta & { short: string }> = {
-  helps: { label: 'Pode ajudar', short: 'Resolve uma falta documentada', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
-  uncertain: { label: 'Efeito incerto', short: 'Pode ajudar ou atrapalhar; depende do jogo e precisa de medição', color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' },
-  'may-hurt': { label: 'Pode piorar', short: 'Costuma reduzir desempenho ou recursos', color: 'var(--frx-bad)', soft: 'var(--frx-bad-soft)' },
-}
-
-export const GPU_LABEL: Record<GpuReq, string> = { nvidia: 'NVIDIA', amd: 'AMD', intel: 'Intel' }
 
 export const RISK: Record<Risk, Meta> = {
   low: { label: 'Risco baixo', color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' },
@@ -107,5 +84,3 @@ export const ROLLBACK_STAGES: { state: OpState; label: string }[] = [
   { state: 'rolling-back', label: 'Remover só o que a correção adicionou' },
   { state: 'rolled-back', label: 'Verificar no disco' },
 ]
-
-export const isFinal = (s: OpState) => ['applied', 'failed', 'conflict', 'requires-manual-step', 'rolled-back', 'recovery-required', 'cancelled'].includes(s)

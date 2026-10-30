@@ -25,19 +25,12 @@ fn reviewed_wined3d_is_executable_but_warned_before_any_test_or_write() {
     let engine = fx.engine();
     let game = fx.game();
     let before = std::fs::read(&fx.config).unwrap();
-    let view = engine
-        .recipes(&[])
-        .into_iter()
-        .find(|r| r.recipe.id == "frx.compat.wined3d")
-        .unwrap();
-    assert!(view.executable);
-    assert!(view
+    let preview = engine.prepare("frx.compat.wined3d", &game).unwrap();
+    assert_eq!(preview.status, PlanStatus::Ready);
+    assert!(preview
         .performance_warnings
         .iter()
         .any(|w| w.contains("OpenGL")));
-    let preview = engine.prepare("frx.compat.wined3d", &game).unwrap();
-    assert_eq!(preview.status, PlanStatus::Ready);
-    assert_eq!(preview.performance_warnings, view.performance_warnings);
     assert!(engine.operations(None).is_empty());
     assert_eq!(
         std::fs::read(&fx.config).unwrap(),
@@ -693,57 +686,6 @@ fn interrupted_operations_are_never_reported_as_done() {
     assert!(op.message.unwrap().contains("Nada mudou"));
 }
 
-#[test]
-fn related_findings_are_linked_by_action() {
-    use crate::fixes::models::*;
-    let e = fixture().engine();
-    let f = |kind, value: &str| FixFinding {
-        artifacts: vec![],
-        scope: DiscoveryScope::verified("200260", "Fixture: verified game source"),
-        performance_evidence: Default::default(),
-        id: format!("f-{value}"),
-        game_app_id: "200260".into(),
-        title: "t".into(),
-        description: "d".into(),
-        category: Category::Graphics,
-        kind: FindingKind::Tweak,
-        actions: vec![FixAction {
-            kind,
-            label: "l".into(),
-            value: value.into(),
-            conditional: false,
-        }],
-        sources: vec![],
-        requirements: Default::default(),
-        confidence: Confidence::CommunityReported,
-        compatibility: Compatibility::Unknown,
-        compatibility_note: String::new(),
-        experimental: false,
-        analysis: AnalysisState::Parsed,
-        evidence: Default::default(),
-        published_at: None,
-        retrieved_at: "t".into(),
-        keys: vec![],
-    };
-    let findings = vec![
-        f(ActionKind::Env, "PROTON_USE_WINED3D=1"),
-        f(ActionKind::LaunchOption, "PROTON_NO_D3D11=1 %command%"),
-        f(ActionKind::Winetricks, "d3dx9_43"),
-    ];
-    let views = e.recipes(&findings);
-    let by = |id: &str| views.iter().find(|v| v.recipe.id == id).unwrap();
-    assert_eq!(
-        by("frx.compat.wined3d").related_findings,
-        vec!["f-PROTON_USE_WINED3D=1"]
-    );
-    assert_eq!(
-        by("frx.compat.no-d3d11").related_findings,
-        vec!["f-PROTON_NO_D3D11=1 %command%"]
-    );
-    assert!(!by("frx.compat.no-d3d11").executable);
-    assert!(by("frx.diagnostics.proton-log").related_findings.is_empty());
-}
-
 // ── Receitas geradas dinamicamente (sem cadastro no catálogo) ───────────
 
 mod generated {
@@ -1084,8 +1026,9 @@ mod packs {
     use super::*;
     use crate::fix_engine::dynamic::tests::finding;
     use crate::fixes::models::{ActionKind, FixFinding};
+    use crate::smart_packs::benchmark;
+    use crate::smart_packs::experience::{self, ExperiencePack};
     use crate::smart_packs::models::*;
-    use crate::smart_packs::{self, benchmark, BuildInput};
 
     fn findings() -> Vec<FixFinding> {
         vec![
@@ -1107,34 +1050,19 @@ mod packs {
         }
     }
 
-    fn report(fx: &Fx, e: &FixEngine, g: &GameCtx) -> SmartPackReport {
-        smart_packs::build(
-            e,
-            BuildInput {
-                game: g,
-                sessions: &[],
-                profile: Profile::Performance,
-                limits: Limits::default(),
-                launch_line: fx.line(),
-            },
-        )
-        .unwrap()
+    fn report(fx: &Fx, e: &FixEngine, g: &GameCtx) -> ExperiencePack {
+        experience::build(e, g, fx.line().as_deref(), &[]).unwrap()
     }
 
-    fn combo(r: &SmartPackReport) -> SmartPack {
-        r.packs
-            .iter()
-            .find(|p| p.kind == PackKind::Combination)
-            .cloned()
+    /// O pacote do jogo com as duas receitas: uma receita composta.
+    fn combo(r: &ExperiencePack) -> ExperiencePack {
+        assert_eq!(r.actions.len(), 2, "{:?}", r.left_out);
+        assert!(r
+            .apply_recipe_id
+            .as_deref()
             .unwrap()
-    }
-
-    fn single(r: &SmartPackReport, key: &str) -> SmartPack {
-        r.packs
-            .iter()
-            .find(|p| p.kind == PackKind::Single && p.env[0].key == key)
-            .cloned()
-            .unwrap()
+            .starts_with("pack.200260."));
+        r.clone()
     }
 
     #[test]
@@ -1142,10 +1070,8 @@ mod packs {
         let fx = fixture();
         let e = fx.engine();
         let g = game(&fx, findings());
-        let r = report(&fx, &e, &g);
-        let p = combo(&r);
+        let p = combo(&report(&fx, &e, &g));
         assert_eq!(p.state, PackState::Ready, "{}", p.state_detail);
-        assert_eq!(r.ranking.winner, None, "sem benchmark, sem vencedor");
         let plan = e
             .prepare(p.apply_recipe_id.as_deref().unwrap(), &g)
             .unwrap();
@@ -1170,22 +1096,13 @@ mod packs {
             op.steps[0].backup.as_ref().unwrap().sha256.as_deref(),
             Some(sha256_hex(LOCALCONFIG.as_bytes()).as_str())
         );
-        // Estado, configuração atual e snapshot de benchmark apontam para o pacote.
-        let r = report(&fx, &fx.engine(), &g);
-        let p2 = r.packs.iter().find(|x| x.id == p.id).unwrap();
+        // Estado e snapshot de benchmark apontam para o pacote.
+        let p2 = report(&fx, &fx.engine(), &g);
         assert_eq!(p2.state, PackState::Verified, "{}", p2.state_detail);
-        assert_eq!(r.current_pack_id.as_deref(), Some(p.id.as_str()));
-        assert_eq!(benchmark::snapshot(&e, "200260").pack_id, p.id);
+        assert_eq!(p2.operation_id.as_deref(), Some(op.id.as_str()));
         let snapshot = benchmark::snapshot(&e, "200260");
+        assert_eq!(Some(snapshot.pack_id), p.pack_id);
         assert_eq!(snapshot.recipes[0].fingerprint, op.recipe_fingerprint);
-        assert!(benchmark::recipe_context_matches(&e, &g, &snapshot));
-        let mut changed_game = g.clone();
-        changed_game.findings[0].sources[0].snippet =
-            Some("Synthetic fixture: source changed after capture".into());
-        assert!(
-            !benchmark::recipe_context_matches(&e, &changed_game, &snapshot),
-            "the new recipe fingerprint cannot inherit old benchmark evidence"
-        );
         assert_eq!(
             e.operation(&op.id).unwrap().recipe_fingerprint,
             op.recipe_fingerprint,
@@ -1204,84 +1121,7 @@ mod packs {
             OpState::RolledBack
         );
         assert_eq!(std::fs::read_to_string(&fx.config).unwrap(), LOCALCONFIG);
-        let r = report(&fx, &e, &g);
-        assert_eq!(
-            r.packs.iter().find(|x| x.id == p.id).unwrap().state,
-            PackState::RolledBack
-        );
-        assert_eq!(
-            r.packs[0].state,
-            PackState::Verified,
-            "baseline ativo de novo"
-        );
-    }
-
-    #[test]
-    fn switching_packs_is_planned_step_by_step_and_preserves_shared_keys() {
-        let fx = fixture();
-        let e = fx.engine();
-        let g = game(&fx, findings());
-        let r = report(&fx, &e, &g);
-        let a = single(&r, "PROTON_FORCE_LARGE_ADDRESS_AWARE");
-        let b = combo(&r);
-        let pa = e
-            .prepare(a.apply_recipe_id.as_deref().unwrap(), &g)
-            .unwrap();
-        let opa = e.apply(&pa.plan_id, &pa.fingerprint, &g, &noop).unwrap();
-        assert_eq!(opa.state, OpState::Applied);
-        // Aplicar B por cima: conflito na variável compartilhada.
-        assert_eq!(
-            e.prepare(b.apply_recipe_id.as_deref().unwrap(), &g)
-                .unwrap()
-                .status,
-            PlanStatus::Conflict
-        );
-        let r = report(&fx, &e, &g);
-        assert_eq!(
-            r.packs.iter().find(|x| x.id == b.id).unwrap().state,
-            PackState::Conflict
-        );
-
-        let sw = smart_packs::switch_plan(&e, "200260", &b);
-        assert!(sw.possible);
-        assert_eq!(sw.keep.len(), 1);
-        assert_eq!(
-            sw.add,
-            vec![EnvPair {
-                key: "PROTON_HEAP_DELAY_FREE".into(),
-                value: "1".into()
-            }]
-        );
-        assert_eq!(
-            sw.steps.iter().map(|s| s.kind.as_str()).collect::<Vec<_>>(),
-            vec!["rollback", "apply"]
-        );
-        // Executa os passos com as mesmas funções da interface.
-        let rb = e
-            .prepare_rollback(sw.steps[0].operation_id.as_deref().unwrap())
-            .unwrap();
-        e.rollback(&opa.id, &rb.fingerprint, &noop).unwrap();
-        let pb = e
-            .prepare(sw.steps[1].recipe_id.as_deref().unwrap(), &g)
-            .unwrap();
-        let opb = e.apply(&pb.plan_id, &pb.fingerprint, &g, &noop).unwrap();
-        assert_eq!(opb.state, OpState::Applied);
-        assert_eq!(benchmark::snapshot(&e, "200260").pack_id, b.id);
-        // Voltar ao baseline.
-        let base = r
-            .packs
-            .iter()
-            .find(|p| p.kind == PackKind::Baseline)
-            .unwrap();
-        let back = smart_packs::switch_plan(&e, "200260", base);
-        assert_eq!(back.steps.len(), 1);
-        let rb = e.prepare_rollback(&opb.id).unwrap();
-        e.rollback(&opb.id, &rb.fingerprint, &noop).unwrap();
-        assert_eq!(std::fs::read_to_string(&fx.config).unwrap(), LOCALCONFIG);
-        assert!(
-            !smart_packs::switch_plan(&e, "200260", base).possible,
-            "já é a configuração ativa"
-        );
+        assert_eq!(report(&fx, &e, &g).state, PackState::RolledBack);
     }
 
     #[test]
@@ -1341,12 +1181,7 @@ mod packs {
         op.steps[0].status = StepStatus::Written;
         e.journal.save(&op).unwrap();
         let e = fx.engine(); // reinício
-        let r = report(&fx, &e, &g);
-        assert_eq!(
-            r.packs.iter().find(|x| x.id == p.id).unwrap().state,
-            PackState::PartiallyRecovered
-        );
-        assert!(!smart_packs::switch_plan(&e, "200260", &p).possible);
+        assert_eq!(report(&fx, &e, &g).state, PackState::PartiallyRecovered);
         let rb = e.prepare_rollback(&op.id).unwrap();
         assert_eq!(
             e.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state,
@@ -1364,572 +1199,9 @@ mod packs {
             .apply(&plan.plan_id, &plan.fingerprint, &g, &noop)
             .unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
-        let r = report(&fx, &fx.engine(), &g);
-        assert_eq!(
-            r.packs.iter().find(|x| x.id == p.id).unwrap().state,
-            PackState::Testing
-        );
+        assert_eq!(report(&fx, &fx.engine(), &g).state, PackState::Testing);
         assert_eq!(std::fs::read_to_string(&fx.config).unwrap(), LOCALCONFIG);
     }
-
-    #[test]
-    fn sessions_are_linked_to_packs_and_only_unrecorded_ones_can_be_declared() {
-        use crate::performance::persistence::Store;
-        let fx = fixture();
-        let e = fx.engine();
-        let g = game(&fx, findings());
-        let p = combo(&report(&fx, &e, &g));
-        let tmp = tempfile::tempdir().unwrap();
-        let store = Store::new(tmp.path());
-        let mk = |id: &str| crate::smart_packs::tests::synthetic(id, &[], 100.0, 50.0, 20.0);
-        let mut old = mk("old");
-        old.smart_pack = None;
-        let mut assisted = mk("assisted");
-        assisted.active_fixes = Some(vec![]);
-        assisted.smart_pack = None;
-        for m in [&old, &assisted] {
-            store
-                .save(
-                    &crate::performance::models::Session {
-                        meta: m.clone(),
-                        series: vec![],
-                    },
-                    m.id.as_bytes(),
-                )
-                .unwrap();
-        }
-        let declared = store
-            .set_smart_pack(
-                "synthetic-old",
-                Some(benchmark::declared("200260", p.env.clone())),
-            )
-            .unwrap();
-        assert_eq!(declared.smart_pack.as_ref().unwrap().pack_id, p.id);
-        assert!(store
-            .set_smart_pack(
-                "synthetic-assisted",
-                Some(benchmark::declared("200260", vec![]))
-            )
-            .is_err());
-        // active_fixes = [] (v0.4) conta como baseline registrado pelo FRX.
-        let cfg = benchmark::session_config(&e, &assisted).unwrap();
-        assert_eq!(cfg.pack_id, benchmark::baseline_id("200260"));
-        let sessions = store.list();
-        let r = smart_packs::build(
-            &e,
-            BuildInput {
-                game: &g,
-                sessions: &sessions,
-                profile: Profile::Balanced,
-                limits: Limits::default(),
-                launch_line: None,
-            },
-        )
-        .unwrap();
-        let m = r.measurements.iter().find(|m| m.pack_id == p.id).unwrap();
-        assert!(m.sessions[0].notes.iter().any(|n| n.contains("declarada")));
-        assert!(r.unassigned_sessions.is_empty());
-        assert!(r.windows.is_none(), "sem referência Windows integrada");
-    }
-}
-
-/// Validação de ponta a ponta dos Smart Packs **sem tocar na instalação**:
-/// descobertas reais do Batman (cache, só leitura) + 2 descobertas de
-/// fixture identificadas, cópia do localconfig.vdf real numa Steam em
-/// tempdir, log MangoHud real reprocessado do CSV bruto como baseline
-/// declarado e sessões **sintéticas** para os pacotes.
-/// `cargo test real_smart_packs_end_to_end -- --ignored --nocapture`
-#[test]
-#[ignore]
-fn real_smart_packs_end_to_end() {
-    use crate::fix_engine::dynamic::tests::finding;
-    use crate::fixes::models::{ActionKind, FixReport};
-    use crate::performance::models::{SessionInput, SessionSource};
-    use crate::performance::{process, ProcessArgs};
-    use crate::smart_packs::models::*;
-    use crate::smart_packs::{self, benchmark, BuildInput};
-    let home = PathBuf::from(std::env::var("HOME").unwrap());
-    let v: serde_json::Value = serde_json::from_slice(
-        &std::fs::read(home.join(".cache/io.frx.FRX/fixes/200260.json")).unwrap(),
-    )
-    .unwrap();
-    let report: FixReport = serde_json::from_value(v["data"].clone()).unwrap();
-    let mut findings = report.findings.clone();
-    findings.push(finding(
-        "fixture-esync",
-        ActionKind::Env,
-        "PROTON_NO_ESYNC=1",
-        2,
-        0,
-    ));
-    findings.push(finding(
-        "fixture-heap",
-        ActionKind::Env,
-        "PROTON_HEAP_DELAY_FREE=1",
-        2,
-        0,
-    ));
-
-    let fx = fixture();
-    let real_cfg = localconfig::path_for(&home.join(".local/share/Steam"))
-        .unwrap()
-        .1;
-    let original = std::fs::read(&real_cfg).unwrap();
-    std::fs::write(&fx.config, &original).unwrap();
-    let e = fx.engine();
-    let g = GameCtx {
-        findings,
-        gpu: report.context.gpu_vendor,
-        tool_name: report.context.tool_name.clone(),
-        ..fx.game()
-    };
-
-    // Log real do Performance Lab (captura de 25/10, antes de qualquer correção do FRX).
-    let sessions_dir = home.join(".local/share/io.frx.FRX/benchmarks/sessions");
-    let real_id = std::fs::read_dir(&sessions_dir)
-        .unwrap()
-        .flatten()
-        .next()
-        .unwrap()
-        .path();
-    let real_meta: crate::performance::models::SessionMeta =
-        serde_json::from_slice(&std::fs::read(real_id.join("meta.json")).unwrap()).unwrap();
-    let raw = std::fs::read(real_id.join("raw.csv")).unwrap();
-    let mut baseline_real = process(
-        &raw,
-        ProcessArgs {
-            input: SessionInput {
-                app_id: Some("200260".into()),
-                game_name: real_meta.game_name.clone(),
-                label: Some("real · baseline".into()),
-                notes: None,
-                conditions: real_meta.conditions.clone(),
-            },
-            source: Some(SessionSource::Import),
-            original_path: None,
-            known: real_meta.conditions.clone(),
-        },
-    )
-    .unwrap()
-    .meta;
-    baseline_real.id = "real-baseline".into();
-    baseline_real.smart_pack = Some(benchmark::declared("200260", vec![]));
-    println!(
-        "baseline real: FPS médio {:.2} · 1% low {:.2} · P99 {:.2} ms · {:.0} s",
-        baseline_real.stats.fps.avg.unwrap(),
-        baseline_real.stats.fps.low1.unwrap(),
-        baseline_real.stats.frametime.p99.unwrap(),
-        baseline_real.stats.duration_s
-    );
-
-    let build = |sessions: &[crate::performance::models::SessionMeta], profile| {
-        smart_packs::build(
-            &e,
-            BuildInput {
-                game: &g,
-                sessions,
-                profile,
-                limits: Limits::default(),
-                launch_line: fx.line(),
-            },
-        )
-        .unwrap()
-    };
-    let r = build(std::slice::from_ref(&baseline_real), Profile::Balanced);
-    println!("\n== Pacotes compostos ==");
-    for p in &r.packs {
-        println!(
-            "  {:<44} {:?} · {:?} · {} · {:?}",
-            p.name,
-            p.kind,
-            p.state,
-            p.env
-                .iter()
-                .map(|x| format!("{}={}", x.key, x.value))
-                .collect::<Vec<_>>()
-                .join(" "),
-            p.evidence
-        );
-    }
-    println!("== Conflitos (grafo) ==");
-    for x in r.graph.iter().filter(|x| x.relation == Relation::Excludes) {
-        println!("  {} × {}: {:?} — {}", x.a, x.b, x.kind, x.reason);
-    }
-    println!("== Fora dos pacotes ==");
-    for x in &r.excluded {
-        println!("  {} — {}", x.title, x.reason);
-    }
-    println!(
-        "== Ranking (1 baseline real, nenhum pacote medido) ==\n  {}",
-        r.ranking.summary
-    );
-    for x in &r.ranking.entries {
-        println!("  [{:?}] {:<44} {}", x.tier, x.title, x.headline);
-    }
-    let d3d = r
-        .packs
-        .iter()
-        .find(|p| p.env.len() == 1 && p.env[0].key == "PROTON_NO_D3D11")
-        .cloned()
-        .unwrap();
-    assert_eq!(
-        r.ranking
-            .entries
-            .iter()
-            .find(|x| x.pack_id == d3d.id)
-            .unwrap()
-            .tier,
-        Tier::Candidate,
-        "NO_D3D11 não sobe sem benchmark"
-    );
-    assert!(r.ranking.winner.is_none());
-    let combo = r
-        .packs
-        .iter()
-        .find(|p| p.kind == PackKind::Combination)
-        .cloned()
-        .unwrap();
-
-    // Aplica o pacote A (combinação) na cópia.
-    let pa = e
-        .prepare(combo.apply_recipe_id.as_deref().unwrap(), &g)
-        .unwrap();
-    println!("\nPacote A: {:?} → {:?}", pa.status, pa.changes[0].after);
-    let opa = e.apply(&pa.plan_id, &pa.fingerprint, &g, &noop).unwrap();
-    assert_eq!(opa.state, OpState::Applied);
-    let b = opa.steps[0].backup.as_ref().unwrap();
-    assert_eq!(b.sha256.as_deref(), Some(sha256_hex(&original).as_str()));
-    println!("backup verificado: {} ({} bytes)", b.path.display(), b.size);
-    let snap_a = benchmark::snapshot(&e, "200260");
-    assert_eq!(snap_a.pack_id, combo.id);
-
-    // Sessões sintéticas do pacote A, com o snapshot real do FRX.
-    let synth = |id: &str, snap: &PackSnapshot, f: f64| {
-        let mut m = baseline_real.clone();
-        m.id = format!("synthetic-{id}");
-        m.label = format!("SINTÉTICA {id}");
-        m.stats.fps.avg = m.stats.fps.avg.map(|v| v * f);
-        m.stats.fps.low1 = m.stats.fps.low1.map(|v| v * f);
-        m.smart_pack = Some(snap.clone());
-        m
-    };
-    let mut sessions = vec![baseline_real.clone(), synth("a1", &snap_a, 1.10)];
-    let r = build(&sessions, Profile::Balanced);
-    let ea = r
-        .ranking
-        .entries
-        .iter()
-        .find(|x| x.pack_id == combo.id)
-        .unwrap();
-    println!(
-        "\nRanking com 1 real × 1 sintética: [{:?}] {} — {}",
-        ea.tier,
-        ea.headline,
-        ea.reasons.join(" ")
-    );
-    assert_eq!(ea.tier, Tier::Candidate);
-
-    // Repetições (sintéticas, incluindo um segundo baseline sintético).
-    let mut base2 = synth("b2", &benchmark::declared("200260", vec![]), 1.01);
-    base2.smart_pack = Some(benchmark::declared("200260", vec![]));
-    sessions.push(base2);
-    sessions.push(synth("a2", &snap_a, 1.11));
-    let r = build(&sessions, Profile::Balanced);
-    let ea = r
-        .ranking
-        .entries
-        .iter()
-        .find(|x| x.pack_id == combo.id)
-        .unwrap();
-    println!(
-        "Ranking com 2 × 2: [{:?}] #{:?} {} · {}",
-        ea.tier, ea.position, ea.headline, r.ranking.summary
-    );
-    assert_eq!(ea.tier, Tier::Measured);
-    assert!(r.history.len() >= 2);
-
-    // Troca para o pacote B (NO_D3D11 sozinha): desfaz A, aplica B.
-    let sw = smart_packs::switch_plan(&e, "200260", &d3d);
-    println!(
-        "\nTroca A → B: mantém {:?}, remove {:?}, adiciona {:?}, passos {:?}",
-        sw.keep,
-        sw.remove,
-        sw.add,
-        sw.steps.iter().map(|s| &s.title).collect::<Vec<_>>()
-    );
-    let rb = e.prepare_rollback(&opa.id).unwrap();
-    e.rollback(&opa.id, &rb.fingerprint, &noop).unwrap();
-    let pb = e
-        .prepare(d3d.apply_recipe_id.as_deref().unwrap(), &g)
-        .unwrap();
-    let opb = e.apply(&pb.plan_id, &pb.fingerprint, &g, &noop).unwrap();
-    assert_eq!(opb.state, OpState::Applied);
-    let snap_b = benchmark::snapshot(&e, "200260");
-    sessions.push(synth("d1", &snap_b, 0.80));
-    sessions.push(synth("d2", &snap_b, 0.81));
-    let cmp = smart_packs::compare_packs(&e, "200260", &sessions, &combo.id, &d3d.id).unwrap();
-    println!(
-        "A × B: {} · {:?}",
-        cmp.summary,
-        cmp.deltas
-            .iter()
-            .map(|d| format!("{} {:+.1}%", d.label, d.delta_pct))
-            .collect::<Vec<_>>()
-    );
-    let r = build(&sessions, Profile::Performance);
-    let eb = r
-        .ranking
-        .entries
-        .iter()
-        .find(|x| x.pack_id == d3d.id)
-        .unwrap();
-    println!(
-        "Perfil desempenho: B [{:?}] {} · {}",
-        eb.tier, eb.headline, r.ranking.summary
-    );
-    assert_eq!(eb.tier, Tier::NotRecommended);
-
-    // Restaura o estado original.
-    let rb = e.prepare_rollback(&opb.id).unwrap();
-    e.rollback(&opb.id, &rb.fingerprint, &noop).unwrap();
-    assert_eq!(std::fs::read(&fx.config).unwrap(), original);
-    println!(
-        "\nRollback final: cópia idêntica ao original ({} bytes). Histórico do ranking: {} pontos.",
-        original.len(),
-        build(&sessions, Profile::Balanced).history.len()
-    );
-}
-
-/// Teste de aceitação do "Testar desempenho" (Batman) **sem tocar na
-/// instalação**: cópia do localconfig.vdf real numa Steam em tempdir e
-/// logs MangoHud de FIXTURE gerados a partir da observação informal do
-/// usuário (referência ≈ 95 FPS; `PROTON_NO_D3D11=1` ≈ 55 FPS). Os logs
-/// passam pelo mesmo processamento e pela mesma associação da captura
-/// assistida (`tag_assisted`).
-/// `cargo test acceptance_test_performance_batman -- --ignored --nocapture`
-/// Com `FRX_E2E_STORE=<pasta>`, as sessões também são salvas ali (para
-/// validar a interface num ambiente isolado).
-#[test]
-#[ignore]
-fn acceptance_test_performance_batman() {
-    use crate::fix_engine::dynamic::tests::batman_no_d3d11;
-    use crate::performance::models::{Conditions, SessionInput, SessionMeta, SessionSource};
-    use crate::performance::parser::fixtures::per_frame;
-    use crate::performance::{process, ProcessArgs};
-    use crate::smart_packs::models::*;
-    use crate::smart_packs::{self, benchmark, BuildInput};
-
-    let home = PathBuf::from(std::env::var("HOME").unwrap());
-    let fx = fixture();
-    let real_cfg = localconfig::path_for(&home.join(".local/share/Steam"))
-        .unwrap()
-        .1;
-    let original = std::fs::read(&real_cfg).unwrap();
-    std::fs::write(&fx.config, &original).unwrap();
-    let e = fx.engine();
-    let g = GameCtx {
-        findings: vec![batman_no_d3d11()],
-        ..fx.game()
-    };
-    let out = std::env::var_os("FRX_E2E_STORE").map(crate::performance::persistence::Store::new);
-
-    // Log de FIXTURE: 60 s de quadros com oscilação e alguns picos.
-    let log = |fps: f64, seed: f64| {
-        let mut fts = Vec::new();
-        let (mut t, mut i) = (0.0, 0usize);
-        while t < 60_000.0 {
-            let wobble = 1.0
-                + 0.08 * ((i as f64 / 37.0) + seed).sin()
-                + 0.05 * ((i as f64 / 5.0) * seed).cos();
-            let mut ft = 1000.0 / fps * wobble;
-            if i % 400 == 17 {
-                ft *= 2.6;
-            }
-            fts.push(ft);
-            t += ft;
-            i += 1;
-        }
-        per_frame(&fts, 97.0)
-    };
-    let conditions = Conditions {
-        resolution: Some("1920x1080".into()),
-        preset: Some("Alto".into()),
-        vsync: Some(false),
-        gpu: Some("NVIDIA GeForce RTX 4060".into()),
-        ..Default::default()
-    };
-    let mut sessions: Vec<SessionMeta> = Vec::new();
-    let capture = |label: &str, fps: f64, seed: f64, sessions: &mut Vec<SessionMeta>| {
-        let raw = log(fps, seed);
-        let mut s = process(
-            raw.as_bytes(),
-            ProcessArgs {
-                input: SessionInput {
-                    app_id: Some("200260".into()),
-                    game_name: Some("Batman: Arkham City GOTY".into()),
-                    label: Some(format!("FIXTURE · {label}")),
-                    notes: Some(
-                        "Gerada a partir da observação informal do usuário; não é benchmark real."
-                            .into(),
-                    ),
-                    conditions: conditions.clone(),
-                },
-                source: Some(SessionSource::Assisted),
-                original_path: None,
-                known: conditions.clone(),
-            },
-        )
-        .unwrap();
-        s.meta.id = format!("s-test-{}", sessions.len());
-        s.meta.created_at = format!("2026-10-26T22:0{}:00Z", sessions.len());
-        benchmark::tag_assisted(&e, "200260", &mut s.meta);
-        if let Some(st) = &out {
-            let mut exported = s.clone();
-            exported.meta.source = SessionSource::Synthetic;
-            st.save(&exported, raw.as_bytes()).unwrap();
-        }
-        sessions.push(s.meta.clone());
-        s.meta.id
-    };
-    let report = |sessions: &[SessionMeta], profile| {
-        smart_packs::build(
-            &e,
-            BuildInput {
-                game: &g,
-                sessions,
-                profile,
-                limits: Limits::default(),
-                launch_line: fx.line(),
-            },
-        )
-        .unwrap()
-    };
-    let show = |ev: &PackEvaluation| {
-        println!(
-            "  [{:?}{}] {}",
-            ev.verdict,
-            if ev.preliminary { " · preliminar" } else { "" },
-            ev.headline
-        );
-        println!("    {}", ev.summary);
-        if let Some(n) = &ev.next_step {
-            println!("    próximo passo: {n}");
-        }
-        println!("    ranking: {}", ev.ranking_effect);
-    };
-
-    // 1. Referência (configuração normal).
-    let r = report(&sessions, Profile::Performance);
-    let pack = r
-        .packs
-        .iter()
-        .find(|p| p.env.len() == 1 && p.env[0].key == "PROTON_NO_D3D11")
-        .cloned()
-        .unwrap();
-    let b1 = capture("referência 1", 95.0, 0.3, &mut sessions);
-    let ev = smart_packs::evaluate_session(&e, &sessions, &b1).unwrap();
-    println!("Captura da referência:");
-    show(&ev);
-    assert_eq!(ev.verdict, EvalVerdict::Reference);
-
-    // 2. Aplica o pacote (prévia → confirmação) e captura.
-    let p = e
-        .prepare(pack.apply_recipe_id.as_deref().unwrap(), &g)
-        .unwrap();
-    let op = e.apply(&p.plan_id, &p.fingerprint, &g, &noop).unwrap();
-    assert_eq!(op.state, OpState::Applied);
-    let d1 = capture("PROTON_NO_D3D11 1", 55.0, 1.1, &mut sessions);
-    let m = sessions.iter().find(|s| s.id == d1).unwrap();
-    assert_eq!(
-        m.smart_pack.as_ref().unwrap().pack_id,
-        pack.id,
-        "associada sozinha ao pack ativo"
-    );
-    let ev = smart_packs::evaluate_session(&e, &sessions, &d1).unwrap();
-    println!("\nPrimeira captura com o pacote:");
-    show(&ev);
-    assert_eq!(
-        (ev.verdict, ev.preliminary),
-        (EvalVerdict::Regression, true)
-    );
-    assert_eq!(
-        ev.current_pack_id.as_deref(),
-        Some(pack.id.as_str()),
-        "oferece restaurar"
-    );
-    let r = report(&sessions, Profile::Performance);
-    let en = r
-        .ranking
-        .entries
-        .iter()
-        .find(|x| x.pack_id == pack.id)
-        .unwrap();
-    println!("  ranking: [{:?}] {}", en.tier, en.headline);
-    assert_eq!(
-        en.tier,
-        Tier::Candidate,
-        "uma captura não comprova a regressão"
-    );
-
-    // 3. Repetição: pacote ainda ativo; depois restaura e repete a referência.
-    let d2 = capture("PROTON_NO_D3D11 2", 57.0, 2.3, &mut sessions);
-    let sw = smart_packs::switch_plan(&e, "200260", &r.packs[0]);
-    println!(
-        "\nRestaurar: remove {:?} em {} passo(s)",
-        sw.remove
-            .iter()
-            .map(|x| format!("{}={}", x.key, x.value))
-            .collect::<Vec<_>>(),
-        sw.steps.len()
-    );
-    let rb = e.prepare_rollback(&op.id).unwrap();
-    assert_eq!(
-        e.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state,
-        OpState::RolledBack
-    );
-    assert_eq!(
-        std::fs::read(&fx.config).unwrap(),
-        original,
-        "configuração anterior restaurada byte a byte"
-    );
-    let b2 = capture("referência 2", 92.0, 4.7, &mut sessions);
-    assert_eq!(
-        sessions
-            .iter()
-            .find(|s| s.id == b2)
-            .unwrap()
-            .smart_pack
-            .as_ref()
-            .unwrap()
-            .pack_id,
-        r.baseline_id
-    );
-    let ev = smart_packs::evaluate_session(&e, &sessions, &d2).unwrap();
-    println!("\nCom 2 × 2 capturas:");
-    show(&ev);
-    for d in &ev.deltas {
-        println!(
-            "    {:<18} {:>7.1} → {:>7.1} {:<4} ({:+.1}%, limiar ±{:.1}%) {:?}",
-            d.label, d.before, d.after, d.unit, d.delta_pct, d.threshold_pct, d.outcome
-        );
-    }
-    assert_eq!(
-        (ev.verdict, ev.preliminary),
-        (EvalVerdict::Regression, false)
-    );
-    for profile in [Profile::Performance, Profile::Balanced] {
-        let r = report(&sessions, profile);
-        let en = r
-            .ranking
-            .entries
-            .iter()
-            .find(|x| x.pack_id == pack.id)
-            .unwrap();
-        println!("  ranking {:?}: [{:?}] {}", profile, en.tier, en.headline);
-        assert_eq!(en.tier, Tier::NotRecommended);
-        assert!(r.ranking.winner.is_none());
-    }
-    let _ = d1;
 }
 
 mod file_artifacts {
@@ -1937,11 +1209,6 @@ mod file_artifacts {
     include!("artifact_tests.rs");
     include!("file_security_tests.rs");
     include!("https_fixture_test.rs");
-}
-
-mod resolution_acceptance {
-    use super::*;
-    include!("../resolution/acceptance_tests.rs");
 }
 
 mod availability_acceptance {
@@ -2053,4 +1320,291 @@ fn gpu_physx_plan_applies_the_reviewed_recipe_and_rolls_back() {
         .reasons
         .iter()
         .any(|r| r.code == "tool" && r.message.contains("stub")));
+}
+
+/// Pacote único: dez relatos do mesmo ajuste viram uma ação; relatos
+/// negativos, alternativas conflitantes e evidência fraca ficam de fora com
+/// o motivo; o pacote composto aplica tudo numa operação e desfaz tudo.
+#[test]
+fn experience_pack_merges_duplicates_skips_conflicts_and_rolls_back_as_one() {
+    use crate::fix_engine::dynamic::tests::finding;
+    use crate::fixes::models::ActionKind;
+    use crate::smart_packs::experience::{self, LeftOutKind};
+    let fx = fixture();
+    let e = fx.engine();
+    let mut findings: Vec<_> = (0..10)
+        .map(|i| {
+            finding(
+                &format!("heap-{i}"),
+                ActionKind::Env,
+                "PROTON_HEAP_DELAY_FREE=1",
+                2,
+                0,
+            )
+        })
+        .collect();
+    findings.push(finding(
+        "nvapi-on",
+        ActionKind::Env,
+        "PROTON_ENABLE_NVAPI=1",
+        3,
+        0,
+    ));
+    findings.push(finding(
+        "nvapi-off",
+        ActionKind::Env,
+        "PROTON_DISABLE_NVAPI=1",
+        2,
+        0,
+    ));
+    findings.push(finding("bad", ActionKind::Env, "PROTON_USE_XALIA=0", 1, 2));
+    findings.push(finding(
+        "weak",
+        ActionKind::Env,
+        "PROTON_ENABLE_WAYLAND=1",
+        0,
+        0,
+    ));
+    let g = GameCtx {
+        findings,
+        gpu: Some(crate::fixes::models::GpuReq::Nvidia),
+        ..fx.game()
+    };
+    let p = experience::build(&e, &g, fx.line().as_deref(), &[]).unwrap();
+    let changes: Vec<&str> = p
+        .actions
+        .iter()
+        .flat_map(|a| a.changes.iter().map(String::as_str))
+        .collect();
+    assert_eq!(
+        changes
+            .iter()
+            .filter(|c| **c == "PROTON_HEAP_DELAY_FREE=1")
+            .count(),
+        1,
+        "dez relatos do mesmo ajuste são uma ação só: {changes:?}"
+    );
+    let heap = p
+        .actions
+        .iter()
+        .find(|a| a.changes == ["PROTON_HEAP_DELAY_FREE=1"])
+        .unwrap();
+    assert!(
+        heap.sources.len() >= 10,
+        "todas as fontes ficam como evidência"
+    );
+    assert!(
+        !(changes.contains(&"PROTON_ENABLE_NVAPI=1")
+            && changes.contains(&"PROTON_DISABLE_NVAPI=1")),
+        "alternativas incompatíveis não entram juntas"
+    );
+    let out = |k: LeftOutKind| p.left_out.iter().filter(move |l| l.kind == k);
+    assert!(out(LeftOutKind::Conflict).any(|l| l.changes.iter().any(|c| c.contains("NVAPI"))));
+    assert!(
+        out(LeftOutKind::Negative).any(|l| l.changes == ["PROTON_USE_XALIA=0"]),
+        "relatos negativos: {:?}",
+        p.left_out
+    );
+    assert!(
+        !changes.contains(&"PROTON_ENABLE_WAYLAND=1"),
+        "um comentário sem resultado não entra"
+    );
+    assert!(p.actions.len() >= 2, "{:?}", p.left_out);
+    let rid = p.apply_recipe_id.clone().unwrap();
+    assert!(
+        rid.starts_with("pack.200260."),
+        "várias ações = uma receita composta"
+    );
+
+    // Desligar uma ação recompõe o pacote sem ela.
+    let without = experience::build(
+        &e,
+        &g,
+        fx.line().as_deref(),
+        std::slice::from_ref(&heap.recipe_id),
+    )
+    .unwrap();
+    assert!(without
+        .actions
+        .iter()
+        .any(|a| a.recipe_id == heap.recipe_id && !a.selected));
+    assert_ne!(without.apply_recipe_id, p.apply_recipe_id);
+
+    let before = std::fs::read(&fx.config).unwrap();
+    let plan = e.prepare(&rid, &g).unwrap();
+    assert_eq!(plan.status, PlanStatus::Ready);
+    let op = e
+        .apply(&plan.plan_id, &plan.fingerprint, &g, &|_| {})
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied);
+    let line = fx.line().unwrap();
+    for c in &changes {
+        assert!(line.contains(c), "{c} aplicado: {line}");
+    }
+    let applied = experience::build(&e, &g, fx.line().as_deref(), &[]).unwrap();
+    assert_eq!(applied.operation_id.as_deref(), Some(op.id.as_str()));
+    assert!(matches!(
+        applied.state,
+        crate::smart_packs::models::PackState::Verified
+    ));
+
+    let rb = e.prepare_rollback(&op.id).unwrap();
+    e.rollback(&rb.operation_id, &rb.fingerprint, &|_| {})
+        .unwrap();
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        before,
+        "o pacote inteiro é desfeito"
+    );
+}
+
+/// Complete Experience Pack com dados reais: descobertas do cache, instalação,
+/// ferramenta e hardware reais (só leitura). Gravação e rollback numa cópia
+/// isolada da configuração da Steam. `FRX_APPID` (padrão 3321460).
+/// `cargo test real_experience_pack -- --ignored --nocapture`
+#[test]
+#[ignore]
+fn real_experience_pack() {
+    use crate::fixes::models::FixReport;
+    use crate::smart_packs::experience;
+    use crate::steam::{self, discovery::DiscoveryEnv};
+    let app = std::env::var("FRX_APPID").unwrap_or_else(|_| "3321460".into());
+    let home = PathBuf::from(std::env::var("HOME").unwrap());
+    let v: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(home.join(format!(".cache/io.frx.FRX/fixes/{app}.json"))).unwrap(),
+    )
+    .unwrap();
+    let report: FixReport = serde_json::from_value(v["data"].clone()).unwrap();
+    let scan = steam::scan(&DiscoveryEnv::from_process(), None);
+    let real = scan.games.into_iter().find(|g| g.app_id == app).unwrap();
+    let profile = crate::system::profile();
+    let fx = fixture();
+    let real_cfg = localconfig::path_for(&home.join(".local/share/Steam"))
+        .unwrap()
+        .1;
+    let mut cfg = std::fs::read_to_string(&real_cfg).unwrap();
+    if std::env::var_os("FRX_CLEAN_CONFIG").is_some() || !cfg.contains(&format!("\"{app}\"")) {
+        // Entrada sem opções de inicialização (a do AppID 620 na fixture).
+        cfg = LOCALCONFIG
+            .replace("\"200260\"", "\"0\"")
+            .replace("\"620\"", &format!("\"{app}\""));
+    }
+    std::fs::write(&fx.config, &cfg).unwrap();
+    let e = fx.engine();
+    let tool = real.compatibility.tool.as_ref();
+    let g = GameCtx {
+        app_id: app.clone(),
+        name: real.name.clone(),
+        steam_root: Some(fx.steam.clone()),
+        install_path: real.install_path.clone().map(Into::into),
+        uses_proton: real.compatibility.uses_proton,
+        tool_name: tool.map(|t| crate::fixes::short_tool_name(&t.display_name)),
+        tool_path: tool.and_then(|t| t.install_path.clone()).map(Into::into),
+        tool_includes_protonfixes: tool.is_some_and(|t| t.includes_protonfixes),
+        gpu: report.context.gpu_vendor,
+        driver: profile
+            .primary_gpu
+            .as_ref()
+            .and_then(|g| g.driver_version.clone()),
+        findings: report.findings.clone(),
+        ..Default::default()
+    };
+    let line = || {
+        localconfig::launch_options(&std::fs::read_to_string(&fx.config).unwrap(), &app).unwrap()
+    };
+    println!(
+        "{} · {} descobertas · {:?} · {:?}",
+        g.name,
+        g.findings.len(),
+        g.tool_name,
+        g.gpu
+    );
+    for id in ["frx.proton.dlss-upgrade", crate::resolution::physx::RECIPE] {
+        let a = e.availability(id, &g);
+        println!(
+            "catálogo {id}: {:?} {:?}",
+            a.state,
+            a.reasons.iter().map(|r| &r.message).collect::<Vec<_>>()
+        );
+    }
+    if let Some((_, plan)) = crate::resolution::physx::add(
+        &e,
+        &g,
+        line().as_deref(),
+        std::path::Path::new("/"),
+        &mut [],
+    ) {
+        println!(
+            "PhysX: {} · {:?} · {:?}",
+            plan.state,
+            plan.recipe_id,
+            plan.availability
+                .reasons
+                .iter()
+                .map(|r| &r.message)
+                .collect::<Vec<_>>()
+        );
+    }
+    let p = experience::build(&e, &g, line().as_deref(), &[]).unwrap();
+    println!(
+        "\n== Pacote: {:?} · {} · aplicar {:?} · parcial {}",
+        p.state,
+        p.availability
+            .reasons
+            .iter()
+            .map(|r| r.message.as_str())
+            .collect::<Vec<_>>()
+            .join(" "),
+        p.apply_recipe_id,
+        p.partial
+    );
+    println!("ambiente: {:?} · áreas: {:?}", p.environment, p.areas);
+    for a in &p.actions {
+        println!(
+            "  + {} [{}] {:?} · {:?} · +{} -{} · {}",
+            a.title, a.area, a.changes, a.evidence, a.positive, a.negative, a.evidence_note
+        );
+        for s in &a.sources {
+            println!("      fonte: {} {}", s.label, s.url);
+        }
+    }
+    for r in &p.risks {
+        println!("  risco: {r}");
+    }
+    println!("== Fora do pacote");
+    for l in &p.left_out {
+        println!(
+            "  - [{:?}] {} {:?} ×{} — {}",
+            l.kind, l.title, l.changes, l.count, l.reason
+        );
+    }
+    let Some(rid) = p.apply_recipe_id.clone() else {
+        return;
+    };
+    let before = std::fs::read(&fx.config).unwrap();
+    let plan = e.prepare(&rid, &g).unwrap();
+    println!("\n== Prévia {:?}", plan.status);
+    for c in &plan.changes {
+        println!("  {c:?}");
+    }
+    let op = e
+        .apply(&plan.plan_id, &plan.fingerprint, &g, &|_| {})
+        .unwrap();
+    println!("aplicado: {:?} · opções agora: {:?}", op.state, line());
+    let after = experience::build(&e, &g, line().as_deref(), &[]).unwrap();
+    println!(
+        "estado do pacote: {:?} — {}",
+        after.state, after.state_detail
+    );
+    let rb = e.prepare_rollback(&op.id).unwrap();
+    let back = e
+        .rollback(&rb.operation_id, &rb.fingerprint, &|_| {})
+        .unwrap();
+    println!("rollback: {:?} · opções agora: {:?}", back.state, line());
+    assert_eq!(
+        std::fs::read(&fx.config).unwrap(),
+        before,
+        "rollback restaura o arquivo byte a byte"
+    );
+    println!("arquivo restaurado byte a byte: sim");
 }

@@ -392,66 +392,6 @@ pub fn outlook(key: &str, value: &str) -> Outlook {
     }
 }
 
-/// Problemas que `NOME=valor` costuma resolver (ids de sintoma da resolução).
-/// Vazio = não ajuda com nenhum problema descrito, então não é sugestão.
-pub fn aims(key: &str, value: &str) -> Vec<&'static str> {
-    match (key, value) {
-        ("PROTON_NVIDIA_LIBS", "1") => vec!["physx"],
-        ("PROTON_DLSS_UPGRADE", "1") => vec!["dlss"],
-        ("PROTON_XESS_UPGRADE", "1") => vec!["graphics"],
-        ("PROTON_ENABLE_NVAPI" | "PROTON_DISABLE_NVAPI", "1") => vec!["dlss", "frame-generation"],
-        ("PROTON_ENABLE_WAYLAND" | "PROTON_USE_WAYLAND", "1") => vec!["graphics"],
-        ("PROTON_USE_XALIA", "0") => vec!["controls"],
-        ("PROTON_USE_WINED3D", "1") => vec!["startup", "graphics"],
-        ("PROTON_NO_D3D11" | "PROTON_NO_D3D10", "1") => vec!["startup"],
-        ("PROTON_NO_ESYNC" | "PROTON_NO_FSYNC" | "PROTON_NO_NTSYNC", "1") => {
-            vec!["startup", "stuttering"]
-        }
-        (
-            "PROTON_FORCE_LARGE_ADDRESS_AWARE"
-            | "PROTON_HEAP_DELAY_FREE"
-            | "PROTON_OLD_GL_STRING"
-            | "PROTON_HIDE_NVIDIA_GPU",
-            "1",
-        ) => vec!["startup"],
-        ("DXVK_FRAME_RATE" | "VKD3D_FRAME_RATE", _) => vec!["stuttering"],
-        ("VKD3D_CONFIG", flags) => {
-            let mut out = Vec::new();
-            for flag in flags.split(',') {
-                let more: &[&'static str] = match flag {
-                    "nodxr" => &["ray-tracing"],
-                    "descriptor_heap" => &["startup", "graphics"],
-                    "enable_experimental_features" => &["startup"],
-                    "no_upload_hvv" | "single_queue" => &["stuttering"],
-                    _ => &[],
-                };
-                for id in more {
-                    if !out.contains(id) {
-                        out.push(*id);
-                    }
-                }
-            }
-            out
-        }
-        _ => vec![],
-    }
-}
-
-/// Problemas de todas as variáveis de uma receita, sem repetição.
-pub fn recipe_aims(actions: &[RecipeAction]) -> Vec<&'static str> {
-    let mut out: Vec<&'static str> = Vec::new();
-    for a in actions {
-        if let RecipeAction::SetLaunchEnv { key, value } = a {
-            for id in aims(key, value) {
-                if !out.contains(&id) {
-                    out.push(id);
-                }
-            }
-        }
-    }
-    out
-}
-
 /// Pior efeito entre as variáveis da receita; `None` se não houver nenhuma.
 pub fn recipe_outlook(actions: &[RecipeAction]) -> Option<Outlook> {
     actions
