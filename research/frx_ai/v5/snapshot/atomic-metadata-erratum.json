@@ -1,0 +1,10 @@
+{
+  "run": "A5-audited-data",
+  "reported_real_training_events": 91,
+  "explanation": "Preserve original91 metadata. New isolated replica counts127; original input composition is not certified by a per-run hash. Cold parser initialization advances Torch RNG. A6 controls the seed after encoding; future fits log input hashes.",
+  "expected_real_events_from_configuration": 127,
+  "original_input_hash_recorded": false,
+  "confirmed_replica_real_training_events": 127,
+  "replication_curves_identical": false,
+  "seed_audit": "seed-audit.json"
+}

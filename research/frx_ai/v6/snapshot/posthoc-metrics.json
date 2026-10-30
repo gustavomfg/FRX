@@ -1,0 +1,2500 @@
+{
+  "summary": {
+    "v6-selected": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 28
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 16
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 6
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 18
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 13
+        },
+        {
+          "gold": "unknown",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 10
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 29
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 4
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 3
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 3
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 2
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 5
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "switch",
+          "prediction": "unknown",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 14
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 20
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 47,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 52
+    },
+    "v6-structural": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 28
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 16
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 6
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 18
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 13
+        },
+        {
+          "gold": "unknown",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 10
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 29
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 4
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 3
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 3
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 2
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 5
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "switch",
+          "prediction": "unknown",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 14
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 20
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 47,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 52
+    },
+    "v6-nearest": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 28
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 16
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 6
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 18
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 13
+        },
+        {
+          "gold": "unknown",
+          "prediction": "suggested",
+          "count": 2
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 10
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 29
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 4
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 3
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 3
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 2
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 5
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "switch",
+          "prediction": "unknown",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 14
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 20
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 49,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 52
+    },
+    "v5-stanza": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 16
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 9
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 5
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 12
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 6
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 5
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 22
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 2
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 2
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 2
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 2
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 11
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 2
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 52,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 50
+    },
+    "v5-compact": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 16
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 10
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 5
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 12
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 7
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 4
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 22
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 2
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 2
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 2
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 4
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 2
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 10
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 4
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 52,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 50
+    },
+    "thread-context-rule": {
+      "status_confusion": [
+        {
+          "gold": "negated",
+          "prediction": "negated",
+          "count": 1
+        },
+        {
+          "gold": "negated",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "performed",
+          "count": 16
+        },
+        {
+          "gold": "performed",
+          "prediction": "suggested",
+          "count": 1
+        },
+        {
+          "gold": "performed",
+          "prediction": "unknown",
+          "count": 9
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "preexisting",
+          "count": 2
+        },
+        {
+          "gold": "preexisting",
+          "prediction": "unknown",
+          "count": 5
+        },
+        {
+          "gold": "suggested",
+          "prediction": "suggested",
+          "count": 12
+        },
+        {
+          "gold": "suggested",
+          "prediction": "unknown",
+          "count": 6
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 5
+        }
+      ],
+      "direction_confusion": [
+        {
+          "gold": "configure",
+          "prediction": "configure",
+          "count": 22
+        },
+        {
+          "gold": "configure",
+          "prediction": "switch",
+          "count": 1
+        },
+        {
+          "gold": "disable",
+          "prediction": "disable",
+          "count": 5
+        },
+        {
+          "gold": "enable",
+          "prediction": "enable",
+          "count": 2
+        },
+        {
+          "gold": "install",
+          "prediction": "install",
+          "count": 2
+        },
+        {
+          "gold": "remove",
+          "prediction": "remove",
+          "count": 2
+        },
+        {
+          "gold": "replace",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "switch",
+          "prediction": "configure",
+          "count": 2
+        },
+        {
+          "gold": "switch",
+          "prediction": "switch",
+          "count": 4
+        },
+        {
+          "gold": "unknown",
+          "prediction": "configure",
+          "count": 11
+        },
+        {
+          "gold": "unknown",
+          "prediction": "disable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "enable",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "replace",
+          "count": 1
+        },
+        {
+          "gold": "unknown",
+          "prediction": "unknown",
+          "count": 2
+        },
+        {
+          "gold": "update",
+          "prediction": "update",
+          "count": 1
+        }
+      ],
+      "gold_joint_relations": 7,
+      "gold_negative_relations": 45,
+      "missed_owner_statuses": {
+        "performed": 52,
+        "preexisting": 7,
+        "unknown": 7
+      },
+      "failed_units": 72
+    }
+  },
+  "separate_challenges": {
+    "exact-name-2": {
+      "v6-selected": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 5,
+        "matched": 4,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 5,
+        "game_correct": 4,
+        "gold_game_known": 9,
+        "cross_game_errors": 1,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 1,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": 0.8,
+        "game_recall": 0.4444444444444444,
+        "actor_precision": null,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          }
+        ]
+      },
+      "v6-structural": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 5,
+        "matched": 4,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 5,
+        "game_correct": 4,
+        "gold_game_known": 9,
+        "cross_game_errors": 1,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 1,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": 0.8,
+        "game_recall": 0.4444444444444444,
+        "actor_precision": null,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          }
+        ]
+      },
+      "v6-nearest": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 5,
+        "matched": 4,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 5,
+        "game_correct": 4,
+        "gold_game_known": 9,
+        "cross_game_errors": 1,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 1,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": 0.8,
+        "game_recall": 0.4444444444444444,
+        "actor_precision": null,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          }
+        ]
+      },
+      "v5-stanza": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 4,
+        "matched": 3,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 9,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": null,
+        "game_recall": 0.0,
+        "actor_precision": null,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "v5-compact": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 4,
+        "matched": 3,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 9,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": null,
+        "game_recall": 0.0,
+        "actor_precision": null,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "thread-context-rule": {
+        "documents": 2,
+        "gold_events": 9,
+        "triggers": 4,
+        "matched": 3,
+        "gold_performed": 0,
+        "performed": 0,
+        "performed_correct": 0,
+        "false_performed": 0,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 0,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 4,
+        "game_correct": 3,
+        "gold_game_known": 9,
+        "cross_game_errors": 1,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 1,
+        "actor_claims": 4,
+        "actor_correct": 0,
+        "gold_actor_known": 0,
+        "actor_kind_claims": 4,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": null,
+        "performed_recall": null,
+        "performed_f1": 0.0,
+        "relation_precision": null,
+        "relation_recall": null,
+        "relation_missed": 0,
+        "game_precision": 0.75,
+        "game_recall": 0.3333333333333333,
+        "actor_precision": 0.0,
+        "actor_recall": null,
+        "details": [
+          {
+            "id": "identity-0",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "identity-1",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          }
+        ]
+      }
+    },
+    "context-22": {
+      "v6-selected": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 47,
+        "matched": 24,
+        "gold_performed": 31,
+        "performed": 15,
+        "performed_correct": 9,
+        "false_performed": 6,
+        "relations": 3,
+        "relation_correct": 2,
+        "gold_relations": 22,
+        "false_success": 1,
+        "negative_correct": 2,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 10,
+        "actor_correct": 9,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 38,
+        "actor_kind_correct": 17,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 2,
+        "performed_precision": 0.6,
+        "performed_recall": 0.2903225806451613,
+        "performed_f1": 0.391304347826087,
+        "relation_precision": 0.6666666666666666,
+        "relation_recall": 0.09090909090909091,
+        "relation_missed": 20,
+        "game_precision": null,
+        "game_recall": null,
+        "actor_precision": 0.9,
+        "actor_recall": 0.75,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 1,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 2,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "v6-structural": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 47,
+        "matched": 24,
+        "gold_performed": 31,
+        "performed": 15,
+        "performed_correct": 9,
+        "false_performed": 6,
+        "relations": 3,
+        "relation_correct": 2,
+        "gold_relations": 22,
+        "false_success": 1,
+        "negative_correct": 2,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 10,
+        "actor_correct": 9,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 38,
+        "actor_kind_correct": 17,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 2,
+        "performed_precision": 0.6,
+        "performed_recall": 0.2903225806451613,
+        "performed_f1": 0.391304347826087,
+        "relation_precision": 0.6666666666666666,
+        "relation_recall": 0.09090909090909091,
+        "relation_missed": 20,
+        "game_precision": null,
+        "game_recall": null,
+        "actor_precision": 0.9,
+        "actor_recall": 0.75,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 1,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 2,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "v6-nearest": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 47,
+        "matched": 24,
+        "gold_performed": 31,
+        "performed": 15,
+        "performed_correct": 9,
+        "false_performed": 6,
+        "relations": 3,
+        "relation_correct": 1,
+        "gold_relations": 22,
+        "false_success": 1,
+        "negative_correct": 1,
+        "joint_claims": 1,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 10,
+        "actor_correct": 9,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 38,
+        "actor_kind_correct": 17,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 2,
+        "performed_precision": 0.6,
+        "performed_recall": 0.2903225806451613,
+        "performed_f1": 0.391304347826087,
+        "relation_precision": 0.3333333333333333,
+        "relation_recall": 0.045454545454545456,
+        "relation_missed": 21,
+        "game_precision": null,
+        "game_recall": null,
+        "actor_precision": 0.9,
+        "actor_recall": 0.75,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 1,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 2,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "v5-stanza": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 16,
+        "matched": 12,
+        "gold_performed": 31,
+        "performed": 6,
+        "performed_correct": 4,
+        "false_performed": 2,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 22,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": 0.6666666666666666,
+        "performed_recall": 0.12903225806451613,
+        "performed_f1": 0.21621621621621623,
+        "relation_precision": null,
+        "relation_recall": 0.0,
+        "relation_missed": 22,
+        "game_precision": null,
+        "game_recall": null,
+        "actor_precision": null,
+        "actor_recall": 0.0,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "v5-compact": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 17,
+        "matched": 13,
+        "gold_performed": 31,
+        "performed": 7,
+        "performed_correct": 5,
+        "false_performed": 2,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 22,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 0,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 0,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 0,
+        "actor_claims": 0,
+        "actor_correct": 0,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 0,
+        "actor_kind_correct": 0,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": 0.7142857142857143,
+        "performed_recall": 0.16129032258064516,
+        "performed_f1": 0.2631578947368421,
+        "relation_precision": null,
+        "relation_recall": 0.0,
+        "relation_missed": 22,
+        "game_precision": null,
+        "game_recall": null,
+        "actor_precision": null,
+        "actor_recall": 0.0,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 0
+          }
+        ]
+      },
+      "thread-context-rule": {
+        "documents": 22,
+        "gold_events": 48,
+        "triggers": 16,
+        "matched": 12,
+        "gold_performed": 31,
+        "performed": 6,
+        "performed_correct": 4,
+        "false_performed": 2,
+        "relations": 0,
+        "relation_correct": 0,
+        "gold_relations": 22,
+        "false_success": 0,
+        "negative_correct": 0,
+        "joint_claims": 0,
+        "joint_correct": 0,
+        "game_claims": 16,
+        "game_correct": 0,
+        "gold_game_known": 0,
+        "cross_game_errors": 16,
+        "explicit_cross_game_errors": 0,
+        "unsupported_game_attributions": 16,
+        "actor_claims": 16,
+        "actor_correct": 8,
+        "gold_actor_known": 12,
+        "actor_kind_claims": 16,
+        "actor_kind_correct": 8,
+        "literal_errors": 0,
+        "temporal_claims": 0,
+        "temporal_correct": 0,
+        "gold_temporal": 0,
+        "proposable_relations": 0,
+        "performed_precision": 0.6666666666666666,
+        "performed_recall": 0.12903225806451613,
+        "performed_f1": 0.21621621621621623,
+        "relation_precision": null,
+        "relation_recall": 0.0,
+        "relation_missed": 22,
+        "game_precision": 0.0,
+        "game_recall": null,
+        "actor_precision": 0.5,
+        "actor_recall": 0.6666666666666666,
+        "details": [
+          {
+            "id": "context-0",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-1",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-2",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-3",
+            "game": "2215430",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-4",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-5",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-6",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-7",
+            "game": "1659420",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 2
+          },
+          {
+            "id": "context-8",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-9",
+            "game": "418370",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 3
+          },
+          {
+            "id": "context-10",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 3
+          },
+          {
+            "id": "context-11",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-12",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          },
+          {
+            "id": "context-13",
+            "game": "1172620",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          },
+          {
+            "id": "context-14",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-15",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-16",
+            "game": "1687950",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 1
+          },
+          {
+            "id": "context-17",
+            "game": "1687950",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-18",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-19",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 0
+          },
+          {
+            "id": "context-20",
+            "game": "1888160",
+            "false_performed": 0,
+            "false_success": 0,
+            "cross_game_errors": 1
+          },
+          {
+            "id": "context-21",
+            "game": "1888160",
+            "false_performed": 1,
+            "false_success": 0,
+            "cross_game_errors": 4
+          }
+        ]
+      }
+    }
+  },
+  "risk_coverage": {
+    "status": "descriptive after final evaluation; no threshold selected or deployed",
+    "points": [
+      {
+        "threshold": 0.3,
+        "accepted": 12,
+        "correct": 9,
+        "false_success": 3,
+        "precision": 0.75,
+        "recall": 0.12857142857142856
+      },
+      {
+        "threshold": 0.4,
+        "accepted": 9,
+        "correct": 9,
+        "false_success": 0,
+        "precision": 1.0,
+        "recall": 0.12857142857142856
+      },
+      {
+        "threshold": 0.5,
+        "accepted": 0,
+        "correct": 0,
+        "false_success": 0,
+        "precision": null,
+        "recall": 0.0
+      },
+      {
+        "threshold": 0.6,
+        "accepted": 0,
+        "correct": 0,
+        "false_success": 0,
+        "precision": null,
+        "recall": 0.0
+      },
+      {
+        "threshold": 0.7,
+        "accepted": 0,
+        "correct": 0,
+        "false_success": 0,
+        "precision": null,
+        "recall": 0.0
+      },
+      {
+        "threshold": 0.8,
+        "accepted": 0,
+        "correct": 0,
+        "false_success": 0,
+        "precision": null,
+        "recall": 0.0
+      },
+      {
+        "threshold": 0.9,
+        "accepted": 0,
+        "correct": 0,
+        "false_success": 0,
+        "precision": null,
+        "recall": 0.0
+      }
+    ]
+  },
+  "temporal_evaluation": "No exhaustively annotated temporal edges in the acceptance set; no temporal competence conclusion.",
+  "calibration": "No independent calibration set and too few accepted links; raw scores remain uncalibrated."
+}

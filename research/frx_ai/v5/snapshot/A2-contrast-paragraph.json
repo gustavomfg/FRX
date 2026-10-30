@@ -1,0 +1,63 @@
+{
+  "name": "A2-contrast-paragraph",
+  "config": {
+    "synthetic": 120,
+    "scope": "paragraph",
+    "features": false
+  },
+  "real_training_events": 91,
+  "synthetic_training_events": 120,
+  "seconds": 99.72437086000082,
+  "epochs": [
+    {
+      "epoch": 1,
+      "loss": 1.0474720531039767,
+      "supplied_span_accuracy": 0.171875,
+      "performed_claims": 0,
+      "performed_correct": 0,
+      "selection_score": 0
+    },
+    {
+      "epoch": 2,
+      "loss": 0.9531700279977586,
+      "supplied_span_accuracy": 0.1875,
+      "performed_claims": 1,
+      "performed_correct": 1,
+      "selection_score": 1
+    },
+    {
+      "epoch": 3,
+      "loss": 0.8320170409149594,
+      "supplied_span_accuracy": 0.296875,
+      "performed_claims": 9,
+      "performed_correct": 9,
+      "selection_score": 9
+    },
+    {
+      "epoch": 4,
+      "loss": 0.6669150425328149,
+      "supplied_span_accuracy": 0.484375,
+      "performed_claims": 35,
+      "performed_correct": 23,
+      "selection_score": -1
+    },
+    {
+      "epoch": 5,
+      "loss": 0.5248584763871299,
+      "supplied_span_accuracy": 0.5,
+      "performed_claims": 39,
+      "performed_correct": 25,
+      "selection_score": -3
+    },
+    {
+      "epoch": 6,
+      "loss": 0.4232417692740758,
+      "supplied_span_accuracy": 0.546875,
+      "performed_claims": 42,
+      "performed_correct": 27,
+      "selection_score": -3
+    }
+  ],
+  "seed": 55,
+  "quality": "agent-provisional labels; supplied-trigger development control; not end-to-end extraction"
+}

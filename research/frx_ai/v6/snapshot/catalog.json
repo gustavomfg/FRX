@@ -1,0 +1,442 @@
+[
+  {
+    "app_id": "1086940",
+    "name": "Baldur's Gate 3",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1086940",
+    "sha256": "221b9ddfeb7b944cb40003cbf7527be16dc465a1b149087d3dfb3c300202c6c3",
+    "aliases": []
+  },
+  {
+    "app_id": "1091500",
+    "name": "Cyberpunk 2077",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1091500",
+    "sha256": "9a46a1a624b15c096e2afba9303612b2d11fb3e41dc913d86e042b4d4dd0d331",
+    "aliases": []
+  },
+  {
+    "app_id": "1151640",
+    "name": "Horizon Zero Dawn™ Complete Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1151640",
+    "sha256": "11f38af291a1b93ad1b15dceffeac79d57d0f4528390cec9bdeb2936f46e532b",
+    "aliases": []
+  },
+  {
+    "app_id": "1172380",
+    "name": "STAR WARS Jedi: Fallen Order™",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1172380",
+    "sha256": "e45fe21e25bc59e834bf30722df57c14cb6f6cc8832ae55d248cbbf59b68705d",
+    "aliases": []
+  },
+  {
+    "app_id": "1172620",
+    "name": "Sea of Thieves: 2026 Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1172620",
+    "sha256": "df1df0a9936837ca1af0618534ddeddee02486de9bb25e7621f7a1c12bdfec83",
+    "aliases": []
+  },
+  {
+    "app_id": "1174180",
+    "name": "Red Dead Redemption 2",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1174180",
+    "sha256": "11bdc3c7572e7cf0a61d728feb84ce8bd9945225d311a9b79f81329c9454ebcd",
+    "aliases": []
+  },
+  {
+    "app_id": "1182900",
+    "name": "A Plague Tale: Requiem",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1182900",
+    "sha256": "d70f6af76ac38f94d3cf9a23c7791e3b98d410b6fb9a7dee3e244c41b74b0876",
+    "aliases": []
+  },
+  {
+    "app_id": "1190460",
+    "name": "DEATH STRANDING",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1190460",
+    "sha256": "c75d33ce10d73e2ebb64ef0027b8af5485741a61bf3f6a1890a9d48f56ed71a4",
+    "aliases": []
+  },
+  {
+    "app_id": "1196590",
+    "name": "Resident Evil Village",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1196590",
+    "sha256": "59f8ce835e7a786d7d3f9cd2e338df8afcdd7fdc886c64fa19862a25c0fab66c",
+    "aliases": []
+  },
+  {
+    "app_id": "1222140",
+    "name": "Detroit: Become Human",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1222140",
+    "sha256": "b1a48547c7eacbc95ed257d771cb4cd7a8aefda7fc2a2932417285a15ca3f31f",
+    "aliases": []
+  },
+  {
+    "app_id": "1245620",
+    "name": "ELDEN RING",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1245620",
+    "sha256": "a4370efe135856a24978b14e201733365dff9836691372ad0935974d48ceef3d",
+    "aliases": []
+  },
+  {
+    "app_id": "1252330",
+    "name": "DEATHLOOP",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1252330",
+    "sha256": "9b4c6abcfe95e989621a95bf9b766774fb1aee3a5500dd156432d0bfca794476",
+    "aliases": []
+  },
+  {
+    "app_id": "1259420",
+    "name": "Days Gone",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1259420",
+    "sha256": "f2cb0df9f5b892d0a22f798589ac75c0fbe507301eeff980c84e7633f01d3194",
+    "aliases": []
+  },
+  {
+    "app_id": "1282100",
+    "name": "REMNANT II®",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1282100",
+    "sha256": "711b3a69cef6565d03080ba7952ed946888db439d829d34821c31d2db5908d42",
+    "aliases": []
+  },
+  {
+    "app_id": "1364780",
+    "name": "Street Fighter™ 6",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1364780",
+    "sha256": "51632a7832bcaac2b4b28f5e346861c23d63de496490a28bb69871c1f99b2c90",
+    "aliases": []
+  },
+  {
+    "app_id": "1446780",
+    "name": "MONSTER HUNTER RISE",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1446780",
+    "sha256": "20b8101ab3c266e02e6d014d1e1e293f7746d56b46c6c95d67992379a7613804",
+    "aliases": []
+  },
+  {
+    "app_id": "1462040",
+    "name": "FINAL FANTASY VII REMAKE INTERGRADE",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1462040",
+    "sha256": "ed29c3a7c3ddb80a0f797468bfd08b05842ded25799e2adabaae4e896af0de2d",
+    "aliases": []
+  },
+  {
+    "app_id": "1593500",
+    "name": "God of War",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1593500",
+    "sha256": "c97fbcfd09f7fc8b7378c11ed0d71c9d570c6e75e5c9d9b914aeb0ec6cc9d18f",
+    "aliases": []
+  },
+  {
+    "app_id": "1627720",
+    "name": "Lies of P",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1627720",
+    "sha256": "422233d8e475c7bd2276033b20cf47cf3d4fc45699754810ba91a349c28ca184",
+    "aliases": []
+  },
+  {
+    "app_id": "1643320",
+    "name": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1643320",
+    "sha256": "34e9203586aac459b383fe2523675f364f5038a5bc4741d46f5f7b1c5a9c2a80",
+    "aliases": []
+  },
+  {
+    "app_id": "1659420",
+    "name": "UNCHARTED™: Legacy of Thieves Collection",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1659420",
+    "sha256": "95a92160f9a05d73d44bcfc7baaaedd380427f15a8ad5414ae7d0e62c7acaa38",
+    "aliases": []
+  },
+  {
+    "app_id": "1687950",
+    "name": "Persona 5 Royal",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1687950",
+    "sha256": "edf1827996058d657a17e5da4c7f78b5aad39db9f23b6a12875403d454642cc7",
+    "aliases": []
+  },
+  {
+    "app_id": "1693980",
+    "name": "Dead Space",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1693980",
+    "sha256": "2d80991c6700a3b0a1e1e599b17962bdf9158745bd1ba4fbc53bdad78c159122",
+    "aliases": []
+  },
+  {
+    "app_id": "1716740",
+    "name": "Starfield",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1716740",
+    "sha256": "424cae101b400c021557d805333233f799157f22d0ccb25a63449d3a6a73b075",
+    "aliases": []
+  },
+  {
+    "app_id": "1771300",
+    "name": "Kingdom Come: Deliverance II",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1771300",
+    "sha256": "f63f13cbf0ef6600c67e60d1fac3b3a4af0141d9cd009623ce6eb20d9b525bdd",
+    "aliases": []
+  },
+  {
+    "app_id": "1817070",
+    "name": "Marvel’s Spider-Man Remastered",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1817070",
+    "sha256": "54cdc5a29e73fd776296f1c5cd4b47a48f87fda0f31ccf41add0f900db511c81",
+    "aliases": []
+  },
+  {
+    "app_id": "1888160",
+    "name": "ARMORED CORE™ VI FIRES OF RUBICON™",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1888160",
+    "sha256": "e4e0d5788230fb7b72bbf8f2622fd4295d51dbb6bac4be03897e6902c8f6e2b2",
+    "aliases": []
+  },
+  {
+    "app_id": "1888930",
+    "name": "The Last of Us™ Part I",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=1888930",
+    "sha256": "659cdc603f0daf6d29e658ed4a93098fc0e551785316f8f9cc815e55a0f42800",
+    "aliases": []
+  },
+  {
+    "app_id": "200260",
+    "name": "Batman: Arkham City - Game of the Year Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=200260",
+    "sha256": "466d0ebbbf8552bd7b757abd170bf4b511e4f5f60e95a6d13434a97d4dbcf54b",
+    "aliases": []
+  },
+  {
+    "app_id": "2050650",
+    "name": "Resident Evil 4",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2050650",
+    "sha256": "29f2d8035cb29681be0b44ca3924557a7805374bed3ae217605a1d82cba0b683",
+    "aliases": []
+  },
+  {
+    "app_id": "2215430",
+    "name": "Ghost of Tsushima DIRECTOR'S CUT",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2215430",
+    "sha256": "fa8d9de7ca0b99cf15ae716aeb1f0af5cd5de8ed1b44630b77480f8998b6d764",
+    "aliases": []
+  },
+  {
+    "app_id": "2246340",
+    "name": "Monster Hunter Wilds",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2246340",
+    "sha256": "8a03b200550bfd85d080e0793ee5d4e377244b91a7466c85ce4ba5d9c836af2c",
+    "aliases": []
+  },
+  {
+    "app_id": "2322010",
+    "name": "God of War Ragnarök",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2322010",
+    "sha256": "7b77e9d2ffa490b0dce9b603257740a42a748dece22a8d6501fd0eba2018af47",
+    "aliases": []
+  },
+  {
+    "app_id": "2358720",
+    "name": "Black Myth: Wukong",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2358720",
+    "sha256": "3101b77d5325da9c2c0af081f6c07caf2cf9551b4617a6233c302bbe63641c8d",
+    "aliases": []
+  },
+  {
+    "app_id": "2420110",
+    "name": "Horizon Forbidden West™ Complete Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2420110",
+    "sha256": "1f93f266d01052a1d795b68aa277eb3fb8df2db626570b6e0a54676460b32f16",
+    "aliases": []
+  },
+  {
+    "app_id": "2515020",
+    "name": "FINAL FANTASY XVI",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=2515020",
+    "sha256": "51d29e633a838c332da55aec5e839f220edec9c152f639a92bf9d48b19e20a16",
+    "aliases": []
+  },
+  {
+    "app_id": "275850",
+    "name": "No Man's Sky",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=275850",
+    "sha256": "8dc73a0804527441845b59cddd66d7c112a678853ca7dba1045cdc9069fdcbc5",
+    "aliases": []
+  },
+  {
+    "app_id": "292030",
+    "name": "The Witcher 3: Wild Hunt — Remastered",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=292030",
+    "sha256": "385a1b69a720e029f9addbc6bc7d049653b8e7aa77763441ef6a96f20415e155",
+    "aliases": []
+  },
+  {
+    "app_id": "3321460",
+    "name": "Crimson Desert Enhanced",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=3321460",
+    "sha256": "748e6f2cfa6744c8b70da00f7cb58e5bad14086ef8dd88c6bedf1c246061d975",
+    "aliases": []
+  },
+  {
+    "app_id": "374320",
+    "name": "DARK SOULS™ III",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=374320",
+    "sha256": "47e9a114fb55b7e79baff85dacfe1dcbba4b4487c28df077e1635058cb379f46",
+    "aliases": []
+  },
+  {
+    "app_id": "39210",
+    "name": "FINAL FANTASY XIV Online",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=39210",
+    "sha256": "3d340aebf33aafdd08e7c2042833d59105caeaef05483d67c4a37bf2cb582296",
+    "aliases": []
+  },
+  {
+    "app_id": "397540",
+    "name": "Borderlands 3",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=397540",
+    "sha256": "0ce15170eb013254979cc5c543bb023b3208666e078ec5a0378bd3ff0e853f0b",
+    "aliases": []
+  },
+  {
+    "app_id": "412020",
+    "name": "Metro Exodus",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=412020",
+    "sha256": "d0e47b2fd3595bb453a74f7ebbe28bff52112c85d9c8c5b4e9dae138c130d811",
+    "aliases": []
+  },
+  {
+    "app_id": "418370",
+    "name": "Resident Evil 7 Biohazard",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=418370",
+    "sha256": "28dc39d4ef75477beaff96966b833ad8f5aa43c80ffdec56b5c1ca310d6a59ba",
+    "aliases": []
+  },
+  {
+    "app_id": "480490",
+    "name": "Prey",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=480490",
+    "sha256": "67b5403f6a37f23df9164137f07c0276da95bb2ebe12989cd8746919f2b9a02b",
+    "aliases": []
+  },
+  {
+    "app_id": "553850",
+    "name": "HELLDIVERS™ 2",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=553850",
+    "sha256": "24ff8fa119d99837b378439830ea5fb7abbd0d4960e52b7a80b00d1e9717d332",
+    "aliases": []
+  },
+  {
+    "app_id": "570940",
+    "name": "DARK SOULS™: REMASTERED",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=570940",
+    "sha256": "08712e4a81cc2062a78fb6a8d95a897549c172b4e6c30f6a13d94f46869a641b",
+    "aliases": []
+  },
+  {
+    "app_id": "582010",
+    "name": "Monster Hunter: World",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=582010",
+    "sha256": "cc1a202e37c33abca00ed23742ae2b758062342006a6e9622b724847c3b01936",
+    "aliases": []
+  },
+  {
+    "app_id": "582160",
+    "name": "Assassin's Creed® Origins",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=582160",
+    "sha256": "4f8cc177efa0916ff57cd1afe797b87261b874c115cf8413b1f18a79a4b310cd",
+    "aliases": []
+  },
+  {
+    "app_id": "632360",
+    "name": "Risk of Rain 2",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=632360",
+    "sha256": "12bc80fa2f2a183e623b9c5787789797edf22aa214ea930e6cfacde9a30ccbe2",
+    "aliases": []
+  },
+  {
+    "app_id": "637650",
+    "name": "FINAL FANTASY XV WINDOWS EDITION",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=637650",
+    "sha256": "a0adf63826c0cfe48554488c35251a158211a9c4aaced1930597c18334760e1b",
+    "aliases": []
+  },
+  {
+    "app_id": "782330",
+    "name": "DOOM Eternal",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=782330",
+    "sha256": "b3986f6ba3253715e5aee951518c668e19c0811f8b92e127eecbbf292da8cc35",
+    "aliases": []
+  },
+  {
+    "app_id": "814380",
+    "name": "Sekiro™: Shadows Die Twice - GOTY Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=814380",
+    "sha256": "f3b62ed07856a88884c0cf18f5c5c2c889a07df9ba68591baf589f4906a0ba87",
+    "aliases": []
+  },
+  {
+    "app_id": "870780",
+    "name": "CONTROL Ultimate Edition",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=870780",
+    "sha256": "d9733701cc6ca948742405f4115dee5a28dd4ddaf6a63049750adb3909331b24",
+    "aliases": []
+  },
+  {
+    "app_id": "990080",
+    "name": "Hogwarts Legacy",
+    "verified": true,
+    "source": "https://store.steampowered.com/api/appdetails?appids=990080",
+    "sha256": "5b10dc74092c3d8b0eec746f5237c73d8d9cfc474d5e6bac5b6f18fc0eb62beb",
+    "aliases": []
+  }
+]

@@ -1,0 +1,200 @@
+{
+  "fits": [
+    {
+      "id": "A1-real-paragraph",
+      "kind": "encoder-fit",
+      "seconds": 57.26515919400026,
+      "selected_epoch": 1,
+      "correct": 0,
+      "accepted": 0,
+      "synthetic": 0,
+      "real_events": 91
+    },
+    {
+      "id": "A2-contrast-paragraph",
+      "kind": "encoder-fit",
+      "seconds": 99.72437086000082,
+      "selected_epoch": 3,
+      "correct": 9,
+      "accepted": 9,
+      "synthetic": 120,
+      "real_events": 91
+    },
+    {
+      "id": "A3-contrast-sentence",
+      "kind": "encoder-fit",
+      "seconds": 94.8986102559993,
+      "selected_epoch": 2,
+      "correct": 3,
+      "accepted": 4,
+      "synthetic": 120,
+      "real_events": 91
+    },
+    {
+      "id": "A4-coverage-control",
+      "kind": "encoder-fit",
+      "seconds": 94.64307486499911,
+      "selected_epoch": 6,
+      "correct": 19,
+      "accepted": 29,
+      "synthetic": 120,
+      "real_events": 91
+    },
+    {
+      "id": "A4-syntax-features",
+      "kind": "encoder-fit",
+      "seconds": 94.56015832499997,
+      "selected_epoch": 2,
+      "correct": 3,
+      "accepted": 4,
+      "synthetic": 120,
+      "real_events": 91
+    },
+    {
+      "id": "A5-audited-data",
+      "kind": "encoder-fit",
+      "seconds": 116.98287313499986,
+      "selected_epoch": 4,
+      "correct": 24,
+      "accepted": 41,
+      "synthetic": 120,
+      "real_events": 127,
+      "real_events_provenance": "127 expected from configuration, not proven by original input hash; original metric metadata reported91"
+    },
+    {
+      "id": "linker-development/R1-real-linear",
+      "kind": "association-fit",
+      "seconds": 0.09757418400022289,
+      "training_examples": 16,
+      "correct": 6,
+      "accepted": 10,
+      "eligible": false
+    },
+    {
+      "id": "linker-development/R2-contrast-linear",
+      "kind": "association-fit",
+      "seconds": 0.09176695299993298,
+      "training_examples": 163,
+      "correct": 6,
+      "accepted": 12,
+      "eligible": false
+    },
+    {
+      "id": "linker-development/R3-contrast-tree",
+      "kind": "association-fit",
+      "seconds": 0.08906034600022394,
+      "training_examples": 163,
+      "correct": 6,
+      "accepted": 8,
+      "eligible": false
+    },
+    {
+      "id": "linker-development/R4-without-dependencies",
+      "kind": "association-fit",
+      "seconds": 0.08924820799984445,
+      "training_examples": 163,
+      "correct": 6,
+      "accepted": 8,
+      "eligible": false
+    },
+    {
+      "id": "linker-reconstructed-development/R1-real-linear",
+      "kind": "association-fit",
+      "seconds": 0.09576945099979639,
+      "training_examples": 18,
+      "correct": 6,
+      "accepted": 8,
+      "eligible": false
+    },
+    {
+      "id": "linker-reconstructed-development/R2-contrast-linear",
+      "kind": "association-fit",
+      "seconds": 0.09028941599990503,
+      "training_examples": 165,
+      "correct": 6,
+      "accepted": 12,
+      "eligible": false
+    },
+    {
+      "id": "linker-reconstructed-development/R3-contrast-tree",
+      "kind": "association-fit",
+      "seconds": 0.0872221690005972,
+      "training_examples": 165,
+      "correct": 6,
+      "accepted": 9,
+      "eligible": false
+    },
+    {
+      "id": "linker-reconstructed-development/R4-without-dependencies",
+      "kind": "association-fit",
+      "seconds": 0.08685910199983482,
+      "training_examples": 165,
+      "correct": 6,
+      "accepted": 9,
+      "eligible": false
+    },
+    {
+      "id": "linker-audited-development/R1-real-linear",
+      "kind": "association-fit",
+      "seconds": 0.1805106909996539,
+      "training_examples": 46,
+      "correct": 6,
+      "accepted": 8,
+      "eligible": false
+    },
+    {
+      "id": "linker-audited-development/R2-contrast-linear",
+      "kind": "association-fit",
+      "seconds": 0.17439084199941135,
+      "training_examples": 193,
+      "correct": 5,
+      "accepted": 8,
+      "eligible": false
+    },
+    {
+      "id": "linker-audited-development/R3-contrast-tree",
+      "kind": "association-fit",
+      "seconds": 0.15130772900010925,
+      "training_examples": 193,
+      "correct": 5,
+      "accepted": 9,
+      "eligible": false
+    },
+    {
+      "id": "linker-audited-development/R4-without-dependencies",
+      "kind": "association-fit",
+      "seconds": 0.15369075400030852,
+      "training_examples": 193,
+      "correct": 4,
+      "accepted": 6,
+      "eligible": false
+    },
+    {
+      "id": "replication/A5-audited-data",
+      "kind": "encoder-reproduction-control",
+      "seconds": 130.52223947399943,
+      "selected_epoch": 5,
+      "correct": 23,
+      "accepted": 40,
+      "real_events": 127,
+      "seed_after_encoding": false
+    },
+    {
+      "id": "replication/A6-seed-control",
+      "kind": "encoder-reproduction-control",
+      "seconds": 109.53203754400056,
+      "selected_epoch": 6,
+      "correct": 21,
+      "accepted": 37,
+      "real_events": 127,
+      "seed_after_encoding": true
+    }
+  ],
+  "fits_count": 20,
+  "encoder_fits": 8,
+  "association_fits": 12,
+  "total_fitting_wall_seconds": 799.5162134979992,
+  "note": "18 exploratory fits +2 reproduction controls. A1-A5 seeds are confounded by cold parser initialization; A6 resets after encoding. Historical metrics preserved, no new final selection.",
+  "exploratory_fit_count": 18,
+  "replication_fit_count": 2
+}

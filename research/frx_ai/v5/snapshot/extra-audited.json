@@ -1,0 +1,1018 @@
+[
+  {
+    "id": "extra-0",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-415590484",
+    "source_offset": 0,
+    "source_sha256": "9cb44f7c89961270079b4bac76461883ee31dc1268357474814aaeca78262fde",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          9
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          13,
+          52
+        ],
+        "status_span": [
+          0,
+          52
+        ]
+      },
+      {
+        "trigger": [
+          172,
+          181
+        ],
+        "status": "suggested",
+        "direction": "update",
+        "target": [
+          182,
+          188
+        ],
+        "status_span": [
+          167,
+          188
+        ]
+      },
+      {
+        "trigger": [
+          221,
+          232
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          233,
+          239
+        ],
+        "status_span": [
+          213,
+          239
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          99,
+          133
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          213,
+          220
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The update is joint kernel/driver, author explicitly cannot isolate cause; later edit changes a plan into a separate reported trial.",
+    "paragraph_length": 294,
+    "paragraph_sha256": "9cb44f7c89961270079b4bac76461883ee31dc1268357474814aaeca78262fde"
+  },
+  {
+    "id": "extra-1",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-415227915",
+    "source_offset": 0,
+    "source_sha256": "5fa3ff503df2eb160e3c9861c6722e0e7d2877a7d1fba58ab8db1ae7444dfbb4",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          260,
+          267
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          268,
+          291
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Instruction-like gerund with future will work; later gameplay does not explicitly establish that this setting was applied. Existing state and actual setting change remain ambiguous.",
+    "paragraph_length": 686,
+    "paragraph_sha256": "5fa3ff503df2eb160e3c9861c6722e0e7d2877a7d1fba58ab8db1ae7444dfbb4"
+  },
+  {
+    "id": "extra-2",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-435132818",
+    "source_offset": 0,
+    "source_sha256": "117593c33b192fa264d79bb98edf7e63250c5194e9ad6d11999dbc3a3c2dedcc",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          319,
+          323
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          324,
+          373
+        ],
+        "status_span": [
+          314,
+          373
+        ]
+      },
+      {
+        "trigger": [
+          385,
+          395
+        ],
+        "status": "negated",
+        "direction": "install",
+        "target": [
+          396,
+          409
+        ],
+        "status_span": [
+          374,
+          409
+        ]
+      },
+      {
+        "trigger": [
+          815,
+          825
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          826,
+          846
+        ],
+        "status_span": [
+          810,
+          846
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          907,
+          961
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Fix concerns the configuration GUI, not a measured FPS gain. Other unspecified tips prevent assigning initial game startup success to Wine alone. Shell transcript is evidence data, never executed.",
+    "paragraph_length": 1029,
+    "paragraph_sha256": "117593c33b192fa264d79bb98edf7e63250c5194e9ad6d11999dbc3a3c2dedcc"
+  },
+  {
+    "id": "extra-3",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1430534686",
+    "source_offset": 0,
+    "source_sha256": "d39c2699ac9fce6ac5824ebb1439732650d23c591e74b1f576e201538fcb3a1e",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Update-associated performance/stability report but no literal executed update action. Do not fabricate an installation from the update noun; gains are community prose, not FRX measurements.",
+    "paragraph_length": 220,
+    "paragraph_sha256": "d39c2699ac9fce6ac5824ebb1439732650d23c591e74b1f576e201538fcb3a1e"
+  },
+  {
+    "id": "extra-4",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-886222484",
+    "source_offset": 0,
+    "source_sha256": "4e032a6c958d66765522cd123e7a2f779ea2f02460259070f2404283b378e0f0",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          42,
+          45
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          46,
+          100
+        ],
+        "status_span": [
+          40,
+          100
+        ]
+      },
+      {
+        "trigger": [
+          204,
+          210
+        ],
+        "status": "unknown",
+        "direction": "enable",
+        "target": [
+          211,
+          223
+        ],
+        "status_span": [
+          180,
+          223
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Existing environment plus a question. Hardware capability is not observed DLSS/RTX functionality.",
+    "paragraph_length": 254,
+    "paragraph_sha256": "4e032a6c958d66765522cd123e7a2f779ea2f02460259070f2404283b378e0f0"
+  },
+  {
+    "id": "extra-5",
+    "app_id": "582010",
+    "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-420821105",
+    "source_offset": 0,
+    "source_sha256": "d0b24585dfe0af04d6a9ac57ffb0f2ebcba4afd486dd1d22d8c6cbfa9fd5892f",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          207,
+          213
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          214,
+          224
+        ],
+        "status_span": [
+          207,
+          224
+        ]
+      },
+      {
+        "trigger": [
+          228,
+          234
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          235,
+          241
+        ],
+        "status_span": [
+          228,
+          241
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          104,
+          176
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Explicit Things I have done introduces list items; positive result belongs to both updates. Separate background process issue has no identified corrective action.",
+    "paragraph_length": 942,
+    "paragraph_sha256": "d0b24585dfe0af04d6a9ac57ffb0f2ebcba4afd486dd1d22d8c6cbfa9fd5892f"
+  },
+  {
+    "id": "extra-6",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-420437434",
+    "source_offset": 0,
+    "source_sha256": "4557b2ef7d25d8aa99c03b52ff749dc9fba093c818fcc53e3163fd1d0f57e2f5",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          56,
+          61
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          62,
+          78
+        ],
+        "status_span": [
+          0,
+          78
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          11,
+          34
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Community recalled procedure, exact package is literal but not approved/installed by FRX. Cross-game documentation reference is not another game result.",
+    "paragraph_length": 279,
+    "paragraph_sha256": "4557b2ef7d25d8aa99c03b52ff749dc9fba093c818fcc53e3163fd1d0f57e2f5"
+  },
+  {
+    "id": "extra-7",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1426879086",
+    "source_offset": 0,
+    "source_sha256": "a4a28065ac91074c6d925c290961591b187fa09a161221d3fa0ea5bfffc44c7e",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          24,
+          31
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          32,
+          60
+        ],
+        "status_span": [
+          0,
+          60
+        ]
+      },
+      {
+        "trigger": [
+          152,
+          159
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          160,
+          164
+        ],
+        "status_span": [
+          152,
+          168
+        ]
+      },
+      {
+        "trigger": [
+          207,
+          215
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          216,
+          230
+        ],
+        "status_span": [
+          207,
+          230
+        ]
+      },
+      {
+        "trigger": [
+          302,
+          311
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          315,
+          324
+        ],
+        "status_span": [
+          296,
+          324
+        ]
+      },
+      {
+        "trigger": [
+          326,
+          333
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          334,
+          339
+        ],
+        "status_span": [
+          326,
+          342
+        ]
+      },
+      {
+        "trigger": [
+          347,
+          354
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          355,
+          376
+        ],
+        "status_span": [
+          347,
+          376
+        ]
+      },
+      {
+        "trigger": [
+          459,
+          464
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          465,
+          469
+        ],
+        "status_span": [
+          452,
+          469
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          77,
+          115
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          169,
+          205
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          243,
+          263
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          265,
+          295
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          3,
+          4,
+          5
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unsafe system interventions are narrative data only. The final further improvement is joint. FSR comparison is not a verified local benchmark and the tried this reference does not uniquely identify one configuration.",
+    "paragraph_length": 524,
+    "paragraph_sha256": "a4a28065ac91074c6d925c290961591b187fa09a161221d3fa0ea5bfffc44c7e"
+  },
+  {
+    "id": "extra-8",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-3427565556",
+    "source_offset": 0,
+    "source_sha256": "a99b1e662aa93d5fcb87aea04e707e345aac3852905b923518a3a1f01688351c",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          20,
+          28
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          34,
+          50
+        ],
+        "status_span": [
+          10,
+          50
+        ]
+      },
+      {
+        "trigger": [
+          55,
+          62
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          63,
+          106
+        ],
+        "status_span": [
+          55,
+          106
+        ]
+      },
+      {
+        "trigger": [
+          234,
+          242
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          243,
+          264
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          738,
+          746
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          727,
+          750
+        ]
+      },
+      {
+        "trigger": [
+          970,
+          977
+        ],
+        "status": "unknown",
+        "direction": "disable",
+        "target": [
+          978,
+          988
+        ],
+        "status_span": [
+          965,
+          988
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          111,
+          129
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      },
+      {
+        "span": [
+          392,
+          398
+        ],
+        "outcome": "unknown",
+        "event_indices": [],
+        "joint": false
+      },
+      {
+        "span": [
+          755,
+          774
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          3
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The apparent resolution is struck through/retracted and cannot become success. Conditional keyboard/SteamInput alternatives are investigable, not confirmed actions. Code for multiple AppIDs is not executed or attributed as evidence for those games.",
+    "paragraph_length": 1029,
+    "paragraph_sha256": "a99b1e662aa93d5fcb87aea04e707e345aac3852905b923518a3a1f01688351c"
+  },
+  {
+    "id": "extra-9",
+    "app_id": "200260",
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-438189748",
+    "source_offset": 0,
+    "source_sha256": "a01f6fdbc19752eb4e398ba643e5bb1816694995a4f93e591939a95ae37abb33",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          369,
+          373
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          374,
+          379
+        ],
+        "status_span": [
+          367,
+          379
+        ]
+      },
+      {
+        "trigger": [
+          381,
+          388
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          389,
+          439
+        ],
+        "status_span": [
+          381,
+          439
+        ]
+      },
+      {
+        "trigger": [
+          441,
+          444
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          445,
+          474
+        ],
+        "status_span": [
+          441,
+          474
+        ]
+      },
+      {
+        "trigger": [
+          476,
+          483
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          490,
+          492
+        ],
+        "status_span": [
+          476,
+          492
+        ]
+      },
+      {
+        "trigger": [
+          494,
+          501
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          502,
+          507
+        ],
+        "status_span": [
+          494,
+          513
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          519,
+          534
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Joint multi-step historical procedure, not independent causal credit to a prefix deletion. Earlier used protontricks refers to the same later detailed procedure. No command is executed by the laboratory.",
+    "paragraph_length": 535,
+    "paragraph_sha256": "a01f6fdbc19752eb4e398ba643e5bb1816694995a4f93e591939a95ae37abb33"
+  },
+  {
+    "id": "extra-10",
+    "app_id": "3321460",
+    "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-4481389025",
+    "source_offset": 0,
+    "source_sha256": "374d9a0703b406ca23443a9929c5e36aaf06e5c8742b63e46b07b8589afb28f1",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          230,
+          242
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          248,
+          268
+        ],
+        "status_span": [
+          228,
+          268
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          328,
+          354
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Multiple graphics toggles form one unspecified trial group; no separate setting effect or technology runtime proof is invented from the launch line.",
+    "paragraph_length": 594,
+    "paragraph_sha256": "374d9a0703b406ca23443a9929c5e36aaf06e5c8742b63e46b07b8589afb28f1"
+  },
+  {
+    "id": "extra-11",
+    "app_id": "1091500",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-742226322",
+    "source_offset": 0,
+    "source_sha256": "6f10b0a726082b508dcbaabb395026dd12144870b08fc063403c58e90f18b777",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          11
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          12,
+          39
+        ],
+        "status_span": [
+          0,
+          39
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          126,
+          155
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Combined installed environment followed by unresolved crashes, not proof the installation caused a regression. Attached log is not downloaded or executed.",
+    "paragraph_length": 362,
+    "paragraph_sha256": "6f10b0a726082b508dcbaabb395026dd12144870b08fc063403c58e90f18b777"
+  },
+  {
+    "id": "extra-12",
+    "app_id": "990080",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1426405916",
+    "source_offset": 0,
+    "source_sha256": "681173fb88b0c27bc3a13442b499802ae2fd5956080a2ce98611b10a66d8bd1a",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          49,
+          55
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          56,
+          126
+        ],
+        "status_span": [
+          39,
+          126
+        ]
+      },
+      {
+        "trigger": [
+          170,
+          176
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          163,
+          195
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          8,
+          45
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reported game move, proposed future log collection; exact permission root cause remains a source assertion requiring verification.",
+    "paragraph_length": 336,
+    "paragraph_sha256": "681173fb88b0c27bc3a13442b499802ae2fd5956080a2ce98611b10a66d8bd1a"
+  },
+  {
+    "id": "extra-13",
+    "app_id": "870780",
+    "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-3476613108",
+    "source_offset": 0,
+    "source_sha256": "b3c5ea66bf763a7a7598387fc8954023720fcf1833e812966900a36423ca7abb",
+    "origin": "real-public-github; new provisional agent annotation",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "v5 agent re-annotation from original text; provisional, no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          20
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          21,
+          24
+        ],
+        "status_span": [
+          0,
+          24
+        ]
+      },
+      {
+        "trigger": [
+          162,
+          167
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          168,
+          209
+        ],
+        "status_span": [
+          158,
+          209
+        ]
+      },
+      {
+        "trigger": [
+          991,
+          994
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          995,
+          1004
+        ],
+        "status_span": [
+          985,
+          1004
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          41,
+          59
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          1039,
+          1073
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "vkcube success belongs to a different application. Separate linked issue said resolved is not resolution of the current HDR problem. No component installation, script or game is executed.",
+    "paragraph_length": 1247,
+    "paragraph_sha256": "b3c5ea66bf763a7a7598387fc8954023720fcf1833e812966900a36423ca7abb"
+  }
+]

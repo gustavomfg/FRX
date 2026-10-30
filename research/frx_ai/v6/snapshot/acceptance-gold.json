@@ -1,0 +1,6878 @@
+[
+  {
+    "id": "acceptance-0",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2235699432",
+    "document_id": "2235699432",
+    "reporter_id": "github:81181814",
+    "source_sha256": "856333661b5e76f70e07cb6857713cebf524409653a22dc74b10922242b508db",
+    "source_offset": 0,
+    "paragraph_length": 142,
+    "paragraph_sha256": "7143adf03a58436358ca79eeb6884f727e4ab29ef1c4959e654cfc280abe6561",
+    "published_at": "2024-07-18T06:09:05Z",
+    "updated_at": "2024-07-18T06:09:05Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted question about support, not an executed action or verified failure report.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-1",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2123250854",
+    "document_id": "2123250854",
+    "reporter_id": "github:4325700",
+    "source_sha256": "3ce2acc6fb9c9e7240a67adf7cd9c38b693a648a8169f17c8c1b4a56c441940a",
+    "source_offset": 0,
+    "paragraph_length": 376,
+    "paragraph_sha256": "81752d6c880b14b64b9f05117ff3a820b44496614463b081d08a4b55665a054c",
+    "published_at": "2024-05-21T18:54:30Z",
+    "updated_at": "2024-05-21T18:54:30Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          45,
+          52
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          53,
+          61
+        ],
+        "status_span": [
+          35,
+          52
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          342,
+          346
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          347,
+          354
+        ],
+        "status_span": [
+          340,
+          354
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          318,
+          339
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Two quoted speakers in one block. Required restart is not an explicit completed restart; no actor account is safely linked.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-2",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2147972652",
+    "document_id": "2147972652",
+    "reporter_id": "github:70454800",
+    "source_sha256": "374fa31a2f2b45985d80871cb456a4bf9230b84852b7e9a09abff1c989aed444",
+    "source_offset": 0,
+    "paragraph_length": 185,
+    "paragraph_sha256": "374fa31a2f2b45985d80871cb456a4bf9230b84852b7e9a09abff1c989aed444",
+    "published_at": "2024-06-04T16:42:07Z",
+    "updated_at": "2024-06-04T16:42:07Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          103,
+          111
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          97,
+          111
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Release notes plus a proposed check, no user-executed update or confirmed result.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-3",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-5310227809",
+    "document_id": "5310227809",
+    "reporter_id": "github:70454800",
+    "source_sha256": "77e2fa9515f21239f5c9bd283bd7a56ebea385c27f210b6ece3a4adc2ce0b88e",
+    "source_offset": 0,
+    "paragraph_length": 235,
+    "paragraph_sha256": "77e2fa9515f21239f5c9bd283bd7a56ebea385c27f210b6ece3a4adc2ce0b88e",
+    "published_at": "2026-08-16T23:29:55Z",
+    "updated_at": "2026-08-16T23:29:55Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          16,
+          21
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          22,
+          51
+        ],
+        "status_span": [
+          9,
+          21
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-4",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2119322200",
+    "document_id": "2119322200",
+    "reporter_id": "github:22037927",
+    "source_sha256": "5848004266d7bbf6d3deb10c08984ec8de27e122b78b53de89ad94a77e017c25",
+    "source_offset": 0,
+    "paragraph_length": 205,
+    "paragraph_sha256": "5848004266d7bbf6d3deb10c08984ec8de27e122b78b53de89ad94a77e017c25",
+    "published_at": "2024-05-19T18:27:18Z",
+    "updated_at": "2024-05-19T18:27:18Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          11,
+          20
+        ],
+        "status": "unknown",
+        "direction": "disable",
+        "target": [
+          21,
+          32
+        ],
+        "status_span": [
+          0,
+          20
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          84,
+          88
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          89,
+          108
+        ],
+        "status_span": [
+          82,
+          102
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:22037927",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          33,
+          52
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      },
+      {
+        "span": [
+          54,
+          76
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Apparently is an uncertain efficacy claim, not evidence the author performed the disable. Menu use is an observed reproduction trigger.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-5",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118530479",
+    "document_id": "2118530479",
+    "reporter_id": "github:134237797",
+    "source_sha256": "32aa2cd0c0345b6dc4566fca01228a4ec8da0dc670e511b79618c96604a8b60c",
+    "source_offset": 0,
+    "paragraph_length": 185,
+    "paragraph_sha256": "32aa2cd0c0345b6dc4566fca01228a4ec8da0dc670e511b79618c96604a8b60c",
+    "published_at": "2024-05-18T00:38:48Z",
+    "updated_at": "2024-05-18T00:38:48Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          14,
+          21
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          23,
+          31
+        ],
+        "status_span": [
+          0,
+          21
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:134237797",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          96,
+          153
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-6",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118142986",
+    "document_id": "2118142986",
+    "reporter_id": "github:134237797",
+    "source_sha256": "be529907d708f4ed45c40d0ccec4ed8b508728238641c50064840fbb46a6b348",
+    "source_offset": 0,
+    "paragraph_length": 168,
+    "paragraph_sha256": "be529907d708f4ed45c40d0ccec4ed8b508728238641c50064840fbb46a6b348",
+    "published_at": "2024-05-17T18:08:33Z",
+    "updated_at": "2024-05-17T18:08:33Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          51,
+          56
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          57,
+          79
+        ],
+        "status_span": [
+          45,
+          79
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:134237797",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          7,
+          44
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Existing feature usage is context, not an asserted new activation. NVIDIA or PhysX is not inferred.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-7",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2117002414",
+    "document_id": "2117002414",
+    "reporter_id": "github:24306541",
+    "source_sha256": "f58db284edf370580736e973cd01f9b502c9eb8d06549ad232a68726a26a70dd",
+    "source_offset": 0,
+    "paragraph_length": 351,
+    "paragraph_sha256": "722048365d9a0ba803d9c98c22f16b4f002265acc0a7ee607427674ad1c1a8f0",
+    "published_at": "2024-05-17T08:17:26Z",
+    "updated_at": "2024-05-17T08:17:26Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          103,
+          115
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          116,
+          135
+        ],
+        "status_span": [
+          94,
+          115
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          189,
+          195
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          196,
+          208
+        ],
+        "status_span": [
+          186,
+          208
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          136,
+          171
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          209,
+          247
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Historical manual attempt, not an application recipe. Installer-internal install/remove are not user operations. Do not reproduce or recommend bypass procedures.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-8",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-5320098544",
+    "document_id": "5320098544",
+    "reporter_id": "github:70454800",
+    "source_sha256": "3a843356137330011fcbb5bff31655f135552a15af8ae82d0ecbc696e95ff309",
+    "source_offset": 0,
+    "paragraph_length": 355,
+    "paragraph_sha256": "3a843356137330011fcbb5bff31655f135552a15af8ae82d0ecbc696e95ff309",
+    "published_at": "2026-08-17T20:51:09Z",
+    "updated_at": "2026-08-17T20:51:09Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          239,
+          244
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          237,
+          251
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:70454800",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          294,
+          320
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Separate NVIDIA-laptop/Steam-machine observation, not a measured causal correction or universal GPU verdict.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-9",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2347386239",
+    "document_id": "2347386239",
+    "reporter_id": "github:31458662",
+    "source_sha256": "8de18bebf847cf3a23f74a7b7a6563f4316fae5ab7d3a50ec0b169381273989c",
+    "source_offset": 0,
+    "paragraph_length": 161,
+    "paragraph_sha256": "2af35bac281eb0a1344b8455b62e0a3a6c6f594dacc4f1360da472dd1119477e",
+    "published_at": "2024-09-12T23:04:39Z",
+    "updated_at": "2024-09-13T02:58:41Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Valve compatibility metadata and game-internal technology, not a user-performed action.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-10",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-3505565327",
+    "document_id": "3505565327",
+    "reporter_id": "github:53205683",
+    "source_sha256": "5fce53c2146e6783b6db43e49c29132cea7cc50ea644f3a3d217fa3f4a41ee4f",
+    "source_offset": 0,
+    "paragraph_length": 236,
+    "paragraph_sha256": "4c7173a7c7772671112bd2eb8bd6febfc48db773e0fb66fa4972132e0102c87b",
+    "published_at": "2025-11-08T01:33:14Z",
+    "updated_at": "2025-11-08T01:33:14Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          29,
+          32
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          17,
+          25
+        ],
+        "status_span": [
+          0,
+          32
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:53205683",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          2,
+          39
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Inability and two named driver versions do not identify completed per-version switches or a root cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-11",
+    "source_thread_app_id": "2215430",
+    "app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118871409",
+    "document_id": "2118871409",
+    "reporter_id": "github:87846149",
+    "source_sha256": "0e7a602e52c398b65819a2181dbc9dafc442f0b4e8a9cb9d0c3169220fb7f86e",
+    "source_offset": 0,
+    "paragraph_length": 61,
+    "paragraph_sha256": "8336e48c0aa237d8b59a00face980bc7d8e298a4bc760621a40cbf31bb08f662",
+    "published_at": "2024-05-18T16:20:29Z",
+    "updated_at": "2024-05-18T16:20:29Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          42,
+          47
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          48,
+          61
+        ],
+        "status_span": [
+          42,
+          61
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          27
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The unspecified error identity stays unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-12",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284446615",
+    "document_id": "1284446615",
+    "reporter_id": "github:65789901",
+    "source_sha256": "ad6290236bc3401174f34980dfa3238f73c842dba501529317ad2782a16decda",
+    "source_offset": 0,
+    "paragraph_length": 222,
+    "paragraph_sha256": "2f6b1bc1351bd082b6fd1c7be714a6cf93cdbb5d939e044d65a81202cde84259",
+    "published_at": "2022-10-19T19:00:41Z",
+    "updated_at": "2022-10-19T19:00:41Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          147,
+          153
+        ],
+        "status": "suggested",
+        "direction": "enable",
+        "target": [
+          154,
+          190
+        ],
+        "status_span": [
+          144,
+          153
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted conditional hypothesis, not evidence this game requires DXR or an actual activation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-13",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284470571",
+    "document_id": "1284470571",
+    "reporter_id": "github:65789901",
+    "source_sha256": "798401b03a33199ec0d0870e0a27308f8f80c1ac061fa6d6d46a46730b67db9c",
+    "source_offset": 0,
+    "paragraph_length": 181,
+    "paragraph_sha256": "9c79f54185dda8489dd9759e26fb18c3d7aa4238081bdb5163df357d7b81b7db",
+    "published_at": "2022-10-19T19:23:49Z",
+    "updated_at": "2022-10-19T19:23:49Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          28,
+          54
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted symptom, no executed correction.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-14",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1292064104",
+    "document_id": "1292064104",
+    "reporter_id": "github:40211296",
+    "source_sha256": "d4e05f49dc274d51ace55c836c18594992b3b7c4baea06478380933be62b4ad8",
+    "source_offset": 40,
+    "paragraph_length": 189,
+    "paragraph_sha256": "0ad479e264a1507552df09c2906ea23a732a72aae4a7b1a637d9ef8639527ae7",
+    "published_at": "2022-10-26T13:39:36Z",
+    "updated_at": "2022-10-26T13:39:36Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          37,
+          46
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          47,
+          69
+        ],
+        "status_span": [
+          26,
+          46
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:40211296",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          79,
+          87
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": null,
+        "status_span": [
+          73,
+          100
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:40211296",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          88,
+          100
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": null,
+        "status_span": [
+          73,
+          100
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:40211296",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "I would try is a conditional recommendation, not a completed procedure or confirmed Proton success.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-15",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-3369227002",
+    "document_id": "3369227002",
+    "reporter_id": "github:70454800",
+    "source_sha256": "1b7878dd8d20db6b20d83ac6b261174e0bcab9c94d0b9b33238b332a12854aeb",
+    "source_offset": 325,
+    "paragraph_length": 343,
+    "paragraph_sha256": "849a40d4f205724c241ddbc01acd04c6248ba6b73527c53dc89563e74a5cd232",
+    "published_at": "2025-10-05T18:08:18Z",
+    "updated_at": "2025-10-05T18:08:18Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          58,
+          61
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          62,
+          86
+        ],
+        "status_span": [
+          47,
+          61
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          165,
+          170
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          176,
+          193
+        ],
+        "status_span": [
+          163,
+          193
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:70454800",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "No literal outcome for the gamescope trial is supplied. The proposed comparison remains hypothetical.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-16",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284441341",
+    "document_id": "1284441341",
+    "reporter_id": "github:24358216",
+    "source_sha256": "4993c84eea9dc81577f3b6ec0d7e357025150b487281d57a4cc0a5ea28293a4c",
+    "source_offset": 0,
+    "paragraph_length": 220,
+    "paragraph_sha256": "4993c84eea9dc81577f3b6ec0d7e357025150b487281d57a4cc0a5ea28293a4c",
+    "published_at": "2022-10-19T18:55:33Z",
+    "updated_at": "2022-10-19T18:55:33Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          145,
+          151
+        ],
+        "status": "suggested",
+        "direction": "enable",
+        "target": [
+          152,
+          188
+        ],
+        "status_span": [
+          142,
+          151
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Original of the quoted conditional statement in12, not an independent confirmation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-17",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284814001",
+    "document_id": "1284814001",
+    "reporter_id": "github:65789901",
+    "source_sha256": "277cae00bad4a82745b33a39092b70370e3d50c951f3c87da94b261a4c448731",
+    "source_offset": 0,
+    "paragraph_length": 250,
+    "paragraph_sha256": "c51860a8a854dbfb4a0741cef18a091ee8b77e64a6de10c1f132a09bdaf01598",
+    "published_at": "2022-10-20T02:15:24Z",
+    "updated_at": "2022-10-20T02:15:24Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          72,
+          80
+        ],
+        "status": "unknown",
+        "direction": "enable",
+        "target": [
+          81,
+          86
+        ],
+        "status_span": [
+          72,
+          86
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          99,
+          149
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Tentative feature observation does not certify an executed activation. Windows figures are not local Proton measurements. DLL override operation is unspecified.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-18",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284449613",
+    "document_id": "1284449613",
+    "reporter_id": "github:65789901",
+    "source_sha256": "b2d4ccb95fbfde77f803a890fa63374dfc817df8582439d69f1ea999946dc243",
+    "source_offset": 0,
+    "paragraph_length": 182,
+    "paragraph_sha256": "b2d4ccb95fbfde77f803a890fa63374dfc817df8582439d69f1ea999946dc243",
+    "published_at": "2022-10-19T19:03:42Z",
+    "updated_at": "2022-10-19T19:06:29Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          166,
+          181
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unnamed setting and conjectured GPU visibility; do not invent a variable or infer a verified NVIDIA-only requirement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-19",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1297568743",
+    "document_id": "1297568743",
+    "reporter_id": "github:1950818",
+    "source_sha256": "d6b3d11d66081eda102b6164e8ce42037dfc236697b8b2f4df8423ff97ea45a9",
+    "source_offset": 0,
+    "paragraph_length": 224,
+    "paragraph_sha256": "d6b3d11d66081eda102b6164e8ce42037dfc236697b8b2f4df8423ff97ea45a9",
+    "published_at": "2022-10-31T19:28:54Z",
+    "updated_at": "2022-10-31T19:28:54Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          94,
+          99
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          100,
+          143
+        ],
+        "status_span": [
+          94,
+          118
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1950818",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          195,
+          221
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Elliptical continuation of an explicit first-person account. Individual option identity/version outcomes cannot be recovered.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-20",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1289163605",
+    "document_id": "1289163605",
+    "reporter_id": "github:24510135",
+    "source_sha256": "345c4628d5a67214feb11cd684ef6b9fee701e003f5b9cc0729d429cad71b1a3",
+    "source_offset": 0,
+    "paragraph_length": 186,
+    "paragraph_sha256": "345c4628d5a67214feb11cd684ef6b9fee701e003f5b9cc0729d429cad71b1a3",
+    "published_at": "2022-10-24T14:54:33Z",
+    "updated_at": "2022-10-24T14:54:33Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          142,
+          147
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          148,
+          156
+        ],
+        "status_span": [
+          142,
+          156
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:24510135",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          42,
+          72
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Audio backend is environment context, not an attributed cause of the black screen.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-21",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-3368476388",
+    "document_id": "3368476388",
+    "reporter_id": "github:70454800",
+    "source_sha256": "a9461ba7d51c9eb3e4c81a4fb9737b55850d59dfb99ca561ee63a29356344b88",
+    "source_offset": 121,
+    "paragraph_length": 412,
+    "paragraph_sha256": "2e2451d9a8be1b878d2781b8f9680824cdd1541d797b93f64ff808a0b5f3e7d7",
+    "published_at": "2025-10-04T18:54:11Z",
+    "updated_at": "2025-10-04T18:54:11Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          134,
+          137
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          146,
+          173
+        ],
+        "status_span": [
+          134,
+          145
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          203,
+          206
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          207,
+          215
+        ],
+        "status_span": [
+          203,
+          215
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          274,
+          280
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          282,
+          299
+        ],
+        "status_span": [
+          274,
+          300
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          396,
+          402
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          403,
+          411
+        ],
+        "status_span": [
+          381,
+          411
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic request and conditional log-overwrite warning, no completed trial.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-22",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284750599",
+    "document_id": "1284750599",
+    "reporter_id": "github:9098121",
+    "source_sha256": "aec33ebf5752725973fb400375793ec1a2c2bce3292c40d940459ac55ebead4d",
+    "source_offset": 0,
+    "paragraph_length": 75,
+    "paragraph_sha256": "aec33ebf5752725973fb400375793ec1a2c2bce3292c40d940459ac55ebead4d",
+    "published_at": "2022-10-20T00:56:04Z",
+    "updated_at": "2022-10-20T00:56:04Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          8
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          38,
+          74
+        ],
+        "status_span": [
+          5,
+          36
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Launch-option advice, not a downloaded or installed DLL.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-23",
+    "source_thread_app_id": "1659420",
+    "app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1289670017",
+    "document_id": "1289670017",
+    "reporter_id": "github:693958",
+    "source_sha256": "3ef29b2ea84617976fee293f9d9c2d15f529ddbcecdc81ca5d80e52c49509af9",
+    "source_offset": 40,
+    "paragraph_length": 47,
+    "paragraph_sha256": "1eb0d503971e15c346ed256602d9978254640c6f1b91f7486fc40bef94461b7e",
+    "published_at": "2022-10-24T21:58:11Z",
+    "updated_at": "2022-10-24T21:58:11Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          17,
+          24
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          25,
+          29
+        ],
+        "status_span": [
+          0,
+          24
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:693958",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          16
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Source-reported successful execution on Steam Deck, not a correction or new FRX measurement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-24",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-500181490",
+    "document_id": "500181490",
+    "reporter_id": "github:10298871",
+    "source_sha256": "f95fa853a741a0f00139305b4a21bbb95c99fac77e04166241249f04bc5c9f45",
+    "source_offset": 0,
+    "paragraph_length": 442,
+    "paragraph_sha256": "323d9863b50fc939f8a581518a5fef7e64aad7ba52a31349cbefa33f0337ee8d",
+    "published_at": "2019-06-09T03:17:37Z",
+    "updated_at": "2019-06-09T03:19:36Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          107,
+          115
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          116,
+          160
+        ],
+        "status_span": [
+          107,
+          160
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          363,
+          367
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          368,
+          378
+        ],
+        "status_span": [
+          351,
+          378
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          21
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted instructions and shell snippets are not author-executed events. Confirmed method is underspecified. No script, DLL or community file is downloaded or executed.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-25",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458452948",
+    "document_id": "458452948",
+    "reporter_id": "github:10137",
+    "source_sha256": "0a5e626ffe64a4c1f2d5e11fae7ba0b74482ff7a8cf20835381c148778bbd848",
+    "source_offset": 0,
+    "paragraph_length": 389,
+    "paragraph_sha256": "bf747cefc1afb1dc38b95277773afb48149ad83175a411e78cee1f47a608f7e8",
+    "published_at": "2019-01-29T08:37:14Z",
+    "updated_at": "2019-01-29T08:37:32Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          22,
+          28
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          29,
+          61
+        ],
+        "status_span": [
+          18,
+          38
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          156,
+          161
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          163,
+          166
+        ],
+        "status_span": [
+          154,
+          167
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          70,
+          81
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          186,
+          212
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted other-person account; successful launch and failed save have different goals. Original is repeated in30, not independent evidence.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-26",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-459174072",
+    "document_id": "459174072",
+    "reporter_id": "github:45825041",
+    "source_sha256": "549bcee5eaa8533f01c64384efbd701fcdfeeaa79effe51267de8d130a19e13a",
+    "source_offset": 0,
+    "paragraph_length": 82,
+    "paragraph_sha256": "3f7ef3e6915f3a4ffda0b276f6a00b4c164c6b2b57b199ed4e794e62bfed62b2",
+    "published_at": "2019-01-31T01:05:39Z",
+    "updated_at": "2019-01-31T01:05:39Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          56,
+          60
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          61,
+          81
+        ],
+        "status_span": [
+          48,
+          60
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question about another content variant is not proof of success.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-27",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-487300346",
+    "document_id": "487300346",
+    "reporter_id": "github:3999221",
+    "source_sha256": "17bf5bc5b3d9ed71e31a620188d857ac48d5bd1508688ff57ad03c97f98a3032",
+    "source_offset": 0,
+    "paragraph_length": 386,
+    "paragraph_sha256": "025382e81a7244ca3291566652a3d5a77d43b832ce9363e85a8333b8a8a4f338",
+    "published_at": "2019-04-27T16:34:06Z",
+    "updated_at": "2019-04-27T16:34:06Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          21,
+          26
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          27,
+          29
+        ],
+        "status_span": [
+          19,
+          29
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:3999221",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          279,
+          285
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          286,
+          295
+        ],
+        "status_span": [
+          270,
+          295
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:3999221",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          300,
+          310
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          311,
+          319
+        ],
+        "status_span": [
+          300,
+          319
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:3999221",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          336,
+          339
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          331,
+          345
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:3999221",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          34,
+          72
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          142,
+          164
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          170,
+          203
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Partial progress plus later startup regression, no individual causal proof. Planned clean repetition and downloads did not happen in this account.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-28",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-616228654",
+    "document_id": "616228654",
+    "reporter_id": "github:10048240",
+    "source_sha256": "f395500499361defc1d60431a1c4db53c18275b8959916db0b40be5eeabdc9cc",
+    "source_offset": 0,
+    "paragraph_length": 141,
+    "paragraph_sha256": "f395500499361defc1d60431a1c4db53c18275b8959916db0b40be5eeabdc9cc",
+    "published_at": "2020-04-19T21:33:39Z",
+    "updated_at": "2020-04-19T21:33:56Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          16,
+          20
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          22,
+          32
+        ],
+        "status_span": [
+          0,
+          20
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          39,
+          62
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      },
+      {
+        "span": [
+          107,
+          140
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "DLC versus base-game scopes differ. Question does not establish a performed play trial, and abbreviation is not a safe AppID link.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-29",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-1626128582",
+    "document_id": "1626128582",
+    "reporter_id": "github:54234607",
+    "source_sha256": "b35750c6d280ae5f398fee0c83ebce7850c43d289942acbf32fb2023f57478aa",
+    "source_offset": 0,
+    "paragraph_length": 197,
+    "paragraph_sha256": "fbbbf128cf63052e941e2212a64b11d13e99f1584679a0629a4055f3b8b87166",
+    "published_at": "2023-07-07T21:12:40Z",
+    "updated_at": "2023-07-07T21:12:59Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          97,
+          102
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          103,
+          169
+        ],
+        "status_span": [
+          92,
+          102
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:54234607",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          7,
+          83
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "The all-versions statement relates to the later trial list despite reversed textual order. RE7 is an unlinked abbreviation; do not use thread identity as proof.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-30",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458375051",
+    "document_id": "458375051",
+    "reporter_id": "github:10749504",
+    "source_sha256": "3e8e5e77daed18c830d9bab74dda63f5526c033c6224b9202fa88c43116127d1",
+    "source_offset": 48,
+    "paragraph_length": 229,
+    "paragraph_sha256": "d116b1ec60eb1cf90ed3f38e4b2e9184dd5f46780ffd8dca13e2d06c9cfa47f4",
+    "published_at": "2019-01-29T01:49:03Z",
+    "updated_at": "2019-01-29T01:49:03Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          86,
+          91
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          93,
+          96
+        ],
+        "status_span": [
+          84,
+          97
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:10749504",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          116,
+          142
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Original quoted in25; one source experience, different speaker attribution in the quote.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-31",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-517933581",
+    "document_id": "517933581",
+    "reporter_id": "github:1497109",
+    "source_sha256": "6acb08fd238bc7b4eebdc0ebb591c38468a4146b096dd7779a06a88f76c5b270",
+    "source_offset": 0,
+    "paragraph_length": 221,
+    "paragraph_sha256": "6acb08fd238bc7b4eebdc0ebb591c38468a4146b096dd7779a06a88f76c5b270",
+    "published_at": "2019-08-03T15:37:07Z",
+    "updated_at": "2019-08-03T15:38:37Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          8
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          9,
+          13
+        ],
+        "status_span": [
+          0,
+          13
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          83,
+          90
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          91,
+          104
+        ],
+        "status_span": [
+          76,
+          104
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1497109",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          64,
+          74
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          133,
+          166
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Updating a forum post is diagnostic/documentary, not updating a game component. Library installation details and the author of the elliptical completion remain unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-32",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-509034159",
+    "document_id": "509034159",
+    "reporter_id": "github:41841597",
+    "source_sha256": "b76ceeb9b1f35da0dcf8a60702afc8600d044ad192e2853258ca3cc93d3898ba",
+    "source_offset": 0,
+    "paragraph_length": 134,
+    "paragraph_sha256": "23de913686a86f1637f863ea19d1fc48fe3a2690389e42725a548b24a59aba10",
+    "published_at": "2019-07-07T22:01:58Z",
+    "updated_at": "2019-07-07T22:01:58Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          61,
+          66
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          68,
+          77
+        ],
+        "status_span": [
+          58,
+          78
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          49,
+          66
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Explicit conditional association; own execution is insufficiently established. Preserve conditional evidence, do not mark it a measured local success.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-33",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-517864889",
+    "document_id": "517864889",
+    "reporter_id": "github:1497109",
+    "source_sha256": "e7d164931a968b1b83d16bc4d6904c5de124faa62a84cfa4576ed59f95f9a38d",
+    "source_offset": 0,
+    "paragraph_length": 244,
+    "paragraph_sha256": "823a434ff4979870959452dd8f1958d1413ff3e5377b81336a37888b8d3ddfcd",
+    "published_at": "2019-08-02T22:46:10Z",
+    "updated_at": "2019-08-03T15:34:40Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          90,
+          95
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          96,
+          127
+        ],
+        "status_span": [
+          90,
+          127
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          162,
+          243
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Library configuration is described, but no executed copy/install, versions, hashes or file origin can be invented.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-34",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-457969145",
+    "document_id": "457969145",
+    "reporter_id": "github:29783425",
+    "source_sha256": "eeab49f40c0117fb1be8a94ef4f484cfcbf0bd5b4deb9ad685678ec2401ea556",
+    "source_offset": 0,
+    "paragraph_length": 93,
+    "paragraph_sha256": "484bc16de1d1e500c7c9915042e905c299229c8ae1416fb4d14362596b315451",
+    "published_at": "2019-01-28T00:37:38Z",
+    "updated_at": "2019-01-28T00:38:28Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Dependency claim only, no installed file or completed correction.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-35",
+    "source_thread_app_id": "418370",
+    "app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-751532467",
+    "document_id": "751532467",
+    "reporter_id": "github:36553373",
+    "source_sha256": "a2853aaafb8fa1f72e6d2b0cb88b013d901df99744e1adcce1330f363e7c3195",
+    "source_offset": 0,
+    "paragraph_length": 139,
+    "paragraph_sha256": "f06b6143947c105c7ac5e96d69b502796bac07d82fb916ddd0ade065f27b2108",
+    "published_at": "2020-12-28T00:10:48Z",
+    "updated_at": "2020-12-30T04:04:56Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          8,
+          12
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          14,
+          24
+        ],
+        "status_span": [
+          0,
+          12
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:36553373",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          58,
+          63
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          64,
+          78
+        ],
+        "status_span": [
+          49,
+          78
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:36553373",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          12
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          83,
+          138
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "DLC and new campaign are distinct scenarios. Negative ability wording remains uncertain as an executed-start claim; relationship to the reported crash is explicit. Requires later human review.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-36",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643566576",
+    "document_id": "643566576",
+    "reporter_id": "github:1632838",
+    "source_sha256": "7b6a4f72f59012322c248b96f5bef3a755c813ec39ced45113b42c7758d5ba3e",
+    "source_offset": 0,
+    "paragraph_length": 706,
+    "paragraph_sha256": "efba8e4be68c2d305d0a425216d670261a245d58085ba579aef00f3b8660d944",
+    "published_at": "2020-06-13T04:22:46Z",
+    "updated_at": "2020-06-13T04:25:56Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          106,
+          112
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          113,
+          148
+        ],
+        "status_span": [
+          106,
+          132
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          24,
+          41
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          581,
+          619
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted earlier experience plus code-fenced environment metadata. Required prefix change is not independently asserted as performed; bugs remain after the tests.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-37",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-648556594",
+    "document_id": "648556594",
+    "reporter_id": "github:1632838",
+    "source_sha256": "a962ac44253d6d2aff00d1dfb7dbcc429d3e8b35184d28579169453059158d88",
+    "source_offset": 341,
+    "paragraph_length": 254,
+    "paragraph_sha256": "b368510465aba0c96fc378cce40aea54b7cd7d388c5f1eaa54637faeb4afc443",
+    "published_at": "2020-06-24T03:13:06Z",
+    "updated_at": "2020-06-24T03:13:06Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          13
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          18,
+          42
+        ],
+        "status_span": [
+          0,
+          13
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": "1172620",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          191,
+          195
+        ],
+        "status": "negated",
+        "direction": "unknown",
+        "target": [
+          196,
+          205
+        ],
+        "status_span": [
+          182,
+          205
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": "1172620",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          53,
+          79
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Sea of Thieves is explicitly named in the source. Windows and MS Store are distinct contexts. The unowned MS Store version cannot supply a completed test.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-38",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-638517941",
+    "document_id": "638517941",
+    "reporter_id": "github:33523827",
+    "source_sha256": "4b22840bd9c39c0cc0ec4c0a39b2886699e6806ee5a397a2acb82ef96a7870a4",
+    "source_offset": 102,
+    "paragraph_length": 360,
+    "paragraph_sha256": "f7656b4fd76e15606b3805d4df2d65e8947371f1be0e66d0fd561df3279d35fd",
+    "published_at": "2020-06-03T23:45:18Z",
+    "updated_at": "2020-06-04T00:06:12Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          8,
+          13
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          14,
+          22
+        ],
+        "status_span": [
+          2,
+          22
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:33523827",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          32,
+          36
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          42,
+          51
+        ],
+        "status_span": [
+          26,
+          51
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:33523827",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          224,
+          227
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          218,
+          233
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:33523827",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          112,
+          132
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Modal ability and proposed retry are not an explicit completed configuration change; the reported loading failure remains linked to startup.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-39",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-640122715",
+    "document_id": "640122715",
+    "reporter_id": "github:33523827",
+    "source_sha256": "7b1a29a3f7172256d8760fe473d2f173dae958c725158f962bdf4cfee2b7326d",
+    "source_offset": 0,
+    "paragraph_length": 101,
+    "paragraph_sha256": "7b1a29a3f7172256d8760fe473d2f173dae958c725158f962bdf4cfee2b7326d",
+    "published_at": "2020-06-06T21:51:05Z",
+    "updated_at": "2020-06-06T21:51:05Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          63,
+          66
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          67,
+          80
+        ],
+        "status_span": [
+          58,
+          80
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:33523827",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-40",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-639845885",
+    "document_id": "639845885",
+    "reporter_id": "github:66496793",
+    "source_sha256": "6282b182356cd76ff80858b1738cfa34eb7577f71ea58198c8cb0c8b73c95a3a",
+    "source_offset": 0,
+    "paragraph_length": 261,
+    "paragraph_sha256": "6282b182356cd76ff80858b1738cfa34eb7577f71ea58198c8cb0c8b73c95a3a",
+    "published_at": "2020-06-05T21:57:09Z",
+    "updated_at": "2020-06-05T22:15:31Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          10
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          11,
+          33
+        ],
+        "status_span": [
+          6,
+          33
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:66496793",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          239,
+          260
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Past use of4.11-13 differs from current5.0-7. Do not attach the current error to the older version. Error-text instructions are not user operations.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-41",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-645698592",
+    "document_id": "645698592",
+    "reporter_id": "github:33523827",
+    "source_sha256": "b9528d5bfa360b9f4e6e5274b1df2e7f5d429e6d17ce0995ffceb51e4f96f6c6",
+    "source_offset": 126,
+    "paragraph_length": 72,
+    "paragraph_sha256": "26b001db93e51f73aa76f76d0c8cfb1534cc48f0bf9e564048fb986db44d51a1",
+    "published_at": "2020-06-18T00:33:20Z",
+    "updated_at": "2020-06-19T04:34:04Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          11
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          12,
+          14
+        ],
+        "status_span": [
+          6,
+          20
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          49,
+          69
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Elliptical failed repeat; exact action and context remain unknown.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-42",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643783027",
+    "document_id": "643783027",
+    "reporter_id": "github:1632838",
+    "source_sha256": "c501e20add832d343bcfa6ddb8f205eda18af4e5c6e9c705c5f988a83e96e630",
+    "source_offset": 0,
+    "paragraph_length": 87,
+    "paragraph_sha256": "c501e20add832d343bcfa6ddb8f205eda18af4e5c6e9c705c5f988a83e96e630",
+    "published_at": "2020-06-14T15:36:11Z",
+    "updated_at": "2020-06-14T15:36:11Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          17,
+          21
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          12,
+          21
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          53,
+          57
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          58,
+          66
+        ],
+        "status_span": [
+          41,
+          66
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          70,
+          74
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          75,
+          86
+        ],
+        "status_span": [
+          67,
+          86
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Offer/request only; no test or message was executed by the researcher.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-43",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-638883908",
+    "document_id": "638883908",
+    "reporter_id": "github:1632838",
+    "source_sha256": "1fc44c27977108dfbf70d2ea7ab70b0dfc242984f009af7e1d14f0e8f3179976",
+    "source_offset": 0,
+    "paragraph_length": 76,
+    "paragraph_sha256": "1fc44c27977108dfbf70d2ea7ab70b0dfc242984f009af7e1d14f0e8f3179976",
+    "published_at": "2020-06-04T14:26:47Z",
+    "updated_at": "2020-06-04T14:26:47Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          7
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          8,
+          11
+        ],
+        "status_span": [
+          0,
+          11
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          51,
+          59
+        ],
+        "status": "negated",
+        "direction": "disable",
+        "target": [
+          60,
+          64
+        ],
+        "status_span": [
+          40,
+          59
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          24,
+          38
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reported unsuccessful networking trial, not a safe router recommendation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-44",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643623129",
+    "document_id": "643623129",
+    "reporter_id": "github:24358216",
+    "source_sha256": "235095c15081e7a68546eb2b766c77f69fd8e154e2eafcbbe6ff4645504d79e9",
+    "source_offset": 0,
+    "paragraph_length": 230,
+    "paragraph_sha256": "7cb10b463bb78c59a198a543d169a1e6e2c704129998bcb675999f257add39fc",
+    "published_at": "2020-06-13T13:22:08Z",
+    "updated_at": "2020-06-13T13:22:08Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          28,
+          40
+        ],
+        "status": "unknown",
+        "direction": "remove",
+        "target": [
+          41,
+          45
+        ],
+        "status_span": [
+          28,
+          45
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          50,
+          60
+        ],
+        "status": "unknown",
+        "direction": "install",
+        "target": [
+          61,
+          69
+        ],
+        "status_span": [
+          50,
+          69
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          182,
+          187
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          188,
+          196
+        ],
+        "status_span": [
+          174,
+          196
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          70,
+          114
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      },
+      {
+        "span": [
+          119,
+          157
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted combined procedure has a partial claimed effect; own execution is not explicit and the whole problem is not solved.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-45",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-638881015",
+    "document_id": "638881015",
+    "reporter_id": "github:66419971",
+    "source_sha256": "2df6ac39c9fbb278e0ae1a1b6b3d92fa3b27d232a1e8dc29e5c14346e03683fe",
+    "source_offset": 229,
+    "paragraph_length": 387,
+    "paragraph_sha256": "6e57631cd72963562b5e7470d1224f6af47a5eb4c5c9b402b850d5c5d8525e5d",
+    "published_at": "2020-06-04T14:22:00Z",
+    "updated_at": "2020-06-04T14:25:44Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          190,
+          194
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          200,
+          206
+        ],
+        "status_span": [
+          180,
+          206
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          223,
+          228
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          223,
+          239
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          233,
+          239
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          240,
+          259
+        ],
+        "status_span": [
+          233,
+          259
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          261,
+          290
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      },
+      {
+        "span": [
+          148,
+          178
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "External forum quotation, not the current author or local computer. Do not execute or recommend lowering router security. Other-game success is not this game evidence.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-46",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643783676",
+    "document_id": "643783676",
+    "reporter_id": "github:1228218",
+    "source_sha256": "3a14b1b60d495fdd55a6514114271aa0342c394d789f5d2495e9eec9f4e5fd3d",
+    "source_offset": 0,
+    "paragraph_length": 94,
+    "paragraph_sha256": "3a14b1b60d495fdd55a6514114271aa0342c394d789f5d2495e9eec9f4e5fd3d",
+    "published_at": "2020-06-14T15:40:34Z",
+    "updated_at": "2020-06-14T15:40:34Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-47",
+    "source_thread_app_id": "1172620",
+    "app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-640138531",
+    "document_id": "640138531",
+    "reporter_id": "github:1632838",
+    "source_sha256": "ada75fa1d2f2275e11c62eeb16ff5cbd53fd7bf2666f591aa45b7018ef11a6f0",
+    "source_offset": 0,
+    "paragraph_length": 73,
+    "paragraph_sha256": "ada75fa1d2f2275e11c62eeb16ff5cbd53fd7bf2666f591aa45b7018ef11a6f0",
+    "published_at": "2020-06-07T00:40:56Z",
+    "updated_at": "2020-06-07T00:40:56Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          32,
+          39
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          27,
+          57
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          17
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Source reports an actual session; author identity and an executed version change are not stated.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-48",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287535057",
+    "document_id": "1287535057",
+    "reporter_id": "github:41297926",
+    "source_sha256": "94121f6b1c18dbd51e0ac45f453e28112df2a7a6bd07405f53cf3226bce4a0ca",
+    "source_offset": 0,
+    "paragraph_length": 76,
+    "paragraph_sha256": "de1f4607f6b4bec365fced3f8333615ea11bdfce97b54948522f9f71570d54c1",
+    "published_at": "2022-10-21T23:35:08Z",
+    "updated_at": "2022-10-21T23:35:08Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          23,
+          28
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          29,
+          39
+        ],
+        "status_span": [
+          12,
+          39
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted installation question, not an applied patch or an actual playing session.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-49",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287169352",
+    "document_id": "1287169352",
+    "reporter_id": "github:13186154",
+    "source_sha256": "cc44ddc45419c86d4749a00ec98bafff68ae7601ed8c7400c4e1f55f259a2d80",
+    "source_offset": 0,
+    "paragraph_length": 79,
+    "paragraph_sha256": "1460a73534b9320d0451834a5bd6a6fb5b40b478fb6c9c0e775805970a3aecb7",
+    "published_at": "2022-10-21T16:10:44Z",
+    "updated_at": "2022-10-21T16:10:44Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          9
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          2,
+          31
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          41,
+          78
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reported personal cloud-sync result; not the current quoting author or a local observed fix.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-50",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287527939",
+    "document_id": "1287527939",
+    "reporter_id": "github:10137",
+    "source_sha256": "26c0e45c5df64cdc38763278995ef2df0a8c86ef90445decd2eda3848b4e75fc",
+    "source_offset": 0,
+    "paragraph_length": 615,
+    "paragraph_sha256": "34db97a03ef5b1e075358e284635d80ee4cdc5665bfefe1a55f1e40bdb7545f9",
+    "published_at": "2022-10-21T23:19:59Z",
+    "updated_at": "2022-10-21T23:19:59Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          15
+        ],
+        "status": "performed",
+        "direction": "replace",
+        "target": [
+          16,
+          48
+        ],
+        "status_span": [
+          4,
+          15
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          155,
+          161
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          162,
+          181
+        ],
+        "status_span": [
+          130,
+          161
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          429,
+          433
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          437,
+          461
+        ],
+        "status_span": [
+          426,
+          443
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          489,
+          495
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          496,
+          518
+        ],
+        "status_span": [
+          483,
+          502
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          108,
+          128
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          280,
+          310
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Nested quotation contains an actual patch attempt, an unconfirmed required folder step, future save-copy proposals and a remaining write failure. File/system autonomous operations are not user actions.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-51",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1286501630",
+    "document_id": "1286501630",
+    "reporter_id": "github:57317100",
+    "source_sha256": "316c20521cbf484fc234d761d64dd2464ff54d8b260e00c2f893447b0c2c1237",
+    "source_offset": 0,
+    "paragraph_length": 115,
+    "paragraph_sha256": "2b2408d9015dde9f72dcfeabdb86805a4805cc6e16d0546787809f52c6111d76",
+    "published_at": "2022-10-21T06:06:57Z",
+    "updated_at": "2022-10-21T06:06:57Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          49,
+          55
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          56,
+          66
+        ],
+        "status_span": [
+          45,
+          66
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          70,
+          73
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          67,
+          80
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question about another person using Windows; no upload or successful workaround is observed.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-52",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1286523451",
+    "document_id": "1286523451",
+    "reporter_id": "github:13940972",
+    "source_sha256": "0ea3b6683a5ce564c352751c57922923f7ddd4e1e8494ce317ac4efa745b58ef",
+    "source_offset": 536,
+    "paragraph_length": 499,
+    "paragraph_sha256": "e4cf1b953994c878febd829ccbe6eb1bda4a8b19221cb380465923e23e0116ab",
+    "published_at": "2022-10-21T06:37:57Z",
+    "updated_at": "2022-10-21T06:38:32Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          84,
+          88
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          94,
+          99
+        ],
+        "status_span": [
+          74,
+          99
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          89,
+          93
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          94,
+          99
+        ],
+        "status_span": [
+          74,
+          99
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          161,
+          168
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          169,
+          177
+        ],
+        "status_span": [
+          153,
+          177
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          271,
+          276
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          252,
+          262
+        ],
+        "status_span": [
+          263,
+          287
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted diagnostic questions. Game-internal writes and Deck formatting facts are not current user operations.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-53",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287216621",
+    "document_id": "1287216621",
+    "reporter_id": "github:10137",
+    "source_sha256": "e3fd93485efd5defe165a4e32a3362fe45ca5e6d36a8c5cd0633e81bcb48c719",
+    "source_offset": 0,
+    "paragraph_length": 570,
+    "paragraph_sha256": "c3362c0e0c03e411018ff2d22420ba0baaf26382dfbb5500afdcd78364cd89ac",
+    "published_at": "2022-10-21T16:55:17Z",
+    "updated_at": "2022-10-21T17:14:10Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          165,
+          172
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          173,
+          195
+        ],
+        "status_span": [
+          159,
+          195
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          260,
+          267
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          260,
+          289
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          299,
+          336
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Compound cross-machine procedure; loading on another system and cloud sync are not independent causal fixes. No current-game AppID is explicit.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-54",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1286514280",
+    "document_id": "1286514280",
+    "reporter_id": "github:41297926",
+    "source_sha256": "a2e4583d3478c5c2e25650a65c9ca543a1b92f639f0c2939d34b581928df2a9f",
+    "source_offset": 0,
+    "paragraph_length": 99,
+    "paragraph_sha256": "43dd2b14c47353f4a2754885e1a3fd5d265f6c31070a821131c647ab47dce3ac",
+    "published_at": "2022-10-21T06:24:59Z",
+    "updated_at": "2022-10-21T06:24:59Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          83,
+          87
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          93,
+          98
+        ],
+        "status_span": [
+          73,
+          98
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          88,
+          92
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          93,
+          98
+        ],
+        "status_span": [
+          73,
+          98
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Original diagnostic question quoted in52, not completed user activity.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-55",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287439559",
+    "document_id": "1287439559",
+    "reporter_id": "github:45927311",
+    "source_sha256": "28de32b3ff5c25ebcdbbcc2528f9312d6a27020690214796d9af34fb1f0513bd",
+    "source_offset": 0,
+    "paragraph_length": 302,
+    "paragraph_sha256": "28de32b3ff5c25ebcdbbcc2528f9312d6a27020690214796d9af34fb1f0513bd",
+    "published_at": "2022-10-21T21:10:25Z",
+    "updated_at": "2022-10-21T21:14:09Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          96,
+          104
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          105,
+          121
+        ],
+        "status_span": [
+          78,
+          104
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          141,
+          147
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          148,
+          150
+        ],
+        "status_span": [
+          123,
+          147
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          234,
+          239
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          240,
+          242
+        ],
+        "status_span": [
+          232,
+          257
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:45927311",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Patch author wrote a patch; nobody is asserted to have applied it. Never execute or approve an unverified attachment.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-56",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287506217",
+    "document_id": "1287506217",
+    "reporter_id": "github:12587838",
+    "source_sha256": "6eacfb64e17a9459de8cdcbff48037093403d5eeebe6d41d1458dfee061d88a0",
+    "source_offset": 6,
+    "paragraph_length": 154,
+    "paragraph_sha256": "21ab5f2b458419ebd6cd894645a495d5d3a07c0d643c1425a35ea5df4021a85a",
+    "published_at": "2022-10-21T22:43:50Z",
+    "updated_at": "2022-10-21T22:43:50Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Game API calls described from an external gist, not human-executed operations or a verified current-machine trace.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-57",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287514779",
+    "document_id": "1287514779",
+    "reporter_id": "github:19434374",
+    "source_sha256": "728f768c56ad0b8f667fb3eaf1f0e7a212885c467548947a5c09aa33be9f2c83",
+    "source_offset": 0,
+    "paragraph_length": 330,
+    "paragraph_sha256": "222dd13fd188e05502f28b4a255123d6c2d3af4ef8214de95dbf49d5fdb89448",
+    "published_at": "2022-10-21T22:59:38Z",
+    "updated_at": "2022-10-21T23:02:09Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          162,
+          167
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          168,
+          178
+        ],
+        "status_span": [
+          162,
+          178
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          146,
+          161
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          118,
+          140
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted patch configuration provides partial progress only. Exact unimplemented DLL/function remains a supplied log observation, not an instruction to download a replacement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-58",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287249411",
+    "document_id": "1287249411",
+    "reporter_id": "github:1540885",
+    "source_sha256": "39719e82a7c304107de77b178265e1034434386d09de1c67fcb5511da2b678ac",
+    "source_offset": 0,
+    "paragraph_length": 250,
+    "paragraph_sha256": "6fe5ec3867db47703bf2fa3b5393faea3ab410c32d41507803d0db5892f50cd0",
+    "published_at": "2022-10-21T17:30:59Z",
+    "updated_at": "2022-10-21T17:30:59Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          32,
+          35
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          2,
+          35
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic command is untrusted source data, not executed. Placeholder replacement is not a filesystem change.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-59",
+    "source_thread_app_id": "1687950",
+    "app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287350391",
+    "document_id": "1287350391",
+    "reporter_id": "github:11903511",
+    "source_sha256": "2903d4caf9c31409ed07c7d36284c8b31d7199674d0ac51341bbbf139225af28",
+    "source_offset": 0,
+    "paragraph_length": 65,
+    "paragraph_sha256": "2903d4caf9c31409ed07c7d36284c8b31d7199674d0ac51341bbbf139225af28",
+    "published_at": "2022-10-21T19:20:42Z",
+    "updated_at": "2022-10-21T19:20:42Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          24,
+          29
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          30,
+          52
+        ],
+        "status_span": [
+          0,
+          29
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Conditional sharing request without an observed working patch.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-60",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1699877456",
+    "document_id": "1699877456",
+    "reporter_id": "github:2916046",
+    "source_sha256": "ccb1a887a3c163edf85574a660576e71d2bf6c38004d17fde175ccc5a8137094",
+    "source_offset": 0,
+    "paragraph_length": 255,
+    "paragraph_sha256": "c3aa23af2c421596d422cca57acb27abae896de12ed5f55339e3495b3aae599f",
+    "published_at": "2023-08-30T21:35:23Z",
+    "updated_at": "2023-08-30T21:35:41Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          177,
+          185
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          197,
+          208
+        ],
+        "status_span": [
+          171,
+          185
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          239,
+          244
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          245,
+          254
+        ],
+        "status_span": [
+          230,
+          254
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          213,
+          227
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          230,
+          254
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Struck-through earlier issue was superseded, not proof the historical failed attempt never occurred. Gamescope result concerns controller input, not FPS or launch improvement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-61",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694514368",
+    "document_id": "1694514368",
+    "reporter_id": "github:10300293",
+    "source_sha256": "c63cc8c7a26b510ee8344063c88d7449fffc00129f5e219ee17a6ea2181f451d",
+    "source_offset": 0,
+    "paragraph_length": 338,
+    "paragraph_sha256": "f3cb468231847f312a49cdab498203a4f815737a7ca2d190f972eebe52a0760e",
+    "published_at": "2023-08-26T22:34:22Z",
+    "updated_at": "2023-08-26T22:34:22Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          152,
+          157
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          128,
+          146
+        ],
+        "status_span": [
+          140,
+          157
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          258,
+          262
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          263,
+          271
+        ],
+        "status_span": [
+          258,
+          271
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          286,
+          291
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          292,
+          312
+        ],
+        "status_span": [
+          286,
+          312
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          125,
+          214
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted performed version trials are different from imperative reproduction instructions. Video cause remains a hypothesis.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-62",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1697536285",
+    "document_id": "1697536285",
+    "reporter_id": "github:17786731",
+    "source_sha256": "dc2d20397017fa4e9a062b260ccf77524ffc3300275c981d1927d9ecce6ae5e4",
+    "source_offset": 0,
+    "paragraph_length": 139,
+    "paragraph_sha256": "dc2d20397017fa4e9a062b260ccf77524ffc3300275c981d1927d9ecce6ae5e4",
+    "published_at": "2023-08-29T14:17:43Z",
+    "updated_at": "2023-08-29T14:17:43Z",
+    "stratum": "request",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          7,
+          10
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          0,
+          10
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          73,
+          110
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Suggestion to the reader and a separate source-person efficacy assertion. The applied operation has no literal trigger, so do not bind success to the addressee suggestion.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-63",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1717531307",
+    "document_id": "1717531307",
+    "reporter_id": "github:29999427",
+    "source_sha256": "f349751d109a34f71bc392453c101b7bfa5af54b4acc033cc99e94ec6cc4e135",
+    "source_offset": 0,
+    "paragraph_length": 180,
+    "paragraph_sha256": "1dadf750a94ae0428438892b7eeed7f8f33144e1ad42bdd8fbd34ea826d7e301",
+    "published_at": "2023-09-13T12:28:05Z",
+    "updated_at": "2023-09-13T12:28:05Z",
+    "stratum": "multi",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          9,
+          12
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          2,
+          12
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          114,
+          151
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quote of62, not a new performed operation or independent confirmation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-64",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1703897801",
+    "document_id": "1703897801",
+    "reporter_id": "github:121595922",
+    "source_sha256": "6aa7d6b89e2b18aa1b72da3148bf0802d1adfc80bfb4c27b4aa5cf436f65a785",
+    "source_offset": 0,
+    "paragraph_length": 46,
+    "paragraph_sha256": "6aa7d6b89e2b18aa1b72da3148bf0802d1adfc80bfb4c27b4aa5cf436f65a785",
+    "published_at": "2023-09-02T17:42:18Z",
+    "updated_at": "2023-09-02T17:42:18Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          8
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          12,
+          31
+        ],
+        "status_span": [
+          0,
+          31
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          32,
+          46
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Retrospective gerund/result report, actor account is not explicit enough to certify who performed the change.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-65",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1710940190",
+    "document_id": "1710940190",
+    "reporter_id": "github:8627704",
+    "source_sha256": "b5537ba77eb11622ed0fb421314837bb390d77f8dd652e7da0abe1a1526b9274",
+    "source_offset": 0,
+    "paragraph_length": 466,
+    "paragraph_sha256": "b5537ba77eb11622ed0fb421314837bb390d77f8dd652e7da0abe1a1526b9274",
+    "published_at": "2023-09-08T01:04:15Z",
+    "updated_at": "2023-09-08T01:08:40Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          85,
+          91
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          92,
+          109
+        ],
+        "status_span": [
+          80,
+          91
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:8627704",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          37,
+          46
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          34,
+          46
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:8627704",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          138,
+          144
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          145,
+          177
+        ],
+        "status_span": [
+          128,
+          153
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:8627704",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          190,
+          197
+        ],
+        "status": "preexisting",
+        "direction": "enable",
+        "target": [
+          182,
+          189
+        ],
+        "status_span": [
+          182,
+          197
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          364,
+          372
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          373,
+          381
+        ],
+        "status_span": [
+          362,
+          381
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:8627704",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          440,
+          447
+        ],
+        "status": "unknown",
+        "direction": "disable",
+        "target": [
+          448,
+          465
+        ],
+        "status_span": [
+          435,
+          465
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:8627704",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          0,
+          28
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          239,
+          266
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          384,
+          434
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          5
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Historical PVP, a failed launch, termination responding to that failure, and conditional overlay-off behavior are separate contexts. Do not infer an actual overlay change, anti-cheat workaround, or causality from termination. No2GB log is downloaded.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-66",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-5825392646",
+    "document_id": "5825392646",
+    "reporter_id": "github:24358216",
+    "source_sha256": "f0c1373495e28a3be2fbdec07b6ebaf457e8cf39b1c2f79487a6fb39060ac7c1",
+    "source_offset": 0,
+    "paragraph_length": 141,
+    "paragraph_sha256": "14e735f338d2b8406ef7c9760db9eed8cb3080ddb16f30e1c39007a42532f6f8",
+    "published_at": "2026-09-25T01:54:00Z",
+    "updated_at": "2026-09-25T01:54:00Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          45,
+          62
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Explicit game name/AppID and GPU in a title-like report, but no human operation trigger. Access violation does not establish a driver cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-67",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1693605179",
+    "document_id": "1693605179",
+    "reporter_id": "github:86981503",
+    "source_sha256": "54840091e82f483eac46e280812a9880940901093c546fb80547982e5ca927eb",
+    "source_offset": 274,
+    "paragraph_length": 275,
+    "paragraph_sha256": "ef5db16809d2c34fbfc55e0d6a33d43b81647ea9a3cd95ec2c914803d50e25f9",
+    "published_at": "2023-08-25T16:13:03Z",
+    "updated_at": "2023-08-25T16:35:44Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          148,
+          157
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          158,
+          168
+        ],
+        "status_span": [
+          140,
+          168
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:86981503",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          200,
+          207
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          208,
+          236
+        ],
+        "status_span": [
+          200,
+          236
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:86981503",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          148,
+          168
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reproduction on a second mission under lower settings, not a successful optimization or a proven cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-68",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694343971",
+    "document_id": "1694343971",
+    "reporter_id": "github:72298316",
+    "source_sha256": "06843e902bfa3b598a654203f6473597752eb1dbf15a32a2ef0bebcf7d474c63",
+    "source_offset": 267,
+    "paragraph_length": 347,
+    "paragraph_sha256": "215194a32cd94e9201f3a23a37dd025e188f9eda4fbe1253e645c52dc4b677a6",
+    "published_at": "2023-08-26T13:41:08Z",
+    "updated_at": "2023-08-26T13:41:08Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Links alone do not identify trusted executable steps or verified outcomes.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-69",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1693697901",
+    "document_id": "1693697901",
+    "reporter_id": "github:6691735",
+    "source_sha256": "a4fe0bb10ab3ce799b86ba3ebda1904fee78c1566ac04a2302f42e1d93956ce1",
+    "source_offset": 0,
+    "paragraph_length": 169,
+    "paragraph_sha256": "e58f5b870db2a298a83a458d91fdd0b2f1cf689edcca26b67a5fe10aa11fe594",
+    "published_at": "2023-08-25T17:22:45Z",
+    "updated_at": "2023-08-25T17:22:45Z",
+    "stratum": "rich",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          15
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          16,
+          19
+        ],
+        "status_span": [
+          0,
+          19
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:6691735",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          61,
+          69
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          70,
+          87
+        ],
+        "status_span": [
+          61,
+          87
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:6691735",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          92,
+          101
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          102,
+          113
+        ],
+        "status_span": [
+          92,
+          113
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:6691735",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          118,
+          168
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1,
+          2
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unsuccessful reported trial set; no independent per-action credit and no bypass is performed or authorized by this research.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-70",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1693209733",
+    "document_id": "1693209733",
+    "reporter_id": "github:17786731",
+    "source_sha256": "0b0c3e5b5862aa525a34843af9811e2efe26cd73377a3018131fd020c67e837b",
+    "source_offset": 0,
+    "paragraph_length": 129,
+    "paragraph_sha256": "0b0c3e5b5862aa525a34843af9811e2efe26cd73377a3018131fd020c67e837b",
+    "published_at": "2023-08-25T11:26:54Z",
+    "updated_at": "2023-08-25T11:26:54Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          11
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          12,
+          16
+        ],
+        "status_span": [
+          0,
+          43
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          57,
+          62
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          63,
+          68
+        ],
+        "status_span": [
+          44,
+          68
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:17786731",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Future diagnostic difficulty and conditional sharing, not an actual reproduction or message.",
+    "annotation_complete": true
+  },
+  {
+    "id": "acceptance-71",
+    "source_thread_app_id": "1888160",
+    "app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1698301193",
+    "document_id": "1698301193",
+    "reporter_id": "github:8627704",
+    "source_sha256": "b4aca369d721f809c6e483bdf9ba88530f19c32203fbcfc7482f26163964d950",
+    "source_offset": 0,
+    "paragraph_length": 134,
+    "paragraph_sha256": "b4aca369d721f809c6e483bdf9ba88530f19c32203fbcfc7482f26163964d950",
+    "published_at": "2023-08-30T00:05:53Z",
+    "updated_at": "2023-08-30T00:05:53Z",
+    "stratum": "residual",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          44,
+          133
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Visual-artifact improvement claim without a literal install/replace operation. The author explicitly was not originally crashing; do not turn this into a crash fix.",
+    "annotation_complete": true
+  },
+  {
+    "id": "identity-0",
+    "app_id": "418370",
+    "source_thread_app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-497741292",
+    "document_id": "497741292",
+    "reporter_id": "github:5076722",
+    "source_sha256": "bc1dd606efb7d2b91758cab766efca1e48029e415aeacb46b23d60ec30314d91",
+    "source_offset": 287,
+    "paragraph_length": 158,
+    "paragraph_sha256": "c2cad08f50fc261abf482a5d18e3c48b7c4ceb44405cd2bf912d8d8cc310841f",
+    "published_at": "2019-05-31T15:01:02Z",
+    "updated_at": "2019-05-31T15:42:27Z",
+    "stratum": "explicit-catalog-name",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          5
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          6,
+          26
+        ],
+        "status_span": [
+          2,
+          12
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "418370",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          75,
+          79
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          80,
+          82
+        ],
+        "status_span": [
+          75,
+          82
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "418370",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          153,
+          157
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          153,
+          158
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "418370",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Explicit full game name in the documented destination. Imperatives are instructions, not a performed DLL install. No file is downloaded or copied.",
+    "annotation_complete": true
+  },
+  {
+    "id": "identity-1",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1777122435",
+    "document_id": "1777122435",
+    "reporter_id": "github:24358216",
+    "source_sha256": "a86b6b6ab1e66fcfa70dcc86b82bafb96c93324c6f3268c252f2ccfe4296db83",
+    "source_offset": 1454,
+    "paragraph_length": 403,
+    "paragraph_sha256": "e7c222f403731c2c4d8ce58e740fa82d64c89096fccaa356c51f7ed016665534",
+    "published_at": "2023-10-24T12:36:44Z",
+    "updated_at": "2023-10-24T12:36:44Z",
+    "stratum": "explicit-catalog-name",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          20,
+          24
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          25,
+          58
+        ],
+        "status_span": [
+          20,
+          37
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          123,
+          127
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          123,
+          132
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          153,
+          156
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          157,
+          168
+        ],
+        "status_span": [
+          153,
+          168
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          197,
+          199
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          203,
+          212
+        ],
+        "status_span": [
+          197,
+          212
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          285,
+          288
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          298,
+          314
+        ],
+        "status_span": [
+          285,
+          297
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          340,
+          344
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          345,
+          355
+        ],
+        "status_span": [
+          340,
+          355
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": "1888160",
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          380,
+          402
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Reproduction guide, not six completed actions. Explicit game name verified against official catalog; observed symptom does not establish a cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-0",
+    "app_id": "2215430",
+    "source_thread_app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2119380061",
+    "document_id": "2119380061",
+    "reporter_id": "github:44307026",
+    "source_sha256": "78daf8ff5916a572e20128ffaa6ab5654957aa14e6dc36749299883dee80c144",
+    "source_offset": 0,
+    "paragraph_length": 376,
+    "paragraph_sha256": "81752d6c880b14b64b9f05117ff3a820b44496614463b081d08a4b55665a054c",
+    "published_at": "2024-05-19T22:30:01Z",
+    "updated_at": "2024-05-19T22:30:01Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          45,
+          52
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          53,
+          61
+        ],
+        "status_span": [
+          35,
+          52
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          342,
+          346
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          347,
+          354
+        ],
+        "status_span": [
+          340,
+          354
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          318,
+          339
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Nested quoted accounts, duplicate underlying observation with1. Quoting author is not the actor. No thread AppID fallback.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-1",
+    "app_id": "2215430",
+    "source_thread_app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2148150570",
+    "document_id": "2148150570",
+    "reporter_id": "github:136293710",
+    "source_sha256": "c678268b6b44cb08f412723d1ec9f13b4b616f06e322ab88a35efc06e2a0e7c7",
+    "source_offset": 0,
+    "paragraph_length": 187,
+    "paragraph_sha256": "24ec6f26515900a6fe1d1cbc27fff5e31be8c8405f964e497d47ba64ee562dd8",
+    "published_at": "2024-06-04T18:26:47Z",
+    "updated_at": "2024-06-04T18:40:35Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          105,
+          113
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          99,
+          113
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted release-update notice and suggested check, not a performed update.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-2",
+    "app_id": "2215430",
+    "source_thread_app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2117114182",
+    "document_id": "2117114182",
+    "reporter_id": "github:65789901",
+    "source_sha256": "e56880dec4c1c43800538a69417997d91d585a873cf6ebff2e2472469e72aeec",
+    "source_offset": 0,
+    "paragraph_length": 1078,
+    "paragraph_sha256": "4114957b7cc0ac3aae42f1869745f450a4523fe14a02cc8ad6502f3c123c75dd",
+    "published_at": "2024-05-17T09:19:21Z",
+    "updated_at": "2024-05-17T09:27:38Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          105,
+          117
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          118,
+          137
+        ],
+        "status_span": [
+          96,
+          117
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          191,
+          197
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          198,
+          210
+        ],
+        "status_span": [
+          188,
+          210
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          138,
+          173
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          211,
+          249
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted report also repeated in7/77. Signed image URL is not fetched or published in the snapshot. Not a permitted bypass plan.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-3",
+    "app_id": "2215430",
+    "source_thread_app_id": "2215430",
+    "thread": 7735,
+    "title": "Ghost of Tsushima DIRECTOR'S CUT (2215430)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-3007363585",
+    "document_id": "3007363585",
+    "reporter_id": "github:31458662",
+    "source_sha256": "1aaa16fc565e660be0cfe957b0a7a8b6df8408f50f1d6327b7fe867fdbf93930",
+    "source_offset": 0,
+    "paragraph_length": 352,
+    "paragraph_sha256": "25f73cd154b08f64ea2077af8991c59e8d659c4bbf9e540a9552283209f798e2",
+    "published_at": "2025-06-26T06:50:01Z",
+    "updated_at": "2025-06-26T06:50:01Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          105,
+          117
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          118,
+          137
+        ],
+        "status_span": [
+          96,
+          117
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          191,
+          197
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          198,
+          210
+        ],
+        "status_span": [
+          188,
+          210
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          138,
+          173
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          211,
+          249
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Another quotation of the same experience, not independent corroboration or the current author executing it.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-4",
+    "app_id": "1659420",
+    "source_thread_app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1290831926",
+    "document_id": "1290831926",
+    "reporter_id": "github:5124782",
+    "source_sha256": "dc377298004dc68ede08f29604d431f703a8c04c72c94790997c828fb2f8de48",
+    "source_offset": 0,
+    "paragraph_length": 99,
+    "paragraph_sha256": "b2a110a86eccb1157ca29f44baa73f6227c417ccf34e68921c72f699036b4e32",
+    "published_at": "2022-10-25T16:26:45Z",
+    "updated_at": "2022-10-25T16:26:45Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          9,
+          14
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          86,
+          99
+        ],
+        "status_span": [
+          2,
+          19
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted question; release link does not prove an installed or tested version.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-5",
+    "app_id": "1659420",
+    "source_thread_app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1285351031",
+    "document_id": "1285351031",
+    "reporter_id": "github:109668155",
+    "source_sha256": "0d1ee166aeede09ce54323a425d10805a6cf192613dd2efd2915dbd1542f125b",
+    "source_offset": 0,
+    "paragraph_length": 90,
+    "paragraph_sha256": "0bc7afd1c34eb658f679b89d57b045c103092b82fc99046eab3326bd37d8bd21",
+    "published_at": "2022-10-20T11:17:32Z",
+    "updated_at": "2022-10-20T11:17:32Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          9
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          11,
+          26
+        ],
+        "status_span": [
+          2,
+          27
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          53,
+          89
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted source-reported override, not a DLL download, current-author success or verified local AMD hardware.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-6",
+    "app_id": "1659420",
+    "source_thread_app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284789656",
+    "document_id": "1284789656",
+    "reporter_id": "github:693958",
+    "source_sha256": "2da861ac2faf2a65e1187711a2b613139a8aed32bc5bda2b022ada97272c61ce",
+    "source_offset": 0,
+    "paragraph_length": 129,
+    "paragraph_sha256": "2da861ac2faf2a65e1187711a2b613139a8aed32bc5bda2b022ada97272c61ce",
+    "published_at": "2022-10-20T01:39:46Z",
+    "updated_at": "2022-10-20T01:39:46Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          7,
+          53
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Informal performance comparison without an identified action or benchmark registration.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-7",
+    "app_id": "1659420",
+    "source_thread_app_id": "1659420",
+    "thread": 6246,
+    "title": "UNCHARTED: Legacy of Thieves Collection (1659420)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-3368560292",
+    "document_id": "3368560292",
+    "reporter_id": "github:6314211",
+    "source_sha256": "5dbed18f0e56f73622758cd28634ddcbf6370837e09359efb46e99639935ee4b",
+    "source_offset": 3248,
+    "paragraph_length": 147,
+    "paragraph_sha256": "256646fd5c0d246eabf52322138517c6c329e1199dd8700b731839f4d05f7380",
+    "published_at": "2025-10-04T21:50:58Z",
+    "updated_at": "2025-10-04T21:53:11Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          7
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          12,
+          34
+        ],
+        "status_span": [
+          0,
+          24
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:6314211",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          106,
+          109
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          101,
+          115
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:6314211",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          62,
+          99
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Logging trial did not produce the expected file; this is not evidence the game crash persisted or a confirmed Gamescope cause.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-8",
+    "app_id": "418370",
+    "source_thread_app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458523160",
+    "document_id": "458523160",
+    "reporter_id": "github:29783425",
+    "source_sha256": "7e7b982daca951f2daa95e0285557dfef8c7045a231d77d4167052be4f763a47",
+    "source_offset": 0,
+    "paragraph_length": 373,
+    "paragraph_sha256": "397795c5517fc9690021bdaf9ee8418a0deda56c729d8a71c3a8d9d55e8fa4af",
+    "published_at": "2019-01-29T12:32:29Z",
+    "updated_at": "2019-01-29T12:32:29Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          12
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          13,
+          45
+        ],
+        "status_span": [
+          2,
+          22
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          140,
+          145
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          147,
+          150
+        ],
+        "status_span": [
+          138,
+          151
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          54,
+          65
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          170,
+          196
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Repeated quoted experience25/30. Partial launch success and save failure are not interchangeable.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-9",
+    "app_id": "418370",
+    "source_thread_app_id": "418370",
+    "thread": 1029,
+    "title": "RESIDENT EVIL 7 biohazard (418370)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-3146140335",
+    "document_id": "3146140335",
+    "reporter_id": "github:40360919",
+    "source_sha256": "fc2f94382ba4d09cfeffaf104ac043554ba5c7b73f80b290083941e44177e517",
+    "source_offset": 611,
+    "paragraph_length": 386,
+    "paragraph_sha256": "96120db78fcdcd69792a9fc73d7a3f25333e173bd351345d4c783fda8f5a0622",
+    "published_at": "2025-08-02T02:30:06Z",
+    "updated_at": "2025-08-02T02:33:30Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          72,
+          75
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          76,
+          89
+        ],
+        "status_span": [
+          70,
+          89
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:40360919",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          167,
+          172
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          173,
+          181
+        ],
+        "status_span": [
+          167,
+          181
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          183,
+          185
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          189,
+          196
+        ],
+        "status_span": [
+          183,
+          196
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          215,
+          221
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          222,
+          230
+        ],
+        "status_span": [
+          215,
+          230
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          241,
+          247
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          248,
+          262
+        ],
+        "status_span": [
+          241,
+          262
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          292,
+          298
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          299,
+          305
+        ],
+        "status_span": [
+          292,
+          305
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          346,
+          351
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          352,
+          354
+        ],
+        "status_span": [
+          341,
+          357
+        ],
+        "actor_kind": "addressee",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          94,
+          126
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Own setting attempt is followed by a reproduction guide. Do not mark imperatives as completed changes or infer an unnamed game.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-10",
+    "app_id": "1172620",
+    "source_thread_app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-648483082",
+    "document_id": "648483082",
+    "reporter_id": "github:67348276",
+    "source_sha256": "5e6325ad1da046fae6f0e5e6a189c48545156943a7affbd724b260eda9b9497f",
+    "source_offset": 0,
+    "paragraph_length": 390,
+    "paragraph_sha256": "5e6325ad1da046fae6f0e5e6a189c48545156943a7affbd724b260eda9b9497f",
+    "published_at": "2020-06-23T23:39:41Z",
+    "updated_at": "2020-06-23T23:39:41Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          4,
+          9
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          10,
+          28
+        ],
+        "status_span": [
+          0,
+          28
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:67348276",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          148,
+          154
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          155,
+          170
+        ],
+        "status_span": [
+          146,
+          170
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:67348276",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          201,
+          210
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          211,
+          213
+        ],
+        "status_span": [
+          184,
+          213
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:67348276",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          45,
+          86
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Existing version, reported accidental broken installation and planned reinstall are distinct. Knowing how to copy is capability, not an executed file fix.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-11",
+    "app_id": "1172620",
+    "source_thread_app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-640134720",
+    "document_id": "640134720",
+    "reporter_id": "github:15553729",
+    "source_sha256": "623bf42ca9141d836c5c4f17b23c231fa752df56cd266a199d91cef79cbd3b31",
+    "source_offset": 0,
+    "paragraph_length": 432,
+    "paragraph_sha256": "8fdd434206d515f71a03d8996f39d650de646c01617278ee57ee8e26aeca3d8d",
+    "published_at": "2020-06-07T00:06:54Z",
+    "updated_at": "2020-06-07T00:06:54Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          41,
+          45
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          46,
+          62
+        ],
+        "status_span": [
+          33,
+          62
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          193,
+          209
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted question and separate source-author changed-code state. No specific completed code operation is recoverable, and the claimed root cause is not independently established.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-12",
+    "app_id": "1172620",
+    "source_thread_app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-645690979",
+    "document_id": "645690979",
+    "reporter_id": "github:1632838",
+    "source_sha256": "5034bb291f064df0282c15a49d5e878930f2f1de0aaf88378609f5b4e4ed1cca",
+    "source_offset": 0,
+    "paragraph_length": 525,
+    "paragraph_sha256": "fed5eeab40196b939b9a5823792a6e1e0f0b6ba69554de2939f36282dfae895d",
+    "published_at": "2020-06-18T00:10:41Z",
+    "updated_at": "2020-06-18T00:15:14Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          126,
+          132
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          119,
+          132
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          323,
+          328
+        ],
+        "status": "preexisting",
+        "direction": "switch",
+        "target": [
+          329,
+          347
+        ],
+        "status_span": [
+          323,
+          347
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:1632838",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          294,
+          322
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          213,
+          259
+        ],
+        "outcome": "persistent",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Different people, regions and Windows/Proton contexts. Third-party connection problems must not be attributed to the author. Regional hypothesis is not causal proof, SoT remains an unlinked abbreviation.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-13",
+    "app_id": "1172620",
+    "source_thread_app_id": "1172620",
+    "thread": 3931,
+    "title": "Sea Of Thieves (1172620)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643638035",
+    "document_id": "643638035",
+    "reporter_id": "github:24882429",
+    "source_sha256": "cfa98b7e20c53e40b8e4f5a99a094efd286ded12cc197e471bfaeb790a3f0652",
+    "source_offset": 0,
+    "paragraph_length": 133,
+    "paragraph_sha256": "cfa98b7e20c53e40b8e4f5a99a094efd286ded12cc197e471bfaeb790a3f0652",
+    "published_at": "2020-06-13T15:24:31Z",
+    "updated_at": "2020-06-13T15:24:31Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          49,
+          54
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          47,
+          68
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:24882429",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          73,
+          90
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Author could not hear a friend; the friend reported hearing other people. Preserve who observed which audio symptom.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-14",
+    "app_id": "1687950",
+    "source_thread_app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287447566",
+    "document_id": "1287447566",
+    "reporter_id": "github:45927311",
+    "source_sha256": "12492295dc8031d11ce8c4ccf80143a270bebd1c81da9feade44dc0ba13d00f5",
+    "source_offset": 0,
+    "paragraph_length": 190,
+    "paragraph_sha256": "237d28e87d70be4ba3a20107980bc60240c85f5b50877d92d06ddb1fa091bb44",
+    "published_at": "2022-10-21T21:21:55Z",
+    "updated_at": "2022-10-21T21:22:38Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          89,
+          92
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          113,
+          132
+        ],
+        "status_span": [
+          78,
+          109
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          141,
+          189
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Repeated attempted execution with an observed error, rather than advice. Quoted person is not the source author; diagnostic message is not a proven hardware incompatibility.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-15",
+    "app_id": "1687950",
+    "source_thread_app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287246620",
+    "document_id": "1287246620",
+    "reporter_id": "github:75085610",
+    "source_sha256": "95d1c046f6b3a54f219c5553a75019e17b5ac7205f73d6ac04feb4bfcd8ea390",
+    "source_offset": 0,
+    "paragraph_length": 250,
+    "paragraph_sha256": "6fe5ec3867db47703bf2fa3b5393faea3ab410c32d41507803d0db5892f50cd0",
+    "published_at": "2022-10-21T17:28:29Z",
+    "updated_at": "2022-10-21T17:32:34Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          32,
+          35
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          2,
+          35
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Quoted diagnostic command only. No sudo or filesystem inspection is performed.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-16",
+    "app_id": "1687950",
+    "source_thread_app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287446316",
+    "document_id": "1287446316",
+    "reporter_id": "github:11903511",
+    "source_sha256": "b5c742294fd2084bdadb4297edb1b04cc9d1961840bbf98cc7ad441d5cc982bd",
+    "source_offset": 37,
+    "paragraph_length": 149,
+    "paragraph_sha256": "d5f4856450d423434722075a7022b3b4cf25a91a679db108cc141693a6f73261",
+    "published_at": "2022-10-21T21:20:03Z",
+    "updated_at": "2022-10-21T21:21:23Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          48,
+          51
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          72,
+          91
+        ],
+        "status_span": [
+          37,
+          68
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:11903511",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          100,
+          148
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Same experience quoted in88; not independent evidence or proof that the actual hardware misses a requirement.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-17",
+    "app_id": "1687950",
+    "source_thread_app_id": "1687950",
+    "thread": 6255,
+    "title": "Persona 5 Royal (1687950)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1286510824",
+    "document_id": "1286510824",
+    "reporter_id": "github:57317100",
+    "source_sha256": "76a20a814e62e3fe5c60d54d2794fd7e8603ff32e5931a8a0db2400b9b8796b5",
+    "source_offset": 0,
+    "paragraph_length": 353,
+    "paragraph_sha256": "a52acce0c070041865fbb5e0ad8066de34b01db2382e40a724cf13d39e5c9877",
+    "published_at": "2022-10-21T06:20:02Z",
+    "updated_at": "2022-10-21T06:20:02Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          51,
+          57
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          58,
+          68
+        ],
+        "status_span": [
+          47,
+          68
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          72,
+          75
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          69,
+          82
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          163,
+          166
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          167,
+          194
+        ],
+        "status_span": [
+          161,
+          194
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          299,
+          306
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          307,
+          322
+        ],
+        "status_span": [
+          294,
+          322
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          215,
+          260
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      },
+      {
+        "span": [
+          262,
+          293
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          3
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Nested third-person request, quoted Deck experience and desktop editing crash have different roles. Cloud-save state is mentioned without an explicit syncing action.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-18",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1710930758",
+    "document_id": "1710930758",
+    "reporter_id": "github:93047174",
+    "source_sha256": "98d1d1365eb7e22cc268ba73329358a840f481824fb9f92c46e04ba3a151b4bc",
+    "source_offset": 0,
+    "paragraph_length": 961,
+    "paragraph_sha256": "7b0be71560e35ee8b3bb7c097a29d83d718a23785db7954cea00164134189a5f",
+    "published_at": "2023-09-08T00:47:40Z",
+    "updated_at": "2023-09-08T00:48:38Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          165,
+          170
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          171,
+          203
+        ],
+        "status_span": [
+          163,
+          184
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          346,
+          351
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          357,
+          385
+        ],
+        "status_span": [
+          344,
+          385
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          499,
+          506
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          507,
+          521
+        ],
+        "status_span": [
+          499,
+          521
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          216,
+          239
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          390,
+          403
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          549,
+          573
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          714,
+          777
+        ],
+        "outcome": "improved",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Three distinct failed version trials. Received updates do not identify their individual causal effects. Other-game success is not attributed to these attempts; abbreviations stay unlinked and log filenames do not identify each action scope.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-19",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694419127",
+    "document_id": "1694419127",
+    "reporter_id": "github:4625942",
+    "source_sha256": "ce1804799093145455b4602ab6ed13c7590c96766a61a4205138f1ba213c2e4d",
+    "source_offset": 0,
+    "paragraph_length": 219,
+    "paragraph_sha256": "321862549b362b5a6004afdd6506e72c66866ea80d03c8b2d1e612941a6b9191",
+    "published_at": "2023-08-26T17:37:10Z",
+    "updated_at": "2023-08-26T17:52:40Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          24,
+          30
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          31,
+          38
+        ],
+        "status_span": [
+          2,
+          38
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          100,
+          105
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          97,
+          131
+        ],
+        "actor_kind": "quoted",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          39,
+          55
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Quoted historical claim including an untrusted launch command. Never execute, reconstruct as a permitted fix, or approve an anti-cheat bypass. Balteus is not sufficient standalone AppID evidence.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-20",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694245877",
+    "document_id": "1694245877",
+    "reporter_id": "github:61622173",
+    "source_sha256": "2efcf136d1bcb8b693866b1a70141f33878552b411aa17c0609b3af07e3384bf",
+    "source_offset": 0,
+    "paragraph_length": 130,
+    "paragraph_sha256": "fd87d37dc98cf87e7370f82a0cfcaba5129a59fd657174f08d7b95e504efd33f",
+    "published_at": "2023-08-26T09:51:49Z",
+    "updated_at": "2023-08-26T09:51:49Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          22,
+          28
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          29,
+          36
+        ],
+        "status_span": [
+          0,
+          36
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61622173",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          98,
+          103
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          95,
+          129
+        ],
+        "actor_kind": "reporter",
+        "actor_id": "github:61622173",
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          37,
+          53
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Original quoted in93, one source experience rather than independent confirmations. Research does not perform or recommend the anti-cheat bypass.",
+    "annotation_complete": true
+  },
+  {
+    "id": "context-21",
+    "app_id": "1888160",
+    "source_thread_app_id": "1888160",
+    "thread": 7045,
+    "title": "ARMORED CORE VI FIRES OF RUBICON (1888160)",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-3734571482",
+    "document_id": "3734571482",
+    "reporter_id": "github:24358216",
+    "source_sha256": "647fd434c54e7e60bb65573ac0318315b4bfce23d82c32db4ad0e0578b022b8a",
+    "source_offset": 916,
+    "paragraph_length": 385,
+    "paragraph_sha256": "6bbc8218df3913121eb2e911f4b166f8ebd22ed941e3eb2b0dc7e1b01ad8b827",
+    "published_at": "2026-01-11T13:40:34Z",
+    "updated_at": "2026-01-11T13:40:34Z",
+    "stratum": "explicit-context-cue",
+    "annotation_version": "v6-context-2",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          139,
+          146
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          155,
+          178
+        ],
+        "status_span": [
+          130,
+          146
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          190,
+          196
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          205,
+          216
+        ],
+        "status_span": [
+          181,
+          216
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          197,
+          204
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          205,
+          216
+        ],
+        "status_span": [
+          181,
+          216
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          225,
+          234
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          235,
+          240
+        ],
+        "status_span": [
+          219,
+          240
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          242,
+          251
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          242,
+          251
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          253,
+          260
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          262,
+          336
+        ],
+        "status_span": [
+          253,
+          281
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      },
+      {
+        "trigger": [
+          340,
+          345
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          346,
+          385
+        ],
+        "status_span": [
+          340,
+          362
+        ],
+        "actor_kind": "unknown",
+        "actor_id": null,
+        "game_app_id": null,
+        "game_scope": "unknown",
+        "identity_evidence_status": "agent-provisional; no thread fallback"
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          41,
+          69
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unsuccessful compound troubleshooting list, not seven independently established causes or remedies. Elliptical actor not safely identified. Enable/disable trial directions are both explicitly listed but their order is unknown.",
+    "annotation_complete": true
+  }
+]

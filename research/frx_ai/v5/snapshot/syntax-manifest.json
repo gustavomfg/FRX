@@ -1,0 +1,71 @@
+{
+  "repository": "stanfordnlp/stanza-en",
+  "revision": "88e0cd3ddaa0c5a4b682895527ac013ce0241c21",
+  "stanza_version": "1.14.0",
+  "resources_sha256": "4e41c1df152146fa26ed0c006a08feea7a60bb3414bb6d57dbda24ad2e3cb99c",
+  "processors": {
+    "tokenize": "combined_nocharlm",
+    "mwt": "combined",
+    "pos": "combined_nocharlm",
+    "lemma": "combined_nocharlm",
+    "depparse": "combined_nocharlm"
+  },
+  "files": [
+    {
+      "processor": "depparse",
+      "package": "combined_nocharlm",
+      "path": "en/depparse/combined_nocharlm.pt",
+      "upstream": "models/depparse/combined_nocharlm.pt",
+      "bytes": 108883461,
+      "sha256": "93c7c704cc5878db89e4bfb5bb5744e138448693da65773e88a8a4f8c5983ac1",
+      "md5": "b6d1f372833a49093744625c60d2ae35"
+    },
+    {
+      "processor": "lemma",
+      "package": "combined_nocharlm",
+      "path": "en/lemma/combined_nocharlm.pt",
+      "upstream": "models/lemma/combined_nocharlm.pt",
+      "bytes": 2465184,
+      "sha256": "775d42962ae209d4ff2fc3a799a9438333a44aa6ede3a7368dc07afd573d79d3",
+      "md5": "cc8fd88147aa2172ccee976e8db9c1f8"
+    },
+    {
+      "processor": "mwt",
+      "package": "combined",
+      "path": "en/mwt/combined.pt",
+      "upstream": "models/mwt/combined.pt",
+      "bytes": 509238,
+      "sha256": "5f7579111def1f6212c98fa8154ff964bf0eafb9218845ecfa3a1d5a931be237",
+      "md5": "6e49e64f630823cfcd8ab62ca59f42fc"
+    },
+    {
+      "processor": "pos",
+      "package": "combined_nocharlm",
+      "path": "en/pos/combined_nocharlm.pt",
+      "upstream": "models/pos/combined_nocharlm.pt",
+      "bytes": 23692310,
+      "sha256": "de777e494a74b387b3f64682a216b3497dbdbf76f7e69efca0ea1e16915fbf2d",
+      "md5": "551743f0d76f20a47abe566623f0beab"
+    },
+    {
+      "processor": "pretrain",
+      "package": "conll17",
+      "path": "en/pretrain/conll17.pt",
+      "upstream": "models/pretrain/conll17.pt",
+      "bytes": 106701210,
+      "sha256": "edde4c195f91ba45aab3f3a6254202011f284559da8a5ead5e62ce522f819c5e",
+      "md5": "c339580492002fb1f759537dfbc57fb2"
+    },
+    {
+      "processor": "tokenize",
+      "package": "combined_nocharlm",
+      "path": "en/tokenize/combined_nocharlm.pt",
+      "upstream": "models/tokenize/combined_nocharlm.pt",
+      "bytes": 660757,
+      "sha256": "0b67d0cc24bf9461176d854ca891706616a6eea3a7f698ccf085fcf559fa87ec",
+      "md5": "249f1bb1c4aa1ee38b5690df8fc96937"
+    }
+  ],
+  "total_bytes": 242912160,
+  "license_note": "Stanza code Apache-2.0; upstream model and UD training-data licenses require separate review before distribution. No model is bundled."
+}

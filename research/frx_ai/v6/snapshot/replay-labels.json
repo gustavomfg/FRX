@@ -1,0 +1,58 @@
+[
+  {
+    "id": "historical-SDL-symbol",
+    "checks": [
+      "collect-relevant-log",
+      "verify-component-symbol-versions"
+    ],
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "historical-audio-format",
+    "checks": [
+      "collect-relevant-log",
+      "verify-audio-format-route"
+    ],
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "historical-unknown",
+    "checks": [
+      "collect-relevant-log",
+      "identify-proton"
+    ],
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "failed-attempt",
+    "checks": [
+      "collect-relevant-log"
+    ],
+    "candidate": "previously-failed-same-exact-context",
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "hardware-analogy",
+    "checks": [
+      "collect-relevant-log"
+    ],
+    "candidate": "context-incompatible",
+    "analogy_retained": true,
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "missing-library",
+    "checks": [
+      "origin:fixture.dll"
+    ],
+    "unconfirmed_cause": true
+  },
+  {
+    "id": "gpu-not-game-technology",
+    "checks": [
+      "collect-relevant-log"
+    ],
+    "no_physx_inference": true,
+    "unconfirmed_cause": true
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "cpu_only": true,
+  "torch_loaded": true,
+  "startup_seconds": 0.307300975000544,
+  "first_request_ms": 3424.4665799997165,
+  "warm_uncached_median_ms": 64.48524400002498,
+  "warm_uncached_p95_ms": 217.83427750051487,
+  "requests": 12,
+  "request_ms": [
+    3424.4665799997165,
+    64.48524400002498,
+    14.737630999661633,
+    159.9303160001,
+    7.414495999910287,
+    93.45258500070486,
+    5.856390000190004,
+    106.3823799995589,
+    5.740910999520565,
+    110.83996500019566,
+    62.217865999627975,
+    275.73823900092975
+  ],
+  "max_rss_mib": 812.1875,
+  "retrieval_runtime_bytes": 23416558,
+  "retrieval_archival_directory_bytes": 113779281,
+  "classifier_bytes": 0,
+  "selection_sha256": "f517547d08f524ec6f62c2dda2d9d61ada7e807008245db17fbf51023f394b42",
+  "automatic_approval": false,
+  "limits": "Twelve known development requests, not a performance distribution guarantee. Python/dependencies excluded from weight size. Archival float ONNX is preserved but not loaded.",
+  "pipeline": "preserved-v5-stanza",
+  "syntax_bytes": 242912160
+}

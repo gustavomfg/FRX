@@ -1,0 +1,9 @@
+{
+  "classifier": {
+    "path": "verifiers/L1-structured-real-text.json",
+    "bytes": 2141,
+    "sha256": "c53de88a4887c4ce4bbde3f44b34eaf25fe5655b39e46a96be4cadffd1446750"
+  },
+  "old_v2_model": "preserved runtime-retrieval; see frozen.json hashes",
+  "weights_in_git": false
+}

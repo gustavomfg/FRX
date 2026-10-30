@@ -1,0 +1,251 @@
+{
+  "status": "post-final refutation audit; no model changes or label corrections",
+  "results": {
+    "v5-selected": {
+      "current_game_performed_correct": 26,
+      "current_game_performed_claims": 30,
+      "current_game_gold_performed": 50,
+      "current_game_performed_recall": 0.52,
+      "literal_trigger_errors": 0,
+      "unique_correct_observation_groups": 6,
+      "correct_result_links_to_explicit_other_games": 2,
+      "joint_groups_correct": 2,
+      "joint_groups_claimed": 3,
+      "review_items": [
+        {
+          "id": "final-1",
+          "trigger": [
+            77,
+            84
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-37",
+          "span": [
+            137,
+            163
+          ],
+          "outcome": "improved",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-38",
+          "trigger": [
+            185,
+            190
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-38",
+          "span": [
+            198,
+            221
+          ],
+          "outcome": "regression",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-40",
+          "trigger": [
+            90,
+            99
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-48",
+          "trigger": [
+            534,
+            537
+          ],
+          "gold_status": "unknown",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-48",
+          "span": [
+            557,
+            573
+          ],
+          "outcome": "persistent",
+          "type": "unmatched-result-association"
+        }
+      ]
+    },
+    "syntax-initial-control": {
+      "current_game_performed_correct": 20,
+      "current_game_performed_claims": 21,
+      "current_game_gold_performed": 50,
+      "current_game_performed_recall": 0.4,
+      "literal_trigger_errors": 0,
+      "unique_correct_observation_groups": 4,
+      "correct_result_links_to_explicit_other_games": 2,
+      "joint_groups_correct": 0,
+      "joint_groups_claimed": 0,
+      "review_items": [
+        {
+          "id": "final-17",
+          "span": [
+            120,
+            154
+          ],
+          "outcome": "improved",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-29",
+          "span": [
+            99,
+            116
+          ],
+          "outcome": "improved",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-37",
+          "span": [
+            137,
+            163
+          ],
+          "outcome": "improved",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-38",
+          "trigger": [
+            185,
+            190
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-38",
+          "span": [
+            198,
+            221
+          ],
+          "outcome": "regression",
+          "type": "unmatched-result-association"
+        }
+      ]
+    },
+    "compact-challenger": {
+      "current_game_performed_correct": 26,
+      "current_game_performed_claims": 29,
+      "current_game_gold_performed": 50,
+      "current_game_performed_recall": 0.52,
+      "literal_trigger_errors": 0,
+      "unique_correct_observation_groups": 6,
+      "correct_result_links_to_explicit_other_games": 2,
+      "joint_groups_correct": 2,
+      "joint_groups_claimed": 4,
+      "review_items": [
+        {
+          "id": "final-1",
+          "trigger": [
+            77,
+            84
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-37",
+          "span": [
+            137,
+            163
+          ],
+          "outcome": "improved",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-38",
+          "trigger": [
+            185,
+            190
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-38",
+          "span": [
+            198,
+            221
+          ],
+          "outcome": "regression",
+          "type": "unmatched-result-association"
+        },
+        {
+          "id": "final-48",
+          "trigger": [
+            534,
+            537
+          ],
+          "gold_status": "unknown",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-48",
+          "span": [
+            557,
+            573
+          ],
+          "outcome": "persistent",
+          "type": "unmatched-result-association"
+        }
+      ]
+    },
+    "v4-verified": {
+      "current_game_performed_correct": 12,
+      "current_game_performed_claims": 12,
+      "current_game_gold_performed": 50,
+      "current_game_performed_recall": 0.24,
+      "literal_trigger_errors": 0,
+      "unique_correct_observation_groups": 1,
+      "correct_result_links_to_explicit_other_games": 0,
+      "joint_groups_correct": 0,
+      "joint_groups_claimed": 0,
+      "review_items": []
+    },
+    "v4-lexical": {
+      "current_game_performed_correct": 16,
+      "current_game_performed_claims": 18,
+      "current_game_gold_performed": 50,
+      "current_game_performed_recall": 0.32,
+      "literal_trigger_errors": 0,
+      "unique_correct_observation_groups": 0,
+      "correct_result_links_to_explicit_other_games": 0,
+      "joint_groups_correct": 0,
+      "joint_groups_claimed": 0,
+      "review_items": [
+        {
+          "id": "final-38",
+          "trigger": [
+            185,
+            190
+          ],
+          "gold_status": "preexisting",
+          "type": "false-performed"
+        },
+        {
+          "id": "final-67",
+          "trigger": [
+            0,
+            5
+          ],
+          "gold_status": "unmatched",
+          "type": "false-performed"
+        }
+      ]
+    }
+  },
+  "review": "agent provisional; not human adjudication",
+  "interpretation": "Two linguistically correct result links can belong to another game inside a valid thread. They are not usable current-game evidence. run.py now prevents per-event AppID promotion without claiming to solve coreference."
+}

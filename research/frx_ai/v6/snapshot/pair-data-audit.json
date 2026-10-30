@@ -1,0 +1,35 @@
+{
+  "real_text_claims": 133,
+  "synthetic_text_claims": 144,
+  "real_sources": 83,
+  "real_classes": [
+    43,
+    45,
+    45
+  ],
+  "synthetic_classes": [
+    48,
+    48,
+    48
+  ],
+  "unproposable": [
+    {
+      "id": "dev-7",
+      "observation": 0,
+      "reason": "complete owner group not proposed even with supplied spans"
+    },
+    {
+      "id": "extra-5",
+      "observation": 0,
+      "reason": "complete owner group not proposed even with supplied spans"
+    },
+    {
+      "id": "extra-7",
+      "observation": 3,
+      "reason": "complete owner group not proposed even with supplied spans"
+    }
+  ],
+  "synthetic_unproposable": [],
+  "dataset_sha256": "69c51876be3e7dfd789097292d429f2cfa139a0ab95598622f2b3f8a55a92519",
+  "labels": "agent-provisional originals plus explicitly constructed claims; not human truth"
+}

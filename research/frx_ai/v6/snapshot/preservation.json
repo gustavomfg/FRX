@@ -1,0 +1,14 @@
+{
+  "protected_existing_files": 557,
+  "changed_existing_files": [],
+  "head_preserved": true,
+  "head": "68d387635a3d4ffdefeef5d1494e5f784250dbd3",
+  "tracked_diff": [],
+  "index_diff": [],
+  "scope": "Only new research/frx_ai/v6 source/metadata plus external research cache. Prior tracked and untracked source states preserved.",
+  "git_status": [
+    "?? .nocturne/",
+    "?? research/frx_ai/v5/",
+    "?? research/frx_ai/v6/"
+  ]
+}

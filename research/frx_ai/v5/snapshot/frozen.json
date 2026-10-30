@@ -1,0 +1,34 @@
+{
+  "frozen_at": "2026-10-30T20:01:22.883054+00:00",
+  "inference_sources": {
+    "events.py": "facbb385a11c53e12481b0749ccd62338c0e4124e9058201b6451cf9aad74bbf",
+    "relations.py": "16e051f9b2f6932177c9523f6fc473bb0b577fbd5ab4e7f3c77ce1643496446a",
+    "syntax.py": "337d273e4321876d016e925305ece8c1d57383c74b859ec2dda1c05886683baf",
+    "compact.py": "64cf6219a40ba42734a309b5de2ec4c3c389159f13efbd61b639fc23ff3a11ed",
+    "linker.py": "4907eb81eeacf6406537958a0ecaa52598f09bb29f76f46f0bf66c7ba056f3e8",
+    "incidents.py": "8dbe4fb2a90d112024853b693f35977eb8c7cbbebd1cdffcd7a8b2f141db994d",
+    "lab.py": "fdc84c8a56c3f2ee120e43e45865914937eea39648974cff4b24535eda746243",
+    "common.py": "79dfda1c4c0c95912629254837c9b3ae786fff734efd462b7448a5bd0832851a",
+    "assess.py": "1974d01b65d6b48ed295222e0951c3c129cc52f7e3dd0ddd3d34c40f5974890a",
+    "syntax_control.py": "2c490e8d2ff0dd81f9ad0634da8ea09f4e9ad83f3a0adf573e11308d9ebc3497",
+    "final_evaluate.py": "8bac41d49278af5701f86eeb99829a1a1806574f7a4719e5cca8018827dc8592"
+  },
+  "artifacts": {
+    "selection.json": "f517547d08f524ec6f62c2dda2d9d61ada7e807008245db17fbf51023f394b42",
+    "syntax-manifest.json": "d42ec28f57fd3dc3ae62e9d120fcf72404a7655b4421180471a9e579f7219912",
+    "compact-manifest.json": "e5d7c2a38a86275c520f7cf2b91fff4ae47f04116d2138932e19e585f5efb814",
+    "train-known.jsonl": "7f7cb4eca1dd14b540c3dd318c93d2870391dc70ff2a57c8dd6bbe0831dd954c",
+    "dev-known.jsonl": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443",
+    "extra-audited.jsonl": "9514cf4925eeb855b89ce2ad08db4309810efe526f37dacdb9f26872b10c92ac",
+    "reservation.json": "ff8a1f0b8a3efce65f0bb57ecafd1a2ea4e594045a4c52ff9bf44f14f29dc4f0",
+    "final-reserved.jsonl": "9a1ce9b9337201dba9207d60ac3cbd0335e439dbcab1d86143f22a80cb25fc0b"
+  },
+  "preserved_v2": {
+    "runtime-retrieval/retriever-float.onnx": "264090e47095f1224346897f7be9a2c8b85bf51d4a69aabfc7b977533154dae8",
+    "runtime-retrieval/retriever-int8.onnx": "67578e150a480885e935fffc8c95849fb5d8f6688b48a596837a76984f536bd8",
+    "runtime-retrieval/runtime.json": "ee511b562633dfe3e63bd11180428d0494161bbf577ccb05c5823b33e05eb498",
+    "runtime-retrieval/tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037"
+  },
+  "final_bodies_inspected": false,
+  "independent_human_review": false
+}

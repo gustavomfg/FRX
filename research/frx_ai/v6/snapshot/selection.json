@@ -1,0 +1,391 @@
+{
+  "model": "verifiers/L1-structured-real-text.json",
+  "model_sha256": "c53de88a4887c4ce4bbde3f44b34eaf25fe5655b39e46a96be4cadffd1446750",
+  "threshold": 0.3,
+  "parser": "compact",
+  "selected_on": "new development only; v5 acceptance not used",
+  "metrics": {
+    "documents": 48,
+    "gold_events": 64,
+    "triggers": 61,
+    "matched": 53,
+    "gold_performed": 36,
+    "performed": 23,
+    "performed_correct": 23,
+    "false_performed": 0,
+    "relations": 11,
+    "relation_correct": 11,
+    "gold_relations": 21,
+    "false_success": 0,
+    "negative_correct": 4,
+    "joint_claims": 2,
+    "joint_correct": 2,
+    "game_claims": 6,
+    "game_correct": 6,
+    "gold_game_known": 7,
+    "cross_game_errors": 0,
+    "explicit_cross_game_errors": 0,
+    "unsupported_game_attributions": 0,
+    "actor_claims": 28,
+    "actor_correct": 28,
+    "gold_actor_known": 32,
+    "actor_kind_claims": 38,
+    "actor_kind_correct": 36,
+    "literal_errors": 0,
+    "temporal_claims": 2,
+    "temporal_correct": 0,
+    "gold_temporal": 0,
+    "proposable_relations": 11,
+    "performed_precision": 1.0,
+    "performed_recall": 0.6388888888888888,
+    "performed_f1": 0.7796610169491526,
+    "relation_precision": 1.0,
+    "relation_recall": 0.5238095238095238,
+    "relation_missed": 10,
+    "game_precision": 1.0,
+    "game_recall": 0.8571428571428571,
+    "actor_precision": 1.0,
+    "actor_recall": 0.875,
+    "details": [
+      {
+        "id": "development-0",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-1",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-2",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-3",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-4",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-5",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-6",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-7",
+        "game": "632360",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-8",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-9",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-10",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-11",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-12",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-13",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-14",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-15",
+        "game": "637650",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-16",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-17",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-18",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-19",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-20",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-21",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-22",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-23",
+        "game": "412020",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-24",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-25",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-26",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-27",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-28",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-29",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-30",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-31",
+        "game": "570940",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-32",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-33",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-34",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-35",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-36",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-37",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-38",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-39",
+        "game": "1259420",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-40",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-41",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-42",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-43",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-44",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-45",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-46",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      },
+      {
+        "id": "development-47",
+        "game": "1593500",
+        "false_performed": 0,
+        "false_success": 0,
+        "cross_game_errors": 0
+      }
+    ]
+  },
+  "automatic_approval": false,
+  "neural_models_disabled": true,
+  "rationale": "Higher complete-group precision/recall than cross-encoders and semantic control on new development; tiny data-only model. All language labels provisional."
+}

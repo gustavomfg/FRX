@@ -1,0 +1,2415 @@
+[
+  {
+    "id": "final-0",
+    "app_id": "1627720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8780#issuecomment-2951490414",
+    "thread": 8780,
+    "title": "Lies of P (1627720)",
+    "source_sha256": "9da2bdb6fb5cef8e4e5ba0d154460490e4ebf562e2b1f4125e233260b3fcc096",
+    "source_offset": 0,
+    "paragraph_sha256": "9da2bdb6fb5cef8e4e5ba0d154460490e4ebf562e2b1f4125e233260b3fcc096",
+    "published_at": "2025-06-07T02:19:33Z",
+    "updated_at": "2025-06-07T02:19:33Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          45,
+          54
+        ],
+        "status": "preexisting",
+        "direction": "install",
+        "target": [
+          39,
+          44
+        ],
+        "status_span": [
+          33,
+          54
+        ]
+      },
+      {
+        "trigger": [
+          99,
+          107
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          108,
+          110
+        ],
+        "status_span": [
+          93,
+          110
+        ]
+      },
+      {
+        "trigger": [
+          181,
+          193
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          211,
+          226
+        ],
+        "status_span": [
+          175,
+          226
+        ]
+      },
+      {
+        "trigger": [
+          198,
+          210
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          211,
+          226
+        ],
+        "status_span": [
+          175,
+          226
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          112,
+          133
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      },
+      {
+        "span": [
+          145,
+          169
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          2,
+          3
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Mod identity unknown. Uninstall/reinstall did not remove it; do not credit them with later success.",
+    "paragraph_length": 227
+  },
+  {
+    "id": "final-1",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2314359502",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "05c90383b3d82d111ead7fe4d2eb0b0473a6c2d3a49af415e1971f2e83ceea60",
+    "source_offset": 0,
+    "paragraph_sha256": "05c90383b3d82d111ead7fe4d2eb0b0473a6c2d3a49af415e1971f2e83ceea60",
+    "published_at": "2024-08-28T05:39:00Z",
+    "updated_at": "2024-08-28T05:39:00Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          39,
+          44
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          15,
+          30
+        ],
+        "status_span": [
+          10,
+          44
+        ]
+      },
+      {
+        "trigger": [
+          125,
+          132
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          133,
+          135
+        ],
+        "status_span": [
+          125,
+          156
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question and benchmark-condition statement; no explicit user change confirmed.",
+    "paragraph_length": 377
+  },
+  {
+    "id": "final-2",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645890298",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "92119b8e8ee84a5b3d0ae5ab549308ce4a452fcfe2f299254274b2a5b0abe0ba",
+    "source_offset": 871,
+    "paragraph_sha256": "b7179a4e42784f298ddf9f82176a311526a4a199c8c94f43e35490b41a9e3663",
+    "published_at": "2025-02-08T18:20:22Z",
+    "updated_at": "2025-02-08T18:20:22Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Passive game launch failure is a symptom, not a corrective procedure.",
+    "paragraph_length": 136
+  },
+  {
+    "id": "final-3",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2316792508",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "80f9a740bc60da188228e0aa3769fcbd02d0689c46252c989dbfeaaeb676c76a",
+    "source_offset": 0,
+    "paragraph_sha256": "80f9a740bc60da188228e0aa3769fcbd02d0689c46252c989dbfeaaeb676c76a",
+    "published_at": "2024-08-29T06:13:37Z",
+    "updated_at": "2024-08-29T06:13:37Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          53,
+          58
+        ],
+        "status": "negated",
+        "direction": "configure",
+        "target": [
+          59,
+          79
+        ],
+        "status_span": [
+          44,
+          79
+        ]
+      },
+      {
+        "trigger": [
+          225,
+          229
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          230,
+          242
+        ],
+        "status_span": [
+          219,
+          242
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Research/reporting action differs from a corrective system operation.",
+    "paragraph_length": 316
+  },
+  {
+    "id": "final-4",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2308926326",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "198756f6d2e9de761c8d06586e4f4dce5ed6c75cceb17d34f77137735bb5adf0",
+    "source_offset": 1268,
+    "paragraph_sha256": "4141316075db0bd32974b722bf0a71f2dae4ca747fcad240ddcd4ba12e8d9e66",
+    "published_at": "2024-08-25T17:03:11Z",
+    "updated_at": "2024-08-25T17:03:11Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          219,
+          225
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          226,
+          264
+        ],
+        "status_span": [
+          204,
+          225
+        ]
+      },
+      {
+        "trigger": [
+          270,
+          277
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          278,
+          302
+        ],
+        "status_span": [
+          270,
+          302
+        ]
+      },
+      {
+        "trigger": [
+          308,
+          311
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          315,
+          342
+        ],
+        "status_span": [
+          308,
+          342
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Windows trial belongs to another environment; gameplay reproduction instructions are not fixes. No explicit isolated outcome for the combined Linux attempts.",
+    "paragraph_length": 526
+  },
+  {
+    "id": "final-5",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2300233881",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "3ea12b43c3ddf3011c26d570a67f5eb1f2a57e268aa7c6f91d09e3805ddcc6eb",
+    "source_offset": 0,
+    "paragraph_sha256": "81698033337b6bc0fb53437bf17dc51950c3d2d559441804d0fdb814e5b38131",
+    "published_at": "2024-08-21T02:14:30Z",
+    "updated_at": "2024-08-21T02:14:30Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          149,
+          157
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": null,
+        "status_span": [
+          149,
+          172
+        ]
+      },
+      {
+        "trigger": [
+          174,
+          181
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          182,
+          203
+        ],
+        "status_span": [
+          174,
+          203
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          205,
+          212
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Question does not prove a Proton update occurred; low FPS is not attributed to a confirmed update.",
+    "paragraph_length": 227
+  },
+  {
+    "id": "final-6",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2311941497",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "1572ffbe25569ab8c11a1a285455487d83fb229d26ef4112c0b59bd5b9704c26",
+    "source_offset": 0,
+    "paragraph_sha256": "9a817ea74888f193d0d7137cfa0f72519bfced6d4240ec0fb731dfbfde71c8ce",
+    "published_at": "2024-08-27T08:53:18Z",
+    "updated_at": "2024-08-27T09:04:31Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          218,
+          223
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          224,
+          241
+        ],
+        "status_span": [
+          213,
+          241
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Configured feature state, no explicit newly performed activation; not runtime feature verification.",
+    "paragraph_length": 242
+  },
+  {
+    "id": "final-7",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645893461",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "2aabc45a0b889776c98f951ae7c5d10de1667d042ed6d6b55c179d3648b22ad7",
+    "source_offset": 377,
+    "paragraph_sha256": "b9ac043dba1ddd2f5120964d3f2f9c101e7f6173b47ce603f5820ad87b02eaf3",
+    "published_at": "2025-02-08T18:29:10Z",
+    "updated_at": "2025-02-08T18:36:53Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Program-selected GPU is diagnostic information, not a user fix or confirmed driver cause.",
+    "paragraph_length": 316
+  },
+  {
+    "id": "final-8",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-4962761135",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "34e256455cc63aa17adb898c07ddbc417fda40aac419b565601975153ebee0ed",
+    "source_offset": 996,
+    "paragraph_sha256": "d098e2a7a4fe56fe730765f8a157aa2accf68283218b6796a7e0bb87189057b2",
+    "published_at": "2026-07-13T21:16:20Z",
+    "updated_at": "2026-07-13T21:16:20Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          10
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          11,
+          15
+        ],
+        "status_span": [
+          0,
+          15
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          71,
+          117
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Community comparison under a configuration; no official FRX FPS measurement or explicit switching action.",
+    "paragraph_length": 145
+  },
+  {
+    "id": "final-9",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2585194800",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "cc851a9f826382a4161a76f78488c19132a1e2295d590986b2c31e00d6fbed5f",
+    "source_offset": 0,
+    "paragraph_sha256": "da60936da4cf864fccec76f5c0e755764b2ad2660f58fab7b8b74f80d274f54e",
+    "published_at": "2025-01-11T10:21:51Z",
+    "updated_at": "2025-01-11T10:21:51Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          5,
+          11
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          12,
+          25
+        ],
+        "status_span": [
+          0,
+          38
+        ]
+      },
+      {
+        "trigger": [
+          45,
+          52
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": null,
+        "status_span": [
+          39,
+          52
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          53,
+          76
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Non-native English reproduction report; individual cause of activation versus restart is unknown.",
+    "paragraph_length": 98
+  },
+  {
+    "id": "final-10",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-3939073383",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "67e5280667195924c58d9847c0b0d8239505c688f3e338a70cbc4ffb8977e67c",
+    "source_offset": 155,
+    "paragraph_sha256": "3234ca7ffed60192a52073988ef9942a75974bd452cb4a50cc234961bb9ed3be",
+    "published_at": "2026-02-21T16:44:32Z",
+    "updated_at": "2026-02-21T16:46:23Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          193,
+          198
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          204,
+          208
+        ],
+        "status_span": [
+          191,
+          208
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Metadata contains an actual reported trial, not a template update noun.",
+    "paragraph_length": 209
+  },
+  {
+    "id": "final-11",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2318056899",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "07354700f217f3e231a9b70ee6b91e6ed7108907ce82c9df7003396e37278a5b",
+    "source_offset": 0,
+    "paragraph_sha256": "07354700f217f3e231a9b70ee6b91e6ed7108907ce82c9df7003396e37278a5b",
+    "published_at": "2024-08-29T15:16:28Z",
+    "updated_at": "2024-08-29T15:16:28Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Program DLL loads are runtime observations, not user installation actions; DLL names alone do not establish technology support.",
+    "paragraph_length": 919
+  },
+  {
+    "id": "final-12",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2299540565",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "e8e88778f7102ecbb25dc05303b34c074b4b0d637f6aea9d0a04ed3030832708",
+    "source_offset": 0,
+    "paragraph_sha256": "e8e88778f7102ecbb25dc05303b34c074b4b0d637f6aea9d0a04ed3030832708",
+    "published_at": "2024-08-20T18:53:16Z",
+    "updated_at": "2024-08-20T18:53:16Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          29,
+          47
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          29,
+          47
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Question about an option, no executed trial established.",
+    "paragraph_length": 60
+  },
+  {
+    "id": "final-13",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645907403",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "76b958a2d1aca68bf59638d68487384a4250d6d950cb425602dde68f66a5139d",
+    "source_offset": 0,
+    "paragraph_sha256": "76b958a2d1aca68bf59638d68487384a4250d6d950cb425602dde68f66a5139d",
+    "published_at": "2025-02-08T19:10:36Z",
+    "updated_at": "2025-02-08T19:10:36Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          0,
+          8
+        ],
+        "outcome": "unknown",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "No identifiable action in this paragraph; cannot borrow it from another unexamined comment.",
+    "paragraph_length": 82
+  },
+  {
+    "id": "final-14",
+    "app_id": "2358720",
+    "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2306811290",
+    "thread": 8004,
+    "title": "Black Myth: Wukong (2358720)",
+    "source_sha256": "8b92ebcd3e579275e1001817b2d88470f1b798a8174cd54a2994754740ed0f49",
+    "source_offset": 74,
+    "paragraph_sha256": "b5e686fb69e26cb40d09bf8dbc4bac0b5d39c749dcde2d5e5b378a9a6c3e16d9",
+    "published_at": "2024-08-23T10:38:20Z",
+    "updated_at": "2024-08-23T10:38:20Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Image-only source has no textual event evidence.",
+    "paragraph_length": 89
+  },
+  {
+    "id": "final-15",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1312289099",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "673bb3aa5c7b00c91561a4a7819050fa4a18dbbde9e715511d143e48f7c7f482",
+    "source_offset": 485,
+    "paragraph_sha256": "3b5151e4975156d1df78e764a805ae60a3d504d620cd01427193bf8f394cdce2",
+    "published_at": "2022-11-12T00:42:06Z",
+    "updated_at": "2022-11-12T00:42:06Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          19,
+          25
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          26,
+          30
+        ],
+        "status_span": [
+          19,
+          30
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic reproduction instruction; subsequent gameplay interactions are not corrective configurations.",
+    "paragraph_length": 186
+  },
+  {
+    "id": "final-16",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-2266721317",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "fd74dc6645e55519fcdad9bd0fa7ab09851cd42554021ef1607fd1ae80814740",
+    "source_offset": 0,
+    "paragraph_sha256": "fb987e1c30479873c9f32b5c07ff6d5beadbbf3fbda0b844c5bd4e57f063afb9",
+    "published_at": "2024-08-03T14:01:47Z",
+    "updated_at": "2024-08-03T14:01:47Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          147,
+          155
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          156,
+          179
+        ],
+        "status_span": [
+          116,
+          179
+        ]
+      },
+      {
+        "trigger": [
+          181,
+          190
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          204,
+          207
+        ],
+        "status_span": [
+          181,
+          207
+        ]
+      },
+      {
+        "trigger": [
+          195,
+          203
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          204,
+          207
+        ],
+        "status_span": [
+          181,
+          207
+        ]
+      },
+      {
+        "trigger": [
+          216,
+          225
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          226,
+          234
+        ],
+        "status_span": [
+          216,
+          234
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          236,
+          245
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Several reported trials; failure of the collection does not establish a causal contribution from an individual action.",
+    "paragraph_length": 246
+  },
+  {
+    "id": "final-17",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3265247175",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "d7486e4f7f9d81784cd3313763928e802011e7cee8dafe66e6e9fa5ca8134e59",
+    "source_offset": 267,
+    "paragraph_sha256": "823c9ee7c730e041cc68f646ae1224c5a4453da2122fe8a905d8e28a010cd2b6",
+    "published_at": "2025-09-08T08:47:06Z",
+    "updated_at": "2025-09-08T08:49:13Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          20
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          2,
+          20
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          27,
+          35
+        ],
+        "status": "suggested",
+        "direction": "update",
+        "target": [
+          36,
+          40
+        ],
+        "status_span": [
+          23,
+          40
+        ]
+      },
+      {
+        "trigger": [
+          90,
+          100
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          101,
+          121
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Bare option is ambiguous; instruction to check absence of a setting is not an assertion that the setting was made or denied.",
+    "paragraph_length": 144
+  },
+  {
+    "id": "final-18",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1283541129",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "dda5a271a3b766c66ca7d24f3d71ff5cd6e83877c977eac6a98a74ecb7715df1",
+    "source_offset": 122,
+    "paragraph_sha256": "896bf97661176d5cef3b2286fb0867e3144dd4cb5169644c2ebf314e3b58794e",
+    "published_at": "2022-10-19T07:15:08Z",
+    "updated_at": "2022-10-19T07:18:06Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Version-specific observations, no explicit switching action in this paragraph. Working cutscenes with flicker is not full resolution.",
+    "paragraph_length": 194
+  },
+  {
+    "id": "final-19",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3266381439",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "a565a8c24a55d3eb4cc3b3711ada014da7619f77ebd434770a6ddbcab5175744",
+    "source_offset": 0,
+    "paragraph_sha256": "a565a8c24a55d3eb4cc3b3711ada014da7619f77ebd434770a6ddbcab5175744",
+    "published_at": "2025-09-08T13:39:06Z",
+    "updated_at": "2025-09-08T13:39:06Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Comment removal metadata is not uninstalling or applying a fix.",
+    "paragraph_length": 44
+  },
+  {
+    "id": "final-20",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3268126848",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "aac3f6c47e87f7268b9586d292e5bc5832a4010eb1a7d6e315a7f4f70af8eb60",
+    "source_offset": 0,
+    "paragraph_sha256": "aac3f6c47e87f7268b9586d292e5bc5832a4010eb1a7d6e315a7f4f70af8eb60",
+    "published_at": "2025-09-08T21:44:03Z",
+    "updated_at": "2025-09-08T21:44:03Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          52,
+          60
+        ],
+        "status": "performed",
+        "direction": "disable",
+        "target": [
+          61,
+          79
+        ],
+        "status_span": [
+          46,
+          86
+        ]
+      },
+      {
+        "trigger": [
+          95,
+          102
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          103,
+          105
+        ],
+        "status_span": [
+          88,
+          105
+        ]
+      },
+      {
+        "trigger": [
+          134,
+          140
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          141,
+          149
+        ],
+        "status_span": [
+          134,
+          149
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          111,
+          132
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Tentative community association with re-enabling; no scientific causal proof or FRX measurement.",
+    "paragraph_length": 262
+  },
+  {
+    "id": "final-21",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3263315943",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "22d00024389680093bd4b588dc4efa80d5c7db5c1cc0c766a3670ecd7a480068",
+    "source_offset": 1073,
+    "paragraph_sha256": "85247f87d1d99842f605456dbefdc4e3d4c6909719564e0f7497e151f2a50292",
+    "published_at": "2025-09-07T00:38:51Z",
+    "updated_at": "2025-09-07T00:38:51Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Wine/Proton assertion log is an observation, not a performed configuration action.",
+    "paragraph_length": 160
+  },
+  {
+    "id": "final-22",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1283522051",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "f8c50549b9647ac93951483d455bd2916e520b8ca6ac8ffc4f7ae2bd7177a05b",
+    "source_offset": 0,
+    "paragraph_sha256": "f8c50549b9647ac93951483d455bd2916e520b8ca6ac8ffc4f7ae2bd7177a05b",
+    "published_at": "2022-10-19T06:55:57Z",
+    "updated_at": "2022-10-19T06:55:57Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          2,
+          5
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          6,
+          14
+        ],
+        "status_span": [
+          0,
+          39
+        ]
+      },
+      {
+        "trigger": [
+          99,
+          102
+        ],
+        "status": "suggested",
+        "direction": "switch",
+        "target": [
+          103,
+          105
+        ],
+        "status_span": [
+          99,
+          105
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          44,
+          81
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Observed run with a Proton version differs from a suggestion to another user; no confirmed version switch required.",
+    "paragraph_length": 106
+  },
+  {
+    "id": "final-23",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1468665461",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "fb54ac0f2ba21632afa9666a5d5310d864f8a90d9183b3ca9d65a2b0a3be93d9",
+    "source_offset": 0,
+    "paragraph_sha256": "fb54ac0f2ba21632afa9666a5d5310d864f8a90d9183b3ca9d65a2b0a3be93d9",
+    "published_at": "2023-03-14T19:00:05Z",
+    "updated_at": "2023-03-14T19:01:50Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          61,
+          66
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          67,
+          73
+        ],
+        "status_span": [
+          53,
+          73
+        ]
+      },
+      {
+        "trigger": [
+          199,
+          206
+        ],
+        "status": "suggested",
+        "direction": "install",
+        "target": [
+          207,
+          248
+        ],
+        "status_span": [
+          188,
+          206
+        ]
+      },
+      {
+        "trigger": [
+          254,
+          263
+        ],
+        "status": "suggested",
+        "direction": "remove",
+        "target": [
+          264,
+          291
+        ],
+        "status_span": [
+          250,
+          263
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Author infers existing driver from screenshot; package installation/removal are suggestions, not executed actions. Universal performance claim is not accepted as a measurement.",
+    "paragraph_length": 292
+  },
+  {
+    "id": "final-24",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3266348154",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "d43dd6f1a5c52e6aacaac46d45d6311c76df8016018c77e639b3c88400abb54f",
+    "source_offset": 288,
+    "paragraph_sha256": "04cc3561011f6f3cc50ecfc676191f3a4bddcb5f5e9ad730e343db8b15479500",
+    "published_at": "2025-09-08T13:33:19Z",
+    "updated_at": "2025-09-08T13:33:19Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          143,
+          146
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          147,
+          149
+        ],
+        "status_span": [
+          143,
+          169
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Future retest, no completed driver update or known solution. The earlier generic offer is not a concrete action.",
+    "paragraph_length": 198
+  },
+  {
+    "id": "final-25",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1475015501",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "c134c4682d86938214d3e0fd60e94e7356d4edc0bff4ef082747755dfa5eced2",
+    "source_offset": 177,
+    "paragraph_sha256": "94cbcfeebd8e07dab71115526e0ca9256c737b7fb5b6a85bd12aedfe78611fad",
+    "published_at": "2023-03-18T22:25:40Z",
+    "updated_at": "2023-03-18T22:25:40Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Hardware/version metadata without an action; source does not establish what was changed.",
+    "paragraph_length": 218
+  },
+  {
+    "id": "final-26",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1475016043",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "0ab781684fff2a54596655674aa769b57221b367d430bf60becee5f707fe06b6",
+    "source_offset": 0,
+    "paragraph_sha256": "0ab781684fff2a54596655674aa769b57221b367d430bf60becee5f707fe06b6",
+    "published_at": "2023-03-18T22:28:40Z",
+    "updated_at": "2023-03-18T22:28:40Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Gameplay/menu symptom, no corrective operation.",
+    "paragraph_length": 224
+  },
+  {
+    "id": "final-27",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-3735468421",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "a22a72dd415265ad89ed2f5be908adf08e312837bbd21baaddc96013431a302e",
+    "source_offset": 432,
+    "paragraph_sha256": "608a36abc602859b8a4cc595728f119b4ead0320d192f2edcd6a51b265eefc5c",
+    "published_at": "2026-01-11T19:08:37Z",
+    "updated_at": "2026-01-11T19:08:37Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Images alone provide no extractable textual event.",
+    "paragraph_length": 265
+  },
+  {
+    "id": "final-28",
+    "app_id": "1182900",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6241#issuecomment-1468702550",
+    "thread": 6241,
+    "title": "A Plague Tale: Requiem (1182900)",
+    "source_sha256": "c5d9ff0e1ed2b0a45459cabb031085b329470e8fe7eb6982310fa2e196e08ca7",
+    "source_offset": 0,
+    "paragraph_sha256": "8349c075721fff5ba92b7332b5bfa1eccd48dc15cf89332f8d1cbcb3e0f3c2e8",
+    "published_at": "2023-03-14T19:27:31Z",
+    "updated_at": "2023-03-14T19:27:31Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Gratitude without an identifiable action or concrete outcome cannot inherit a procedure from another comment.",
+    "paragraph_length": 60
+  },
+  {
+    "id": "final-29",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407427305",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "3faa34c3b53c0b5ee9034debaf3d5981db95b748199e6b0cf7966682d037f5a0",
+    "source_offset": 90,
+    "paragraph_sha256": "9b018b4aeee1b6699637ed94ddfc806ebc2fde6432746bbef903fbb18cb8ae83",
+    "published_at": "2023-01-28T15:55:43Z",
+    "updated_at": "2023-01-28T15:57:16Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          51,
+          59
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          60,
+          81
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          224,
+          234
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          235,
+          239
+        ],
+        "status_span": [
+          224,
+          239
+        ]
+      },
+      {
+        "trigger": [
+          243,
+          250
+        ],
+        "status": "unknown",
+        "direction": "unknown",
+        "target": [
+          254,
+          263
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Repeated conditional symptoms and potential recovery steps; no explicit reported single corrective trial. Gameplay animations are not corrective actions.",
+    "paragraph_length": 283
+  },
+  {
+    "id": "final-30",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1409500665",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "f7b411521b96e5bc33fef567e7d1f58b401937da0c34bb034c61bd4eee745494",
+    "source_offset": 59,
+    "paragraph_sha256": "dd10d3b1b5b9da93f2bebf9e51e55deb8ccf180c9cb076a013fcc8a0a92e534b",
+    "published_at": "2023-01-30T23:12:38Z",
+    "updated_at": "2023-01-30T23:12:38Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          65,
+          73
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          74,
+          94
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          99,
+          128
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Historical method/capability and newer default behavior; no explicit executed setting change or evidence author installed the patch.",
+    "paragraph_length": 211
+  },
+  {
+    "id": "final-31",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407385214",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "2abbe4819b9c93b0a86f79dec45367e051c3278c4522c1f58d147e9a91e1cd8e",
+    "source_offset": 105,
+    "paragraph_sha256": "b4625f947c978eb39b0f6cfa0352cc2f409522722d30b2abf73bc21ec2fa51b2",
+    "published_at": "2023-01-28T12:06:41Z",
+    "updated_at": "2023-01-28T13:23:38Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          12,
+          16
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          17,
+          27
+        ],
+        "status_span": [
+          0,
+          42
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Future collection plan; reference to another game does not make its report an observation of this AppID.",
+    "paragraph_length": 225
+  },
+  {
+    "id": "final-32",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1825662718",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "f91314ee6b1719330edb292a46f350fb5dd0669553e261add07c810da08007be",
+    "source_offset": 0,
+    "paragraph_sha256": "f91314ee6b1719330edb292a46f350fb5dd0669553e261add07c810da08007be",
+    "published_at": "2023-11-24T13:15:07Z",
+    "updated_at": "2023-11-24T13:17:22Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Game sets its own HDR option automatically; not a user-performed corrective action. Explicit SDR observation contradicts feature activation.",
+    "paragraph_length": 359
+  },
+  {
+    "id": "final-33",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1616060132",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "7ecee8319864fb23266fd97cbc83288cde6a83a0fbd114bdce65ef34cc2b485b",
+    "source_offset": 0,
+    "paragraph_sha256": "7ecee8319864fb23266fd97cbc83288cde6a83a0fbd114bdce65ef34cc2b485b",
+    "published_at": "2023-07-01T19:33:22Z",
+    "updated_at": "2023-07-01T19:33:22Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          162,
+          167
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          168,
+          187
+        ],
+        "status_span": [
+          162,
+          187
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          233,
+          247
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Version trials asserted, no specific version succeeded.",
+    "paragraph_length": 427
+  },
+  {
+    "id": "final-34",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1411146611",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "cb40675886fc5ce974043af443cb63deb0553f12d3bda7b13256225788d7fbd3",
+    "source_offset": 0,
+    "paragraph_sha256": "324e4fbbd63ba12eb7e0f6425a863964f6f2467aa008da536179e47797482334",
+    "published_at": "2023-01-31T22:19:42Z",
+    "updated_at": "2023-01-31T22:19:42Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          83,
+          88
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          95,
+          115
+        ],
+        "status_span": [
+          76,
+          115
+        ]
+      },
+      {
+        "trigger": [
+          91,
+          94
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          95,
+          115
+        ],
+        "status_span": [
+          76,
+          115
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          23,
+          53
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0,
+          1
+        ],
+        "joint": true
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Build and use form a combined procedure; linked commits are a proposed explanation, not proven causality.",
+    "paragraph_length": 216
+  },
+  {
+    "id": "final-35",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1410587685",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "c72f80aeb4e6f0e3e7543456cfc7c27008a84e4850606e105575f1ee325ed673",
+    "source_offset": 0,
+    "paragraph_sha256": "c256f8b7d3b41114786a91864a4059528c8a5cdf2bcbda53362b591af917af49",
+    "published_at": "2023-01-31T15:29:23Z",
+    "updated_at": "2023-01-31T15:29:23Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          21,
+          27
+        ],
+        "status": "performed",
+        "direction": "enable",
+        "target": [
+          28,
+          32
+        ],
+        "status_span": [
+          0,
+          32
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          52,
+          65
+        ],
+        "outcome": "regression",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "First-person confirmation of an attempted activation; completion of activation is not established.",
+    "paragraph_length": 66
+  },
+  {
+    "id": "final-36",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1421424950",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "8d9bc5f15466926a63c41e5f2161cf00229f533006917d69a38fd6f4e903684d",
+    "source_offset": 0,
+    "paragraph_sha256": "8d9bc5f15466926a63c41e5f2161cf00229f533006917d69a38fd6f4e903684d",
+    "published_at": "2023-02-07T20:47:42Z",
+    "updated_at": "2023-02-07T20:47:42Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          84,
+          89
+        ],
+        "status": "unknown",
+        "direction": "configure",
+        "target": [
+          90,
+          106
+        ],
+        "status_span": null
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Generic conditional method, no explicit executed modification. Gameplay-dependent low FPS does not isolate a correction effect.",
+    "paragraph_length": 431
+  },
+  {
+    "id": "final-37",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407459507",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "9ee8d2e18fc2dbb22ea767a656f79b8c26e720665185f380a80286fb90a62fd3",
+    "source_offset": 0,
+    "paragraph_sha256": "e35815c5785bf74e32c95a8de139cb6f42a897ad585c60491c13bc777e1681e9",
+    "published_at": "2023-01-28T18:34:41Z",
+    "updated_at": "2023-01-28T18:34:41Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          0,
+          9
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          10,
+          23
+        ],
+        "status_span": [
+          0,
+          44
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          46,
+          70
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Specific first-person environment supports reported upgrade; separate weapon-related FPS drops are not explicitly attributed to it.",
+    "paragraph_length": 218
+  },
+  {
+    "id": "final-38",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407405073",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "a28f9ba46f0a3f01aa6c15884387c9e09675602c362e55184fd1e82a211ce596",
+    "source_offset": 280,
+    "paragraph_sha256": "f8e38d92cf40048d0badb4064a487d01d84006bc266deba91023c5abfd9da8fa",
+    "published_at": "2023-01-28T13:59:07Z",
+    "updated_at": "2023-01-28T14:01:13Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          221,
+          228
+        ],
+        "status": "suggested",
+        "direction": "disable",
+        "target": [
+          229,
+          244
+        ],
+        "status_span": [
+          213,
+          256
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Warning and optional testing suggestion, not a performed Steam Cloud change.",
+    "paragraph_length": 257
+  },
+  {
+    "id": "final-39",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407401370",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "ca9ee153c393aedfcddbad5e47e40581d36fc3ca57a443304fc4b09197e52e2b",
+    "source_offset": 0,
+    "paragraph_sha256": "ca9ee153c393aedfcddbad5e47e40581d36fc3ca57a443304fc4b09197e52e2b",
+    "published_at": "2023-01-28T13:39:03Z",
+    "updated_at": "2023-01-28T13:39:03Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "DirectX error observation and hardware, no corrective event.",
+    "paragraph_length": 57
+  },
+  {
+    "id": "final-40",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1565019017",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "c4266d9d0b1ba8898ca799a1163144b8f98a862b09f480f8d1c155b353a06403",
+    "source_offset": 0,
+    "paragraph_sha256": "ceb4a505515eacede289fadde3a84e1549708029da248b7c2960f4a952b6aa9a",
+    "published_at": "2023-05-26T22:16:33Z",
+    "updated_at": "2023-05-26T22:17:19Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Stuttering report with hardware, no corrective event.",
+    "paragraph_length": 118
+  },
+  {
+    "id": "final-41",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-1407430110",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "4575069c0452e3c48545819f248f44686fba001b448acd262222e28a99ad3783",
+    "source_offset": 0,
+    "paragraph_sha256": "4575069c0452e3c48545819f248f44686fba001b448acd262222e28a99ad3783",
+    "published_at": "2023-01-28T16:10:59Z",
+    "updated_at": "2023-01-28T16:10:59Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Request for release notes is not an applied hotfix.",
+    "paragraph_length": 47
+  },
+  {
+    "id": "final-42",
+    "app_id": "1693980",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6486#issuecomment-3602418490",
+    "thread": 6486,
+    "title": "Dead Space (1693980)",
+    "source_sha256": "3755fa16245741843145f738097ee4bf656fc44b73379c3a8e3a97fb0df52a23",
+    "source_offset": 72,
+    "paragraph_sha256": "ba718eb89fc9e314dcf4a3cebb5c2fdf5594698350538c96abdc5d86b1403e07",
+    "published_at": "2025-12-02T14:46:05Z",
+    "updated_at": "2025-12-02T15:45:06Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          17,
+          23
+        ],
+        "status": "unknown",
+        "direction": "switch",
+        "target": [
+          24,
+          52
+        ],
+        "status_span": null
+      },
+      {
+        "trigger": [
+          248,
+          254
+        ],
+        "status": "performed",
+        "direction": "switch",
+        "target": [
+          255,
+          280
+        ],
+        "status_span": [
+          243,
+          280
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          174,
+          241
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Conditional HDR advice differs from reported tested versions. Trade-off is preserved; no confirmed global resolution.",
+    "paragraph_length": 425
+  },
+  {
+    "id": "final-43",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1657047814",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "9d6c5aa0cf2581a3bad0d5ab6e8659aca84f3f318abc9a6c96f536a93836ebe1",
+    "source_offset": 93,
+    "paragraph_sha256": "66f85e700e5f94f3308063fd5b204c11513bbed7b20b0f794f24916256fe29ae",
+    "published_at": "2023-07-30T05:33:53Z",
+    "updated_at": "2023-07-30T13:02:29Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          12,
+          15
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          16,
+          58
+        ],
+        "status_span": [
+          0,
+          58
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Suggested combined environment; community FPS comparison does not assert a particular switch operation and is not a local benchmark.",
+    "paragraph_length": 271
+  },
+  {
+    "id": "final-44",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1651981862",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "c7d372d0bfba760dac162173988473ad856bcbdc5cb4eb913a072b4ddec2dcc5",
+    "source_offset": 0,
+    "paragraph_sha256": "eaad373734ed0a1f78d7f01fb259bab819284ad88b0bda963ffcfc8a132d1785",
+    "published_at": "2023-07-26T14:56:50Z",
+    "updated_at": "2023-07-26T14:56:50Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Detected/used GPU is hardware context, not a corrective configuration event.",
+    "paragraph_length": 102
+  },
+  {
+    "id": "final-45",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1652622515",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "cfcfe7ff24266d33d26c5a429595134b71872355863990aa7cdb2746d6ea279d",
+    "source_offset": 174,
+    "paragraph_sha256": "56bdca39a0d52d7ae3bb73d84eb5922c601b33fdefaaca501e2eb0813161e350",
+    "published_at": "2023-07-26T22:27:41Z",
+    "updated_at": "2023-07-27T01:14:23Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          83,
+          88
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          92,
+          115
+        ],
+        "status_span": [
+          81,
+          115
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          120,
+          171
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Literal GPU override string; exact setting/file identity is not present and must stay unknown.",
+    "paragraph_length": 237
+  },
+  {
+    "id": "final-46",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1651988617",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "a9f47d52dfdc1685246a4c886047a3daa0dbd742050d811ade729ac6a078a37f",
+    "source_offset": 0,
+    "paragraph_sha256": "a9f47d52dfdc1685246a4c886047a3daa0dbd742050d811ade729ac6a078a37f",
+    "published_at": "2023-07-26T15:00:45Z",
+    "updated_at": "2023-07-26T15:00:45Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          50,
+          57
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          58,
+          115
+        ],
+        "status_span": [
+          13,
+          57
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          20,
+          44
+        ],
+        "outcome": "improved",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Literal launch configuration and reported partial improvement; shell snippet is source data, never an executable instruction.",
+    "paragraph_length": 171
+  },
+  {
+    "id": "final-47",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1743331203",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "f855dbd6b8af9d928e0cba063649836356751e6807545a35e36b54bd16eefbb7",
+    "source_offset": 65,
+    "paragraph_sha256": "ecf118955cddbf74a9343f891fbe19d5821bade89f9d578ec10554046b8b6c85",
+    "published_at": "2023-10-02T16:23:53Z",
+    "updated_at": "2023-10-03T20:55:43Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          79,
+          84
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          85,
+          118
+        ],
+        "status_span": [
+          69,
+          118
+        ]
+      },
+      {
+        "trigger": [
+          288,
+          294
+        ],
+        "status": "performed",
+        "direction": "configure",
+        "target": [
+          319,
+          352
+        ],
+        "status_span": [
+          283,
+          352
+        ]
+      },
+      {
+        "trigger": [
+          800,
+          805
+        ],
+        "status": "preexisting",
+        "direction": "configure",
+        "target": [
+          806,
+          825
+        ],
+        "status_span": [
+          800,
+          825
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          473,
+          515
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          1
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Paragraph contrasts configurations; launch success explicitly does not establish crash resolution. Item 3 has an unresolved referent, not automatically the same individual correction.",
+    "paragraph_length": 933
+  },
+  {
+    "id": "final-48",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1647074665",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "7df191bafe76b52cf2197ad80aff9d54ed8b080f13b5c121107e92222501b360",
+    "source_offset": 0,
+    "paragraph_sha256": "7df191bafe76b52cf2197ad80aff9d54ed8b080f13b5c121107e92222501b360",
+    "published_at": "2023-07-24T01:38:28Z",
+    "updated_at": "2023-07-24T01:38:28Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Version-conditioned success/failure reports without an explicit executed switch; cannot infer all reported versions were newly installed.",
+    "paragraph_length": 129
+  },
+  {
+    "id": "final-49",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1745619121",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "5e9102ed476508144bcd8d22b110ed82f08d9b7d8586ca45abe22019adc6d52b",
+    "source_offset": 108,
+    "paragraph_sha256": "caf386b53ca770f3d656e5dc33e2c08cf792294bdc647cdb7ef695ad0ea8c98c",
+    "published_at": "2023-10-03T19:46:07Z",
+    "updated_at": "2023-10-03T20:57:10Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          51,
+          60
+        ],
+        "status": "preexisting",
+        "direction": "install",
+        "target": [
+          32,
+          46
+        ],
+        "status_span": [
+          32,
+          60
+        ]
+      },
+      {
+        "trigger": [
+          98,
+          109
+        ],
+        "status": "performed",
+        "direction": "install",
+        "target": [
+          110,
+          114
+        ],
+        "status_span": [
+          93,
+          114
+        ]
+      },
+      {
+        "trigger": [
+          155,
+          161
+        ],
+        "status": "performed",
+        "direction": "remove",
+        "target": [
+          162,
+          172
+        ],
+        "status_span": [
+          143,
+          172
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Existing installation state plus historical reinstall/purge trials; author expresses uncertainty about complete removal. No reported successful fix.",
+    "paragraph_length": 216
+  },
+  {
+    "id": "final-50",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1739737551",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "7db539d0335da45b72c395b31ddd86c61d54502f61bdcd04b67c348bd36ae4db",
+    "source_offset": 159,
+    "paragraph_sha256": "0fc5fbe5f9282ce2341243f2660d023de72678bbf3ec4f1dc4267ebd2aea46b0",
+    "published_at": "2023-09-28T17:26:57Z",
+    "updated_at": "2023-10-03T20:54:50Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          26,
+          34
+        ],
+        "status": "suggested",
+        "direction": "replace",
+        "target": [
+          35,
+          47
+        ],
+        "status_span": [
+          0,
+          47
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Suggestion, not execution. Untrusted cp commands are documentary text only and do not create additional accepted installation events.",
+    "paragraph_length": 482
+  },
+  {
+    "id": "final-51",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1649641523",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "d12f77fb16a5f582962197d71de26edf6027760bfaeea511ee1217e3ef66df1d",
+    "source_offset": 0,
+    "paragraph_sha256": "d12f77fb16a5f582962197d71de26edf6027760bfaeea511ee1217e3ef66df1d",
+    "published_at": "2023-07-25T11:20:16Z",
+    "updated_at": "2023-07-25T11:20:16Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          134,
+          141
+        ],
+        "status": "suggested",
+        "direction": "configure",
+        "target": [
+          142,
+          144
+        ],
+        "status_span": [
+          130,
+          155
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Windows-version cause and VKD3D alternative are hypotheses, not confirmed environment facts.",
+    "paragraph_length": 267
+  },
+  {
+    "id": "final-52",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1673568497",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "38e5adcdf79335d1444109804d1adf34aa949c87320435fd16caee78a5911ef2",
+    "source_offset": 0,
+    "paragraph_sha256": "38e5adcdf79335d1444109804d1adf34aa949c87320435fd16caee78a5911ef2",
+    "published_at": "2023-08-10T16:47:13Z",
+    "updated_at": "2023-08-10T16:47:13Z",
+    "stratum": "eventful",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          6,
+          14
+        ],
+        "status": "performed",
+        "direction": "update",
+        "target": [
+          18,
+          66
+        ],
+        "status_span": [
+          0,
+          66
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "span": [
+          79,
+          125
+        ],
+        "outcome": "persistent",
+        "event_indices": [
+          0
+        ],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Sequence reports error after a combined update, without proving it newly caused the error; individual kernel/driver responsibility unknown.",
+    "paragraph_length": 125
+  },
+  {
+    "id": "final-53",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1649946093",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "1fe4b02e3e47e59f6b9d6a3ed1010679193dd721adf51b3c33afb1f7c10b43a9",
+    "source_offset": 0,
+    "paragraph_sha256": "b1622f60d5deeae7ed2957dea3d8c92d1974782cc47b1c5b401fc0f1a364bfee",
+    "published_at": "2023-07-25T14:24:34Z",
+    "updated_at": "2023-07-25T14:24:34Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          43,
+          51
+        ],
+        "status": "performed",
+        "direction": "unknown",
+        "target": [
+          52,
+          64
+        ],
+        "status_span": [
+          41,
+          64
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Diagnostic reporting event, not installation or a resolved crash. Linked files are not downloaded or executed.",
+    "paragraph_length": 255
+  },
+  {
+    "id": "final-54",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1646876215",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "05437ea9998588cbac7c90269a391476af5a9ba223147b1609b7fbdf3d490405",
+    "source_offset": 0,
+    "paragraph_sha256": "05437ea9998588cbac7c90269a391476af5a9ba223147b1609b7fbdf3d490405",
+    "published_at": "2023-07-23T15:58:53Z",
+    "updated_at": "2023-07-23T15:58:53Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Version observations only, no explicit trial action in this paragraph.",
+    "paragraph_length": 53
+  },
+  {
+    "id": "final-55",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1691187529",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "306b340309d0aa3ea576cf31d1634748af4ec5b59b2344ec249bedd81ae49ca9",
+    "source_offset": 388,
+    "paragraph_sha256": "5f9698ee20caf50d7b4a509e7a0032255c47c195f551c92a7a5585ba74d185f3",
+    "published_at": "2023-08-24T07:51:57Z",
+    "updated_at": "2023-08-24T07:51:57Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [],
+    "observations": [
+      {
+        "span": [
+          26,
+          56
+        ],
+        "outcome": "unknown",
+        "event_indices": [],
+        "joint": false
+      }
+    ],
+    "temporal": [],
+    "audit_note": "Unresolved reference to this fix; do not invent its action or individual attribution.",
+    "paragraph_length": 57
+  },
+  {
+    "id": "final-56",
+    "app_id": "1282100",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6949#issuecomment-1745628274",
+    "thread": 6949,
+    "title": "Remnant 2 (1282100)",
+    "source_sha256": "f69549ea55afa0fc5a076f5debfc1a6441828410c1524fd1f9758ad1c0029294",
+    "source_offset": 0,
+    "paragraph_sha256": "f69549ea55afa0fc5a076f5debfc1a6441828410c1524fd1f9758ad1c0029294",
+    "published_at": "2023-10-03T19:52:54Z",
+    "updated_at": "2023-10-03T20:57:21Z",
+    "stratum": "random-control",
+    "annotation_version": "v4-events-1",
+    "annotation_provenance": "provisional-agent; no independent human review",
+    "events": [
+      {
+        "trigger": [
+          25,
+          30
+        ],
+        "status": "suggested",
+        "direction": "unknown",
+        "target": [
+          31,
+          41
+        ],
+        "status_span": [
+          17,
+          41
+        ]
+      }
+    ],
+    "observations": [],
+    "temporal": [],
+    "audit_note": "Request for diagnostic information, no command execution established.",
+    "paragraph_length": 75
+  }
+]

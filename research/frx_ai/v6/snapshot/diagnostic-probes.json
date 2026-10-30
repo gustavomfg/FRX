@@ -1,0 +1,193 @@
+{
+  "status": "post-freeze known-source probes; provisional agent milestones, no training or independent RCA validation",
+  "records": [
+    {
+      "id": "acceptance-57",
+      "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287514779",
+      "expected": "verify-component-function-version",
+      "variants": {
+        "v5": {
+          "next_checks": [
+            {
+              "id": "verify-component-function-version",
+              "question": "Check the exact DLL/function, its implementation in the installed Proton/Wine build, and documented upstream changes before proposing a file replacement.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/wine-mirror/wine/blob/master/dlls/ntdll/loader.c",
+              "evidence_span": [
+                0,
+                85
+              ]
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": [
+            {
+              "kind": "supplied-log-observation",
+              "predicate": "unimplemented-function",
+              "span": [
+                0,
+                85
+              ],
+              "source_sha256": "56a56967db83f9787beb55b1b9547b9ee0968afe237d70387e6f62b2ae4e9ac7",
+              "technical_source": "https://github.com/wine-mirror/wine/blob/master/dlls/ntdll/loader.c",
+              "component": "kernel32.dll",
+              "function": "GetFileAttributesTransactedA"
+            }
+          ]
+        },
+        "v6": {
+          "next_checks": [
+            {
+              "id": "verify-component-function-version",
+              "question": "Check the exact DLL/function, its implementation in the installed Proton/Wine build, and documented upstream changes before proposing a file replacement.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/wine-mirror/wine/blob/master/dlls/ntdll/loader.c",
+              "evidence_span": [
+                0,
+                85
+              ]
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": [
+            {
+              "kind": "supplied-log-observation",
+              "predicate": "unimplemented-function",
+              "span": [
+                0,
+                85
+              ],
+              "source_sha256": "56a56967db83f9787beb55b1b9547b9ee0968afe237d70387e6f62b2ae4e9ac7",
+              "technical_source": "https://github.com/wine-mirror/wine/blob/master/dlls/ntdll/loader.c",
+              "component": "kernel32.dll",
+              "function": "GetFileAttributesTransactedA"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "acceptance-66",
+      "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-5825392646",
+      "expected": "collect-relevant-log",
+      "variants": {
+        "v5": {
+          "next_checks": [
+            {
+              "id": "collect-relevant-log",
+              "question": "Obtain an authorized bounded log and locate the first relevant failure; the symptom alone does not identify a cause.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": []
+        },
+        "v6": {
+          "next_checks": [
+            {
+              "id": "collect-relevant-log",
+              "question": "Obtain an authorized bounded log and locate the first relevant failure; the symptom alone does not identify a cause.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": []
+        }
+      }
+    },
+    {
+      "id": "context-18",
+      "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1710930758",
+      "expected": "collect-relevant-log",
+      "variants": {
+        "v5": {
+          "next_checks": [
+            {
+              "id": "collect-relevant-log",
+              "question": "Obtain an authorized bounded log and locate the first relevant failure; the symptom alone does not identify a cause.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": []
+        },
+        "v6": {
+          "next_checks": [
+            {
+              "id": "collect-relevant-log",
+              "question": "Obtain an authorized bounded log and locate the first relevant failure; the symptom alone does not identify a cause.",
+              "read_only": true,
+              "requires_execution": false,
+              "source": "https://github.com/ValveSoftware/Proton#runtime-config-options"
+            },
+            {
+              "id": "identify-proton",
+              "question": "Identify the Proton build and version used in the failed execution.",
+              "read_only": true,
+              "requires_execution": false
+            }
+          ],
+          "top1": true,
+          "confirmed_causes": [],
+          "cause_probability": null,
+          "observations": []
+        }
+      }
+    }
+  ],
+  "summary": {
+    "v5": 3,
+    "v6": 3
+  },
+  "probes": 3,
+  "learned_diagnostic_model": false,
+  "execution_authorized": false
+}

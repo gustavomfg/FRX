@@ -1,0 +1,485 @@
+[
+  {
+    "id": "acceptance-1",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2123250854",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-4",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2119322200",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-5",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118530479",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-6",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118142986",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-7",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2117002414",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-8",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-5320098544",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-11",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2118871409",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-17",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284814001",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-18",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1284449613",
+    "review_priority": "human review required",
+    "reasons": [
+      "unsupported-reporter"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-23",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1289670017",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-25",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458452948",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-27",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-487300346",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation",
+      "unsupported-reporter"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-29",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-1626128582",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-30",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458375051",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-31",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-517933581",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-32",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-509034159",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-33",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-517864889",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation",
+      "unsupported-reporter"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-35",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-751532467",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-36",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643566576",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-37",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-648556594",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-38",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-638517941",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-41",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-645698592",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-44",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643623129",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-45",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-638881015",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-success-attribution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-47",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-640138531",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-49",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287169352",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-50",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287527939",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-53",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287216621",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-57",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287514779",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-60",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1699877456",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-61",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694514368",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-success-attribution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-65",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1710940190",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-67",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1693605179",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation",
+      "unsupported-reporter"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "acceptance-69",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1693697901",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "identity-1",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1777122435",
+    "review_priority": "human review required",
+    "reasons": [
+      "unsupported-game"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-0",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2119380061",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-2",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-2117114182",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-3",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7735#issuecomment-3007363585",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-5",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-1285351031",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-7",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6246#issuecomment-3368560292",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-8",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-458523160",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-9",
+    "url": "https://github.com/ValveSoftware/Proton/issues/1029#issuecomment-3146140335",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-10",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-648483082",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation",
+      "unsupported-reporter"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-12",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-645690979",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-success-attribution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-13",
+    "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-643638035",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-14",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287447566",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-16",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1287446316",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-17",
+    "url": "https://github.com/ValveSoftware/Proton/issues/6255#issuecomment-1286510824",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-18",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1710930758",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-19",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694419127",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-20",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-1694245877",
+    "review_priority": "human review required",
+    "reasons": [
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  },
+  {
+    "id": "context-21",
+    "url": "https://github.com/ValveSoftware/Proton/issues/7045#issuecomment-3734571482",
+    "review_priority": "human review required",
+    "reasons": [
+      "false-execution",
+      "missed-relation"
+    ],
+    "source_body_in_git": false
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "parser": "stanza",
+  "linker": false,
+  "selection_basis": "57 known development units: 24/24 performed, recall24/33, 6/9 result associations; compact22/25 performed, 5/8 associations. Learned association models did not reach predeclared eligibility. No final body inspected.",
+  "relation_status": "experimental source-attributed groups only; never approved",
+  "automatic_approval": false,
+  "atomic_model": "disabled: supplied-trigger verifiers unreliable",
+  "retrieval": "preserved FRX v2 INT8; not retrained"
+}

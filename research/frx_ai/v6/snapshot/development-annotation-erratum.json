@@ -1,0 +1,208 @@
+{
+  "id": "development-27",
+  "reason": "The explicit I needed to controls the intended actor even when completion remains unknown. Actor and execution modality are orthogonal. Original labels preserved; not independent human adjudication.",
+  "before": [
+    {
+      "trigger": [
+        33,
+        42
+      ],
+      "status": "performed",
+      "direction": "install",
+      "target": [
+        19,
+        28
+      ],
+      "status_span": [
+        13,
+        42
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        118,
+        124
+      ],
+      "status": "unknown",
+      "direction": "replace",
+      "target": [
+        132,
+        150
+      ],
+      "status_span": [
+        118,
+        131
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        125,
+        131
+      ],
+      "status": "unknown",
+      "direction": "remove",
+      "target": [
+        132,
+        150
+      ],
+      "status_span": [
+        118,
+        131
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        154,
+        161
+      ],
+      "status": "unknown",
+      "direction": "install",
+      "target": [
+        162,
+        169
+      ],
+      "status_span": [
+        154,
+        169
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        189,
+        196
+      ],
+      "status": "unknown",
+      "direction": "disable",
+      "target": [
+        197,
+        207
+      ],
+      "status_span": [
+        189,
+        207
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    }
+  ],
+  "after": [
+    {
+      "trigger": [
+        33,
+        42
+      ],
+      "status": "performed",
+      "direction": "install",
+      "target": [
+        19,
+        28
+      ],
+      "status_span": [
+        13,
+        42
+      ],
+      "actor_kind": "unknown",
+      "actor_id": null,
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        118,
+        124
+      ],
+      "status": "unknown",
+      "direction": "replace",
+      "target": [
+        132,
+        150
+      ],
+      "status_span": [
+        118,
+        131
+      ],
+      "actor_kind": "reporter",
+      "actor_id": "github:35786377",
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        125,
+        131
+      ],
+      "status": "unknown",
+      "direction": "remove",
+      "target": [
+        132,
+        150
+      ],
+      "status_span": [
+        118,
+        131
+      ],
+      "actor_kind": "reporter",
+      "actor_id": "github:35786377",
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        154,
+        161
+      ],
+      "status": "unknown",
+      "direction": "install",
+      "target": [
+        162,
+        169
+      ],
+      "status_span": [
+        154,
+        169
+      ],
+      "actor_kind": "reporter",
+      "actor_id": "github:35786377",
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    },
+    {
+      "trigger": [
+        189,
+        196
+      ],
+      "status": "unknown",
+      "direction": "disable",
+      "target": [
+        197,
+        207
+      ],
+      "status_span": [
+        189,
+        207
+      ],
+      "actor_kind": "reporter",
+      "actor_id": "github:35786377",
+      "game_app_id": null,
+      "identity_evidence_status": "agent-provisional; text required, no thread fallback"
+    }
+  ]
+}
