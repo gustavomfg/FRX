@@ -786,6 +786,14 @@ A última limitação de versionamento não autoriza incluir laboratórios, mode
 ou dados em um commit de documentação. Quando forem versionados separadamente,
 registrar sua disponibilidade no changelog, preservando a síntese já publicada.
 
+**Atualização de disponibilidade — 30/10/2026.** Os laboratórios v5 e v6 foram
+versionados separadamente após a consolidação inicial: código/metadados em
+`d0f5876` e `6448aac`, documentação em `f5e04ae` e `a8be090`, respectivamente.
+A situação não rastreada descrita acima é o registro da inspeção inicial; os
+artefatos referenciados agora integram o histórico desta branch. Corpos de
+comentários, modelos, checkpoints e caches continuam externos e não foram
+incluídos nesses commits. Nenhuma métrica ou conclusão científica foi alterada.
+
 <a id="manutencao"></a>
 ## XI. Como atualizar o RXAI
 
@@ -823,6 +831,7 @@ nem duplicar integralmente seus relatórios.
 | Data | Alteração | Base e limite |
 |---|---|---|
 | 30/10/2026 | Criação da edição 1 do RXAI; consolidação dos antecedentes e v1–v6; protocolos, linha do tempo, D-001–D-012, Q-001–Q-008, bibliografia e manutenção | Leitura de relatórios, READMEs, snapshots e código relevante; sem novo treino/benchmark. Disponibilidade não rastreada de v5/v6 registrada. Adicionado índice em `docs/README.md` |
+| 30/10/2026 | Atualização editorial da disponibilidade dos laboratórios v5/v6 após seu versionamento separado | Registrados commits de código/metadados e documentação; preservado o estado histórico da inspeção inicial. Pesos, corpos e caches permanecem externos; resultados científicos inalterados |
 
 FRX AI — Specialized Linux Gaming Intelligence.
 
