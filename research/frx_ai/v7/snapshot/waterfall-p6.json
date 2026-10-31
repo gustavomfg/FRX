@@ -1,0 +1,2253 @@
+{
+ "v6-selected": {
+  "summary": {
+   "relations": 70,
+   "recovered": 9,
+   "first_failure": [
+    [
+     "event-not-detected",
+     13
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     11
+    ],
+    [
+     "outcome-not-detected",
+     11
+    ],
+    [
+     "event-span-or-head-mismatch",
+     9
+    ],
+    [
+     "recovered",
+     9
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     7
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     7
+    ],
+    [
+     "verifier-rejected",
+     2
+    ],
+    [
+     "outcome-wrong-class",
+     1
+    ]
+   ],
+   "any_failure": [
+    [
+     "outcome-not-detected",
+     41
+    ],
+    [
+     "event-modality-excluded",
+     29
+    ],
+    [
+     "event-not-detected",
+     13
+    ],
+    [
+     "event-span-or-head-mismatch",
+     10
+    ],
+    [
+     "outcome-wrong-class",
+     3
+    ],
+    [
+     "verifier-rejected",
+     2
+    ]
+   ],
+   "by_size": [
+    [
+     [
+      1,
+      false
+     ],
+     52
+    ],
+    [
+     [
+      1,
+      true
+     ],
+     11
+    ],
+    [
+     [
+      2,
+      false
+     ],
+     7
+    ]
+   ],
+   "joint": {
+    "total": 7
+   },
+   "gold_nonperformed_owner": 14
+  },
+  "records": [
+   {
+    "id": "acceptance-1",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-4",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-5",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-6",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-8",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-11",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-17",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-19",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-23",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-25",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-25",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "regression",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-29",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "verifier-rejected"
+    ],
+    "first": "verifier-rejected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-30",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-31",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-32",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-33",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": true,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-35",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-35",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-36",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-36",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-37",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-38",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-41",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-43",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-44",
+    "outcome": "improved",
+    "size": 2,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown",
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-44",
+    "outcome": "persistent",
+    "size": 2,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "event-modality-excluded:gold-unknown"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown",
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-45",
+    "outcome": "improved",
+    "size": 3,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "event-modality-excluded:gold-performed"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-47",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-49",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-50",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-50",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-53",
+    "outcome": "improved",
+    "size": 2,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-57",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-57",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-60",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-60",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-61",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-wrong-class"
+    ],
+    "first": "outcome-wrong-class",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-64",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "verifier-rejected"
+    ],
+    "first": "verifier-rejected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-67",
+    "outcome": "persistent",
+    "size": 2,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-69",
+    "outcome": "persistent",
+    "size": 3,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "context-0",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-2",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-2",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-3",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-3",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-5",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-8",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-8",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-9",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-10",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "context-12",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "context-13",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-14",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-16",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": true,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-17",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [],
+    "first": "recovered",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-19",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-wrong-class"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-20",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-wrong-class"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-21",
+    "outcome": "persistent",
+    "size": 7,
+    "causes": [
+     "event-not-detected",
+     "event-modality-excluded:gold-performed",
+     "event-span-or-head-mismatch",
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed"
+    ]
+   }
+  ]
+ },
+ "v5-stanza": {
+  "summary": {
+   "relations": 70,
+   "recovered": 4,
+   "first_failure": [
+    [
+     "event-not-detected",
+     43
+    ],
+    [
+     "outcome-not-detected",
+     10
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     7
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     5
+    ],
+    [
+     "event-span-or-head-mismatch",
+     3
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     2
+    ]
+   ],
+   "any_failure": [
+    [
+     "outcome-not-detected",
+     70
+    ],
+    [
+     "event-not-detected",
+     43
+    ],
+    [
+     "event-modality-excluded",
+     16
+    ],
+    [
+     "event-span-or-head-mismatch",
+     5
+    ]
+   ],
+   "by_size": [
+    [
+     [
+      1,
+      false
+     ],
+     63
+    ],
+    [
+     [
+      2,
+      false
+     ],
+     7
+    ]
+   ],
+   "joint": {
+    "total": 7
+   },
+   "gold_nonperformed_owner": 14
+  },
+  "records": [
+   {
+    "id": "acceptance-1",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-4",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-5",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-6",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-8",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-11",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-17",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-19",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-23",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-25",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-25",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-27",
+    "outcome": "regression",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-29",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-30",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-31",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-32",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-33",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-35",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-35",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-36",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-36",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-37",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-38",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-41",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-43",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-44",
+    "outcome": "improved",
+    "size": 2,
+    "causes": [
+     "event-not-detected",
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown",
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-44",
+    "outcome": "persistent",
+    "size": 2,
+    "causes": [
+     "event-not-detected",
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown",
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-45",
+    "outcome": "improved",
+    "size": 3,
+    "causes": [
+     "event-not-detected",
+     "event-span-or-head-mismatch",
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-47",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-49",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-50",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-50",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-53",
+    "outcome": "improved",
+    "size": 2,
+    "causes": [
+     "event-not-detected",
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-57",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-57",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "acceptance-60",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-60",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-61",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-64",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": true,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-65",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-unknown",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-unknown",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "unknown"
+    ]
+   },
+   {
+    "id": "acceptance-67",
+    "outcome": "persistent",
+    "size": 2,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "acceptance-69",
+    "outcome": "persistent",
+    "size": 3,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed"
+    ]
+   },
+   {
+    "id": "context-0",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-2",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-2",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-3",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-3",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-5",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-7",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "outcome-not-detected"
+    ],
+    "first": "outcome-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-8",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-8",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-9",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-10",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "context-12",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-preexisting",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-preexisting",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "preexisting"
+    ]
+   },
+   {
+    "id": "context-13",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-14",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-16",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-span-or-head-mismatch",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-17",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-18",
+    "outcome": "persistent",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-19",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-not-detected",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-20",
+    "outcome": "improved",
+    "size": 1,
+    "causes": [
+     "event-modality-excluded:gold-performed",
+     "outcome-not-detected"
+    ],
+    "first": "event-modality-excluded:gold-performed",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed"
+    ]
+   },
+   {
+    "id": "context-21",
+    "outcome": "persistent",
+    "size": 7,
+    "causes": [
+     "event-not-detected",
+     "event-span-or-head-mismatch",
+     "event-span-or-head-mismatch",
+     "event-span-or-head-mismatch",
+     "outcome-not-detected"
+    ],
+    "first": "event-not-detected",
+    "accepted": false,
+    "actor_kind_disagreement": false,
+    "gold_status": [
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed",
+     "performed"
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "files": {
+  "amendments.json": "a9376a7f8368bff155875a33dc5edcf13d4ef815a7aec0bbdf11956dc248e749",
+  "p7-gold.json": "c8afaff6fd3d58ce9b6157e9e8d3e5a682f30fd7e51561d28c606d42f74274ab",
+  "j7-gold.json": "0bc9ad46f655ec0308105f705424856d49c8e209ef28aeff468b140ebda057f2",
+  "c7-cases.json": "e664d24dba76663a1899ce49c21cac39541ca62f4afec0bd7497b0b6ad4a68b3",
+  "reservation.json": "7693dab3e0db731f267b5a7cb4fadf49b0c39044ad0c54f69b3985340789c03a",
+  "frozen.json": "24ffecd5b1ee689b5c58b7c4e1192c822d783dd03a96793b1441c8ec1efa0848",
+  "label-lock.json": "bb1f00377da0e3963d71f8f2daf60b0d419e78f25112e792eeb76e54f7d83243",
+  "final-results.json": "2642742ddb6a77757a1f8e14a75236fb7440fbe36ba5391e2ee7523f4cdf343a",
+  "waterfall-p6.json": "15b3f627720920ef2069fed9535dfcfcb718b2085ece3b8269460493a5ddaf25",
+  "oracle-p6.json": "98ea63afc2291ebead9b1988c4c2d0697a36d6c9f8c74055ff6de6257f462467",
+  "oracle-p7m.json": "fda9ea1e2bd6bb68fb50501f69a270a55110b730c88c79e95a35074c30d12d2f",
+  "oracle-j7.json": "51d02570a55155a11d0acbb44d746fd74bb1cc49a9ddf9ba6ba0008a6455f7cb",
+  "selector-cv.json": "8dbaff84fd7fc5edf85e9cd97ff196d1b9e74365003f917469f6619806ae1261",
+  "selector-selection.json": "aeb57e11c2dd86fbda389ea9eec7d44d461ad4a437d55fba10fbe481e687f15a",
+  "selector-final.json": "d11135c3f8578ffa8758aee1041580af7c3abb078d7e79db9068ae73542917e5",
+  "c7-gold.json": "e4bd86ea8742cbd899e31d51512a64ad3ecdd2cacd0e36eb5b7bcfaf15f118d9",
+  "c7-label-lock.json": "15f83a4a6368fccf0a40ba4ae917c8c0e1648a405ff84cbb8d0d898d0499cdfb",
+  "c7-results.json": "0524575bbccf6821fe80bdcdf3eb18a5e754b07e945f330594f2d881099ccfa1",
+  "c7-known-replay.json": "fa85a67500a5da8f639351b20beebe40a192cd68e68ff8a4f2575c805a007298",
+  "investigator-frozen.json": "c8c831253703537cd9a747478b9a0ceb0749697c14987d118e0252be2e92d5f8",
+  "posthoc.json": "7d61d3ca3dcde13d5441dd188c7d67954c6fa4577497d4073e60c40515dc4bee",
+  "efficiency-language.json": "ef947dfb7e61f81c07b18391beccaee55cb44c34044ffda18dee379fb1c09049",
+  "efficiency-cli.json": "0946b84b9f4e5fb1633f96973335a399a21dc0cde50fcaabb7081781badabf40",
+  "d7-summary.json": "c77bfd40ea7be37f4d51a2ccba041cd01e5f669e4f88fd12dabc5886677ff69a"
+ },
+ "source_bodies": false,
+ "weights": false,
+ "labels": "agent-provisional for evaluation only; no independent human review"
+}

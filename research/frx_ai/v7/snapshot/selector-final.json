@@ -1,0 +1,1215 @@
+{
+ "status": "first read of the D7 test split",
+ "selection": {
+  "selected": "case-retrieval-k15",
+  "rule": "highest cross-validated top-1 on train groups, ties by top-3 and MRR",
+  "cv_top1": 0.547,
+  "majority_cv_top1": 0.542,
+  "note": "The margin over always asking for a log is within noise on train; selection does not claim superiority."
+ },
+ "train": 417,
+ "test": 115,
+ "test_groups": 78,
+ "results": {
+  "majority": {
+   "n": 115,
+   "top1": 0.5826086956521739,
+   "top3": 0.7478260869565218,
+   "mrr": 0.7026915113871636,
+   "macro_top1_recall": 0.1111111111111111,
+   "classes_predicted": 1,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 115,
+     "top1_recall": 1.0,
+     "top1_precision": 0.5826086956521739
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 0,
+     "top1_recall": null,
+     "top1_precision": null
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.7017543859649122,
+     "top3": 0.8070175438596491,
+     "mrr": 0.786911723753829,
+     "macro_top1_recall": 0.1111111111111111,
+     "classes_predicted": 1
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.46551724137931033,
+     "top3": 0.6896551724137931,
+     "mrr": 0.6199233716475095,
+     "macro_top1_recall": 0.1111111111111111,
+     "classes_predicted": 1
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.582089552238806,
+     "top3": 0.7910447761194029,
+     "mrr": 0.7156479507225776,
+     "macro_top1_recall": 0.1111111111111111,
+     "classes_predicted": 1
+    }
+   }
+  },
+  "fixed-rules": {
+   "n": 115,
+   "top1": 0.2608695652173913,
+   "top3": 0.46956521739130436,
+   "mrr": 0.4153554175293306,
+   "macro_top1_recall": 0.1747927031509121,
+   "classes_predicted": 5,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 41,
+     "top1_recall": 0.373134328358209,
+     "top1_precision": 0.6097560975609756
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 7,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 9,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 0,
+     "top1_recall": null,
+     "top1_precision": null
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 35,
+     "top1_recall": 1.0,
+     "top1_precision": 0.05714285714285714
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 23,
+     "top1_recall": 0.2,
+     "top1_precision": 0.13043478260869565
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.24561403508771928,
+     "top3": 0.3684210526315789,
+     "mrr": 0.37528543581175156,
+     "macro_top1_recall": 0.14722222222222223,
+     "classes_predicted": 5
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.27586206896551724,
+     "top3": 0.5689655172413793,
+     "mrr": 0.45473453749315823,
+     "macro_top1_recall": 0.18613485280151948,
+     "classes_predicted": 5
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.07462686567164178,
+     "top3": 0.3283582089552239,
+     "mrr": 0.26522743425728507,
+     "macro_top1_recall": 0.14444444444444446,
+     "classes_predicted": 3
+    }
+   }
+  },
+  "case-retrieval-k15": {
+   "n": 115,
+   "top1": 0.5478260869565217,
+   "top3": 0.7391304347826086,
+   "mrr": 0.6772774327122152,
+   "macro_top1_recall": 0.11509121061359867,
+   "classes_predicted": 4,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 95,
+     "top1_recall": 0.835820895522388,
+     "top1_precision": 0.5894736842105263
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 17,
+     "top1_recall": 0.13333333333333333,
+     "top1_precision": 0.35294117647058826
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 0,
+     "top1_recall": null,
+     "top1_precision": null
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 2,
+     "top1_recall": 0.06666666666666667,
+     "top1_precision": 0.5
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.631578947368421,
+     "top3": 0.7894736842105263,
+     "mrr": 0.7431495405179616,
+     "macro_top1_recall": 0.10534979423868313,
+     "classes_predicted": 2
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.46551724137931033,
+     "top3": 0.6896551724137931,
+     "mrr": 0.6125410509031198,
+     "macro_top1_recall": 0.11965811965811965,
+     "classes_predicted": 4
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.5373134328358209,
+     "top3": 0.746268656716418,
+     "mrr": 0.6773394930111348,
+     "macro_top1_recall": 0.10683760683760683,
+     "classes_predicted": 3
+    }
+   }
+  },
+  "case-retrieval-k15+mask": {
+   "n": 115,
+   "top1": 0.3652173913043478,
+   "top3": 0.6434782608695652,
+   "mrr": 0.5443892339544515,
+   "macro_top1_recall": 0.11445337415486669,
+   "classes_predicted": 7,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 54,
+     "top1_recall": 0.5223880597014925,
+     "top1_precision": 0.6481481481481481
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 11,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 9,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 0,
+     "top1_recall": null,
+     "top1_precision": null
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 18,
+     "top1_recall": 0.3076923076923077,
+     "top1_precision": 0.2222222222222222
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 19,
+     "top1_recall": 0.2,
+     "top1_precision": 0.15789473684210525
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 3,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.38596491228070173,
+     "top3": 0.6666666666666666,
+     "mrr": 0.5624477861319966,
+     "macro_top1_recall": 0.08611111111111111,
+     "classes_predicted": 7
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.3448275862068966,
+     "top3": 0.6206896551724138,
+     "mrr": 0.5266420361247948,
+     "macro_top1_recall": 0.12029123140234249,
+     "classes_predicted": 6
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.23880597014925373,
+     "top3": 0.6268656716417911,
+     "mrr": 0.46442193792940056,
+     "macro_top1_recall": 0.11420431420431419,
+     "classes_predicted": 7
+    }
+   }
+  },
+  "logistic-state-C1.0": {
+   "n": 115,
+   "top1": 0.2608695652173913,
+   "top3": 0.6,
+   "mrr": 0.4803899240855763,
+   "macro_top1_recall": 0.14974273929497808,
+   "classes_predicted": 9,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 30,
+     "top1_recall": 0.2835820895522388,
+     "top1_precision": 0.6333333333333333
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 11,
+     "top1_recall": 0.06666666666666667,
+     "top1_precision": 0.2727272727272727
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 12,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 8,
+     "top1_recall": 0.23076923076923078,
+     "top1_precision": 0.375
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 8,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 24,
+     "top1_recall": 0.5,
+     "top1_precision": 0.041666666666666664
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 14,
+     "top1_recall": 0.26666666666666666,
+     "top1_precision": 0.2857142857142857
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 7,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.2982456140350877,
+     "top3": 0.6140350877192983,
+     "mrr": 0.5056669451406294,
+     "macro_top1_recall": 0.1911522633744856,
+     "classes_predicted": 8
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.22413793103448276,
+     "top3": 0.5862068965517241,
+     "mrr": 0.4555487137383689,
+     "macro_top1_recall": 0.08933206710984488,
+     "classes_predicted": 9
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.2537313432835821,
+     "top3": 0.6268656716417911,
+     "mrr": 0.486348021795783,
+     "macro_top1_recall": 0.1341880341880342,
+     "classes_predicted": 6
+    }
+   }
+  },
+  "logistic-tfidf-C1.0": {
+   "n": 115,
+   "top1": 0.5304347826086957,
+   "top3": 0.7304347826086957,
+   "mrr": 0.6723222912353345,
+   "macro_top1_recall": 0.14239628070473842,
+   "classes_predicted": 5,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 65,
+     "top1_recall": 0.6268656716417911,
+     "top1_precision": 0.6461538461538462
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 36,
+     "top1_recall": 0.3111111111111111,
+     "top1_precision": 0.3888888888888889
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 3,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 0,
+     "top1_recall": null,
+     "top1_precision": null
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 4,
+     "top1_recall": 0.07692307692307693,
+     "top1_precision": 0.25
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 7,
+     "top1_recall": 0.26666666666666666,
+     "top1_precision": 0.5714285714285714
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.5964912280701754,
+     "top3": 0.7368421052631579,
+     "mrr": 0.7123433583959901,
+     "macro_top1_recall": 0.15390946502057612,
+     "classes_predicted": 5
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.46551724137931033,
+     "top3": 0.7241379310344828,
+     "mrr": 0.6329912424740012,
+     "macro_top1_recall": 0.15115542893320674,
+     "classes_predicted": 4
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.5223880597014925,
+     "top3": 0.7761194029850746,
+     "mrr": 0.6805674010897891,
+     "macro_top1_recall": 0.1361009361009361,
+     "classes_predicted": 5
+    }
+   }
+  },
+  "logistic-tfidf+state-C1.0": {
+   "n": 115,
+   "top1": 0.4956521739130435,
+   "top3": 0.7913043478260869,
+   "mrr": 0.6532643202208419,
+   "macro_top1_recall": 0.17058581735198652,
+   "classes_predicted": 8,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 54,
+     "top1_recall": 0.4925373134328358,
+     "top1_precision": 0.6111111111111112
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 34,
+     "top1_recall": 0.3111111111111111,
+     "top1_precision": 0.4117647058823529
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 3,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.6666666666666666
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 2,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 3,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 15,
+     "top1_recall": 0.4666666666666667,
+     "top1_precision": 0.4666666666666667
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 3,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 0.3333333333333333
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.49122807017543857,
+     "top3": 0.7894736842105263,
+     "mrr": 0.6556669451406294,
+     "macro_top1_recall": 0.08580246913580247,
+     "classes_predicted": 7
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.5,
+     "top3": 0.7931034482758621,
+     "mrr": 0.6509031198686371,
+     "macro_top1_recall": 0.19892371003482112,
+     "classes_predicted": 7
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.5223880597014925,
+     "top3": 0.7761194029850746,
+     "mrr": 0.6647536128879412,
+     "macro_top1_recall": 0.14216524216524215,
+     "classes_predicted": 6
+    }
+   }
+  },
+  "logistic-tfidf+state-C1.0+mask": {
+   "n": 115,
+   "top1": 0.3391304347826087,
+   "top3": 0.48695652173913045,
+   "mrr": 0.4934575569358178,
+   "macro_top1_recall": 0.18796331731655114,
+   "classes_predicted": 8,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 27,
+     "top1_recall": 0.29850746268656714,
+     "top1_precision": 0.7407407407407407
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 5,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 13,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.15384615384615385
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 2,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 29,
+     "top1_recall": 0.46153846153846156,
+     "top1_precision": 0.20689655172413793
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 34,
+     "top1_recall": 0.6666666666666666,
+     "top1_precision": 0.29411764705882354
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 4,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 0.25
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.22807017543859648,
+     "top3": 0.3684210526315789,
+     "mrr": 0.40176830966304655,
+     "macro_top1_recall": 0.1388888888888889,
+     "classes_predicted": 7
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.4482758620689655,
+     "top3": 0.603448275862069,
+     "mrr": 0.5835659551176792,
+     "macro_top1_recall": 0.21190250079138967,
+     "classes_predicted": 7
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.1791044776119403,
+     "top3": 0.29850746268656714,
+     "mrr": 0.3564143567874911,
+     "macro_top1_recall": 0.15714285714285714,
+     "classes_predicted": 5
+    }
+   }
+  },
+  "logistic-tfidf+state-C10.0": {
+   "n": 115,
+   "top1": 0.5739130434782609,
+   "top3": 0.8,
+   "mrr": 0.69987922705314,
+   "macro_top1_recall": 0.1789513968618446,
+   "classes_predicted": 8,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 68,
+     "top1_recall": 0.6567164179104478,
+     "top1_precision": 0.6470588235294118
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 31,
+     "top1_recall": 0.28888888888888886,
+     "top1_precision": 0.41935483870967744
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 4,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.5
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 1,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 2,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 7,
+     "top1_recall": 0.4,
+     "top1_precision": 0.8571428571428571
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 1,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 1.0
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.6140350877192983,
+     "top3": 0.8070175438596491,
+     "mrr": 0.7244778613199666,
+     "macro_top1_recall": 0.10390946502057613,
+     "classes_predicted": 5
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.5344827586206896,
+     "top3": 0.7931034482758621,
+     "mrr": 0.6757047071702245,
+     "macro_top1_recall": 0.20272238050015828,
+     "classes_predicted": 7
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.5671641791044776,
+     "top3": 0.7910447761194029,
+     "mrr": 0.6974413646055437,
+     "macro_top1_recall": 0.14985754985754987,
+     "classes_predicted": 6
+    }
+   }
+  },
+  "logistic-tfidf+state-C10.0+mask": {
+   "n": 115,
+   "top1": 0.4782608695652174,
+   "top3": 0.7391304347826086,
+   "mrr": 0.6331780538302277,
+   "macro_top1_recall": 0.19545293475641734,
+   "classes_predicted": 8,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 49,
+     "top1_recall": 0.5522388059701493,
+     "top1_precision": 0.7551020408163265
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 11,
+     "top1_recall": 0.044444444444444446,
+     "top1_precision": 0.18181818181818182
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 1,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 9,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.2222222222222222
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 1,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 20,
+     "top1_recall": 0.23076923076923078,
+     "top1_precision": 0.15
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 23,
+     "top1_recall": 0.6666666666666666,
+     "top1_precision": 0.43478260869565216
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 0,
+     "top1_recall": 0.0,
+     "top1_precision": null
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 1,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 1.0
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.5087719298245614,
+     "top3": 0.7368421052631579,
+     "mrr": 0.6458994708994709,
+     "macro_top1_recall": 0.16100823045267487,
+     "classes_predicted": 6
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.4482758620689655,
+     "top3": 0.7413793103448276,
+     "mrr": 0.6206759715380405,
+     "macro_top1_recall": 0.19544159544159542,
+     "classes_predicted": 7
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.373134328358209,
+     "top3": 0.7014925373134329,
+     "mrr": 0.568668561952144,
+     "macro_top1_recall": 0.16984126984126982,
+     "classes_predicted": 6
+    }
+   }
+  },
+  "logistic-v2-embedding+state-C1.0": {
+   "n": 115,
+   "top1": 0.391304347826087,
+   "top3": 0.6869565217391305,
+   "mrr": 0.5745617667356798,
+   "macro_top1_recall": 0.14655780924437642,
+   "classes_predicted": 10,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 36,
+     "top1_recall": 0.29850746268656714,
+     "top1_precision": 0.5555555555555556
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 34,
+     "top1_recall": 0.35555555555555557,
+     "top1_precision": 0.47058823529411764
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 10,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 4,
+     "top1_recall": 0.07692307692307693,
+     "top1_precision": 0.25
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 2,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 2,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 7,
+     "top1_recall": 0.07692307692307693,
+     "top1_precision": 0.14285714285714285
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 15,
+     "top1_recall": 0.4,
+     "top1_precision": 0.4
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 2,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 3,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 0.3333333333333333
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.40350877192982454,
+     "top3": 0.7017543859649122,
+     "mrr": 0.5792815371762741,
+     "macro_top1_recall": 0.09825102880658437,
+     "classes_predicted": 8
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.3793103448275862,
+     "top3": 0.6724137931034483,
+     "mrr": 0.5699233716475096,
+     "macro_top1_recall": 0.16074707185818296,
+     "classes_predicted": 10
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.417910447761194,
+     "top3": 0.6567164179104478,
+     "mrr": 0.58121298270552,
+     "macro_top1_recall": 0.14179894179894179,
+     "classes_predicted": 7
+    }
+   }
+  },
+  "logistic-v2-embedding+state-C1.0+mask": {
+   "n": 115,
+   "top1": 0.26956521739130435,
+   "top3": 0.4956521739130435,
+   "mrr": 0.4516252587991718,
+   "macro_top1_recall": 0.19528993210585252,
+   "classes_predicted": 10,
+   "per_class": {
+    "collect-proton-log": {
+     "support": 67,
+     "predicted": 21,
+     "top1_recall": 0.23880597014925373,
+     "top1_precision": 0.7619047619047619
+    },
+    "collect-system-info": {
+     "support": 45,
+     "predicted": 3,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "collect-terminal-output": {
+     "support": 4,
+     "predicted": 10,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "test-other-proton": {
+     "support": 13,
+     "predicted": 13,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.15384615384615385
+    },
+    "reset-prefix": {
+     "support": 0,
+     "predicted": 2,
+     "top1_recall": null,
+     "top1_precision": 0.0
+    },
+    "review-launch-options": {
+     "support": 2,
+     "predicted": 6,
+     "top1_recall": 0.5,
+     "top1_precision": 0.16666666666666666
+    },
+    "test-runtime-option": {
+     "support": 13,
+     "predicted": 15,
+     "top1_recall": 0.15384615384615385,
+     "top1_precision": 0.13333333333333333
+    },
+    "check-driver-stack": {
+     "support": 15,
+     "predicted": 33,
+     "top1_recall": 0.6,
+     "top1_precision": 0.2727272727272727
+    },
+    "verify-game-files": {
+     "support": 3,
+     "predicted": 2,
+     "top1_recall": 0.0,
+     "top1_precision": 0.0
+    },
+    "isolate-scope": {
+     "support": 9,
+     "predicted": 10,
+     "top1_recall": 0.1111111111111111,
+     "top1_precision": 0.1
+    }
+   },
+   "strata": {
+    "first-response": {
+     "n": 57,
+     "top1": 0.19298245614035087,
+     "top3": 0.3684210526315789,
+     "mrr": 0.374505708716235,
+     "macro_top1_recall": 0.14259259259259258,
+     "classes_predicted": 8
+    },
+    "later": {
+     "n": 58,
+     "top1": 0.3448275862068966,
+     "top3": 0.6206896551724138,
+     "mrr": 0.5274151614668856,
+     "macro_top1_recall": 0.258088002532447,
+     "classes_predicted": 10
+    },
+    "log-and-info-already-present": {
+     "n": 67,
+     "top1": 0.16417910447761194,
+     "top3": 0.34328358208955223,
+     "mrr": 0.34810471452262504,
+     "macro_top1_recall": 0.17619047619047618,
+     "classes_predicted": 6
+    }
+   }
+  }
+ },
+ "top1_gain_of_selected_by_group": {
+  "majority": [
+   -0.08771929824561397,
+   0.009011056511056536
+  ],
+  "fixed-rules": [
+   0.1967178086030545,
+   0.3703783524904214
+  ],
+  "case-retrieval-k15+mask": [
+   0.09433962264150941,
+   0.2649621212121212
+  ],
+  "logistic-state-C1.0": [
+   0.19827586206896552,
+   0.37903921023359294
+  ],
+  "logistic-tfidf-C1.0": [
+   -0.044642857142857095,
+   0.0826446280991735
+  ],
+  "logistic-tfidf+state-C1.0": [
+   -0.02608695652173909,
+   0.13157894736842102
+  ],
+  "logistic-tfidf+state-C1.0+mask": [
+   0.09676711941143178,
+   0.31732073643410863
+  ],
+  "logistic-tfidf+state-C10.0": [
+   -0.09837911682173982,
+   0.04629629629629628
+  ],
+  "logistic-tfidf+state-C10.0+mask": [
+   -0.009345794392523312,
+   0.14754811119030656
+  ],
+  "logistic-v2-embedding+state-C1.0": [
+   0.07017105263157894,
+   0.24299696893154837
+  ],
+  "logistic-v2-embedding+state-C1.0+mask": [
+   0.16814159292035397,
+   0.3805415086388538
+  ]
+ },
+ "sha256": "939819fb8b2212a565bea4cdd0a210285fcd15df1cb530de4f8eac14dc316b1f",
+ "limitation": "A maintainer's request shows practice, not proven diagnostic utility; labels come from deterministic functions."
+}

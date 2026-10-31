@@ -1,0 +1,447 @@
+{
+ "first_failure": {
+  "P7-M": {
+   "v7": [
+    [
+     "recovered",
+     9
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     6
+    ],
+    [
+     "verifier-rejected",
+     4
+    ],
+    [
+     "outcome-not-detected",
+     3
+    ],
+    [
+     "event-span-or-head-mismatch",
+     3
+    ],
+    [
+     "event-not-detected",
+     2
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     2
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     1
+    ]
+   ],
+   "v6-selected": [
+    [
+     "event-modality-excluded:gold-performed",
+     9
+    ],
+    [
+     "event-span-or-head-mismatch",
+     5
+    ],
+    [
+     "outcome-not-detected",
+     5
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     4
+    ],
+    [
+     "event-not-detected",
+     2
+    ],
+    [
+     "recovered",
+     2
+    ],
+    [
+     "verifier-rejected",
+     2
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     1
+    ]
+   ]
+  },
+  "P7-J": {
+   "v7": [
+    [
+     "event-not-detected",
+     6
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     4
+    ],
+    [
+     "recovered",
+     2
+    ],
+    [
+     "event-span-or-head-mismatch",
+     2
+    ],
+    [
+     "verifier-rejected",
+     2
+    ],
+    [
+     "outcome-not-detected",
+     1
+    ]
+   ],
+   "v6-selected": [
+    [
+     "event-not-detected",
+     6
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     6
+    ],
+    [
+     "event-span-or-head-mismatch",
+     2
+    ],
+    [
+     "recovered",
+     1
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     1
+    ],
+    [
+     "outcome-not-detected",
+     1
+    ]
+   ]
+  },
+  "J7": {
+   "v7": [
+    [
+     "recovered",
+     15
+    ],
+    [
+     "verifier-rejected",
+     13
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     10
+    ],
+    [
+     "event-span-or-head-mismatch",
+     9
+    ],
+    [
+     "outcome-not-detected",
+     9
+    ],
+    [
+     "grouping-incorrect",
+     3
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     2
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     2
+    ],
+    [
+     "event-not-detected",
+     2
+    ],
+    [
+     "outcome-wrong-class",
+     2
+    ]
+   ],
+   "v6-selected": [
+    [
+     "outcome-not-detected",
+     18
+    ],
+    [
+     "event-span-or-head-mismatch",
+     16
+    ],
+    [
+     "event-modality-excluded:gold-performed",
+     14
+    ],
+    [
+     "recovered",
+     8
+    ],
+    [
+     "event-not-detected",
+     4
+    ],
+    [
+     "event-modality-excluded:gold-preexisting",
+     2
+    ],
+    [
+     "event-modality-excluded:gold-unknown",
+     2
+    ],
+    [
+     "verifier-rejected",
+     2
+    ],
+    [
+     "outcome-wrong-class",
+     1
+    ]
+   ]
+  }
+ },
+ "false_success": [
+  {
+   "id": "p7m-651-2",
+   "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3547492652",
+   "structure": "joint"
+  },
+  {
+   "id": "p7m-651-5",
+   "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-2512387203",
+   "structure": "single"
+  },
+  {
+   "id": "p7m-5982-2",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-1854155681",
+   "structure": "single"
+  },
+  {
+   "id": "j7-25",
+   "url": "https://github.com/ValveSoftware/Proton/issues/150#issuecomment-3715379583",
+   "structure": "single"
+  },
+  {
+   "id": "j7-30",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6914#issuecomment-1992092459",
+   "structure": "single"
+  },
+  {
+   "id": "j7-30",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6914#issuecomment-1992092459",
+   "structure": "single"
+  },
+  {
+   "id": "j7-36",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2014#issuecomment-2183525775",
+   "structure": "joint"
+  },
+  {
+   "id": "j7-36",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2014#issuecomment-2183525775",
+   "structure": "single"
+  }
+ ],
+ "groups": [
+  {
+   "id": "p7j-187-0",
+   "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2217033264",
+   "structure": "joint",
+   "owners_detected": 1,
+   "result_detected": false
+  },
+  {
+   "id": "p7j-187-0",
+   "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2217033264",
+   "structure": "joint",
+   "owners_detected": 1,
+   "result_detected": false
+  },
+  {
+   "id": "p7j-3899-2",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-1968096123",
+   "structure": "sequence",
+   "owners_detected": 4,
+   "result_detected": false
+  },
+  {
+   "id": "j7-2",
+   "url": "https://github.com/ValveSoftware/Proton/issues/555#issuecomment-2163524769",
+   "structure": "sequence",
+   "owners_detected": 3,
+   "result_detected": true
+  },
+  {
+   "id": "j7-6",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8977#issuecomment-3192423377",
+   "structure": "joint",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-9",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7479#issuecomment-3605017585",
+   "structure": "sequence",
+   "owners_detected": 2,
+   "result_detected": false
+  },
+  {
+   "id": "j7-9",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7479#issuecomment-3605017585",
+   "structure": "sequence",
+   "owners_detected": 2,
+   "result_detected": false
+  },
+  {
+   "id": "j7-10",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10193#issuecomment-5892231792",
+   "structure": "joint",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-10",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10193#issuecomment-5892231792",
+   "structure": "joint",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-11",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7888#issuecomment-3033521713",
+   "structure": "alternatives",
+   "owners_detected": 2,
+   "result_detected": false
+  },
+  {
+   "id": "j7-11",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7888#issuecomment-3033521713",
+   "structure": "joint",
+   "owners_detected": 3,
+   "result_detected": false
+  },
+  {
+   "id": "j7-14",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9968#issuecomment-4954626983",
+   "structure": "joint",
+   "owners_detected": 1,
+   "result_detected": false
+  },
+  {
+   "id": "j7-15",
+   "url": "https://github.com/ValveSoftware/Proton/issues/148#issuecomment-4037962862",
+   "structure": "joint",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-16",
+   "url": "https://github.com/ValveSoftware/Proton/issues/808#issuecomment-3058051789",
+   "structure": "sequence",
+   "owners_detected": 3,
+   "result_detected": true
+  },
+  {
+   "id": "j7-16",
+   "url": "https://github.com/ValveSoftware/Proton/issues/808#issuecomment-3058051789",
+   "structure": "sequence",
+   "owners_detected": 3,
+   "result_detected": true
+  },
+  {
+   "id": "j7-20",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5030#issuecomment-3168219643",
+   "structure": "joint",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-21",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7512#issuecomment-2973386623",
+   "structure": "sequence",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-23",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1602#issuecomment-4415866600",
+   "structure": "sequence",
+   "owners_detected": 3,
+   "result_detected": true
+  },
+  {
+   "id": "j7-24",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3971#issuecomment-3067381060",
+   "structure": "sequence",
+   "owners_detected": 2,
+   "result_detected": true
+  },
+  {
+   "id": "j7-25",
+   "url": "https://github.com/ValveSoftware/Proton/issues/150#issuecomment-3715379583",
+   "structure": "sequence",
+   "owners_detected": 1,
+   "result_detected": true
+  },
+  {
+   "id": "j7-31",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2255#issuecomment-3240408592",
+   "structure": "sequence",
+   "owners_detected": 3,
+   "result_detected": true
+  },
+  {
+   "id": "j7-37",
+   "url": "https://github.com/ValveSoftware/Proton/issues/150#issuecomment-4308213312",
+   "structure": "sequence",
+   "owners_detected": 2,
+   "result_detected": false
+  },
+  {
+   "id": "j7-39",
+   "url": "https://github.com/ValveSoftware/Proton/issues/790#issuecomment-2573934537",
+   "structure": "alternatives",
+   "owners_detected": 3,
+   "result_detected": true
+  }
+ ],
+ "claim_shapes": [
+  [
+   "single",
+   "single-reported",
+   true,
+   23
+  ],
+  [
+   "single",
+   "single-reported",
+   false,
+   21
+  ],
+  [
+   "joint",
+   "joint-unattributed",
+   false,
+   6
+  ],
+  [
+   "joint",
+   "joint-unattributed",
+   true,
+   1
+  ],
+  [
+   "sequence",
+   "joint-unattributed",
+   true,
+   1
+  ]
+ ]
+}

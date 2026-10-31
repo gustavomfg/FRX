@@ -1,0 +1,1776 @@
+{
+ "status": "first v7 evaluation; agent-provisional labels",
+ "results": {
+  "P7-M": {
+   "v6-selected": {
+    "strict": {
+     "gold_relations": 30,
+     "proposable_relations": 4,
+     "relations": 3,
+     "relation_correct": 2,
+     "relation_precision": 0.6666666666666666,
+     "relation_recall": 0.06666666666666667,
+     "false_success": 1,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 15,
+     "performed_correct": 11,
+     "performed_precision": 0.7333333333333333,
+     "performed_recall": 0.3793103448275862,
+     "false_performed": 4
+    },
+    "lenient": {
+     "gold_relations": 30,
+     "proposable_relations": 4,
+     "relations": 3,
+     "relation_correct": 2,
+     "relation_precision": 0.6666666666666666,
+     "relation_recall": 0.06666666666666667,
+     "false_success": 1,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 15,
+     "performed_correct": 12,
+     "performed_precision": 0.8,
+     "performed_recall": 0.41379310344827586,
+     "false_performed": 3
+    },
+    "joint": {
+     "gold_groups": 0,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 30,
+     "single_recovered": 2,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 7,
+     "per_doc_mean": 0.11666666666666667,
+     "per_doc_median": 0.0,
+     "per_doc_max": 2,
+     "candidate_precision": 0.5714285714285714
+    },
+    "first_failure": [
+     [
+      "event-modality-excluded:gold-performed",
+      9
+     ],
+     [
+      "event-span-or-head-mismatch",
+      5
+     ],
+     [
+      "outcome-not-detected",
+      5
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      4
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "recovered",
+      2
+     ],
+     [
+      "verifier-rejected",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      1
+     ]
+    ]
+   },
+   "v6-structural": {
+    "strict": {
+     "gold_relations": 30,
+     "proposable_relations": 4,
+     "relations": 3,
+     "relation_correct": 2,
+     "relation_precision": 0.6666666666666666,
+     "relation_recall": 0.06666666666666667,
+     "false_success": 1,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 15,
+     "performed_correct": 11,
+     "performed_precision": 0.7333333333333333,
+     "performed_recall": 0.3793103448275862,
+     "false_performed": 4
+    },
+    "lenient": {
+     "gold_relations": 30,
+     "proposable_relations": 4,
+     "relations": 3,
+     "relation_correct": 2,
+     "relation_precision": 0.6666666666666666,
+     "relation_recall": 0.06666666666666667,
+     "false_success": 1,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 15,
+     "performed_correct": 12,
+     "performed_precision": 0.8,
+     "performed_recall": 0.41379310344827586,
+     "false_performed": 3
+    },
+    "joint": {
+     "gold_groups": 0,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 30,
+     "single_recovered": 2,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 7,
+     "per_doc_mean": 0.11666666666666667,
+     "per_doc_median": 0.0,
+     "per_doc_max": 2,
+     "candidate_precision": 0.5714285714285714
+    },
+    "first_failure": [
+     [
+      "event-modality-excluded:gold-performed",
+      9
+     ],
+     [
+      "event-span-or-head-mismatch",
+      5
+     ],
+     [
+      "outcome-not-detected",
+      5
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      4
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "recovered",
+      2
+     ],
+     [
+      "verifier-rejected",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      1
+     ]
+    ]
+   },
+   "v7": {
+    "strict": {
+     "gold_relations": 30,
+     "proposable_relations": 13,
+     "relations": 16,
+     "relation_correct": 9,
+     "relation_precision": 0.5625,
+     "relation_recall": 0.3,
+     "false_success": 3,
+     "negative_correct": 6,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 16,
+     "performed_correct": 13,
+     "performed_precision": 0.8125,
+     "performed_recall": 0.4482758620689655,
+     "false_performed": 3
+    },
+    "lenient": {
+     "gold_relations": 30,
+     "proposable_relations": 13,
+     "relations": 16,
+     "relation_correct": 9,
+     "relation_precision": 0.5625,
+     "relation_recall": 0.3,
+     "false_success": 3,
+     "negative_correct": 6,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 16,
+     "performed_correct": 13,
+     "performed_precision": 0.8125,
+     "performed_recall": 0.4482758620689655,
+     "false_performed": 3
+    },
+    "joint": {
+     "gold_groups": 0,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 30,
+     "single_recovered": 9,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 60,
+     "per_doc_mean": 1.0,
+     "per_doc_median": 0.0,
+     "per_doc_max": 4,
+     "candidate_precision": 0.23333333333333334
+    },
+    "first_failure": [
+     [
+      "recovered",
+      9
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      6
+     ],
+     [
+      "verifier-rejected",
+      4
+     ],
+     [
+      "outcome-not-detected",
+      3
+     ],
+     [
+      "event-span-or-head-mismatch",
+      3
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      1
+     ]
+    ]
+   },
+   "v7-candidates+v6-L1": {
+    "strict": {
+     "gold_relations": 30,
+     "proposable_relations": 13,
+     "relations": 26,
+     "relation_correct": 10,
+     "relation_precision": 0.38461538461538464,
+     "relation_recall": 0.3333333333333333,
+     "false_success": 10,
+     "negative_correct": 7,
+     "joint_claims": 4,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 16,
+     "performed_correct": 13,
+     "performed_precision": 0.8125,
+     "performed_recall": 0.4482758620689655,
+     "false_performed": 3
+    },
+    "lenient": {
+     "gold_relations": 30,
+     "proposable_relations": 13,
+     "relations": 26,
+     "relation_correct": 10,
+     "relation_precision": 0.38461538461538464,
+     "relation_recall": 0.3333333333333333,
+     "false_success": 10,
+     "negative_correct": 7,
+     "joint_claims": 4,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 16,
+     "performed_correct": 13,
+     "performed_precision": 0.8125,
+     "performed_recall": 0.4482758620689655,
+     "false_performed": 3
+    },
+    "joint": {
+     "gold_groups": 0,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 30,
+     "single_recovered": 10,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 60,
+     "per_doc_mean": 1.0,
+     "per_doc_median": 0.0,
+     "per_doc_max": 4,
+     "candidate_precision": 0.23333333333333334
+    },
+    "first_failure": [
+     [
+      "recovered",
+      10
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      6
+     ],
+     [
+      "outcome-not-detected",
+      3
+     ],
+     [
+      "verifier-rejected",
+      3
+     ],
+     [
+      "event-span-or-head-mismatch",
+      3
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      1
+     ]
+    ]
+   },
+   "v5-stanza": {
+    "strict": {
+     "gold_relations": 30,
+     "proposable_relations": 0,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.03333333333333333,
+     "false_success": 0,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 11,
+     "performed_correct": 8,
+     "performed_precision": 0.7272727272727273,
+     "performed_recall": 0.27586206896551724,
+     "false_performed": 3
+    },
+    "lenient": {
+     "gold_relations": 30,
+     "proposable_relations": 0,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.03333333333333333,
+     "false_success": 0,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 29,
+     "performed": 11,
+     "performed_correct": 9,
+     "performed_precision": 0.8181818181818182,
+     "performed_recall": 0.3103448275862069,
+     "false_performed": 2
+    },
+    "joint": {
+     "gold_groups": 0,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 30,
+     "single_recovered": 1,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 0,
+     "per_doc_mean": 0.0,
+     "per_doc_median": 0.0,
+     "per_doc_max": 0,
+     "candidate_precision": null
+    },
+    "first_failure": [
+     [
+      "outcome-not-detected",
+      7
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      7
+     ],
+     [
+      "event-not-detected",
+      6
+     ],
+     [
+      "event-span-or-head-mismatch",
+      5
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      4
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      1
+     ]
+    ]
+   }
+  },
+  "P7-J": {
+   "v6-selected": {
+    "strict": {
+     "gold_relations": 17,
+     "proposable_relations": 1,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.058823529411764705,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 3,
+     "performed_correct": 3,
+     "performed_precision": 1.0,
+     "performed_recall": 0.1875,
+     "false_performed": 0
+    },
+    "lenient": {
+     "gold_relations": 17,
+     "proposable_relations": 1,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.058823529411764705,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 3,
+     "performed_correct": 3,
+     "performed_precision": 1.0,
+     "performed_recall": 0.1875,
+     "false_performed": 0
+    },
+    "joint": {
+     "gold_groups": 3,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 14,
+     "single_recovered": 1,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 1,
+     "per_doc_mean": 0.058823529411764705,
+     "per_doc_median": 0,
+     "per_doc_max": 1,
+     "candidate_precision": 1.0
+    },
+    "first_failure": [
+     [
+      "event-not-detected",
+      6
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      6
+     ],
+     [
+      "event-span-or-head-mismatch",
+      2
+     ],
+     [
+      "recovered",
+      1
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      1
+     ],
+     [
+      "outcome-not-detected",
+      1
+     ]
+    ]
+   },
+   "v6-structural": {
+    "strict": {
+     "gold_relations": 17,
+     "proposable_relations": 1,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.058823529411764705,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 3,
+     "performed_correct": 3,
+     "performed_precision": 1.0,
+     "performed_recall": 0.1875,
+     "false_performed": 0
+    },
+    "lenient": {
+     "gold_relations": 17,
+     "proposable_relations": 1,
+     "relations": 1,
+     "relation_correct": 1,
+     "relation_precision": 1.0,
+     "relation_recall": 0.058823529411764705,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 3,
+     "performed_correct": 3,
+     "performed_precision": 1.0,
+     "performed_recall": 0.1875,
+     "false_performed": 0
+    },
+    "joint": {
+     "gold_groups": 3,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 14,
+     "single_recovered": 1,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 1,
+     "per_doc_mean": 0.058823529411764705,
+     "per_doc_median": 0,
+     "per_doc_max": 1,
+     "candidate_precision": 1.0
+    },
+    "first_failure": [
+     [
+      "event-not-detected",
+      6
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      6
+     ],
+     [
+      "event-span-or-head-mismatch",
+      2
+     ],
+     [
+      "recovered",
+      1
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      1
+     ],
+     [
+      "outcome-not-detected",
+      1
+     ]
+    ]
+   },
+   "v7": {
+    "strict": {
+     "gold_relations": 17,
+     "proposable_relations": 4,
+     "relations": 4,
+     "relation_correct": 2,
+     "relation_precision": 0.5,
+     "relation_recall": 0.11764705882352941,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 4,
+     "performed_correct": 4,
+     "performed_precision": 1.0,
+     "performed_recall": 0.25,
+     "false_performed": 0
+    },
+    "lenient": {
+     "gold_relations": 17,
+     "proposable_relations": 4,
+     "relations": 4,
+     "relation_correct": 2,
+     "relation_precision": 0.5,
+     "relation_recall": 0.11764705882352941,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 4,
+     "performed_correct": 4,
+     "performed_precision": 1.0,
+     "performed_recall": 0.25,
+     "false_performed": 0
+    },
+    "joint": {
+     "gold_groups": 3,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 14,
+     "single_recovered": 2,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 28,
+     "per_doc_mean": 1.6470588235294117,
+     "per_doc_median": 0,
+     "per_doc_max": 7,
+     "candidate_precision": 0.14285714285714285
+    },
+    "first_failure": [
+     [
+      "event-not-detected",
+      6
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      4
+     ],
+     [
+      "recovered",
+      2
+     ],
+     [
+      "event-span-or-head-mismatch",
+      2
+     ],
+     [
+      "verifier-rejected",
+      2
+     ],
+     [
+      "outcome-not-detected",
+      1
+     ]
+    ]
+   },
+   "v7-candidates+v6-L1": {
+    "strict": {
+     "gold_relations": 17,
+     "proposable_relations": 4,
+     "relations": 9,
+     "relation_correct": 3,
+     "relation_precision": 0.3333333333333333,
+     "relation_recall": 0.17647058823529413,
+     "false_success": 3,
+     "negative_correct": 1,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 4,
+     "performed_correct": 4,
+     "performed_precision": 1.0,
+     "performed_recall": 0.25,
+     "false_performed": 0
+    },
+    "lenient": {
+     "gold_relations": 17,
+     "proposable_relations": 4,
+     "relations": 9,
+     "relation_correct": 3,
+     "relation_precision": 0.3333333333333333,
+     "relation_recall": 0.17647058823529413,
+     "false_success": 3,
+     "negative_correct": 1,
+     "joint_claims": 1,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 4,
+     "performed_correct": 4,
+     "performed_precision": 1.0,
+     "performed_recall": 0.25,
+     "false_performed": 0
+    },
+    "joint": {
+     "gold_groups": 3,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 14,
+     "single_recovered": 3,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 28,
+     "per_doc_mean": 1.6470588235294117,
+     "per_doc_median": 0,
+     "per_doc_max": 7,
+     "candidate_precision": 0.14285714285714285
+    },
+    "first_failure": [
+     [
+      "event-not-detected",
+      6
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      4
+     ],
+     [
+      "recovered",
+      3
+     ],
+     [
+      "event-span-or-head-mismatch",
+      2
+     ],
+     [
+      "verifier-rejected",
+      1
+     ],
+     [
+      "outcome-not-detected",
+      1
+     ]
+    ]
+   },
+   "v5-stanza": {
+    "strict": {
+     "gold_relations": 17,
+     "proposable_relations": 0,
+     "relations": 3,
+     "relation_correct": 2,
+     "relation_precision": 0.6666666666666666,
+     "relation_recall": 0.11764705882352941,
+     "false_success": 0,
+     "negative_correct": 0,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 7,
+     "performed_correct": 6,
+     "performed_precision": 0.8571428571428571,
+     "performed_recall": 0.375,
+     "false_performed": 1
+    },
+    "lenient": {
+     "gold_relations": 17,
+     "proposable_relations": 0,
+     "relations": 3,
+     "relation_correct": 3,
+     "relation_precision": 1.0,
+     "relation_recall": 0.17647058823529413,
+     "false_success": 0,
+     "negative_correct": 1,
+     "joint_claims": 0,
+     "joint_correct": 0,
+     "gold_performed": 16,
+     "performed": 7,
+     "performed_correct": 7,
+     "performed_precision": 1.0,
+     "performed_recall": 0.4375,
+     "false_performed": 0
+    },
+    "joint": {
+     "gold_groups": 3,
+     "group_recovered": 0,
+     "group_proposed": 0,
+     "individual_credit_errors": 0,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 14,
+     "single_recovered": 2,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 0,
+     "per_doc_mean": 0.0,
+     "per_doc_median": 0,
+     "per_doc_max": 0,
+     "candidate_precision": null
+    },
+    "first_failure": [
+     [
+      "event-not-detected",
+      5
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      5
+     ],
+     [
+      "outcome-not-detected",
+      3
+     ],
+     [
+      "event-span-or-head-mismatch",
+      3
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      1
+     ]
+    ]
+   }
+  },
+  "J7": {
+   "v6-selected": {
+    "strict": {
+     "gold_relations": 67,
+     "proposable_relations": 10,
+     "relations": 27,
+     "relation_correct": 8,
+     "relation_precision": 0.2962962962962963,
+     "relation_recall": 0.11940298507462686,
+     "false_success": 6,
+     "negative_correct": 4,
+     "joint_claims": 10,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 73,
+     "performed_correct": 56,
+     "performed_precision": 0.7671232876712328,
+     "performed_recall": 0.5333333333333333,
+     "false_performed": 17
+    },
+    "lenient": {
+     "gold_relations": 67,
+     "proposable_relations": 11,
+     "relations": 27,
+     "relation_correct": 9,
+     "relation_precision": 0.3333333333333333,
+     "relation_recall": 0.13432835820895522,
+     "false_success": 6,
+     "negative_correct": 5,
+     "joint_claims": 10,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 73,
+     "performed_correct": 60,
+     "performed_precision": 0.821917808219178,
+     "performed_recall": 0.5714285714285714,
+     "false_performed": 13
+    },
+    "joint": {
+     "gold_groups": 20,
+     "group_recovered": 3,
+     "group_proposed": 3,
+     "individual_credit_errors": 1,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 2,
+     "gold_singles": 47,
+     "single_recovered": 5,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 111,
+     "per_doc_mean": 2.775,
+     "per_doc_median": 1.0,
+     "per_doc_max": 14,
+     "candidate_precision": 0.09009009009009009
+    },
+    "first_failure": [
+     [
+      "outcome-not-detected",
+      18
+     ],
+     [
+      "event-span-or-head-mismatch",
+      16
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      14
+     ],
+     [
+      "recovered",
+      8
+     ],
+     [
+      "event-not-detected",
+      4
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      2
+     ],
+     [
+      "verifier-rejected",
+      2
+     ],
+     [
+      "outcome-wrong-class",
+      1
+     ]
+    ]
+   },
+   "v6-structural": {
+    "strict": {
+     "gold_relations": 67,
+     "proposable_relations": 10,
+     "relations": 27,
+     "relation_correct": 8,
+     "relation_precision": 0.2962962962962963,
+     "relation_recall": 0.11940298507462686,
+     "false_success": 6,
+     "negative_correct": 4,
+     "joint_claims": 8,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 73,
+     "performed_correct": 56,
+     "performed_precision": 0.7671232876712328,
+     "performed_recall": 0.5333333333333333,
+     "false_performed": 17
+    },
+    "lenient": {
+     "gold_relations": 67,
+     "proposable_relations": 11,
+     "relations": 27,
+     "relation_correct": 9,
+     "relation_precision": 0.3333333333333333,
+     "relation_recall": 0.13432835820895522,
+     "false_success": 6,
+     "negative_correct": 5,
+     "joint_claims": 8,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 73,
+     "performed_correct": 60,
+     "performed_precision": 0.821917808219178,
+     "performed_recall": 0.5714285714285714,
+     "false_performed": 13
+    },
+    "joint": {
+     "gold_groups": 20,
+     "group_recovered": 3,
+     "group_proposed": 3,
+     "individual_credit_errors": 1,
+     "individual_positive_credit_errors": 0,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 2,
+     "gold_singles": 47,
+     "single_recovered": 5,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 111,
+     "per_doc_mean": 2.775,
+     "per_doc_median": 1.0,
+     "per_doc_max": 14,
+     "candidate_precision": 0.09009009009009009
+    },
+    "first_failure": [
+     [
+      "outcome-not-detected",
+      18
+     ],
+     [
+      "event-span-or-head-mismatch",
+      16
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      14
+     ],
+     [
+      "recovered",
+      8
+     ],
+     [
+      "event-not-detected",
+      4
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      2
+     ],
+     [
+      "verifier-rejected",
+      2
+     ],
+     [
+      "outcome-wrong-class",
+      1
+     ]
+    ]
+   },
+   "v7": {
+    "strict": {
+     "gold_relations": 67,
+     "proposable_relations": 28,
+     "relations": 32,
+     "relation_correct": 14,
+     "relation_precision": 0.4375,
+     "relation_recall": 0.208955223880597,
+     "false_success": 5,
+     "negative_correct": 8,
+     "joint_claims": 6,
+     "joint_correct": 2,
+     "gold_performed": 105,
+     "performed": 83,
+     "performed_correct": 66,
+     "performed_precision": 0.7951807228915663,
+     "performed_recall": 0.6285714285714286,
+     "false_performed": 17
+    },
+    "lenient": {
+     "gold_relations": 67,
+     "proposable_relations": 29,
+     "relations": 32,
+     "relation_correct": 15,
+     "relation_precision": 0.46875,
+     "relation_recall": 0.22388059701492538,
+     "false_success": 5,
+     "negative_correct": 9,
+     "joint_claims": 6,
+     "joint_correct": 2,
+     "gold_performed": 105,
+     "performed": 83,
+     "performed_correct": 67,
+     "performed_precision": 0.8072289156626506,
+     "performed_recall": 0.638095238095238,
+     "false_performed": 16
+    },
+    "joint": {
+     "gold_groups": 20,
+     "group_recovered": 2,
+     "group_proposed": 6,
+     "individual_credit_errors": 2,
+     "individual_positive_credit_errors": 1,
+     "structure_correct": 2,
+     "structure_scored": 2,
+     "partial_group_claims": 2,
+     "gold_singles": 47,
+     "single_recovered": 13,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 298,
+     "per_doc_mean": 7.45,
+     "per_doc_median": 8.0,
+     "per_doc_max": 20,
+     "candidate_precision": 0.09060402684563758
+    },
+    "first_failure": [
+     [
+      "recovered",
+      15
+     ],
+     [
+      "verifier-rejected",
+      13
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      10
+     ],
+     [
+      "event-span-or-head-mismatch",
+      9
+     ],
+     [
+      "outcome-not-detected",
+      9
+     ],
+     [
+      "grouping-incorrect",
+      3
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      2
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "outcome-wrong-class",
+      2
+     ]
+    ]
+   },
+   "v7-candidates+v6-L1": {
+    "strict": {
+     "gold_relations": 67,
+     "proposable_relations": 28,
+     "relations": 66,
+     "relation_correct": 20,
+     "relation_precision": 0.30303030303030304,
+     "relation_recall": 0.29850746268656714,
+     "false_success": 15,
+     "negative_correct": 13,
+     "joint_claims": 17,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 83,
+     "performed_correct": 66,
+     "performed_precision": 0.7951807228915663,
+     "performed_recall": 0.6285714285714286,
+     "false_performed": 17
+    },
+    "lenient": {
+     "gold_relations": 67,
+     "proposable_relations": 29,
+     "relations": 66,
+     "relation_correct": 21,
+     "relation_precision": 0.3181818181818182,
+     "relation_recall": 0.31343283582089554,
+     "false_success": 15,
+     "negative_correct": 14,
+     "joint_claims": 17,
+     "joint_correct": 3,
+     "gold_performed": 105,
+     "performed": 83,
+     "performed_correct": 67,
+     "performed_precision": 0.8072289156626506,
+     "performed_recall": 0.638095238095238,
+     "false_performed": 16
+    },
+    "joint": {
+     "gold_groups": 20,
+     "group_recovered": 3,
+     "group_proposed": 6,
+     "individual_credit_errors": 2,
+     "individual_positive_credit_errors": 2,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 5,
+     "gold_singles": 47,
+     "single_recovered": 18,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 298,
+     "per_doc_mean": 7.45,
+     "per_doc_median": 8.0,
+     "per_doc_max": 20,
+     "candidate_precision": 0.09060402684563758
+    },
+    "first_failure": [
+     [
+      "recovered",
+      21
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      10
+     ],
+     [
+      "event-span-or-head-mismatch",
+      9
+     ],
+     [
+      "outcome-not-detected",
+      9
+     ],
+     [
+      "verifier-rejected",
+      7
+     ],
+     [
+      "grouping-incorrect",
+      3
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      2
+     ],
+     [
+      "event-not-detected",
+      2
+     ],
+     [
+      "outcome-wrong-class",
+      2
+     ]
+    ]
+   },
+   "v5-stanza": {
+    "strict": {
+     "gold_relations": 67,
+     "proposable_relations": 0,
+     "relations": 17,
+     "relation_correct": 5,
+     "relation_precision": 0.29411764705882354,
+     "relation_recall": 0.07462686567164178,
+     "false_success": 4,
+     "negative_correct": 2,
+     "joint_claims": 3,
+     "joint_correct": 2,
+     "gold_performed": 105,
+     "performed": 68,
+     "performed_correct": 56,
+     "performed_precision": 0.8235294117647058,
+     "performed_recall": 0.5333333333333333,
+     "false_performed": 12
+    },
+    "lenient": {
+     "gold_relations": 67,
+     "proposable_relations": 0,
+     "relations": 17,
+     "relation_correct": 6,
+     "relation_precision": 0.35294117647058826,
+     "relation_recall": 0.08955223880597014,
+     "false_success": 4,
+     "negative_correct": 3,
+     "joint_claims": 3,
+     "joint_correct": 2,
+     "gold_performed": 105,
+     "performed": 68,
+     "performed_correct": 60,
+     "performed_precision": 0.8823529411764706,
+     "performed_recall": 0.5714285714285714,
+     "false_performed": 8
+    },
+    "joint": {
+     "gold_groups": 20,
+     "group_recovered": 2,
+     "group_proposed": 0,
+     "individual_credit_errors": 3,
+     "individual_positive_credit_errors": 1,
+     "structure_correct": 0,
+     "structure_scored": 0,
+     "partial_group_claims": 0,
+     "gold_singles": 47,
+     "single_recovered": 3,
+     "causal_claims": 0
+    },
+    "candidates": {
+     "candidates": 0,
+     "per_doc_mean": 0.0,
+     "per_doc_median": 0.0,
+     "per_doc_max": 0,
+     "candidate_precision": null
+    },
+    "first_failure": [
+     [
+      "outcome-not-detected",
+      27
+     ],
+     [
+      "event-span-or-head-mismatch",
+      18
+     ],
+     [
+      "event-modality-excluded:gold-performed",
+      10
+     ],
+     [
+      "event-not-detected",
+      8
+     ],
+     [
+      "event-modality-excluded:gold-preexisting",
+      2
+     ],
+     [
+      "event-modality-excluded:gold-unknown",
+      2
+     ]
+    ]
+   }
+  }
+ },
+ "bootstrap": {
+  "P7-M": {
+   "threads": 8,
+   "candidate_recall_gain": [
+    0.0,
+    0.45161290322580644
+   ],
+   "relation_recall_gain": [
+    0.0,
+    0.3333333333333333
+   ],
+   "per_thread": {
+    "156": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "187": [
+     4,
+     1,
+     1,
+     1,
+     1
+    ],
+    "399": [
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "651": [
+     7,
+     4,
+     0,
+     3,
+     0
+    ],
+    "3899": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "5982": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "7819": [
+     4,
+     2,
+     0,
+     1,
+     0
+    ],
+    "8547": [
+     10,
+     5,
+     2,
+     3,
+     0
+    ]
+   }
+  },
+  "P7-J": {
+   "threads": 6,
+   "candidate_recall_gain": [
+    0.0,
+    0.5
+   ],
+   "relation_recall_gain": [
+    0.0,
+    0.23076923076923078
+   ],
+   "per_thread": {
+    "156": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "187": [
+     4,
+     0,
+     0,
+     0,
+     0
+    ],
+    "399": [
+     2,
+     2,
+     0,
+     1,
+     0
+    ],
+    "651": [
+     4,
+     1,
+     1,
+     1,
+     1
+    ],
+    "3899": [
+     3,
+     0,
+     0,
+     0,
+     0
+    ],
+    "7819": [
+     4,
+     1,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "J7": {
+   "threads": 36,
+   "candidate_recall_gain": [
+    0.12987012987012986,
+    0.40625
+   ],
+   "relation_recall_gain": [
+    -0.03076923076923077,
+    0.21212121212121213
+   ],
+   "per_thread": {
+    "148": [
+     2,
+     2,
+     1,
+     0,
+     1
+    ],
+    "150": [
+     4,
+     0,
+     1,
+     0,
+     1
+    ],
+    "555": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "713": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "790": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "808": [
+     2,
+     1,
+     0,
+     0,
+     0
+    ],
+    "1602": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "2014": [
+     2,
+     1,
+     0,
+     0,
+     0
+    ],
+    "2255": [
+     2,
+     2,
+     0,
+     0,
+     0
+    ],
+    "3620": [
+     2,
+     1,
+     0,
+     0,
+     0
+    ],
+    "3898": [
+     2,
+     1,
+     1,
+     1,
+     0
+    ],
+    "3971": [
+     3,
+     2,
+     0,
+     2,
+     0
+    ],
+    "4134": [
+     2,
+     2,
+     1,
+     2,
+     1
+    ],
+    "5030": [
+     2,
+     1,
+     0,
+     1,
+     0
+    ],
+    "6795": [
+     4,
+     2,
+     1,
+     1,
+     0
+    ],
+    "6914": [
+     3,
+     1,
+     0,
+     0,
+     0
+    ],
+    "7317": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "7479": [
+     2,
+     0,
+     1,
+     0,
+     1
+    ],
+    "7512": [
+     3,
+     3,
+     1,
+     3,
+     1
+    ],
+    "7521": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "7573": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "7888": [
+     3,
+     1,
+     0,
+     1,
+     0
+    ],
+    "7914": [
+     3,
+     3,
+     0,
+     1,
+     0
+    ],
+    "8072": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "8262": [
+     2,
+     2,
+     2,
+     1,
+     2
+    ],
+    "8395": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "8408": [
+     4,
+     1,
+     0,
+     0,
+     0
+    ],
+    "8717": [
+     1,
+     0,
+     1,
+     0,
+     1
+    ],
+    "8977": [
+     1,
+     1,
+     0,
+     0,
+     0
+    ],
+    "9119": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "9789": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "9868": [
+     1,
+     1,
+     0,
+     1,
+     0
+    ],
+    "9906": [
+     2,
+     0,
+     0,
+     0,
+     0
+    ],
+    "9963": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "9968": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    "10193": [
+     3,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ "timing_ms_per_doc_cold": {
+  "v6-selected": 19.00559718805563,
+  "v7": 3.0229717521228263
+ },
+ "label_lock": {
+  "p7": "367e141f4b5c676d6efdf71310e2ee4d0fc0f05aee86c96a3007abffbef126d8",
+  "j7": "414f14b77773bbe187783f1914c135ac819cf613541eddb9b89d0af5fc284b53",
+  "locked_at": "2026-10-30T23:08:53.342854+00:00",
+  "predictions_seen": false,
+  "provisional_agent_labels": true,
+  "human_review": false
+ },
+ "frozen": {
+  "decision": "v7-structural",
+  "threshold": 3.4,
+  "selected_on": [
+   "P6-dev",
+   "P6-known"
+  ],
+  "rejected": {
+   "v6_L1_over_v7_candidates": "16 false successes on P6-known, 4 on P6-dev"
+  },
+  "selection_is_not_test": true
+ },
+ "limitations": [
+  "No independent human review of labels.",
+  "P7 and J7 are enriched and do not estimate prevalence.",
+  "Labels and generator were produced by the same agent.",
+  "Reported association is not causal evidence."
+ ]
+}

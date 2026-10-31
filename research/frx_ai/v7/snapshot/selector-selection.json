@@ -1,0 +1,7 @@
+{
+ "selected": "case-retrieval-k15",
+ "rule": "highest cross-validated top-1 on train groups, ties by top-3 and MRR",
+ "cv_top1": 0.547,
+ "majority_cv_top1": 0.542,
+ "note": "The margin over always asking for a log is within noise on train; selection does not claim superiority."
+}

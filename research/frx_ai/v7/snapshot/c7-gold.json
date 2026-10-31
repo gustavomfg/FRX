@@ -1,0 +1,381 @@
+{
+ "c7-9578": {
+  "symptoms": [
+   "performance",
+   "stutter"
+  ],
+  "hypotheses": [
+   "performance-configuration"
+  ],
+  "next": [
+   "collect-proton-log",
+   "measure-baseline",
+   "confirm-active-gpu",
+   "check-driver-stack"
+  ],
+  "already_present": [
+   "collect-system-info"
+  ]
+ },
+ "c7-6332": {
+  "symptoms": [
+   "crash",
+   "startup-failure"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault"
+  ],
+  "next": [
+   "locate-faulting-module",
+   "test-other-proton"
+  ],
+  "already_present": [
+   "collect-proton-log"
+  ]
+ },
+ "c7-2003": {
+  "symptoms": [
+   "startup-failure",
+   "audio"
+  ],
+  "hypotheses": [
+   "audio-path"
+  ],
+  "next": [
+   "collect-proton-log",
+   "collect-terminal-output",
+   "test-other-proton"
+  ],
+  "already_present": []
+ },
+ "c7-360": {
+  "symptoms": [],
+  "hypotheses": [],
+  "next": [
+   null
+  ],
+  "already_present": []
+ },
+ "c7-7391": {
+  "symptoms": [
+   "startup-failure",
+   "freeze",
+   "input"
+  ],
+  "hypotheses": [
+   "thread-deadlock",
+   "input-mapping"
+  ],
+  "next": [
+   "collect-proton-log",
+   "collect-terminal-output"
+  ],
+  "already_present": [
+   "test-other-proton",
+   "verify-game-files"
+  ]
+ },
+ "c7-9573": {
+  "symptoms": [
+   "startup-failure"
+  ],
+  "hypotheses": [],
+  "next": [
+   "locate-faulting-module",
+   "inspect-import-chain"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-523": {
+  "symptoms": [],
+  "hypotheses": [],
+  "next": [
+   null
+  ],
+  "already_present": []
+ },
+ "c7-1816": {
+  "symptoms": [
+   "black-screen"
+  ],
+  "hypotheses": [],
+  "next": [
+   "isolate-scope",
+   "test-other-proton"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info"
+  ]
+ },
+ "c7-7847": {
+  "symptoms": [
+   "audio"
+  ],
+  "hypotheses": [
+   "audio-path"
+  ],
+  "next": [
+   "inspect-audio-route",
+   "collect-proton-log"
+  ],
+  "already_present": []
+ },
+ "c7-8498": {
+  "symptoms": [
+   "black-screen",
+   "performance",
+   "startup-failure"
+  ],
+  "hypotheses": [
+   "graphics-translation-issue",
+   "performance-configuration"
+  ],
+  "next": [
+   "collect-proton-log",
+   "collect-terminal-output",
+   "check-vulkan-support",
+   "confirm-active-gpu"
+  ],
+  "already_present": [
+   "collect-system-info"
+  ]
+ },
+ "c7-7404": {
+  "symptoms": [
+   "startup-failure",
+   "crash"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault",
+   "missing-windows-component"
+  ],
+  "next": [
+   "locate-faulting-module",
+   "inspect-import-chain"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-8568": {
+  "symptoms": [
+   "input"
+  ],
+  "hypotheses": [
+   "input-mapping"
+  ],
+  "next": [
+   "inspect-input-route",
+   "collect-proton-log",
+   "collect-system-info"
+  ],
+  "already_present": []
+ },
+ "c7-8554": {
+  "symptoms": [
+   "freeze"
+  ],
+  "hypotheses": [
+   "thread-deadlock"
+  ],
+  "next": [
+   "locate-blocking-thread"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-5250": {
+  "symptoms": [
+   "crash"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault"
+  ],
+  "next": [
+   "locate-faulting-module",
+   "test-other-proton",
+   "check-driver-stack"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info"
+  ]
+ },
+ "c7-9233": {
+  "symptoms": [
+   "audio"
+  ],
+  "hypotheses": [
+   "audio-path"
+  ],
+  "next": [
+   "inspect-audio-route",
+   "inspect-media-errors"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-6573": {
+  "symptoms": [
+   "freeze",
+   "crash"
+  ],
+  "hypotheses": [
+   "thread-deadlock",
+   "game-or-wine-fault",
+   "gpu-or-driver-fault"
+  ],
+  "next": [
+   "read-kernel-gpu-messages",
+   "check-driver-stack",
+   "locate-faulting-module"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "test-other-proton"
+  ]
+ },
+ "c7-718": {
+  "symptoms": [
+   "crash",
+   "performance"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault",
+   "performance-configuration"
+  ],
+  "next": [
+   "measure-baseline",
+   "check-driver-stack",
+   "collect-proton-log"
+  ],
+  "already_present": [
+   "collect-system-info"
+  ]
+ },
+ "c7-9167": {
+  "symptoms": [
+   "startup-failure"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault"
+  ],
+  "next": [
+   "locate-faulting-module"
+  ],
+  "already_present": [
+   "collect-proton-log"
+  ]
+ },
+ "c7-7595": {
+  "symptoms": [
+   "graphics"
+  ],
+  "hypotheses": [
+   "graphics-translation-issue"
+  ],
+  "next": [
+   "check-vulkan-support",
+   "check-driver-stack",
+   "review-launch-options"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-8185": {
+  "symptoms": [
+   "crash"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault"
+  ],
+  "next": [
+   "locate-faulting-module",
+   "isolate-scope"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info",
+   "test-other-proton"
+  ]
+ },
+ "c7-8592": {
+  "symptoms": [
+   "crash",
+   "black-screen"
+  ],
+  "hypotheses": [
+   "game-or-wine-fault",
+   "graphics-translation-issue"
+  ],
+  "next": [
+   "locate-faulting-module",
+   "test-other-proton"
+  ],
+  "already_present": [
+   "collect-proton-log"
+  ]
+ },
+ "c7-6167": {
+  "symptoms": [
+   "input"
+  ],
+  "hypotheses": [],
+  "next": [
+   "isolate-scope",
+   "test-other-proton"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "test-other-proton"
+  ]
+ },
+ "c7-8819": {
+  "symptoms": [
+   "input"
+  ],
+  "hypotheses": [
+   "input-mapping"
+  ],
+  "next": [
+   "inspect-input-route"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info"
+  ]
+ },
+ "c7-9063": {
+  "symptoms": [
+   "graphics"
+  ],
+  "hypotheses": [
+   "graphics-translation-issue"
+  ],
+  "next": [
+   "check-driver-stack",
+   "test-other-proton",
+   "check-vulkan-support"
+  ],
+  "already_present": [
+   "collect-proton-log",
+   "collect-system-info"
+  ]
+ }
+}
