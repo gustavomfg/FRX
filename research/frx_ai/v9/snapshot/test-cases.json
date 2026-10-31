@@ -1,0 +1,170 @@
+[
+{
+"id": "test-8569",
+"stratum": "library",
+"type": "new-thread",
+"cutoff": "2025-03-27T22:34:19Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8569"
+},
+{
+"id": "test-8702",
+"stratum": "library",
+"type": "new-thread",
+"cutoff": "2025-05-16T10:08:56Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8702"
+},
+{
+"id": "test-7737",
+"stratum": "library",
+"type": "new-thread",
+"cutoff": "2024-05-17T09:56:54Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7737"
+},
+{
+"id": "test-7581",
+"stratum": "graphics",
+"type": "new-thread",
+"cutoff": "2024-03-17T12:43:17Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7581"
+},
+{
+"id": "test-8854",
+"stratum": "graphics",
+"type": "new-thread",
+"cutoff": "2025-06-26T00:19:54Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8854"
+},
+{
+"id": "test-9258",
+"stratum": "graphics",
+"type": "new-thread",
+"cutoff": "2025-11-23T23:57:49Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9258"
+},
+{
+"id": "test-7633",
+"stratum": "regression",
+"type": "new-thread",
+"cutoff": "2024-04-04T13:24:51Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7633"
+},
+{
+"id": "test-8268",
+"stratum": "regression",
+"type": "new-thread",
+"cutoff": "2024-11-26T12:28:46Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8268"
+},
+{
+"id": "test-8533",
+"stratum": "regression",
+"type": "new-thread",
+"cutoff": "2025-03-16T13:39:59Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8533"
+},
+{
+"id": "test-8829",
+"stratum": "driver",
+"type": "new-thread",
+"cutoff": "2025-06-19T17:21:07Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8829"
+},
+{
+"id": "test-7390",
+"stratum": "driver",
+"type": "new-thread",
+"cutoff": "2024-01-08T14:35:05Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7390"
+},
+{
+"id": "test-7315",
+"stratum": "driver",
+"type": "new-thread",
+"cutoff": "2023-12-07T21:17:32Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7315"
+},
+{
+"id": "test-7628",
+"stratum": "audio",
+"type": "new-thread",
+"cutoff": "2024-04-03T03:27:22Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7628"
+},
+{
+"id": "test-8730",
+"stratum": "audio",
+"type": "new-thread",
+"cutoff": "2025-05-23T13:43:56Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8730"
+},
+{
+"id": "test-8632",
+"stratum": "audio",
+"type": "new-thread",
+"cutoff": "2025-04-29T08:38:01Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8632"
+},
+{
+"id": "test-9226",
+"stratum": "crash",
+"type": "new-thread",
+"cutoff": "2025-11-16T08:56:21Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9226"
+},
+{
+"id": "test-7326",
+"stratum": "crash",
+"type": "new-thread",
+"cutoff": "2023-12-09T18:51:30Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7326"
+},
+{
+"id": "test-8425",
+"stratum": "crash",
+"type": "new-thread",
+"cutoff": "2025-01-28T06:13:05Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8425"
+},
+{
+"id": "test-8075",
+"stratum": "performance",
+"type": "new-thread",
+"cutoff": "2024-09-06T07:07:05Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8075"
+},
+{
+"id": "test-9052",
+"stratum": "performance",
+"type": "new-thread",
+"cutoff": "2025-09-17T15:29:17Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9052"
+},
+{
+"id": "test-8900",
+"stratum": "performance",
+"type": "new-thread",
+"cutoff": "2025-07-13T09:21:58Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8900"
+},
+{
+"id": "test-9337",
+"stratum": "any",
+"type": "new-thread",
+"cutoff": "2025-12-27T00:13:45Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9337"
+},
+{
+"id": "test-7180",
+"stratum": "any",
+"type": "mid-thread",
+"cutoff": "2023-10-27T16:19:46Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7180"
+},
+{
+"id": "test-8168",
+"stratum": "any",
+"type": "new-thread",
+"cutoff": "2024-10-16T06:26:43Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8168"
+}
+]

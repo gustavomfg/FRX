@@ -1,0 +1,2103 @@
+[
+ {
+  "id": "batman-known-demo",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:52:00Z",
+  "seconds": 0.6,
+  "network_requests": 1,
+  "cached": 4,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 60,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "batman",
+     "arkham",
+     "city",
+     "physx"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 4,
+    "returned": 4,
+    "new_threads": 4,
+    "new_leads": [
+     "d3dcompiler",
+     "dlss",
+     "dotnet",
+     "dxvk",
+     "ge-proton7-42",
+     "libcuda.so",
+     "libcuda.so.1",
+     "libopenal.so.1",
+     "libopenal.so.1.16.0",
+     "lutris",
+     "nvapi",
+     "nvcuda.dll",
+     "opengl",
+     "physxcore.dll",
+     "physxdevice.dll",
+     "pressure-vessel",
+     "proton-3.7",
+     "proton-7.6",
+     "proton_enable_nvapi",
+     "proton_hide_nvidia_gpu",
+     "protontricks",
+     "soldier",
+     "vkd3d",
+     "vsync",
+     "wined3d",
+     "winetricks"
+    ],
+    "new_passages": 153,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1385",
+   "ValveSoftware/Proton#3786",
+   "ValveSoftware/Proton#421",
+   "ValveSoftware/Proton#558"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "physxdevice.dll",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1093507333"
+   },
+   {
+    "term": "winetricks",
+    "status": "contradit\u00f3rio",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1094179554"
+   },
+   {
+    "term": "protontricks",
+    "status": "contradit\u00f3rio",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/3786#issuecomment-1538344971"
+   },
+   {
+    "term": "d3dcompiler",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-609525767"
+   },
+   {
+    "term": "nvapi",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1086760400"
+   },
+   {
+    "term": "proton_enable_nvapi",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1086760400"
+   }
+  ],
+  "contradictions": [
+   "winetricks",
+   "protontricks"
+  ],
+  "next": [
+   "inspect-import-chain",
+   "review-launch-options",
+   "check-physx-chain"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "nvcuda",
+   "libcuda"
+  ]
+ },
+ {
+  "id": "batman-known-demo",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:52:14Z",
+  "seconds": 14.0,
+  "network_requests": 5,
+  "cached": 3,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 59,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "batman",
+     "arkham",
+     "city",
+     "performance"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 8,
+    "returned": 8,
+    "new_threads": 2,
+    "new_leads": [
+     "d3dcompiler",
+     "d3dcompiler_43.dll",
+     "d3dx9_43.dll",
+     "dxvk",
+     "laa",
+     "mesa",
+     "mesa-18.3.0",
+     "opengl",
+     "proton-4.11",
+     "proton-4.2",
+     "proton-5.0",
+     "proton-5.0-1",
+     "proton_log",
+     "proton_use_wined3d",
+     "proton_use_wined3d11",
+     "protontricks",
+     "winearch",
+     "wined3d",
+     "winedebug",
+     "wineprefix",
+     "winetricks"
+    ],
+    "new_passages": 80,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "batman",
+     "arkham",
+     "city",
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 19,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "dlss",
+     "dotnet",
+     "ge-proton7-42",
+     "libopenal.so.1",
+     "libopenal.so.1.16.0",
+     "nvapi",
+     "nvcuda.dll",
+     "physxdevice.dll",
+     "proton-3.7",
+     "proton_enable_nvapi",
+     "proton_hide_nvidia_gpu"
+    ],
+    "new_passages": 79,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "performance",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 1026,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "fsr",
+     "ge-proton-7-47",
+     "ge-proton-9-13",
+     "proton-7.06",
+     "vkd3d"
+    ],
+    "new_passages": 23,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#10250",
+   "ValveSoftware/Proton#1385",
+   "ValveSoftware/Proton#309",
+   "ValveSoftware/Proton#421",
+   "ValveSoftware/Proton#558",
+   "ValveSoftware/Proton#8075"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "dxvk",
+    "status": "contradit\u00f3rio",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-472907923"
+   },
+   {
+    "term": "protontricks",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-472907923"
+   },
+   {
+    "term": "winetricks",
+    "status": "contradit\u00f3rio",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1094179554"
+   },
+   {
+    "term": "proton_use_wined3d11",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/309"
+   },
+   {
+    "term": "wineprefix",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-415633734"
+   },
+   {
+    "term": "winearch",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/309#issuecomment-415633734"
+   }
+  ],
+  "contradictions": [
+   "dxvk",
+   "winetricks"
+  ],
+  "next": [
+   "check-vulkan-support",
+   "review-launch-options",
+   "check-physx-chain"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "nvcuda"
+  ]
+ },
+ {
+  "id": "batman-known-demo",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:52:14Z",
+  "seconds": 0.3,
+  "network_requests": 0,
+  "cached": 9,
+  "rejections": [],
+  "statuses": [
+   "cache"
+  ],
+  "quota_before": {
+   "core": 57,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "batman",
+     "arkham",
+     "city",
+     "physx"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 4,
+    "returned": 4,
+    "new_threads": 2,
+    "new_leads": [
+     "d3dcompiler",
+     "dlss",
+     "dotnet",
+     "dxvk",
+     "ge-proton7-42",
+     "libopenal.so.1",
+     "libopenal.so.1.16.0",
+     "nvapi",
+     "nvcuda.dll",
+     "physxdevice.dll",
+     "proton-3.7",
+     "proton_enable_nvapi",
+     "proton_hide_nvidia_gpu",
+     "protontricks",
+     "wined3d",
+     "winetricks"
+    ],
+    "new_passages": 80,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "physxdevice.dll",
+     "performance"
+    ],
+    "kind": "specialized",
+    "reason": "physxdevice.dll apareceu em evid\u00eancia aplic\u00e1vel",
+    "repo": "ValveSoftware/Proton",
+    "lead": "physxdevice.dll",
+    "total": 3,
+    "returned": 3,
+    "new_threads": 2,
+    "new_leads": [
+     "ge-proton10-25",
+     "libcuda.so",
+     "libcuda.so.1",
+     "lutris",
+     "opengl",
+     "physxcore.dll",
+     "pressure-vessel",
+     "proton-7.6",
+     "proton_libs",
+     "soldier",
+     "vkd3d",
+     "vsync"
+    ],
+    "new_passages": 80,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "nvcuda.dll",
+     "nvidia"
+    ],
+    "kind": "contextual",
+    "reason": "nvcuda.dll se aplica a nvidia?",
+    "repo": "ValveSoftware/Proton",
+    "lead": "nvcuda.dll",
+    "total": 4,
+    "returned": 4,
+    "new_threads": 2,
+    "new_leads": [
+     "c0000135",
+     "ge-proton10-34",
+     "proton-10.0-4"
+    ],
+    "new_passages": 53,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#244",
+   "ValveSoftware/Proton#355",
+   "ValveSoftware/Proton#3786",
+   "ValveSoftware/Proton#421",
+   "ValveSoftware/Proton#558",
+   "ValveSoftware/Proton#9863"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "nvcuda.dll",
+    "status": "relatos negativos",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/355#issuecomment-1482370841"
+   },
+   {
+    "term": "physxdevice.dll",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1093507333"
+   },
+   {
+    "term": "protontricks",
+    "status": "contradit\u00f3rio",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/3786#issuecomment-1538344971"
+   },
+   {
+    "term": "winetricks",
+    "status": "contradit\u00f3rio",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/421#issuecomment-1094179554"
+   },
+   {
+    "term": "c0000135",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/244#issuecomment-448220638"
+   },
+   {
+    "term": "physxcore.dll",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/355#issuecomment-3522281570"
+   }
+  ],
+  "contradictions": [
+   "protontricks",
+   "winetricks"
+  ],
+  "next": [
+   "inspect-import-chain",
+   "locate-faulting-module",
+   "check-physx-chain"
+  ],
+  "failures": [],
+  "report_concepts": [
+   "nvcuda"
+  ],
+  "read_concepts": [
+   "nvcuda",
+   "libcuda"
+  ]
+ },
+ {
+  "id": "test-7390",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:52:18Z",
+  "seconds": 3.4,
+  "network_requests": 7,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 57,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "proton_log"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 2779,
+    "returned": 10,
+    "new_threads": 6,
+    "new_leads": [
+     "d3d10",
+     "dxgi",
+     "dxvk_config_file",
+     "eac",
+     "fsync",
+     "gamescope",
+     "mesa",
+     "mesa-20.0.8",
+     "mesa-20.1.5",
+     "opengl",
+     "proton-5.0",
+     "proton-5.0-2",
+     "proton-5.0-9",
+     "proton-6.3-8",
+     "proton-7",
+     "proton-7.0-2",
+     "proton_heap_delay_free",
+     "proton_log_dir",
+     "proton_no_d3d10",
+     "radv",
+     "steam-runtime",
+     "vkd3d",
+     "vsync",
+     "wine_disable_vulkan_opwr",
+     "winedebug"
+    ],
+    "new_passages": 104,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1937",
+   "ValveSoftware/Proton#2816",
+   "ValveSoftware/Proton#3521",
+   "ValveSoftware/Proton#3831",
+   "ValveSoftware/Proton#5369",
+   "ValveSoftware/Proton#6452"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "mesa",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/3521#issuecomment-707236414"
+   },
+   {
+    "term": "dxvk_config_file",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/3521#issuecomment-586464361"
+   },
+   {
+    "term": "opengl",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/3521#issuecomment-707236414"
+   },
+   {
+    "term": "proton_log_dir",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/5369#issuecomment-990060619"
+   },
+   {
+    "term": "vkd3d",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1937#issuecomment-1589990808"
+   },
+   {
+    "term": "eac",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1937#issuecomment-1246947384"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "check-driver-stack",
+   "review-launch-options",
+   "check-vulkan-support"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-7390",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:52:32Z",
+  "seconds": 14.5,
+  "network_requests": 7,
+  "cached": 1,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 51,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "online"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 609,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "dxvk_hud",
+     "esync",
+     "lutris",
+     "mesa",
+     "mesa-19.3.1",
+     "opengl",
+     "proton-4.11-11",
+     "proton-4.11-9",
+     "proton-4.2-1",
+     "proton_dump_debug_commands",
+     "proton_no_esync",
+     "proton_use_wined3d",
+     "wayland",
+     "wined3d"
+    ],
+    "new_passages": 80,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 6757,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "fsync",
+     "mangohud",
+     "nvidia-515.65.1",
+     "proton-5.13-6",
+     "proton-6",
+     "proton-6.3-8",
+     "proton-6.3.8",
+     "proton-7",
+     "proton_log_dir",
+     "proton_no_fsync",
+     "radv",
+     "radv_perftest",
+     "steam-runtime",
+     "ucrtbase.dll",
+     "winedlloverrides"
+    ],
+    "new_passages": 58,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "online",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 469,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "eac",
+     "vkd3d-proton"
+    ],
+    "new_passages": 43,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#5187",
+   "ValveSoftware/Proton#5369",
+   "ValveSoftware/Proton#556",
+   "ValveSoftware/Proton#5613",
+   "ValveSoftware/Proton#580",
+   "ValveSoftware/Proton#7142"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "proton_no_esync",
+    "status": "relatos negativos",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-562696075"
+   },
+   {
+    "term": "esync",
+    "status": "contradit\u00f3rio",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-562696075"
+   },
+   {
+    "term": "mesa",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-430509457"
+   },
+   {
+    "term": "proton_use_wined3d",
+    "status": "relatos negativos",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-562696075"
+   },
+   {
+    "term": "proton_dump_debug_commands",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-562696075"
+   },
+   {
+    "term": "wined3d",
+    "status": "relatos negativos",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-562696075"
+   }
+  ],
+  "contradictions": [
+   "esync"
+  ],
+  "next": [
+   "review-launch-options",
+   "check-driver-stack",
+   "check-anticheat-support"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "vk_icd"
+  ]
+ },
+ {
+  "id": "test-7390",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:52:40Z",
+  "seconds": 7.9,
+  "network_requests": 5,
+  "cached": 3,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 47,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "proton_log"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 2779,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "proton-6.3-8",
+     "proton-7",
+     "proton_log_dir",
+     "steam-runtime"
+    ],
+    "new_passages": 14,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton_log_dir",
+     "online"
+    ],
+    "kind": "specialized",
+    "reason": "proton_log_dir apareceu em evid\u00eancia aplic\u00e1vel",
+    "repo": "ValveSoftware/Proton",
+    "lead": "proton_log_dir",
+    "total": 7,
+    "returned": 7,
+    "new_threads": 2,
+    "new_leads": [
+     "eac",
+     "easyanticheat.dll",
+     "easyanticheat_x64.dll",
+     "easyanticheat_x64.so",
+     "easyanticheat_x86.dll",
+     "mesa",
+     "proton-7.0"
+    ],
+    "new_passages": 49,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "eac",
+     "online"
+    ],
+    "kind": "specialized",
+    "reason": "eac apareceu em evid\u00eancia aplic\u00e1vel",
+    "repo": "ValveSoftware/Proton",
+    "lead": "eac",
+    "total": 66,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "proton-5.0-5",
+     "proton_use_wined3d",
+     "shader",
+     "wined3d",
+     "winedebug"
+    ],
+    "new_passages": 43,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1240",
+   "ValveSoftware/Proton#4123",
+   "ValveSoftware/Proton#5369",
+   "ValveSoftware/Proton#5487",
+   "ValveSoftware/Proton#5580",
+   "ValveSoftware/Proton#6452"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "eac",
+    "status": "contradit\u00f3rio",
+    "threads": 3,
+    "url": "https://github.com/ValveSoftware/Proton/issues/4123#issuecomment-1069341970"
+   },
+   {
+    "term": "proton_log_dir",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 2,
+    "url": "https://github.com/ValveSoftware/Proton/issues/5369#issuecomment-990060619"
+   },
+   {
+    "term": "winedebug",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1240#issuecomment-602904701"
+   },
+   {
+    "term": "proton_use_wined3d",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1240#issuecomment-459148688"
+   },
+   {
+    "term": "steam-runtime",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/5369#issuecomment-1258302291"
+   },
+   {
+    "term": "wined3d",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1240#issuecomment-459148688"
+   }
+  ],
+  "contradictions": [
+   "eac"
+  ],
+  "next": [
+   "check-anticheat-support",
+   "review-launch-options",
+   "compare-runtime-host"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-8854",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:52:43Z",
+  "seconds": 2.8,
+  "network_requests": 6,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 44,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "save"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 1029,
+    "returned": 10,
+    "new_threads": 6,
+    "new_leads": [],
+    "new_passages": 76,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1783",
+   "ValveSoftware/Proton#2038",
+   "ValveSoftware/Proton#231",
+   "ValveSoftware/Proton#2774",
+   "ValveSoftware/Proton#428",
+   "ValveSoftware/Proton#7337"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-8854",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:52:44Z",
+  "seconds": 0.1,
+  "network_requests": 0,
+  "cached": 6,
+  "rejections": [],
+  "statuses": [
+   "cache"
+  ],
+  "quota_before": {
+   "core": 39,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "save"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 1029,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 25,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1783",
+   "ValveSoftware/Proton#2038",
+   "ValveSoftware/Proton#231",
+   "ValveSoftware/Proton#2774",
+   "ValveSoftware/Proton#428",
+   "ValveSoftware/Proton#7337"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-8854",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:54:09Z",
+  "seconds": 10.3,
+  "network_requests": 5,
+  "cached": 3,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 41,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "save"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 1029,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 25,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 8079,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 30,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "save",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 810,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 73,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#3706",
+   "ValveSoftware/Proton#428",
+   "ValveSoftware/Proton#4820",
+   "ValveSoftware/Proton#7337",
+   "ValveSoftware/Proton#8075",
+   "ValveSoftware/Proton#8672"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-7581",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:54:12Z",
+  "seconds": 2.9,
+  "network_requests": 1,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 38,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "scorn",
+     "shader"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 0,
+    "returned": 0,
+    "new_threads": 0,
+    "new_leads": [],
+    "new_passages": 0,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "locate-faulting-module",
+   "check-driver-stack",
+   "collect-native-backtrace"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-7581",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:54:28Z",
+  "seconds": 15.5,
+  "network_requests": 8,
+  "cached": 1,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 38,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "scorn",
+     "shader"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 0,
+    "returned": 0,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 12,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "shader"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido; sem resultados, consulta reduzida",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 504,
+    "returned": 10,
+    "new_threads": null,
+    "new_leads": null,
+    "new_passages": null,
+    "relaxed": true
+   },
+   {
+    "terms": [
+     "scorn",
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 0,
+    "returned": 0,
+    "new_threads": 0,
+    "new_leads": [],
+    "new_passages": 0,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1123",
+   "ValveSoftware/Proton#1165",
+   "ValveSoftware/Proton#1343",
+   "ValveSoftware/Proton#3040",
+   "ValveSoftware/Proton#5485",
+   "ValveSoftware/Proton#915"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "shader",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1343#issuecomment-450754489"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "locate-faulting-module",
+   "check-driver-stack",
+   "collect-native-backtrace"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-7581",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:54:33Z",
+  "seconds": 4.9,
+  "network_requests": 2,
+  "cached": 7,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 32,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "scorn",
+     "shader"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 0,
+    "returned": 0,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 12,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "shader"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos; sem resultados, consulta reduzida",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 504,
+    "returned": 10,
+    "new_threads": null,
+    "new_leads": null,
+    "new_passages": null,
+    "relaxed": true
+   },
+   {
+    "terms": [
+     "shader",
+     "crash",
+     "amd"
+    ],
+    "kind": "broadening",
+    "reason": "sem pistas: pesquisar o quadro t\u00e9cnico, sem o nome do jogo",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 288,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "amdgpu",
+     "mesa",
+     "proton-3.16-6",
+     "radv",
+     "shader",
+     "vulkan"
+    ],
+    "new_passages": 45,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1123",
+   "ValveSoftware/Proton#1343",
+   "ValveSoftware/Proton#3040",
+   "ValveSoftware/Proton#438",
+   "ValveSoftware/Proton#5485",
+   "ValveSoftware/Proton#915"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "vulkan",
+    "status": "contradit\u00f3rio",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483837851"
+   },
+   {
+    "term": "radv",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483837851"
+   },
+   {
+    "term": "amdgpu",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483837851"
+   },
+   {
+    "term": "mesa",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-483896489"
+   },
+   {
+    "term": "shader",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/1343#issuecomment-450754489"
+   }
+  ],
+  "contradictions": [
+   "vulkan"
+  ],
+  "next": [
+   "check-vulkan-support",
+   "check-driver-stack",
+   "read-kernel-gpu-messages"
+  ],
+  "failures": [],
+  "report_concepts": [
+   "amdgpu-pro",
+   "radv"
+  ],
+  "read_concepts": [
+   "amdgpu-pro",
+   "radv"
+  ]
+ },
+ {
+  "id": "test-8730",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:54:42Z",
+  "seconds": 8.6,
+  "network_requests": 7,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 31,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "pipewire",
+     "audio"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 121,
+    "returned": 10,
+    "new_threads": 6,
+    "new_leads": [
+     "pulseaudio",
+     "vulkan"
+    ],
+    "new_passages": 48,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#4021",
+   "ValveSoftware/Proton#5886",
+   "ValveSoftware/Proton#7139",
+   "ValveSoftware/Proton#7568",
+   "ValveSoftware/Proton#8155",
+   "ValveSoftware/Proton#8517"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "vulkan",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7568#issuecomment-2781695255"
+   },
+   {
+    "term": "pulseaudio",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7139"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "check-vulkan-support",
+   "inspect-audio-route",
+   "collect-proton-log"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "stereo",
+   "5.1"
+  ]
+ },
+ {
+  "id": "test-8730",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:54:59Z",
+  "seconds": 15.8,
+  "network_requests": 4,
+  "cached": 5,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 25,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "audio"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 1198,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "pulseaudio"
+    ],
+    "new_passages": 14,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 7957,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 27,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "audio",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 947,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "proton-4-11"
+    ],
+    "new_passages": 25,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#517",
+   "ValveSoftware/Proton#5886",
+   "ValveSoftware/Proton#7139",
+   "ValveSoftware/Proton#8075",
+   "ValveSoftware/Proton#8517",
+   "ValveSoftware/Proton#8672"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [
+   {
+    "term": "pulseaudio",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7139"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "inspect-audio-route",
+   "collect-proton-log"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "stereo"
+  ]
+ },
+ {
+  "id": "test-8730",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:55:12Z",
+  "seconds": 13.2,
+  "network_requests": 5,
+  "cached": 3,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 59,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "pipewire",
+     "audio"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 121,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "pulseaudio"
+    ],
+    "new_passages": 14,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "pulseaudio",
+     "audio"
+    ],
+    "kind": "specialized",
+    "reason": "pulseaudio apareceu em evid\u00eancia aplic\u00e1vel",
+    "repo": "ValveSoftware/Proton",
+    "lead": "pulseaudio",
+    "total": 154,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "alsa",
+     "sdl"
+    ],
+    "new_passages": 14,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "sdl",
+     "nvidia"
+    ],
+    "kind": "contextual",
+    "reason": "sdl se aplica a nvidia?",
+    "repo": "ValveSoftware/Proton",
+    "lead": "sdl",
+    "total": 145,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 8,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#226",
+   "ValveSoftware/Proton#3674",
+   "ValveSoftware/Proton#3942",
+   "ValveSoftware/Proton#7139",
+   "ValveSoftware/Proton#8517",
+   "ValveSoftware/Proton#8649"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "sdl",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/226#issuecomment-417756949"
+   },
+   {
+    "term": "alsa",
+    "status": "relatos negativos",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/226#issuecomment-417756949"
+   },
+   {
+    "term": "pulseaudio",
+    "status": "mencionado em evid\u00eancia aplic\u00e1vel",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/7139"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "inspect-input-route",
+   "inspect-audio-route",
+   "collect-proton-log"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": [
+   "stereo"
+  ]
+ },
+ {
+  "id": "test-8075",
+  "condition": "B",
+  "documented": true,
+  "at": "2026-10-31T18:55:24Z",
+  "seconds": 10.8,
+  "network_requests": 7,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 58,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "fps"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 900,
+    "returned": 10,
+    "new_threads": 6,
+    "new_leads": [],
+    "new_passages": 120,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1347",
+   "ValveSoftware/Proton#2444",
+   "ValveSoftware/Proton#4003",
+   "ValveSoftware/Proton#5106",
+   "ValveSoftware/Proton#5294",
+   "ValveSoftware/Proton#7856"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "check-driver-stack",
+   "confirm-active-gpu",
+   "measure-baseline"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-8075",
+  "condition": "F",
+  "documented": true,
+  "at": "2026-10-31T18:55:33Z",
+  "seconds": 9.3,
+  "network_requests": 4,
+  "cached": 5,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 52,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "fps"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 900,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 31,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 7350,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 58,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "fps",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 710,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 32,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#5106",
+   "ValveSoftware/Proton#5187",
+   "ValveSoftware/Proton#5294",
+   "ValveSoftware/Proton#5304",
+   "ValveSoftware/Proton#5369",
+   "ValveSoftware/Proton#6631"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "check-driver-stack",
+   "confirm-active-gpu",
+   "measure-baseline"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-8075",
+  "condition": "C",
+  "documented": true,
+  "at": "2026-10-31T18:55:34Z",
+  "seconds": 0.2,
+  "network_requests": 0,
+  "cached": 7,
+  "rejections": [],
+  "statuses": [
+   "cache"
+  ],
+  "quota_before": {
+   "core": 50,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "fps"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 900,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 31,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#1347",
+   "ValveSoftware/Proton#2444",
+   "ValveSoftware/Proton#4003",
+   "ValveSoftware/Proton#5106",
+   "ValveSoftware/Proton#5294",
+   "ValveSoftware/Proton#7856"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "check-driver-stack",
+   "confirm-active-gpu",
+   "measure-baseline"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-9337",
+  "condition": "B",
+  "documented": false,
+  "at": "2026-10-31T18:55:43Z",
+  "seconds": 8.2,
+  "network_requests": 7,
+  "cached": 0,
+  "rejections": [],
+  "statuses": [
+   "200"
+  ],
+  "quota_before": {
+   "core": 50,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "glitch"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 234,
+    "returned": 10,
+    "new_threads": 6,
+    "new_leads": [
+     "winetricks"
+    ],
+    "new_passages": 84,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#2864",
+   "ValveSoftware/Proton#467",
+   "ValveSoftware/Proton#4860",
+   "ValveSoftware/Proton#706",
+   "ValveSoftware/Proton#7521",
+   "ValveSoftware/Proton#976"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "winetricks",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/706#issuecomment-1789371810"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-9337",
+  "condition": "F",
+  "documented": false,
+  "at": "2026-10-31T18:55:51Z",
+  "seconds": 8.1,
+  "network_requests": 2,
+  "cached": 6,
+  "rejections": [],
+  "statuses": [
+   "200",
+   "cache"
+  ],
+  "quota_before": {
+   "core": 44,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "glitch"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 234,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 42,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "proton"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 8547,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [
+     "ge-proton9-27"
+    ],
+    "new_passages": 35,
+    "relaxed": null
+   },
+   {
+    "terms": [
+     "glitch",
+     "proton",
+     "linux"
+    ],
+    "kind": "fixed-template",
+    "reason": "modelo fixo: n\u00e3o usa o que foi lido",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 192,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 17,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#467",
+   "ValveSoftware/Proton#4860",
+   "ValveSoftware/Proton#8075",
+   "ValveSoftware/Proton#8672",
+   "ValveSoftware/Proton#8714",
+   "ValveSoftware/Proton#976"
+  ],
+  "status": "insufficient-evidence",
+  "findings": [],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ },
+ {
+  "id": "test-9337",
+  "condition": "C",
+  "documented": false,
+  "at": "2026-10-31T18:55:52Z",
+  "seconds": 0.1,
+  "network_requests": 0,
+  "cached": 7,
+  "rejections": [],
+  "statuses": [
+   "cache"
+  ],
+  "quota_before": {
+   "core": 44,
+   "search": 10
+  },
+  "queries": [
+   {
+    "terms": [
+     "glitch"
+    ],
+    "kind": "initial",
+    "reason": "jogo e sintoma ou termo t\u00e9cnico fornecidos",
+    "repo": "ValveSoftware/Proton",
+    "lead": null,
+    "total": 234,
+    "returned": 10,
+    "new_threads": 2,
+    "new_leads": [],
+    "new_passages": 42,
+    "relaxed": null
+   }
+  ],
+  "repos": [
+   "ValveSoftware/Proton"
+  ],
+  "sources": [
+   "ValveSoftware/Proton#2864",
+   "ValveSoftware/Proton#467",
+   "ValveSoftware/Proton#4860",
+   "ValveSoftware/Proton#706",
+   "ValveSoftware/Proton#7521",
+   "ValveSoftware/Proton#976"
+  ],
+  "status": "provisional",
+  "findings": [
+   {
+    "term": "winetricks",
+    "status": "relatos favor\u00e1veis, n\u00e3o verificados",
+    "threads": 1,
+    "url": "https://github.com/ValveSoftware/Proton/issues/706#issuecomment-1789371810"
+   }
+  ],
+  "contradictions": [],
+  "next": [
+   "collect-proton-log",
+   "check-vulkan-support",
+   "check-driver-stack"
+  ],
+  "failures": [],
+  "report_concepts": [],
+  "read_concepts": []
+ }
+]

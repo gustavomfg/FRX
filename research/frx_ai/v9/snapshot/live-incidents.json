@@ -1,0 +1,93 @@
+[
+ {
+  "id": "test-8854",
+  "condition": "F",
+  "at": "2026-10-31T18:52:44Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-7581",
+  "condition": "B",
+  "at": "2026-10-31T18:52:44Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-7581",
+  "condition": "F",
+  "at": "2026-10-31T18:52:44Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-7581",
+  "condition": "C",
+  "at": "2026-10-31T18:52:45Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8730",
+  "condition": "B",
+  "at": "2026-10-31T18:52:45Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8730",
+  "condition": "F",
+  "at": "2026-10-31T18:52:45Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8730",
+  "condition": "C",
+  "at": "2026-10-31T18:52:45Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8075",
+  "condition": "B",
+  "at": "2026-10-31T18:52:46Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8075",
+  "condition": "F",
+  "at": "2026-10-31T18:52:46Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-8075",
+  "condition": "C",
+  "at": "2026-10-31T18:52:46Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-9337",
+  "condition": "B",
+  "at": "2026-10-31T18:52:46Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-9337",
+  "condition": "F",
+  "at": "2026-10-31T18:52:47Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ },
+ {
+  "id": "test-9337",
+  "condition": "C",
+  "at": "2026-10-31T18:52:47Z",
+  "reset": 1793472780.0,
+  "note": "first runner kept requesting after a 403; invalid run removed"
+ }
+]

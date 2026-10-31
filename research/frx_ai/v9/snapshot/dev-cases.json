@@ -1,0 +1,44 @@
+[
+{
+"id": "dev-7542",
+"stratum": "library",
+"type": "new-thread",
+"cutoff": "2024-03-02T02:49:36Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7542"
+},
+{
+"id": "dev-8207",
+"stratum": "graphics",
+"type": "new-thread",
+"cutoff": "2024-10-31T21:08:53Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/8207"
+},
+{
+"id": "dev-9824",
+"stratum": "regression",
+"type": "new-thread",
+"cutoff": "2026-05-27T03:31:59Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9824"
+},
+{
+"id": "dev-7693",
+"stratum": "driver",
+"type": "new-thread",
+"cutoff": "2024-05-03T19:02:08Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/7693"
+},
+{
+"id": "dev-9651",
+"stratum": "audio",
+"type": "new-thread",
+"cutoff": "2026-04-08T17:06:13Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9651"
+},
+{
+"id": "dev-9583",
+"stratum": "crash",
+"type": "new-thread",
+"cutoff": "2026-03-17T09:41:10Z",
+"url": "https://github.com/ValveSoftware/Proton/issues/9583"
+}
+]
