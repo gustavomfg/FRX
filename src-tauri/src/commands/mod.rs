@@ -2,6 +2,7 @@
 //! depois de prévia, confirmação, backup e nova verificação no núcleo.
 
 pub mod app;
+pub mod diagnosis;
 pub mod fix_engine;
 pub mod fixes;
 pub mod games;

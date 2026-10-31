@@ -1,5 +1,7 @@
 # FRX Resolution Intelligence — desenvolvimento da v0.5
 
+> **Aviso (31/10/2026):** a Central de Resolução descrita aqui, com seus comandos e módulos, foi retirada do código. A versão atual é outra e está em [DIAGNOSIS.md](DIAGNOSIS.md). Este texto fica como registro histórico.
+
 A Resolution Intelligence integra diagnóstico, fontes e planos por jogo à arquitetura existente. Ela não substitui o Fix Engine, não cria outro executor e não trata desempenho como finalidade de toda correção. Um plano pode investigar crash, compatibilidade, qualidade gráfica, física ou estabilidade sem prometer ganho de FPS.
 
 O suporte entregue é incremental. Existem diagnósticos conservadores, pesquisa pública com proveniência, planos aplicáveis pelas operações já suportadas e planos explicitamente bloqueados para revisão. Não há correção automática universal de PhysX, DLSS, FSR, ray tracing ou frame generation. Os resultados de validação consolidados estão em [VALIDACAO-v0.5.md](VALIDACAO-v0.5.md); fontes e requisitos gráficos estão em [GRAPHICS-PHYSICS-DIAGNOSTICS.md](GRAPHICS-PHYSICS-DIAGNOSTICS.md).

@@ -16,6 +16,8 @@
 
 ## Resolution Center — v0.5
 
+> **Note (2026-10-31):** this section describes a retired implementation. The current rules-based diagnosis is documented in [docs/DIAGNOSIS.md](docs/DIAGNOSIS.md).
+
 Each game's page now brings together **diagnosis, technologies, sources and resolution plans**, using the existing Fix Engine. A fix does not need to increase FPS: compatibility, stability, physics and graphics have their own goals.
 
 - **Diagnose** inspects the installation and environment without changing the game. DLLs are clues; hardware support, configuration, and runtime observation appear separately.
