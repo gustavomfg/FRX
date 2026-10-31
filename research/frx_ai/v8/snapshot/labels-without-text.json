@@ -1,0 +1,1433 @@
+{
+ "o8-dev": [
+  {
+   "id": "o8-dev-7602",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-9475",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "improved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-4848",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-4477",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "advice",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-9853",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-1649",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-7896",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "joint"
+  },
+  {
+   "id": "o8-dev-9235",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-4638",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-8058",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "improved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-7964",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "unclear",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-5758",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-dev-5900",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-8579",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-7751",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-8251",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "mixed",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-dev-9678",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-6210",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-4510",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-626",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-4571",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-1805",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-8345",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-3957",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "advice",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-758",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-7902",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-dev-5023",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "improved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-dev-605",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-dev-9200",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "mixed",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-dev-9841",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "worsened",
+   "relation": "single"
+  }
+ ],
+ "o8-test": [
+  {
+   "id": "o8-test-9186",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9728",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-8495",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9829",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-4027",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "second_hand",
+   "overall": "resolved",
+   "relation": "joint"
+  },
+  {
+   "id": "o8-test-7514",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7348",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-333",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7768",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-5085",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "mixed",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-7161",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-6396",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "sequence"
+  },
+  {
+   "id": "o8-test-5187",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-6367",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-4823",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-392",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "unclear",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7151",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8853",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-5731",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "advice",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-1106",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8001",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9162",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "sequence"
+  },
+  {
+   "id": "o8-test-7951",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "worsened",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-632",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-7238",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7878",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-2284",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8150",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9820",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-5750",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "information",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9912",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-8643",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "request_or_question",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-6674",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "request_or_question",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-9002",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-7530",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-1617",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "second_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-7280",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "request_or_question",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7541",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8959",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-5587",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-2143",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-3112",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8831",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-9250",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-8241",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "unclear",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8261",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-10003",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-8622",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-8503",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-9004",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-3659",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "request_or_question",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-8917",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-8210",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-3285",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "mixed",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-7843",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-6138",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-1991",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "resolved",
+   "relation": "single"
+  },
+  {
+   "id": "o8-test-5383",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "alternatives"
+  },
+  {
+   "id": "o8-test-8686",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "request_or_question",
+   "overall": "no_claim",
+   "relation": "not_applicable"
+  },
+  {
+   "id": "o8-test-7679",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "role": "first_hand",
+   "overall": "not_resolved",
+   "relation": "joint"
+  }
+ ],
+ "t8-dev": [
+  {
+   "id": "t8-dev-8593",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "read the attached log",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "none",
+     "should_change": false
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "hypothesis",
+    "verification",
+    "result",
+    "decision"
+   ]
+  },
+  {
+   "id": "t8-dev-7719",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "review-launch-options",
+      "collect-proton-log"
+     ],
+     "already_known": [],
+     "maintainer_asked": "try WINE_CPU_TOPOLOGY",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "bisect-proton-versions",
+      "test-other-proton",
+      "collect-proton-log",
+      "isolate-scope"
+     ],
+     "already_known": [
+      "review-launch-options"
+     ],
+     "maintainer_asked": "core count starts at 1; suspects a regression",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "verification",
+    "result",
+    "hypothesis",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-dev-7664",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "bisect-proton-versions",
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "closest versions between working and regressed",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "read-attached-log",
+      "test-other-proton"
+     ],
+     "already_known": [
+      "bisect-proton-versions",
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "none",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "verification",
+    "result",
+    "result",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-dev-9579",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "locate-blocking-thread",
+      "read-attached-log",
+      "collect-proton-log",
+      "isolate-scope"
+     ],
+     "already_known": [
+      "test-other-proton"
+     ],
+     "maintainer_asked": "administrative: moved to the shared report",
+     "should_change": null
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "hypothesis",
+    "verification",
+    "result"
+   ]
+  }
+ ],
+ "t8-test": [
+  {
+   "id": "t8-test-7543",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "already_known": [],
+     "maintainer_asked": "log and system information",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "collect-proton-log",
+      "isolate-scope"
+     ],
+     "already_known": [],
+     "maintainer_asked": "none",
+     "should_change": false
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "verification",
+    "result",
+    "verification",
+    "result",
+    "hypothesis"
+   ]
+  },
+  {
+   "id": "t8-test-7748",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log",
+      "collect-proton-log",
+      "inspect-import-chain"
+     ],
+     "already_known": [],
+     "maintainer_asked": "read the log",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "test-other-proton"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "re-evaluate after a newer vkd3d",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "decision",
+    "result",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-8996",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "collect-proton-log",
+      "isolate-scope"
+     ],
+     "already_known": [
+      "collect-system-info"
+     ],
+     "maintainer_asked": "log, focused on one game",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "read-attached-log",
+      "locate-blocking-thread"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "none",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "verification",
+    "evidence"
+   ]
+  },
+  {
+   "id": "t8-test-8287",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "check-driver-stack",
+      "bisect-proton-versions"
+     ],
+     "already_known": [
+      "collect-system-info"
+     ],
+     "maintainer_asked": "report to the driver vendor",
+     "should_change": null
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "verification",
+    "result",
+    "hypothesis",
+    "decision"
+   ]
+  },
+  {
+   "id": "t8-test-6800",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log",
+      "locate-blocking-thread",
+      "test-other-proton"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "none",
+     "should_change": null
+    },
+    {
+     "after_turn": 3,
+     "acceptable": [
+      "isolate-scope",
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "none",
+     "should_change": null
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "hypothesis",
+    "verification",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-9033",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log",
+      "test-other-proton",
+      "isolate-scope",
+      "collect-proton-log"
+     ],
+     "already_known": [
+      "verify-game-files"
+     ],
+     "maintainer_asked": "read the log",
+     "should_change": null
+    },
+    {
+     "after_turn": 3,
+     "acceptable": [
+      "isolate-scope",
+      "compare-runtime-host",
+      "check-driver-stack"
+     ],
+     "already_known": [
+      "verify-game-files"
+     ],
+     "maintainer_asked": "none",
+     "should_change": true
+    },
+    {
+     "after_turn": 5,
+     "acceptable": [
+      "compare-runtime-host",
+      "isolate-scope",
+      "collect-system-info",
+      "review-launch-options"
+     ],
+     "already_known": [
+      "test-other-proton",
+      "reset-prefix-with-backup",
+      "verify-game-files"
+     ],
+     "maintainer_asked": "none",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "verification",
+    "result",
+    "evidence",
+    "result",
+    "verification",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-9242",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 1,
+     "acceptable": [
+      "read-attached-log",
+      "check-vulkan-support"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "read the log",
+     "should_change": null
+    },
+    {
+     "after_turn": 3,
+     "acceptable": [
+      "check-vulkan-support",
+      "test-other-proton"
+     ],
+     "already_known": [
+      "collect-proton-log"
+     ],
+     "maintainer_asked": "report native games separately",
+     "should_change": true
+    },
+    {
+     "after_turn": 5,
+     "acceptable": [
+      "check-driver-stack",
+      "check-vulkan-support",
+      "review-launch-options"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "test-other-proton"
+     ],
+     "maintainer_asked": "none",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "evidence",
+    "hypothesis",
+    "verification",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-8145",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "read the log",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "read-attached-log",
+      "test-other-proton"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "none",
+     "should_change": null
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "verification",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-8848",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "collect-proton-log",
+      "collect-system-info",
+      "test-other-proton"
+     ],
+     "already_known": [],
+     "maintainer_asked": "fill the report template",
+     "should_change": null
+    },
+    {
+     "after_turn": 3,
+     "acceptable": [
+      "collect-proton-log",
+      "test-other-proton",
+      "check-anticheat-support"
+     ],
+     "already_known": [],
+     "maintainer_asked": "none",
+     "should_change": false
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "hypothesis",
+    "verification",
+    "result",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-7757",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "read the log",
+     "should_change": null
+    },
+    {
+     "after_turn": 2,
+     "acceptable": [
+      "read-attached-log",
+      "check-driver-stack"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "none",
+     "should_change": false
+    },
+    {
+     "after_turn": 3,
+     "acceptable": [
+      "inspect-media-errors",
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info"
+     ],
+     "maintainer_asked": "run the h264 unlock",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "verification",
+    "result",
+    "result",
+    "verification",
+    "result"
+   ]
+  },
+  {
+   "id": "t8-test-9516",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 0,
+     "acceptable": [
+      "read-attached-log"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info",
+      "test-other-proton"
+     ],
+     "maintainer_asked": "administrative: moved to the shared report",
+     "should_change": null
+    },
+    {
+     "after_turn": 1,
+     "acceptable": [
+      "read-attached-log",
+      "check-driver-stack",
+      "isolate-scope"
+     ],
+     "already_known": [
+      "collect-proton-log",
+      "collect-system-info",
+      "test-other-proton",
+      "verify-game-files"
+     ],
+     "maintainer_asked": "none",
+     "should_change": false
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "verification",
+    "verification"
+   ]
+  },
+  {
+   "id": "t8-test-8472",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "decisions": [
+    {
+     "after_turn": 1,
+     "acceptable": [
+      "check-vulkan-support",
+      "check-driver-stack",
+      "collect-native-backtrace"
+     ],
+     "already_known": [],
+     "maintainer_asked": "assessment confirmed: driver lacks Vulkan 1.3",
+     "should_change": null
+    },
+    {
+     "after_turn": 4,
+     "acceptable": [
+      "check-vulkan-support",
+      "compare-runtime-host",
+      "collect-native-backtrace",
+      "review-launch-options"
+     ],
+     "already_known": [],
+     "maintainer_asked": "none",
+     "should_change": true
+    }
+   ],
+   "step_kinds": [
+    "problem",
+    "evidence",
+    "verification",
+    "hypothesis",
+    "result",
+    "result"
+   ]
+  }
+ ],
+ "l8": [
+  {
+   "id": "l8-495",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [],
+   "module": null
+  },
+  {
+   "id": "l8-545",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [
+    "missing-library"
+   ],
+   "module": "PhysXLoader.dll"
+  },
+  {
+   "id": "l8-2456",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [],
+   "module": null
+  },
+  {
+   "id": "l8-10113",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [
+    "unimplemented-function"
+   ],
+   "module": "ntdll.dll"
+  },
+  {
+   "id": "l8-7953",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [],
+   "module": null
+  },
+  {
+   "id": "l8-8725",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [
+    "graphics-api-error"
+   ],
+   "module": null
+  },
+  {
+   "id": "l8-5468",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [
+    "prefix-error"
+   ],
+   "module": null
+  },
+  {
+   "id": "l8-7539",
+   "annotator": "claude-opus-5-5",
+   "review_level": "H0",
+   "signals": [],
+   "module": null
+  }
+ ]
+}
