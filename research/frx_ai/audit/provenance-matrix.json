@@ -1,0 +1,2280 @@
+{
+  "scope": "v1-v7, read only; no training",
+  "access": {
+    "codex": {
+      "session": "<redigido>",
+      "meta": {
+        "originator": "codex-tui",
+        "model_provider": "openai",
+        "source": "vscode",
+        "cwd": "<redigido>"
+      },
+      "note": "plan_type comes from rate-limit events in the session; auth.json was not opened"
+    },
+    "claude": {
+      "session": "<redigido>",
+      "models": {
+        "claude-opus-5-5": 3123,
+        "<synthetic>": 1,
+        "claude-haiku-5-5": 693
+      },
+      "entrypoints": {
+        "cli": 6869,
+        "claude-desktop": 1539
+      },
+      "note": "account type comes from non-secret fields of ~/.claude.json; credentials were not opened"
+    }
+  },
+  "annotator_authorship": [
+    {
+      "file": "frx-ai-rnd-20261029/annotate.py",
+      "sha256": "0b8c2572c39cb95aa297d89ea16596d2319ba4cc33b7b0df5ee3402ae9a8af67",
+      "author_session": "codex",
+      "first_at": "2026-10-29T23:12:16.737Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 3,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v2-20261029/annotate_events.py",
+      "sha256": "6047ee30c0956312737ed3c43a1a01b24c5b25d46bf48766fead2d870df6c2af",
+      "author_session": "codex",
+      "first_at": "2026-10-30T00:17:56.845Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v2-20261029/extend_annotations.py",
+      "sha256": "7a2ca2a8b5c50ac8cc79b41d499b189b3e55801dec2de0b03acc2ea045d307b5",
+      "author_session": "codex",
+      "first_at": "2026-10-30T00:22:16.108Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 2,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v2-20261029/annotate_additional.py",
+      "sha256": "c864d9ba842b2b339d64fd5df13e4a2bf546a8cd1ace5bf22d5ff23b8fd89ee7",
+      "author_session": "codex",
+      "first_at": "2026-10-30T00:22:16.108Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 2,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v2-20261029/annotate_topics.py",
+      "sha256": "1f703d8b4e19bfbb94c593ba7157d2643ab4601f08bc1caa0719ca9ac071a54a",
+      "author_session": "codex",
+      "first_at": "2026-10-30T00:49:28.335Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v2-20261029/build_final_annotations.py",
+      "sha256": "24571c2e7016014330be832e0fb1cf1acec442aec015cee849d669afd3f82bde",
+      "author_session": "codex",
+      "first_at": "2026-10-30T02:18:53.174Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v4-20261030/annotate_known.py",
+      "sha256": "2885c3ff5775417e6a3b96f48de38f610e9265b6dba15f8cd6c4f5787208b14a",
+      "author_session": "codex",
+      "first_at": "2026-10-30T05:00:42.861Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v4-20261030/annotate_dev.py",
+      "sha256": "10aa8de8266008e30515009e1602797e0b7ae762c24d5d3c0a57f0e33051b846",
+      "author_session": "codex",
+      "first_at": "2026-10-30T05:04:05.925Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v4-20261030/annotate_final.py",
+      "sha256": "e945453bdb988b62f2a1760dcec3e0266b132e27b39f970babc230905e572268",
+      "author_session": "codex",
+      "first_at": "2026-10-30T05:46:32.916Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 3,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v5-20261030/annotate_extra.py",
+      "sha256": "3f473578606dd43c3211dacd2bb4c24dd9a870e40a27eb1330b672bfd49b860f",
+      "author_session": "codex",
+      "first_at": "2026-10-30T19:50:23.872Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 1,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v5-20261030/annotate_final.py",
+      "sha256": "0481e009837d714f4baa6d6bd56801209f1d9ea8a22224a1c5d6bb39f1d91205",
+      "author_session": "codex",
+      "first_at": "2026-10-30T20:03:00.369Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 2,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v6-20261030/annotate_development.py",
+      "sha256": "aa2a5277f0f3cbc700680c9509f1c38177e31879be1103c06a0ca1923b0b3d24",
+      "author_session": "codex",
+      "first_at": "2026-10-30T20:51:53.423Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 3,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v6-20261030/annotate_acceptance.py",
+      "sha256": "b9800cadb68b8517537820e239dceb08e2ee691de5837b62f7834515f00ca4a0",
+      "author_session": "codex",
+      "first_at": "2026-10-30T21:50:17.327Z",
+      "model": "gpt-6.1-sol",
+      "codex_calls": 3,
+      "claude_calls": 0
+    },
+    {
+      "file": "frx-ai-rnd-v7-20261030/annotate_p7.py",
+      "sha256": "247ac15f90af693c262ef4d7b65a05d15ce89e815db501057a3edfb83813f192",
+      "author_session": "claude",
+      "first_at": "2026-10-30T23:05:58.919Z",
+      "model": "claude-opus-5-5",
+      "codex_calls": 0,
+      "claude_calls": 1
+    },
+    {
+      "file": "frx-ai-rnd-v7-20261030/annotate_j7.py",
+      "sha256": "bff937ecb7468407b3ff7234fade7f35b46de22200810ace1cc6ca49edf0e578",
+      "author_session": "claude",
+      "first_at": "2026-10-30T23:07:29.965Z",
+      "model": "claude-opus-5-5",
+      "codex_calls": 0,
+      "claude_calls": 1
+    },
+    {
+      "file": "frx-ai-rnd-v7-20261030/annotate_c7.py",
+      "sha256": "abb5ef7095aadb3db1b5cc7e3d677f18592df6d91737116757223bb91909de62",
+      "author_session": "claude",
+      "first_at": "2026-10-30T23:30:04.225Z",
+      "model": "claude-opus-5-5",
+      "codex_calls": 0,
+      "claude_calls": 1
+    }
+  ],
+  "claude_calls_touching_v1_v6_caches_before_first_audit_read": 0,
+  "human_review_queues": {
+    "v2": {
+      "open_items": 15,
+      "rows_with_a_review_answer": 0
+    },
+    "v4": {
+      "open_items": 57,
+      "rows_with_a_review_answer": 0
+    },
+    "v6": {
+      "open_items": 52,
+      "rows_with_a_review_answer": 0
+    }
+  },
+  "checks": {
+    "v2_training_hashes": {
+      "checked": 15,
+      "mismatches": []
+    },
+    "reuse": {
+      "v5_dev_known_equals_v4_final": true,
+      "v5_train_known_rows": 69,
+      "v4_train_plus_dev_rows": 69
+    },
+    "app": {
+      "tracked_weight_files": [],
+      "app_references": []
+    }
+  },
+  "d7": {
+    "rows": 532,
+    "splits": {
+      "train": 417,
+      "test": 115
+    },
+    "label_authority": "regex rules in v7/demos.py; the text is public maintainer speech"
+  },
+  "datasets": {
+    "v1-train": {
+      "lab": "v1",
+      "file": "frx-ai-rnd-20261029/train.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate.py, inline labels",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 100,
+      "sha256": "7c322cab593e89af2dee5a282b95e8be91cb899e00f2d2bed9636705b73a5dd2"
+    },
+    "v1-dev": {
+      "lab": "v1",
+      "file": "frx-ai-rnd-20261029/dev.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate.py, inline labels",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 50,
+      "sha256": "3209ceaab62f5fa54df7d1e820ca03878b70f80a596e3fc1e29ac259982fcc08"
+    },
+    "v1-final": {
+      "lab": "v1",
+      "file": "frx-ai-rnd-20261029/final.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate.py, inline labels",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 80,
+      "sha256": "a2465ee958c63af2c85b2a36e72822821b3a5913ed134e85b85452d1de92906e"
+    },
+    "v2-train-round1": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/train-round1.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_events.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 87,
+      "sha256": "740eea1c1b075a2001551d42c316322551236e22c5f80aa96023161b1d4c28cb"
+    },
+    "v2-train-round2": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/train-round2.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_events.py + extend_annotations.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 113,
+      "sha256": "8a62930f3a9243d98eee9cbb276cb4c630d351aa274697d6b62ddb58d7fb4f2f"
+    },
+    "v2-train-events": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/train-events.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "round2 + annotate_additional.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 167,
+      "sha256": "c462fa3ef19b478f1fa4f612dc5e8af1ec2f230ea54acee1d976e51c756cc056"
+    },
+    "v2-dev-events": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/dev-events.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_events.py",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 42,
+      "sha256": "afc4a8a69c583390e0c1e164fbb8ba042f1e62a229a145c4b3b251a2b028087e"
+    },
+    "v2-calibration-events": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/calibration-events.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_events.py",
+      "use": "calibration",
+      "independent_human_review": false,
+      "rows": 18,
+      "sha256": "2ce7030fe64567752a5ce8bfaffd88e2423f70ff36e83617acf138ef55a8411e"
+    },
+    "v2-final-events": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/final-events.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "final-labels.tsv typed in the session; build_final_annotations.py",
+      "use": "eval, then v3 selection",
+      "independent_human_review": false,
+      "rows": 96,
+      "sha256": "6c75661ecaae3d02b83eb310b81d7246c2bfb8164972ad2327018adaa6252431"
+    },
+    "v2-weak-events": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/weak-events.jsonl",
+      "origin": "program-by-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "weak.py regex votes",
+      "use": "fit (E14 only)",
+      "independent_human_review": false,
+      "rows": 53,
+      "sha256": "f3901fdd702033e0f2159a16f6f74b37a6d369291506b35e88d5565fbe72ef5c"
+    },
+    "v2-train-goals": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/train-goals.jsonl",
+      "origin": "direct-plus-program",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "agent spans + prepare_goals.py pairs",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 183,
+      "sha256": "0fbc08d0d1f5ef81fca1747d3d96c8a28e5c00d1e4c1d5984b2d49f7dce9c768"
+    },
+    "v2-dev-goals": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/dev-goals.jsonl",
+      "origin": "direct-plus-program",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "agent spans + prepare_goals.py pairs",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 44,
+      "sha256": "43f56f2f3e8e14d131b8a0399e20338bc5898978b665dca9683f95a9aa78b89a"
+    },
+    "v2-calibration-goals": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/calibration-goals.jsonl",
+      "origin": "direct-plus-program",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "agent spans + prepare_goals.py pairs",
+      "use": "calibration",
+      "independent_human_review": false,
+      "rows": 20,
+      "sha256": "d37ad59338213384682daed1b005ff460ce0920fdd875a893f5b05f204328633"
+    },
+    "v2-final-goals": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/final-goal-events.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "final-labels.tsv typed in the session",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 96,
+      "sha256": "c638611537d660ac6658e90ec5f012eca9352f1b8bdfe51e953e1db873b60fe4"
+    },
+    "v2-retrieval-train": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/retrieval-train.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_topics.py topics; queries hand-written in retrieval_train.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 144,
+      "sha256": "54df8337096f5339aaafa9e6135541953b76466c4742d1c23358b86c79576f9c"
+    },
+    "v2-retrieval-dev": {
+      "lab": "v2",
+      "file": "frx-ai-rnd-v2-20261029/retrieval-dev.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_topics.py",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 39,
+      "sha256": "0fb77e9b47ae3237b8bb6074ccffd3bd5e553a9dbd6278b2c19d28198e7baf74"
+    },
+    "v3-final": {
+      "lab": "v3",
+      "file": "frx-ai-rnd-v3-20261030/final-annotations.json",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "inline list in a session heredoc, no saved script",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 95,
+      "sha256": "1f215ea12a658680e2f977459d1b91115251377bb8c52ec1e6606f4feea80227"
+    },
+    "v4-train": {
+      "lab": "v4",
+      "file": "frx-ai-rnd-v4-20261030/train-audited.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_known.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 45,
+      "sha256": "9916be99669b1cf4addebdd9ac332dc723d1a96de465cd551b3979131ba2c907"
+    },
+    "v4-dev": {
+      "lab": "v4",
+      "file": "frx-ai-rnd-v4-20261030/dev-audited.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_dev.py",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 24,
+      "sha256": "4e3a53b6a54358860eade1acb794213979917fd0c8236223a5319bc51ad8356e"
+    },
+    "v4-final": {
+      "lab": "v4",
+      "file": "frx-ai-rnd-v4-20261030/final-audited.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_final.py",
+      "use": "eval, then v5 selection",
+      "independent_human_review": false,
+      "rows": 57,
+      "sha256": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443"
+    },
+    "v5-train-known": {
+      "lab": "v5",
+      "file": "frx-ai-rnd-v5-20261030/train-known.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "v4-train + v4-dev, reused",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 69,
+      "sha256": "7f7cb4eca1dd14b540c3dd318c93d2870391dc70ff2a57c8dd6bbe0831dd954c"
+    },
+    "v5-dev-known": {
+      "lab": "v5",
+      "file": "frx-ai-rnd-v5-20261030/dev-known.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "v4-final, reused",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 57,
+      "sha256": "b8cc417a457ea61cd1877c4850f4529ed08e69286f210133970c418ac1d3b443"
+    },
+    "v5-extra": {
+      "lab": "v5",
+      "file": "frx-ai-rnd-v5-20261030/extra-audited.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_extra.py",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 14,
+      "sha256": "9514cf4925eeb855b89ce2ad08db4309810efe526f37dacdb9f26872b10c92ac"
+    },
+    "v5-final": {
+      "lab": "v5",
+      "file": "frx-ai-rnd-v5-20261030/final-audited.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_final.py",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 72,
+      "sha256": "820700949486bdaf955fc4c371528344c8c6b1de1c2f517680342ce4b874f3f7"
+    },
+    "v6-training-pairs": {
+      "lab": "v6",
+      "file": "frx-ai-rnd-v6-20261030/training-pairs.jsonl",
+      "origin": "direct-plus-program",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "agent groups + program-built counterclaims and synthetic text (learning.py)",
+      "use": "fit",
+      "independent_human_review": false,
+      "rows": 277,
+      "sha256": "4112ae20bab9287dbb6152a8b89bd2d92dbe98942293204d026ab59301c70357",
+      "composition": {
+        "real-text / annotated-reported-group": 45,
+        "real-text / constructed-contradicted-polarity-claim": 45,
+        "real-text / constructed-alternative-owner-claim": 43,
+        "synthetic-text / annotated-reported-group": 48,
+        "synthetic-text / constructed-contradicted-polarity-claim": 48,
+        "synthetic-text / constructed-alternative-owner-claim": 48
+      }
+    },
+    "v6-development": {
+      "lab": "v6",
+      "file": "frx-ai-rnd-v6-20261030/development-gold-v2.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_development.py + erratum",
+      "use": "selection",
+      "independent_human_review": false,
+      "rows": 48,
+      "sha256": "a726bbc4984d25d7b1b950ed03c02a8978e69d203e07efa5b740126b4bae364a"
+    },
+    "v6-acceptance": {
+      "lab": "v6",
+      "file": "frx-ai-rnd-v6-20261030/acceptance-gold.jsonl",
+      "origin": "direct-agent",
+      "agent": "gpt-6.1-sol (OpenAI Codex)",
+      "how": "annotate_acceptance.py",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 96,
+      "sha256": "3f9ce43f1e0c9e88ae0e492d7679f3bd4a5a2ad9ca5abd15d40edb2e5ac78140"
+    },
+    "v7-p7": {
+      "lab": "v7",
+      "file": "frx-ai-rnd-v7-20261030/p7-gold.jsonl",
+      "origin": "direct-agent",
+      "agent": "claude-opus-5-5 (Claude Code)",
+      "how": "annotate_p7.py",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 77,
+      "sha256": "367e141f4b5c676d6efdf71310e2ee4d0fc0f05aee86c96a3007abffbef126d8"
+    },
+    "v7-j7": {
+      "lab": "v7",
+      "file": "frx-ai-rnd-v7-20261030/j7-gold.jsonl",
+      "origin": "direct-agent",
+      "agent": "claude-opus-5-5 (Claude Code)",
+      "how": "annotate_j7.py",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 40,
+      "sha256": "414f14b77773bbe187783f1914c135ac819cf613541eddb9b89d0af5fc284b53"
+    },
+    "v7-c7": {
+      "lab": "v7",
+      "file": "frx-ai-rnd-v7-20261030/c7-gold.json",
+      "origin": "direct-agent",
+      "agent": "claude-opus-5-5 (Claude Code)",
+      "how": "annotate_c7.py",
+      "use": "eval",
+      "independent_human_review": false,
+      "rows": 24,
+      "sha256": "e4bd86ea8742cbd899e31d51512a64ad3ecdd2cacd0e36eb5b7bcfaf15f118d9"
+    },
+    "v7-d7": {
+      "lab": "v7",
+      "file": "frx-ai-rnd-v7-20261030/d7.jsonl",
+      "origin": "program-by-agent",
+      "agent": "claude-opus-5-5 (Claude Code)",
+      "how": "demos.py regex rules over public maintainer comments",
+      "use": "fit (selector.py only, not default)",
+      "independent_human_review": false,
+      "rows": 532,
+      "sha256": "939819fb8b2212a565bea4cdd0a210285fcd15df1cb530de4f8eac14dc316b1f"
+    }
+  },
+  "templates": {
+    "v1-synthetic": "research/frx_ai/synthetic.py",
+    "v2-synthetic": "research/frx_ai/v2/synthetic.py",
+    "v4-synthetic": "research/frx_ai/v4/synthetic.py",
+    "v5-status-synthetic": "research/frx_ai/v5/training_data.py",
+    "v5-relation-synthetic": "research/frx_ai/v5/relation_data.py",
+    "v3-structure-simulation": "research/frx_ai/v3/structure.py"
+  },
+  "weights": {
+    "v1-research-only": {
+      "lab": "v1",
+      "path": "frx-ai-rnd-20261029/experiments/research-only.joblib",
+      "fit": [
+        "v1-train"
+      ],
+      "tune": [
+        "v1-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 1365257,
+      "sha256": "a3a9bec9c8ebf089851d25054e937626103bd5bf98ba0748cce6e2e1856c54cc",
+      "fit_closure": [
+        "v1-train"
+      ],
+      "tune_closure": [
+        "v1-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "v1-augmented-research-only": {
+      "lab": "v1",
+      "path": "frx-ai-rnd-20261029/experiments/augmented-research-only.joblib",
+      "fit": [
+        "v1-train",
+        "v1-synthetic"
+      ],
+      "tune": [
+        "v1-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 2032197,
+      "sha256": "d98e4a02650dacf006ee1f34753d9b79b715d4f85f34a34bad890b01616c7609",
+      "fit_closure": [
+        "v1-synthetic",
+        "v1-train"
+      ],
+      "tune_closure": [
+        "v1-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "v1-focused-research-only": {
+      "lab": "v1",
+      "path": "frx-ai-rnd-20261029/experiments/focused-research-only.joblib",
+      "fit": [
+        "v1-train",
+        "v1-synthetic"
+      ],
+      "tune": [
+        "v1-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 926750,
+      "sha256": "c3b524568fb2038746bde81f5e85e95dcaed6d6c3430c98a15c0d5740346cd80",
+      "fit_closure": [
+        "v1-synthetic",
+        "v1-train"
+      ],
+      "tune_closure": [
+        "v1-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "v1-nli-head-research": {
+      "lab": "v1",
+      "path": "frx-ai-rnd-20261029/experiments/nli-head-research.joblib",
+      "fit": [
+        "v1-train"
+      ],
+      "tune": [
+        "v1-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 1211,
+      "sha256": "d17b411a8d971411ee35f051e2c95058714dae20ab4224e7db970b7741d28193",
+      "fit_closure": [
+        "v1-train"
+      ],
+      "tune_closure": [
+        "v1-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "v1-reportability-research": {
+      "lab": "v1",
+      "path": "frx-ai-rnd-20261029/experiments/reportability-research.joblib",
+      "fit": [
+        "v1-train"
+      ],
+      "tune": [
+        "v1-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 4741,
+      "sha256": "0ebe2fb7bc8cf1e68a400faf755b7ec10948cf4080d9f5164d140603468ff97f",
+      "fit_closure": [
+        "v1-train"
+      ],
+      "tune_closure": [
+        "v1-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2",
+        "nli-deberta-v3-xsmall"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "E01-frozen-clean": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E01-frozen-clean.pt",
+      "fit": [
+        "v2-train-round1"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799628,
+      "sha256": "c2a87a1be060750bb366f7158a18d7e6ba285322d9641006d7877b9e3b42ff45",
+      "fit_closure": [
+        "v2-train-round1"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "E02-last2-clean": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E02-last2-clean.pt",
+      "fit": [
+        "v2-train-round1"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799509,
+      "sha256": "ca81926fe47f0fda1bf560ede007348095e10e9a0936267567dafe54d5e701a1",
+      "fit_closure": [
+        "v2-train-round1"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "E03-last2-synthetic": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E03-last2-synthetic.pt",
+      "fit": [
+        "v2-train-round1",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799985,
+      "sha256": "186a97fde7f409ab690bd18f1d9b8ad7b97b82ddf369df2bbdc5c676c643ad4b",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round1"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E04-last2-contrast": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E04-last2-contrast.pt",
+      "fit": [
+        "v2-train-round1",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799930,
+      "sha256": "26aefea2aa28bebcd0b042e5bfcee184f09b7435f388bee20b6f2b73f9802d5b",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round1"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E05-full-clauses": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E05-full-clauses.pt",
+      "fit": [
+        "v2-train-round2",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799692,
+      "sha256": "25a16c16a235b4b3ac8f5516724ad7187247f610baf69abe10170afcb6d2f5b6",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round2"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E06-full-masked": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E06-full-masked.pt",
+      "fit": [
+        "v2-train-round2",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799573,
+      "sha256": "589c973ca8bbb4820ea52bfd3059d5d6f204597bac37fdb1f46ae15682e3a9ce",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round2"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E07-full-contrast005": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E07-full-contrast005.pt",
+      "fit": [
+        "v2-train-round2",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91800168,
+      "sha256": "eb3ff36d8c809cb5f7496686f97f3547fb13a2c12d081682b03f9b64168a4733",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round2"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E11-expanded-control": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E11-expanded-control.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91800168,
+      "sha256": "079ac2d6dbf882ca6b15a835e244b2ccf053a2b6bc3e45f5ad8023d65588c8f1",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E12-curriculum": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E12-curriculum.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799454,
+      "sha256": "dbe00990c503f937394e072da17c96500c13d4d06db83f7066e2fbe2326b2afa",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E13-hard-relations": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E13-hard-relations.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799930,
+      "sha256": "1bc24b432ced751d98d250dcf657c7d62453eb2c02ba483fca3c78176991a477",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E14-weighted-weak": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E14-weighted-weak.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic",
+        "v2-weak-events"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799811,
+      "sha256": "96ec34daf778aa5743cdecd976256ca36bd0f6ab8a3d38c8aabba6e12cb539c2",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events",
+        "v2-weak-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E15-role-loss": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E15-role-loss.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799399,
+      "sha256": "ec0270e32f2ce58dee0098c6f3921b760895400493104b324f65aa31f64ccd38",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E16-edge-pairs": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E16-edge-pairs.pt",
+      "fit": [
+        "v2-train-events"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91799390,
+      "sha256": "20ddc27d6098c29440784e31ed04788bf2744602b3a01b3803d1c0120a2b279c",
+      "fit_closure": [
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "E17-hard-balanced-loss": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E17-hard-balanced-loss.pt",
+      "fit": [
+        "v2-train-events",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91800470,
+      "sha256": "2ff522a32582bc2e8529c0ce6cc6c380c4c5a5b9513aeecdbd3ddc463ed09c46",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "E18-goal-conditioned": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runs/E18-goal-conditioned.pt",
+      "fit": [
+        "v2-train-goals",
+        "v2-synthetic"
+      ],
+      "tune": [
+        "v2-dev-goals"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 91800296,
+      "sha256": "1f28d32ef5cd96e2dda5f19af1e200db19f0c3439cfed2f32fc5074d2d1e3277",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-goals"
+      ],
+      "tune_closure": [
+        "v2-dev-goals"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-plus-program",
+        "program-by-agent"
+      ]
+    },
+    "R01-contrast-1e5": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/retriever-runs/R01-contrast-1e5.pt",
+      "fit": [
+        "v2-retrieval-train"
+      ],
+      "tune": [
+        "v2-retrieval-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90886918,
+      "sha256": "ee2a9ecf7527e57d495d1a62f2655e67f541ea618cdbb3fde98576af3d221a69",
+      "fit_closure": [
+        "v2-retrieval-train"
+      ],
+      "tune_closure": [
+        "v2-retrieval-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "R02-contrast-3e5": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/retriever-runs/R02-contrast-3e5.pt",
+      "fit": [
+        "v2-retrieval-train"
+      ],
+      "tune": [
+        "v2-retrieval-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90886918,
+      "sha256": "ed3402ab3fe8f89b051399f67aaf810f82c709a42d4ab0165117d828fbd3caac",
+      "fit_closure": [
+        "v2-retrieval-train"
+      ],
+      "tune_closure": [
+        "v2-retrieval-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "runtime-relation": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runtime-relation/relation-int8.onnx",
+      "fit": [],
+      "tune": [
+        "v2-calibration-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [
+        "E07-full-contrast005"
+      ],
+      "status": "research",
+      "bytes": 23204756,
+      "sha256": "b813fec7a4b9ee10b4ee076b33eaf79d3973ab60f32416bbbeef0dabec9bc4fd",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-round2"
+      ],
+      "tune_closure": [
+        "v2-calibration-events",
+        "v2-dev-events"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "runtime-goal": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runtime-goal/relation-int8.onnx",
+      "fit": [],
+      "tune": [
+        "v2-calibration-goals"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [
+        "E18-goal-conditioned"
+      ],
+      "status": "research",
+      "bytes": 23204756,
+      "sha256": "758e674e0fbaf72e29b682318962b41bf833309cce3be25b530f5c3a7e428b18",
+      "fit_closure": [
+        "v2-synthetic",
+        "v2-train-goals"
+      ],
+      "tune_closure": [
+        "v2-calibration-goals",
+        "v2-dev-goals"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-plus-program",
+        "program-by-agent"
+      ]
+    },
+    "runtime-retrieval": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runtime-retrieval/retriever-int8.onnx",
+      "fit": [],
+      "tune": [],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [
+        "R02-contrast-3e5"
+      ],
+      "status": "research",
+      "bytes": 22950006,
+      "sha256": "67578e150a480885e935fffc8c95849fb5d8f6688b48a596837a76984f536bd8",
+      "fit_closure": [
+        "v2-retrieval-train"
+      ],
+      "tune_closure": [
+        "v2-retrieval-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "runtime-frozen-control": {
+      "lab": "v2",
+      "path": "frx-ai-rnd-v2-20261029/runtime-frozen-control/frozen-int8.onnx",
+      "fit": [],
+      "tune": [],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "upstream weights, no FRX labels",
+      "bytes": 22950006,
+      "sha256": "61b894f53611e70fcb02b261b37b80c807fe0b65665d93ee4e7944038fc3c4bc",
+      "fit_closure": [],
+      "tune_closure": [],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [],
+      "label_classes": []
+    },
+    "v3-modality": {
+      "lab": "v3",
+      "path": "frx-ai-rnd-v3-20261030/events/modality.joblib",
+      "fit": [
+        "v2-train-events",
+        "v2-dev-events"
+      ],
+      "tune": [
+        "v2-final-events"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [
+        "runtime-retrieval"
+      ],
+      "status": "research",
+      "bytes": 15253,
+      "sha256": "a9178e2b1dca13bc32a8670d55b9d0f1549cde76181dc9117636da6f072881bc",
+      "fit_closure": [
+        "v2-dev-events",
+        "v2-retrieval-train",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-final-events",
+        "v2-retrieval-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "v3-outcome": {
+      "lab": "v3",
+      "path": "frx-ai-rnd-v3-20261030/events/outcome.joblib",
+      "fit": [
+        "v2-train-events",
+        "v2-dev-events"
+      ],
+      "tune": [
+        "v2-final-events"
+      ],
+      "base": [],
+      "parents": [],
+      "status": "research",
+      "bytes": 77380,
+      "sha256": "9078a5ff243059537d2a62bef077b1435bfda7aed4b364f37a58292ddac54a68",
+      "fit_closure": [
+        "v2-dev-events",
+        "v2-train-events"
+      ],
+      "tune_closure": [
+        "v2-final-events"
+      ],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "v3-structure": {
+      "lab": "v3",
+      "path": "frx-ai-rnd-v3-20261030/structure/models.json",
+      "fit": [
+        "v3-structure-simulation"
+      ],
+      "tune": [],
+      "base": [],
+      "parents": [],
+      "status": "research",
+      "bytes": 43943,
+      "sha256": "8a19d5de484c997f5087019d16bd0f03b952ddcd945b4663b59f801cf79b83aa",
+      "fit_closure": [
+        "v3-structure-simulation"
+      ],
+      "tune_closure": [],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "program-by-agent"
+      ]
+    },
+    "S1-legacy-span": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S1-legacy-span.pt",
+      "fit": [
+        "v4-train"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90913994,
+      "sha256": "d1cf91d045749b9e8fae6a0e9fda6ee1a80753c33a51bd234fabce3e4d7d2033",
+      "fit_closure": [
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "S2-audited-real": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S2-audited-real.pt",
+      "fit": [
+        "v4-train"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90914109,
+      "sha256": "6294b9807e1d0f5b7203cf94d6a672dd47e69f41e83ded87790ffd5145f15783",
+      "fit_closure": [
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "S3-contrast-events": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S3-contrast-events.pt",
+      "fit": [
+        "v4-train",
+        "v4-synthetic"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90914454,
+      "sha256": "ccd757643337d9e90d77b11156be4746ca6689ca368c5c2afd32afb5007eb33f",
+      "fit_closure": [
+        "v4-synthetic",
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "S4-frozen-body": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S4-frozen-body.pt",
+      "fit": [
+        "v4-train",
+        "v4-synthetic"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90913994,
+      "sha256": "3112b4fbeb755c473e05030fe39e29810f6e844dc2337041b29673e02359a3d9",
+      "fit_closure": [
+        "v4-synthetic",
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "S5-balanced-events": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S5-balanced-events.pt",
+      "fit": [
+        "v4-train",
+        "v4-synthetic"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90914454,
+      "sha256": "f09e25e15e3d7a22d93f11fe1fef1d3d0fabdefb360d2a302b54454b648dca91",
+      "fit_closure": [
+        "v4-synthetic",
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "S6-balanced-no-contrast": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runs/S6-balanced-no-contrast.pt",
+      "fit": [
+        "v4-train",
+        "v4-synthetic"
+      ],
+      "tune": [
+        "v4-dev"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 90915093,
+      "sha256": "e668577ed8e8b1346278600d72a90d077d27abe15ce3a727e95ed5db9d658c5e",
+      "fit_closure": [
+        "v4-synthetic",
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "runtime-events": {
+      "lab": "v4",
+      "path": "frx-ai-rnd-v4-20261030/runtime-events/events-int8.onnx",
+      "fit": [],
+      "tune": [],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [
+        "S3-contrast-events"
+      ],
+      "status": "research",
+      "bytes": 22977600,
+      "sha256": "504fa2cdbb3fe750039d6adb34962c803429bd7483fc66c0b80b3713ff6732a0",
+      "fit_closure": [
+        "v4-synthetic",
+        "v4-train"
+      ],
+      "tune_closure": [
+        "v4-dev"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A1-real-paragraph": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A1-real-paragraph.pt",
+      "fit": [
+        "v5-train-known"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220045,
+      "sha256": "e0c1d49ebb0df3180c500869dc3b4ad3588c81e2f81852097bed1d88f88f8817",
+      "fit_closure": [
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "A2-contrast-paragraph": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A2-contrast-paragraph.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220205,
+      "sha256": "b9a5e0812233cc2498995f039e64af0e509c602f572783a30360c64755cb1940",
+      "fit_closure": [
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A3-contrast-sentence": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A3-contrast-sentence.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220165,
+      "sha256": "b81ae7978b386539135d496daca33fb389dbc5aa45add50fa677d4a1c4c71f40",
+      "fit_closure": [
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A4-syntax-features": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A4-syntax-features.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220277,
+      "sha256": "a5877ad2925dbce12fd14eafaeec513f226636d6c5e0ee139bbc8788d78cdaeb",
+      "fit_closure": [
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A4-coverage-control": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A4-coverage-control.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220381,
+      "sha256": "72fdb8ce2244b6c914da6c80a863ea05e30aaff413a7f5c25b6cafbeba1062c4",
+      "fit_closure": [
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A5-audited-data": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/atomic-runs/A5-audited-data.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-extra",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220221,
+      "sha256": "8784fc348ac2974b927470b730fdd04cba76bb3cc2015b95555e7fab51d6e042",
+      "fit_closure": [
+        "v5-extra",
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "A6-seed-control": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/refit-check/atomic-runs/A6-seed-control.pt",
+      "fit": [
+        "v5-train-known",
+        "v5-extra",
+        "v5-status-synthetic"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14220221,
+      "sha256": "4ca252fb5a1429a4e1bd1a51b3750648b2e93179d060c1665b3ca663cdfedb13",
+      "fit_closure": [
+        "v5-extra",
+        "v5-status-synthetic",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "program-by-agent"
+      ]
+    },
+    "v5-linker-selected": {
+      "lab": "v5",
+      "path": "frx-ai-rnd-v5-20261030/linker-audited-selection.json",
+      "fit": [
+        "v5-train-known",
+        "v5-extra"
+      ],
+      "tune": [
+        "v5-dev-known"
+      ],
+      "base": [],
+      "parents": [],
+      "status": "research; failed eligibility, not used",
+      "bytes": 9739,
+      "sha256": "158ae9403ad4a68c36731733b784460fb1254c19aa4f04d414c42bd3c19ee555",
+      "fit_closure": [
+        "v5-extra",
+        "v5-train-known"
+      ],
+      "tune_closure": [
+        "v5-dev-known"
+      ],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent"
+      ]
+    },
+    "L1-structured-real-text": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/verifiers/L1-structured-real-text.json",
+      "fit": [
+        "v6-training-pairs:real"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [],
+      "parents": [],
+      "status": "research",
+      "bytes": 2141,
+      "sha256": "c53de88a4887c4ce4bbde3f44b34eaf25fe5655b39e46a96be4cadffd1446750",
+      "fit_closure": [
+        "v6-training-pairs:real"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "L2-structured-contrast": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/verifiers/L2-structured-contrast.json",
+      "fit": [
+        "v6-training-pairs"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [],
+      "parents": [],
+      "status": "research",
+      "bytes": 2133,
+      "sha256": "189517fb15ee87f2634cab46875a4d6dcb754d2de2c704fbe468111bd4e39efe",
+      "fit_closure": [
+        "v6-training-pairs"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "L3-semantic-contrast": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/verifiers/L3-semantic-contrast.json",
+      "fit": [
+        "v6-training-pairs"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [],
+      "parents": [
+        "runtime-retrieval"
+      ],
+      "status": "research",
+      "bytes": 34299,
+      "sha256": "d33f46017306f2838546f0a1dcb00cc08b66239061cad0a322722523b017a754",
+      "fit_closure": [
+        "v2-retrieval-train",
+        "v6-training-pairs"
+      ],
+      "tune_closure": [
+        "v2-retrieval-dev",
+        "v6-development"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "N1-real-text": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/neural/N1-real-text.pt",
+      "fit": [
+        "v6-training-pairs:real"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14212165,
+      "sha256": "a8774ac076b08dfbf8daa4394c4a9f0fc47be61cc37d3aafe252f8802273855a",
+      "fit_closure": [
+        "v6-training-pairs:real"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "N2-contrast": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/neural/N2-contrast.pt",
+      "fit": [
+        "v6-training-pairs"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14212125,
+      "sha256": "25a15b35e3d68aa95adf5a9410d181e871855dfcd71aab3c7fe26b1f024d5c00",
+      "fit_closure": [
+        "v6-training-pairs"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "N3-structured-contrast": {
+      "lab": "v6",
+      "path": "frx-ai-rnd-v6-20261030/neural/N3-structured-contrast.pt",
+      "fit": [
+        "v6-training-pairs"
+      ],
+      "tune": [
+        "v6-development"
+      ],
+      "base": [
+        "MiniLM-L6-v2"
+      ],
+      "parents": [],
+      "status": "research",
+      "bytes": 14212821,
+      "sha256": "16c2463c9336c5659215e56d7f9d77b6332c03dd25fdc475765be96618d10826",
+      "fit_closure": [
+        "v6-training-pairs"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [
+        "MiniLM-L6-v2"
+      ],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    },
+    "L1-v7-copy": {
+      "lab": "v7",
+      "path": "frx-ai-rnd-v7-20261030/verifiers/L1-structured-real-text.json",
+      "fit": [],
+      "tune": [],
+      "base": [],
+      "parents": [
+        "L1-structured-real-text"
+      ],
+      "status": "comparator; no refit",
+      "bytes": 2141,
+      "sha256": "c53de88a4887c4ce4bbde3f44b34eaf25fe5655b39e46a96be4cadffd1446750",
+      "fit_closure": [
+        "v6-training-pairs:real"
+      ],
+      "tune_closure": [
+        "v6-development"
+      ],
+      "base_closure": [],
+      "label_agents": [
+        "gpt-6.1-sol (OpenAI Codex)"
+      ],
+      "label_classes": [
+        "direct-agent",
+        "direct-plus-program"
+      ]
+    }
+  },
+  "upstream_weights_outside_this_audit": [
+    "MiniLM-L6-v2",
+    "nli-deberta-v3-xsmall",
+    "spaCy en_core_web_sm",
+    "Stanza en"
+  ]
+}
