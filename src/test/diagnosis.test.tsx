@@ -152,6 +152,17 @@ describe('Central de Resolução', () => {
     expect(document.body.innerHTML).toContain('frx-caution')
   })
 
+  it('avisa em vermelho no cartão quando a descoberta traz uma DLL de terceiros', async () => {
+    answer = () => result({ suggestions: [suggestion({ title: 'DLL publicada', thirdPartyBinary: true }), suggestion({ title: 'Variável' })] })
+    mount(section())
+    await click('Diagnosticar')
+    const alerts = [...document.body.querySelectorAll('[role="alert"]')]
+    expect(alerts).toHaveLength(1)
+    expect(alerts[0].textContent).toContain('Instalação de binário de terceiros. O FRX não se responsabiliza pelo conteúdo.')
+    expect(alerts[0].closest('li')?.textContent).toContain('DLL publicada')
+    expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
+  })
+
   it('abre a prévia do Fix Engine com a impressão digital, sem chamar aplicação', async () => {
     mount(section())
     await click('Diagnosticar')

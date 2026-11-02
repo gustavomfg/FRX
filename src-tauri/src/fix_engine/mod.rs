@@ -362,6 +362,12 @@ impl FixEngine {
                         .iter()
                         .find(|f| f.target_path == rel)
                         .and_then(|f| f.sha256.clone())
+                        .or_else(|| {
+                            a.dlls
+                                .iter()
+                                .find(|d| d.destination_relative_path == rel)
+                                .map(|d| d.expected_sha256.clone())
+                        })
                         .or_else(|| a.sha256.clone())
                         .ok_or("Hash de artefato ausente")?
                 } else {
@@ -500,12 +506,29 @@ impl FixEngine {
 
     // ── Aplicação ────────────────────────────────────────────────────────
 
-    /// Aplica um plano confirmado. O plano é recalculado e precisa bater com
-    /// a impressão digital mostrada ao usuário.
+    /// Atalho dos testes para planos sem binário.
+    #[cfg(test)]
     pub fn apply(
         &self,
         plan_id: &str,
         fingerprint: &str,
+        game: &GameCtx,
+        emit: &dyn Fn(&Operation),
+    ) -> Result<Operation, String> {
+        self.apply_with_consent(plan_id, fingerprint, None, game, emit)
+    }
+
+    /// Aplica um plano confirmado. O plano é recalculado e precisa bater com
+    /// a impressão digital mostrada ao usuário.
+    ///
+    /// `binary_consent` é o `fingerprint` da prévia que o usuário confirmou ao
+    /// marcar a caixa da DLL. Sem ele, um plano com binário é recusado aqui,
+    /// antes de qualquer download: a trava da interface sozinha não basta.
+    pub fn apply_with_consent(
+        &self,
+        plan_id: &str,
+        fingerprint: &str,
+        binary_consent: Option<&str>,
         game: &GameCtx,
         emit: &dyn Fn(&Operation),
     ) -> Result<Operation, String> {
@@ -516,12 +539,19 @@ impl FixEngine {
             }
             Err(TryLockError::Poisoned(_)) => return Err("estado indisponível".into()),
         };
-        let (stored, _) = self
-            .plans
-            .lock()
-            .map_err(|_| "estado indisponível")?
+        let consented = |plan: &FixPlan| {
+            !plan.requires_explicit_user_consent
+                || binary_consent == Some(plan.fingerprint.as_str())
+        };
+        let mut plans = self.plans.lock().map_err(|_| "estado indisponível")?;
+        // Sem consentimento, a prévia continua válida para o usuário marcar a caixa.
+        if plans.get(plan_id).is_some_and(|(p, _)| !consented(p)) {
+            return Err(CONSENT_REQUIRED.into());
+        }
+        let (stored, _) = plans
             .remove(plan_id)
             .ok_or("Prévia não encontrada ou já usada. Revise a correção de novo.")?;
+        drop(plans);
         if stored.expires_at <= now_unix() {
             return Err("A prévia expirou. Revise a correção de novo.".into());
         }
@@ -533,6 +563,9 @@ impl FixEngine {
         if plan.fingerprint != stored.fingerprint {
             return Err("O estado do jogo ou da Steam mudou desde a prévia. Nada foi alterado; revise a correção de novo.".into());
         }
+        if !consented(&plan) {
+            return Err(CONSENT_REQUIRED.into());
+        }
         if !plan.executable() {
             return Err(plan
                 .reasons
@@ -542,7 +575,7 @@ impl FixEngine {
         }
         let now = now_iso();
         let mut op = Operation {
-            requires_explicit_user_consent: false,
+            requires_explicit_user_consent: plan.requires_explicit_user_consent,
             manual_recovery_required: false,
             artifacts: recipe
                 .actions
@@ -736,8 +769,8 @@ impl FixEngine {
                         artifact.asset_name, artifact.release_url
                     )
                 })?;
-                for (path, text) in content {
-                    if all.insert(path, text).is_some() {
+                for (path, payload) in content {
+                    if all.insert(path, payload).is_some() {
                         return Err("Arquivos de artefatos distintos têm o mesmo destino.".into());
                     }
                 }
@@ -747,12 +780,28 @@ impl FixEngine {
                     rel,
                     content,
                     artifact: Some(_),
+                    dll,
+                    binary,
                     ..
                 } = &mut record.step
                 {
-                    *content = all
-                        .remove(rel)
-                        .ok_or("Arquivo verificado ausente no staging")?;
+                    match (
+                        all.remove(rel)
+                            .ok_or("Arquivo verificado ausente no staging")?,
+                        dll.as_ref(),
+                    ) {
+                        (artifacts::Payload::Text(text), None) => *content = text,
+                        (artifacts::Payload::Binary(bytes), Some(d))
+                            if sha256_hex(&bytes) == d.expected_sha256 =>
+                        {
+                            *binary = bytes
+                        }
+                        _ => {
+                            return Err(
+                                "O conteúdo verificado não corresponde ao tipo do destino.".into()
+                            )
+                        }
+                    }
                 }
             }
             // Every remaining item belongs to the publisher's explicit selection;
@@ -790,12 +839,7 @@ impl FixEngine {
                     .unwrap_or_default()
             );
             let b = match &rec.step {
-                Step::GameFile {
-                    root,
-                    rel,
-                    identity,
-                    ..
-                } => confined::Target::open(root, rel, identity.as_ref())?.backup(&dir, &name)?,
+                Step::GameFile { .. } => open_game_file(&rec.step)?.backup(&dir, &name)?,
                 _ => files::backup(&target, &dir, &name)?,
             };
             if let Step::GameFile { before_sha, .. } = &rec.step {
@@ -830,6 +874,7 @@ impl FixEngine {
                 return Err("CONFLITO: Steam ou jogo foram abertos durante a transação; nenhuma etapa adicional foi executada.".into());
             }
             op.steps[i].after_sha = Some(match &op.steps[i].step {
+                Step::GameFile { dll: Some(d), .. } => d.expected_sha256.clone(),
                 Step::GameFile { content, .. } => sha256_hex(content.as_bytes()),
                 Step::LaunchOptions {
                     config,
@@ -903,12 +948,7 @@ impl FixEngine {
                 ));
             }
             match &rec.step {
-                Step::GameFile {
-                    root,
-                    rel,
-                    identity,
-                    ..
-                } => confined::Target::open(root, rel, identity.as_ref())?.restore(
+                Step::GameFile { .. } => open_game_file(&rec.step)?.restore(
                     rec.backup.as_ref().ok_or("backup ausente")?,
                     rec.after_sha.as_deref(),
                 )?,
@@ -1251,13 +1291,8 @@ impl FixEngine {
                 let target = op.steps[i].step.target().to_path_buf();
                 let name = format!("rollback-{rollback_attempt}-{i}");
                 op.steps[i].rollback_backup = Some(match &op.steps[i].step {
-                    Step::GameFile {
-                        root,
-                        rel,
-                        identity,
-                        ..
-                    } => {
-                        confined::Target::open(root, rel, identity.as_ref())?.backup(&dir, &name)?
+                    Step::GameFile { .. } => {
+                        open_game_file(&op.steps[i].step)?.backup(&dir, &name)?
                     }
                     _ => files::backup(&target, &dir, &name)?,
                 });
@@ -1285,13 +1320,8 @@ impl FixEngine {
                             return Err("A verificação do rollback falhou.".into());
                         }
                     }
-                    Step::GameFile {
-                        root,
-                        rel,
-                        identity,
-                        ..
-                    } => {
-                        confined::Target::open(root, rel, identity.as_ref())?.restore(
+                    Step::GameFile { .. } => {
+                        open_game_file(&op.steps[i].step)?.restore(
                             op.steps[i].backup.as_ref().ok_or("backup ausente")?,
                             op.steps[i].after_sha.as_deref(),
                         )?;
@@ -1386,22 +1416,30 @@ fn write_step(step: &Step) -> Result<String, String> {
             target,
             before_sha,
             content,
-            identity,
+            dll,
+            binary,
             ..
         } => {
-            let again = security::resolve_in_root(root, rel)?;
+            let again = if dll.is_some() {
+                security::resolve_dll_in_root(root, rel)?
+            } else {
+                security::resolve_in_root(root, rel)?
+            };
             if again != *target {
                 return Err("CONFLITO: o caminho do arquivo mudou.".into());
             }
-            if confined::Target::open(root, rel, identity.as_ref())?.sha()? != *before_sha {
+            let opened = open_game_file(step)?;
+            if opened.sha()? != *before_sha {
                 return Err("CONFLITO: o arquivo do jogo foi alterado.".into());
             }
-            confined::Target::open(root, rel, identity.as_ref())?.write(
-                content.as_bytes(),
-                before_sha.as_deref(),
-                0o644,
-            )?;
-            Ok(sha256_hex(content.as_bytes()))
+            let bytes = match dll {
+                // Os bytes só existem depois do staging desta mesma execução.
+                Some(d) if sha256_hex(binary) == d.expected_sha256 => binary.as_slice(),
+                Some(_) => return Err("A DLL verificada não está disponível para escrita.".into()),
+                None => content.as_bytes(),
+            };
+            opened.write(bytes, before_sha.as_deref(), 0o644)?;
+            Ok(sha256_hex(bytes))
         }
     }
 }
@@ -1428,13 +1466,29 @@ fn verify_written(rec: &StepRecord) -> Result<(), String> {
 
 fn step_sha(step: &Step) -> Result<Option<String>, String> {
     match step {
-        Step::GameFile {
-            root,
-            rel,
-            identity,
-            ..
-        } => confined::Target::open(root, rel, identity.as_ref())?.sha(),
+        Step::GameFile { .. } => open_game_file(step)?.sha(),
         Step::LaunchOptions { config, .. } => sha256_file(config),
+    }
+}
+
+const CONSENT_REQUIRED: &str = "Esta correção instala uma DLL de terceiros e exige sua confirmação explícita na prévia. Nada foi alterado.";
+
+/// Abre o destino de um passo com o limite do tipo dele: configuração ou DLL.
+fn open_game_file(step: &Step) -> Result<confined::Target, String> {
+    let Step::GameFile {
+        root,
+        rel,
+        identity,
+        dll,
+        ..
+    } = step
+    else {
+        return Err("O passo não é um arquivo do jogo.".into());
+    };
+    if dll.is_some() {
+        confined::Target::open_binary(root, rel, identity.as_ref())
+    } else {
+        confined::Target::open(root, rel, identity.as_ref())
     }
 }
 

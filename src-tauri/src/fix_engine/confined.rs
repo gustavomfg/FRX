@@ -14,6 +14,11 @@ use serde::{Deserialize, Serialize};
 use super::{files::sha256_hex, models::BackupRef, security};
 
 pub const MAX_CONFIG: usize = 256 * 1024;
+/// DLLs de jogo passam de 8 MiB (a do DLSS tem dezenas). O limite vale para
+/// leitura, backup e escrita de um alvo aberto com `open_binary`.
+pub const MAX_BINARY: usize = 64 * 1024 * 1024;
+pub const PREFIX_REFUSED: &str =
+    "O FRX não altera prefixos do Proton (compatdata/ ou pfx/): só a pasta do jogo, em steamapps/common.";
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -28,6 +33,7 @@ pub struct Target {
     parent: File,
     name: CString,
     pub identity: FileIdentity,
+    limit: usize,
 }
 
 fn directory_at(parent: &File, name: &std::ffi::OsStr) -> Result<File, String> {
@@ -51,16 +57,35 @@ fn directory_at(parent: &File, name: &std::ffi::OsStr) -> Result<File, String> {
 
 impl Target {
     pub fn open(root: &Path, rel: &str, expected: Option<&FileIdentity>) -> Result<Self, String> {
+        Self::open_limited(root, rel, expected, MAX_CONFIG)
+    }
+
+    /// Mesmo confinamento de `open`, com o limite de tamanho de uma DLL.
+    pub fn open_binary(
+        root: &Path,
+        rel: &str,
+        expected: Option<&FileIdentity>,
+    ) -> Result<Self, String> {
+        Self::open_limited(root, rel, expected, MAX_BINARY)
+    }
+
+    fn open_limited(
+        root: &Path,
+        rel: &str,
+        expected: Option<&FileIdentity>,
+        limit: usize,
+    ) -> Result<Self, String> {
         security::check_game_root(root)?;
-        security::check_rel_path(rel)?;
-        if Path::new(rel)
-            .components()
-            .any(|c| c.as_os_str().eq_ignore_ascii_case("compatdata"))
-        {
-            return Err(
-                "O FRX não escreve em compatdata/: só na pasta do jogo, em steamapps/common."
-                    .into(),
-            );
+        if limit == MAX_BINARY {
+            security::check_dll_rel_path(rel)?;
+        } else {
+            security::check_rel_path(rel)?;
+        }
+        if Path::new(rel).components().any(|c| {
+            let c = c.as_os_str();
+            c.eq_ignore_ascii_case("compatdata") || c.eq_ignore_ascii_case("pfx")
+        }) {
+            return Err(PREFIX_REFUSED.into());
         }
         let mut dir = File::open("/").map_err(|e| e.to_string())?;
         for c in root.components() {
@@ -101,6 +126,7 @@ impl Target {
             parent: dir,
             name,
             identity,
+            limit,
         };
         target.read()?; // refuses symlinks/non-files even when content isn't needed yet.
         Ok(target)
@@ -124,16 +150,14 @@ impl Target {
         }
         let file = unsafe { File::from_raw_fd(fd) };
         let meta = file.metadata().map_err(|e| e.to_string())?;
-        if !meta.is_file() || meta.nlink() != 1 || meta.len() > MAX_CONFIG as u64 {
-            return Err(
-                "Destino especial, hard link ou arquivo maior que o limite de configuração.".into(),
-            );
+        if !meta.is_file() || meta.nlink() != 1 || meta.len() > self.limit as u64 {
+            return Err("Destino especial, hard link ou arquivo maior que o limite.".into());
         }
         let mut bytes = Vec::new();
-        file.take(MAX_CONFIG as u64 + 1)
+        file.take(self.limit as u64 + 1)
             .read_to_end(&mut bytes)
             .map_err(|e| e.to_string())?;
-        if bytes.len() > MAX_CONFIG {
+        if bytes.len() > self.limit {
             return Err("Arquivo maior que o limite.".into());
         }
         Ok(Some(bytes))
@@ -184,8 +208,8 @@ impl Target {
         if self.sha()?.as_deref() != before {
             return Err("CONFLITO: o arquivo foi alterado por outro processo.".into());
         }
-        if bytes.len() > MAX_CONFIG {
-            return Err("Configuração maior que o limite.".into());
+        if bytes.len() > self.limit {
+            return Err("Conteúdo maior que o limite do destino.".into());
         }
         let current_mode = self.mode()?;
         if current_mode.is_some_and(|m| m & 0o222 == 0) {
@@ -250,6 +274,7 @@ impl Target {
                     })?,
                     name: temp.clone(),
                     identity: self.identity.clone(),
+                    limit: self.limit,
                 };
                 if displaced.sha().ok().flatten().as_deref() != before {
                     // The displaced entry is retained until we can restore it;
@@ -397,6 +422,7 @@ impl Target {
                 })?,
                 name: temp.clone(),
                 identity: self.identity.clone(),
+                limit: self.limit,
             };
             if displaced.sha().ok().flatten().as_deref() != expected {
                 let restored = unsafe {
@@ -477,6 +503,57 @@ mod compatdata_tests {
             assert!(refused(&game, rel).contains("compatdata/"), "{rel}");
         }
         assert!(refused(&game, "../../compatdata/x.ini").contains("sem “..”"));
+    }
+
+    #[test]
+    fn writing_into_compatdata_or_pfx_fails_with_the_prefix_message() {
+        let (tmp, game) = library();
+        let prefix = tmp.path().join("steamapps/compatdata/200260/pfx");
+        std::fs::create_dir_all(prefix.join("drive_c")).unwrap();
+        std::fs::create_dir_all(game.join("pfx")).unwrap();
+        let attempts: [(&Path, &str); 6] = [
+            (&prefix, "user.reg.ini"),
+            (&prefix, "drive_c/d3d11.dll"),
+            (&game, "pfx/d3d11.dll"),
+            (&game, "PFX/settings.ini"),
+            (&game, "compatdata/200260/pfx/d3d11.dll"),
+            (&prefix.join("drive_c"), "d3d11.dll"),
+        ];
+        for (root, rel) in attempts {
+            let errors = [
+                Target::open(root, rel, None).err(),
+                Target::open_binary(root, rel, None).err(),
+            ];
+            let at = format!("{rel} em {}", root.display());
+            assert!(errors.iter().all(Option::is_some), "{at}");
+            assert!(
+                errors.iter().flatten().any(|e| e == PREFIX_REFUSED),
+                "{at}: {errors:?}"
+            );
+        }
+        // Nada foi criado no prefixo nem na pasta do jogo.
+        assert!(std::fs::read_dir(prefix.join("drive_c"))
+            .unwrap()
+            .next()
+            .is_none());
+        assert!(std::fs::read_dir(game.join("pfx"))
+            .unwrap()
+            .next()
+            .is_none());
+        // Com a extensão certa, o prefixo é a razão da recusa nos dois tipos.
+        assert_eq!(
+            Target::open_binary(&game, "pfx/d3d11.dll", None)
+                .err()
+                .as_deref(),
+            Some(PREFIX_REFUSED)
+        );
+        assert_eq!(
+            Target::open(&game, "pfx/settings.ini", None)
+                .err()
+                .as_deref(),
+            Some(PREFIX_REFUSED)
+        );
+        assert!(PREFIX_REFUSED.starts_with("O FRX não altera prefixos do Proton"));
     }
 
     #[test]

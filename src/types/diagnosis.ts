@@ -35,6 +35,8 @@ export interface Suggestion {
   compatibility: CompatStatus
   compatibilityDetail: string
   hardwareScope: HardwareScope
+  /** A descoberta traz uma DLL de terceiros: o cartão mostra o aviso vermelho. */
+  thirdPartyBinary?: boolean
   positive: number
   negative: number
   claims: Claim[]

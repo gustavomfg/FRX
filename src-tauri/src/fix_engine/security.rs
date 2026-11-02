@@ -128,13 +128,7 @@ const MAX_FILE_BYTES: usize = 256 * 1024;
 /// Caminho declarado pela receita: relativo, sem `..`, sem componentes
 /// estranhos e com extensão de configuração.
 pub fn check_rel_path(rel: &str) -> Result<(), String> {
-    let p = Path::new(rel);
-    if rel.is_empty() || rel.len() > 200 || rel.chars().any(|c| c.is_control() || c == '\\') {
-        return Err("Caminho inválido.".into());
-    }
-    if !p.components().all(|c| matches!(c, Component::Normal(_))) {
-        return Err("A receita só pode usar caminhos relativos à pasta do jogo, sem “..”.".into());
-    }
+    let p = check_rel_shape(rel)?;
     let ext = p
         .extension()
         .and_then(|e| e.to_str())
@@ -145,10 +139,43 @@ pub fn check_rel_path(rel: &str) -> Result<(), String> {
     Ok(())
 }
 
+fn check_rel_shape(rel: &str) -> Result<&Path, String> {
+    let p = Path::new(rel);
+    if rel.is_empty() || rel.len() > 200 || rel.chars().any(|c| c.is_control() || c == '\\') {
+        return Err("Caminho inválido.".into());
+    }
+    if !p.components().all(|c| matches!(c, Component::Normal(_))) {
+        return Err("A receita só pode usar caminhos relativos à pasta do jogo, sem “..”.".into());
+    }
+    Ok(p)
+}
+
+/// Mesmas regras de `check_rel_path`, mas o único binário aceito é `.dll`.
+/// Só um `DllArtifact` chega aqui; receitas de texto continuam sem binários.
+pub fn check_dll_rel_path(rel: &str) -> Result<(), String> {
+    let p = check_rel_shape(rel)?;
+    if p.extension().is_none_or(|e| !e.eq_ignore_ascii_case("dll")) {
+        return Err("Um binário só é aceito como DLL na pasta do jogo.".into());
+    }
+    Ok(())
+}
+
 /// Resolve `rel` dentro de `root` sem seguir links simbólicos e sem escapar
 /// da pasta. Devolve o caminho final (que pode ainda não existir).
 pub fn resolve_in_root(root: &Path, rel: &str) -> Result<PathBuf, String> {
-    check_rel_path(rel)?;
+    resolve_checked(root, rel, check_rel_path)
+}
+
+pub fn resolve_dll_in_root(root: &Path, rel: &str) -> Result<PathBuf, String> {
+    resolve_checked(root, rel, check_dll_rel_path)
+}
+
+fn resolve_checked(
+    root: &Path,
+    rel: &str,
+    check: fn(&str) -> Result<(), String>,
+) -> Result<PathBuf, String> {
+    check(rel)?;
     let root =
         std::fs::canonicalize(root).map_err(|_| "Pasta do jogo não encontrada.".to_owned())?;
     if !root.is_dir() {
@@ -185,10 +212,7 @@ pub fn resolve_in_root(root: &Path, rel: &str) -> Result<PathBuf, String> {
 pub fn check_game_root(root: &Path) -> Result<(), String> {
     let s = root.to_string_lossy();
     if !root.is_absolute() || s.contains("/compatdata/") || s.contains("/pfx/") {
-        return Err(
-            "O FRX não escreve em compatdata/ nem em prefixos do Proton: só na pasta do jogo, em steamapps/common."
-                .into(),
-        );
+        return Err(super::confined::PREFIX_REFUSED.into());
     }
     if !s.contains("/steamapps/common/") {
         return Err(

@@ -121,12 +121,15 @@ pub async fn apply_fix_plan(
     plan_id: String,
     fingerprint: String,
     app_id: String,
+    // Fingerprint da prévia em que o usuário marcou a confirmação da DLL.
+    binary_consent: Option<String>,
 ) -> Result<Operation, String> {
     let (e, cache) = (engine(&ctx), ctx.cache.clone());
     blocking(move || {
-        e.apply(
+        e.apply_with_consent(
             &plan_id,
             &fingerprint,
+            binary_consent.as_deref(),
             &game_ctx(&cache, &app_id)?,
             &emitter(app),
         )

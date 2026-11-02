@@ -522,7 +522,7 @@ mod file_packs {
             metadata_url:"https://api.github.com/repos/ValveSoftware/Proton/releases/1".into(),release_id:1,publisher:Some("synthetic-publisher".into()),asset_id:2,
             asset_name:"synthetic.cfg".into(),asset_url:"https://github.com/ValveSoftware/Proton/releases/download/synthetic-v1/synthetic.cfg".into(),size_bytes:12,content_type:Some("text/plain".into()),sha256:Some("a".repeat(64)),signature_url:None,
             format:ArtifactFormat::File,platform:Some("any".into()),architecture:Some("any".into()),
-            files:vec![ArtifactFile { source_path:None,target_path:path.into(),sha256:Some("a".repeat(64)),replace:false,expected_original_sha256:None }],
+            files:vec![ArtifactFile { source_path:None,target_path:path.into(),sha256:Some("a".repeat(64)),replace:false,expected_original_sha256:None }],dlls:vec![],
             requirements:Default::default(),trust:ArtifactTrust::OriginAndIntegrity,reasons:vec!["Synthetic fixture only".into()],license:None,published_at:None,
         }
     }
@@ -735,6 +735,8 @@ mod file_packs {
                     target: "/synthetic/game/settings.cfg".into(),
                     before_sha: None,
                     content: String::new(),
+                    dll: None,
+                    binary: vec![],
                 },
                 status: StepStatus::Pending,
                 backup: None,

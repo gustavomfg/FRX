@@ -269,6 +269,9 @@ pub struct PlannedChange {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixPlan {
+    /// Há DLL de terceiros: `apply` recusa sem a confirmação ligada ao `fingerprint`.
+    #[serde(default)]
+    pub requires_explicit_user_consent: bool,
     #[serde(default)]
     pub artifacts: Vec<crate::fixes::models::ArtifactCandidate>,
     #[serde(default)]
@@ -349,6 +352,12 @@ pub enum Step {
         target: PathBuf,
         before_sha: Option<String>,
         content: String,
+        /// DLL deste destino. O diário guarda só o hash: os bytes verificados
+        /// ficam em `binary`, em memória, entre o staging e a escrita.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        dll: Option<crate::fixes::models::DllArtifact>,
+        #[serde(skip)]
+        binary: Vec<u8>,
     },
 }
 
@@ -455,8 +464,8 @@ pub struct Pending {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Operation {
-    /// Registro do consentimento para instalar binários. Só design: nenhum fluxo
-    /// define `true` ainda, e o bloqueio real fica no plano (`docs/DLL-POLICY-DESIGN.md`).
+    /// Registro de que o usuário confirmou a instalação de uma DLL. O bloqueio
+    /// fica em `FixEngine::apply_with_consent`, antes de qualquer download.
     #[serde(default)]
     pub requires_explicit_user_consent: bool,
     /// Concurrent content retained outside the normal backup sequence needs

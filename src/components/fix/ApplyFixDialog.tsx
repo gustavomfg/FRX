@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { Mascot } from '@/mascot/Mascot'
 import { Pill } from '@/components/ui/Status'
 import { PerformanceWarning } from './PerformanceWarning'
-import { ArtifactDetails, artifactBytes } from './ArtifactDetails'
+import { ArtifactDetails, ThirdPartyBinaryWarning, artifactBytes } from './ArtifactDetails'
 import { HardwareContext } from './HardwareContext'
 import { APPLY_STAGES, FILE_APPLY_STAGES, EVIDENCE, isImprovement, OP_STATE, PLAN_STATUS, PURPOSE, RISK, ROLLBACK_STAGES, TRUST } from './engineMeta'
 import { openExternal } from '@/services/opener'
@@ -45,6 +45,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
   const [error, setError] = useState<string | null>(null)
   const [ack, setAck] = useState(false)
   const [downloadAck, setDownloadAck] = useState(false)
+  const [binaryAck, setBinaryAck] = useState(false)
   const [cancelling, setCancelling] = useState(false)
   const [verifying, setVerifying] = useState(false)
   const alive = useRef(true)
@@ -58,6 +59,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
     setError(null)
     setAck(false)
     setDownloadAck(false)
+    setBinaryAck(false)
     setCancelling(false)
     setStage(null)
     try {
@@ -119,7 +121,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
       }
     })
     try {
-      if (target.kind === 'apply' && plan) finish(await applyFixPlan(plan))
+      if (target.kind === 'apply' && plan) finish(await applyFixPlan(plan, needsBinaryAck && binaryAck))
       else if (rb) finish(await rollbackFix(rb))
     } catch (e) {
       setError(errorMessage(e))
@@ -188,6 +190,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
   const changes = (rollback ? rb?.changes : plan?.changes) ?? []
   const reasons = (rollback ? rb?.reasons : plan?.reasons) ?? []
   const hasDownloads = !!plan?.artifacts?.length
+  const needsBinaryAck = !!plan?.requiresExplicitUserConsent
   const stages = rollback ? ROLLBACK_STAGES : hasDownloads ? FILE_APPLY_STAGES : APPLY_STAGES
   const stageIndex = stage ? stages.findIndex((s) => s.state === stage) : -1
   // No resultado vale o estado real da operação, não o tipo de diálogo.
@@ -254,7 +257,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
             <Button variant="ghost" onClick={() => setPhase('review')}>
               Voltar
             </Button>
-            <Button variant="primary" disabled={!ack || (hasDownloads && !downloadAck)} onClick={() => void run()}>
+            <Button variant="primary" disabled={!ack || (hasDownloads && !downloadAck) || (needsBinaryAck && !binaryAck)} onClick={() => void run()}>
               {manualMode ? 'Registrar e mostrar a linha' : hasDownloads ? 'Baixar e instalar correção' : isImprovement(plan?.purpose) ? 'Aplicar melhoria' : 'Aplicar correção'}
             </Button>
           </>
@@ -372,6 +375,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
                 )}
               </div>
               {!rollback && <PerformanceWarning warnings={plan?.performanceWarnings} />}
+              {needsBinaryAck && <ThirdPartyBinaryWarning detail="O FRX confere só o SHA-256 publicado e instala apenas na pasta do jogo. Ele não testou nem avalia o que esta DLL faz." />}
               {plan && <HardwareContext environment={plan.environment} match={plan.hardwareMatch} />}
               {plan && <ArtifactDetails artifacts={plan.artifacts} />}
               {reasons.length > 0 && (
@@ -402,6 +406,7 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
           {phase === 'confirm' && plan && (
             <div className="space-y-4">
               <PerformanceWarning warnings={plan.performanceWarnings} />
+              {needsBinaryAck && <ThirdPartyBinaryWarning />}
               {hasDownloads && <p className="text-[13px] text-fg-2">O FRX vai baixar os arquivos identificados na prévia, verificar o conteúdo em uma área temporária e só então criar o backup e instalar nos destinos autorizados.</p>}
               <ul className="space-y-3 text-[13.5px]">
                 <li className="flex gap-3">
@@ -430,6 +435,13 @@ function ScopedApplyFixDialog({ target, onClose }: { target: ApplyTarget; onClos
               {hasDownloads && <label className="flex cursor-pointer items-start gap-3 rounded-md border border-line-2 bg-raised/50 px-3.5 py-3 text-[13.5px] transition-colors hover:border-line-3">
                 <input type="checkbox" checked={downloadAck} onChange={(e) => setDownloadAck(e.target.checked)} className="mt-0.5 size-4 accent-[var(--frx-accent)]" />
                 <span>Autorizo o download e a instalação somente dos arquivos e destinos mostrados nesta prévia. Entendo que origem e checksum não garantem ausência de risco nem melhoria de desempenho.</span>
+              </label>}
+              {needsBinaryAck && <label className="flex cursor-pointer items-start gap-3 rounded-md border border-bad/30 bg-bad-soft px-3.5 py-3 text-[13.5px] text-fg">
+                <input type="checkbox" checked={binaryAck} onChange={(e) => setBinaryAck(e.target.checked)} className="mt-0.5 size-4 accent-[var(--frx-bad)]" aria-describedby="binary-consent-note" />
+                <span>
+                  Confirmo a instalação desta DLL de terceiros na pasta do jogo. Entendo que o FRX não se responsabiliza pelo conteúdo dela e que posso desfazer pelo histórico.
+                  <span id="binary-consent-note" className="mt-1 block text-[12px] text-fg-3">Sem esta confirmação o núcleo recusa a instalação, mesmo que a interface envie o pedido.</span>
+                </span>
               </label>}
             </div>
           )}
