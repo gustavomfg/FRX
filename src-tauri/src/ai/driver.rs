@@ -158,9 +158,19 @@ fn full_nvidia_shape(word: &str) -> bool {
         if a.len() == 3 && (2..=3).contains(&b.len()) && c.len() == 2)
 }
 
+/// Versão citada depois da palavra "mesa". Relatos costumam escrever só "Mesa 23".
+/// Número inteiro vale a partir de 17, início da numeração por ano, para que
+/// "mesa 2 times" não vire versão.
+fn mesa_mention(word: &str) -> Option<DriverInfo> {
+    if !word.contains('.') && word.parse::<u32>().ok()? < 17 {
+        return None;
+    }
+    mesa(word)
+}
+
 /// Versões citadas num texto. Um número solto, como "144.5 fps", não conta:
 /// a NVIDIA exige a forma completa ou uma palavra de contexto logo antes, e o
-/// Mesa exige o nome seguido de uma versão com ponto.
+/// Mesa exige o nome seguido da versão.
 pub fn mentions(text: &str) -> Vec<DriverInfo> {
     const NVIDIA_WORDS: &[&str] = &["driver", "drivers", "nvidia", "geforce"];
     let low = text.to_lowercase();
@@ -169,13 +179,12 @@ pub fn mentions(text: &str) -> Vec<DriverInfo> {
         .map(|w| w.trim_matches(['.', '-', '_']))
         .filter(|w| !w.is_empty())
         .collect();
-    let dotted_mesa = |w: &str| if w.contains('.') { mesa(w) } else { None };
     let mut out = Vec::new();
     for (i, word) in words.iter().enumerate() {
         if *word == "mesa" {
-            out.extend(words.get(i + 1).and_then(|n| dotted_mesa(n)));
+            out.extend(words.get(i + 1).and_then(|n| mesa_mention(n)));
         } else if let Some(rest) = word.strip_prefix("mesa-") {
-            out.extend(dotted_mesa(rest));
+            out.extend(mesa_mention(rest));
         } else if word.contains('.') && word.bytes().all(|b| b.is_ascii_digit() || b == b'.') {
             let before = |n: usize| i.checked_sub(n).map(|k| words[k]);
             let context = before(1).is_some_and(|w| NVIDIA_WORDS.contains(&w))
@@ -544,6 +553,8 @@ Package: libgl1-mesa-dri\nStatus: install ok installed\nVersion: 1:25.0.7-0ubunt
         assert!(mentions("game version 123.45").is_empty());
         assert!(mentions("server at 192.168.1.1 and 192.168.1").is_empty());
         assert!(mentions("mesa 2 times").is_empty());
+        assert_eq!(mentions("Using Mesa 23 here"), [m("23")]);
+        assert_eq!(mentions("built with mesa-23"), [m("23")]);
     }
 
     #[test]

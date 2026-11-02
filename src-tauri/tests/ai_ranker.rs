@@ -387,6 +387,43 @@ mod ai_ranker {
     }
 
     #[test]
+    fn mesa_distance_reaches_stale_and_proximity_for_amd_and_intel() {
+        let cases = [
+            ("amdgpu", GpuVendor::Amd, "AMD Radeon RX 7800 XT"),
+            ("radeon", GpuVendor::Amd, "AMD Radeon R9 290"),
+            ("i915", GpuVendor::Intel, "Intel UHD Graphics 770"),
+            ("xe", GpuVendor::Intel, "Intel Arc B580"),
+        ];
+        // Usuário em Mesa 24.x. Com e sem ponto, como aparece nos relatos.
+        let expected = [
+            ("Mesa 24", Some(1.0), 0.0),
+            ("Mesa 23", Some(0.5), 0.0),
+            ("Mesa 23.3.1", Some(0.5), 0.0),
+            ("mesa-23.3", Some(0.5), 0.0),
+            ("Mesa 22", Some(0.2), 0.0),
+            ("Mesa 21", Some(0.0), 1.0),
+            ("Mesa 21.3", Some(0.0), 1.0),
+            ("Mesa 26", Some(0.2), 0.0),
+        ];
+        for (driver, vendor, name) in cases {
+            let mut g = gpu(vendor, name, "6.10.4");
+            g.driver = Some(driver.into());
+            let mut q = query("flicker", 1, "Jogo", g, "Proton 10.0-3");
+            q.system.mesa_version = Some("24.2.0".into());
+            for (mention, proximity, stale) in expected {
+                let text = format!("Flicker with {mention} here.");
+                let list = [c(GithubComment, 1, &text, "2026-06-01")];
+                let s = &rank(&q, &list, &LexicalEmbedder, NOW).unwrap()[0];
+                assert_eq!(
+                    s.features.driver_proximity, proximity,
+                    "{driver}: {mention}"
+                );
+                assert_eq!(s.features.penalty_stale, stale, "{driver}: {mention}");
+            }
+        }
+    }
+
+    #[test]
     fn unknown_driver_does_not_penalize() {
         let text = "Texture flicker on Radeon RX 7900 with Mesa 20.0.";
         let list = [c(GithubComment, 1, text, "2026-06-01")];
