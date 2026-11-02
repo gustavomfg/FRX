@@ -1,13 +1,17 @@
-//! Pesquisa assistida do FRX. Esta etapa tem só o ranker determinístico, sem
-//! LLM e sem rede. Nenhuma saída daqui toca o disco ou aplica correção.
+//! Pesquisa assistida do FRX. Esta etapa tem reescrita de consulta, provedores
+//! mockados e o ranker, sem rede. Nenhuma saída daqui aplica correção.
 
 pub mod driver;
 pub mod embedder;
 pub mod models;
+pub mod query;
+#[cfg(any(test, feature = "qwen-query"))]
+pub mod qwen;
 pub mod ranker;
 
 use embedder::{EmbedError, LexicalEmbedder};
 use models::*;
+use query::{Deterministic, ProviderKind, QueryError, QueryInput, QueryRewriter};
 
 /// Candidatos sintéticos, marcados como `[MOCK]`, até os provedores serem ligados.
 /// Não descrevem nenhuma correção real e não devem ser exibidos como resultado.
@@ -46,15 +50,58 @@ pub fn mock_candidates(appid: u32) -> Vec<Candidate> {
     ]
 }
 
-/// O que `research_fix` faz hoje: candidatos mockados e similaridade léxica.
+/// O provedor mockado ignora o texto da consulta: só separa os candidatos por fonte.
+fn mock_provider(provider: ProviderKind, appid: u32) -> Vec<Candidate> {
+    let matches = |source: SourceKind| match provider {
+        ProviderKind::Umu => source == SourceKind::Umu,
+        ProviderKind::Github => source == SourceKind::GithubComment,
+        ProviderKind::ReleaseNotes => source == SourceKind::ReleaseNotes,
+        ProviderKind::Reddit => source == SourceKind::Reddit,
+        ProviderKind::Blog => source == SourceKind::Blog,
+    };
+    mock_candidates(appid)
+        .into_iter()
+        .filter(|c| matches(c.source))
+        .collect()
+}
+
+#[derive(Debug)]
+pub enum ResearchError {
+    Query(QueryError),
+    Rank(EmbedError),
+}
+
+impl std::fmt::Display for ResearchError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ResearchError::Query(e) => write!(f, "{e}"),
+            ResearchError::Rank(e) => write!(f, "{e}"),
+        }
+    }
+}
+
+impl std::error::Error for ResearchError {}
+
+/// Consulta por provedor, candidatos mockados e ranker.
+pub fn research_with(
+    query: &ResearchQuery,
+    rewriter: &dyn QueryRewriter,
+    now_unix: u64,
+) -> Result<Vec<ScoredCandidate>, ResearchError> {
+    let rewritten = rewriter
+        .rewrite(&QueryInput::from(query))
+        .map_err(ResearchError::Query)?;
+    let candidates: Vec<Candidate> = rewritten
+        .iter()
+        .flat_map(|r| mock_provider(r.provider, query.appid))
+        .collect();
+    ranker::rank(query, &candidates, &LexicalEmbedder, now_unix).map_err(ResearchError::Rank)
+}
+
+/// A pesquisa com a reescrita determinística e os provedores mockados.
 pub fn research_mocked(
     query: &ResearchQuery,
     now_unix: u64,
-) -> Result<Vec<ScoredCandidate>, EmbedError> {
-    ranker::rank(
-        query,
-        &mock_candidates(query.appid),
-        &LexicalEmbedder,
-        now_unix,
-    )
+) -> Result<Vec<ScoredCandidate>, ResearchError> {
+    research_with(query, &Deterministic, now_unix)
 }
