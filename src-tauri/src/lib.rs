@@ -89,6 +89,7 @@ pub fn run() {
             commands::performance::reset_capture,
             commands::fix_engine::get_fix_engine_status,
             commands::fix_engine::game_technologies,
+            commands::ai::research_fix,
             commands::diagnosis::diagnose_game,
             commands::smart_packs::get_experience_pack,
             commands::smart_packs::evaluate_benchmark_session,

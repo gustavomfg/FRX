@@ -1,6 +1,7 @@
 //! Comandos Tauri expostos ao front-end. Só o Fix Engine escreve, e apenas
 //! depois de prévia, confirmação, backup e nova verificação no núcleo.
 
+pub mod ai;
 pub mod app;
 pub mod diagnosis;
 pub mod fix_engine;
