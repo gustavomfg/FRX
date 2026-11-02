@@ -185,7 +185,10 @@ pub fn resolve_in_root(root: &Path, rel: &str) -> Result<PathBuf, String> {
 pub fn check_game_root(root: &Path) -> Result<(), String> {
     let s = root.to_string_lossy();
     if !root.is_absolute() || s.contains("/compatdata/") || s.contains("/pfx/") {
-        return Err("A pasta do jogo não pode ser um prefixo do Proton.".into());
+        return Err(
+            "O FRX não escreve em compatdata/ nem em prefixos do Proton: só na pasta do jogo, em steamapps/common."
+                .into(),
+        );
     }
     if !s.contains("/steamapps/common/") {
         return Err(

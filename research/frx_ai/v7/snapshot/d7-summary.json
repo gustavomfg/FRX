@@ -1,0 +1,5073 @@
+{
+ "rows": 532,
+ "by_split": {
+  "train": 417,
+  "test": 115
+ },
+ "groups": 340,
+ "label_counts": {
+  "train": {
+   "collect-proton-log": 226,
+   "collect-system-info": 166,
+   "check-driver-stack": 54,
+   "test-other-proton": 37,
+   "reset-prefix": 10,
+   "verify-game-files": 10,
+   "review-launch-options": 8,
+   "isolate-scope": 25,
+   "test-runtime-option": 52,
+   "collect-terminal-output": 21
+  },
+  "test": {
+   "collect-proton-log": 67,
+   "collect-system-info": 45,
+   "review-launch-options": 2,
+   "test-runtime-option": 13,
+   "check-driver-stack": 15,
+   "test-other-proton": 13,
+   "isolate-scope": 9,
+   "verify-game-files": 3,
+   "collect-terminal-output": 4
+  }
+ },
+ "members": [
+  {
+   "id": "d7-1969170804",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1969170804",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1975191909",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-1975191909",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2230748605",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2230748605",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2269408537",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2269408537",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2565557850",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2565557850",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2565570142",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2565570142",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2636869227",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2636869227",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2901250736",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-2901250736",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3787436704",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-3787436704",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3853742755",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7486#issuecomment-3853742755",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1974109722",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7033#issuecomment-1974109722",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1793889426",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-1793889426",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1857104754",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-1857104754",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2872734444",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-2872734444",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3258701354",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3291#issuecomment-3258701354",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-6384458859",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4308#issuecomment-6384458859",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1913609712",
+   "url": "https://github.com/ValveSoftware/Proton/issues/607#issuecomment-1913609712",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1826409005",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-1826409005",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1883584119",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-1883584119",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "review-launch-options",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1913279549",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-1913279549",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1937010473",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-1937010473",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1967404663",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-1967404663",
+   "split": "test",
+   "labels": [
+    "test-other-proton",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2032013217",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4450#issuecomment-2032013217",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2897663662",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3521#issuecomment-2897663662",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-6482001706",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9468#issuecomment-6482001706",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2901187429",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8690#issuecomment-2901187429",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2930507495",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8690#issuecomment-2930507495",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2824586596",
+   "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-2824586596",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2967764232",
+   "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-2967764232",
+   "split": "train",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3600076735",
+   "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-3600076735",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3634599378",
+   "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-3634599378",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-6474303371",
+   "url": "https://github.com/ValveSoftware/Proton/issues/580#issuecomment-6474303371",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3981300911",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6451#issuecomment-3981300911",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3988079556",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6451#issuecomment-3988079556",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3992145210",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6451#issuecomment-3992145210",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2133436655",
+   "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-2133436655",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5872283346",
+   "url": "https://github.com/ValveSoftware/Proton/issues/556#issuecomment-5872283346",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3216943283",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8255#issuecomment-3216943283",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2107500242",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-2107500242",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2134140139",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-2134140139",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4846248071",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-4846248071",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4904134529",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-4904134529",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4911098680",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-4911098680",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-6444173731",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7199#issuecomment-6444173731",
+   "split": "train",
+   "labels": [
+    "review-launch-options",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3188322796",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3189#issuecomment-3188322796",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2239526624",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3831#issuecomment-2239526624",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3538813984",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9164#issuecomment-3538813984",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3732867067",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9164#issuecomment-3732867067",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2847612852",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-2847612852",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4301120468",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-4301120468",
+   "split": "test",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5380446728",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8206#issuecomment-5380446728",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2629468781",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6568#issuecomment-2629468781",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2848652900",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6568#issuecomment-2848652900",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2873156341",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6568#issuecomment-2873156341",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2892854945",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6568#issuecomment-2892854945",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2764331668",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4643#issuecomment-2764331668",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2002463119",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7580#issuecomment-2002463119",
+   "split": "train",
+   "labels": [
+    "test-runtime-option",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4163748774",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7580#issuecomment-4163748774",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4606483204",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7580#issuecomment-4606483204",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4606615186",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7580#issuecomment-4606615186",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3592095659",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5847#issuecomment-3592095659",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5592819436",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8576#issuecomment-5592819436",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1775977373",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-1775977373",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1804342753",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-1804342753",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1967945075",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-1967945075",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2289721420",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-2289721420",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "review-launch-options",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2862847464",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-2862847464",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4594721270",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-4594721270",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5963238592",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1199#issuecomment-5963238592",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2027392821",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-2027392821",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2138235302",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7442#issuecomment-2138235302",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2627472554",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7442#issuecomment-2627472554",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5969257950",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10198#issuecomment-5969257950",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3986062950",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1507#issuecomment-3986062950",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4077157862",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1507#issuecomment-4077157862",
+   "split": "train",
+   "labels": [
+    "reset-prefix",
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2473709393",
+   "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-2473709393",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2952454063",
+   "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-2952454063",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3444995454",
+   "url": "https://github.com/ValveSoftware/Proton/issues/438#issuecomment-3444995454",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3267639416",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2842#issuecomment-3267639416",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output",
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1872245905",
+   "url": "https://github.com/ValveSoftware/Proton/issues/938#issuecomment-1872245905",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2120591768",
+   "url": "https://github.com/ValveSoftware/Proton/issues/938#issuecomment-2120591768",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2298747281",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2298747281",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2310973281",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2310973281",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2376876757",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2376876757",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2512389738",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2512389738",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2518323208",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2518323208",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2957197599",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-2957197599",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3390380804",
+   "url": "https://github.com/ValveSoftware/Proton/issues/519#issuecomment-3390380804",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4783210840",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1321#issuecomment-4783210840",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-6226034173",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10273#issuecomment-6226034173",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1862843664",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-1862843664",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "collect-terminal-output"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3417509867",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5613#issuecomment-3417509867",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5443525107",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10097#issuecomment-5443525107",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3620433644",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8020#issuecomment-3620433644",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3792931627",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8020#issuecomment-3792931627",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2361356241",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8107#issuecomment-2361356241",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2378141873",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8107#issuecomment-2378141873",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2757908442",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8107#issuecomment-2757908442",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3946159865",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4001#issuecomment-3946159865",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3393301966",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5985#issuecomment-3393301966",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2849188179",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7302#issuecomment-2849188179",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4391739024",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7302#issuecomment-4391739024",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3585972311",
+   "url": "https://github.com/ValveSoftware/Proton/issues/872#issuecomment-3585972311",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1987230946",
+   "url": "https://github.com/ValveSoftware/Proton/issues/467#issuecomment-1987230946",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3677856395",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8585#issuecomment-3677856395",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2570007895",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2907#issuecomment-2570007895",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2581417395",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2907#issuecomment-2581417395",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3168132553",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2907#issuecomment-3168132553",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4433975106",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2907#issuecomment-4433975106",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4435232718",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2563#issuecomment-4435232718",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4554622808",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2563#issuecomment-4554622808",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2524146974",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8296#issuecomment-2524146974",
+   "split": "test",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2580940511",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8296#issuecomment-2580940511",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5219879939",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9595#issuecomment-5219879939",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5979997660",
+   "url": "https://github.com/ValveSoftware/Proton/issues/502#issuecomment-5979997660",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3528071747",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8691#issuecomment-3528071747",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4855197580",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4868#issuecomment-4855197580",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1969891975",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-1969891975",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "review-launch-options"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1970309702",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-1970309702",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1991878502",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-1991878502",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1992205115",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-1992205115",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1999979433",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-1999979433",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3328285837",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-3328285837",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3502744165",
+   "url": "https://github.com/ValveSoftware/Proton/issues/167#issuecomment-3502744165",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2377480994",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3773#issuecomment-2377480994",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4935217237",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3773#issuecomment-4935217237",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2817145758",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8619#issuecomment-2817145758",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5915938241",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10201#issuecomment-5915938241",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1868996518",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6471#issuecomment-1868996518",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1869023946",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6471#issuecomment-1869023946",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2264231168",
+   "url": "https://github.com/ValveSoftware/Proton/issues/440#issuecomment-2264231168",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2269344667",
+   "url": "https://github.com/ValveSoftware/Proton/issues/440#issuecomment-2269344667",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5846387010",
+   "url": "https://github.com/ValveSoftware/Proton/issues/10181#issuecomment-5846387010",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1819634415",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4350#issuecomment-1819634415",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2103229810",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4350#issuecomment-2103229810",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2169953953",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4350#issuecomment-2169953953",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2182684221",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5285#issuecomment-2182684221",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4401973476",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5285#issuecomment-4401973476",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3690113384",
+   "url": "https://github.com/ValveSoftware/Proton/issues/727#issuecomment-3690113384",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4712624684",
+   "url": "https://github.com/ValveSoftware/Proton/issues/708#issuecomment-4712624684",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2883638402",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4174#issuecomment-2883638402",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2883774091",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4174#issuecomment-2883774091",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5707779825",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7900#issuecomment-5707779825",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2349915293",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8032#issuecomment-2349915293",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3415528132",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8032#issuecomment-3415528132",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3416428673",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8032#issuecomment-3416428673",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3377334716",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7805#issuecomment-3377334716",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3480569830",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1722#issuecomment-3480569830",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3369018720",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8428#issuecomment-3369018720",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2543117176",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-2543117176",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3330532162",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6817#issuecomment-3330532162",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1784155214",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6826#issuecomment-1784155214",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2034611230",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2034611230",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2106436321",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2106436321",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2543978165",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7590#issuecomment-2543978165",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5380475088",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6851#issuecomment-5380475088",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5380581592",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6851#issuecomment-5380581592",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4982545767",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8811#issuecomment-4982545767",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3352520918",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5145#issuecomment-3352520918",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5439794293",
+   "url": "https://github.com/ValveSoftware/Proton/issues/530#issuecomment-5439794293",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5411259874",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9998#issuecomment-5411259874",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2645902206",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8004#issuecomment-2645902206",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3813341444",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8727#issuecomment-3813341444",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5145360297",
+   "url": "https://github.com/ValveSoftware/Proton/issues/355#issuecomment-5145360297",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3746107659",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6852#issuecomment-3746107659",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2763349116",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4190#issuecomment-2763349116",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1773911780",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-1773911780",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3838803796",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5495#issuecomment-3838803796",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2568602452",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2257#issuecomment-2568602452",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3719175283",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2257#issuecomment-3719175283",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1804668669",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7064#issuecomment-1804668669",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4858725054",
+   "url": "https://github.com/ValveSoftware/Proton/issues/282#issuecomment-4858725054",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4858864216",
+   "url": "https://github.com/ValveSoftware/Proton/issues/282#issuecomment-4858864216",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4877954987",
+   "url": "https://github.com/ValveSoftware/Proton/issues/282#issuecomment-4877954987",
+   "split": "train",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1932807916",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2364#issuecomment-1932807916",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4306190565",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2364#issuecomment-4306190565",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2556057459",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7444#issuecomment-2556057459",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2565573590",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7444#issuecomment-2565573590",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5274749144",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2631#issuecomment-5274749144",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5062906274",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4068#issuecomment-5062906274",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2528023416",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-2528023416",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2585472984",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-2585472984",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2659373355",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-2659373355",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2841815868",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-2841815868",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3506709384",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-3506709384",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4128235675",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8300#issuecomment-4128235675",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5190644623",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4218#issuecomment-5190644623",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-5190672275",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5519#issuecomment-5190672275",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3328264227",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8824#issuecomment-3328264227",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4612556301",
+   "url": "https://github.com/ValveSoftware/Proton/issues/356#issuecomment-4612556301",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4894930673",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9913#issuecomment-4894930673",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3315969979",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6502#issuecomment-3315969979",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3315996186",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6502#issuecomment-3315996186",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "review-launch-options",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1854810582",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3218#issuecomment-1854810582",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1832479795",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1832479795",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1861768172",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-1861768172",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2545739336",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-2545739336",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3599476559",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6653#issuecomment-3599476559",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1774100409",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4667#issuecomment-1774100409",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "review-launch-options"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2548506191",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4667#issuecomment-2548506191",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5062566195",
+   "url": "https://github.com/ValveSoftware/Proton/issues/700#issuecomment-5062566195",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3568209911",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5664#issuecomment-3568209911",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2027727073",
+   "url": "https://github.com/ValveSoftware/Proton/issues/366#issuecomment-2027727073",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2097042865",
+   "url": "https://github.com/ValveSoftware/Proton/issues/366#issuecomment-2097042865",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "review-launch-options"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2093954490",
+   "url": "https://github.com/ValveSoftware/Proton/issues/225#issuecomment-2093954490",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2892846063",
+   "url": "https://github.com/ValveSoftware/Proton/issues/225#issuecomment-2892846063",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-5016855482",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9987#issuecomment-5016855482",
+   "split": "train",
+   "labels": [
+    "test-runtime-option",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2951400833",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3994#issuecomment-2951400833",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4991888717",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3174#issuecomment-4991888717",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4031696049",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6741#issuecomment-4031696049",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4048787957",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6741#issuecomment-4048787957",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1793746649",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6968#issuecomment-1793746649",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3176193844",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6968#issuecomment-3176193844",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1965508517",
+   "url": "https://github.com/ValveSoftware/Proton/issues/413#issuecomment-1965508517",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3286432684",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7197#issuecomment-3286432684",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4897776993",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2444#issuecomment-4897776993",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4104096905",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9593#issuecomment-4104096905",
+   "split": "test",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4106504113",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9593#issuecomment-4106504113",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2118959238",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3648#issuecomment-2118959238",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3226654102",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4157#issuecomment-3226654102",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4869237697",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2228#issuecomment-4869237697",
+   "split": "train",
+   "labels": [
+    "reset-prefix",
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2167935001",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6489#issuecomment-2167935001",
+   "split": "test",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4826294962",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2578#issuecomment-4826294962",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3813294116",
+   "url": "https://github.com/ValveSoftware/Proton/issues/394#issuecomment-3813294116",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3813433563",
+   "url": "https://github.com/ValveSoftware/Proton/issues/394#issuecomment-3813433563",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4866640428",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9938#issuecomment-4866640428",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1987230074",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2516#issuecomment-1987230074",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4833002258",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2234#issuecomment-4833002258",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4789410303",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6672#issuecomment-4789410303",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1837596471",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6638#issuecomment-1837596471",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1841330696",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6638#issuecomment-1841330696",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1843987853",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6638#issuecomment-1843987853",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4800510637",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2791#issuecomment-4800510637",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2525386298",
+   "url": "https://github.com/ValveSoftware/Proton/issues/576#issuecomment-2525386298",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2949199923",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2381#issuecomment-2949199923",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1970154435",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2773#issuecomment-1970154435",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1779464019",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-1779464019",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1783351053",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-1783351053",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1783492964",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-1783492964",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2906833435",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-2906833435",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1969646447",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2986#issuecomment-1969646447",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2021352349",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2494#issuecomment-2021352349",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3403760182",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6981#issuecomment-3403760182",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1975181360",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6152#issuecomment-1975181360",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4719170429",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1381#issuecomment-4719170429",
+   "split": "test",
+   "labels": [
+    "test-runtime-option",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2335585062",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4122#issuecomment-2335585062",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3074941581",
+   "url": "https://github.com/ValveSoftware/Proton/issues/124#issuecomment-3074941581",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3368471561",
+   "url": "https://github.com/ValveSoftware/Proton/issues/124#issuecomment-3368471561",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1863582175",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4295#issuecomment-1863582175",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1869622979",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4295#issuecomment-1869622979",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1875589087",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4295#issuecomment-1875589087",
+   "split": "test",
+   "labels": [
+    "collect-terminal-output",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3459322581",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4295#issuecomment-3459322581",
+   "split": "test",
+   "labels": [
+    "test-runtime-option",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2234181694",
+   "url": "https://github.com/ValveSoftware/Proton/issues/864#issuecomment-2234181694",
+   "split": "test",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2328889694",
+   "url": "https://github.com/ValveSoftware/Proton/issues/864#issuecomment-2328889694",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4612510882",
+   "url": "https://github.com/ValveSoftware/Proton/issues/345#issuecomment-4612510882",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4450947680",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8413#issuecomment-4450947680",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1871193001",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4940#issuecomment-1871193001",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4586668640",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8432#issuecomment-4586668640",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4529993119",
+   "url": "https://github.com/ValveSoftware/Proton/issues/492#issuecomment-4529993119",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4504097131",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6880#issuecomment-4504097131",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3724371145",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9374#issuecomment-3724371145",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2851472248",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8658#issuecomment-2851472248",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2851701670",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8658#issuecomment-2851701670",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4371292233",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5792#issuecomment-4371292233",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4464972405",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9732#issuecomment-4464972405",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3886779536",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4982#issuecomment-3886779536",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2400612295",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5295#issuecomment-2400612295",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4433374563",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5295#issuecomment-4433374563",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4460145062",
+   "url": "https://github.com/ValveSoftware/Proton/issues/558#issuecomment-4460145062",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4422957709",
+   "url": "https://github.com/ValveSoftware/Proton/issues/721#issuecomment-4422957709",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2835121054",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8626#issuecomment-2835121054",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2863801222",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8626#issuecomment-2863801222",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4112855491",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8626#issuecomment-4112855491",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4382617826",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4034#issuecomment-4382617826",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4373820586",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7698#issuecomment-4373820586",
+   "split": "test",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1922301666",
+   "url": "https://github.com/ValveSoftware/Proton/issues/701#issuecomment-1922301666",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4352666637",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9403#issuecomment-4352666637",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1784105785",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7041#issuecomment-1784105785",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1784224275",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7041#issuecomment-1784224275",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1848594476",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6547#issuecomment-1848594476",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3390938738",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6547#issuecomment-3390938738",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3481867204",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6547#issuecomment-3481867204",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3617056600",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6547#issuecomment-3617056600",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1892582871",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1892582871",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "verify-game-files"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1897681119",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-1897681119",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2158350959",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-2158350959",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2764537417",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-2764537417",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3651662469",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6510#issuecomment-3651662469",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3307571035",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8812#issuecomment-3307571035",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3118622048",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6664#issuecomment-3118622048",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3235260257",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6664#issuecomment-3235260257",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4216243591",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1340#issuecomment-4216243591",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3040385881",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4907#issuecomment-3040385881",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1987219191",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-1987219191",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2854504197",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-2854504197",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2863058370",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-2863058370",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3677995273",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2476#issuecomment-3677995273",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2543992206",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2464#issuecomment-2543992206",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2556249821",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2464#issuecomment-2556249821",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "test-runtime-option",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3712473432",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7952#issuecomment-3712473432",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3717036802",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7952#issuecomment-3717036802",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3801261676",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7952#issuecomment-3801261676",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3850090840",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7952#issuecomment-3850090840",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3877762862",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2693#issuecomment-3877762862",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1902886032",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5258#issuecomment-1902886032",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2855550839",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7175#issuecomment-2855550839",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2863772877",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7175#issuecomment-2863772877",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3911316448",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8677#issuecomment-3911316448",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4046508887",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9566#issuecomment-4046508887",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3979945480",
+   "url": "https://github.com/ValveSoftware/Proton/issues/811#issuecomment-3979945480",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3980012116",
+   "url": "https://github.com/ValveSoftware/Proton/issues/811#issuecomment-3980012116",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-4019810329",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9552#issuecomment-4019810329",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-4019852648",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9552#issuecomment-4019852648",
+   "split": "train",
+   "labels": [
+    "test-runtime-option",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1944022918",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7498#issuecomment-1944022918",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2740404428",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4406#issuecomment-2740404428",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2192716297",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6169#issuecomment-2192716297",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3738864377",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3950#issuecomment-3738864377",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2189986769",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2502#issuecomment-2189986769",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1773408125",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6657#issuecomment-1773408125",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2072225350",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3766#issuecomment-2072225350",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3655734711",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8873#issuecomment-3655734711",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2067779356",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7656#issuecomment-2067779356",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3865106388",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3359#issuecomment-3865106388",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3841730901",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4130#issuecomment-3841730901",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3729025738",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2366#issuecomment-3729025738",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3144406839",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8921#issuecomment-3144406839",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3820981128",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8921#issuecomment-3820981128",
+   "split": "test",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1825724261",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-1825724261",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3497785341",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6088#issuecomment-3497785341",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3512744697",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9088#issuecomment-3512744697",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3729961468",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9088#issuecomment-3729961468",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2165584132",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3991#issuecomment-2165584132",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3015238196",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1961#issuecomment-3015238196",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1863008563",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7332#issuecomment-1863008563",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2142665830",
+   "url": "https://github.com/ValveSoftware/Proton/issues/657#issuecomment-2142665830",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1893968907",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1792#issuecomment-1893968907",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1894467359",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1792#issuecomment-1894467359",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1896215355",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1792#issuecomment-1896215355",
+   "split": "train",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2200757949",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1426#issuecomment-2200757949",
+   "split": "test",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3470955218",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9116#issuecomment-3470955218",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3155227206",
+   "url": "https://github.com/ValveSoftware/Proton/issues/157#issuecomment-3155227206",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2392528698",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1689#issuecomment-2392528698",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3608933288",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4653#issuecomment-3608933288",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2541503802",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3875#issuecomment-2541503802",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2547178884",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3875#issuecomment-2547178884",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3614107516",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9270#issuecomment-3614107516",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3570996898",
+   "url": "https://github.com/ValveSoftware/Proton/issues/740#issuecomment-3570996898",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2749650468",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1789#issuecomment-2749650468",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2749664464",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1789#issuecomment-2749664464",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2842057173",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4811#issuecomment-2842057173",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2273576467",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2938#issuecomment-2273576467",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3566898688",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9243#issuecomment-3566898688",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2714068997",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8292#issuecomment-2714068997",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2843007836",
+   "url": "https://github.com/ValveSoftware/Proton/issues/782#issuecomment-2843007836",
+   "split": "train",
+   "labels": [
+    "reset-prefix",
+    "verify-game-files"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3534081565",
+   "url": "https://github.com/ValveSoftware/Proton/issues/782#issuecomment-3534081565",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3486054297",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9180#issuecomment-3486054297",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3486278625",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9180#issuecomment-3486278625",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1832881912",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1235#issuecomment-1832881912",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1995569655",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1235#issuecomment-1995569655",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2269449603",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1235#issuecomment-2269449603",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2273511322",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1235#issuecomment-2273511322",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2121580679",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7290#issuecomment-2121580679",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3500300470",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7290#issuecomment-3500300470",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2962522441",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3834#issuecomment-2962522441",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3418468696",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8636#issuecomment-3418468696",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1872960456",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1757#issuecomment-1872960456",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3448934035",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3023#issuecomment-3448934035",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3127204389",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4896#issuecomment-3127204389",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2613969269",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7406#issuecomment-2613969269",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2972879206",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8147#issuecomment-2972879206",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3009907465",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8147#issuecomment-3009907465",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3367570477",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9082#issuecomment-3367570477",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3282857027",
+   "url": "https://github.com/ValveSoftware/Proton/issues/175#issuecomment-3282857027",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1854601125",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7342#issuecomment-1854601125",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1854649911",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7342#issuecomment-1854649911",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1854678601",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7342#issuecomment-1854678601",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1887170036",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7249#issuecomment-1887170036",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2849186121",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7249#issuecomment-2849186121",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3304551797",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7249#issuecomment-3304551797",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3304817600",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7249#issuecomment-3304817600",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1857122656",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5794#issuecomment-1857122656",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2173327686",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1417#issuecomment-2173327686",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2880427861",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8696#issuecomment-2880427861",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2890910866",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8696#issuecomment-2890910866",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2954031539",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2628#issuecomment-2954031539",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3161331947",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8953#issuecomment-3161331947",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1837496025",
+   "url": "https://github.com/ValveSoftware/Proton/issues/262#issuecomment-1837496025",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3148542382",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4550#issuecomment-3148542382",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3053692162",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8830#issuecomment-3053692162",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-3132714081",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8830#issuecomment-3132714081",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2210915608",
+   "url": "https://github.com/ValveSoftware/Proton/issues/522#issuecomment-2210915608",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3078378823",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4748#issuecomment-3078378823",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2930844600",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8761#issuecomment-2930844600",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-3038906922",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3338#issuecomment-3038906922",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2225590009",
+   "url": "https://github.com/ValveSoftware/Proton/issues/125#issuecomment-2225590009",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2804949563",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8608#issuecomment-2804949563",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2959013264",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8789#issuecomment-2959013264",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2095947349",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5047#issuecomment-2095947349",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2096301696",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5047#issuecomment-2096301696",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2174311271",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5047#issuecomment-2174311271",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1888221322",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1534#issuecomment-1888221322",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2996618716",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8840#issuecomment-2996618716",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2131891353",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1256#issuecomment-2131891353",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2543114164",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5049#issuecomment-2543114164",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2957132794",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5049#issuecomment-2957132794",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2963182366",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5049#issuecomment-2963182366",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2954309147",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8774#issuecomment-2954309147",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2955680943",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8774#issuecomment-2955680943",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2504175185",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2901#issuecomment-2504175185",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2913041875",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8737#issuecomment-2913041875",
+   "split": "train",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2914787337",
+   "url": "https://github.com/ValveSoftware/Proton/issues/243#issuecomment-2914787337",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2922447864",
+   "url": "https://github.com/ValveSoftware/Proton/issues/243#issuecomment-2922447864",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2916805338",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2511#issuecomment-2916805338",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2907842488",
+   "url": "https://github.com/ValveSoftware/Proton/issues/567#issuecomment-2907842488",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2635287542",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2726#issuecomment-2635287542",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2896429495",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8673#issuecomment-2896429495",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2899783217",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8673#issuecomment-2899783217",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2346603610",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7717#issuecomment-2346603610",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2412296854",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7717#issuecomment-2412296854",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2414723848",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7717#issuecomment-2414723848",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2415690685",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7717#issuecomment-2415690685",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2429334466",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7717#issuecomment-2429334466",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2889103551",
+   "url": "https://github.com/ValveSoftware/Proton/issues/245#issuecomment-2889103551",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2897692548",
+   "url": "https://github.com/ValveSoftware/Proton/issues/245#issuecomment-2897692548",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2891135973",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8676#issuecomment-2891135973",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2855283869",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8644#issuecomment-2855283869",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2863766187",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8644#issuecomment-2863766187",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2869951292",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8684#issuecomment-2869951292",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2143078520",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5087#issuecomment-2143078520",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2539031785",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6669#issuecomment-2539031785",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2567939188",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8186#issuecomment-2567939188",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2851742988",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8661#issuecomment-2851742988",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2600876694",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6999#issuecomment-2600876694",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2152338227",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4061#issuecomment-2152338227",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2215028200",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5246#issuecomment-2215028200",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2753101147",
+   "url": "https://github.com/ValveSoftware/Proton/issues/669#issuecomment-2753101147",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1963151742",
+   "url": "https://github.com/ValveSoftware/Proton/issues/686#issuecomment-1963151742",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1967453758",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5876#issuecomment-1967453758",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2736708360",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1780#issuecomment-2736708360",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2727640470",
+   "url": "https://github.com/ValveSoftware/Proton/issues/525#issuecomment-2727640470",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2727670513",
+   "url": "https://github.com/ValveSoftware/Proton/issues/525#issuecomment-2727670513",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2561149556",
+   "url": "https://github.com/ValveSoftware/Proton/issues/942#issuecomment-2561149556",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2645780947",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8444#issuecomment-2645780947",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2184133386",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7849#issuecomment-2184133386",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1787187129",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3343#issuecomment-1787187129",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2568223790",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6670#issuecomment-2568223790",
+   "split": "train",
+   "labels": [
+    "review-launch-options",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2581573128",
+   "url": "https://github.com/ValveSoftware/Proton/issues/273#issuecomment-2581573128",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2564733488",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1277#issuecomment-2564733488",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2561349941",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6637#issuecomment-2561349941",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2567880500",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6637#issuecomment-2567880500",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2568544565",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6637#issuecomment-2568544565",
+   "split": "train",
+   "labels": [
+    "test-runtime-option",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2565528997",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7472#issuecomment-2565528997",
+   "split": "test",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2537536377",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8200#issuecomment-2537536377",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2541872198",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8200#issuecomment-2541872198",
+   "split": "train",
+   "labels": [
+    "review-launch-options",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2148110709",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5007#issuecomment-2148110709",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2481315178",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7453#issuecomment-2481315178",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2297175955",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2528#issuecomment-2297175955",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2483488663",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8247#issuecomment-2483488663",
+   "split": "train",
+   "labels": [
+    "reset-prefix"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2491771329",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5673#issuecomment-2491771329",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2435236895",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1098#issuecomment-2435236895",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1998573536",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4377#issuecomment-1998573536",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1854521886",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5772#issuecomment-1854521886",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "collect-terminal-output"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2429196910",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8172#issuecomment-2429196910",
+   "split": "train",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2419442930",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1732#issuecomment-2419442930",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2417214489",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5471#issuecomment-2417214489",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1855923207",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7237#issuecomment-1855923207",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2394104310",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8111#issuecomment-2394104310",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1816536728",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2037#issuecomment-1816536728",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2304414369",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8006#issuecomment-2304414369",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2329521724",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8006#issuecomment-2329521724",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2142069677",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2403#issuecomment-2142069677",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2296945695",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2403#issuecomment-2296945695",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2307099213",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8015#issuecomment-2307099213",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2338962133",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5668#issuecomment-2338962133",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2307678862",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7086#issuecomment-2307678862",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2256780891",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7923#issuecomment-2256780891",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2137390530",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6031#issuecomment-2137390530",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2139712582",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6031#issuecomment-2139712582",
+   "split": "test",
+   "labels": [
+    "verify-game-files"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2145388279",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6031#issuecomment-2145388279",
+   "split": "test",
+   "labels": [
+    "collect-system-info",
+    "isolate-scope"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2254137996",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7487#issuecomment-2254137996",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2209578911",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4148#issuecomment-2209578911",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2218665660",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3571#issuecomment-2218665660",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2156029095",
+   "url": "https://github.com/ValveSoftware/Proton/issues/4401#issuecomment-2156029095",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2156787194",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7760#issuecomment-2156787194",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1849038120",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7331#issuecomment-1849038120",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1784257078",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1583#issuecomment-1784257078",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2148395493",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3897#issuecomment-2148395493",
+   "split": "train",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2141999569",
+   "url": "https://github.com/ValveSoftware/Proton/issues/731#issuecomment-2141999569",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1988299086",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7575#issuecomment-1988299086",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2119056122",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7730#issuecomment-2119056122",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2119237499",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7730#issuecomment-2119237499",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2103036919",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7715#issuecomment-2103036919",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2094354813",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7283#issuecomment-2094354813",
+   "split": "train",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2093815473",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6362#issuecomment-2093815473",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1804256706",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6918#issuecomment-1804256706",
+   "split": "train",
+   "labels": [
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2004572865",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7549#issuecomment-2004572865",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2057944182",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7549#issuecomment-2057944182",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2024105482",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7610#issuecomment-2024105482",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2071152405",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1198#issuecomment-2071152405",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-2035854731",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3580#issuecomment-2035854731",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1973303417",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7531#issuecomment-1973303417",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-2016845329",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7603#issuecomment-2016845329",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1878719804",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5534#issuecomment-1878719804",
+   "split": "test",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1883711690",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5534#issuecomment-1883711690",
+   "split": "test",
+   "labels": [
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1975194322",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1519#issuecomment-1975194322",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1962410121",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1831#issuecomment-1962410121",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1987005265",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7570#issuecomment-1987005265",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton",
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1815183003",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7248#issuecomment-1815183003",
+   "split": "train",
+   "labels": [
+    "test-other-proton",
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1883075556",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2170#issuecomment-1883075556",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1975176382",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6747#issuecomment-1975176382",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1801872573",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1410#issuecomment-1801872573",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1947273692",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5075#issuecomment-1947273692",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1936485651",
+   "url": "https://github.com/ValveSoftware/Proton/issues/943#issuecomment-1936485651",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1937829470",
+   "url": "https://github.com/ValveSoftware/Proton/issues/943#issuecomment-1937829470",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1832333547",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7284#issuecomment-1832333547",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1838933527",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7284#issuecomment-1838933527",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1839394797",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7284#issuecomment-1839394797",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1841517543",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7284#issuecomment-1841517543",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1877004478",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7284#issuecomment-1877004478",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "test-other-proton"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1793827331",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5043#issuecomment-1793827331",
+   "split": "test",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1894308179",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7318#issuecomment-1894308179",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1878727576",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2836#issuecomment-1878727576",
+   "split": "test",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1862808056",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7329#issuecomment-1862808056",
+   "split": "test",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1869708592",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3657#issuecomment-1869708592",
+   "split": "train",
+   "labels": [
+    "test-runtime-option"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1863104935",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1760#issuecomment-1863104935",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1852116419",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7334#issuecomment-1852116419",
+   "split": "test",
+   "labels": [
+    "collect-system-info",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1837555626",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7310#issuecomment-1837555626",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info",
+    "review-launch-options"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1837560147",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7310#issuecomment-1837560147",
+   "split": "train",
+   "labels": [
+    "collect-terminal-output",
+    "check-driver-stack"
+   ],
+   "first_response": false
+  },
+  {
+   "id": "d7-1815191280",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6490#issuecomment-1815191280",
+   "split": "test",
+   "labels": [
+    "isolate-scope"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1808616051",
+   "url": "https://github.com/ValveSoftware/Proton/issues/3133#issuecomment-1808616051",
+   "split": "train",
+   "labels": [
+    "collect-system-info"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1784145690",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6017#issuecomment-1784145690",
+   "split": "train",
+   "labels": [
+    "collect-proton-log"
+   ],
+   "first_response": true
+  },
+  {
+   "id": "d7-1779220157",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1564#issuecomment-1779220157",
+   "split": "train",
+   "labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "first_response": true
+  }
+ ],
+ "sha256": "939819fb8b2212a565bea4cdd0a210285fcd15df1cb530de4f8eac14dc316b1f",
+ "bodies_in_git": false
+}

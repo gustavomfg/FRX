@@ -15,6 +15,7 @@ pub const APP: &str = "200260";
 
 pub fn finding(id: &str, kind: ActionKind, value: &str, pos: u32, neg: u32) -> FixFinding {
     FixFinding {
+        hardware_scope: Default::default(),
         artifacts: vec![],
         scope: DiscoveryScope::verified(APP, "Fixture: verified parent issue AppID"),
         performance_evidence: Default::default(),

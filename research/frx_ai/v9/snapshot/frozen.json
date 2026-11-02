@@ -1,0 +1,22 @@
+{
+ "frozen_at": "2026-10-31T18:49:48Z",
+ "files": {
+  "net.py": "8a2ec318f626aa87341cdb15e0b4099068b9f5669deac8c8e4684d6520c0271b",
+  "sources.py": "51eba6fe51343f7718095aea2d7fda8e4c9279a5b368f09ba614de485fed0247",
+  "reading.py": "3f15cbd7a36e6bc9ac2f8b0fcbb6309b9ce0b6da217c39437a180e2668f0378a",
+  "engine.py": "dc88a1a86bc9b619a0de312f351e826c60bed2517de4a784fd1c1b14e1370006",
+  "evaluate.py": "a67564a41edcf3856abeacb7ee724e49e34833a2b5855a24270c0b6ee4a0ee03",
+  "reserve.py": "7c0ece615897faa60f101e3f35e482653255c54b70d73f0234b13aa5f8fc6868",
+  "v8/detector.py": "f5227417b456e7f59ecbc1ffa4a41df8e6ea55c577744c2b6515c079c8694c79",
+  "v8/joint.py": "2ae3c93f433ac2a0447dd35279bd4078370d73fd1e1905bcaeebdd39ebe82b90",
+  "v8/investigator.py": "e648c5f0326ba8e322838c23cda241bd9a20db5240c466b429ca3073f8e4ab24",
+  "v8/logs.py": "4bd476cc11d8eebc5659c56ea9246b4c23bc5ced0978c3a4d984a341ae17824a",
+  "v7/knowledge.py": "a433b385bc4015c26443b2bf42a4ef00e21fa195d012cda4489d803c26383a4c",
+  "v7/signals.py": "141d64e3c5f2e51553ccf6025c78a0112a270ec31f95137fc8e1aefe121b5013",
+  "v7/investigate.py": "168435255ffae45d2391b49cbd171234f240b02cca0beeb72af1a961e49ab2cc"
+ },
+ "amendment": {
+  "file": "evaluate.py",
+  "reason": "import freeze resolved to v7/freeze.py because of sys.path; harness only, before any test prediction; engine, reader and gold unchanged"
+ }
+}

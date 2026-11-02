@@ -53,6 +53,15 @@ impl Target {
     pub fn open(root: &Path, rel: &str, expected: Option<&FileIdentity>) -> Result<Self, String> {
         security::check_game_root(root)?;
         security::check_rel_path(rel)?;
+        if Path::new(rel)
+            .components()
+            .any(|c| c.as_os_str().eq_ignore_ascii_case("compatdata"))
+        {
+            return Err(
+                "O FRX não escreve em compatdata/: só na pasta do jogo, em steamapps/common."
+                    .into(),
+            );
+        }
         let mut dir = File::open("/").map_err(|e| e.to_string())?;
         for c in root.components() {
             match c {
@@ -416,5 +425,66 @@ impl Target {
             }
             self.parent.sync_all().map_err(|e| e.to_string())
         }
+    }
+}
+
+#[cfg(test)]
+mod compatdata_tests {
+    use super::*;
+
+    fn library() -> (tempfile::TempDir, std::path::PathBuf) {
+        let tmp = tempfile::tempdir().unwrap();
+        let game = tmp.path().join("steamapps/common/Jogo");
+        std::fs::create_dir_all(&game).unwrap();
+        (tmp, game)
+    }
+
+    fn refused(root: &Path, rel: &str) -> String {
+        match Target::open(root, rel, None) {
+            Ok(_) => panic!("deveria recusar {rel} em {}", root.display()),
+            Err(e) => e,
+        }
+    }
+
+    #[test]
+    fn the_game_folder_is_still_accepted() {
+        let (_tmp, game) = library();
+        assert!(Target::open(&game, "settings.ini", None).is_ok());
+    }
+
+    #[test]
+    fn compatdata_roots_are_refused_with_a_clear_message() {
+        let (tmp, game) = library();
+        for root in [
+            tmp.path().join("steamapps/compatdata/200260"),
+            tmp.path().join("steamapps/compatdata/200260/pfx"),
+            tmp.path()
+                .join("steamapps/compatdata/200260/pfx/drive_c/windows/system32"),
+            game.join("../../compatdata/200260/pfx"),
+        ] {
+            std::fs::create_dir_all(tmp.path().join("steamapps/compatdata/200260/pfx")).unwrap();
+            assert!(
+                refused(&root, "settings.ini").contains("compatdata/"),
+                "{root:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn a_relative_path_cannot_name_or_climb_to_compatdata() {
+        let (_tmp, game) = library();
+        for rel in ["compatdata/200260/pfx/x.ini", "CompatData/x.ini"] {
+            assert!(refused(&game, rel).contains("compatdata/"), "{rel}");
+        }
+        assert!(refused(&game, "../../compatdata/x.ini").contains("sem “..”"));
+    }
+
+    #[test]
+    fn a_symlink_inside_the_game_cannot_reach_the_prefix() {
+        let (tmp, game) = library();
+        let prefix = tmp.path().join("steamapps/compatdata/200260/pfx");
+        std::fs::create_dir_all(&prefix).unwrap();
+        std::os::unix::fs::symlink(&prefix, game.join("atalho")).unwrap();
+        assert!(refused(&game, "atalho/x.ini").contains("link simbólico"));
     }
 }

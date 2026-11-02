@@ -9,6 +9,7 @@ import { InfoBlock, InfoRow } from '@/components/game/InfoBlock'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { ApplyFixDialog, type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { ExperiencePackSection } from '@/components/pack/ExperiencePack'
+import { DiagnosisSection } from '@/components/diagnosis/DiagnosisSection'
 import { Button } from '@/components/ui/Button'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { useLibrary } from '@/state/library'
@@ -91,6 +92,10 @@ export function SteamGameDetail({ game }: { game: Game }) {
 
       <div className="mt-8">
         <ExperiencePackSection appId={game.id} title={game.title} onAct={setTarget} />
+      </div>
+
+      <div className="mt-10">
+        <DiagnosisSection appId={game.id} title={game.title} onAct={setTarget} />
       </div>
 
       <Disclosure title="Jogo e sistema" className="mt-10 border-t border-line pt-6" titleClassName="font-display text-[16px] font-semibold tracking-[-0.02em] text-fg-2">

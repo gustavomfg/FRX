@@ -6,9 +6,11 @@
 //! A descoberta continua somente leitura e nenhum script de terceiros é
 //! executado; só o Fix Engine escreve, e apenas o que o plano confirmado diz.
 
+pub mod ai;
 mod art;
 mod cache;
 mod commands;
+mod diagnosis;
 mod fix_engine;
 mod fixes;
 mod net;
@@ -87,6 +89,8 @@ pub fn run() {
             commands::performance::reset_capture,
             commands::fix_engine::get_fix_engine_status,
             commands::fix_engine::game_technologies,
+            commands::ai::research_fix,
+            commands::diagnosis::diagnose_game,
             commands::smart_packs::get_experience_pack,
             commands::smart_packs::evaluate_benchmark_session,
             commands::fix_engine::prepare_fix_plan,

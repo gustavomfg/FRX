@@ -275,6 +275,7 @@ pub fn build_finding(
 
     let (compatibility, note) = bundled_state(q, path);
     FixFinding {
+        hardware_scope: Default::default(),
         artifacts: vec![],
         scope: if path == format!("gamefixes-steam/{}.py", q.app_id)
             || path == format!("gamefixes-umu/umu-{}.py", q.app_id)

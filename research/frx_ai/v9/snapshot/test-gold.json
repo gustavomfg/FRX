@@ -1,0 +1,334 @@
+[
+{
+"id": "test-8569",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"gstreamer",
+"allowlist",
+"whitelist"
+],
+"checks": [
+"check-anticheat-support",
+"inspect-media-errors"
+],
+"documented": true
+},
+{
+"id": "test-8702",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"snap package",
+"snap version",
+"unsupported"
+],
+"checks": [
+"compare-runtime-host",
+"resolve-library-path"
+],
+"documented": true
+},
+{
+"id": "test-7737",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"isolate-scope"
+],
+"documented": false
+},
+{
+"id": "test-7581",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"amdgpu-pro",
+"amdgpupro",
+"radv"
+],
+"checks": [
+"check-driver-stack",
+"check-vulkan-support"
+],
+"documented": true
+},
+{
+"id": "test-8854",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"irregular",
+"default proton"
+],
+"checks": [
+"test-other-proton",
+"isolate-scope"
+],
+"documented": true
+},
+{
+"id": "test-9258",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"keacquireguardedmutex",
+"ntoskrnl",
+"wine-staging"
+],
+"checks": [
+"read-attached-log",
+"check-anticheat-support",
+"test-other-proton"
+],
+"documented": true
+},
+{
+"id": "test-7633",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"dxvk"
+],
+"checks": [
+"read-attached-log",
+"bisect-proton-versions",
+"test-other-proton"
+],
+"documented": true
+},
+{
+"id": "test-8268",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"isolate-scope"
+],
+"documented": false
+},
+{
+"id": "test-8533",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"collect-proton-log"
+],
+"documented": false
+},
+{
+"id": "test-8829",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"read-attached-log",
+"collect-proton-log",
+"test-other-proton"
+],
+"documented": false
+},
+{
+"id": "test-7390",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"vk_driver_files",
+"vk_icd"
+],
+"checks": [
+"check-vulkan-support",
+"check-driver-stack",
+"collect-system-info"
+],
+"documented": true
+},
+{
+"id": "test-7315",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"dx12",
+"directx 12",
+"direct x12"
+],
+"checks": [
+"check-driver-stack",
+"review-launch-options",
+"check-vulkan-support"
+],
+"documented": true
+},
+{
+"id": "test-7628",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"touchcollection",
+"fna",
+"shaderfunction"
+],
+"checks": [
+"read-attached-log",
+"test-other-proton",
+"inspect-media-errors"
+],
+"documented": true
+},
+{
+"id": "test-8730",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"stereo",
+"5.1"
+],
+"checks": [
+"inspect-audio-route",
+"isolate-scope"
+],
+"documented": true
+},
+{
+"id": "test-8632",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"wayland",
+"single device"
+],
+"checks": [
+"isolate-scope",
+"read-kernel-gpu-messages",
+"collect-native-backtrace",
+"locate-blocking-thread"
+],
+"documented": true
+},
+{
+"id": "test-9226",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"wine mono",
+"wine-mono",
+"monitorhandle",
+"mono_inlinelimit"
+],
+"checks": [
+"read-attached-log",
+"test-other-proton",
+"locate-faulting-module"
+],
+"documented": true
+},
+{
+"id": "test-7326",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"amdgpu pro",
+"amdgpu-pro"
+],
+"checks": [
+"read-kernel-gpu-messages",
+"check-driver-stack",
+"read-attached-log"
+],
+"documented": true
+},
+{
+"id": "test-8425",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"newest proton experimental",
+"latest experimental"
+],
+"checks": [
+"test-other-proton",
+"read-attached-log",
+"collect-proton-log"
+],
+"documented": true
+},
+{
+"id": "test-8075",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"wineserver",
+"7154"
+],
+"checks": [
+"read-attached-log",
+"bisect-proton-versions",
+"collect-proton-log"
+],
+"documented": true
+},
+{
+"id": "test-9052",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"engine.ini"
+],
+"checks": [
+"review-launch-options",
+"collect-proton-log",
+"test-other-proton"
+],
+"documented": true
+},
+{
+"id": "test-8900",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"check-driver-stack",
+"isolate-scope"
+],
+"documented": false
+},
+{
+"id": "test-9337",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"collect-proton-log",
+"collect-system-info"
+],
+"documented": false
+},
+{
+"id": "test-7180",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"isolate-scope",
+"measure-baseline",
+"collect-proton-log"
+],
+"documented": false
+},
+{
+"id": "test-8168",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"dmusic"
+],
+"checks": [
+"inspect-media-errors",
+"inspect-audio-route",
+"test-other-proton"
+],
+"documented": true
+}
+]

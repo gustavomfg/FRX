@@ -1,0 +1,308 @@
+{
+ "status": "known replays after the first reading; diagnosis only",
+ "documented": 17,
+ "replays": {
+  "P1 single search over the whole problem text": {
+   "report": 0,
+   "read": 4,
+   "insufficient": 8
+  },
+  "P4 P1 plus rare corpus terms": {
+   "report": 0,
+   "read": 6,
+   "insufficient": 3
+  },
+  "P3 iterative with rare corpus terms as leads": {
+   "report": 0,
+   "read": 5,
+   "insufficient": 3
+  },
+  "P2 oracle: query made of the answer itself": {
+   "report": 1,
+   "read": 16,
+   "insufficient": 12
+  }
+ },
+ "per_case": {
+  "P1 single search over the whole problem text": {
+   "test-8569": [
+    false,
+    false
+   ],
+   "test-8702": [
+    false,
+    false
+   ],
+   "test-7581": [
+    false,
+    true
+   ],
+   "test-8854": [
+    false,
+    false
+   ],
+   "test-9258": [
+    false,
+    false
+   ],
+   "test-7633": [
+    false,
+    true
+   ],
+   "test-7390": [
+    false,
+    false
+   ],
+   "test-7315": [
+    false,
+    false
+   ],
+   "test-7628": [
+    false,
+    false
+   ],
+   "test-8730": [
+    false,
+    true
+   ],
+   "test-8632": [
+    false,
+    true
+   ],
+   "test-9226": [
+    false,
+    false
+   ],
+   "test-7326": [
+    false,
+    false
+   ],
+   "test-8425": [
+    false,
+    false
+   ],
+   "test-8075": [
+    false,
+    false
+   ],
+   "test-9052": [
+    false,
+    false
+   ],
+   "test-8168": [
+    false,
+    false
+   ]
+  },
+  "P4 P1 plus rare corpus terms": {
+   "test-8569": [
+    false,
+    true
+   ],
+   "test-8702": [
+    false,
+    false
+   ],
+   "test-7581": [
+    false,
+    true
+   ],
+   "test-8854": [
+    false,
+    false
+   ],
+   "test-9258": [
+    false,
+    false
+   ],
+   "test-7633": [
+    false,
+    true
+   ],
+   "test-7390": [
+    false,
+    false
+   ],
+   "test-7315": [
+    false,
+    false
+   ],
+   "test-7628": [
+    false,
+    false
+   ],
+   "test-8730": [
+    false,
+    true
+   ],
+   "test-8632": [
+    false,
+    true
+   ],
+   "test-9226": [
+    false,
+    true
+   ],
+   "test-7326": [
+    false,
+    false
+   ],
+   "test-8425": [
+    false,
+    false
+   ],
+   "test-8075": [
+    false,
+    false
+   ],
+   "test-9052": [
+    false,
+    false
+   ],
+   "test-8168": [
+    false,
+    false
+   ]
+  },
+  "P3 iterative with rare corpus terms as leads": {
+   "test-8569": [
+    false,
+    false
+   ],
+   "test-8702": [
+    false,
+    true
+   ],
+   "test-7581": [
+    false,
+    true
+   ],
+   "test-8854": [
+    false,
+    false
+   ],
+   "test-9258": [
+    false,
+    true
+   ],
+   "test-7633": [
+    false,
+    false
+   ],
+   "test-7390": [
+    false,
+    false
+   ],
+   "test-7315": [
+    false,
+    false
+   ],
+   "test-7628": [
+    false,
+    false
+   ],
+   "test-8730": [
+    false,
+    true
+   ],
+   "test-8632": [
+    false,
+    true
+   ],
+   "test-9226": [
+    false,
+    false
+   ],
+   "test-7326": [
+    false,
+    false
+   ],
+   "test-8425": [
+    false,
+    false
+   ],
+   "test-8075": [
+    false,
+    false
+   ],
+   "test-9052": [
+    false,
+    false
+   ],
+   "test-8168": [
+    false,
+    false
+   ]
+  },
+  "P2 oracle: query made of the answer itself": {
+   "test-8569": [
+    false,
+    true
+   ],
+   "test-8702": [
+    false,
+    true
+   ],
+   "test-7581": [
+    false,
+    true
+   ],
+   "test-8854": [
+    false,
+    true
+   ],
+   "test-9258": [
+    false,
+    true
+   ],
+   "test-7633": [
+    false,
+    true
+   ],
+   "test-7390": [
+    false,
+    true
+   ],
+   "test-7315": [
+    false,
+    true
+   ],
+   "test-7628": [
+    false,
+    true
+   ],
+   "test-8730": [
+    false,
+    true
+   ],
+   "test-8632": [
+    true,
+    true
+   ],
+   "test-9226": [
+    false,
+    true
+   ],
+   "test-7326": [
+    false,
+    true
+   ],
+   "test-8425": [
+    false,
+    false
+   ],
+   "test-8075": [
+    false,
+    true
+   ],
+   "test-9052": [
+    false,
+    true
+   ],
+   "test-8168": [
+    false,
+    true
+   ]
+  }
+ }
+}

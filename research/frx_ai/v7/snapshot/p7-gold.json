@@ -1,0 +1,3733 @@
+[
+ {
+  "id": "p7m-651-0",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3589143607",
+  "document_id": "3589143607",
+  "reporter_id": "github:230977731",
+  "author_association": "NONE",
+  "source_sha256": "d083c2189dd96a8e49db6ef9622f0a1b960c65708494dc0cb5438f4472088a67",
+  "source_offset": 465,
+  "paragraph_sha256": "f57021cca6adff2daabb06844368010067f82beb9459bc7198a0423208ca0820",
+  "published_at": "2025-11-28T12:25:24Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     245,
+     249
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     236,
+     241
+    ]
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     280,
+     296
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-1",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-2502604311",
+  "document_id": "2502604311",
+  "reporter_id": "github:189813314",
+  "author_association": "NONE",
+  "source_sha256": "040748284a7f24e568ef182bab30c803a27750597cdef91203852d6775e84d9e",
+  "source_offset": 0,
+  "paragraph_sha256": "040748284a7f24e568ef182bab30c803a27750597cdef91203852d6775e84d9e",
+  "published_at": "2024-11-27T03:11:28Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     20,
+     28
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     10,
+     16
+    ]
+   },
+   {
+    "trigger": [
+     440,
+     451
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     482,
+     488
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     71,
+     78
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     80,
+     103
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-2",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3547492652",
+  "document_id": "3547492652",
+  "reporter_id": "github:230977731",
+  "author_association": "NONE",
+  "source_sha256": "0215605154e23ca60233621c9a4ebf2cea09828568f9007874833b8261265bce",
+  "source_offset": 0,
+  "paragraph_sha256": "72cbed9718a1e22b1182c96aa7c8979e3e12af2d3927db55ca4190dcb3b40278",
+  "published_at": "2025-11-18T12:45:27Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     44,
+     49
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     230,
+     237
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     318,
+     321
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     108,
+     143
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     207,
+     229
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     343,
+     376
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     383,
+     427
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-3",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3564580869",
+  "document_id": "3564580869",
+  "reporter_id": "github:33498862",
+  "author_association": "NONE",
+  "source_sha256": "b39c56ac0f3a820c166e7f12fcd36fcefddd3fe4123ce203594735f8e48155a3",
+  "source_offset": 0,
+  "paragraph_sha256": "b39c56ac0f3a820c166e7f12fcd36fcefddd3fe4123ce203594735f8e48155a3",
+  "published_at": "2025-11-21T21:02:43Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     174,
+     181
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-4",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3265138816",
+  "document_id": "3265138816",
+  "reporter_id": "github:230977731",
+  "author_association": "NONE",
+  "source_sha256": "0cd3a0b7d15caeac7341feff6e6757d06583aa4963866b1037d3952d24557f67",
+  "source_offset": 0,
+  "paragraph_sha256": "07f09d23624d342019766d9488901ffe19e324b1012f185efb4caeb3504b6b35",
+  "published_at": "2025-09-08T08:22:06Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     110,
+     117
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     104,
+     109
+    ]
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     16,
+     35
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     81,
+     97
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     149,
+     156
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-5",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-2512387203",
+  "document_id": "2512387203",
+  "reporter_id": "github:58085636",
+  "author_association": "NONE",
+  "source_sha256": "0e32e70a47e69fba566528a597597c925fd6420183e92dcb3474614c15e6e0e6",
+  "source_offset": 0,
+  "paragraph_sha256": "85678f1f55bc03d11bd7d0ebc373b32be6dce2215bf2f2656ea6c99f0d50fea5",
+  "published_at": "2024-12-02T18:35:22Z",
+  "stratum": "rich",
+  "events": [],
+  "observations": [
+   {
+    "span": [
+     110,
+     141
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-6",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3591924355",
+  "document_id": "3591924355",
+  "reporter_id": "github:33498862",
+  "author_association": "NONE",
+  "source_sha256": "255df9faa53a69967b3d51e22f4bce5116eaf64847ccd79513e8f6e260592270",
+  "source_offset": 116,
+  "paragraph_sha256": "7941845c4a9cf928bec214d8569acb8afa644da8c7514c819a958469475e672b",
+  "published_at": "2025-11-29T20:38:34Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     49,
+     52
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     161,
+     166
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-7",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-1854673091",
+  "document_id": "1854673091",
+  "reporter_id": "github:40211296",
+  "author_association": "COLLABORATOR",
+  "source_sha256": "e0ef0857ca50ea19bfcd9575c2244dc3e4ad12fe7f4f81ef11c5bd3e9fcb0afe",
+  "source_offset": 0,
+  "paragraph_sha256": "51319d76b584277acaecffd24fe690d8ac88981776a295b9c64461185e3d6c25",
+  "published_at": "2023-12-13T20:43:00Z",
+  "stratum": "multi",
+  "events": [],
+  "observations": [
+   {
+    "span": [
+     90,
+     112
+    ],
+    "outcome": "regression",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-8",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3583118009",
+  "document_id": "3583118009",
+  "reporter_id": "github:33498862",
+  "author_association": "NONE",
+  "source_sha256": "8b5c4327eeb326242c6ad54c4656a292bc5683dd3ae17dd8b2251d1f5e6d83d3",
+  "source_offset": 0,
+  "paragraph_sha256": "98f754ae803e80f326acaed26f26dc734bff830ab79d25d43cccdbe494c8a0b1",
+  "published_at": "2025-11-26T20:31:18Z",
+  "stratum": "request",
+  "events": [
+   {
+    "trigger": [
+     52,
+     55
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     427,
+     433
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     437,
+     443
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     504,
+     508
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     257,
+     287
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     292,
+     312
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-651-9",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-2364204058",
+  "document_id": "2364204058",
+  "reporter_id": "github:122593557",
+  "author_association": "NONE",
+  "source_sha256": "785cb373edca4145867dffc3f1da37811cbf38e9121884601b06d9944d76f2ad",
+  "source_offset": 0,
+  "paragraph_sha256": "785cb373edca4145867dffc3f1da37811cbf38e9121884601b06d9944d76f2ad",
+  "published_at": "2024-09-20T17:37:29Z",
+  "stratum": "residual",
+  "events": [
+   {
+    "trigger": [
+     35,
+     40
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-187-0",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2561990403",
+  "document_id": "2561990403",
+  "reporter_id": "github:4954310",
+  "author_association": "NONE",
+  "source_sha256": "4774218fbf7ad18c9d912e15ccd78ce3d1ec6c692d23490996c5839f8ceeaa48",
+  "source_offset": 146,
+  "paragraph_sha256": "d63ec81b67de566850839cd80831028d8981918868be4544e93133aad58ff746",
+  "published_at": "2024-12-25T20:08:42Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     99,
+     107
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     78,
+     92
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     137,
+     152
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-187-1",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2600993277",
+  "document_id": "2600993277",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "beb6ccc3b02d877a3473a5cce3d908cea8473e10fe96f68403b561211b98f915",
+  "source_offset": 1024,
+  "paragraph_sha256": "b8543bfd96bf23a8ebdf9f1bfdd778498b789259978a81cb9ca33b21bd0a37da",
+  "published_at": "2025-01-19T19:35:37Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     117,
+     132
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     504,
+     515
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     46,
+     73
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     265,
+     297
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-187-2",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2178659294",
+  "document_id": "2178659294",
+  "reporter_id": "github:172901673",
+  "author_association": "NONE",
+  "source_sha256": "da2f3d6a20677a7053b8dbec117388879b42f4a1b5a59e978827b65586d87c22",
+  "source_offset": 0,
+  "paragraph_sha256": "ab87328e8d4a7cb1d21d16182d54fd72d9df533f31c768f157086e39482632f0",
+  "published_at": "2024-06-19T12:57:12Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     73,
+     84
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     108,
+     113
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     189,
+     197
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     33,
+     67
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-187-3",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2209143435",
+  "document_id": "2209143435",
+  "reporter_id": "github:172901673",
+  "author_association": "NONE",
+  "source_sha256": "6fa3bafd25d771bd28e96d2989552d8f526f9a40dbdcd0d088f5a0e92d32e5b6",
+  "source_offset": 782,
+  "paragraph_sha256": "7e6710cd494e9e53035d73603b3ac4f85b03114b8e6a6fe49be477509f3490c3",
+  "published_at": "2024-07-04T14:36:21Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     5,
+     12
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     129,
+     137
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     224,
+     232
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     91,
+     105
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     175,
+     189
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-187-4",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2561990886",
+  "document_id": "2561990886",
+  "reporter_id": "github:4954310",
+  "author_association": "NONE",
+  "source_sha256": "d34084a03b5bd70a95d53113e0072fad2a97077ed4aa3700c4d599ff5ac4db98",
+  "source_offset": 0,
+  "paragraph_sha256": "a0f53c95fac77f4a6675713a3eb987ebb0bcba9325b2c513880fff2c50bb6c7e",
+  "published_at": "2024-12-25T20:11:24Z",
+  "stratum": "residual",
+  "events": [],
+  "observations": [
+   {
+    "span": [
+     14,
+     39
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-0",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2779753119",
+  "document_id": "2779753119",
+  "reporter_id": "github:33793273",
+  "author_association": "NONE",
+  "source_sha256": "ab34b33fbd02c162f6f8b2a807bec6cfd92469dd43250c7cf70187852a2c4b5a",
+  "source_offset": 47,
+  "paragraph_sha256": "a2ea385f06cb9b862674e2bb8b1e3c95883d0389d1d6261866e549de2ffe4a0c",
+  "published_at": "2025-04-04T21:22:13Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     73,
+     76
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     108,
+     112
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     9,
+     27
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-1",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2742880330",
+  "document_id": "2742880330",
+  "reporter_id": "github:3926906",
+  "author_association": "NONE",
+  "source_sha256": "b4d4f0a2314672ac504dbab73107a04483d7f0f41462d96802fb922783ec9acb",
+  "source_offset": 0,
+  "paragraph_sha256": "b4d4f0a2314672ac504dbab73107a04483d7f0f41462d96802fb922783ec9acb",
+  "published_at": "2025-03-21T09:58:57Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     22,
+     27
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     102,
+     106
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     0,
+     10
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     61,
+     97
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-2",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2750212736",
+  "document_id": "2750212736",
+  "reporter_id": "github:1655916",
+  "author_association": "NONE",
+  "source_sha256": "84ec5b8af07ead3e7d129c259937f548c776947c8f97ee94eb7fc439a2d597e4",
+  "source_offset": 143,
+  "paragraph_sha256": "75b781d33568908a4985becf5ef33c0b22f87735cd9966f7d198c0e72414a81e",
+  "published_at": "2025-03-25T06:25:25Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     42,
+     48
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     120,
+     123
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     183,
+     188
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     73,
+     102
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     137,
+     174
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-3",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2745896231",
+  "document_id": "2745896231",
+  "reporter_id": "github:1655916",
+  "author_association": "NONE",
+  "source_sha256": "0212eabf946612fdc6e7601eaa6de14ac169fb61930fe52bc4a8ae14ee9af666",
+  "source_offset": 0,
+  "paragraph_sha256": "f5fdd6d0a3683d493a69fe5de922511dcedd36a5ebb162b220454f22e29c1375",
+  "published_at": "2025-03-22T22:27:15Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     15,
+     21
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     0,
+     4
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-4",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2750462920",
+  "document_id": "2750462920",
+  "reporter_id": "github:17437302",
+  "author_association": "NONE",
+  "source_sha256": "ffcfc9251f5a5bdea3857be9fe60f3d9a14aa7f33e3212b02c063ca435187e2e",
+  "source_offset": 0,
+  "paragraph_sha256": "c1e528476d0346d70b51bad63337797fe94c4eaad16d36a5cff1a842205f5d30",
+  "published_at": "2025-03-25T08:26:44Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     191,
+     197
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     269,
+     272
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     332,
+     337
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     4,
+     45
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     222,
+     251
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     286,
+     323
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-5",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2741748541",
+  "document_id": "2741748541",
+  "reporter_id": "github:171153200",
+  "author_association": "NONE",
+  "source_sha256": "d63d572c589938bc2f00f1a70b87b142d5fa340eb51a81e197e20bd17f2162e0",
+  "source_offset": 0,
+  "paragraph_sha256": "d63d572c589938bc2f00f1a70b87b142d5fa340eb51a81e197e20bd17f2162e0",
+  "published_at": "2025-03-20T21:50:20Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     36,
+     41
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     7,
+     19
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-6",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2745359583",
+  "document_id": "2745359583",
+  "reporter_id": "github:121303343",
+  "author_association": "NONE",
+  "source_sha256": "f60e0e3620bee8d1952a9ea93333e66e4035f0cfb0f9d4ab9c64dbe9e6741622",
+  "source_offset": 0,
+  "paragraph_sha256": "f60e0e3620bee8d1952a9ea93333e66e4035f0cfb0f9d4ab9c64dbe9e6741622",
+  "published_at": "2025-03-22T16:54:36Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     71,
+     79
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     102,
+     107
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     147,
+     152
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     34,
+     64
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-7",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2767045190",
+  "document_id": "2767045190",
+  "reporter_id": "github:70454800",
+  "author_association": "NONE",
+  "source_sha256": "f91e2abebb8cfceb602fe97915d065180f3c8053ee20cea122a80ff8e53ebd81",
+  "source_offset": 0,
+  "paragraph_sha256": "f91e2abebb8cfceb602fe97915d065180f3c8053ee20cea122a80ff8e53ebd81",
+  "published_at": "2025-03-31T18:20:09Z",
+  "stratum": "request",
+  "events": [
+   {
+    "trigger": [
+     89,
+     95
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     103,
+     121
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-8547-8",
+  "app_id": "1203190",
+  "source_thread_app_id": "1203190",
+  "thread": 8547,
+  "title": "Wreckfest 2 (1203190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8547#issuecomment-2794759449",
+  "document_id": "2794759449",
+  "reporter_id": "github:10071869",
+  "author_association": "NONE",
+  "source_sha256": "7164a3b241dc7d113735c7c6cc2164d9f781335a1f9fa0f48fec45ba76b59be7",
+  "source_offset": 0,
+  "paragraph_sha256": "7164a3b241dc7d113735c7c6cc2164d9f781335a1f9fa0f48fec45ba76b59be7",
+  "published_at": "2025-04-10T18:20:37Z",
+  "stratum": "residual",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-0",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2334829534",
+  "document_id": "2334829534",
+  "reporter_id": "github:31458662",
+  "author_association": "NONE",
+  "source_sha256": "d99f194bed77eecb124d0a69a6b797c47f9c5d4b7159287dd2dafb3d4d338c0f",
+  "source_offset": 0,
+  "paragraph_sha256": "c74d4d4e2602f58498f8fdbee937b11090eb1e850b03b4f3c0f35e03c7fbbcb0",
+  "published_at": "2024-09-06T21:23:14Z",
+  "stratum": "rich",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-1",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2156435049",
+  "document_id": "2156435049",
+  "reporter_id": "github:61102919",
+  "author_association": "NONE",
+  "source_sha256": "c44273a9f3c15bcc5fcc90583a1dc75fe61bc1c7a8b806a390abc39d74414c7b",
+  "source_offset": 0,
+  "paragraph_sha256": "ed27f1e23c8b6612c27555d62dfb056759746f352c186fb3f89311c4d989720f",
+  "published_at": "2024-06-09T10:35:14Z",
+  "stratum": "rich",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-2",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2156227667",
+  "document_id": "2156227667",
+  "reporter_id": "github:37276884",
+  "author_association": "NONE",
+  "source_sha256": "6998326d2cbe19a226276e31ebe567005f5732f665d2d872769ef0a3a6ac4b2e",
+  "source_offset": 0,
+  "paragraph_sha256": "6998326d2cbe19a226276e31ebe567005f5732f665d2d872769ef0a3a6ac4b2e",
+  "published_at": "2024-06-08T23:41:47Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     5,
+     12
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     26,
+     59
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-3",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2336645177",
+  "document_id": "2336645177",
+  "reporter_id": "github:61102919",
+  "author_association": "NONE",
+  "source_sha256": "767af0b9bb693087829879b90dff4e7048fa459239552fdf2fffb8ad08a6ee80",
+  "source_offset": 0,
+  "paragraph_sha256": "fb12e3327090176a9dc78ca33d224f72010caa332eba3cb16269db68ba97051e",
+  "published_at": "2024-09-08T11:13:36Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     159,
+     166
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-4",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2153746881",
+  "document_id": "2153746881",
+  "reporter_id": "github:31458662",
+  "author_association": "NONE",
+  "source_sha256": "3193d7c7ea9c95683a0a97ad6b76711defadd817c88453bef89fc229cb0be4b2",
+  "source_offset": 0,
+  "paragraph_sha256": "57a330771acad39f4178d13ff367c0524267b1fc2031b5d93f13a4036a529da2",
+  "published_at": "2024-06-07T02:39:03Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     5,
+     11
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     46,
+     52
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     74,
+     110
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-5",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2153744884",
+  "document_id": "2153744884",
+  "reporter_id": "github:31458662",
+  "author_association": "NONE",
+  "source_sha256": "06d1408c37a3d97feb4d27ef92d6e0d3fc30361c2eefe55ec0084bce9c42ec79",
+  "source_offset": 0,
+  "paragraph_sha256": "9981009e8538725e3fd05c4688f3f81da1705954b57b391bf911781e64aebf29",
+  "published_at": "2024-06-07T02:36:03Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     18,
+     23
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     92,
+     117
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     147,
+     181
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-6",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2403638659",
+  "document_id": "2403638659",
+  "reporter_id": "github:31458662",
+  "author_association": "NONE",
+  "source_sha256": "f0a9d6bfb7e0a8124e995ab48fe6af6da31a046112ad8fb40a6639e9f49ab5ec",
+  "source_offset": 0,
+  "paragraph_sha256": "f0a9d6bfb7e0a8124e995ab48fe6af6da31a046112ad8fb40a6639e9f49ab5ec",
+  "published_at": "2024-10-09T23:57:50Z",
+  "stratum": "request",
+  "events": [
+   {
+    "trigger": [
+     86,
+     93
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-7819-7",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2153752688",
+  "document_id": "2153752688",
+  "reporter_id": "github:31458662",
+  "author_association": "NONE",
+  "source_sha256": "1b9a7d4fd80465c1dabfb8379a7aa3d844f3f981922ca82611dc0274e9134f74",
+  "source_offset": 0,
+  "paragraph_sha256": "1b9a7d4fd80465c1dabfb8379a7aa3d844f3f981922ca82611dc0274e9134f74",
+  "published_at": "2024-06-07T02:47:33Z",
+  "stratum": "residual",
+  "events": [
+   {
+    "trigger": [
+     11,
+     15
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-156-0",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-1988942809",
+  "document_id": "1988942809",
+  "reporter_id": "github:40211296",
+  "author_association": "COLLABORATOR",
+  "source_sha256": "86602a0cfb5781f4d65efcbb6f063f7ee0897ca70e7a2d1fe59af083f0258827",
+  "source_offset": 0,
+  "paragraph_sha256": "86602a0cfb5781f4d65efcbb6f063f7ee0897ca70e7a2d1fe59af083f0258827",
+  "published_at": "2024-03-11T16:52:01Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     85,
+     91
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     146,
+     153
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     176,
+     184
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     120,
+     153
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-156-1",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-4800186969",
+  "document_id": "4800186969",
+  "reporter_id": "github:10137",
+  "author_association": "NONE",
+  "source_sha256": "14b8d599d430e1ae57f828b5ba80852e8a8b0a696abff5d4eb2509677377cee0",
+  "source_offset": 383,
+  "paragraph_sha256": "3e7831db65f14aa7d3195a5e41077937e3dd842838305d72fed8f6a11f5824bb",
+  "published_at": "2026-06-25T14:05:15Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     129,
+     136
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     374,
+     381
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     399,
+     403
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     58,
+     92
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-156-2",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-1986932473",
+  "document_id": "1986932473",
+  "reporter_id": "github:79980138",
+  "author_association": "NONE",
+  "source_sha256": "605404a0419aad0b6c4db407db741ccf7fcca3fa532b3b6e573b1e1face64dca",
+  "source_offset": 0,
+  "paragraph_sha256": "605404a0419aad0b6c4db407db741ccf7fcca3fa532b3b6e573b1e1face64dca",
+  "published_at": "2024-03-09T18:02:36Z",
+  "stratum": "residual",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-0",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-2016846239",
+  "document_id": "2016846239",
+  "reporter_id": "github:36553373",
+  "author_association": "NONE",
+  "source_sha256": "b0771790f3e82addd16a96cb5263e4c3c5546731624dcb96d85e9eb46d02675c",
+  "source_offset": 207,
+  "paragraph_sha256": "f10d14a627e9759be8a3b881b889ce2bae61009c732e380baec64ad353e39096",
+  "published_at": "2024-03-24T15:34:10Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     34,
+     38
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     9,
+     27
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-1",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-3059201262",
+  "document_id": "3059201262",
+  "reporter_id": "github:162713879",
+  "author_association": "NONE",
+  "source_sha256": "8f82d24a9ffa3f549579872324291fb4b33d28f01d0ab091e6a91da67a147e23",
+  "source_offset": 98,
+  "paragraph_sha256": "e031c6ebed8841633b376e299a90743534f87251a41dc12e36b85a06e4ce2ddd",
+  "published_at": "2025-07-10T21:44:29Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     189,
+     196
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     150,
+     169
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-2",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-1968097696",
+  "document_id": "1968097696",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "18e5aa340261c2b2d209deccb2d9a56271071751fe9e96f4bfc626c568b7ff93",
+  "source_offset": 0,
+  "paragraph_sha256": "18e5aa340261c2b2d209deccb2d9a56271071751fe9e96f4bfc626c568b7ff93",
+  "published_at": "2024-02-28T02:54:40Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     22,
+     25
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     147,
+     156
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     177,
+     183
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-3",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-2002555475",
+  "document_id": "2002555475",
+  "reporter_id": "github:6241235",
+  "author_association": "NONE",
+  "source_sha256": "3f888e30a3ab2213fc93ccba7358e2a9209876e695861d3ba0d49fe964a41510",
+  "source_offset": 99,
+  "paragraph_sha256": "31fc7115c31f91be2b07c37eb6823535e22d7cd7ce45d128781306c511b79685",
+  "published_at": "2024-03-17T17:58:17Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     15,
+     20
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     90,
+     93
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     83,
+     119
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-4",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-1968440302",
+  "document_id": "1968440302",
+  "reporter_id": "github:32540922",
+  "author_association": "NONE",
+  "source_sha256": "e9bf44b6493cf1250eb86ab06bc11662b5901c9734c81a24c8e2ef1650a1dd3d",
+  "source_offset": 167,
+  "paragraph_sha256": "98ead636d4fb809dc6cb51bea07e57b9b7502e612ea3252cbab36b4da9342db5",
+  "published_at": "2024-02-28T08:11:09Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     21,
+     28
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-5",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-3016513059",
+  "document_id": "3016513059",
+  "reporter_id": "github:92275929",
+  "author_association": "NONE",
+  "source_sha256": "a0d2ce39cd3730af1d1757af525a71425ffebd62e0fc9a624428b3ec28365527",
+  "source_offset": 0,
+  "paragraph_sha256": "ab085f179eea6d90499d88beaf57a98d27b5833d74c75a0da201c6f7e1dc6d87",
+  "published_at": "2025-06-29T10:02:49Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     121,
+     126
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown",
+    "trigger_alt": [
+     117,
+     120
+    ]
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-6",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-3018200297",
+  "document_id": "3018200297",
+  "reporter_id": "github:162713879",
+  "author_association": "NONE",
+  "source_sha256": "aed148e3b960a8898860f2a3380939f39deea93158634897d36fa3f816b419af",
+  "source_offset": 0,
+  "paragraph_sha256": "da2fd385cf5ca87a76a9315f5585740573e04cdce91512c5f3f34e9e1b7a855d",
+  "published_at": "2025-06-30T08:08:33Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     47,
+     57
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     161,
+     169
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-7",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-3016436508",
+  "document_id": "3016436508",
+  "reporter_id": "github:51737734",
+  "author_association": "NONE",
+  "source_sha256": "a76180bd6fb21cce9b7ca6c46677c3b9a6191a16ae4514dbdea4766a494a3602",
+  "source_offset": 2209,
+  "paragraph_sha256": "e75d4d276b010abbfc5f73ac5c60e36a767c5b719ebe12755acdb6291eebd706",
+  "published_at": "2025-06-29T09:01:22Z",
+  "stratum": "multi",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-8",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-3023137970",
+  "document_id": "3023137970",
+  "reporter_id": "github:162713879",
+  "author_association": "NONE",
+  "source_sha256": "2ab2f1d604080cef0df4bc66646212648c4311f60ae169137f130ee8187df3ce",
+  "source_offset": 0,
+  "paragraph_sha256": "9e0ec04c3584ea751ec1d36bb890851c5e47fe53d18663816d3fab407a85972e",
+  "published_at": "2025-07-01T10:05:30Z",
+  "stratum": "request",
+  "events": [
+   {
+    "trigger": [
+     96,
+     99
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-3899-9",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-2016842330",
+  "document_id": "2016842330",
+  "reporter_id": "github:36553373",
+  "author_association": "NONE",
+  "source_sha256": "5a615d8ed8a5eebaaff4c92b8ed632bbceaf9b4dae087c89ee67923756b9f7f0",
+  "source_offset": 0,
+  "paragraph_sha256": "5a615d8ed8a5eebaaff4c92b8ed632bbceaf9b4dae087c89ee67923756b9f7f0",
+  "published_at": "2024-03-24T15:19:12Z",
+  "stratum": "residual",
+  "events": [],
+  "observations": [
+   {
+    "span": [
+     9,
+     55
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-5982-0",
+  "app_id": "1761390",
+  "source_thread_app_id": "1761390",
+  "thread": 5982,
+  "title": "Hatsune Miku: Project DIVA Mega Mix+ (1761390)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-2813979442",
+  "document_id": "2813979442",
+  "reporter_id": "github:16541294",
+  "author_association": "NONE",
+  "source_sha256": "cc930fe0005890835b7d388a5fbf08102d8cf6c7d92f868bebe7e1d79d412a26",
+  "source_offset": 274,
+  "paragraph_sha256": "35709dd5261c872fc5e5e1a7975ba224735799fa1be1651bf9cded0b03e32ac0",
+  "published_at": "2025-04-17T20:41:11Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     30,
+     35
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     39,
+     43
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     62,
+     75
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-5982-1",
+  "app_id": "1761390",
+  "source_thread_app_id": "1761390",
+  "thread": 5982,
+  "title": "Hatsune Miku: Project DIVA Mega Mix+ (1761390)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-2504677127",
+  "document_id": "2504677127",
+  "reporter_id": "github:570347",
+  "author_association": "NONE",
+  "source_sha256": "9098c3bae11fdd2245ea1956e8e294f44e43cdb53fed0b7035575ed7a23bd2d5",
+  "source_offset": 383,
+  "paragraph_sha256": "e959f6711056ee6cf3fc82ecf48bb958677aa08e8fdf6b913052d9255ee174d6",
+  "published_at": "2024-11-27T19:56:43Z",
+  "stratum": "rich",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-5982-2",
+  "app_id": "1761390",
+  "source_thread_app_id": "1761390",
+  "thread": 5982,
+  "title": "Hatsune Miku: Project DIVA Mega Mix+ (1761390)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-1854155681",
+  "document_id": "1854155681",
+  "reporter_id": "github:570347",
+  "author_association": "NONE",
+  "source_sha256": "6cd79eba913e269b7a5c5c3ba1404358625013d40540d040d94fc79760accaa3",
+  "source_offset": 0,
+  "paragraph_sha256": "6cd79eba913e269b7a5c5c3ba1404358625013d40540d040d94fc79760accaa3",
+  "published_at": "2023-12-13T15:34:25Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     20,
+     23
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     133,
+     139
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     54,
+     84
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-5982-3",
+  "app_id": "1761390",
+  "source_thread_app_id": "1761390",
+  "thread": 5982,
+  "title": "Hatsune Miku: Project DIVA Mega Mix+ (1761390)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-6109608720",
+  "document_id": "6109608720",
+  "reporter_id": "github:570347",
+  "author_association": "NONE",
+  "source_sha256": "4a89f400849d4022181bff40d4fe68c86fe0dc38c482a0e89b3442df736d7fec",
+  "source_offset": 311,
+  "paragraph_sha256": "5d7c3f6c42f9e735e2a852d24895073a38185b386a5d30042238264b9b1f2814",
+  "published_at": "2026-10-11T13:37:54Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     79,
+     83
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     245,
+     282
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-5982-4",
+  "app_id": "1761390",
+  "source_thread_app_id": "1761390",
+  "thread": 5982,
+  "title": "Hatsune Miku: Project DIVA Mega Mix+ (1761390)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5982#issuecomment-2814059709",
+  "document_id": "2814059709",
+  "reporter_id": "github:16541294",
+  "author_association": "NONE",
+  "source_sha256": "432c509987dc85966d00fa66c0c334a713bf45fc4541fea8239d0f862be1dbe4",
+  "source_offset": 0,
+  "paragraph_sha256": "432c509987dc85966d00fa66c0c334a713bf45fc4541fea8239d0f862be1dbe4",
+  "published_at": "2025-04-17T21:28:53Z",
+  "stratum": "residual",
+  "events": [
+   {
+    "trigger": [
+     17,
+     22
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     116,
+     120
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-0",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847316982",
+  "document_id": "4847316982",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "4d4895dc5535cda385547b599f5b1a9a082a7e910523d1c33153bc8261876733",
+  "source_offset": 0,
+  "paragraph_sha256": "4d4895dc5535cda385547b599f5b1a9a082a7e910523d1c33153bc8261876733",
+  "published_at": "2026-06-30T19:41:50Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     515,
+     520
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-1",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847418789",
+  "document_id": "4847418789",
+  "reporter_id": "github:46604100",
+  "author_association": "NONE",
+  "source_sha256": "d92889be1bb40ef61c407196614f7d192d824dfc4306181f9bd5f6103f04c4df",
+  "source_offset": 0,
+  "paragraph_sha256": "f361877d18d4f9ed3a5c52e57f09cb13950d62e0ed87fcee287d926e738e806f",
+  "published_at": "2026-06-30T19:56:05Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     572,
+     577
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-2",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4841645217",
+  "document_id": "4841645217",
+  "reporter_id": "github:8013933",
+  "author_association": "NONE",
+  "source_sha256": "6b6cee02391356281773b2ee2f7c81aa5460cce49894d1e10ba9b72dd5804ce5",
+  "source_offset": 0,
+  "paragraph_sha256": "80d4fe0ade70a3248dea39562f7130bb90458dee12b8a853d9afdb502b1b1898",
+  "published_at": "2026-06-30T09:00:55Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     125,
+     130
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     200,
+     206
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-3",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847246067",
+  "document_id": "4847246067",
+  "reporter_id": "github:46604100",
+  "author_association": "NONE",
+  "source_sha256": "10249f49844497c8568d598a6a3a4ba05cfc250532004a8cf2d01b7a4d16727c",
+  "source_offset": 0,
+  "paragraph_sha256": "5fdc165f36daeb7a3b12f368ed8d6ab72dd55716aebfa2e5fa5ac696d1d87916",
+  "published_at": "2026-06-30T19:31:54Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     169,
+     174
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     187,
+     190
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     322,
+     329
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-4",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847492219",
+  "document_id": "4847492219",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "dab2f9793cef68207888f68b9de926eac58b9cd5457d512995a977109e6ec5e8",
+  "source_offset": 0,
+  "paragraph_sha256": "dab2f9793cef68207888f68b9de926eac58b9cd5457d512995a977109e6ec5e8",
+  "published_at": "2026-06-30T20:06:22Z",
+  "stratum": "rich",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-5",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847201715",
+  "document_id": "4847201715",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "fa38dd8e0f73b325e8c3a71be6de511cda720545e33909767b264316b8833d65",
+  "source_offset": 0,
+  "paragraph_sha256": "fa38dd8e0f73b325e8c3a71be6de511cda720545e33909767b264316b8833d65",
+  "published_at": "2026-06-30T19:26:16Z",
+  "stratum": "rich",
+  "events": [
+   {
+    "trigger": [
+     133,
+     138
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     151,
+     154
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     286,
+     293
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-6",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847144823",
+  "document_id": "4847144823",
+  "reporter_id": "github:46604100",
+  "author_association": "NONE",
+  "source_sha256": "4d1aed7316c0c068a69bb59175ab7693f15e520b3d619760ce4eb36d46b2f7ac",
+  "source_offset": 0,
+  "paragraph_sha256": "eecc576a32a43a42c27b3b774381039b5900f66a4628e3adcb7e994336cd459c",
+  "published_at": "2026-06-30T19:18:49Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     202,
+     208
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-7",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-1935657501",
+  "document_id": "1935657501",
+  "reporter_id": "github:96808",
+  "author_association": "NONE",
+  "source_sha256": "07b177ffc716042c8a14fdebd7cb5fff45aa5558ae7ce47f3084d108ed68752d",
+  "source_offset": 815,
+  "paragraph_sha256": "b48c5eb70d41f6dee2d26f286b40854192a15c355cb11482112a26568f74a5a0",
+  "published_at": "2024-02-09T10:14:45Z",
+  "stratum": "multi",
+  "events": [
+   {
+    "trigger": [
+     50,
+     56
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     65,
+     70
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-8",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847453298",
+  "document_id": "4847453298",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "0557d02422ef38d688fe50354b753759e9814bd231d732a982ede12b5f3aafa4",
+  "source_offset": 0,
+  "paragraph_sha256": "0557d02422ef38d688fe50354b753759e9814bd231d732a982ede12b5f3aafa4",
+  "published_at": "2026-06-30T20:01:01Z",
+  "stratum": "request",
+  "events": [],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7m-399-9",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847539063",
+  "document_id": "4847539063",
+  "reporter_id": "github:46604100",
+  "author_association": "NONE",
+  "source_sha256": "764d38953b51429060d219c150bedb0ef90ccf6079a0686c5596382ad4c6447c",
+  "source_offset": 0,
+  "paragraph_sha256": "764d38953b51429060d219c150bedb0ef90ccf6079a0686c5596382ad4c6447c",
+  "published_at": "2026-06-30T20:12:54Z",
+  "stratum": "residual",
+  "events": [
+   {
+    "trigger": [
+     7,
+     14
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     23,
+     26
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     119,
+     122
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-651-0",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3584951422",
+  "document_id": "3584951422",
+  "reporter_id": "github:230977731",
+  "author_association": "NONE",
+  "source_sha256": "a3d3b011715861e9ae4f62ff5229e2da28d32523843b22ce08aceb89602fdafd",
+  "source_offset": 0,
+  "paragraph_sha256": "e66d501947447bc4873434906ef0326a886e28b9fd3c000b7b396aa0eb9382e3",
+  "published_at": "2025-11-27T09:37:58Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     49,
+     54
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     123,
+     127
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     66,
+     82
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-651-1",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3875469340",
+  "document_id": "3875469340",
+  "reporter_id": "github:9203145",
+  "author_association": "NONE",
+  "source_sha256": "85fa6b70d9e4786261f3f25811cad2cd2771e6d4bda9a9b0bb7ef3e5d7a238b7",
+  "source_offset": 0,
+  "paragraph_sha256": "8903c0903bfb66ce4ea5ab9620d930f66b55259371312aa2c49a4a4b61c40154",
+  "published_at": "2026-02-10T05:46:21Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     2,
+     6
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     318,
+     325
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     49,
+     92
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     137,
+     171
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     286,
+     305
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-651-2",
+  "app_id": "333980",
+  "source_thread_app_id": "333980",
+  "thread": 651,
+  "title": "Akiba's Trip Undead & Undressed (333980)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/651#issuecomment-3591594798",
+  "document_id": "3591594798",
+  "reporter_id": "github:230977731",
+  "author_association": "NONE",
+  "source_sha256": "2038c2e1a0b40075693d1d8245d1447cd57ea37f04bfd7b115ab14ff6a815b3b",
+  "source_offset": 173,
+  "paragraph_sha256": "ad63ef2e55d0f2a27e09ae37b9eee04ef52abf852c6e67fa988f07ece781e155",
+  "published_at": "2025-11-29T11:33:28Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     183,
+     186
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     243,
+     248
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     131,
+     166
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-187-0",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2217033264",
+  "document_id": "2217033264",
+  "reporter_id": "github:172901673",
+  "author_association": "NONE",
+  "source_sha256": "0357fd707d65a022990ceeda019a6b4e7050d920851ad0b3c6a641ad04dbc798",
+  "source_offset": 0,
+  "paragraph_sha256": "7bfa66a3850544ad3a7dd7dc95e7a50ba2e34b32cc1073632665d96bfbea4bac",
+  "published_at": "2024-07-09T08:59:20Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     58,
+     63
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     85,
+     90
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     169,
+     172
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     339,
+     344
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     383,
+     388
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     29,
+     52
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     1,
+     2
+    ],
+    "structure": "joint",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     201,
+     232
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     1,
+     2
+    ],
+    "structure": "joint",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     309,
+     338
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     3
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     405,
+     430
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     4
+    ],
+    "structure": "single",
+    "individual_evidence": [
+     4
+    ]
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-187-1",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-5981780365",
+  "document_id": "5981780365",
+  "reporter_id": "github:163820764",
+  "author_association": "NONE",
+  "source_sha256": "a34dd3d4b26e21698f078a2565d140b75133fee3f5de881ccc95d6b2aaa795c2",
+  "source_offset": 0,
+  "paragraph_sha256": "7bd8a376d7fc388cdbd53c5d11064ef8daae19b8915ed7750a419f0cb1f4ca70",
+  "published_at": "2026-10-04T15:50:12Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     7,
+     14
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     71,
+     74
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-187-2",
+  "app_id": "13230",
+  "source_thread_app_id": "13230",
+  "thread": 187,
+  "title": "Unreal Tournament 2004 (13230)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/187#issuecomment-2611525062",
+  "document_id": "2611525062",
+  "reporter_id": "github:163820764",
+  "author_association": "NONE",
+  "source_sha256": "cba327ecec816153b83c4a31a8eac52a45d6ce99659651b5354fd0b80dea0ee7",
+  "source_offset": 261,
+  "paragraph_sha256": "2194ce415b81e57ef3971fc199369591c88bb066a057d84024361ada7bde456c",
+  "published_at": "2025-01-24T04:10:17Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     47,
+     55
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     148,
+     154
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     258,
+     261
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-7819-0",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2153743293",
+  "document_id": "2153743293",
+  "reporter_id": "github:37276884",
+  "author_association": "NONE",
+  "source_sha256": "02ed486db10bcb28687c4d09b0643031951206080a955200eba6ce44e91fc5a9",
+  "source_offset": 0,
+  "paragraph_sha256": "c50798c72d094a5ab9f3c15cc136bf941a757b47ce8936d5c518ecd13cf4a053",
+  "published_at": "2024-06-07T02:33:34Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     16,
+     21
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     299,
+     306
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     90,
+     141
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     209,
+     243
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     259,
+     279
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     311,
+     323
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-7819-1",
+  "app_id": "2870020",
+  "source_thread_app_id": "2870020",
+  "thread": 7819,
+  "title": "Test Drive Unlimited Solar Crown Demo (2870020)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7819#issuecomment-2368644642",
+  "document_id": "2368644642",
+  "reporter_id": "github:26521758",
+  "author_association": "NONE",
+  "source_sha256": "ba3eb6c83837af4537ccf806b96a4db4fc379871b7a4b0caebec4578035eaee7",
+  "source_offset": 0,
+  "paragraph_sha256": "8462d654058e21b81c3b07b9dbf05c054c3cf3236494481fb7071115f82c6295",
+  "published_at": "2024-09-23T15:28:45Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     396,
+     403
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     459,
+     463
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-156-0",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-1986393999",
+  "document_id": "1986393999",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "ccbffd1cb1818ee9b4e5c4af1244b77668cba698568360f81c36b0357de9d166",
+  "source_offset": 0,
+  "paragraph_sha256": "ccbffd1cb1818ee9b4e5c4af1244b77668cba698568360f81c36b0357de9d166",
+  "published_at": "2024-03-08T20:47:17Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     24,
+     27
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     149,
+     158
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     174,
+     180
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     302,
+     306
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     415,
+     418
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     466,
+     473
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-156-1",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-4800443381",
+  "document_id": "4800443381",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "a960fe214fc388f190967f181e4af22db9af53959b2c8a9e3e40b56f020c75f0",
+  "source_offset": 0,
+  "paragraph_sha256": "a960fe214fc388f190967f181e4af22db9af53959b2c8a9e3e40b56f020c75f0",
+  "published_at": "2026-06-25T14:30:57Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     25,
+     28
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     153,
+     159
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     281,
+     285
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     394,
+     397
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     445,
+     452
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-156-2",
+  "app_id": "108710",
+  "source_thread_app_id": "108710",
+  "thread": 156,
+  "title": "Alan Wake (108710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/156#issuecomment-4800656003",
+  "document_id": "4800656003",
+  "reporter_id": "github:10137",
+  "author_association": "NONE",
+  "source_sha256": "90357031ca43d8209b2fa2ca5f5e32485c990d16d24dbbfe2efdb7024211626f",
+  "source_offset": 0,
+  "paragraph_sha256": "9b400e937aa01a1624e4dfd0db50f167d2bd38f7015265c6f29f540dd73ab1fb",
+  "published_at": "2026-06-25T14:47:04Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     59,
+     62
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     187,
+     193
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     315,
+     319
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     428,
+     431
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     479,
+     486
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-3899-0",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-2336550586",
+  "document_id": "2336550586",
+  "reporter_id": "github:32796142",
+  "author_association": "NONE",
+  "source_sha256": "1df0ec08c7bdbaceaedf0f0f9daac48fa8c9dea325a9cb947c948aa72fb65292",
+  "source_offset": 0,
+  "paragraph_sha256": "5707e60cb92fb85c99fbc8ad008953bf8ede6b579f0db879efbe898b93570467",
+  "published_at": "2024-09-08T05:13:13Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     52,
+     57
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     111,
+     114
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     180,
+     189
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     289,
+     295
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     81,
+     102
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     154,
+     171
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     2
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-3899-1",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-2985574620",
+  "document_id": "2985574620",
+  "reporter_id": "github:51737734",
+  "author_association": "NONE",
+  "source_sha256": "04959e920200ffc96ec549c3bbca094a5e51352269207d7ded44fe3ff0949a07",
+  "source_offset": 436,
+  "paragraph_sha256": "5f3f7c2884efd243cbcf93dbb1f8a0b8b3893f7120dda3771d8f6e81ba0d3b9f",
+  "published_at": "2025-06-18T20:17:43Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     5,
+     10
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-3899-2",
+  "app_id": "221100",
+  "source_thread_app_id": "221100",
+  "thread": 3899,
+  "title": "DayZ (221100)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3899#issuecomment-1968096123",
+  "document_id": "1968096123",
+  "reporter_id": "github:24358216",
+  "author_association": "MEMBER",
+  "source_sha256": "554e890970fa4b17a20c80628db89011892d8404fe64556ee1df6e12f3fd4a66",
+  "source_offset": 560,
+  "paragraph_sha256": "a607b37b58bc95318f574b7512eaf0810d54b037678848487d4a3a859a9cf66a",
+  "published_at": "2024-02-28T02:52:38Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     3,
+     6
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     79,
+     85
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     95,
+     101
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     157,
+     160
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     190,
+     195
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     241,
+     247
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     335,
+     340
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     391,
+     408
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "structure": "sequence",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-399-0",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-2466050537",
+  "document_id": "2466050537",
+  "reporter_id": "github:26506894",
+  "author_association": "NONE",
+  "source_sha256": "a02dfd5c7dbdf5f800b21983aabb0fc91bf207e5043d806a10a882cf1e366ed2",
+  "source_offset": 693,
+  "paragraph_sha256": "bc5d38f88430228ff94ec8b6f374440f0870b8f4b6c1cf7ca5305423f93c01d6",
+  "published_at": "2024-11-09T05:00:50Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     24,
+     27
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     186,
+     190
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     141,
+     174
+    ],
+    "outcome": "regression",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-399-1",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-4847530134",
+  "document_id": "4847530134",
+  "reporter_id": "github:46604100",
+  "author_association": "NONE",
+  "source_sha256": "e46893db4523b811e4e7f7181cbf47a7b9f9d4a3d58dee619329235732cb981a",
+  "source_offset": 271,
+  "paragraph_sha256": "45b624698bfe3ff37f1c53d9e454d239235ea20adbc805f186dc2a6b3598efeb",
+  "published_at": "2026-06-30T20:11:39Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     26,
+     34
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     97,
+     102
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     68,
+     83
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "p7j-399-2",
+  "app_id": "409710",
+  "source_thread_app_id": "409710",
+  "thread": 399,
+  "title": "BioShock Remastered (409710)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/399#issuecomment-2103723844",
+  "document_id": "2103723844",
+  "reporter_id": "github:4410465",
+  "author_association": "NONE",
+  "source_sha256": "9a4a08e7940c1c7d2bb7a3312e7d3025f19c076f21cf73f406318c582a707a20",
+  "source_offset": 451,
+  "paragraph_sha256": "dabbe1d219a6f3867792dbe6ff55fcaf813b27073c81fcd99ef85141bdb6c511",
+  "published_at": "2024-05-10T02:12:45Z",
+  "stratum": "multi-action",
+  "events": [
+   {
+    "trigger": [
+     231,
+     237
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     222,
+     227
+    ]
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     288,
+     299
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single",
+    "individual_evidence": []
+   },
+   {
+    "span": [
+     19,
+     47
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none",
+    "individual_evidence": []
+   }
+  ],
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ }
+]

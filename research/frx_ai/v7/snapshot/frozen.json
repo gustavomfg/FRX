@@ -1,0 +1,26 @@
+{
+ "frozen_at": "2026-10-30T23:04:24.266566+00:00",
+ "files": {
+  "v7/procedures.py": "c3efc5138f5bfb837afc7d62595a32ce9fd70bb1a627b4bc079bd1be98fd8e4a",
+  "v7/l1_adapter.py": "a4ea0ebbf007cc8406bcb9438af87aeaa664654f49f4c43a8f1dc2f89196706a",
+  "v7/waterfall.py": "55fd9acc4c40bfa337c5d9360dcc52fd1f80bb9bf8419c9ba30ae40bf0a8101b",
+  "v6/grounding.py": "2369fb89003629e869024d7f5e6a1774ef8c8fc1780a24bda33f91b81fe28be4",
+  "v6/evaluate.py": "4649654f24d29f402506cb6082c5694ba2f1915d5a373ad1c44443a4c83087a4",
+  "v6/pairs.py": "e83ebc6491c475b6549632d1f6670c7c430c62c97687b75d0dfd85672d561aa5",
+  "v5/events.py": "facbb385a11c53e12481b0749ccd62338c0e4124e9058201b6451cf9aad74bbf",
+  "v5/relations.py": "16e051f9b2f6932177c9523f6fc473bb0b577fbd5ab4e7f3c77ce1643496446a"
+ },
+ "selection": {
+  "decision": "v7-structural",
+  "threshold": 3.4,
+  "selected_on": [
+   "P6-dev",
+   "P6-known"
+  ],
+  "rejected": {
+   "v6_L1_over_v7_candidates": "16 false successes on P6-known, 4 on P6-dev"
+  },
+  "selection_is_not_test": true
+ },
+ "p7_bodies_opened": false
+}

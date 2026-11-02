@@ -65,6 +65,9 @@ pub enum ProviderId {
     UmuDatabase,
     Github,
     Protondb,
+    Reddit,
+    Winehq,
+    SteamGuides,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
@@ -73,6 +76,41 @@ pub enum GpuReq {
     Nvidia,
     Amd,
     Intel,
+}
+
+/// A quem a descoberta se destina. `Any` exige variável conhecida, sem exigência
+/// de fabricante; quando a fonte só não informa, o escopo é `Unknown`.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(rename_all = "lowercase")]
+pub enum HardwareScope {
+    Nvidia,
+    Amd,
+    Intel,
+    Any,
+    #[default]
+    Unknown,
+}
+
+impl From<GpuReq> for HardwareScope {
+    fn from(vendor: GpuReq) -> Self {
+        match vendor {
+            GpuReq::Nvidia => Self::Nvidia,
+            GpuReq::Amd => Self::Amd,
+            GpuReq::Intel => Self::Intel,
+        }
+    }
+}
+
+impl HardwareScope {
+    /// Ordem de exibição: o que bate com a GPU vem primeiro, e o que exige outra, por último.
+    pub fn rank(self, user: Option<GpuReq>) -> u8 {
+        match (self, user) {
+            (Self::Any, _) => 1,
+            (Self::Unknown, _) | (_, None) => 2,
+            (scope, Some(vendor)) if scope == vendor.into() => 0,
+            _ => 3,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -209,6 +247,8 @@ pub enum ArtifactTrust {
 pub enum ArtifactFormat {
     File,
     Zip,
+    /// Só no design: `fix_engine::artifacts` recusa até a política de DLL e TAR ser aprovada.
+    Tar,
     Unknown,
 }
 
@@ -259,6 +299,8 @@ pub struct ArtifactCandidate {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixFinding {
+    #[serde(default)]
+    pub hardware_scope: HardwareScope,
     #[serde(default)]
     pub artifacts: Vec<ArtifactCandidate>,
     #[serde(default)]

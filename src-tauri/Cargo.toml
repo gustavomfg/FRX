@@ -26,6 +26,12 @@ tauri-plugin-dialog = "2.7.3"
 sha2 = "0.11.0"
 libc = "0.2.191"
 zip = { version = "9.1.1", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+llama-cpp-2 = { version = "0.1.160", optional = true }
+
+[features]
+default = []
+# Qwen local para o piloto de reescrita. Exige cmake, clang e C++ no build.
+qwen-query = ["dep:llama-cpp-2"]
 
 [profile.release]
 codegen-units = 1

@@ -1,0 +1,1936 @@
+{
+ "outcomes": {
+  "status": "H0: labels by the agent, not human validation",
+  "units": 60,
+  "outcome": {
+   "v8": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 30,
+    "claim_recall": [
+     22,
+     32
+    ],
+    "claim_recall_ci": [
+     0.514,
+     0.82
+    ],
+    "claim_precision": [
+     22,
+     30
+    ],
+    "positive_claims": 15,
+    "false_positive": 3,
+    "positive_precision": [
+     12,
+     15
+    ],
+    "positive_precision_ci": [
+     0.548,
+     0.93
+    ],
+    "merged_class_correct": [
+     37,
+     58
+    ],
+    "fine": {
+     "exact_class": [
+      37,
+      58
+     ],
+     "resolved_claims": 15,
+     "false_resolved": 3,
+     "strict_false_resolved": 3,
+     "resolved_precision": [
+      12,
+      15
+     ],
+     "resolved_precision_ci": [
+      0.548,
+      0.93
+     ]
+    }
+   },
+   "no_claim": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 0,
+    "claim_recall": [
+     0,
+     32
+    ],
+    "claim_recall_ci": [
+     0.0,
+     0.107
+    ],
+    "claim_precision": [
+     0,
+     0
+    ],
+    "positive_claims": 0,
+    "false_positive": 0,
+    "positive_precision": [
+     0,
+     0
+    ],
+    "positive_precision_ci": null,
+    "merged_class_correct": [
+     26,
+     58
+    ]
+   },
+   "v7": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 47,
+    "claim_recall": [
+     28,
+     32
+    ],
+    "claim_recall_ci": [
+     0.719,
+     0.95
+    ],
+    "claim_precision": [
+     28,
+     47
+    ],
+    "positive_claims": 13,
+    "false_positive": 6,
+    "positive_precision": [
+     7,
+     13
+    ],
+    "positive_precision_ci": [
+     0.291,
+     0.768
+    ],
+    "merged_class_correct": [
+     22,
+     58
+    ]
+   },
+   "weak": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 10,
+    "claim_recall": [
+     7,
+     32
+    ],
+    "claim_recall_ci": [
+     0.11,
+     0.388
+    ],
+    "claim_precision": [
+     7,
+     10
+    ],
+    "positive_claims": 10,
+    "false_positive": 5,
+    "positive_precision": [
+     5,
+     10
+    ],
+    "positive_precision_ci": [
+     0.237,
+     0.763
+    ],
+    "merged_class_correct": [
+     28,
+     58
+    ]
+   },
+   "e07": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 0,
+    "claim_recall": [
+     0,
+     32
+    ],
+    "claim_recall_ci": [
+     0.0,
+     0.107
+    ],
+    "claim_precision": [
+     0,
+     0
+    ],
+    "positive_claims": 0,
+    "false_positive": 0,
+    "positive_precision": [
+     0,
+     0
+    ],
+    "positive_precision_ci": null,
+    "merged_class_correct": [
+     26,
+     58
+    ]
+   },
+   "e07_any": {
+    "units": 58,
+    "gold_claims": 32,
+    "system_claims": 21,
+    "claim_recall": [
+     17,
+     32
+    ],
+    "claim_recall_ci": [
+     0.364,
+     0.691
+    ],
+    "claim_precision": [
+     17,
+     21
+    ],
+    "positive_claims": 6,
+    "false_positive": 2,
+    "positive_precision": [
+     4,
+     6
+    ],
+    "positive_precision_ci": [
+     0.3,
+     0.903
+    ],
+    "merged_class_correct": [
+     32,
+     58
+    ]
+   }
+  },
+  "paired_v8_minus": {
+   "v7": {
+    "difference": 0.259,
+    "ci95": [
+     0.103,
+     0.414
+    ]
+   },
+   "weak": {
+    "difference": 0.155,
+    "ci95": [
+     0.0,
+     0.328
+    ]
+   },
+   "e07": {
+    "difference": 0.19,
+    "ci95": [
+     0.034,
+     0.362
+    ]
+   },
+   "e07_any": {
+    "difference": 0.086,
+    "ci95": [
+     -0.069,
+     0.241
+    ]
+   },
+   "no_claim": {
+    "difference": 0.19,
+    "ci95": [
+     0.034,
+     0.362
+    ]
+   }
+  },
+  "groups": {
+   "v8": {
+    "gold_groups": 14,
+    "groups_correct": 1,
+    "relation_correct": 1,
+    "invented_groups": 3,
+    "per_type": {
+     "joint": [
+      0,
+      2
+     ],
+     "alternatives": [
+      1,
+      10
+     ],
+     "sequence": [
+      0,
+      2
+     ]
+    }
+   },
+   "v7": {
+    "gold_groups": 14,
+    "groups_correct": 0,
+    "relation_correct": 0,
+    "invented_groups": 3,
+    "per_type": {
+     "joint": [
+      0,
+      2
+     ],
+     "alternatives": [
+      0,
+      10
+     ],
+     "sequence": [
+      0,
+      2
+     ]
+    }
+   }
+  },
+  "false_individual_credit_v8": 0,
+  "details": [
+   {
+    "id": "o8-test-9186",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9728",
+    "gold": "resolved",
+    "v8": "mixed",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-8495",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9829",
+    "gold": "not_resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-4027",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "joint",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7514",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7348",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-333",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7768",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-5085",
+    "gold": "mixed",
+    "v8": "worsened",
+    "v7": "worsened",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7161",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-6396",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "sequence",
+    "v8_relation": "single",
+    "v7_relation": "joint"
+   },
+   {
+    "id": "o8-test-5187",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-6367",
+    "gold": "resolved",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-4823",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-392",
+    "gold": "unclear",
+    "v8": "worsened",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7151",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8853",
+    "gold": "no_claim",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "alternatives",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-5731",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-1106",
+    "gold": "no_claim",
+    "v8": "worsened",
+    "v7": "worsened",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8001",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9162",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "sequence",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7951",
+    "gold": "worsened",
+    "v8": "worsened",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-632",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7238",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7878",
+    "gold": "no_claim",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-2284",
+    "gold": "no_claim",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8150",
+    "gold": "no_claim",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9820",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-5750",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9912",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8643",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-6674",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-9002",
+    "gold": "not_resolved",
+    "v8": "not_resolved",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7530",
+    "gold": "not_resolved",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "alternatives",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-1617",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7280",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7541",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8959",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-5587",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "worsened",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-2143",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-3112",
+    "gold": "no_claim",
+    "v8": "no_claim",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8831",
+    "gold": "resolved",
+    "v8": "no_claim",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "joint"
+   },
+   {
+    "id": "o8-test-9250",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8241",
+    "gold": "unclear",
+    "v8": "worsened",
+    "v7": "worsened",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-8261",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "sequence",
+    "v7_relation": "joint"
+   },
+   {
+    "id": "o8-test-10003",
+    "gold": "resolved",
+    "v8": "no_claim",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8622",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-8503",
+    "gold": "not_resolved",
+    "v8": "no_claim",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "not_applicable",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-9004",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-3659",
+    "gold": "no_claim",
+    "v8": "resolved",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "single",
+    "v7_relation": "sequence"
+   },
+   {
+    "id": "o8-test-8917",
+    "gold": "resolved",
+    "v8": "no_claim",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "not_applicable",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-8210",
+    "gold": "not_resolved",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-3285",
+    "gold": "mixed",
+    "v8": "mixed",
+    "v7": "mixed",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-7843",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "positive",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-6138",
+    "gold": "no_claim",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "not_applicable",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-1991",
+    "gold": "resolved",
+    "v8": "resolved",
+    "v7": "no_claim",
+    "e07": "no_claim",
+    "gold_relation": "single",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-5383",
+    "gold": "not_resolved",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "alternatives",
+    "v8_relation": "single",
+    "v7_relation": "single"
+   },
+   {
+    "id": "o8-test-8686",
+    "gold": "no_claim",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "not_applicable",
+    "v8_relation": "alternatives",
+    "v7_relation": "not_applicable"
+   },
+   {
+    "id": "o8-test-7679",
+    "gold": "not_resolved",
+    "v8": "not_resolved",
+    "v7": "not_resolved",
+    "e07": "no_claim",
+    "gold_relation": "joint",
+    "v8_relation": "single",
+    "v7_relation": "not_applicable"
+   }
+  ],
+  "failures": {
+   "v7": 0,
+   "weak": 0,
+   "e07": 0
+  }
+ },
+ "trajectories": {
+  "status": "H0: labels by the agent, not human validation",
+  "threads": 12,
+  "summary": {
+   "discriminate": {
+    "decisions": 26,
+    "threads": 12,
+    "top1": [
+     21,
+     26
+    ],
+    "top3": [
+     25,
+     26
+    ],
+    "redundant": [
+     1,
+     26
+    ],
+    "update_correct": [
+     6,
+     12
+    ],
+    "unsupported_cause": 0,
+    "changes_state_first": 0,
+    "top_counter": [
+     [
+      "read-attached-log",
+      16
+     ],
+     [
+      "collect-proton-log",
+      7
+     ],
+     [
+      "collect-native-backtrace",
+      2
+     ],
+     [
+      "isolate-scope",
+      1
+     ]
+    ]
+   },
+   "always_log": {
+    "decisions": 26,
+    "threads": 12,
+    "top1": [
+     7,
+     26
+    ],
+    "top3": [
+     8,
+     26
+    ],
+    "redundant": [
+     14,
+     26
+    ],
+    "update_correct": [
+     4,
+     12
+    ],
+    "unsupported_cause": 0,
+    "changes_state_first": 0,
+    "top_counter": [
+     [
+      "collect-proton-log",
+      26
+     ]
+    ]
+   },
+   "rules_v7": {
+    "decisions": 26,
+    "threads": 12,
+    "top1": [
+     2,
+     26
+    ],
+    "top3": [
+     10,
+     26
+    ],
+    "redundant": [
+     12,
+     26
+    ],
+    "update_correct": [
+     5,
+     12
+    ],
+    "unsupported_cause": 0,
+    "changes_state_first": 0,
+    "top_counter": [
+     [
+      "collect-system-info",
+      21
+     ],
+     [
+      "check-vulkan-support",
+      2
+     ],
+     [
+      "check-driver-stack",
+      2
+     ],
+     [
+      "locate-faulting-module",
+      1
+     ]
+    ]
+   }
+  },
+  "paired_discriminate_minus": {
+   "always_log": {
+    "top3_ok": {
+     "difference": 0.654,
+     "ci95": [
+      0.417,
+      0.857
+     ]
+    },
+    "top1_ok": {
+     "difference": 0.538,
+     "ci95": [
+      0.292,
+      0.774
+     ]
+    }
+   },
+   "rules_v7": {
+    "top3_ok": {
+     "difference": 0.577,
+     "ci95": [
+      0.333,
+      0.808
+     ]
+    },
+    "top1_ok": {
+     "difference": 0.731,
+     "ci95": [
+      0.565,
+      0.885
+     ]
+    }
+   }
+  },
+  "result_steps": {
+   "found": 7,
+   "annotated": 18,
+   "extracted": 31
+  },
+  "step_kinds": {
+   "problem": 12,
+   "verification": 15,
+   "result": 18,
+   "hypothesis": 6,
+   "evidence": 10,
+   "decision": 2
+  },
+  "details": [
+   {
+    "thread": "t8-test-7543",
+    "after_turn": 0,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "locate-faulting-module",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "collect-proton-log",
+     "collect-system-info"
+    ],
+    "maintainer": "log and system information",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7543",
+    "after_turn": 2,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "check-anticheat-support",
+     "locate-faulting-module"
+    ],
+    "acceptable": [
+     "collect-proton-log",
+     "isolate-scope"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": false,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7748",
+    "after_turn": 0,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "check-vulkan-support",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "collect-proton-log",
+     "inspect-import-chain"
+    ],
+    "maintainer": "read the log",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7748",
+    "after_turn": 2,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "check-vulkan-support",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "test-other-proton"
+    ],
+    "maintainer": "re-evaluate after a newer vkd3d",
+    "top1_ok": false,
+    "top3_ok": true,
+    "redundant": true,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8996",
+    "after_turn": 0,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "inspect-audio-route",
+     "inspect-media-errors"
+    ],
+    "acceptable": [
+     "collect-proton-log",
+     "isolate-scope"
+    ],
+    "maintainer": "log, focused on one game",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8996",
+    "after_turn": 2,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "inspect-audio-route",
+     "inspect-media-errors"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "locate-blocking-thread"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": true,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8287",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "locate-faulting-module",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "check-driver-stack",
+     "bisect-proton-versions"
+    ],
+    "maintainer": "report to the driver vendor",
+    "top1_ok": false,
+    "top3_ok": false,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-6800",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "isolate-scope",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "locate-blocking-thread",
+     "test-other-proton"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-6800",
+    "after_turn": 3,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support",
+     "check-driver-stack"
+    ],
+    "acceptable": [
+     "isolate-scope",
+     "read-attached-log"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9033",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "isolate-scope",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "test-other-proton",
+     "isolate-scope",
+     "collect-proton-log"
+    ],
+    "maintainer": "read the log",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9033",
+    "after_turn": 3,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "isolate-scope"
+    ],
+    "acceptable": [
+     "isolate-scope",
+     "compare-runtime-host",
+     "check-driver-stack"
+    ],
+    "maintainer": "none",
+    "top1_ok": false,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9033",
+    "after_turn": 5,
+    "top": "isolate-scope",
+    "top3": [
+     "isolate-scope"
+    ],
+    "acceptable": [
+     "compare-runtime-host",
+     "isolate-scope",
+     "collect-system-info",
+     "review-launch-options"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": true,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9242",
+    "after_turn": 1,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "isolate-scope",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "check-vulkan-support"
+    ],
+    "maintainer": "read the log",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9242",
+    "after_turn": 3,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "isolate-scope",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "check-vulkan-support",
+     "test-other-proton"
+    ],
+    "maintainer": "report native games separately",
+    "top1_ok": false,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9242",
+    "after_turn": 5,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support",
+     "locate-faulting-module"
+    ],
+    "acceptable": [
+     "check-driver-stack",
+     "check-vulkan-support",
+     "review-launch-options"
+    ],
+    "maintainer": "none",
+    "top1_ok": false,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8145",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support",
+     "inspect-audio-route"
+    ],
+    "acceptable": [
+     "read-attached-log"
+    ],
+    "maintainer": "read the log",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8145",
+    "after_turn": 2,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support",
+     "inspect-audio-route"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "test-other-proton"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8848",
+    "after_turn": 0,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "check-vulkan-support",
+     "inspect-media-errors"
+    ],
+    "acceptable": [
+     "collect-proton-log",
+     "collect-system-info",
+     "test-other-proton"
+    ],
+    "maintainer": "fill the report template",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8848",
+    "after_turn": 3,
+    "top": "collect-proton-log",
+    "top3": [
+     "collect-proton-log",
+     "check-anticheat-support",
+     "check-vulkan-support"
+    ],
+    "acceptable": [
+     "collect-proton-log",
+     "test-other-proton",
+     "check-anticheat-support"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": false,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7757",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "locate-blocking-thread",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log"
+    ],
+    "maintainer": "read the log",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7757",
+    "after_turn": 2,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "locate-blocking-thread",
+     "test-other-proton"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "check-driver-stack"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": false,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-7757",
+    "after_turn": 3,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "inspect-media-errors",
+     "locate-blocking-thread"
+    ],
+    "acceptable": [
+     "inspect-media-errors",
+     "read-attached-log"
+    ],
+    "maintainer": "run the h264 unlock",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9516",
+    "after_turn": 0,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support"
+    ],
+    "acceptable": [
+     "read-attached-log"
+    ],
+    "maintainer": "administrative: moved to the shared report",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-9516",
+    "after_turn": 1,
+    "top": "read-attached-log",
+    "top3": [
+     "read-attached-log",
+     "check-vulkan-support"
+    ],
+    "acceptable": [
+     "read-attached-log",
+     "check-driver-stack",
+     "isolate-scope"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": false,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8472",
+    "after_turn": 1,
+    "top": "collect-native-backtrace",
+    "top3": [
+     "collect-native-backtrace"
+    ],
+    "acceptable": [
+     "check-vulkan-support",
+     "check-driver-stack",
+     "collect-native-backtrace"
+    ],
+    "maintainer": "assessment confirmed: driver lacks Vulkan 1.3",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": null,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   },
+   {
+    "thread": "t8-test-8472",
+    "after_turn": 4,
+    "top": "collect-native-backtrace",
+    "top3": [
+     "collect-native-backtrace"
+    ],
+    "acceptable": [
+     "check-vulkan-support",
+     "compare-runtime-host",
+     "collect-native-backtrace",
+     "review-launch-options"
+    ],
+    "maintainer": "none",
+    "top1_ok": true,
+    "top3_ok": true,
+    "redundant": false,
+    "changed": false,
+    "should_change": true,
+    "unsupported_cause": false,
+    "changes_state_first": false
+   }
+  ],
+  "maintainers": [
+   [
+    "t8-test-7543",
+    0,
+    "log and system information"
+   ],
+   [
+    "t8-test-7543",
+    2,
+    "none"
+   ],
+   [
+    "t8-test-7748",
+    0,
+    "read the log"
+   ],
+   [
+    "t8-test-7748",
+    2,
+    "re-evaluate after a newer vkd3d"
+   ],
+   [
+    "t8-test-8996",
+    0,
+    "log, focused on one game"
+   ],
+   [
+    "t8-test-8996",
+    2,
+    "none"
+   ],
+   [
+    "t8-test-8287",
+    0,
+    "report to the driver vendor"
+   ],
+   [
+    "t8-test-6800",
+    0,
+    "none"
+   ],
+   [
+    "t8-test-6800",
+    3,
+    "none"
+   ],
+   [
+    "t8-test-9033",
+    0,
+    "read the log"
+   ],
+   [
+    "t8-test-9033",
+    3,
+    "none"
+   ],
+   [
+    "t8-test-9033",
+    5,
+    "none"
+   ],
+   [
+    "t8-test-9242",
+    1,
+    "read the log"
+   ],
+   [
+    "t8-test-9242",
+    3,
+    "report native games separately"
+   ],
+   [
+    "t8-test-9242",
+    5,
+    "none"
+   ],
+   [
+    "t8-test-8145",
+    0,
+    "read the log"
+   ],
+   [
+    "t8-test-8145",
+    2,
+    "none"
+   ],
+   [
+    "t8-test-8848",
+    0,
+    "fill the report template"
+   ],
+   [
+    "t8-test-8848",
+    3,
+    "none"
+   ],
+   [
+    "t8-test-7757",
+    0,
+    "read the log"
+   ],
+   [
+    "t8-test-7757",
+    2,
+    "none"
+   ],
+   [
+    "t8-test-7757",
+    3,
+    "run the h264 unlock"
+   ],
+   [
+    "t8-test-9516",
+    0,
+    "administrative: moved to the shared report"
+   ],
+   [
+    "t8-test-9516",
+    1,
+    "none"
+   ],
+   [
+    "t8-test-8472",
+    1,
+    "assessment confirmed: driver lacks Vulkan 1.3"
+   ],
+   [
+    "t8-test-8472",
+    4,
+    "none"
+   ]
+  ]
+ },
+ "logs": {
+  "status": "H0: labels by the agent, not human validation",
+  "excerpts": 8,
+  "signals_found": [
+   3,
+   4
+  ],
+  "extra_signals": 0,
+  "literal_quotes": [
+   6,
+   7
+  ],
+  "rule_quotes": [
+   3,
+   7
+  ],
+  "lines_shown_literal": 20,
+  "lines_total": 60,
+  "invented_causes": 0,
+  "modules_correct": [
+   1,
+   2
+  ],
+  "fixtures_ok": [
+   10,
+   10
+  ],
+  "details": [
+   {
+    "id": "l8-495",
+    "gold": [],
+    "kinds": [],
+    "found": 0,
+    "wanted": 0,
+    "extra": 0,
+    "literal_lines": 0,
+    "total_lines": 3,
+    "literal_hit": 0,
+    "rule_hit": 0,
+    "quotes": 0,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   },
+   {
+    "id": "l8-545",
+    "gold": [
+     "missing-library"
+    ],
+    "kinds": [
+     "missing-library"
+    ],
+    "found": 1,
+    "wanted": 1,
+    "extra": 0,
+    "literal_lines": 6,
+    "total_lines": 6,
+    "literal_hit": 2,
+    "rule_hit": 1,
+    "quotes": 2,
+    "modules": [
+     "NxCharacter.dll",
+     "PhysXLoader.dll"
+    ],
+    "gold_module": "PhysXLoader.dll",
+    "cause": null
+   },
+   {
+    "id": "l8-2456",
+    "gold": [],
+    "kinds": [],
+    "found": 0,
+    "wanted": 0,
+    "extra": 0,
+    "literal_lines": 0,
+    "total_lines": 3,
+    "literal_hit": 0,
+    "rule_hit": 0,
+    "quotes": 0,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   },
+   {
+    "id": "l8-10113",
+    "gold": [
+     "unimplemented-function"
+    ],
+    "kinds": [
+     "unimplemented-function"
+    ],
+    "found": 1,
+    "wanted": 1,
+    "extra": 0,
+    "literal_lines": 0,
+    "total_lines": 11,
+    "literal_hit": 0,
+    "rule_hit": 1,
+    "quotes": 1,
+    "modules": [],
+    "gold_module": "ntdll.dll",
+    "cause": null
+   },
+   {
+    "id": "l8-7953",
+    "gold": [],
+    "kinds": [],
+    "found": 0,
+    "wanted": 0,
+    "extra": 0,
+    "literal_lines": 0,
+    "total_lines": 3,
+    "literal_hit": 0,
+    "rule_hit": 0,
+    "quotes": 0,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   },
+   {
+    "id": "l8-8725",
+    "gold": [
+     "graphics-api-error"
+    ],
+    "kinds": [
+     "graphics-api-error"
+    ],
+    "found": 1,
+    "wanted": 1,
+    "extra": 0,
+    "literal_lines": 9,
+    "total_lines": 9,
+    "literal_hit": 2,
+    "rule_hit": 1,
+    "quotes": 2,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   },
+   {
+    "id": "l8-5468",
+    "gold": [
+     "prefix-error"
+    ],
+    "kinds": [],
+    "found": 0,
+    "wanted": 1,
+    "extra": 0,
+    "literal_lines": 5,
+    "total_lines": 7,
+    "literal_hit": 2,
+    "rule_hit": 0,
+    "quotes": 2,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   },
+   {
+    "id": "l8-7539",
+    "gold": [],
+    "kinds": [],
+    "found": 0,
+    "wanted": 0,
+    "extra": 0,
+    "literal_lines": 0,
+    "total_lines": 18,
+    "literal_hit": 0,
+    "rule_hit": 0,
+    "quotes": 0,
+    "modules": [],
+    "gold_module": null,
+    "cause": null
+   }
+  ]
+ },
+ "frozen": "2026-10-31T00:30:24Z"
+}

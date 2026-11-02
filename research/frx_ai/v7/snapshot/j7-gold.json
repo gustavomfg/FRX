@@ -1,0 +1,2998 @@
+[
+ {
+  "id": "j7-0",
+  "app_id": "1250410",
+  "source_thread_app_id": "1250410",
+  "thread": 4134,
+  "title": "Microsoft Flight Simulator (2020) (1250410)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/4134#issuecomment-1847608176",
+  "document_id": "1847608176",
+  "reporter_id": "github:371544",
+  "author_association": "NONE",
+  "source_sha256": "371d6e979a6d5c55ae547fc647fe80cbde7fa691632d96bc9435e3f6ac1ed837",
+  "source_offset": 0,
+  "paragraph_sha256": "371d6e979a6d5c55ae547fc647fe80cbde7fa691632d96bc9435e3f6ac1ed837",
+  "published_at": "2023-12-08T18:06:45Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     84,
+     94
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     351,
+     358
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     393,
+     396
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     108,
+     124
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     380,
+     391
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-1",
+  "app_id": "247970",
+  "source_thread_app_id": "247970",
+  "thread": 9906,
+  "title": "Korea. IL-2 Series (247970)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9906#issuecomment-5301762076",
+  "document_id": "5301762076",
+  "reporter_id": "github:10949821",
+  "author_association": "NONE",
+  "source_sha256": "a6ee51ab628c5bc042a1b30b10f963be0a070df61dd83a76d7a1deff7eb9ed46",
+  "source_offset": 1436,
+  "paragraph_sha256": "6a51f83be8fd71d999ff8b28932bb98727665f967185bac86dd8bffddbff544a",
+  "published_at": "2026-08-15T10:12:12Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     137,
+     140
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     372,
+     390
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     395,
+     405
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": "other game named as control",
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-2",
+  "app_id": "359870",
+  "source_thread_app_id": "359870",
+  "thread": 555,
+  "title": "Final Fantasy X/X-2 HD Remaster (359870)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/555#issuecomment-2163524769",
+  "document_id": "2163524769",
+  "reporter_id": "github:10137",
+  "author_association": "NONE",
+  "source_sha256": "7c07f4aa9a27512c27b5ef31c93fc32f4ac175813ec623235eac65cff4c7c499",
+  "source_offset": 0,
+  "paragraph_sha256": "03d2b32cf650e7e0f646aab656adee9e6554d3fe67482bca44543340046682f8",
+  "published_at": "2024-06-12T17:06:13Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     59,
+     67
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     85,
+     92
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     131,
+     138
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     254,
+     262
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     342,
+     348
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     438,
+     445
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     542,
+     545
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     2,
+     25
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     5,
+     6
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-3",
+  "app_id": "2668080",
+  "source_thread_app_id": "2668080",
+  "thread": 7521,
+  "title": "Snowbreak: Containment Zone (2668080)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7521#issuecomment-2320182070",
+  "document_id": "2320182070",
+  "reporter_id": "github:179909776",
+  "author_association": "NONE",
+  "source_sha256": "03a4191d3e1d85c3c7b3159d186ce089b5dea3c1f88c4b43542bd2893795bbbd",
+  "source_offset": 439,
+  "paragraph_sha256": "58a2ebdd489fc3b42838e8d397cf77358b07a9f895f79f9630fe956802dcef5f",
+  "published_at": "2024-08-30T06:14:29Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     169,
+     174
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     210,
+     221
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     251,
+     258
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     322,
+     327
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     135,
+     155
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     538,
+     557
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     577,
+     593
+    ],
+    "outcome": "regression",
+    "event_indices": [],
+    "structure": "none"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-4",
+  "app_id": "2483190",
+  "source_thread_app_id": "2483190",
+  "thread": 9789,
+  "title": "Forza Horizon 6 (2483190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9789#issuecomment-4621541190",
+  "document_id": "4621541190",
+  "reporter_id": "github:72713844",
+  "author_association": "NONE",
+  "source_sha256": "41636e3b6bb335edab4b7511d9fa62b37e333def5545b3e7d242d33ad0a5f825",
+  "source_offset": 227,
+  "paragraph_sha256": "a3bd088045f802eb9541eeb70b46b7d22a047e637281b6702bcde52a415fdefe",
+  "published_at": "2026-06-04T11:03:42Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     14,
+     23
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     32,
+     39
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     83,
+     86
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     115,
+     121
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     198,
+     222
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     280,
+     297
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-5",
+  "app_id": "2909400",
+  "source_thread_app_id": "2909400",
+  "thread": 8408,
+  "title": "Final Fantasy VII Rebirth (2909400)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8408#issuecomment-2743712886",
+  "document_id": "2743712886",
+  "reporter_id": "github:39007846",
+  "author_association": "NONE",
+  "source_sha256": "23fb5ddcef31b7472eb2a4df66b33326cacfc64074a42697d6e373d38be07237",
+  "source_offset": 0,
+  "paragraph_sha256": "a55f029b6a0e80f94ffdb2b1c2eeb7222972c4a644d9f79db7a54fa96335e225",
+  "published_at": "2025-03-21T15:24:24Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     164,
+     169
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     213,
+     220
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     368,
+     370
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     646,
+     651
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     113,
+     128
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     274,
+     290
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     316,
+     330
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     338,
+     360
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     603,
+     618
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-6",
+  "app_id": "961200",
+  "source_thread_app_id": "961200",
+  "thread": 8977,
+  "title": "Predecessor (961200)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8977#issuecomment-3192423377",
+  "document_id": "3192423377",
+  "reporter_id": "github:130904480",
+  "author_association": "NONE",
+  "source_sha256": "e6f9774f0f4fb759cec65b640cab46afd0dabb3fdffafb39a6bd081aa3517d4d",
+  "source_offset": 285,
+  "paragraph_sha256": "14a7aee31324fba64c720d41f25d059ebfc9e5135341f8949fca8f430512e22b",
+  "published_at": "2025-08-15T18:45:39Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     5,
+     10
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     17,
+     25
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     96,
+     117
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1
+    ],
+    "structure": "joint"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-7",
+  "app_id": "582660",
+  "source_thread_app_id": "582660",
+  "thread": 3620,
+  "title": "Black Desert (582660)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3620#issuecomment-5128150039",
+  "document_id": "5128150039",
+  "reporter_id": "github:489494",
+  "author_association": "NONE",
+  "source_sha256": "0e244fe006a15b2ae4d817ec9ff41ecb9acb93fab9255d3f84b772db9e06e740",
+  "source_offset": 0,
+  "paragraph_sha256": "c65c67a53a49bada7c7acc2c2747beccfe8cc5869ae76ef90292812597a910da",
+  "published_at": "2026-07-30T07:55:35Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     19,
+     28
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     10,
+     15
+    ]
+   },
+   {
+    "trigger": [
+     241,
+     244
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     50,
+     75
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     114,
+     142
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-8",
+  "app_id": "3058630",
+  "source_thread_app_id": "3058630",
+  "thread": 8395,
+  "title": "Assetto Corsa EVO (3058630)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8395#issuecomment-2914484172",
+  "document_id": "2914484172",
+  "reporter_id": "github:10255375",
+  "author_association": "NONE",
+  "source_sha256": "b15717f86cec651cdeb6a1efffaebef106caa8038accafea4073e792c7e981ab",
+  "source_offset": 0,
+  "paragraph_sha256": "4b18685c0cf74364f7308388c7bb0950c6d40049cd9a587380bd37796365ae66",
+  "published_at": "2025-05-28T00:09:55Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     22,
+     25
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     13,
+     18
+    ]
+   },
+   {
+    "trigger": [
+     199,
+     202
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     278,
+     282
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-9",
+  "app_id": "650670",
+  "source_thread_app_id": "650670",
+  "thread": 7479,
+  "title": "Grimoire: Heralds of the Winged Exemplar (650670)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7479#issuecomment-3605017585",
+  "document_id": "3605017585",
+  "reporter_id": "github:5356648",
+  "author_association": "NONE",
+  "source_sha256": "81d03f2e93f663b4444c990d198e263051cefe9ee58a14c0ae63d4508386bba9",
+  "source_offset": 194,
+  "paragraph_sha256": "bd1f855de766b8ae56599a3a8d03d611ba5a9eab0d03eb70d088df7fadbdbced",
+  "published_at": "2025-12-03T04:14:01Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     60,
+     63
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     122,
+     125
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     19,
+     31
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     41,
+     52
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1
+    ],
+    "structure": "sequence"
+   },
+   {
+    "span": [
+     215,
+     236
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-10",
+  "app_id": "1912410",
+  "source_thread_app_id": "1912410",
+  "thread": 10193,
+  "title": "Minecraft Dungeons II (1912410)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/10193#issuecomment-5892231792",
+  "document_id": "5892231792",
+  "reporter_id": "github:231224878",
+  "author_association": "NONE",
+  "source_sha256": "f762d51ba830f2de511b9ceca40a6501c27ac05455764b4ee6c55c56aa97c7d9",
+  "source_offset": 0,
+  "paragraph_sha256": "f762d51ba830f2de511b9ceca40a6501c27ac05455764b4ee6c55c56aa97c7d9",
+  "published_at": "2026-09-29T14:23:41Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     50,
+     55
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     81,
+     90
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     119,
+     125
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     149,
+     152
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     156,
+     177
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "structure": "joint"
+   },
+   {
+    "span": [
+     223,
+     242
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "structure": "joint"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-11",
+  "app_id": "2139460",
+  "source_thread_app_id": "2139460",
+  "thread": 7888,
+  "title": "Once Human (2139460)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7888#issuecomment-3033521713",
+  "document_id": "3033521713",
+  "reporter_id": "github:26787135",
+  "author_association": "NONE",
+  "source_sha256": "065a7355dac52f24da66b6491e1df02d3bb102ac6484b3396cd57c7139002ea2",
+  "source_offset": 0,
+  "paragraph_sha256": "065a7355dac52f24da66b6491e1df02d3bb102ac6484b3396cd57c7139002ea2",
+  "published_at": "2025-07-03T20:21:06Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     223,
+     226
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     705,
+     711
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     750,
+     760
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     835,
+     844
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     864,
+     872
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     959,
+     966
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     991,
+     998
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     1005,
+     1013
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     46,
+     83
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     250,
+     287
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     407,
+     423
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     930,
+     950
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     3,
+     4
+    ],
+    "structure": "alternatives"
+   },
+   {
+    "span": [
+     1140,
+     1170
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     5,
+     6,
+     7
+    ],
+    "structure": "joint"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-12",
+  "app_id": "2186990",
+  "source_thread_app_id": "2186990",
+  "thread": 9868,
+  "title": "Fatekeeper (2186990)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9868#issuecomment-4672204842",
+  "document_id": "4672204842",
+  "reporter_id": "github:221723108",
+  "author_association": "NONE",
+  "source_sha256": "74aa5f35fd2aed8d3dd696fb240cbfb3db16ce92dd987501015c14b00f58a1a9",
+  "source_offset": 261,
+  "paragraph_sha256": "00647cc7072681ca7a00e597e5cbc90cb719283f52a476aa6cfc2b73ba5159ad",
+  "published_at": "2026-06-10T16:27:11Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     40,
+     46
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     163,
+     170
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     265,
+     286
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-13",
+  "app_id": "2073850",
+  "source_thread_app_id": "2073850",
+  "thread": 7317,
+  "title": "THE FINALS (2073850)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7317#issuecomment-1913402558",
+  "document_id": "1913402558",
+  "reporter_id": "github:142986657",
+  "author_association": "NONE",
+  "source_sha256": "5094c95247d5d1fdc3419a562b75813491cda691229faf62289d4948a448910c",
+  "source_offset": 179,
+  "paragraph_sha256": "fe4028a876dd8a073fbc99251ff18256cc1534dadf37c750cd57a0dba2a1549b",
+  "published_at": "2024-01-28T01:35:37Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     0,
+     5
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     14,
+     19
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     112,
+     119
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-14",
+  "app_id": "4006040",
+  "source_thread_app_id": "4006040",
+  "thread": 9968,
+  "title": "VEGAS Pro 23 Steam Edition (4006040)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9968#issuecomment-4954626983",
+  "document_id": "4954626983",
+  "reporter_id": "github:179888957",
+  "author_association": "NONE",
+  "source_sha256": "2cb41c0b9b28dc03d1e246b5e8e835934af32f2d87668db9705bffd4c078192d",
+  "source_offset": 91,
+  "paragraph_sha256": "8321c280ef034c948467306ab5ba2fbdfb35af3cf0ae2c8057f14e54c7d99b76",
+  "published_at": "2026-07-13T05:09:02Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     45,
+     48
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     116,
+     121
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     271,
+     279
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     368,
+     393
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1,
+     2
+    ],
+    "structure": "joint"
+   },
+   {
+    "span": [
+     604,
+     627
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-15",
+  "app_id": "244210",
+  "source_thread_app_id": "244210",
+  "thread": 148,
+  "title": "Assetto Corsa (244210)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/148#issuecomment-4037962862",
+  "document_id": "4037962862",
+  "reporter_id": "github:93416867",
+  "author_association": "NONE",
+  "source_sha256": "42c8ee49c37d1e6000fd55b3e8d9e131a79ea7e824a6ba0204d420d60cdedecc",
+  "source_offset": 0,
+  "paragraph_sha256": "0fb2ad2cfa987223c73b10f0ea5c8868a9ca192625f792a0fed2faf3f1f73e94",
+  "published_at": "2026-03-11T10:01:08Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     2,
+     7
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     77,
+     81
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     134,
+     143
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     52,
+     73
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     190,
+     213
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1,
+     2
+    ],
+    "structure": "joint"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-16",
+  "app_id": "202970",
+  "source_thread_app_id": "202970",
+  "thread": 808,
+  "title": "Call of Duty: Black Ops II (202970)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/808#issuecomment-3058051789",
+  "document_id": "3058051789",
+  "reporter_id": "github:18539923",
+  "author_association": "NONE",
+  "source_sha256": "b1bee91437134e5bd3e4bf69226118fa2b09f866c8c5a550416998c1cdab12cc",
+  "source_offset": 1208,
+  "paragraph_sha256": "8f6292ebefdae91fe73a449f5c1797b624b10e907ddfcec523234dd93ba26b5d",
+  "published_at": "2025-07-10T16:00:25Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     8,
+     19
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     24,
+     35
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     444,
+     449
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     468,
+     483
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1,
+     2
+    ],
+    "structure": "sequence"
+   },
+   {
+    "span": [
+     510,
+     526
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1,
+     2
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-17",
+  "app_id": "2073850",
+  "source_thread_app_id": "2073850",
+  "thread": 7317,
+  "title": "THE FINALS (2073850)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7317#issuecomment-5556349098",
+  "document_id": "5556349098",
+  "reporter_id": "github:39230198",
+  "author_association": "NONE",
+  "source_sha256": "b8629025fc0d54808bdeb2969614d92959553a558b8e1d40ea26e02612c13c41",
+  "source_offset": 110,
+  "paragraph_sha256": "af1f891dce8f657a026b72ffe37e0996adb661643bf3a71b6a3c56f645f60d32",
+  "published_at": "2026-09-06T02:27:27Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     16,
+     24
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     53,
+     60
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     66,
+     78
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-18",
+  "app_id": "1912410",
+  "source_thread_app_id": "1912410",
+  "thread": 10193,
+  "title": "Minecraft Dungeons II (1912410)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/10193#issuecomment-5901225728",
+  "document_id": "5901225728",
+  "reporter_id": "github:155526553",
+  "author_association": "NONE",
+  "source_sha256": "392d5d0ff2a5d61b8980da0236faf6b3a7ce7d3a8a3ffd9313bcd9421338ea84",
+  "source_offset": 1315,
+  "paragraph_sha256": "87f4e5eedc9f303a06c36e5814cd4c3783bec79a6e9107b5103607a166597513",
+  "published_at": "2026-09-29T23:47:32Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     34,
+     41
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     110,
+     116
+    ],
+    "status": "negated",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     85,
+     97
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "joint"
+   }
+  ],
+  "audit_note": "text explicitly denies isolating which change worked",
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-19",
+  "app_id": "231990",
+  "source_thread_app_id": "231990",
+  "thread": 7914,
+  "title": "Spider-Man Shattered Dimensions (231990)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7914#issuecomment-2242987953",
+  "document_id": "2242987953",
+  "reporter_id": "github:65075080",
+  "author_association": "NONE",
+  "source_sha256": "f92bc6e00590b167e7fbd78e19df22e4e1d29afa568bf8e029838eb609f36037",
+  "source_offset": 0,
+  "paragraph_sha256": "f92bc6e00590b167e7fbd78e19df22e4e1d29afa568bf8e029838eb609f36037",
+  "published_at": "2024-07-22T13:38:51Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     38,
+     43
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     119,
+     123
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     164,
+     173
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     267,
+     276
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     198,
+     220
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     230,
+     250
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     309,
+     330
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-20",
+  "app_id": "1240440",
+  "source_thread_app_id": "1240440",
+  "thread": 5030,
+  "title": "Halo Infinite (1240440)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/5030#issuecomment-3168219643",
+  "document_id": "3168219643",
+  "reporter_id": "github:81181814",
+  "author_association": "NONE",
+  "source_sha256": "a61184046699f83a47b1383addf93726e08ff6280e89b11e1f98d5d0c4b98c17",
+  "source_offset": 0,
+  "paragraph_sha256": "12d23c20803de9916f46bf99958c6fc2d775a5f839ee5a4b23fb56824d5a00a0",
+  "published_at": "2025-08-08T14:56:18Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     40,
+     48
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     34,
+     39
+    ]
+   },
+   {
+    "trigger": [
+     69,
+     78
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     147,
+     156
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     166,
+     172
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     92,
+     119
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1
+    ],
+    "structure": "joint"
+   },
+   {
+    "span": [
+     221,
+     230
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-21",
+  "app_id": "2399420",
+  "source_thread_app_id": "2399420",
+  "thread": 7512,
+  "title": "Le Mans Ultimate (2399420)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7512#issuecomment-2973386623",
+  "document_id": "2973386623",
+  "reporter_id": "github:114171962",
+  "author_association": "NONE",
+  "source_sha256": "06f43c7aa155d3aa2bd6d991bf96961a4bda4fc7770ad276ffa01ea0d49dfc25",
+  "source_offset": 0,
+  "paragraph_sha256": "2c93f78f1888a0d2aee3ae8d86d398f0949034865fdd0f48149d8d64892cdd3b",
+  "published_at": "2025-06-15T00:15:11Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     18,
+     26
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     104,
+     115
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     98,
+     103
+    ]
+   },
+   {
+    "trigger": [
+     126,
+     136
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     170,
+     177
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     38,
+     47
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     147,
+     161
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1,
+     2
+    ],
+    "structure": "sequence"
+   },
+   {
+    "span": [
+     204,
+     222
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-22",
+  "app_id": "2005010",
+  "source_thread_app_id": "2005010",
+  "thread": 6795,
+  "title": "Warhammer 40,000: Boltgun (2005010)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/6795#issuecomment-5079423204",
+  "document_id": "5079423204",
+  "reporter_id": "github:24761328",
+  "author_association": "NONE",
+  "source_sha256": "6f04f1763154dd603eba69bdc021344ef36f0f06ca3426f167f839dcfae79195",
+  "source_offset": 0,
+  "paragraph_sha256": "6f04f1763154dd603eba69bdc021344ef36f0f06ca3426f167f839dcfae79195",
+  "published_at": "2026-07-25T17:10:55Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     68,
+     77
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     340,
+     345
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     388,
+     395
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     256,
+     261
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     134,
+     153
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     514,
+     536
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     554,
+     602
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     689,
+     721
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-23",
+  "app_id": "21970",
+  "source_thread_app_id": "21970",
+  "thread": 1602,
+  "title": "R.U.S.E (21970)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/1602#issuecomment-4415866600",
+  "document_id": "4415866600",
+  "reporter_id": "github:33858694",
+  "author_association": "NONE",
+  "source_sha256": "c0e057f85cda65f02a9ea0f1f9cc12422c429262ab3676587b4f3c1d3f5bc7e2",
+  "source_offset": 2221,
+  "paragraph_sha256": "a33dce1670908dc35abc5b018a36dda321cc8a224c22e8087c8e2167485a5252",
+  "published_at": "2026-05-10T17:13:32Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     25,
+     36
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     19,
+     24
+    ]
+   },
+   {
+    "trigger": [
+     96,
+     105
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     122,
+     130
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     166,
+     182
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1,
+     2
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-24",
+  "app_id": "1237950",
+  "source_thread_app_id": "1237950",
+  "thread": 3971,
+  "title": "Star Wars Battlefront II - 2017 (1237950)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3971#issuecomment-3067381060",
+  "document_id": "3067381060",
+  "reporter_id": "github:325405",
+  "author_association": "NONE",
+  "source_sha256": "08b2b8852dcdb7e1be4b6d232d40299e0014a6e6f137a5bd8efcb406b903584b",
+  "source_offset": 0,
+  "paragraph_sha256": "7cc5d90b6a4297ebfc37dbdb9d6ea7372306a3eb15805d19fa99d8dfca87225e",
+  "published_at": "2025-07-13T23:20:02Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     189,
+     196
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     279,
+     287
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     673,
+     681
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     1070,
+     1077
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     44,
+     66
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     502,
+     523
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1
+    ],
+    "structure": "sequence"
+   },
+   {
+    "span": [
+     826,
+     849
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     1152,
+     1170
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-25",
+  "app_id": "359320",
+  "source_thread_app_id": "359320",
+  "thread": 150,
+  "title": "Elite Dangerous (359320)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/150#issuecomment-3715379583",
+  "document_id": "3715379583",
+  "reporter_id": "github:44191252",
+  "author_association": "NONE",
+  "source_sha256": "ce9da4060dbaf3b750b64dbe1391ae63b519688fd689112df60f18f7be997daa",
+  "source_offset": 513,
+  "paragraph_sha256": "9813033e1f9b3a001cf1607965bb465257af774ad3e95394b0bbba7bd8905f53",
+  "published_at": "2026-01-06T16:30:32Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     45,
+     53
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     127,
+     135
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     184,
+     190
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     231,
+     237
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     257,
+     261
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     157,
+     175
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     203,
+     226
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     299,
+     318
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     3,
+     4
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-26",
+  "app_id": "1954200",
+  "source_thread_app_id": "1954200",
+  "thread": 9963,
+  "title": "Kena: Bridge of Spirits (1954200)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9963#issuecomment-4948680457",
+  "document_id": "4948680457",
+  "reporter_id": "github:70454800",
+  "author_association": "NONE",
+  "source_sha256": "ed660d21350970b127a37838005dc37b7923d7a8baeceeec3da372812b80c8ce",
+  "source_offset": 0,
+  "paragraph_sha256": "399bb8088f1707b9cb075f5c2a8fc4f8311cb0640bfbb833878959727eb9f2a7",
+  "published_at": "2026-07-11T20:38:30Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     17,
+     22
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-27",
+  "app_id": "1282270",
+  "source_thread_app_id": "1282270",
+  "thread": 8262,
+  "title": "Strinova (1282270)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8262#issuecomment-2975142732",
+  "document_id": "2975142732",
+  "reporter_id": "github:14183951",
+  "author_association": "NONE",
+  "source_sha256": "8cbca1c5916dc65bada5ab43c0fe4218f24a1fb5139dff58bc81973fbb666659",
+  "source_offset": 808,
+  "paragraph_sha256": "d2b9b434820a5816fe9592af00edb565b28e582027ae2eea48b68018d0a207bb",
+  "published_at": "2025-06-16T05:22:50Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     182,
+     192
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     176,
+     181
+    ]
+   },
+   {
+    "trigger": [
+     303,
+     314
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     337,
+     346
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     43,
+     60
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     277,
+     297
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     392,
+     414
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-28",
+  "app_id": "594650",
+  "source_thread_app_id": "594650",
+  "thread": 3898,
+  "title": "Hunt: Showdown 1896 (594650)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/3898#issuecomment-3181362580",
+  "document_id": "3181362580",
+  "reporter_id": "github:132096200",
+  "author_association": "NONE",
+  "source_sha256": "954275e887a9c9aaa9c75e7e699ef4f8f4ae814417665be48205d3d4495d0584",
+  "source_offset": 0,
+  "paragraph_sha256": "954275e887a9c9aaa9c75e7e699ef4f8f4ae814417665be48205d3d4495d0584",
+  "published_at": "2025-08-12T23:11:13Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     164,
+     172
+    ],
+    "status": "preexisting",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     707,
+     712
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     738,
+     748
+    ],
+    "status": "unknown",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     93,
+     140
+    ],
+    "outcome": "regression",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     577,
+     600
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     713,
+     736
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     738,
+     760
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": "another-game mention at the end",
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-29",
+  "app_id": "2483190",
+  "source_thread_app_id": "2483190",
+  "thread": 9789,
+  "title": "Forza Horizon 6 (2483190)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9789#issuecomment-4620330495",
+  "document_id": "4620330495",
+  "reporter_id": "github:72713844",
+  "author_association": "NONE",
+  "source_sha256": "ccfd8032f88a035bebd889b04307d8d5862b7b50d87584f5514b9a862074c416",
+  "source_offset": 725,
+  "paragraph_sha256": "1923acc270a1297532ca717d000f604c4c21162064d9e4b6fd5b2b9baa624657",
+  "published_at": "2026-06-04T08:20:40Z",
+  "stratum": "joint-challenge",
+  "events": [],
+  "observations": [],
+  "audit_note": "entire paragraph is struck through: retracted, not asserted",
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-30",
+  "app_id": "1668510",
+  "source_thread_app_id": "1668510",
+  "thread": 6914,
+  "title": "The Legend of Heroes: Trails from Zero (1668510)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/6914#issuecomment-1992092459",
+  "document_id": "1992092459",
+  "reporter_id": "github:78347897",
+  "author_association": "NONE",
+  "source_sha256": "ca915553ff92c3d1d311885fdc495d4af928799db28f073ca4cf068a91d2a6e2",
+  "source_offset": 0,
+  "paragraph_sha256": "e4076fc7287edad6dc83245fdf48bf0505aa33d06489962f84834ad28fca3171",
+  "published_at": "2024-03-12T16:37:58Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     65,
+     68
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     56,
+     61
+    ]
+   },
+   {
+    "trigger": [
+     179,
+     186
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     233,
+     236
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     224,
+     229
+    ]
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     98,
+     123
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     157,
+     176
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     364,
+     383
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-31",
+  "app_id": "283290",
+  "source_thread_app_id": "283290",
+  "thread": 2255,
+  "title": "Nosferatu: The Wrath of Malachi (283290)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/2255#issuecomment-3240408592",
+  "document_id": "3240408592",
+  "reporter_id": "github:73746653",
+  "author_association": "NONE",
+  "source_sha256": "82ff0406088c56fa1bfdf1e8c9b3e400ca05f581153d844733a3a71858ef1810",
+  "source_offset": 3322,
+  "paragraph_sha256": "7272c4283aa4638a2ef8dfdd1117d1dade9d5ac2c654b4bd60b4ed3de69e288f",
+  "published_at": "2025-08-31T21:01:57Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     29,
+     40
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     45,
+     57
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     99,
+     107
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     393,
+     401
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     233,
+     257
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0,
+     1,
+     2
+    ],
+    "structure": "sequence"
+   },
+   {
+    "span": [
+     536,
+     547
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     3
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-32",
+  "app_id": "2427430",
+  "source_thread_app_id": "2427430",
+  "thread": 8717,
+  "title": "S.T.A.L.K.E.R.: Call of Prypiat - Enhanced Edition (2427430)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8717#issuecomment-3403757380",
+  "document_id": "3403757380",
+  "reporter_id": "github:29118926",
+  "author_association": "NONE",
+  "source_sha256": "8dabdcdacb21d22cc382521a3c6060001526f7894b6b4b1fc140b5ed1102bbb7",
+  "source_offset": 0,
+  "paragraph_sha256": "8dabdcdacb21d22cc382521a3c6060001526f7894b6b4b1fc140b5ed1102bbb7",
+  "published_at": "2025-10-14T22:01:34Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     6,
+     16
+    ],
+    "status": "performed",
+    "actor_kind": "reporter",
+    "trigger_alt": [
+     0,
+     5
+    ]
+   },
+   {
+    "trigger": [
+     77,
+     86
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     32,
+     47
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-33",
+  "app_id": "9050",
+  "source_thread_app_id": "9050",
+  "thread": 713,
+  "title": "Doom 3 (9050)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/713#issuecomment-3386972631",
+  "document_id": "3386972631",
+  "reporter_id": "github:13644590",
+  "author_association": "NONE",
+  "source_sha256": "fc4944be08de891673cb8ea9bc5223f402884eaf1fcfa8f25ebbc4906a7b0d64",
+  "source_offset": 0,
+  "paragraph_sha256": "fc4944be08de891673cb8ea9bc5223f402884eaf1fcfa8f25ebbc4906a7b0d64",
+  "published_at": "2025-10-09T18:03:18Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     14,
+     21
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     104,
+     125
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     349,
+     372
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-34",
+  "app_id": "2183900",
+  "source_thread_app_id": "2183900",
+  "thread": 8072,
+  "title": "Warhammer 40,000: Space Marine 2 (2183900)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/8072#issuecomment-2377690361",
+  "document_id": "2377690361",
+  "reporter_id": "github:157195125",
+  "author_association": "NONE",
+  "source_sha256": "33186b8e134f832f25c8f2dc6a3149fe0cfbb21b5223798f522bfc1349ebf378",
+  "source_offset": 1079,
+  "paragraph_sha256": "207c73a35c70ad0cdbc2d46d4e766b5bc7ed3f290a752fa9e362bf815dc97389",
+  "published_at": "2024-09-26T18:49:40Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     63,
+     67
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     359,
+     368
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     401,
+     404
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     439,
+     447
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     591,
+     597
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     148,
+     164
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     212,
+     227
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     424,
+     434
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     2
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     681,
+     714
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     4
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-35",
+  "app_id": "217200",
+  "source_thread_app_id": "217200",
+  "thread": 7573,
+  "title": "Worms Armageddon (217200)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/7573#issuecomment-2676332586",
+  "document_id": "2676332586",
+  "reporter_id": "github:70454800",
+  "author_association": "NONE",
+  "source_sha256": "0ecf42b3adee505675b5ae3a9a823764da17b9d4ca875a1a48096294fbb02d0b",
+  "source_offset": 0,
+  "paragraph_sha256": "0ecf42b3adee505675b5ae3a9a823764da17b9d4ca875a1a48096294fbb02d0b",
+  "published_at": "2025-02-22T18:07:37Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     203,
+     210
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   },
+   {
+    "trigger": [
+     277,
+     283
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-36",
+  "app_id": "392110",
+  "source_thread_app_id": "392110",
+  "thread": 2014,
+  "title": "Endless Space 2 (392110)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/2014#issuecomment-2183525775",
+  "document_id": "2183525775",
+  "reporter_id": "github:1424164",
+  "author_association": "NONE",
+  "source_sha256": "e216b33cb8874e53ff3fafb6970738fd02f25da512fd95d397c0326b7b869c45",
+  "source_offset": 376,
+  "paragraph_sha256": "cccd30eb795eeab280be063fd3058f0f8e994d469a2818a0e6b06a57ab670023",
+  "published_at": "2024-06-21T22:07:39Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     21,
+     28
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     224,
+     232
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     166,
+     179
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     0
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     305,
+     331
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-37",
+  "app_id": "359320",
+  "source_thread_app_id": "359320",
+  "thread": 150,
+  "title": "Elite Dangerous (359320)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/150#issuecomment-4308213312",
+  "document_id": "4308213312",
+  "reporter_id": "github:17684",
+  "author_association": "CONTRIBUTOR",
+  "source_sha256": "422ea51944f891cb88c020e97f88aa7dacf3bbed96f0178b81853c61117e6960",
+  "source_offset": 1625,
+  "paragraph_sha256": "466d28d9d412421387cbacab85b5fb3fae41016e841e128fd687693b458f9484",
+  "published_at": "2026-04-23T21:21:12Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     34,
+     40
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     190,
+     197
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     583,
+     590
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     627,
+     636
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     689,
+     715
+    ],
+    "outcome": "improved",
+    "event_indices": [
+     2,
+     3
+    ],
+    "structure": "sequence"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-38",
+  "app_id": "2698940",
+  "source_thread_app_id": "2698940",
+  "thread": 9119,
+  "title": "The Crew Motorfest (2698940)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/9119#issuecomment-4288247586",
+  "document_id": "4288247586",
+  "reporter_id": "github:38420478",
+  "author_association": "NONE",
+  "source_sha256": "0df397158d25bca421fe079f5db985dfcce8577152990d91c3db587e4ee87d6e",
+  "source_offset": 307,
+  "paragraph_sha256": "b0a67ac00c9582f9f3e11a4b9ced2e44f4724ad9b5149eb81defbe9ce60c9722",
+  "published_at": "2026-04-21T11:43:12Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     7,
+     13
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     44,
+     49
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     132,
+     140
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     240,
+     245
+    ],
+    "status": "suggested",
+    "actor_kind": "unknown"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     80,
+     102
+    ],
+    "outcome": "regression",
+    "event_indices": [
+     1
+    ],
+    "structure": "single"
+   },
+   {
+    "span": [
+     286,
+     298
+    ],
+    "outcome": "improved",
+    "event_indices": [],
+    "structure": "none"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ },
+ {
+  "id": "j7-39",
+  "app_id": "42700",
+  "source_thread_app_id": "42700",
+  "thread": 790,
+  "title": "Call of Duty: Black Ops (42700)",
+  "url": "https://github.com/ValveSoftware/Proton/issues/790#issuecomment-2573934537",
+  "document_id": "2573934537",
+  "reporter_id": "github:136886711",
+  "author_association": "NONE",
+  "source_sha256": "3404d1e806187f425aee031c1c167ea0bc3dfab4b136b23f5037bc584571032b",
+  "source_offset": 0,
+  "paragraph_sha256": "3404d1e806187f425aee031c1c167ea0bc3dfab4b136b23f5037bc584571032b",
+  "published_at": "2025-01-06T21:11:32Z",
+  "stratum": "joint-challenge",
+  "events": [
+   {
+    "trigger": [
+     102,
+     107
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     130,
+     141
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     143,
+     147
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     149,
+     158
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   },
+   {
+    "trigger": [
+     206,
+     211
+    ],
+    "status": "performed",
+    "actor_kind": "reporter"
+   }
+  ],
+  "observations": [
+   {
+    "span": [
+     26,
+     43
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     160,
+     173
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "structure": "alternatives"
+   },
+   {
+    "span": [
+     185,
+     197
+    ],
+    "outcome": "persistent",
+    "event_indices": [],
+    "structure": "none"
+   },
+   {
+    "span": [
+     257,
+     265
+    ],
+    "outcome": "persistent",
+    "event_indices": [
+     4
+    ],
+    "structure": "single"
+   }
+  ],
+  "audit_note": null,
+  "temporal": [],
+  "annotation_version": "v7-1",
+  "annotation_provenance": "provisional-agent; no independent human review; used for evaluation only, never for training",
+  "annotation_complete": true
+ }
+]

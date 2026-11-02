@@ -1,0 +1,553 @@
+{
+"status": "synthetic sequences over a frozen real corpus; tests state updates, not diagnosis",
+"summary": {
+"t1_asks_for_log": [
+3,
+4
+],
+"t2_drops_log_request": [
+4,
+4
+],
+"t2_searched_the_concrete_error": [
+3,
+4
+],
+"t2_next_changed": [
+4,
+4
+],
+"t3_absence_weakened": [
+2,
+2
+],
+"t3_conclusion_changed": [
+1,
+2
+],
+"t4_failure_recorded": [
+4,
+4
+],
+"t4_not_requested_again": [
+4,
+4
+],
+"t4_decision_changed": [
+3,
+4
+],
+"never_confirmed_a_cause": [
+4,
+4
+]
+},
+"rows": [
+{
+"id": "missing-library",
+"checks": {
+"t1_asks_for_log": true,
+"t2_drops_log_request": true,
+"t2_searched_the_concrete_error": true,
+"t2_next_changed": true,
+"t3_absence_weakened": true,
+"t3_conclusion_changed": true,
+"t4_failure_recorded": true,
+"t4_not_requested_again": true,
+"t4_decision_changed": false,
+"never_confirmed_a_cause": true
+},
+"turns": {
+"t1": {
+"queries": [
+"example quest launch"
+],
+"next": [
+"check-driver-stack",
+"collect-proton-log",
+"collect-system-info"
+],
+"hypotheses": {},
+"findings": [
+"mesa"
+],
+"results": []
+},
+"t2": {
+"queries": [
+"example quest launch",
+"msvcp140_atomic_wait.dll launch",
+"c0000135 launch",
+"physx launch"
+],
+"next": [
+"inspect-import-chain",
+"locate-faulting-module",
+"check-driver-stack"
+],
+"hypotheses": {
+"wrong-library-resolved": "open",
+"missing-windows-component": "open"
+},
+"findings": [
+"msvcp140_atomic_wait.dll",
+"c0000135",
+"mesa",
+"physx",
+"f-4e-nextgen.dll"
+],
+"results": []
+},
+"t3": {
+"queries": [
+"example quest launch",
+"msvcp140_atomic_wait.dll launch",
+"c0000135 launch",
+"physx launch",
+"mesa launch",
+"f-4e-nextgen.dll launch",
+"nvidia 306 launch"
+],
+"next": [
+"locate-faulting-module",
+"check-driver-stack",
+"check-physx-chain"
+],
+"hypotheses": {
+"wrong-library-resolved": "open",
+"missing-windows-component": "weakened-by-reported-check"
+},
+"findings": [
+"msvcp140_atomic_wait.dll",
+"c0000135",
+"mesa",
+"physx",
+"f-4e-nextgen.dll"
+],
+"results": [
+{
+"check": "inspect-import-chain",
+"verdict": "refutes",
+"hypothesis": "missing-windows-component",
+"finding": "MSVCP140_ATOMIC_WAIT.dll exists",
+"source": "user-reported-check"
+}
+]
+},
+"t4": {
+"queries": [
+"example quest launch",
+"msvcp140_atomic_wait.dll launch",
+"c0000135 launch",
+"physx launch",
+"mesa launch",
+"f-4e-nextgen.dll launch",
+"nvidia 306 launch",
+"proton 9 launch",
+"proton 9 launch",
+"proton 9 launch"
+],
+"next": [
+"locate-faulting-module",
+"check-driver-stack",
+"check-physx-chain"
+],
+"hypotheses": {
+"wrong-library-resolved": "open",
+"missing-windows-component": "weakened-by-reported-check"
+},
+"findings": [
+"msvcp140_atomic_wait.dll",
+"c0000135",
+"mesa",
+"physx",
+"proton-9"
+],
+"results": [
+{
+"check": "inspect-import-chain",
+"verdict": "refutes",
+"hypothesis": "missing-windows-component",
+"finding": "MSVCP140_ATOMIC_WAIT.dll exists",
+"source": "user-reported-check"
+},
+{
+"check": "inspect-import-chain",
+"verdict": "refutes",
+"finding": "a verifica\u00e7\u00e3o n\u00e3o confirmou",
+"source": "user-reported-check"
+}
+]
+}
+}
+},
+{
+"id": "undefined-symbol",
+"checks": {
+"t1_asks_for_log": true,
+"t2_drops_log_request": true,
+"t2_searched_the_concrete_error": false,
+"t2_next_changed": true,
+"t3_absence_weakened": true,
+"t3_conclusion_changed": false,
+"t4_failure_recorded": true,
+"t4_not_requested_again": true,
+"t4_decision_changed": true,
+"never_confirmed_a_cause": true
+},
+"turns": {
+"t1": {
+"queries": [
+"example racer launcher",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch"
+],
+"next": [
+"collect-proton-log",
+"collect-system-info",
+"isolate-scope"
+],
+"hypotheses": {},
+"findings": [],
+"results": []
+},
+"t2": {
+"queries": [
+"example racer launcher",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch"
+],
+"next": [
+"identify-requiring-object",
+"review-launch-options",
+"inspect-exported-symbols"
+],
+"hypotheses": {
+"library-version-mismatch": "open",
+"wrong-library-resolved": "open"
+},
+"findings": [],
+"results": []
+},
+"t3": {
+"queries": [
+"example racer launcher",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"libfoo.so.1 launch",
+"libfoo.so.1",
+"proton 7.0.6 launch"
+],
+"next": [
+"identify-requiring-object",
+"review-launch-options",
+"inspect-exported-symbols"
+],
+"hypotheses": {
+"library-version-mismatch": "open",
+"wrong-library-resolved": "open"
+},
+"findings": [
+"libfoo.so.1"
+],
+"results": [
+{
+"check": "inspect-import-chain",
+"verdict": "refutes",
+"hypothesis": "missing-windows-component",
+"finding": "libfoo.so.1 is present",
+"source": "user-reported-check"
+}
+]
+},
+"t4": {
+"queries": [
+"example racer launcher",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch",
+"libfoo.so.1 launch",
+"libfoo.so.1",
+"proton 7.0.6 launch",
+"proton 7.0.6 launch"
+],
+"next": [
+"collect-system-info",
+"isolate-scope",
+"test-other-proton"
+],
+"hypotheses": {
+"library-version-mismatch": "weakened-by-reported-check",
+"wrong-library-resolved": "weakened-by-reported-check"
+},
+"findings": [
+"libfoo.so.1"
+],
+"results": [
+{
+"check": "inspect-import-chain",
+"verdict": "refutes",
+"hypothesis": "missing-windows-component",
+"finding": "libfoo.so.1 is present",
+"source": "user-reported-check"
+},
+{
+"check": "resolve-library-path",
+"verdict": "refutes",
+"finding": "a verifica\u00e7\u00e3o n\u00e3o confirmou",
+"source": "user-reported-check"
+}
+]
+}
+}
+},
+{
+"id": "page-fault",
+"checks": {
+"t1_asks_for_log": true,
+"t2_drops_log_request": true,
+"t2_searched_the_concrete_error": true,
+"t2_next_changed": true,
+"t4_failure_recorded": true,
+"t4_not_requested_again": true,
+"t4_decision_changed": true,
+"never_confirmed_a_cause": true
+},
+"turns": {
+"t1": {
+"queries": [
+"example tactics crash",
+"crash",
+"crash nvidia"
+],
+"next": [
+"collect-proton-log",
+"locate-faulting-module",
+"test-other-proton"
+],
+"hypotheses": {
+"game-or-wine-fault": "open"
+},
+"findings": [],
+"results": []
+},
+"t2": {
+"queries": [
+"example tactics crash",
+"crash",
+"crash nvidia",
+"0x00000000 nvidia",
+"shader crash",
+"proton-9.0-3 regression"
+],
+"next": [
+"locate-faulting-module",
+"test-other-proton"
+],
+"hypotheses": {
+"game-or-wine-fault": "open"
+},
+"findings": [
+"0x00000000",
+"shader"
+],
+"results": []
+},
+"t3": {
+"queries": [
+"example tactics crash",
+"crash",
+"crash nvidia",
+"0x00000000 nvidia",
+"shader crash",
+"proton-9.0-3 regression"
+],
+"next": [
+"locate-faulting-module",
+"test-other-proton"
+],
+"hypotheses": {
+"game-or-wine-fault": "open"
+},
+"findings": [
+"0x00000000",
+"shader"
+],
+"results": []
+},
+"t4": {
+"queries": [
+"example tactics crash",
+"crash",
+"crash nvidia",
+"0x00000000 nvidia",
+"shader crash",
+"proton-9.0-3 regression",
+"proton 9 crash",
+"proton 9 crash",
+"proton 9 crash"
+],
+"next": [
+"collect-system-info",
+"isolate-scope",
+"test-other-proton"
+],
+"hypotheses": {
+"game-or-wine-fault": "weakened-by-reported-check"
+},
+"findings": [
+"0x00000000",
+"shader",
+"proton-9",
+"proton-8"
+],
+"results": [
+{
+"check": "locate-faulting-module",
+"verdict": "refutes",
+"finding": "a verifica\u00e7\u00e3o n\u00e3o confirmou",
+"source": "user-reported-check"
+}
+]
+}
+}
+},
+{
+"id": "device-lost",
+"checks": {
+"t1_asks_for_log": false,
+"t2_drops_log_request": true,
+"t2_searched_the_concrete_error": true,
+"t2_next_changed": true,
+"t4_failure_recorded": true,
+"t4_not_requested_again": true,
+"t4_decision_changed": true,
+"never_confirmed_a_cause": true
+},
+"turns": {
+"t1": {
+"queries": [
+"example shooter black screen",
+"fsr black screen",
+"proton_enable_wayland amd"
+],
+"next": [
+"review-launch-options",
+"check-anticheat-support",
+"check-driver-stack"
+],
+"hypotheses": {
+"graphics-translation-issue": "open"
+},
+"findings": [
+"fsr",
+"proton_enable_wayland",
+"denuvo",
+"mesa",
+"wayland"
+],
+"results": []
+},
+"t2": {
+"queries": [
+"example shooter black screen",
+"fsr black screen",
+"proton_enable_wayland amd",
+"vk_error_device_lost amd",
+"wayland amd",
+"vsync amd"
+],
+"next": [
+"locate-faulting-module",
+"review-launch-options",
+"check-anticheat-support"
+],
+"hypotheses": {
+"graphics-translation-issue": "open",
+"gpu-or-driver-fault": "open"
+},
+"findings": [
+"vk_error_device_lost",
+"fsr",
+"proton_enable_wayland",
+"denuvo",
+"mesa"
+],
+"results": []
+},
+"t3": {
+"queries": [
+"example shooter black screen",
+"fsr black screen",
+"proton_enable_wayland amd",
+"vk_error_device_lost amd",
+"wayland amd",
+"vsync amd"
+],
+"next": [
+"locate-faulting-module",
+"review-launch-options",
+"check-anticheat-support"
+],
+"hypotheses": {
+"graphics-translation-issue": "open",
+"gpu-or-driver-fault": "open"
+},
+"findings": [
+"vk_error_device_lost",
+"fsr",
+"proton_enable_wayland",
+"denuvo",
+"mesa"
+],
+"results": []
+},
+"t4": {
+"queries": [
+"example shooter black screen",
+"fsr black screen",
+"proton_enable_wayland amd",
+"vk_error_device_lost amd",
+"wayland amd",
+"vsync amd",
+"mesa amd",
+"denuvo amd",
+"proton_enable_hdr amd"
+],
+"next": [
+"locate-faulting-module",
+"review-launch-options",
+"check-anticheat-support"
+],
+"hypotheses": {
+"graphics-translation-issue": "weakened-by-reported-check",
+"gpu-or-driver-fault": "open"
+},
+"findings": [
+"vk_error_device_lost",
+"fsr",
+"proton_enable_wayland",
+"denuvo",
+"mesa"
+],
+"results": [
+{
+"check": "check-vulkan-support",
+"verdict": "refutes",
+"finding": "a verifica\u00e7\u00e3o n\u00e3o confirmou",
+"source": "user-reported-check"
+}
+]
+}
+}
+}
+]
+}

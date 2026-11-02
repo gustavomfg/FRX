@@ -455,6 +455,10 @@ pub struct Pending {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Operation {
+    /// Registro do consentimento para instalar binários. Só design: nenhum fluxo
+    /// define `true` ainda, e o bloqueio real fica no plano (`docs/DLL-POLICY-DESIGN.md`).
+    #[serde(default)]
+    pub requires_explicit_user_consent: bool,
     /// Concurrent content retained outside the normal backup sequence needs
     /// manual review; presence checks alone must never dismiss that state.
     #[serde(default)]

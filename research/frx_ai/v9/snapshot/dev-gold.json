@@ -1,0 +1,83 @@
+[
+{
+"id": "dev-7542",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"tarball",
+"redist"
+],
+"checks": [
+"collect-terminal-output"
+],
+"documented": true
+},
+{
+"id": "dev-8207",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"anv",
+"mesa"
+],
+"checks": [
+"check-driver-stack",
+"read-attached-log",
+"check-vulkan-support"
+],
+"documented": true
+},
+{
+"id": "dev-9824",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"hotfix"
+],
+"checks": [
+"test-other-proton",
+"compare-runtime-host",
+"read-attached-log"
+],
+"documented": true
+},
+{
+"id": "dev-7693",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"driver vendor",
+"nvidia-bug-report"
+],
+"checks": [
+"check-driver-stack",
+"read-kernel-gpu-messages"
+],
+"documented": false
+},
+{
+"id": "dev-9651",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [],
+"checks": [
+"collect-proton-log",
+"collect-system-info"
+],
+"documented": false
+},
+{
+"id": "dev-9583",
+"annotator": "claude-opus-5-5",
+"review_level": "H0",
+"concepts": [
+"prefersnondefaultgpu",
+"dri_prime"
+],
+"checks": [
+"confirm-active-gpu",
+"check-vulkan-support"
+],
+"documented": true
+}
+]

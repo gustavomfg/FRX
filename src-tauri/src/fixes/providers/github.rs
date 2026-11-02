@@ -87,7 +87,7 @@ struct Release {
     published_at: Option<String>,
 }
 
-fn has_token(hay: &str, digits: &str) -> bool {
+pub(super) fn has_token(hay: &str, digits: &str) -> bool {
     hay.match_indices(digits).any(|(i, _)| {
         !hay[..i].chars().last().is_some_and(|c| c.is_ascii_digit())
             && !hay[i + digits.len()..]
@@ -116,7 +116,7 @@ fn repo_of(repository_url: &str) -> String {
 
 /// Explicit identifiers found in source content. Plain years, FPS and version
 /// numbers are not identities. No title/name similarity is used here.
-fn explicit_app_ids(text: &str) -> Vec<String> {
+pub(super) fn explicit_app_ids(text: &str) -> Vec<String> {
     let low = text.to_ascii_lowercase();
     let mut ids = Vec::new();
     for prefix in [
@@ -190,7 +190,7 @@ fn issue_scope(issue: &Issue, app_id: &str) -> DiscoveryScope {
     }
 }
 
-fn inherited_scope(parent: &DiscoveryScope, text: &str) -> DiscoveryScope {
+pub(super) fn inherited_scope(parent: &DiscoveryScope, text: &str) -> DiscoveryScope {
     let ids = identity_hints(text);
     let low = text.to_ascii_lowercase();
     // Com AppID explícito no texto, só identificadores explícitos decidem:
@@ -500,6 +500,7 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             "aberto"
         };
         findings.push(FixFinding {
+hardware_scope: Default::default(),
             artifacts: vec![],
             scope: scope.clone(),
             performance_evidence: PerformanceEvidence::default(),
@@ -695,6 +696,30 @@ fn collect(
     parent: &DiscoveryScope,
     reporter: (bool, Option<&str>),
 ) {
+    collect_from(
+        ProviderId::Github,
+        out,
+        text,
+        url,
+        label,
+        date,
+        parent,
+        reporter,
+    );
+}
+
+/// Mesma leitura para qualquer fonte de comentários públicos.
+#[allow(clippy::too_many_arguments)]
+pub(super) fn collect_from(
+    provider: ProviderId,
+    out: &mut Vec<Mention>,
+    text: &str,
+    url: &str,
+    label: &str,
+    date: Option<String>,
+    parent: &DiscoveryScope,
+    reporter: (bool, Option<&str>),
+) {
     let (maintainer, author) = reporter;
     let scope = inherited_scope(parent, text);
     let s = scan_text(text);
@@ -720,7 +745,7 @@ fn collect(
             ),
             tweak,
             source: FindingSource {
-                provider: ProviderId::Github,
+                provider,
                 label: label.to_owned(),
                 url: url.to_owned(),
                 reference_id: None,
@@ -770,6 +795,7 @@ fn maintainer_statement(
         None => "Mantenedor indica que o problema foi corrigido".into(),
     };
     Some(FixFinding {
+hardware_scope: Default::default(),
         artifacts: vec![],
         scope: inherited_scope(parent, body),
         performance_evidence: PerformanceEvidence::default(),
@@ -836,6 +862,7 @@ fn release_mentions(q: &GameQuery, repo: &str, releases: &[Release]) -> Vec<FixF
         };
         let verified = scope.matches_game(&q.app_id);
         out.push(FixFinding {
+hardware_scope: Default::default(),
             artifacts: vec![],
             game_app_id: scope.app_id.clone().unwrap_or_default(),
             scope,

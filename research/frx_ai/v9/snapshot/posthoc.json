@@ -1,0 +1,361 @@
+{
+ "status": "post-hoc on known data; H0 gold",
+ "stages": {
+  "in the corpus, not read": 13,
+  "read, not in report": 3,
+  "in report": 1
+ },
+ "rows": [
+  {
+   "id": "test-8569",
+   "stratum": "library",
+   "concepts": [
+    "gstreamer",
+    "allowlist",
+    "whitelist"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 786,
+   "concept": "whitelist",
+   "with_context": 0,
+   "queries": [
+    "wuthering waves online",
+    "online"
+   ],
+   "applicable": 1,
+   "rejected": 1
+  },
+  {
+   "id": "test-8702",
+   "stratum": "library",
+   "concepts": [
+    "snap package",
+    "snap version",
+    "unsupported"
+   ],
+   "stage": "read, not in report",
+   "threads": 211,
+   "concept": "unsupported",
+   "with_context": 32,
+   "queries": [
+    "libopengl.so.0 controller",
+    "libvklayer_mesa_device_select.so input",
+    "libvdpau_va_gl.so nvidia"
+   ],
+   "applicable": 11,
+   "rejected": 1
+  },
+  {
+   "id": "test-7581",
+   "stratum": "graphics",
+   "concepts": [
+    "amdgpu-pro",
+    "amdgpupro",
+    "radv"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 87,
+   "concept": "radv",
+   "with_context": 11,
+   "queries": [
+    "scorn shader",
+    "shader",
+    "shader crash amd"
+   ],
+   "applicable": 0,
+   "rejected": 0
+  },
+  {
+   "id": "test-8854",
+   "stratum": "graphics",
+   "concepts": [
+    "irregular",
+    "default proton"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 685,
+   "concept": "default proton",
+   "with_context": 91,
+   "queries": [
+    "save"
+   ],
+   "applicable": 0,
+   "rejected": 0
+  },
+  {
+   "id": "test-9258",
+   "stratum": "graphics",
+   "concepts": [
+    "keacquireguardedmutex",
+    "ntoskrnl",
+    "wine-staging"
+   ],
+   "stage": "read, not in report",
+   "threads": 50,
+   "concept": "wine-staging",
+   "with_context": 8,
+   "queries": [
+    "infinity nikki eac",
+    "lutris crash",
+    "proton_eac_runtime amd"
+   ],
+   "applicable": 25,
+   "rejected": 1
+  },
+  {
+   "id": "test-7633",
+   "stratum": "regression",
+   "concepts": [
+    "dxvk"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 306,
+   "concept": "dxvk",
+   "with_context": 66,
+   "queries": [
+    "cloudphobia crash",
+    "crash"
+   ],
+   "applicable": 1,
+   "rejected": 0
+  },
+  {
+   "id": "test-7390",
+   "stratum": "driver",
+   "concepts": [
+    "vk_driver_files",
+    "vk_icd"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 2,
+   "concept": "vk_driver_files",
+   "with_context": 0,
+   "queries": [
+    "proton_log",
+    "proton_log easyanticheat",
+    "eac online"
+   ],
+   "applicable": 17,
+   "rejected": 0
+  },
+  {
+   "id": "test-7315",
+   "stratum": "driver",
+   "concepts": [
+    "dx12",
+    "directx 12",
+    "direct x12"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 58,
+   "concept": "dx12",
+   "with_context": 3,
+   "queries": [
+    "naraka bladepoint texture resolution",
+    "resolution",
+    "resolution texture nvidia"
+   ],
+   "applicable": 0,
+   "rejected": 0
+  },
+  {
+   "id": "test-7628",
+   "stratum": "audio",
+   "concepts": [
+    "touchcollection",
+    "fna",
+    "shaderfunction"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 5,
+   "concept": "fna",
+   "with_context": 0,
+   "queries": [
+    "sound crash"
+   ],
+   "applicable": 2,
+   "rejected": 0
+  },
+  {
+   "id": "test-8730",
+   "stratum": "audio",
+   "concepts": [
+    "stereo",
+    "5.1"
+   ],
+   "stage": "read, not in report",
+   "threads": 20,
+   "concept": "stereo",
+   "with_context": 15,
+   "queries": [
+    "pipewire audio",
+    "winealsa.drv audio",
+    "alsa nvidia"
+   ],
+   "applicable": 12,
+   "rejected": 1
+  },
+  {
+   "id": "test-8632",
+   "stratum": "audio",
+   "concepts": [
+    "wayland",
+    "single device"
+   ],
+   "stage": "in report",
+   "threads": 354,
+   "concept": "wayland",
+   "with_context": 62,
+   "queries": [
+    "amdgpu audio",
+    "vkd3d-proton audio",
+    "vkd3d-proton"
+   ],
+   "applicable": 14,
+   "rejected": 0
+  },
+  {
+   "id": "test-9226",
+   "stratum": "crash",
+   "concepts": [
+    "wine mono",
+    "wine-mono",
+    "monitorhandle",
+    "mono_inlinelimit"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 50,
+   "concept": "wine mono",
+   "with_context": 23,
+   "queries": [
+    "yargis space melee crash",
+    "crash"
+   ],
+   "applicable": 1,
+   "rejected": 0
+  },
+  {
+   "id": "test-7326",
+   "stratum": "crash",
+   "concepts": [
+    "amdgpu pro",
+    "amdgpu-pro"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 16,
+   "concept": "amdgpu pro",
+   "with_context": 3,
+   "queries": [
+    "tribes rivals crash",
+    "crash",
+    "crash amd"
+   ],
+   "applicable": 2,
+   "rejected": 0
+  },
+  {
+   "id": "test-8425",
+   "stratum": "crash",
+   "concepts": [
+    "newest proton experimental",
+    "latest experimental"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 467,
+   "concept": "latest experimental",
+   "with_context": 191,
+   "queries": [
+    "wrc fia world crash",
+    "crash amd"
+   ],
+   "applicable": 4,
+   "rejected": 0
+  },
+  {
+   "id": "test-8075",
+   "stratum": "performance",
+   "concepts": [
+    "wineserver",
+    "7154"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 42,
+   "concept": "wineserver",
+   "with_context": 4,
+   "queries": [
+    "fps"
+   ],
+   "applicable": 0,
+   "rejected": 0
+  },
+  {
+   "id": "test-9052",
+   "stratum": "performance",
+   "concepts": [
+    "engine.ini"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 7,
+   "concept": "engine.ini",
+   "with_context": 1,
+   "queries": [
+    "borderlands dlss",
+    "proton_enable_nvapi graphics",
+    "nvapi nvidia"
+   ],
+   "applicable": 3,
+   "rejected": 1
+  },
+  {
+   "id": "test-8168",
+   "stratum": "any",
+   "concepts": [
+    "dmusic"
+   ],
+   "stage": "in the corpus, not read",
+   "threads": 3,
+   "concept": "dmusic",
+   "with_context": 0,
+   "queries": [
+    "pacific drive",
+    "protontricks"
+   ],
+   "applicable": 3,
+   "rejected": 0
+  }
+ ],
+ "followups_by_kind": {
+  "initial": {
+   "queries": 9,
+   "no_new_threads": 9,
+   "new_leads": 0,
+   "new_concept": 0
+  },
+  "specialized": {
+   "queries": 9,
+   "no_new_threads": 2,
+   "new_leads": 2,
+   "new_concept": 0
+  },
+  "contextual": {
+   "queries": 4,
+   "no_new_threads": 0,
+   "new_leads": 3,
+   "new_concept": 1
+  },
+  "broadening": {
+   "queries": 7,
+   "no_new_threads": 0,
+   "new_leads": 1,
+   "new_concept": 0
+  },
+  "verification": {
+   "queries": 1,
+   "no_new_threads": 0,
+   "new_leads": 1,
+   "new_concept": 0
+  }
+ },
+ "single_word_queries": 19,
+ "first_query_empty": 1
+}

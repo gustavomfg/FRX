@@ -1,0 +1,3 @@
+[
+ {"at": "2026-10-30", "stage": "first final run, before any metric", "problem": "ValueError literal span bound inside inherited v5/events.py state(), on a P7 unit whose governor follows its verb", "change": "final.py orders the two offsets passed to the inherited evidence helper at runtime. Prior laboratories and frozen files are unchanged; frozen hashes still verify.", "metrics_seen": false, "labels_changed": false, "thresholds_changed": false}
+]

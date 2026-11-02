@@ -8,7 +8,10 @@ export type FindingKind = 'protonfix' | 'tweak' | 'report' | 'release-note'
 export type Confidence = 'verified' | 'curated' | 'community-reported' | 'unverified'
 export type Compatibility = 'compatible' | 'incompatible' | 'unknown' | 'already-included'
 export type AnalysisState = 'parsed' | 'partial' | 'not-verified'
-export type ProviderId = 'umu-protonfixes' | 'umu-database' | 'github' | 'protondb'
+/** Espelha `HardwareScope`. `any` exige variável conhecida; `unknown` é a fonte sem informação. */
+export type HardwareScope = 'nvidia' | 'amd' | 'intel' | 'any' | 'unknown'
+
+export type ProviderId = 'umu-protonfixes' | 'umu-database' | 'github' | 'protondb' | 'reddit' | 'winehq' | 'steam-guides'
 export type ProviderState = 'ok' | 'cached' | 'stale' | 'no-data' | 'unavailable' | 'rate-limited' | 'disabled'
 export type GpuReq = 'nvidia' | 'amd' | 'intel'
 
@@ -84,7 +87,7 @@ export interface ArtifactCandidate {
   contentType: string | null
   sha256: string | null
   signatureUrl: string | null
-  format: 'file' | 'zip' | 'unknown'
+  format: 'file' | 'zip' | 'tar' | 'unknown'
   platform: string | null
   architecture: string | null
   files: ArtifactFile[]
@@ -96,6 +99,7 @@ export interface ArtifactCandidate {
 }
 
 export interface FixFinding {
+  hardwareScope?: HardwareScope
   artifacts?: ArtifactCandidate[]
   scope?: DiscoveryScope
   performanceEvidence?: { positive: number; negative: number; reports: PerformanceReport[] }

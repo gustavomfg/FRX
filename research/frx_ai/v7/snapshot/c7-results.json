@@ -1,0 +1,1694 @@
+{
+ "status": "first C7 evaluation; agent milestones plus maintainer's first request",
+ "summary": {
+  "always-log": {
+   "next_top1_agent": [
+    7,
+    24
+   ],
+   "next_top3_agent": [
+    7,
+    24
+   ],
+   "next_top1_maintainer": [
+    6,
+    9
+   ],
+   "efficiency": [
+    9,
+    24
+   ],
+   "top_counter": [
+    [
+     "collect-proton-log",
+     24
+    ]
+   ]
+  },
+  "v6-rules": {
+   "next_top1_agent": [
+    7,
+    24
+   ],
+   "next_top3_agent": [
+    7,
+    24
+   ],
+   "next_top1_maintainer": [
+    6,
+    9
+   ],
+   "efficiency": [
+    9,
+    24
+   ],
+   "top_counter": [
+    [
+     "collect-relevant-log",
+     24
+    ]
+   ]
+  },
+  "v7-rules": {
+   "understanding": [
+    20,
+    24
+   ],
+   "evidence_literal": [
+    24,
+    24
+   ],
+   "hypotheses_pertinent": [
+    19,
+    24
+   ],
+   "hypotheses_unconfirmed": [
+    24,
+    24
+   ],
+   "next_top1_agent": [
+    8,
+    24
+   ],
+   "next_top3_agent": [
+    16,
+    24
+   ],
+   "next_top1_maintainer": [
+    3,
+    9
+   ],
+   "safety": [
+    24,
+    24
+   ],
+   "efficiency": [
+    20,
+    24
+   ],
+   "changes_state_first": [
+    0,
+    24
+   ],
+   "top_counter": [
+    [
+     "inspect-media-errors",
+     7
+    ],
+    [
+     "locate-faulting-module",
+     5
+    ],
+    [
+     "collect-proton-log",
+     5
+    ],
+    [
+     "inspect-audio-route",
+     3
+    ],
+    [
+     "collect-system-info",
+     2
+    ],
+    [
+     "check-vulkan-support",
+     2
+    ]
+   ]
+  },
+  "v7-case-prior": {
+   "understanding": [
+    20,
+    24
+   ],
+   "evidence_literal": [
+    24,
+    24
+   ],
+   "hypotheses_pertinent": [
+    19,
+    24
+   ],
+   "hypotheses_unconfirmed": [
+    24,
+    24
+   ],
+   "next_top1_agent": [
+    7,
+    24
+   ],
+   "next_top3_agent": [
+    13,
+    24
+   ],
+   "next_top1_maintainer": [
+    6,
+    9
+   ],
+   "safety": [
+    24,
+    24
+   ],
+   "efficiency": [
+    9,
+    24
+   ],
+   "changes_state_first": [
+    0,
+    24
+   ],
+   "top_counter": [
+    [
+     "collect-proton-log",
+     24
+    ]
+   ]
+  },
+  "v7-hybrid": {
+   "understanding": [
+    20,
+    24
+   ],
+   "evidence_literal": [
+    24,
+    24
+   ],
+   "hypotheses_pertinent": [
+    19,
+    24
+   ],
+   "hypotheses_unconfirmed": [
+    24,
+    24
+   ],
+   "next_top1_agent": [
+    4,
+    24
+   ],
+   "next_top3_agent": [
+    16,
+    24
+   ],
+   "next_top1_maintainer": [
+    3,
+    9
+   ],
+   "safety": [
+    24,
+    24
+   ],
+   "efficiency": [
+    13,
+    24
+   ],
+   "changes_state_first": [
+    0,
+    24
+   ],
+   "top_counter": [
+    [
+     "collect-proton-log",
+     15
+    ],
+    [
+     "inspect-media-errors",
+     7
+    ],
+    [
+     "collect-system-info",
+     2
+    ]
+   ]
+  }
+ },
+ "records": [
+  {
+   "id": "c7-9578",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9578",
+   "maintainer_labels": [
+    "collect-proton-log",
+    "collect-system-info"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-6332",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6332",
+   "maintainer_labels": [
+    "test-runtime-option"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "locate-faulting-module"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": false,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": false,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-2003",
+   "url": "https://github.com/ValveSoftware/Proton/issues/2003",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-audio-route"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-360",
+   "url": "https://github.com/ValveSoftware/Proton/issues/360",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-system-info"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-system-info"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-7391",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7391",
+   "maintainer_labels": [
+    "collect-proton-log",
+    "collect-terminal-output"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-9573",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9573",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-523",
+   "url": "https://github.com/ValveSoftware/Proton/issues/523",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-system-info"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-system-info"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-1816",
+   "url": "https://github.com/ValveSoftware/Proton/issues/1816",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "check-vulkan-support"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-7847",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7847",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-audio-route"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8498",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8498",
+   "maintainer_labels": [
+    "collect-proton-log"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": true,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-7404",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7404",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8568",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8568",
+   "maintainer_labels": [
+    "collect-system-info"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": false,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": false,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8554",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8554",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-5250",
+   "url": "https://github.com/ValveSoftware/Proton/issues/5250",
+   "maintainer_labels": [
+    "test-other-proton"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "locate-faulting-module"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": false,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": false,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-9233",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9233",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "inspect-audio-route"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-6573",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6573",
+   "maintainer_labels": [
+    "collect-proton-log",
+    "isolate-scope"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-718",
+   "url": "https://github.com/ValveSoftware/Proton/issues/718",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "locate-faulting-module"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "next_top1_maintainer": null,
+     "efficiency": true,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-9167",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9167",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "locate-faulting-module"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-7595",
+   "url": "https://github.com/ValveSoftware/Proton/issues/7595",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-case-prior": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": false,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8185",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8185",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "locate-faulting-module"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8592",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8592",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-6167",
+   "url": "https://github.com/ValveSoftware/Proton/issues/6167",
+   "maintainer_labels": [
+    "collect-proton-log"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": false,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-8819",
+   "url": "https://github.com/ValveSoftware/Proton/issues/8819",
+   "maintainer_labels": [
+    "collect-proton-log"
+   ],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": true,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": false,
+     "top": "inspect-media-errors"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": true,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  },
+  {
+   "id": "c7-9063",
+   "url": "https://github.com/ValveSoftware/Proton/issues/9063",
+   "maintainer_labels": [],
+   "policies": {
+    "v7-rules": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": true,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": true,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "check-vulkan-support"
+    },
+    "v7-case-prior": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "v7-hybrid": {
+     "understanding": true,
+     "evidence_literal": true,
+     "hypotheses_pertinent": true,
+     "hypotheses_unconfirmed": true,
+     "next_top1_agent": false,
+     "next_top3_agent": true,
+     "safety": true,
+     "efficiency": false,
+     "changes_state_first": false,
+     "next_top1_maintainer": null,
+     "top": "collect-proton-log"
+    },
+    "always-log": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-proton-log"
+    },
+    "v6-rules": {
+     "next_top1_agent": false,
+     "next_top3_agent": false,
+     "next_top1_maintainer": null,
+     "efficiency": false,
+     "top": "collect-relevant-log"
+    }
+   }
+  }
+ ],
+ "label_lock": {
+  "sha256": "e4bd86ea8742cbd899e31d51512a64ad3ecdd2cacd0e36eb5b7bcfaf15f118d9",
+  "predictions_seen": false,
+  "provisional_agent_labels": true
+ },
+ "limitation": "Agent-written milestones; one first-post view without attached logs."
+}

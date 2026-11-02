@@ -1,0 +1,111 @@
+{
+ "status": "post-hoc on known data; H0 labels",
+ "decisions_with_read_in_acceptable": 13,
+ "discriminate_top1_is_read": 16,
+ "without_read_decisions": {
+  "discriminate": {
+   "decisions": 13,
+   "top1": [
+    8,
+    13
+   ],
+   "top3": [
+    12,
+    13
+   ]
+  },
+  "always_log": {
+   "decisions": 13,
+   "top1": [
+    5,
+    13
+   ],
+   "top3": [
+    6,
+    13
+   ]
+  },
+  "rules_v7": {
+   "decisions": 13,
+   "top1": [
+    2,
+    13
+   ],
+   "top3": [
+    8,
+    13
+   ]
+  }
+ },
+ "log_checks_merged": {
+  "discriminate": {
+   "decisions": 26,
+   "top1": [
+    21,
+    26
+   ],
+   "top3": [
+    25,
+    26
+   ]
+  },
+  "always_log": {
+   "decisions": 26,
+   "top1": [
+    18,
+    26
+   ],
+   "top3": [
+    19,
+    26
+   ]
+  },
+  "rules_v7": {
+   "decisions": 26,
+   "top1": [
+    2,
+    26
+   ],
+   "top3": [
+    17,
+    26
+   ]
+  }
+ },
+ "log_checks_merged_paired": {
+  "always_log": {
+   "top1_ok": {
+    "difference": 0.115,
+    "ci95": [
+     0.0,
+     0.292
+    ]
+   },
+   "top3_ok": {
+    "difference": 0.231,
+    "ci95": [
+     0.043,
+     0.429
+    ]
+   }
+  },
+  "rules_v7": {
+   "top1_ok": {
+    "difference": 0.731,
+    "ci95": [
+     0.565,
+     0.885
+    ]
+   },
+   "top3_ok": {
+    "difference": 0.308,
+    "ci95": [
+     0.107,
+     0.522
+    ]
+   }
+  }
+ },
+ "mean_acceptable_per_decision": 2.38,
+ "catalog_size": 30
+}

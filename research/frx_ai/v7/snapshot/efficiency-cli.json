@@ -1,0 +1,10 @@
+{
+ "cli-full": {
+  "seconds": 4.22,
+  "rss_mib": 731.3
+ },
+ "cli-no-sources": {
+  "seconds": 0.06,
+  "rss_mib": 20.2
+ }
+}

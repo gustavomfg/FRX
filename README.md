@@ -16,6 +16,8 @@
 
 ## Resolution Center — v0.5
 
+> **Note (2026-10-31):** this section describes a retired implementation. The current rules-based diagnosis is documented in [docs/DIAGNOSIS.md](docs/DIAGNOSIS.md).
+
 Each game's page now brings together **diagnosis, technologies, sources and resolution plans**, using the existing Fix Engine. A fix does not need to increase FPS: compatibility, stability, physics and graphics have their own goals.
 
 - **Diagnose** inspects the installation and environment without changing the game. DLLs are clues; hardware support, configuration, and runtime observation appear separately.
@@ -113,6 +115,7 @@ In the release build, the interface (`dist/`) is **embedded in the binary** and 
 | `cancel_fix_operation` | Cancels the preparation/download before the writing phase; does not abandon a transaction while it is writing |
 | `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | History, actual status checked on disk and manual steps |
 | `prepare_fix_rollback`, `rollback_fix` | Rollback preview and execution |
+| `research_fix`, | Pesquisa candidatos para um sintoma + hardware (Semana 1: mocks, sem rede)|
 
 - **TypeScript:** `src/services/{games,fixes,fixEngine,performance,native,platform,opener}.ts` calls these commands with `@tauri-apps/api/core`. The states are in `src/state/{library,fixes,fixEngine,performance}.tsx`; capture continues when navigating between pages, and Fix Engine progress arrives via event `fix-engine://progress`.
 - **Types:** Rust models are mirrored in `src/types/{steam,fixes,fixEngine,performance}.ts`.
@@ -277,9 +280,10 @@ src-tauri/src/
                            processes (Steam/game running, read-only)
 src-tauri/recipes/         local recipe catalog (JSON + SHA-256 manifest)
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
-    providers/             umu (protonfixes + database), github, artifacts, protondb (disabled)
+    providers/             umu (protonfixes + database), github, artifacts; disabled: protondb, reddit, winehq, steam_guides
   system/                  profile and GPUs via /proc and /sys, context (requirements and environment)
   cache/  art.rs  net.rs   file cache, cover art, restricted HTTP client
+  ai/                      experimental, fora do caminho crítico: ranker, query, models
 packaging/               source icon (SVG/PNG) and Arch package (PKGBUILD + .desktop)
 docs/assets/             interface screenshot and Pim animation for this README
 src/

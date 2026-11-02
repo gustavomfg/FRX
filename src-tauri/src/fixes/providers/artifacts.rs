@@ -663,6 +663,7 @@ pub fn candidates_from_release(
 
 fn finding(q: &GameQuery, c: ArtifactCandidate) -> FixFinding {
     FixFinding {
+hardware_scope: Default::default(),
         artifacts: vec![c.clone()], scope: c.scope.clone(), performance_evidence: Default::default(),
         id: c.id.clone(), game_app_id: c.app_id.clone(),
         title: format!("Correção por arquivo · {}", c.asset_name),

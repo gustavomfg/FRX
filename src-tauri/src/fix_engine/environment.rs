@@ -145,26 +145,28 @@ pub fn find_game_file(install: &Path, names: &[&str]) -> Option<PathBuf> {
 
 /// Tecnologias gráficas que a instalação traz, pelos arquivos do jogo. Presença
 /// indica que a biblioteca está no jogo, não que ela é usada em execução.
-pub fn installed_technologies(install: &Path) -> Vec<&'static str> {
-    const FILES: &[(&str, &str)] = &[
-        ("nvngx_dlss.dll", "dlss"),
-        ("sl.dlss.dll", "dlss"),
-        ("nvngx_dlssd.dll", "ray-reconstruction"),
-        ("nvngx_dlssg.dll", "frame-generation"),
-        ("sl.dlss_g.dll", "frame-generation"),
-        ("libxess.dll", "xess"),
-        ("amd_fidelityfx_upscaler_dx12.dll", "fsr"),
-        ("amd_fidelityfx_dx12.dll", "fsr"),
-        ("ffx_fsr2_api_x64.dll", "fsr"),
-        (
-            "amd_fidelityfx_framegeneration_dx12.dll",
-            "fsr-frame-generation",
-        ),
-        ("physxloader.dll", "physx"),
-        ("physxloader64.dll", "physx"),
-        ("physxcore.dll", "physx"),
-        ("physxdevice.dll", "physx"),
-    ];
+const KNOWN_FILES: &[(&str, &str)] = &[
+    ("nvngx_dlss.dll", "dlss"),
+    ("sl.dlss.dll", "dlss"),
+    ("nvngx_dlssd.dll", "ray-reconstruction"),
+    ("nvngx_dlssg.dll", "frame-generation"),
+    ("sl.dlss_g.dll", "frame-generation"),
+    ("libxess.dll", "xess"),
+    ("amd_fidelityfx_upscaler_dx12.dll", "fsr"),
+    ("amd_fidelityfx_dx12.dll", "fsr"),
+    ("ffx_fsr2_api_x64.dll", "fsr"),
+    (
+        "amd_fidelityfx_framegeneration_dx12.dll",
+        "fsr-frame-generation",
+    ),
+    ("physxloader.dll", "physx"),
+    ("physxloader64.dll", "physx"),
+    ("physxcore.dll", "physx"),
+    ("physxdevice.dll", "physx"),
+];
+
+/// Arquivos conhecidos presentes na instalação, sem seguir links e com limites.
+pub fn installed_files(install: &Path) -> Vec<&'static str> {
     fn walk(dir: &Path, depth: usize, seen: &mut usize, found: &mut Vec<&'static str>) {
         let Ok(entries) = std::fs::read_dir(dir) else {
             return;
@@ -180,9 +182,9 @@ pub fn installed_technologies(install: &Path) -> Vec<&'static str> {
                 dirs.push(e.path());
             } else if kind.is_file() {
                 let name = e.file_name().to_string_lossy().to_ascii_lowercase();
-                if let Some((_, tech)) = FILES.iter().find(|(file, _)| *file == name) {
-                    if !found.contains(tech) {
-                        found.push(tech);
+                if let Some((file, _)) = KNOWN_FILES.iter().find(|(file, _)| *file == name) {
+                    if !found.contains(file) {
+                        found.push(file);
                     }
                 }
             }
@@ -193,6 +195,18 @@ pub fn installed_technologies(install: &Path) -> Vec<&'static str> {
     }
     let mut found = Vec::new();
     walk(install, 0, &mut 0, &mut found);
+    found
+}
+
+pub fn installed_technologies(install: &Path) -> Vec<&'static str> {
+    let mut found: Vec<&'static str> = Vec::new();
+    for file in installed_files(install) {
+        if let Some((_, tech)) = KNOWN_FILES.iter().find(|(f, _)| *f == file) {
+            if !found.contains(tech) {
+                found.push(tech);
+            }
+        }
+    }
     // Ray reconstruction só é usado com ray tracing: a biblioteca indica o uso.
     if found.contains(&"ray-reconstruction") && !found.contains(&"ray-tracing") {
         found.push("ray-tracing");

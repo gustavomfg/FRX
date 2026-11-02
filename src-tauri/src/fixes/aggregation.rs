@@ -62,6 +62,18 @@ pub fn finding_id(provider: &str, app: &str, key: &str) -> String {
     format!("{provider}-{app}-{}", &short_hash(key)[..10])
 }
 
+/// Fabricante exigido pelas variáveis de `VAR=1 %command%`. Variáveis de
+/// fabricantes diferentes na mesma linha não definem um requisito único.
+fn launch_vendor(line: &str) -> Option<GpuReq> {
+    let mut vendors = line
+        .split_whitespace()
+        .take_while(|t| *t != "%command%")
+        .filter_map(|t| t.split_once('='))
+        .filter_map(|(name, _)| gpu_for_env(name));
+    let first = vendors.next()?;
+    vendors.all(|v| v == first).then_some(first)
+}
+
 /// Agrupa menções da comunidade por ajuste idêntico.
 pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) -> Vec<FixFinding> {
     let mut groups: BTreeMap<String, Vec<Mention>> = BTreeMap::new();
@@ -102,6 +114,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
         // favoráveis (pelo menos dois) citarem o mesmo fabricante e nenhum outro.
         let gpu = match &tweak {
             Tweak::Env { name, .. } => gpu_for_env(name),
+            Tweak::Launch(line) => launch_vendor(line),
             _ => None,
         }
         .or_else(|| {
@@ -202,6 +215,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             performance_evidence.reports.push(report.clone());
         }
         out.push(FixFinding {
+            hardware_scope: Default::default(),
             artifacts: vec![],
             scope,
             performance_evidence,
@@ -555,5 +569,31 @@ mod tests {
         assert!(merged
             .iter()
             .any(|f| f.scope.kind == DiscoveryScopeKind::UnknownScope));
+    }
+}
+
+#[cfg(test)]
+mod launch_vendor_tests {
+    use super::*;
+
+    #[test]
+    fn launch_line_keeps_the_vendor_of_its_variables() {
+        assert_eq!(
+            launch_vendor("PROTON_ENABLE_NVAPI=1 %command%"),
+            Some(GpuReq::Nvidia)
+        );
+        assert_eq!(
+            launch_vendor("PROTON_DLSS_UPGRADE=1 PROTON_NO_ESYNC=1 %command%"),
+            Some(GpuReq::Nvidia)
+        );
+        assert_eq!(
+            launch_vendor("RADV_PERFTEST=aco %command%"),
+            Some(GpuReq::Amd)
+        );
+        assert_eq!(launch_vendor("PROTON_NO_ESYNC=1 %command%"), None);
+        assert_eq!(
+            launch_vendor("RADV_PERFTEST=aco PROTON_ENABLE_NVAPI=1 %command%"),
+            None
+        );
     }
 }
