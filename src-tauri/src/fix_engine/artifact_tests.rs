@@ -61,7 +61,17 @@ fn release(
     } else {
         "controlled-fixture.ini"
     };
-    let manifest = serde_json::json!({"schema":1,"appId":APP,"asset":name,"platform":"any","architecture":"any","files":file_specs});
+    published(bytes, name, file_specs, vec![], format)
+}
+
+fn published(
+    bytes: &[u8],
+    name: &str,
+    file_specs: Vec<ArtifactFile>,
+    dlls: Vec<DllArtifact>,
+    format: ArtifactFormat,
+) -> (ArtifactCandidate, ControlledTransport) {
+    let manifest = serde_json::json!({"schema":1,"appId":APP,"asset":name,"platform":"any","architecture":"any","files":file_specs,"dlls":dlls});
     let url = format!("https://github.com/{REPO}/releases/download/v-fixture-1/{name}");
     let body=serde_json::json!({"id":424242,"tag_name":"v-fixture-1","html_url":format!("https://github.com/{REPO}/releases/tag/v-fixture-1"),"draft":false,"prerelease":false,"author":{"login":"synthetic-fixture-publisher"},"published_at":"2026-10-27T00:00:00Z","body":format!("```frx-file-fix\n{manifest}\n```"),"assets":[{"id":7,"name":name,"browser_download_url":url,"size":bytes.len(),"digest":format!("sha256:{}",sha256_hex(bytes)),"content_type":if format==ArtifactFormat::Zip{"application/zip"}else{"text/plain"},"state":"uploaded"}]}).to_string();
     let source = FindingSource {
@@ -663,38 +673,190 @@ fn artifact_plus_unsupported_dependency_is_not_partially_generated() {
     assert!(engine.operations(None).is_empty());
 }
 
+// ── DLL e TAR na pasta do jogo ────────────────────────────────────────────
+// Bytes sintéticos com cabeçalho PE mínimo: nenhuma DLL real é usada.
+
+const DLL_TARGET: &str = "Binaries/frx_fixture.dll";
+
+/// Maior que o limite de configuração, para exercitar o limite binário.
+fn pe_dll(seed: u8) -> Vec<u8> {
+    let mut bytes = vec![seed; 300 * 1024];
+    bytes[..2].copy_from_slice(b"MZ");
+    bytes[0x3c..0x40].copy_from_slice(&0x80u32.to_le_bytes());
+    bytes[0x80..0x84].copy_from_slice(b"PE\0\0");
+    bytes
+}
+
+fn dll_spec(source: Option<&str>, payload: &[u8], previous: Option<&[u8]>) -> DllArtifact {
+    DllArtifact {
+        source_path: source.map(str::to_owned),
+        destination_relative_path: DLL_TARGET.into(),
+        expected_sha256: sha256_hex(payload),
+        expected_original_sha256: previous.map(sha256_hex),
+        requires_explicit_user_consent: true,
+    }
+}
+
+fn dll_direct(payload: &[u8], previous: Option<&[u8]>) -> (ArtifactCandidate, ControlledTransport) {
+    published(
+        payload,
+        "controlled-fixture.dll",
+        vec![],
+        vec![dll_spec(None, payload, previous)],
+        ArtifactFormat::File,
+    )
+}
+
+fn binaries(fx: &Fx) -> PathBuf {
+    let dir = fx.library.join("Binaries");
+    std::fs::create_dir_all(&dir).unwrap();
+    dir.join("frx_fixture.dll")
+}
+
 #[test]
-fn tar_is_refused_until_the_dll_and_tar_policy_is_approved() {
-    let bytes = b"key=value\n";
-    let (mut candidate, _) = release(
-        bytes,
-        vec![ArtifactFile {
-            source_path: Some("a.cfg".into()),
-            target_path: "a.cfg".into(),
-            sha256: Some(sha256_hex(bytes)),
-            replace: false,
-            expected_original_sha256: None,
-        }],
-        ArtifactFormat::Zip,
-    );
-    candidate.format = ArtifactFormat::Tar;
-    assert!(super::super::artifacts::validate(&candidate, &candidate.app_id).is_err());
-    let cancel = std::sync::atomic::AtomicBool::new(false);
-    candidate.size_bytes = bytes.len() as u64;
-    candidate.sha256 = Some(sha256_hex(bytes));
-    let refused = super::super::artifacts::contents(&candidate, bytes, &cancel).unwrap_err();
-    assert!(refused.contains("TAR"));
+fn dll_installs_in_the_game_folder_with_consent_and_rolls_back() {
+    let old = pe_dll(1);
+    for original in [None, Some(old.as_slice())] {
+        let fx = fixture();
+        let target = binaries(&fx);
+        if let Some(bytes) = original {
+            std::fs::write(&target, bytes).unwrap();
+        }
+        let payload = pe_dll(2);
+        let (candidate, transport) = dll_direct(&payload, original);
+        let (e, g, id) = setup(&fx, candidate, transport);
+        let plan = e.prepare(&id, &g).unwrap();
+        assert_eq!(plan.status, PlanStatus::Ready, "{:?}", plan.reasons);
+        assert!(plan.requires_explicit_user_consent);
+
+        let op = e
+            .apply_with_consent(&plan.plan_id, &plan.fingerprint, Some(&plan.fingerprint), &g, &noop)
+            .unwrap();
+        assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+        assert!(op.requires_explicit_user_consent);
+        assert_eq!(std::fs::read(&target).unwrap(), payload);
+        let backup = op.steps[0].backup.as_ref().unwrap();
+        assert_eq!(backup.existed, original.is_some());
+        assert!(!fx.data.join("staging").join(&op.id).exists());
+        // O diário guarda o hash da DLL, nunca os bytes.
+        let journal = serde_json::to_string(&op).unwrap();
+        assert!(journal.len() < payload.len() / 4, "{}", journal.len());
+        assert!(journal.contains(&sha256_hex(&payload)));
+
+        let restarted = fx.engine();
+        let rollback = restarted.prepare_rollback(&op.id).unwrap();
+        assert_eq!(rollback.status, PlanStatus::Ready, "{:?}", rollback.reasons);
+        let undone = restarted
+            .rollback(&op.id, &rollback.fingerprint, &noop)
+            .unwrap();
+        assert_eq!(undone.state, OpState::RolledBack, "{:?}", undone.message);
+        assert_eq!(std::fs::read(&target).ok().as_deref(), original);
+        assert_eq!(std::fs::read(&fx.config).unwrap(), LOCALCONFIG.as_bytes());
+    }
+}
+
+#[test]
+fn dll_is_refused_by_the_backend_without_consent_for_this_preview() {
+    let fx = fixture();
+    let target = binaries(&fx);
+    let payload = pe_dll(3);
+    let (candidate, transport) = dll_direct(&payload, None);
+    let (e, g, id) = setup(&fx, candidate, transport);
+    let plan = e.prepare(&id, &g).unwrap();
+    for consent in [None, Some("0".repeat(32))] {
+        let refused = e
+            .apply_with_consent(&plan.plan_id, &plan.fingerprint, consent.as_deref(), &g, &noop)
+            .unwrap_err();
+        assert!(refused.contains("confirmação explícita"), "{refused}");
+    }
+    assert!(e
+        .apply(&plan.plan_id, &plan.fingerprint, &g, &noop)
+        .is_err());
+    assert!(!target.exists());
+    assert!(e.operations(None).is_empty());
+    // A recusa não consome a prévia: marcar a caixa e confirmar funciona.
+    let op = e
+        .apply_with_consent(&plan.plan_id, &plan.fingerprint, Some(&plan.fingerprint), &g, &noop)
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+}
+
+#[test]
+fn dll_with_a_wrong_download_or_unknown_original_is_not_installed() {
+    let fx = fixture();
+    let target = binaries(&fx);
+    let payload = pe_dll(4);
+    let (candidate, mut transport) = dll_direct(&payload, None);
+    let url = candidate.asset_url.clone();
+    let mut tampered = payload.clone();
+    tampered[0x200] ^= 1;
+    transport.responses.insert(url, tampered);
+    let (e, g, id) = setup(&fx, candidate, transport);
+    let plan = e.prepare(&id, &g).unwrap();
+    let op = e
+        .apply_with_consent(&plan.plan_id, &plan.fingerprint, Some(&plan.fingerprint), &g, &noop)
+        .unwrap();
+    assert_eq!(op.state, OpState::Failed);
+    assert!(op.message.as_deref().unwrap_or("").contains("SHA-256"), "{:?}", op.message);
+    assert!(!target.exists());
+
+    // Uma DLL diferente já instalada, sem hash do original na receita, bloqueia o plano.
+    std::fs::write(&target, pe_dll(5)).unwrap();
+    let plan = e.prepare(&id, &g).unwrap();
+    assert!(!plan.executable());
+    assert!(plan.reasons.iter().any(|r| r.contains("original")), "{:?}", plan.reasons);
+    assert_eq!(std::fs::read(&target).unwrap(), pe_dll(5));
+}
+
+#[test]
+fn dll_destination_in_compatdata_or_pfx_is_refused() {
+    let payload = pe_dll(6);
+    for destination in [
+        "compatdata/200260/pfx/drive_c/windows/system32/d3d11.dll",
+        "pfx/drive_c/windows/system32/d3d11.dll",
+        "Binaries/PFX/d3d11.dll",
+    ] {
+        let (mut candidate, _) = dll_direct(&payload, None);
+        candidate.dlls[0].destination_relative_path = destination.into();
+        let refused = artifacts::validate(&candidate, APP).unwrap_err();
+        assert!(refused.contains("O FRX não altera prefixos do Proton"), "{destination}: {refused}");
+        assert!(artifacts::validate_dll(destination, &payload).is_err());
+    }
+    let (mut climbing, _) = dll_direct(&payload, None);
+    climbing.dlls[0].destination_relative_path = "../../compatdata/200260/pfx/x.dll".into();
+    assert!(artifacts::validate(&climbing, APP).is_err());
+
+    // Uma raiz de jogo dentro do prefixo também é recusada, com a mesma mensagem.
+    let fx = fixture();
+    let prefix = fx
+        .library
+        .join("../../compatdata/200260/pfx/drive_c/Game");
+    std::fs::create_dir_all(&prefix).unwrap();
+    let refused = confined::Target::open_binary(&prefix, "x.dll", None)
+        .err()
+        .unwrap();
+    assert!(refused.contains("O FRX não altera prefixos do Proton"), "{refused}");
+
+    // Pelo motor: a receita nem é gerada, e nada é escrito.
+    let (mut candidate, transport) = dll_direct(&payload, None);
+    candidate.dlls[0].destination_relative_path = "pfx/drive_c/d3d11.dll".into();
+    let mut engine = fx.engine();
+    engine.artifact_transport = Arc::new(transport);
+    let views = engine.analyze(&game(&fx, candidate)).unwrap();
+    assert!(views[0].assessment.recipe_id.is_none());
+    assert!(engine.operations(None).is_empty());
+    assert!(!fx.library.join("pfx").exists());
 }
 
 #[test]
 fn dll_artifact_requires_the_hash_and_refuses_unknown_fields() {
-    use super::super::artifacts::DllArtifact;
     let full = serde_json::json!({
-        "sourcePath": null, "targetPath": "Binaries/PhysXDevice.dll",
+        "sourcePath": null, "destinationRelativePath": "Binaries/PhysXDevice.dll",
         "expectedSha256": "a".repeat(64), "expectedOriginalSha256": null
     });
-    assert!(serde_json::from_value::<DllArtifact>(full.clone()).is_ok());
-    for field in ["expectedSha256", "targetPath"] {
+    let parsed: DllArtifact = serde_json::from_value(full.clone()).unwrap();
+    assert!(parsed.requires_explicit_user_consent, "o default é exigir consentimento");
+    for field in ["expectedSha256", "destinationRelativePath"] {
         let mut missing = full.clone();
         missing.as_object_mut().unwrap().remove(field);
         assert!(serde_json::from_value::<DllArtifact>(missing).is_err(), "{field}");
@@ -704,4 +866,149 @@ fn dll_artifact_requires_the_hash_and_refuses_unknown_fields() {
         with_extra[extra] = serde_json::json!(true);
         assert!(serde_json::from_value::<DllArtifact>(with_extra).is_err(), "{extra}");
     }
+    let payload = pe_dll(7);
+    let (mut candidate, _) = dll_direct(&payload, None);
+    assert!(artifacts::validate(&candidate, APP).is_ok());
+    candidate.dlls[0].requires_explicit_user_consent = false;
+    assert!(artifacts::validate(&candidate, APP)
+        .unwrap_err()
+        .contains("confirmação explícita"));
+    // Hash certo não basta: o conteúdo precisa ser um PE.
+    assert!(artifacts::validate_dll(DLL_TARGET, b"MZ not a portable executable").is_err());
+}
+
+// ── TAR ──────────────────────────────────────────────────────────────────
+
+fn tar_header(name: &str, kind: u8, size: usize) -> [u8; 512] {
+    let mut h = [0u8; 512];
+    h[..name.len()].copy_from_slice(name.as_bytes());
+    h[100..107].copy_from_slice(b"0000644");
+    h[108..115].copy_from_slice(b"0000000");
+    h[116..123].copy_from_slice(b"0000000");
+    h[124..135].copy_from_slice(format!("{size:011o}").as_bytes());
+    h[136..147].copy_from_slice(b"00000000000");
+    h[156] = kind;
+    h[257..263].copy_from_slice(b"ustar\0");
+    h[263..265].copy_from_slice(b"00");
+    h[148..156].fill(b' ');
+    let sum: u32 = h.iter().map(|&b| b as u32).sum();
+    h[148..155].copy_from_slice(format!("{sum:06o}\0").as_bytes());
+    h
+}
+
+fn tar(entries: &[(&str, u8, &[u8])]) -> Vec<u8> {
+    let mut out = Vec::new();
+    for (name, kind, data) in entries {
+        out.extend_from_slice(&tar_header(name, *kind, data.len()));
+        out.extend_from_slice(data);
+        out.resize(out.len().div_ceil(512) * 512, 0);
+    }
+    out.extend_from_slice(&[0; 1024]);
+    out
+}
+
+fn pax(key: &str, value: &str) -> Vec<u8> {
+    let body = format!(" {key}={value}\n");
+    let mut n = body.len() + 1;
+    loop {
+        let record = format!("{n}{body}");
+        if record.len() == n {
+            return record.into_bytes();
+        }
+        n = record.len();
+    }
+}
+
+fn tar_candidate(bytes: &[u8], payload: &[u8]) -> (ArtifactCandidate, ControlledTransport) {
+    published(
+        bytes,
+        "controlled-fixture.tar",
+        vec![ArtifactFile {
+            source_path: Some("docs/frx.ini".into()),
+            target_path: "Config/frx.ini".into(),
+            sha256: Some(sha256_hex(b"value=1\n")),
+            replace: false,
+            expected_original_sha256: None,
+        }],
+        vec![dll_spec(Some("x64/frx_fixture.dll"), payload, None)],
+        ArtifactFormat::Tar,
+    )
+}
+
+#[test]
+fn tar_extracts_only_the_selected_members_into_the_game_folder() {
+    let fx = fixture();
+    let target = binaries(&fx);
+    let payload = pe_dll(8);
+    let other = pe_dll(9);
+    let bytes = tar(&[
+        ("./", b'5', b""),
+        ("x64/", b'5', b""),
+        ("./x64/frx_fixture.dll", b'0', &payload),
+        ("x64/other.dll", b'0', &other),
+        ("docs/frx.ini", b'0', b"value=1\n"),
+        ("README.txt", b'0', b"not selected"),
+    ]);
+    let (candidate, transport) = tar_candidate(&bytes, &payload);
+    assert_eq!(candidate.trust, ArtifactTrust::OriginAndIntegrity, "{:?}", candidate.reasons);
+    let cancel = AtomicBool::new(false);
+    let selected = artifacts::contents(&candidate, &bytes, &cancel).unwrap();
+    assert_eq!(selected.len(), 2);
+    assert_eq!(selected[DLL_TARGET], artifacts::Payload::Binary(payload.clone()));
+    assert_eq!(selected["Config/frx.ini"], artifacts::Payload::Text("value=1\n".into()));
+
+    let (e, g, id) = setup(&fx, candidate, transport);
+    let plan = e.prepare(&id, &g).unwrap();
+    assert_eq!(plan.status, PlanStatus::Ready, "{:?}", plan.reasons);
+    let op = e
+        .apply_with_consent(&plan.plan_id, &plan.fingerprint, Some(&plan.fingerprint), &g, &noop)
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+    assert_eq!(std::fs::read(&target).unwrap(), payload);
+    assert_eq!(std::fs::read(fx.library.join("Config/frx.ini")).unwrap(), b"value=1\n");
+    assert!(!fx.library.join("Binaries/other.dll").exists());
+    assert!(!fx.library.join("README.txt").exists());
+    assert!(!fx.library.join("x64").exists());
+    let rb = e.prepare_rollback(&op.id).unwrap();
+    assert_eq!(e.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state, OpState::RolledBack);
+    assert!(!target.exists());
+    assert!(!fx.library.join("Config/frx.ini").exists());
+}
+
+#[test]
+fn tar_with_links_devices_traversal_duplicates_or_bad_pax_is_refused_whole() {
+    let payload = pe_dll(10);
+    let dll = ("x64/frx_fixture.dll", b'0', payload.as_slice());
+    let ini = ("docs/frx.ini", b'0', &b"value=1\n"[..]);
+    let pax_link = pax("linkpath", "/etc/passwd");
+    let pax_traversal = pax("path", "../../compatdata/200260/pfx/x.dll");
+    let mut bad_checksum = tar(&[dll, ini]);
+    bad_checksum[0] ^= 1;
+    let mut truncated = tar(&[dll, ini]);
+    truncated.truncate(truncated.len() - 1024);
+    let cases: Vec<(&str, Vec<u8>)> = vec![
+        ("symlink", tar(&[dll, ini, ("x64/link.dll", b'2', b"")])),
+        ("hard link", tar(&[dll, ini, ("x64/hard.dll", b'1', b"")])),
+        ("dispositivo", tar(&[dll, ini, ("dev", b'3', b"")])),
+        ("fifo", tar(&[dll, ini, ("fifo", b'6', b"")])),
+        ("traversal", tar(&[dll, ini, ("../escape.dll", b'0', b"x")])),
+        ("absoluto", tar(&[dll, ini, ("/tmp/escape.dll", b'0', b"x")])),
+        ("duplicado", tar(&[dll, ini, ("X64/FRX_FIXTURE.DLL", b'0', b"x")])),
+        ("pax global", tar(&[("pax", b'g', &pax("path", "x")), dll, ini])),
+        ("pax linkpath", tar(&[("pax", b'x', &pax_link), dll, ini])),
+        ("pax traversal", tar(&[("pax", b'x', &pax_traversal), ("ok.dll", b'0', b"x"), dll, ini])),
+        ("checksum", bad_checksum),
+        ("truncado", truncated),
+    ];
+    let cancel = AtomicBool::new(false);
+    for (case, bytes) in cases {
+        let (candidate, _) = tar_candidate(&bytes, &payload);
+        assert!(artifacts::contents(&candidate, &bytes, &cancel).is_err(), "{case}");
+    }
+    // Um membro selecionado ausente também recusa.
+    let missing = tar(&[ini]);
+    let (candidate, _) = tar_candidate(&missing, &payload);
+    assert!(artifacts::contents(&candidate, &missing, &cancel)
+        .unwrap_err()
+        .contains("todos os arquivos"));
 }

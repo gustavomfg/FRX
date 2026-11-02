@@ -10,8 +10,9 @@ import type { AppliedFix, EngineStatus, FixPlan, Operation, RollbackPlan } from 
 
 export const getFixEngineStatus = () => call<EngineStatus>('get_fix_engine_status')
 export const prepareFixPlan = (recipeId: string, appId: string, expectedFingerprint?: string) => call<FixPlan>('prepare_fix_plan', { recipeId, appId, ...(expectedFingerprint ? { expectedFingerprint } : {}) })
-export const applyFixPlan = (plan: Pick<FixPlan, 'planId' | 'fingerprint' | 'appId'>) =>
-  call<Operation>('apply_fix_plan', { planId: plan.planId, fingerprint: plan.fingerprint, appId: plan.appId })
+/** `binaryConsent` só vai quando o usuário marcou a caixa da DLL; o núcleo confere contra o fingerprint. */
+export const applyFixPlan = (plan: Pick<FixPlan, 'planId' | 'fingerprint' | 'appId'>, binaryConsent = false) =>
+  call<Operation>('apply_fix_plan', { planId: plan.planId, fingerprint: plan.fingerprint, appId: plan.appId, ...(binaryConsent ? { binaryConsent: plan.fingerprint } : {}) })
 export const getFixOperation = (operationId: string) => call<Operation>('get_fix_operation', { operationId })
 export const listFixOperations = (appId?: string | null) => call<Operation[]>('list_fix_operations', { appId: appId ?? null })
 export const getAppliedFixes = (appId?: string | null) => call<AppliedFix[]>('get_applied_fixes', { appId: appId ?? null })

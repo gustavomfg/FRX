@@ -456,6 +456,14 @@ pub fn compute(
         }
         if let RecipeAction::InstallArtifact { artifact } = a {
             manual_possible = false;
+            if !artifact.dlls.is_empty() && recipe.trust == Trust::Pack {
+                b.block(
+                    PlanStatus::NotExecutable,
+                    "DLL de terceiros",
+                    "Uma DLL exige confirmação própria e não entra em Smart Pack.",
+                );
+                continue;
+            }
             match artifact_steps(game, artifact) {
                 Ok(list) => {
                     for (step, change) in list {
@@ -516,10 +524,15 @@ pub fn compute(
                 rel,
                 before_sha,
                 ..
-            } => a
-                .files
-                .iter()
-                .any(|f| f.target_path == *rel && f.sha256 == *before_sha),
+            } => {
+                a.files
+                    .iter()
+                    .any(|f| f.target_path == *rel && f.sha256 == *before_sha)
+                    || a.dlls.iter().any(|d| {
+                        d.destination_relative_path == *rel
+                            && before_sha.as_deref() == Some(d.expected_sha256.as_str())
+                    })
+            }
             Step::GameFile {
                 artifact: None,
                 before_sha,
@@ -620,6 +633,9 @@ pub fn compute(
     })
     .unwrap_or_default();
     let plan = FixPlan {
+        requires_explicit_user_consent: steps
+            .iter()
+            .any(|s| matches!(s, Step::GameFile { dll: Some(_), .. })),
         artifacts: recipe.actions.iter().filter_map(|a|match a {RecipeAction::InstallArtifact{artifact}=>Some((**artifact).clone()),_=>None}).collect(),
         environment: Some(environment),
         hardware_match: Some(hardware_match),
@@ -886,6 +902,8 @@ fn game_file_step_impl(
             before_sha: existing.as_deref().map(sha256_hex),
             target,
             content: content.to_owned(),
+            dll: None,
+            binary: vec![],
         },
         change,
     ))
@@ -1007,6 +1025,8 @@ fn artifact_steps(
                     .join(&file.target_path),
                 before_sha: before,
                 content: String::new(),
+                dll: None,
+                binary: vec![],
             },
             PlannedChange {
                 kind: ChangeKind::GameFile,
@@ -1030,6 +1050,51 @@ fn artifact_steps(
                     },
                     file.target_path,
                     a.size_bytes
+                ),
+            },
+        ));
+    }
+    for dll in &a.dlls {
+        let rel = &dll.destination_relative_path;
+        let opened = super::confined::Target::open_binary(root, rel, None)?;
+        let before = opened.sha()?;
+        let already_matching = before.as_deref() == Some(dll.expected_sha256.as_str());
+        let existed = before.is_some();
+        if !already_matching && existed && dll.expected_original_sha256 != before {
+            return Err(format!("{rel} já existe e não corresponde à DLL original documentada; a substituição exige o SHA-256 do original."));
+        }
+        if !already_matching && before.is_none() && dll.expected_original_sha256.is_some() {
+            return Err("A DLL original exigida pela substituição não está instalada.".into());
+        }
+        output.push((
+            Step::GameFile {
+                artifact: Some(Box::new(a.clone())),
+                identity: Some(opened.identity),
+                root: root.clone(),
+                rel: rel.clone(),
+                target: root.canonicalize().map_err(|e| e.to_string())?.join(rel),
+                before_sha: before.clone(),
+                content: String::new(),
+                dll: Some(dll.clone()),
+                binary: vec![],
+            },
+            PlannedChange {
+                kind: ChangeKind::GameFile,
+                target: format!("{}/{rel}", game.name),
+                before: before.map(|sha| format!("DLL atual · SHA-256 {sha}")),
+                after: Some(format!(
+                    "DLL de terceiros: {} · SHA-256 {}",
+                    a.asset_name, dll.expected_sha256
+                )),
+                summary: format!(
+                    "{} {rel} · binário de terceiros, só com sua confirmação",
+                    if already_matching {
+                        "preserva a DLL correspondente com backup"
+                    } else if existed {
+                        "substitui a DLL com backup"
+                    } else {
+                        "instala a DLL"
+                    },
                 ),
             },
         ));

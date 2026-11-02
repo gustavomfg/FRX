@@ -125,6 +125,8 @@ pub struct Candidate {
     pub mapping: Mapping,
     pub compatibility_note: String,
     pub hardware_scope: crate::fixes::models::HardwareScope,
+    /// A descoberta traz uma DLL publicada: o cartão avisa antes da prévia.
+    pub third_party_binary: bool,
     pub unattributed_reports: bool,
 }
 
@@ -158,6 +160,7 @@ pub struct Suggestion {
     pub compatibility: CompatStatus,
     pub compatibility_detail: String,
     pub hardware_scope: crate::fixes::models::HardwareScope,
+    pub third_party_binary: bool,
     pub positive: u32,
     pub negative: u32,
     pub claims: Vec<Claim>,

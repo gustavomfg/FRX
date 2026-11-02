@@ -68,6 +68,16 @@ export interface ArtifactFile {
   expectedOriginalSha256?: string | null
 }
 
+/** DLL publicada para a pasta do jogo. O hash prova a origem, não que o binário é benigno. */
+export interface DllArtifact {
+  sourcePath?: string | null
+  destinationRelativePath: string
+  expectedSha256: string
+  expectedOriginalSha256?: string | null
+  /** Sempre `true`: o núcleo recusa a DLL sem a confirmação do usuário. */
+  requiresExplicitUserConsent: boolean
+}
+
 /** Published origin and checksums do not prove that executable code is benign. */
 export interface ArtifactCandidate {
   id: string
@@ -91,6 +101,7 @@ export interface ArtifactCandidate {
   platform: string | null
   architecture: string | null
   files: ArtifactFile[]
+  dlls?: DllArtifact[]
   requirements: FixRequirements
   trust: 'origin-and-integrity' | 'partial' | 'untrusted'
   reasons: string[]

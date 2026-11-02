@@ -6,6 +6,7 @@ import { Disclosure } from '@/components/ui/Disclosure'
 import { Pill } from '@/components/ui/Status'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { HardwareBadge } from '@/components/fix/HardwareContext'
+import { ThirdPartyBinaryWarning } from '@/components/fix/ArtifactDetails'
 import { diagnoseGame } from '@/services/diagnosis'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
@@ -78,6 +79,11 @@ function SuggestionCard({ s, gpu, apply, open }: { s: Suggestion; gpu: GpuReq | 
           </Button>
         )}
       </div>
+      {s.thirdPartyBinary && (
+        <div className="mt-3">
+          <ThirdPartyBinaryWarning detail="A prévia mostra origem, hash e destino. A instalação só acontece depois da sua confirmação explícita." />
+        </div>
+      )}
       <div className="mt-3 flex flex-wrap gap-2">
         <Pill color={state.color} soft={state.soft}>
           {state.label}

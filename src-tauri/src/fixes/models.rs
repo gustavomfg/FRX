@@ -247,7 +247,7 @@ pub enum ArtifactTrust {
 pub enum ArtifactFormat {
     File,
     Zip,
-    /// Só no design: `fix_engine::artifacts` recusa até a política de DLL e TAR ser aprovada.
+    /// TAR sem compressão: extração seletiva, como o ZIP (`fix_engine::artifacts`).
     Tar,
     Unknown,
 }
@@ -262,6 +262,30 @@ pub struct ArtifactFile {
     pub replace: bool,
     #[serde(default)]
     pub expected_original_sha256: Option<String>,
+}
+
+fn consent_required() -> bool {
+    true
+}
+
+/// DLL publicada que vai para a pasta do jogo (`docs/DLL-POLICY-DESIGN.md`).
+/// O hash não tem default, para um manifesto incompleto falhar. Ele prova só
+/// que o arquivo é o da release, não que é benigno.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DllArtifact {
+    /// Membro exato no ZIP ou TAR; `None` quando o download é a própria DLL.
+    #[serde(default)]
+    pub source_path: Option<String>,
+    /// Relativo à raiz do jogo, em `steamapps/common/<jogo>`.
+    pub destination_relative_path: String,
+    pub expected_sha256: String,
+    /// Hash da DLL substituída; `None` só quando o destino não existe.
+    #[serde(default)]
+    pub expected_original_sha256: Option<String>,
+    /// Sempre `true`: o núcleo recusa um manifesto que diga o contrário.
+    #[serde(default = "consent_required")]
+    pub requires_explicit_user_consent: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -289,6 +313,9 @@ pub struct ArtifactCandidate {
     pub platform: Option<String>,
     pub architecture: Option<String>,
     pub files: Vec<ArtifactFile>,
+    /// Binários. Ficam fora de `files`, que só aceita configuração em texto.
+    #[serde(default)]
+    pub dlls: Vec<DllArtifact>,
     pub requirements: Requirements,
     pub trust: ArtifactTrust,
     pub reasons: Vec<String>,

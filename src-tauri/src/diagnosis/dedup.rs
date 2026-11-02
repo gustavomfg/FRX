@@ -256,6 +256,7 @@ pub fn group(candidates: Vec<Candidate>, input: &DiagnosisInput) -> Grouped {
         let (compatibility, compatibility_detail) = compat_of(best, ctx);
         let suggestion = Suggestion {
             hardware_scope,
+            third_party_binary: list.iter().any(|c| c.third_party_binary),
             key: best.key.clone(),
             title: best.title.clone(),
             optional_improvement: improvement,

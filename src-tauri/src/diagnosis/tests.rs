@@ -919,3 +919,42 @@ mod with_the_real_engine {
         assert_eq!(r.in_review[0].recipe_id, None);
     }
 }
+
+mod third_party_binary {
+    use super::*;
+
+    fn dll_artifact() -> ArtifactCandidate {
+        serde_json::from_value(serde_json::json!({
+            "id": "synthetic-dll", "appId": APP,
+            "scope": DiscoveryScope::verified(APP, "Synthetic fixture"),
+            "recommendationSource": {"provider": "github", "label": "Synthetic", "url": "https://github.com/ValveSoftware/Proton/issues/1", "referenceId": null, "snippet": null, "publishedAt": null},
+            "repository": "ValveSoftware/Proton", "releaseTag": "v1",
+            "releaseUrl": "https://github.com/ValveSoftware/Proton/releases/tag/v1",
+            "metadataUrl": "https://api.github.com/repos/ValveSoftware/Proton/releases/1",
+            "releaseId": 1, "publisher": "synthetic", "assetId": 2, "assetName": "fix.dll",
+            "assetUrl": "https://github.com/ValveSoftware/Proton/releases/download/v1/fix.dll",
+            "sizeBytes": 1, "contentType": null, "sha256": "a".repeat(64), "signatureUrl": null,
+            "format": "file", "platform": "any", "architecture": "any", "files": [],
+            "dlls": [{"destinationRelativePath": "Binaries/fix.dll", "expectedSha256": "a".repeat(64)}],
+            "requirements": {"gpuVendor": null, "protonVersions": [], "gameVersion": null},
+            "trust": "origin-and-integrity", "reasons": [], "license": null, "publishedAt": null
+        }))
+        .unwrap()
+    }
+
+    #[test]
+    fn a_suggestion_that_carries_a_dll_is_flagged_for_the_card() {
+        let (mut f, v) = env_finding("a", "PROTON_HEAP_DELAY_FREE=1", FIXED);
+        f.artifacts = vec![dll_artifact()];
+        let r = diagnose(input(vec![
+            (f, v),
+            env_finding("b", "PROTON_HEAP_DELAY_FREE=1", ALSO),
+        ]));
+        assert!(r.suggestions[0].third_party_binary);
+        let plain = diagnose(input(vec![
+            env_finding("a", "PROTON_HEAP_DELAY_FREE=1", FIXED),
+            env_finding("b", "PROTON_HEAP_DELAY_FREE=1", ALSO),
+        ]));
+        assert!(!plain.suggestions[0].third_party_binary);
+    }
+}

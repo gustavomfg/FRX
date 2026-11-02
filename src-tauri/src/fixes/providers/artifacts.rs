@@ -119,6 +119,22 @@ fn text_file(path: &str) -> bool {
     ["ini", "cfg", "conf", "json", "xml", "txt"].contains(&ext.as_str())
 }
 
+fn dll_file(path: &str) -> bool {
+    path.rsplit('.')
+        .next()
+        .is_some_and(|e| e.eq_ignore_ascii_case("dll"))
+}
+
+fn dll(source_path: Option<String>, target: String) -> DllArtifact {
+    DllArtifact {
+        source_path,
+        destination_relative_path: target,
+        expected_sha256: String::new(),
+        expected_original_sha256: None,
+        requires_explicit_user_consent: true,
+    }
+}
+
 fn relative(path: &str) -> bool {
     !path.is_empty()
         && path.len() <= 200
@@ -177,6 +193,8 @@ struct Manifest {
     #[serde(default)]
     architecture: Option<String>,
     files: Vec<ArtifactFile>,
+    #[serde(default)]
+    dlls: Vec<DllArtifact>,
     #[serde(default)]
     license: Option<String>,
 }
@@ -360,7 +378,7 @@ fn instructions(body: &str, app: &str, asset: &str, format: ArtifactFormat) -> O
         return (m.schema == 1
             && m.app_id == app
             && m.asset == asset
-            && (1..=8).contains(&m.files.len()))
+            && (1..=8).contains(&(m.files.len() + m.dlls.len())))
         .then_some(m);
     }
     if !explicit_app_id(body, app) {
@@ -416,6 +434,10 @@ fn instructions(body: &str, app: &str, asset: &str, format: ArtifactFormat) -> O
             if clean_value(name) != asset || format != ArtifactFormat::File {
                 return None;
             }
+            if dll_file(&clean_value(target)) {
+                m.dlls.push(dll(None, clean_value(target)));
+                continue;
+            }
             m.files.push(ArtifactFile {
                 source_path: None,
                 target_path: clean_value(target),
@@ -429,6 +451,11 @@ fn instructions(body: &str, app: &str, asset: &str, format: ArtifactFormat) -> O
             if clean_value(name) != asset || format != ArtifactFormat::File {
                 return None;
             }
+            if dll_file(&clean_value(target)) {
+                // Sem hash do original nesta sintaxe: um destino existente é recusado no plano.
+                m.dlls.push(dll(None, clean_value(target)));
+                continue;
+            }
             m.files.push(ArtifactFile {
                 source_path: None,
                 target_path: clean_value(target),
@@ -440,8 +467,15 @@ fn instructions(body: &str, app: &str, asset: &str, format: ArtifactFormat) -> O
         if let Some(v) = line.strip_prefix("Extract:") {
             let (from, target) = v.split_once("->")?;
             let (archive, member) = from.split_once("::")?;
-            if clean_value(archive) != asset || format != ArtifactFormat::Zip {
+            if clean_value(archive) != asset
+                || !matches!(format, ArtifactFormat::Zip | ArtifactFormat::Tar)
+            {
                 return None;
+            }
+            if dll_file(&clean_value(target)) {
+                m.dlls
+                    .push(dll(Some(clean_value(member)), clean_value(target)));
+                continue;
             }
             m.files.push(ArtifactFile {
                 source_path: Some(clean_value(member)),
@@ -452,16 +486,25 @@ fn instructions(body: &str, app: &str, asset: &str, format: ArtifactFormat) -> O
             });
         }
     }
+    let published = |name: &str| {
+        let prefix = format!("SHA256 ({name})=");
+        body.lines()
+            .map(str::trim)
+            .filter_map(|line| line.strip_prefix(&prefix))
+            .next_back()
+            .and_then(|v| digest(Some(v.trim())))
+    };
     for f in &mut m.files {
-        let name = f.source_path.as_deref().unwrap_or(asset);
-        for line in body.lines().map(str::trim) {
-            let prefix = format!("SHA256 ({name})=");
-            if let Some(v) = line.strip_prefix(&prefix) {
-                f.sha256 = digest(Some(v.trim()));
-            }
+        f.sha256 = published(f.source_path.as_deref().unwrap_or(asset)).or(f.sha256.take());
+    }
+    for d in &mut m.dlls {
+        if let Some(sha) = published(d.source_path.as_deref().unwrap_or(asset)) {
+            d.expected_sha256 = sha;
         }
     }
-    (1..=8).contains(&m.files.len()).then_some(m)
+    (1..=8)
+        .contains(&(m.files.len() + m.dlls.len()))
+        .then_some(m)
 }
 
 pub fn candidates_from_release(
@@ -493,7 +536,10 @@ pub fn candidates_from_release(
     for a in r.assets.into_iter().take(MAX_ASSETS) {
         let format = if a.name.ends_with(".zip") {
             ArtifactFormat::Zip
-        } else if text_file(&a.name) {
+        } else if a.name.ends_with(".tar") {
+            // Só TAR sem compressão: `.tar.xz` exige dependências ainda não revisadas.
+            ArtifactFormat::Tar
+        } else if text_file(&a.name) || dll_file(&a.name) {
             ArtifactFormat::File
         } else {
             ArtifactFormat::Unknown
@@ -508,12 +554,23 @@ pub fn candidates_from_release(
             document.scope.clone()
         };
         let mut files = m.as_ref().map(|m| m.files.clone()).unwrap_or_default();
+        let mut dlls = m.as_ref().map(|m| m.dlls.clone()).unwrap_or_default();
         if format == ArtifactFormat::File {
             for f in &mut files {
                 if f.sha256.is_none() {
                     f.sha256 = sha256.clone();
                 }
             }
+            for d in &mut dlls {
+                if d.expected_sha256.is_empty() {
+                    d.expected_sha256 = sha256.clone().unwrap_or_default();
+                }
+            }
+        }
+        // Um asset `.dll` só vale como DLL: nunca como configuração em texto.
+        if format == ArtifactFormat::File && dll_file(&a.name) && !files.is_empty() {
+            files.clear();
+            dlls.clear();
         }
         let canonical_url = format!(
             "https://github.com/{repository}/releases/download/{}/{}",
@@ -550,10 +607,16 @@ pub fn candidates_from_release(
             reasons.push("Falta um mapeamento de instalação completo no formato suportado do publicador, ou há etapas não reconhecidas; nenhum destino ou procedimento foi adivinhado.".into());
         }
         if format == ArtifactFormat::Unknown || files.iter().any(|f| !text_file(&f.target_path)) {
-            reasons.push("Binários, DLLs, scripts e formatos não suportados exigem revisão adicional e não são instalados automaticamente.".into());
+            reasons.push("Scripts, executáveis e formatos não suportados exigem revisão adicional e não são instalados automaticamente.".into());
+        }
+        if !dlls.is_empty() {
+            reasons.push("Instalação de binário de terceiros: o FRX só instala com sua confirmação explícita, apenas na pasta do jogo, e não avalia o conteúdo da DLL.".into());
         }
         if files.iter().any(|f| {
             !relative(&f.target_path) || f.source_path.as_ref().is_some_and(|s| !relative(s))
+        }) || dlls.iter().any(|d| {
+            !relative(&d.destination_relative_path)
+                || d.source_path.as_ref().is_some_and(|s| !relative(s))
         }) {
             reasons.push(
                 "Há caminho absoluto, traversal ou nome de membro inválido nas instruções.".into(),
@@ -563,6 +626,7 @@ pub fn candidates_from_release(
         if files
             .iter()
             .any(|f| f.sha256.as_ref().is_none_or(|s| !valid_sha256(s)))
+            || dlls.iter().any(|d| !valid_sha256(&d.expected_sha256))
         {
             reasons.push("Falta SHA-256 publicado de cada arquivo selecionado.".into());
         }
@@ -576,12 +640,14 @@ pub fn candidates_from_release(
             reasons.push("O asset não está confirmado como upload concluído na API.".into());
         }
         let digest_conflict = format == ArtifactFormat::File
-            && files.iter().any(|f| {
+            && (files.iter().any(|f| {
                 f.sha256
                     .as_ref()
                     .zip(sha256.as_ref())
                     .is_some_and(|(a, b)| a != b)
-            });
+            }) || dlls
+                .iter()
+                .any(|d| sha256.as_ref().is_some_and(|s| *s != d.expected_sha256)));
         if digest_conflict {
             reasons.push("O checksum da instrução contradiz o digest publicado do asset; revisão adicional necessária.".into());
         }
@@ -589,12 +655,18 @@ pub fn candidates_from_release(
             && !digest_conflict
             && sha256.is_some()
             && m.is_some()
-            && !files.is_empty()
+            && !(files.is_empty() && dlls.is_empty())
             && format != ArtifactFormat::Unknown
             && files.iter().all(|f| {
                 text_file(&f.target_path)
                     && relative(&f.target_path)
                     && f.sha256.as_ref().is_some_and(|s| valid_sha256(s))
+            })
+            && dlls.iter().all(|d| {
+                dll_file(&d.destination_relative_path)
+                    && relative(&d.destination_relative_path)
+                    && valid_sha256(&d.expected_sha256)
+                    && d.requires_explicit_user_consent
             })
             && !r.draft
             && !r.prerelease
@@ -610,11 +682,16 @@ pub fn candidates_from_release(
             ArtifactTrust::Partial
         };
         let key = format!(
-            "{repository}@{}:{}:{}:{}",
+            "{repository}@{}:{}:{}:{}{}",
             r.tag_name,
             a.name,
             sha256.as_deref().unwrap_or("unknown"),
-            serde_json::to_string(&files).unwrap_or_default()
+            serde_json::to_string(&files).unwrap_or_default(),
+            if dlls.is_empty() {
+                String::new()
+            } else {
+                serde_json::to_string(&dlls).unwrap_or_default()
+            }
         );
         let signature_url = signatures
             .iter()
@@ -651,6 +728,7 @@ pub fn candidates_from_release(
             platform: m.as_ref().and_then(|m| m.platform.clone()),
             architecture: m.as_ref().and_then(|m| m.architecture.clone()),
             files,
+            dlls,
             requirements: hardware_requirements(body),
             trust,
             reasons,
@@ -666,7 +744,7 @@ fn finding(q: &GameQuery, c: ArtifactCandidate) -> FixFinding {
 hardware_scope: Default::default(),
         artifacts: vec![c.clone()], scope: c.scope.clone(), performance_evidence: Default::default(),
         id: c.id.clone(), game_app_id: c.app_id.clone(),
-        title: format!("Correção por arquivo · {}", c.asset_name),
+        title: if c.dlls.is_empty() { format!("Correção por arquivo · {}", c.asset_name) } else { format!("DLL de terceiros · {}", c.asset_name) },
         description: format!("Arquivo publicado por {} na release {}. {}", c.repository, c.release_tag, c.reasons.join(" ")),
         category: Category::Compatibility, kind: FindingKind::Tweak, actions: vec![],
         sources: vec![c.recommendation_source.clone(), FindingSource {
@@ -711,7 +789,7 @@ pub async fn discover<F: Fetcher>(
                         .is_some_and(|(id, _)| {
                             !id.is_empty() && id.bytes().all(|b| b.is_ascii_digit())
                         });
-                    if ([".zip", ".dll", ".ini", ".cfg", ".conf", ".tar.xz"]
+                    if ([".zip", ".dll", ".ini", ".cfg", ".conf", ".tar", ".tar.xz"]
                         .iter()
                         .any(|ext| name.ends_with(ext))
                         || url.path().contains("/user-attachments/files/"))
@@ -719,7 +797,7 @@ pub async fn discover<F: Fetcher>(
                         && url.username().is_empty()
                         && url.password().is_none()
                     {
-                        let c=ArtifactCandidate {id:finding_id("artifact-unverified",&q.app_id,&link),app_id:d.scope.app_id.clone().unwrap_or_default(),scope:d.scope.clone(),recommendation_source:d.source.clone(),repository:String::new(),release_tag:String::new(),release_url:link.clone(),metadata_url:String::new(),release_id:0,publisher:None,asset_id:0,asset_name:name.chars().take(120).collect(),asset_url:link,size_bytes:0,content_type:None,sha256:None,signature_url:None,format:ArtifactFormat::Unknown,platform:None,architecture:None,files:vec![],requirements:Requirements::default(),trust:ArtifactTrust::Untrusted,reasons:vec!["Download citado na fonte, sem release/publicador e integridade suficientemente verificáveis. Requer revisão; nenhum payload foi baixado e nenhum destino foi presumido.".into()],license:None,published_at:None};
+                        let c=ArtifactCandidate {id:finding_id("artifact-unverified",&q.app_id,&link),app_id:d.scope.app_id.clone().unwrap_or_default(),scope:d.scope.clone(),recommendation_source:d.source.clone(),repository:String::new(),release_tag:String::new(),release_url:link.clone(),metadata_url:String::new(),release_id:0,publisher:None,asset_id:0,asset_name:name.chars().take(120).collect(),asset_url:link,size_bytes:0,content_type:None,sha256:None,signature_url:None,format:ArtifactFormat::Unknown,platform:None,architecture:None,files:vec![],dlls:vec![],requirements:Requirements::default(),trust:ArtifactTrust::Untrusted,reasons:vec!["Download citado na fonte, sem release/publicador e integridade suficientemente verificáveis. Requer revisão; nenhum payload foi baixado e nenhum destino foi presumido.".into()],license:None,published_at:None};
                         if !findings.iter().any(|f: &FixFinding| f.id == c.id) {
                             findings.push(finding(q, c));
                         }
@@ -872,16 +950,72 @@ mod tests {
     }
 
     #[test]
-    fn dll_or_unknown_binary_and_missing_digest_require_review() {
-        let dll = parse(
+    fn a_documented_dll_is_carried_with_consent_and_never_as_text() {
+        let body = "Steam AppID: 200260\nInstall: Binaries/fix.dll <- fix.dll";
+        let dll = parse(&release(body, "fix.dll"), &document());
+        assert_eq!(
+            dll.trust,
+            ArtifactTrust::OriginAndIntegrity,
+            "{:?}",
+            dll.reasons
+        );
+        assert!(dll.files.is_empty());
+        let [d] = dll.dlls.as_slice() else {
+            panic!("{:?}", dll.dlls)
+        };
+        assert_eq!(d.destination_relative_path, "Binaries/fix.dll");
+        assert_eq!(Some(&d.expected_sha256), dll.sha256.as_ref());
+        assert!(d.requires_explicit_user_consent);
+        assert!(dll
+            .reasons
+            .iter()
+            .any(|r| r.contains("binário de terceiros")));
+        assert_eq!(
+            finding(&q(), dll.clone()).title,
+            "DLL de terceiros · fix.dll"
+        );
+
+        let mut no_digest = release(body, "fix.dll");
+        no_digest["assets"][0]["digest"] = serde_json::Value::Null;
+        assert_eq!(parse(&no_digest, &document()).trust, ArtifactTrust::Partial);
+        let exe = parse(
             &release(
-                "Steam AppID: 200260\nInstall: Binaries/fix.dll <- fix.dll",
-                "fix.dll",
+                "Steam AppID: 200260\nInstall: Binaries/fix.exe <- fix.exe",
+                "fix.exe",
             ),
             &document(),
         );
-        assert_ne!(dll.trust, ArtifactTrust::OriginAndIntegrity);
-        assert!(dll.reasons.iter().any(|r| r.contains("DLLs")));
+        assert_ne!(exe.trust, ArtifactTrust::OriginAndIntegrity);
+        assert!(exe.dlls.is_empty() && exe.files.is_empty());
+    }
+
+    #[test]
+    fn a_tar_member_is_selected_by_exact_name_and_its_own_hash() {
+        let body = format!(
+            "Steam AppID: 200260\nExtract: fix.tar::x64/fix.dll -> Binaries/fix.dll\nSHA256 (x64/fix.dll)={}",
+            "b".repeat(64)
+        );
+        let c = parse(&release(&body, "fix.tar"), &document());
+        assert_eq!(c.format, ArtifactFormat::Tar);
+        assert_eq!(
+            c.trust,
+            ArtifactTrust::OriginAndIntegrity,
+            "{:?}",
+            c.reasons
+        );
+        assert_eq!(c.dlls[0].source_path.as_deref(), Some("x64/fix.dll"));
+        assert_eq!(c.dlls[0].expected_sha256, "b".repeat(64));
+        // Compressão exige dependências não revisadas: continua em revisão.
+        let xz = parse(
+            &release(&body.replace("fix.tar", "fix.tar.xz"), "fix.tar.xz"),
+            &document(),
+        );
+        assert_eq!(xz.format, ArtifactFormat::Unknown);
+        assert_ne!(xz.trust, ArtifactTrust::OriginAndIntegrity);
+    }
+
+    #[test]
+    fn missing_digest_requires_review() {
         let mut nohash = release(instructions(), "fix.ini");
         nohash["assets"][0]["digest"] = serde_json::Value::Null;
         assert_eq!(parse(&nohash, &document()).trust, ArtifactTrust::Partial);

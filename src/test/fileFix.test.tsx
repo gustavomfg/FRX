@@ -114,6 +114,41 @@ describe('File Fix Engine — interface com fixtures isoladas', () => {
     reloaded.unmount()
   })
 
+  it('DLL de terceiros: aviso vermelho, caixa própria e consentimento ligado ao fingerprint', async () => {
+    const dllArtifact: ArtifactCandidate = { ...artifact, assetName: 'fixture.dll', format: 'file', files: [], dlls: [{ sourcePath: null, destinationRelativePath: 'Binaries/fixture.dll', expectedSha256: 'd'.repeat(64), expectedOriginalSha256: null, requiresExplicitUserConsent: true }] }
+    const dllPlan: FixPlan = { ...plan, requiresExplicitUserConsent: true, artifacts: [dllArtifact] }
+    mockIPC(async (cmd, args) => {
+      calls.push({ cmd, args: (args ?? {}) as Record<string, unknown> })
+      switch (cmd) {
+        case 'get_installed_games': case 'scan_installed_games': return scan
+        case 'get_cached_fix_reports': case 'get_applied_fixes': case 'list_fix_operations': return []
+        case 'get_fix_engine_status': return { catalogVersion: 'fixture', recipes: 0, reviewed: 0, issues: [], recoveryRequired: 0, pendingManual: 0, busy: false, dataDir: '/synthetic' }
+        case 'prepare_fix_plan': return dllPlan
+        case 'apply_fix_plan': return operation('applied')
+        default: return null
+      }
+    }, { shouldMockEvents: true })
+    const m = mount(<ApplyFixDialog target={{ kind: 'apply', appId: plan.appId, recipeId: plan.recipeId, title: plan.recipeTitle }} onClose={() => {}} />)
+    await flush()
+    const alert = document.body.querySelector('[role="alert"]')
+    expect(alert?.textContent).toContain('Instalação de binário de terceiros. O FRX não se responsabiliza pelo conteúdo')
+    expect(text()).toContain('Binaries/fixture.dll')
+    expect(text()).toContain('d'.repeat(64))
+    await click(button('Continuar'))
+    expect(document.body.querySelector('[role="alert"]')?.textContent).toContain('binário de terceiros')
+    const boxes = [...document.body.querySelectorAll<HTMLInputElement>('input[type=checkbox]')]
+    expect(boxes.length).toBe(3)
+    const install = () => button('Baixar e instalar correção')
+    await click(boxes[0]); await click(boxes[1])
+    expect(install()?.disabled).toBe(true)
+    expect(calls.some((c) => c.cmd === 'apply_fix_plan')).toBe(false)
+    await click(boxes[2])
+    expect(install()?.disabled).toBe(false)
+    await click(install())
+    expect(calls.find((c) => c.cmd === 'apply_fix_plan')?.args).toEqual({ planId: plan.planId, fingerprint: plan.fingerprint, appId: plan.appId, binaryConsent: plan.fingerprint })
+    m.unmount()
+  })
+
   it('usa o ID da operação para cancelar o staging e não anuncia instalação concluída', async () => {
     paused = true
     const m = mount(<ApplyFixDialog target={{ kind: 'apply', appId: plan.appId, recipeId: plan.recipeId, title: plan.recipeTitle }} onClose={() => {}} />)

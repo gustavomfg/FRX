@@ -89,6 +89,7 @@ pub fn candidate(view: &AssessmentView, f: &FixFinding, app_id: &str) -> Candida
         mapping: mapping(view, f, app_id),
         compatibility_note: f.compatibility_note.clone(),
         hardware_scope: crate::fixes::compat::finding_scope(f),
+        third_party_binary: f.artifacts.iter().any(|a| !a.dlls.is_empty()),
         key,
         title,
         claims,
@@ -155,6 +156,9 @@ pub fn from_catalog(option: &super::models::CatalogOption) -> Candidate {
             },
             Into::into,
         ),
+        third_party_binary: recipe.actions.iter().any(|a| {
+            matches!(a, crate::fix_engine::models::RecipeAction::InstallArtifact { artifact } if !artifact.dlls.is_empty())
+        }),
         key,
         claims,
         mapping,

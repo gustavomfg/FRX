@@ -102,6 +102,8 @@ export interface PlannedChange {
 }
 
 export interface FixPlan {
+  /** Há DLL de terceiros: `apply_fix_plan` só aceita com `binaryConsent` igual ao `fingerprint`. */
+  requiresExplicitUserConsent?: boolean
   artifacts?: ArtifactCandidate[]
   environment?: EnvironmentContext | null
   hardwareMatch?: HardwareMatch | null
@@ -158,7 +160,7 @@ export interface EnvWrite {
 
 export type Step =
   | { type: 'launch-options'; config: string; appId: string; fileSha: string; before: string | null; after: string; env: EnvWrite[]; args: string[] }
-  | { type: 'game-file'; root: string; rel: string; target: string; beforeSha: string | null; content: string; artifact?: ArtifactCandidate | null; identity?: { rootDev: number; rootIno: number; parentDev: number; parentIno: number } | null }
+  | { type: 'game-file'; root: string; rel: string; target: string; beforeSha: string | null; content: string; artifact?: ArtifactCandidate | null; dll?: import('./fixes').DllArtifact | null; identity?: { rootDev: number; rootIno: number; parentDev: number; parentIno: number } | null }
 
 export interface BackupRef {
   path: string
