@@ -177,6 +177,7 @@ export interface StepRecord {
 }
 
 export interface Operation {
+  requiresExplicitUserConsent?: boolean
   manualRecoveryRequired?: boolean
   artifacts?: ArtifactCandidate[]
   artifactProgress?: { downloadedBytes: number; totalBytes?: number | null; assetName: string } | null

@@ -199,6 +199,8 @@ export interface PackAction {
   risk: Risk
   evidence: EvidenceLevel
   evidenceNote: string
+  /** Fabricante exigido pela receita ou pelas variáveis. `null` não prova que vale em qualquer GPU. */
+  gpuVendor: GpuReq | null
   positive: number
   negative: number
   sources: { label: string; url: string }[]

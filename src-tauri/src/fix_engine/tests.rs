@@ -701,6 +701,121 @@ mod generated {
         }
     }
 
+    fn gpu(vendor: &str, name: &str) -> crate::system::GpuInfo {
+        serde_json::from_value(serde_json::json!({
+            "vendor": vendor, "vendorId": "0", "deviceId": "0", "name": name,
+            "driver": null, "driverVersion": null, "bootVga": true
+        }))
+        .unwrap()
+    }
+
+    /// GitHub simulado → `fixes::search` → `FixFinding` → `FixEngine::analyze` → plano.
+    async fn variable_bridge(vendor: &str, name: &str) -> Vec<crate::fixes::models::FixFinding> {
+        use crate::fixes::compat::HardwareContext;
+        let query = "200260 in:title repo:ValveSoftware/Proton repo:Open-Wine-Components/umu-protonfixes repo:GloriousEggroll/proton-ge-custom repo:CachyOS/proton-cachyos";
+        let search = reqwest::Url::parse_with_params(
+            "https://api.github.com/search/issues",
+            &[
+                ("q", query),
+                ("per_page", "10"),
+                ("sort", "comments"),
+                ("order", "desc"),
+            ],
+        )
+        .unwrap()
+        .to_string();
+        let f = crate::net::mock::MockFetcher::default();
+        f.on(&search, 200, r#"{"items":[{"number":309,"title":"Batman: Arkham City GOTY (200260)","html_url":"https://github.com/ValveSoftware/Proton/issues/309","state":"open","comments":3,"body":"Steam AppID of the game: 200260","repository_url":"https://api.github.com/repos/ValveSoftware/Proton"}]}"#);
+        f.on(
+            "https://api.github.com/repos/ValveSoftware/Proton/issues/309/comments?per_page=100&page=1",
+            200,
+            r#"[
+              {"html_url":"https://github.com/ValveSoftware/Proton/issues/309#issuecomment-1","body":"PROTON_NO_ESYNC=1 fixed it for me","author_association":"NONE"},
+              {"html_url":"https://github.com/ValveSoftware/Proton/issues/309#issuecomment-2","body":"PROTON_ENABLE_NVAPI=1 fixed it for me","author_association":"NONE"},
+              {"html_url":"https://github.com/ValveSoftware/Proton/issues/309#issuecomment-3","body":"PROTON_ENABLE_NVAPI=1 %command% fixed it for me too","author_association":"NONE"}
+            ]"#,
+        );
+        let tmp = tempfile::tempdir().unwrap();
+        let primary = gpu(vendor, name);
+        crate::fixes::search(
+            &f,
+            &crate::cache::Cache::new(tmp.path()),
+            &crate::fixes::EngineState::default(),
+            crate::fixes::SearchRequest {
+                app_id: "200260".into(),
+                name: "Batman: Arkham City GOTY".into(),
+                force: false,
+                ttl_secs: 3600,
+            },
+            None,
+            HardwareContext {
+                gpus: vec![primary.clone()],
+                primary: Some(primary),
+            },
+        )
+        .await
+        .unwrap()
+        .findings
+    }
+
+    fn with_action<'a>(
+        findings: &'a [crate::fixes::models::FixFinding],
+        value: &str,
+    ) -> (usize, &'a crate::fixes::models::FixFinding) {
+        findings
+            .iter()
+            .enumerate()
+            .find(|(_, x)| x.actions.iter().any(|a| a.value.starts_with(value)))
+            .unwrap_or_else(|| panic!("{value} não encontrado em {findings:#?}"))
+    }
+
+    #[tokio::test]
+    async fn variable_bridge_on_nvidia_ranks_first_and_reaches_a_ready_plan() {
+        use crate::fixes::models::{Compatibility, GpuReq};
+        let findings = variable_bridge("nvidia", "NVIDIA GeForce RTX 4060").await;
+        let (nvapi_at, nvapi) = with_action(&findings, "PROTON_ENABLE_NVAPI=1");
+        let (esync_at, esync) = with_action(&findings, "PROTON_NO_ESYNC=1");
+        assert_eq!(nvapi.requirements.gpu_vendor, Some(GpuReq::Nvidia));
+        assert_eq!(nvapi.compatibility, Compatibility::Compatible);
+        assert_eq!(esync.requirements.gpu_vendor, None);
+        assert_eq!(esync.compatibility, Compatibility::Unknown);
+        assert!(nvapi_at < esync_at, "o que vale para esta GPU vem antes");
+
+        let fx = fixture();
+        let e = fx.engine();
+        let game = GameCtx {
+            gpu: Some(GpuReq::Nvidia),
+            findings: vec![nvapi.clone()],
+            ..fx.game()
+        };
+        let view = e.analyze(&game).unwrap().remove(0);
+        assert_eq!(view.assessment.status, DynStatus::Generated);
+        let plan = e
+            .prepare(view.assessment.recipe_id.as_ref().unwrap(), &game)
+            .unwrap();
+        assert_eq!(plan.status, PlanStatus::Ready, "{:?}", plan.reasons);
+    }
+
+    #[tokio::test]
+    async fn variable_bridge_on_amd_marks_nvidia_variable_incompatible_and_last() {
+        use crate::fixes::models::{Compatibility, GpuReq};
+        let findings = variable_bridge("amd", "AMD Radeon RX 7800 XT").await;
+        let (nvapi_at, nvapi) = with_action(&findings, "PROTON_ENABLE_NVAPI=1");
+        let (esync_at, _) = with_action(&findings, "PROTON_NO_ESYNC=1");
+        assert_eq!(nvapi.compatibility, Compatibility::Incompatible);
+        assert!(esync_at < nvapi_at);
+
+        let fx = fixture();
+        let e = fx.engine();
+        let game = GameCtx {
+            gpu: Some(GpuReq::Amd),
+            findings: vec![nvapi.clone()],
+            ..fx.game()
+        };
+        let view = e.analyze(&game).unwrap().remove(0);
+        assert_eq!(view.assessment.status, DynStatus::Incompatible);
+    }
+
     /// Descoberta → gerador → validação → plano → backup → aplicação →
     /// verificação → histórico → Performance Lab → rollback.
     #[test]

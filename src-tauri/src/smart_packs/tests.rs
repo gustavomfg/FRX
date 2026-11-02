@@ -715,6 +715,7 @@ mod file_packs {
             &[],
         );
         let op = Operation {
+            requires_explicit_user_consent: false,
             manual_recovery_required: false,
             schema: 1,
             id: "synthetic-op".into(),

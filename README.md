@@ -280,10 +280,10 @@ src-tauri/src/
                            processes (Steam/game running, read-only)
 src-tauri/recipes/         local recipe catalog (JSON + SHA-256 manifest)
   fixes/                   models, http (cache + rate limit), pyscan, tweaks, aggregation, compat
-    providers/             umu (protonfixes + database), github, artifacts, protondb (disabled)
+    providers/             umu (protonfixes + database), github, artifacts; disabled: protondb, reddit, winehq, steam_guides
   system/                  profile and GPUs via /proc and /sys, context (requirements and environment)
   cache/  art.rs  net.rs   file cache, cover art, restricted HTTP client
-  ai/                      ranker, embedder, models, sumarização futura
+  ai/                      experimental, fora do caminho crítico: ranker, query, models
 packaging/               source icon (SVG/PNG) and Arch package (PKGBUILD + .desktop)
 docs/assets/             interface screenshot and Pim animation for this README
 src/

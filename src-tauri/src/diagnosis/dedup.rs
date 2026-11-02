@@ -248,6 +248,7 @@ pub fn group(candidates: Vec<Candidate>, input: &DiagnosisInput) -> Grouped {
         };
         let (compatibility, compatibility_detail) = compat_of(best, ctx);
         let suggestion = Suggestion {
+            gpu_vendor: list.iter().find_map(|c| c.gpu_vendor),
             key: best.key.clone(),
             title: best.title.clone(),
             optional_improvement: improvement,

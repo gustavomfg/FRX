@@ -542,6 +542,7 @@ impl FixEngine {
         }
         let now = now_iso();
         let mut op = Operation {
+            requires_explicit_user_consent: false,
             manual_recovery_required: false,
             artifacts: recipe
                 .actions

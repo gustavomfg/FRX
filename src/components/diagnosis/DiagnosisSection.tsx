@@ -5,6 +5,7 @@ import { Select } from '@/components/ui/Controls'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { Pill } from '@/components/ui/Status'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
+import { gpuLabel } from '@/components/fix/HardwareContext'
 import { diagnoseGame } from '@/services/diagnosis'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
@@ -82,6 +83,9 @@ function SuggestionCard({ s, apply, open }: { s: Suggestion; apply?: () => void;
         </Pill>
         <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
           {s.compatibility === 'compatible' ? 'Compatível' : 'Compatibilidade desconhecida'}
+        </Pill>
+        <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
+          {gpuLabel(s.gpuVendor)}
         </Pill>
       </div>
       <p className="mt-3 text-[13px] text-fg-2">{s.reason}</p>

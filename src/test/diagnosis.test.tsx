@@ -36,6 +36,7 @@ const suggestion = (over: Partial<Suggestion> = {}): Suggestion => ({
   reason: '2 fontes relatam melhora; 0 relatam o contrário.',
   compatibility: 'compatible',
   compatibilityDetail: 'O planejador conferiu GPU, Proton e arquivos deste jogo.',
+  gpuVendor: null,
   positive: 2,
   negative: 0,
   claims: [claim('fixed the crash')],
@@ -130,6 +131,15 @@ describe('Central de Resolução', () => {
     await click('Fontes (1)')
     expect(text()).toContain('fixed the crash')
     expect(text()).toContain('Relato de resultado')
+  })
+
+  it('mostra o fabricante exigido sem prometer que vale em qualquer GPU', async () => {
+    answer = () => result({ suggestions: [suggestion({ title: 'NVAPI', gpuVendor: 'nvidia' }), suggestion({ title: 'Heap', gpuVendor: null })] })
+    mount(section())
+    await click('Diagnosticar')
+    expect(text()).toContain('Compatível com NVIDIA')
+    expect(text()).toContain('Sem GPU específica citada')
+    expect(text()).not.toContain('qualquer GPU')
   })
 
   it('abre a prévia do Fix Engine com a impressão digital, sem chamar aplicação', async () => {

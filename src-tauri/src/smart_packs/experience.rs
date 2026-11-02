@@ -22,7 +22,7 @@ use crate::fix_engine::dynamic::compatibility::performance_warnings;
 use crate::fix_engine::dynamic::{DynStatus, EvidenceLevel};
 use crate::fix_engine::models::{GameCtx, Risk};
 use crate::fix_engine::FixEngine;
-use crate::fixes::models::{ActionKind, Category, FixFinding};
+use crate::fixes::models::{ActionKind, Category, FixFinding, GpuReq};
 use crate::time::now_iso;
 
 /// Receitas por pacote: o mesmo limite que a validação de Smart Packs aceita.
@@ -57,6 +57,14 @@ pub struct ExperiencePack {
     pub partial: bool,
 }
 
+/// A receita decide; sem ela, valem as próprias variáveis da ação.
+fn required_vendor(recipe: Option<GpuReq>, env: &[EnvPair]) -> Option<GpuReq> {
+    recipe.or_else(|| {
+        env.iter()
+            .find_map(|e| crate::fixes::pyscan::gpu_for_env(&e.key))
+    })
+}
+
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PackAction {
@@ -69,6 +77,9 @@ pub struct PackAction {
     pub risk: Risk,
     pub evidence: EvidenceLevel,
     pub evidence_note: String,
+    /// Fabricante exigido pela receita ou pelas variáveis. `None` não prova que a
+    /// ação vale em qualquer GPU.
+    pub gpu_vendor: Option<GpuReq>,
     /// Relatos que dizem que resolveu / que não resolveu ou piorou, somados
     /// entre todas as descobertas com a mesma operação.
     pub positive: u32,
@@ -453,6 +464,10 @@ pub fn build(
                 risk: u.risk,
                 evidence: u.evidence,
                 evidence_note: u.evidence_note.clone(),
+                gpu_vendor: required_vendor(
+                    recipe.as_ref().and_then(|r| r.scope.gpu_vendor),
+                    &u.env,
+                ),
                 positive: *pos,
                 negative: *neg,
                 sources: sources.clone(),
@@ -562,4 +577,34 @@ pub fn build(
         operation_id: pack.operation_id.clone(),
         partial,
     })
+}
+
+#[cfg(test)]
+mod gpu_vendor_tests {
+    use super::*;
+
+    fn env(key: &str) -> Vec<EnvPair> {
+        vec![EnvPair {
+            key: key.into(),
+            value: "1".into(),
+        }]
+    }
+
+    #[test]
+    fn action_vendor_comes_from_the_recipe_or_its_variables() {
+        assert_eq!(
+            required_vendor(Some(GpuReq::Amd), &env("PROTON_NO_ESYNC")),
+            Some(GpuReq::Amd)
+        );
+        assert_eq!(
+            required_vendor(None, &env("PROTON_DLSS_UPGRADE")),
+            Some(GpuReq::Nvidia)
+        );
+        assert_eq!(
+            required_vendor(None, &env("RADV_PERFTEST")),
+            Some(GpuReq::Amd)
+        );
+        assert_eq!(required_vendor(None, &env("PROTON_NO_ESYNC")), None);
+        assert_eq!(required_vendor(None, &[]), None);
+    }
 }

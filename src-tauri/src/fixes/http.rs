@@ -78,7 +78,7 @@ pub struct Ctx<'a, F: Fetcher> {
 }
 
 impl<F: Fetcher> Ctx<'_, F> {
-    /// GET com cache. `resource` identifica o balde de rate limit do GitHub (ou `None`).
+    /// GET com cache. `resource` identifica o balde de rate limit da fonte (ou `None`).
     pub async fn get(
         &self,
         req: HttpRequest,
@@ -110,7 +110,7 @@ impl<F: Fetcher> Ctx<'_, F> {
         };
         if let Some(res) = resource {
             if let Some(until) = self.state.blocked(res) {
-                return fallback("limite de consultas do GitHub atingido".into(), Some(until));
+                return fallback("limite de consultas da fonte atingido".into(), Some(until));
             }
         }
         let etag = cached
@@ -158,7 +158,7 @@ impl<F: Fetcher> Ctx<'_, F> {
             Ok(r)
                 if (r.status == 403 || r.status == 429)
                     && (r.rate_remaining == Some(0)
-                        || r.retry_after.is_some()
+                        || r.retry_after.is_some_and(|s| s > 0)
                         || r.status == 429) =>
             {
                 let until = r
@@ -168,7 +168,7 @@ impl<F: Fetcher> Ctx<'_, F> {
                 if let Some(res) = resource {
                     self.state.block(res, until);
                 }
-                fallback("limite de consultas do GitHub atingido".into(), Some(until))
+                fallback("limite de consultas da fonte atingido".into(), Some(until))
             }
             Ok(r) => fallback(format!("a fonte respondeu HTTP {}", r.status), None),
             Err(e) => fallback(e.to_string(), None),

@@ -124,6 +124,7 @@ pub struct Candidate {
     pub claims: Vec<Claim>,
     pub mapping: Mapping,
     pub compatibility_note: String,
+    pub gpu_vendor: Option<crate::fixes::models::GpuReq>,
     pub unattributed_reports: bool,
 }
 
@@ -156,6 +157,9 @@ pub struct Suggestion {
     pub reason: String,
     pub compatibility: CompatStatus,
     pub compatibility_detail: String,
+    /// Fabricante exigido pela variável ou pela fonte. `None` não prova que a
+    /// configuração vale em qualquer GPU.
+    pub gpu_vendor: Option<crate::fixes::models::GpuReq>,
     pub positive: u32,
     pub negative: u32,
     pub claims: Vec<Claim>,

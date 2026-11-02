@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Pill } from '@/components/ui/Status'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
+import { gpuLabel } from '@/components/fix/HardwareContext'
 import { OperationHistory } from '@/components/fix/OperationHistory'
 import { Mascot } from '@/mascot/Mascot'
 import { getExperiencePack } from '@/services/smartPacks'
@@ -146,6 +147,7 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
                     </li>
                   ))}
                 </ul>
+                <p className="mt-3 text-[12.5px] text-fg-2">{gpuSummary(selected)}</p>
               </>
             ) : (
               <p className="mt-2 max-w-2xl text-[14px] text-fg-2">
@@ -234,6 +236,13 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
   )
 }
 
+/** Resumo visível sem abrir os detalhes, onde fica o aviso de cada ação. */
+function gpuSummary(actions: PackAction[]) {
+  const counts = new Map<string, number>()
+  for (const a of actions) counts.set(gpuLabel(a.gpuVendor), (counts.get(gpuLabel(a.gpuVendor)) ?? 0) + 1)
+  return [...counts].map(([label, count]) => `${label} (${count})`).join(' · ')
+}
+
 function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => void; onOpen: (url: string) => void }) {
   return (
     <li className={cn('rounded-md border border-line bg-bg px-4 py-3', !a.selected && 'opacity-55')}>
@@ -251,7 +260,8 @@ function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => voi
               </code>
             ))}
           </p>
-          <p className="mt-1.5 text-[12px] text-fg-3">
+          <p className="mt-1.5 text-[12px] text-fg-2">{gpuLabel(a.gpuVendor)}</p>
+          <p className="mt-1 text-[12px] text-fg-3">
             {a.evidenceNote}
             {(a.positive > 0 || a.negative > 0) && ` · ${a.positive} relato(s) dizem que resolveu, ${a.negative} que não`}
           </p>

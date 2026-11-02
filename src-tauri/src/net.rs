@@ -26,6 +26,8 @@ pub const ALLOWED_HOSTS: &[&str] = &[
     "cdn.cloudflare.steamstatic.com",
     "cdn.akamai.steamstatic.com",
     "steamcdn-a.akamaihd.net",
+    "www.reddit.com",
+    "bugs.winehq.org",
 ];
 
 #[derive(Debug, Clone)]
@@ -265,6 +267,12 @@ mod tests {
     fn only_https_allowlisted_hosts() {
         assert!(is_allowed("https://api.github.com/search/issues?q=1"));
         assert!(is_allowed("https://raw.githubusercontent.com/a/b/c.py"));
+        assert!(is_allowed(
+            "https://www.reddit.com/r/linux_gaming/search.json"
+        ));
+        assert!(is_allowed("https://bugs.winehq.org/rest/bug?id=1"));
+        assert!(!is_allowed("http://bugs.winehq.org/"));
+        assert!(!is_allowed("https://old.reddit.com/"));
         assert!(!is_allowed("http://api.github.com/"));
         assert!(!is_allowed("https://evil.example.com/"));
         assert!(!is_allowed("https://api.github.com.evil.com/"));

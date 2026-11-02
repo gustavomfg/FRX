@@ -7,12 +7,30 @@ use std::path::{Component, Path};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
+use serde::{Deserialize, Serialize};
+
 use super::{confined::MAX_CONFIG, files::sha256_hex};
 use crate::fixes::models::{ArtifactCandidate, ArtifactFormat, ArtifactTrust};
 
 pub const MAX_DOWNLOAD: usize = 8 * 1024 * 1024;
 pub const MAX_ENTRIES: usize = 128;
 pub const MAX_EXPANDED: u64 = 2 * 1024 * 1024;
+
+/// Descrição de uma DLL candidata, conforme `docs/DLL-POLICY-DESIGN.md`. Só tipo:
+/// nenhum código instala, baixa ou verifica DLL. O destino fica na pasta do jogo,
+/// e o hash não tem valor default, para um manifesto incompleto falhar.
+#[allow(dead_code)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct DllArtifact {
+    /// Membro exato no pacote; `None` quando o download é a própria DLL.
+    pub source_path: Option<String>,
+    /// Relativo à raiz do jogo.
+    pub target_path: String,
+    pub expected_sha256: String,
+    /// Hash da DLL substituída; `None` só quando o destino não existe.
+    pub expected_original_sha256: Option<String>,
+}
 
 pub fn sha_valid(s: &str) -> bool {
     s.len() == 64 && s.bytes().all(|c| c.is_ascii_hexdigit())
@@ -438,6 +456,9 @@ pub fn contents(
             if result.len() != a.files.len() {
                 return Err("O ZIP não contém todos os arquivos selecionados.".into());
             }
+        }
+        ArtifactFormat::Tar => {
+            return Err("TAR ainda requer revisão: a extração não foi implementada.".into())
         }
         ArtifactFormat::Unknown => return Err("Formato não suportado.".into()),
     }

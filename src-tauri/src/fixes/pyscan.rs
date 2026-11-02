@@ -368,6 +368,7 @@ pub fn gpu_for_env(name: &str) -> Option<GpuReq> {
         || n.starts_with("__NV_")
         || n.contains("NVAPI")
         || n.contains("NVIDIA")
+        || n.contains("DLSS")
         || n == "PROTON_ENABLE_NGX_UPDATER"
     {
         Some(GpuReq::Nvidia)

@@ -34,6 +34,8 @@ export interface Suggestion {
   reason: string
   compatibility: CompatStatus
   compatibilityDetail: string
+  /** Fabricante que a variável ou a fonte exige. `null` não prova que vale em qualquer GPU. */
+  gpuVendor: GpuReq | null
   positive: number
   negative: number
   claims: Claim[]

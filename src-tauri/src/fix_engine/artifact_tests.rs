@@ -662,3 +662,46 @@ fn artifact_plus_unsupported_dependency_is_not_partially_generated() {
     assert!(!fx.library.join("Config/frx.ini").exists());
     assert!(engine.operations(None).is_empty());
 }
+
+#[test]
+fn tar_is_refused_until_the_dll_and_tar_policy_is_approved() {
+    let bytes = b"key=value\n";
+    let (mut candidate, _) = release(
+        bytes,
+        vec![ArtifactFile {
+            source_path: Some("a.cfg".into()),
+            target_path: "a.cfg".into(),
+            sha256: Some(sha256_hex(bytes)),
+            replace: false,
+            expected_original_sha256: None,
+        }],
+        ArtifactFormat::Zip,
+    );
+    candidate.format = ArtifactFormat::Tar;
+    assert!(super::super::artifacts::validate(&candidate, &candidate.app_id).is_err());
+    let cancel = std::sync::atomic::AtomicBool::new(false);
+    candidate.size_bytes = bytes.len() as u64;
+    candidate.sha256 = Some(sha256_hex(bytes));
+    let refused = super::super::artifacts::contents(&candidate, bytes, &cancel).unwrap_err();
+    assert!(refused.contains("TAR"));
+}
+
+#[test]
+fn dll_artifact_requires_the_hash_and_refuses_unknown_fields() {
+    use super::super::artifacts::DllArtifact;
+    let full = serde_json::json!({
+        "sourcePath": null, "targetPath": "Binaries/PhysXDevice.dll",
+        "expectedSha256": "a".repeat(64), "expectedOriginalSha256": null
+    });
+    assert!(serde_json::from_value::<DllArtifact>(full.clone()).is_ok());
+    for field in ["expectedSha256", "targetPath"] {
+        let mut missing = full.clone();
+        missing.as_object_mut().unwrap().remove(field);
+        assert!(serde_json::from_value::<DllArtifact>(missing).is_err(), "{field}");
+    }
+    for extra in ["skipVerification", "authenticodeRequired", "prefixPath"] {
+        let mut with_extra = full.clone();
+        with_extra[extra] = serde_json::json!(true);
+        assert!(serde_json::from_value::<DllArtifact>(with_extra).is_err(), "{extra}");
+    }
+}

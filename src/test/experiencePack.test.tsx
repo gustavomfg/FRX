@@ -32,6 +32,7 @@ const action = (recipeId: string, over: Partial<PackAction> = {}): PackAction =>
   risk: 'moderate',
   evidence: 'documented',
   evidenceNote: 'Opção documentada pela ferramenta e conferida nesta instalação.',
+  gpuVendor: null,
   positive: 0,
   negative: 0,
   sources: [{ label: 'README', url: 'https://github.com/CachyOS/proton-cachyos' }],
@@ -151,6 +152,17 @@ describe('Complete Experience Pack na página do jogo', () => {
     expect(text()).toContain('VKD3D_CONFIG=descriptor_heap')
     await act(async () => button('Preparar pacote')!.click())
     expect(acted[0]).toMatchObject({ kind: 'apply', recipeId: 'pack.200260.2222222222222222', appId: '200260', expectedFingerprint: 'fp-pack' })
+    m.unmount()
+  })
+
+  it('mostra o fabricante exigido por ação, sem prometer que vale em qualquer GPU', async () => {
+    current = () => pack({ actions: [action('a', { gpuVendor: 'nvidia' }), action('b')] })
+    const m = mount(<ExperiencePackSection appId="200260" title="Batman" onAct={() => {}} />)
+    await flush(80)
+    expect(text()).toContain('Compatível com NVIDIA (1) · Sem GPU específica citada (1)')
+    await act(async () => button('Detalhes técnicos')!.click())
+    expect(text().split('Compatível com NVIDIA')).toHaveLength(3)
+    expect(text()).not.toContain('qualquer GPU')
     m.unmount()
   })
 

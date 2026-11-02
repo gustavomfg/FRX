@@ -45,9 +45,15 @@ fn sort_findings(f: &mut [FixFinding]) {
         FindingKind::Tweak => 2,
         FindingKind::Report => 3,
     };
+    // O que vale para o hardware do usuário vem antes do que depende de confirmação.
+    let hardware_rank = |c: Compatibility| match c {
+        Compatibility::Compatible => 0,
+        Compatibility::AlreadyIncluded | Compatibility::Unknown => 1,
+        Compatibility::Incompatible => 2,
+    };
     f.sort_by(|a, b| {
-        (a.compatibility == Compatibility::Incompatible)
-            .cmp(&(b.compatibility == Compatibility::Incompatible))
+        hardware_rank(a.compatibility)
+            .cmp(&hardware_rank(b.compatibility))
             .then(a.confidence.cmp(&b.confidence))
             .then(kind_rank(a.kind).cmp(&kind_rank(b.kind)))
             .then(b.evidence.positive.cmp(&a.evidence.positive))
@@ -105,6 +111,9 @@ pub async fn search<F: Fetcher>(
         db.status,
         gh.status,
         providers::protondb::status(),
+        providers::reddit::status(),
+        providers::winehq::status(),
+        providers::steam_guides::status(),
     ];
     let from_cache = providers
         .iter()
@@ -187,8 +196,13 @@ mod tests {
         .await
         .unwrap();
         assert!(r.findings.is_empty());
-        assert_eq!(r.providers.len(), 4);
-        assert_eq!(r.providers[3].state, ProviderState::Disabled);
+        assert_eq!(r.providers.len(), 7);
+        assert!(r.providers[3..]
+            .iter()
+            .all(|p| p.state == ProviderState::Disabled));
+        // Desativado não consulta a rede.
+        assert_eq!(f.count("https://www.reddit.com/"), 0);
+        assert_eq!(f.count("https://bugs.winehq.org/"), 0);
         assert_eq!(cached_reports(&cache, 3600).len(), 1);
         // Expiração: com validade zero, o relatório salvo aparece desatualizado.
         std::thread::sleep(std::time::Duration::from_millis(1100));
@@ -285,6 +299,75 @@ mod tests {
             .is_empty());
     }
 
+    #[test]
+    fn umu_variable_keeps_its_vendor_and_is_assessed_against_the_gpu() {
+        let query = GameQuery {
+            app_id: "200260".into(),
+            name: "Synthetic fixture A".into(),
+            retrieved_at: "fixture".into(),
+            tool: None,
+        };
+        let mut finding = providers::umu::build_finding(
+            &query,
+            "gamefixes-steam/200260.py",
+            r#"def main():
+    util.set_environment("PROTON_ENABLE_NVAPI", "1")"#,
+            None,
+        );
+        assert_eq!(finding.requirements.gpu_vendor, Some(GpuReq::Nvidia));
+        let gpu = |vendor: &str| -> crate::system::GpuInfo {
+            serde_json::from_value(serde_json::json!({
+                "vendor": vendor, "vendorId": "0", "deviceId": "0", "name": "fixture",
+                "driver": null, "driverVersion": null, "bootVga": true
+            }))
+            .unwrap()
+        };
+        for (vendor, expected) in [
+            ("nvidia", Compatibility::Compatible),
+            ("amd", Compatibility::Incompatible),
+        ] {
+            let hw = HardwareContext {
+                gpus: vec![gpu(vendor)],
+                primary: Some(gpu(vendor)),
+            };
+            compat::assess(&mut finding, &hw);
+            assert_eq!(finding.compatibility, expected, "{vendor}");
+        }
+    }
+
+    #[test]
+    fn hardware_match_sorts_before_confidence() {
+        let finding = |id: &str, compatibility, confidence| {
+            let mut f = providers::umu::build_finding(
+                &GameQuery {
+                    app_id: "200260".into(),
+                    name: "fixture".into(),
+                    retrieved_at: "fixture".into(),
+                    tool: None,
+                },
+                "gamefixes-steam/200260.py",
+                "def main():\n    pass",
+                None,
+            );
+            f.id = id.into();
+            f.compatibility = compatibility;
+            f.confidence = confidence;
+            f
+        };
+        let mut list = vec![
+            finding(
+                "wrong-gpu",
+                Compatibility::Incompatible,
+                Confidence::Verified,
+            ),
+            finding("unknown", Compatibility::Unknown, Confidence::Verified),
+            finding("match", Compatibility::Compatible, Confidence::Unverified),
+        ];
+        sort_findings(&mut list);
+        let ids: Vec<&str> = list.iter().map(|f| f.id.as_str()).collect();
+        assert_eq!(ids, ["match", "unknown", "wrong-gpu"]);
+    }
+
     #[tokio::test]
     async fn rejects_invalid_app_ids() {
         let tmp = tempfile::tempdir().unwrap();
@@ -348,5 +431,35 @@ mod real {
         .await
         .unwrap();
         println!("{}", serde_json::to_string_pretty(&r).unwrap());
+    }
+
+    /// Confere se os provedores desativados respondem na rede de quem roda:
+    /// `FRX_NAME="Batman: Arkham City GOTY" cargo test real_disabled_sources -- --ignored --nocapture`
+    #[tokio::test]
+    #[ignore]
+    async fn real_disabled_sources() {
+        let tmp = tempfile::tempdir().unwrap();
+        let cache = Cache::new(tmp.path());
+        let fetcher = crate::net::ReqwestFetcher::new().unwrap();
+        let state = EngineState::default();
+        let ctx = http::Ctx {
+            fetcher: &fetcher,
+            cache: &cache,
+            state: &state,
+            ttl_secs: 3600,
+            force: true,
+        };
+        let q = GameQuery {
+            app_id: std::env::var("FRX_APPID").unwrap_or_else(|_| "200260".into()),
+            name: std::env::var("FRX_NAME").unwrap_or_else(|_| "Batman: Arkham City GOTY".into()),
+            tool: None,
+            retrieved_at: now_iso(),
+        };
+        for r in [
+            providers::reddit::search(&ctx, &q).await,
+            providers::winehq::search(&ctx, &q).await,
+        ] {
+            println!("{:?}: {} descobertas", r.status, r.findings.len());
+        }
     }
 }

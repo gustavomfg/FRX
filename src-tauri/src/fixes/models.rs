@@ -65,6 +65,9 @@ pub enum ProviderId {
     UmuDatabase,
     Github,
     Protondb,
+    Reddit,
+    Winehq,
+    SteamGuides,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]
@@ -209,6 +212,8 @@ pub enum ArtifactTrust {
 pub enum ArtifactFormat {
     File,
     Zip,
+    /// Só no design: `fix_engine::artifacts` recusa até a política de DLL e TAR ser aprovada.
+    Tar,
     Unknown,
 }
 

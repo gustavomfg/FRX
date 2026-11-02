@@ -1,4 +1,11 @@
+import type { GpuReq } from '@/types/fixes'
 import type { EnvironmentContext, HardwareMatch, HardwareRequirements } from '@/types/steam'
+
+/** Sem fabricante citado não é prova de que funciona em qualquer GPU. */
+export function gpuLabel(vendor: GpuReq | null) {
+  if (vendor === null) return 'Sem GPU específica citada'
+  return `Compatível com ${vendor === 'nvidia' ? 'NVIDIA' : vendor === 'amd' ? 'AMD' : 'Intel'}`
+}
 
 export function HardwareRequirementsSummary({ requirements, compact = false }: { requirements?: HardwareRequirements; compact?: boolean }) {
   if (!requirements) return null
