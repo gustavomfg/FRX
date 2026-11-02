@@ -270,7 +270,7 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 ## Structure
 
 ```
-src-tauri/src/       
+src-tauri/src/
   commands/                Tauri commands: app, games, system, fixes, fix_engine, performance
   fix_engine/              catalog, security (allowlist), planner, files, confined (FD-based destinations),
                            artifacts (download/staging), journal, models — application and rollback
@@ -283,6 +283,7 @@ src-tauri/recipes/         local recipe catalog (JSON + SHA-256 manifest)
     providers/             umu (protonfixes + database), github, artifacts, protondb (disabled)
   system/                  profile and GPUs via /proc and /sys, context (requirements and environment)
   cache/  art.rs  net.rs   file cache, cover art, restricted HTTP client
+  ai/                      ranker, embedder, models, sumarização futura
 packaging/               source icon (SVG/PNG) and Arch package (PKGBUILD + .desktop)
 docs/assets/             interface screenshot and Pim animation for this README
 src/
@@ -306,8 +307,6 @@ src/
   hooks/                   useGameArt
   test/                    fixtures and IPC bridge integration tests (Vitest + mockIPC)
   types/                   domain types
-  
-  ai/                       ranker, embedder, models, sumarização futura
 ```
 
 ## Visual identity
