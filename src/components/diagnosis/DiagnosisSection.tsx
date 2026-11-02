@@ -7,7 +7,7 @@ import { Pill } from '@/components/ui/Status'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
 import { HardwareBadge } from '@/components/fix/HardwareContext'
 import { ThirdPartyBinaryWarning } from '@/components/fix/ArtifactDetails'
-import { diagnoseGame } from '@/services/diagnosis'
+import { diagnoseGame, injectDevFixtureDll } from '@/services/diagnosis'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
 import { useSettings, useToast } from '@/state/store'
@@ -155,6 +155,16 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
     }
   }
 
+  const injectDll = async () => {
+    try {
+      const destination = await injectDevFixtureDll(appId)
+      toast({ tone: 'info', title: 'DLL de teste injetada (dev)', body: `Destino: ${destination}, na pasta do jogo. Nada foi gravado ainda.` })
+      await run()
+    } catch (e) {
+      setError(errorMessage(e))
+    }
+  }
+
   const applyOf = (s: Suggestion) =>
     s.state === 'applicable' && s.recipeId
       ? () => {
@@ -177,6 +187,11 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
         <Button variant="primary" icon={<Stethoscope className="size-4" />} onClick={() => void run()} loading={running}>
           {running ? 'Diagnosticando…' : result ? 'Diagnosticar novamente' : 'Diagnosticar'}
         </Button>
+        {import.meta.env.DEV && (
+          <Button variant="ghost" onClick={() => void injectDll()} disabled={running} title="Só em modo de desenvolvimento: adiciona uma descoberta com DLL fictícia, em memória.">
+            Injetar DLL de Teste (Dev)
+          </Button>
+        )}
       </div>
 
       {error && (

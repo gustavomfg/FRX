@@ -3,6 +3,9 @@
 
 pub mod ai;
 pub mod app;
+/// Só em build de debug: fixture de DLL para testar a interface.
+#[cfg(debug_assertions)]
+pub mod dev_fixture;
 pub mod diagnosis;
 pub mod fix_engine;
 pub mod fixes;

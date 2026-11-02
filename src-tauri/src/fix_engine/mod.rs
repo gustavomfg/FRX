@@ -104,6 +104,15 @@ impl FixEngine {
         engine
     }
 
+    /// Só em debug: troca o transporte de download, para o fixture de
+    /// desenvolvimento servir a DLL fictícia. Verificação, consentimento,
+    /// backup e rollback continuam os mesmos.
+    #[cfg(debug_assertions)]
+    pub fn with_artifact_transport(mut self, transport: Arc<dyn artifacts::Transport>) -> Self {
+        self.artifact_transport = transport;
+        self
+    }
+
     /// Pasta de dados do Fix Engine (`fix-engine/`).
     pub fn root(&self) -> &Path {
         &self.root

@@ -2,7 +2,7 @@
  * Central de Resolução na página do jogo. Os resultados são **fixtures
  * sintéticas** no formato exato do Rust; nenhum teste faz rede.
  */
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
@@ -150,6 +150,27 @@ describe('Central de Resolução', () => {
     expect(text()).toContain('Hardware não especificado')
     expect(document.body.innerHTML).toContain('frx-good')
     expect(document.body.innerHTML).toContain('frx-caution')
+  })
+
+  it('em modo dev, o botão injeta a DLL de teste e só então diagnostica', async () => {
+    mount(section())
+    await flush()
+    expect(calls).toHaveLength(0)
+    await click('Injetar DLL de Teste (Dev)')
+    expect(calls.map((c) => c.cmd)).toEqual(['inject_dev_fixture_dll', 'diagnose_game'])
+    expect(calls[0].args).toEqual({ appId: '200260' })
+  })
+
+  it('fora do modo dev, o botão de fixture não existe', async () => {
+    vi.stubEnv('DEV', false)
+    try {
+      mount(section())
+      await flush()
+      expect(button('Injetar DLL de Teste')).toBeUndefined()
+      expect(button('Diagnosticar')).toBeDefined()
+    } finally {
+      vi.unstubAllEnvs()
+    }
   })
 
   it('avisa em vermelho no cartão quando a descoberta traz uma DLL de terceiros', async () => {

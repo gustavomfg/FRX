@@ -739,7 +739,7 @@ pub fn candidates_from_release(
     candidates
 }
 
-fn finding(q: &GameQuery, c: ArtifactCandidate) -> FixFinding {
+pub(crate) fn finding(q: &GameQuery, c: ArtifactCandidate) -> FixFinding {
     FixFinding {
 hardware_scope: Default::default(),
         artifacts: vec![c.clone()], scope: c.scope.clone(), performance_evidence: Default::default(),

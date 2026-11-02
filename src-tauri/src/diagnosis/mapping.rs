@@ -17,7 +17,10 @@ fn first_reason(view: &AssessmentView, fallback: &str) -> String {
 }
 
 fn mapping(view: &AssessmentView, f: &FixFinding, app_id: &str) -> Mapping {
-    if f.actions.is_empty() || view.assessment.status == DynStatus::NoActions {
+    // Um artefato publicado é a ação da descoberta, mesmo sem `actions` de texto.
+    if (f.actions.is_empty() && f.artifacts.is_empty())
+        || view.assessment.status == DynStatus::NoActions
+    {
         return Mapping::NoAction;
     }
     if f.actions.iter().any(gates::command_like) {
