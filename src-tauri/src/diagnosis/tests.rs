@@ -399,6 +399,11 @@ mod environment_rules {
             .iter()
             .all(|s| s.state != SuggestionState::Applicable));
         assert_eq!(r.excluded[0].kind, ExcludedKind::Incompatible);
+        assert_eq!(
+            r.excluded[0].hardware_scope,
+            crate::fixes::models::HardwareScope::Nvidia,
+            "a interface precisa saber o que a descoberta exige"
+        );
     }
 
     #[test]

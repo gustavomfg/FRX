@@ -22,7 +22,8 @@ use crate::fix_engine::dynamic::compatibility::performance_warnings;
 use crate::fix_engine::dynamic::{DynStatus, EvidenceLevel};
 use crate::fix_engine::models::{GameCtx, Risk};
 use crate::fix_engine::FixEngine;
-use crate::fixes::models::{ActionKind, Category, FixFinding, GpuReq};
+use crate::fixes::compat::{scope_of_changes, scope_of_env};
+use crate::fixes::models::{ActionKind, Category, FixFinding, GpuReq, HardwareScope};
 use crate::time::now_iso;
 
 /// Receitas por pacote: o mesmo limite que a validação de Smart Packs aceita.
@@ -58,11 +59,11 @@ pub struct ExperiencePack {
 }
 
 /// A receita decide; sem ela, valem as próprias variáveis da ação.
-fn required_vendor(recipe: Option<GpuReq>, env: &[EnvPair]) -> Option<GpuReq> {
-    recipe.or_else(|| {
-        env.iter()
-            .find_map(|e| crate::fixes::pyscan::gpu_for_env(&e.key))
-    })
+fn action_scope(recipe: Option<GpuReq>, env: &[EnvPair]) -> HardwareScope {
+    recipe.map_or_else(
+        || scope_of_env(env.iter().map(|e| (e.key.as_str(), e.value.as_str()))),
+        Into::into,
+    )
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -77,9 +78,7 @@ pub struct PackAction {
     pub risk: Risk,
     pub evidence: EvidenceLevel,
     pub evidence_note: String,
-    /// Fabricante exigido pela receita ou pelas variáveis. `None` não prova que a
-    /// ação vale em qualquer GPU.
-    pub gpu_vendor: Option<GpuReq>,
+    pub hardware_scope: HardwareScope,
     /// Relatos que dizem que resolveu / que não resolveu ou piorou, somados
     /// entre todas as descobertas com a mesma operação.
     pub positive: u32,
@@ -124,6 +123,7 @@ pub struct LeftOut {
     pub kind: LeftOutKind,
     /// Variáveis da ação, quando o FRX conseguiu lê-las.
     pub changes: Vec<String>,
+    pub hardware_scope: HardwareScope,
     /// Descobertas reunidas nesta linha.
     pub count: usize,
 }
@@ -291,6 +291,7 @@ pub fn build(
         }) {
         Some(l) => l.count += 1,
         None => left.push(LeftOut {
+            hardware_scope: scope_of_changes(&changes),
             title: title.to_owned(),
             reason,
             kind,
@@ -439,7 +440,7 @@ pub fn build(
     }
     left.sort_by(|a, b| a.kind.cmp(&b.kind).then(a.title.cmp(&b.title)));
 
-    let actions: Vec<PackAction> = chosen
+    let mut actions: Vec<PackAction> = chosen
         .iter()
         .map(|(u, pos, neg, sources)| {
             let recipe = engine.resolve(&u.recipe_id, game).ok();
@@ -464,7 +465,7 @@ pub fn build(
                 risk: u.risk,
                 evidence: u.evidence,
                 evidence_note: u.evidence_note.clone(),
-                gpu_vendor: required_vendor(
+                hardware_scope: action_scope(
                     recipe.as_ref().and_then(|r| r.scope.gpu_vendor),
                     &u.env,
                 ),
@@ -475,6 +476,8 @@ pub fn build(
             }
         })
         .collect();
+    // Só a exibição: a composição do pacote continua vindo de `chosen`.
+    actions.sort_by_key(|a| a.hardware_scope.rank(game.gpu));
     let members: Vec<&Unit> = chosen
         .iter()
         .map(|c| &c.0)
@@ -580,7 +583,7 @@ pub fn build(
 }
 
 #[cfg(test)]
-mod gpu_vendor_tests {
+mod hardware_scope_tests {
     use super::*;
 
     fn env(key: &str) -> Vec<EnvPair> {
@@ -591,20 +594,19 @@ mod gpu_vendor_tests {
     }
 
     #[test]
-    fn action_vendor_comes_from_the_recipe_or_its_variables() {
+    fn action_scope_comes_from_the_recipe_or_its_variables() {
         assert_eq!(
-            required_vendor(Some(GpuReq::Amd), &env("PROTON_NO_ESYNC")),
-            Some(GpuReq::Amd)
+            action_scope(Some(GpuReq::Amd), &env("PROTON_NO_ESYNC")),
+            HardwareScope::Amd
         );
         assert_eq!(
-            required_vendor(None, &env("PROTON_DLSS_UPGRADE")),
-            Some(GpuReq::Nvidia)
+            action_scope(None, &env("PROTON_DLSS_UPGRADE")),
+            HardwareScope::Nvidia
         );
         assert_eq!(
-            required_vendor(None, &env("RADV_PERFTEST")),
-            Some(GpuReq::Amd)
+            action_scope(None, &env("PROTON_NO_ESYNC")),
+            HardwareScope::Any
         );
-        assert_eq!(required_vendor(None, &env("PROTON_NO_ESYNC")), None);
-        assert_eq!(required_vendor(None, &[]), None);
+        assert_eq!(action_scope(None, &[]), HardwareScope::Unknown);
     }
 }

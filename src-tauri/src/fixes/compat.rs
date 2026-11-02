@@ -3,7 +3,9 @@
 //! Nunca descartamos uma descoberta por falta de dados: quando não dá para
 //! decidir, o estado é `Unknown` e a nota explica o motivo.
 
-use super::models::{Compatibility, FindingKind, FixFinding, GpuReq};
+use super::models::{ActionKind, Compatibility, FindingKind, FixFinding, GpuReq, HardwareScope};
+use super::pyscan::gpu_for_env;
+use crate::fix_engine::dynamic::compatibility::{knowledge, vendor_bound};
 use crate::system::{GpuInfo, GpuVendor};
 
 #[derive(Debug, Clone, Default)]
@@ -35,8 +37,77 @@ pub fn vendor_name(r: GpuReq) -> &'static str {
     }
 }
 
+/// Escopo de um conjunto de variáveis. Só vira `Any` se todas forem conhecidas e
+/// nenhuma exigir fabricante. Fabricantes diferentes não definem um escopo único.
+pub fn scope_of_env<'a>(pairs: impl IntoIterator<Item = (&'a str, &'a str)>) -> HardwareScope {
+    let mut vendor: Option<GpuReq> = None;
+    let mut any_pair = false;
+    let mut all_known = true;
+    for (key, value) in pairs {
+        any_pair = true;
+        let known = knowledge(key, value);
+        all_known &= known.is_some();
+        let required = known
+            .and_then(|k| k.gpu)
+            .or(vendor_bound(key))
+            .or(gpu_for_env(key));
+        match (vendor, required) {
+            (Some(a), Some(b)) if a != b => return HardwareScope::Unknown,
+            (None, Some(b)) => vendor = Some(b),
+            _ => {}
+        }
+    }
+    match vendor {
+        Some(v) => v.into(),
+        None if any_pair && all_known => HardwareScope::Any,
+        None => HardwareScope::Unknown,
+    }
+}
+
+/// Escopo de ações escritas como `NOME=valor`. Texto em outro formato é desconhecido.
+pub fn scope_of_changes(changes: &[String]) -> HardwareScope {
+    match changes
+        .iter()
+        .map(|c| c.split_once('='))
+        .collect::<Option<Vec<_>>>()
+    {
+        Some(pairs) => scope_of_env(pairs),
+        None => HardwareScope::Unknown,
+    }
+}
+
+/// O requisito da fonte vale primeiro; sem ele, valem as variáveis das ações.
+pub fn finding_scope(f: &FixFinding) -> HardwareScope {
+    if let Some(vendor) = f
+        .requirements
+        .gpu_vendor
+        .or(f.requirements.hardware.gpu_vendor)
+    {
+        return vendor.into();
+    }
+    let mut pairs = Vec::new();
+    for action in &f.actions {
+        match action.kind {
+            ActionKind::Env => match action.value.split_once('=') {
+                Some(pair) => pairs.push(pair),
+                None => return HardwareScope::Unknown,
+            },
+            ActionKind::LaunchOption => pairs.extend(
+                action
+                    .value
+                    .split_whitespace()
+                    .take_while(|t| *t != "%command%")
+                    .filter_map(|t| t.split_once('=')),
+            ),
+            _ => return HardwareScope::Unknown,
+        }
+    }
+    scope_of_env(pairs)
+}
+
 /// Avalia a compatibilidade de hardware. Não sobrescreve `AlreadyIncluded`.
 pub fn assess(f: &mut FixFinding, hw: &HardwareContext) {
+    f.hardware_scope = finding_scope(f);
     if f.compatibility == Compatibility::AlreadyIncluded {
         return;
     }
@@ -144,6 +215,7 @@ mod tests {
 
     pub fn finding(kind: FindingKind, req: Option<GpuReq>) -> FixFinding {
         FixFinding {
+            hardware_scope: Default::default(),
             artifacts: vec![],
             scope: DiscoveryScope::default(),
             performance_evidence: PerformanceEvidence::default(),
@@ -209,5 +281,48 @@ mod tests {
         inc.compatibility = Compatibility::AlreadyIncluded;
         assess(&mut inc, &HardwareContext::default());
         assert_eq!(inc.compatibility, Compatibility::AlreadyIncluded);
+    }
+}
+
+#[cfg(test)]
+mod hardware_scope_tests {
+    use super::*;
+
+    #[test]
+    fn scope_comes_from_known_variables_and_their_vendor() {
+        for (pairs, expected) in [
+            (vec![("PROTON_ENABLE_NVAPI", "1")], HardwareScope::Nvidia),
+            (vec![("PROTON_DLSS_UPGRADE", "1")], HardwareScope::Nvidia),
+            (vec![("RADV_PERFTEST", "aco")], HardwareScope::Amd),
+            (vec![("PROTON_NO_ESYNC", "1")], HardwareScope::Any),
+            (
+                vec![("PROTON_NO_ESYNC", "1"), ("PROTON_ENABLE_NVAPI", "1")],
+                HardwareScope::Nvidia,
+            ),
+            // Fora da tabela: a fonte não diz para quem é.
+            (vec![("PROTON_INVENTADA", "1")], HardwareScope::Unknown),
+            (
+                vec![("RADV_PERFTEST", "aco"), ("PROTON_ENABLE_NVAPI", "1")],
+                HardwareScope::Unknown,
+            ),
+            (vec![], HardwareScope::Unknown),
+        ] {
+            assert_eq!(scope_of_env(pairs.clone()), expected, "{pairs:?}");
+        }
+        assert_eq!(
+            scope_of_changes(&["settings.ini".into()]),
+            HardwareScope::Unknown
+        );
+    }
+
+    #[test]
+    fn rank_puts_the_users_vendor_first_and_a_mismatch_last() {
+        use HardwareScope::*;
+        let nvidia = Some(GpuReq::Nvidia);
+        assert_eq!(Nvidia.rank(nvidia), 0);
+        assert_eq!(Any.rank(nvidia), 1);
+        assert_eq!(Unknown.rank(nvidia), 2);
+        assert_eq!(Amd.rank(nvidia), 3);
+        assert_eq!(Amd.rank(None), 2);
     }
 }

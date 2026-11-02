@@ -500,6 +500,7 @@ pub async fn search<F: Fetcher>(ctx: &Ctx<'_, F>, q: &GameQuery) -> ProviderResu
             "aberto"
         };
         findings.push(FixFinding {
+hardware_scope: Default::default(),
             artifacts: vec![],
             scope: scope.clone(),
             performance_evidence: PerformanceEvidence::default(),
@@ -794,6 +795,7 @@ fn maintainer_statement(
         None => "Mantenedor indica que o problema foi corrigido".into(),
     };
     Some(FixFinding {
+hardware_scope: Default::default(),
         artifacts: vec![],
         scope: inherited_scope(parent, body),
         performance_evidence: PerformanceEvidence::default(),
@@ -860,6 +862,7 @@ fn release_mentions(q: &GameQuery, repo: &str, releases: &[Release]) -> Vec<FixF
         };
         let verified = scope.matches_game(&q.app_id);
         out.push(FixFinding {
+hardware_scope: Default::default(),
             artifacts: vec![],
             game_app_id: scope.app_id.clone().unwrap_or_default(),
             scope,

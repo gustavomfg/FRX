@@ -32,7 +32,7 @@ const action = (recipeId: string, over: Partial<PackAction> = {}): PackAction =>
   risk: 'moderate',
   evidence: 'documented',
   evidenceNote: 'Opção documentada pela ferramenta e conferida nesta instalação.',
-  gpuVendor: null,
+  hardwareScope: 'unknown',
   positive: 0,
   negative: 0,
   sources: [{ label: 'README', url: 'https://github.com/CachyOS/proton-cachyos' }],
@@ -47,9 +47,9 @@ const pack = (over: Partial<ExperiencePack> = {}): ExperiencePack => ({
   environment: ['GPU NVIDIA', 'proton-cachyos'],
   actions: [action('frx.proton.dlss-upgrade'), action('gen.200260.aaaaaaaaaaaaaaaa', { title: 'Heap', area: 'Compatibilidade', changes: ['PROTON_HEAP_DELAY_FREE=1'] })],
   leftOut: [
-    { title: 'VKD3D', reason: '1 relato(s) dizem que não resolveu ou piorou.', kind: 'negative', changes: ['VKD3D_CONFIG=descriptor_heap'], count: 1 },
-    { title: 'Relato geral', reason: 'Relato geral sobre o jogo, sem ação técnica estruturada.', kind: 'no-action', changes: [], count: 6 },
-    { title: 'HDR', reason: 'O FRX não conhece o efeito de DXVK_HDR.', kind: 'unsupported', changes: ['DXVK_HDR=1'], count: 2 },
+    { title: 'VKD3D', reason: '1 relato(s) dizem que não resolveu ou piorou.', kind: 'negative', changes: ['VKD3D_CONFIG=descriptor_heap'], hardwareScope: 'unknown', count: 1 },
+    { title: 'Relato geral', reason: 'Relato geral sobre o jogo, sem ação técnica estruturada.', kind: 'no-action', changes: [], hardwareScope: 'unknown', count: 6 },
+    { title: 'HDR', reason: 'O FRX não conhece o efeito de DXVK_HDR.', kind: 'unsupported', changes: ['DXVK_HDR=1'], hardwareScope: 'unknown', count: 2 },
   ],
   areas: ['Gráficos', 'Compatibilidade'],
   risks: ['A primeira execução precisa de internet.'],
@@ -155,14 +155,17 @@ describe('Complete Experience Pack na página do jogo', () => {
     m.unmount()
   })
 
-  it('mostra o fabricante exigido por ação, sem prometer que vale em qualquer GPU', async () => {
-    current = () => pack({ actions: [action('a', { gpuVendor: 'nvidia' }), action('b')] })
+  it('mostra o selo por ação e avisa no resumo o que exige outra GPU', async () => {
+    current = () =>
+      pack({
+        actions: [action('a', { hardwareScope: 'nvidia' }), action('b', { hardwareScope: 'any' })],
+        leftOut: [{ title: 'RADV', reason: 'Só vale para AMD.', kind: 'incompatible', changes: ['RADV_PERFTEST=aco'], hardwareScope: 'amd', count: 2 }],
+      })
     const m = mount(<ExperiencePackSection appId="200260" title="Batman" onAct={() => {}} />)
     await flush(80)
-    expect(text()).toContain('Compatível com NVIDIA (1) · Sem GPU específica citada (1)')
+    expect(text()).toContain('Compatível com sua NVIDIA (1) · Geral (1) · Fora do pacote · Atenção: requer AMD (2)')
     await act(async () => button('Detalhes técnicos')!.click())
-    expect(text().split('Compatível com NVIDIA')).toHaveLength(3)
-    expect(text()).not.toContain('qualquer GPU')
+    expect(document.body.innerHTML).toContain('frx-caution')
     m.unmount()
   })
 

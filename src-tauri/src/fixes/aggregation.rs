@@ -215,6 +215,7 @@ pub fn group_mentions(app_id: &str, mentions: Vec<Mention>, retrieved_at: &str) 
             performance_evidence.reports.push(report.clone());
         }
         out.push(FixFinding {
+            hardware_scope: Default::default(),
             artifacts: vec![],
             scope,
             performance_evidence,

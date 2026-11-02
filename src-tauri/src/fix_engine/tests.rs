@@ -776,6 +776,14 @@ mod generated {
         let (nvapi_at, nvapi) = with_action(&findings, "PROTON_ENABLE_NVAPI=1");
         let (esync_at, esync) = with_action(&findings, "PROTON_NO_ESYNC=1");
         assert_eq!(nvapi.requirements.gpu_vendor, Some(GpuReq::Nvidia));
+        assert_eq!(
+            nvapi.hardware_scope,
+            crate::fixes::models::HardwareScope::Nvidia
+        );
+        assert_eq!(
+            esync.hardware_scope,
+            crate::fixes::models::HardwareScope::Any
+        );
         assert_eq!(nvapi.compatibility, Compatibility::Compatible);
         assert_eq!(esync.requirements.gpu_vendor, None);
         assert_eq!(esync.compatibility, Compatibility::Unknown);

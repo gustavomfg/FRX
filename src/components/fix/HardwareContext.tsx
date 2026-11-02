@@ -1,10 +1,27 @@
-import type { GpuReq } from '@/types/fixes'
+import { Pill } from '@/components/ui/Status'
+import type { GpuReq, HardwareScope } from '@/types/fixes'
 import type { EnvironmentContext, HardwareMatch, HardwareRequirements } from '@/types/steam'
 
-/** Sem fabricante citado não é prova de que funciona em qualquer GPU. */
-export function gpuLabel(vendor: GpuReq | null) {
-  if (vendor === null) return 'Sem GPU específica citada'
-  return `Compatível com ${vendor === 'nvidia' ? 'NVIDIA' : vendor === 'amd' ? 'AMD' : 'Intel'}`
+const VENDOR_NAME: Record<GpuReq, string> = { nvidia: 'NVIDIA', amd: 'AMD', intel: 'Intel' }
+const NEUTRAL = { color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' }
+
+/** Compara o escopo da descoberta com a GPU principal do usuário. */
+export function hardwareBadge(scope: HardwareScope, user: GpuReq | null) {
+  if (scope === 'any') return { label: 'Geral', mismatch: false, ...NEUTRAL }
+  if (scope === 'unknown') return { label: 'Hardware não especificado', mismatch: false, ...NEUTRAL }
+  const name = VENDOR_NAME[scope]
+  if (user === null) return { label: `Requer ${name}`, mismatch: false, ...NEUTRAL }
+  if (user === scope) return { label: `Compatível com sua ${name}`, mismatch: false, color: 'var(--frx-good)', soft: 'var(--frx-good-soft)' }
+  return { label: `Atenção: requer ${name}`, mismatch: true, color: 'var(--frx-caution)', soft: 'var(--frx-caution-soft)' }
+}
+
+export function HardwareBadge({ scope, user }: { scope: HardwareScope; user: GpuReq | null }) {
+  const badge = hardwareBadge(scope, user)
+  return (
+    <Pill color={badge.color} soft={badge.soft}>
+      {badge.label}
+    </Pill>
+  )
 }
 
 export function HardwareRequirementsSummary({ requirements, compact = false }: { requirements?: HardwareRequirements; compact?: boolean }) {

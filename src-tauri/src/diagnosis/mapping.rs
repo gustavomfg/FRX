@@ -88,7 +88,7 @@ pub fn candidate(view: &AssessmentView, f: &FixFinding, app_id: &str) -> Candida
         purpose: gates::purpose_of(&key, purpose),
         mapping: mapping(view, f, app_id),
         compatibility_note: f.compatibility_note.clone(),
-        gpu_vendor: gates::required_vendor(&key).or(f.requirements.gpu_vendor),
+        hardware_scope: crate::fixes::compat::finding_scope(f),
         key,
         title,
         claims,
@@ -144,7 +144,17 @@ pub fn from_catalog(option: &super::models::CatalogOption) -> Candidate {
         purpose: Some(recipe.purpose),
         title: recipe.title.clone(),
         compatibility_note: String::new(),
-        gpu_vendor: gates::required_vendor(&key).or(recipe.scope.gpu_vendor),
+        hardware_scope: recipe.scope.gpu_vendor.map_or_else(
+            || {
+                crate::fixes::compat::scope_of_env(
+                    key.items
+                        .iter()
+                        .filter(|i| i.kind == "env")
+                        .map(|i| (i.name.as_str(), i.value.as_deref().unwrap_or(""))),
+                )
+            },
+            Into::into,
+        ),
         key,
         claims,
         mapping,

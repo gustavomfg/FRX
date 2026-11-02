@@ -1,5 +1,5 @@
 import type { EvidenceLevel } from '@/types/fixEngine'
-import type { FindingSource, GpuReq, ProviderStatus } from '@/types/fixes'
+import type { FindingSource, GpuReq, HardwareScope, ProviderStatus } from '@/types/fixes'
 
 /** Espelha `src-tauri/src/diagnosis/models.rs`. */
 export type Symptom = 'unspecified' | 'crash-or-wont-start' | 'performance' | 'graphics' | 'other'
@@ -34,8 +34,7 @@ export interface Suggestion {
   reason: string
   compatibility: CompatStatus
   compatibilityDetail: string
-  /** Fabricante que a variável ou a fonte exige. `null` não prova que vale em qualquer GPU. */
-  gpuVendor: GpuReq | null
+  hardwareScope: HardwareScope
   positive: number
   negative: number
   claims: Claim[]
@@ -50,6 +49,7 @@ export interface Excluded {
   title: string
   kind: ExcludedKind
   reason: string
+  hardwareScope: HardwareScope
   claims: Claim[]
 }
 

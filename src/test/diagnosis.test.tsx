@@ -36,7 +36,7 @@ const suggestion = (over: Partial<Suggestion> = {}): Suggestion => ({
   reason: '2 fontes relatam melhora; 0 relatam o contrário.',
   compatibility: 'compatible',
   compatibilityDetail: 'O planejador conferiu GPU, Proton e arquivos deste jogo.',
-  gpuVendor: null,
+  hardwareScope: 'unknown',
   positive: 2,
   negative: 0,
   claims: [claim('fixed the crash')],
@@ -133,13 +133,23 @@ describe('Central de Resolução', () => {
     expect(text()).toContain('Relato de resultado')
   })
 
-  it('mostra o fabricante exigido sem prometer que vale em qualquer GPU', async () => {
-    answer = () => result({ suggestions: [suggestion({ title: 'NVAPI', gpuVendor: 'nvidia' }), suggestion({ title: 'Heap', gpuVendor: null })] })
+  it('mostra um selo de hardware por sugestão, comparado com a GPU do usuário', async () => {
+    answer = () =>
+      result({
+        suggestions: [
+          suggestion({ title: 'NVAPI', hardwareScope: 'nvidia' }),
+          suggestion({ title: 'RADV', hardwareScope: 'amd' }),
+          suggestion({ title: 'Geral', hardwareScope: 'any' }),
+          suggestion({ title: 'Sem dados', hardwareScope: 'unknown' }),
+        ],
+      })
     mount(section())
     await click('Diagnosticar')
-    expect(text()).toContain('Compatível com NVIDIA')
-    expect(text()).toContain('Sem GPU específica citada')
-    expect(text()).not.toContain('qualquer GPU')
+    expect(text()).toContain('Compatível com sua NVIDIA')
+    expect(text()).toContain('Atenção: requer AMD')
+    expect(text()).toContain('Hardware não especificado')
+    expect(document.body.innerHTML).toContain('frx-good')
+    expect(document.body.innerHTML).toContain('frx-caution')
   })
 
   it('abre a prévia do Fix Engine com a impressão digital, sem chamar aplicação', async () => {
@@ -206,7 +216,7 @@ describe('Central de Resolução', () => {
         symptom: 'crash-or-wont-start',
         verdict: 'no-evidence',
         suggestions: [],
-        excluded: [{ key: { id: 'env:PROTON_DLSS_UPGRADE=1', items: [] }, title: 'Atualizar o DLSS', kind: 'wrong-purpose', reason: 'Melhoria de imagem, não correção.', claims: [] }],
+        excluded: [{ key: { id: 'env:PROTON_DLSS_UPGRADE=1', items: [] }, title: 'Atualizar o DLSS', kind: 'wrong-purpose', hardwareScope: 'unknown', reason: 'Melhoria de imagem, não correção.', claims: [] }],
       })
     await click('Diagnosticar novamente')
     await click('Não sugeridas (1)')

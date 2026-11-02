@@ -185,6 +185,7 @@ pub(super) struct CommunityReport {
 /// Relato sem ação. A confiança nunca passa de relato da comunidade.
 pub(super) fn report_finding(q: &GameQuery, r: CommunityReport) -> FixFinding {
     FixFinding {
+        hardware_scope: Default::default(),
         artifacts: vec![],
         performance_evidence: PerformanceEvidence::default(),
         id: finding_id(r.id_prefix, &q.app_id, &r.reference),

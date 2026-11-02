@@ -7,6 +7,7 @@ use super::gates;
 use super::models::*;
 use crate::fix_engine::availability::AvailabilityState;
 use crate::fix_engine::dynamic::EvidenceLevel;
+use crate::fixes::models::HardwareScope;
 use crate::fixes::reports::Outcome;
 
 pub fn tally(claims: &[Claim]) -> (u32, u32) {
@@ -148,7 +149,13 @@ pub fn group(candidates: Vec<Candidate>, input: &DiagnosisInput) -> Grouped {
         let (pos, neg) = tally(&claims);
         let level = confidence(&claims);
         let improvement = gates::is_improvement(&best.key, best.purpose);
+        let hardware_scope = list
+            .iter()
+            .map(|c| c.hardware_scope)
+            .find(|s| *s != HardwareScope::Unknown)
+            .unwrap_or_default();
         let exclude = |kind, reason: String| Excluded {
+            hardware_scope,
             key: best.key.clone(),
             title: best.title.clone(),
             kind,
@@ -248,7 +255,7 @@ pub fn group(candidates: Vec<Candidate>, input: &DiagnosisInput) -> Grouped {
         };
         let (compatibility, compatibility_detail) = compat_of(best, ctx);
         let suggestion = Suggestion {
-            gpu_vendor: list.iter().find_map(|c| c.gpu_vendor),
+            hardware_scope,
             key: best.key.clone(),
             title: best.title.clone(),
             optional_improvement: improvement,
@@ -269,16 +276,25 @@ pub fn group(candidates: Vec<Candidate>, input: &DiagnosisInput) -> Grouped {
             out.suggestions.push(suggestion);
         }
     }
+    let fit = |s: &Suggestion| s.hardware_scope.rank(ctx.gpu_vendor);
     out.suggestions.sort_by(|a, b| {
-        (a.optional_improvement, a.state, a.confidence, &a.key.id).cmp(&(
-            b.optional_improvement,
-            b.state,
-            b.confidence,
-            &b.key.id,
-        ))
+        (
+            a.optional_improvement,
+            a.state,
+            fit(a),
+            a.confidence,
+            &a.key.id,
+        )
+            .cmp(&(
+                b.optional_improvement,
+                b.state,
+                fit(b),
+                b.confidence,
+                &b.key.id,
+            ))
     });
     out.in_review
-        .sort_by(|a, b| (a.confidence, &a.key.id).cmp(&(b.confidence, &b.key.id)));
+        .sort_by(|a, b| (fit(a), a.confidence, &a.key.id).cmp(&(fit(b), b.confidence, &b.key.id)));
     out.excluded.sort_by(|a, b| a.key.id.cmp(&b.key.id));
     out
 }

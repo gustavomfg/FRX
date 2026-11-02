@@ -5,13 +5,14 @@ import { Select } from '@/components/ui/Controls'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { Pill } from '@/components/ui/Status'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
-import { gpuLabel } from '@/components/fix/HardwareContext'
+import { HardwareBadge } from '@/components/fix/HardwareContext'
 import { diagnoseGame } from '@/services/diagnosis'
 import { errorMessage } from '@/services/native'
 import { openExternal } from '@/services/opener'
 import { useSettings, useToast } from '@/state/store'
 import type { Claim, DiagnosisResult, Excluded, Suggestion, SuggestionState, Symptom } from '@/types/diagnosis'
 import type { EvidenceLevel } from '@/types/fixEngine'
+import type { GpuReq } from '@/types/fixes'
 
 const SYMPTOMS: { value: Symptom; label: string }[] = [
   { value: 'unspecified', label: 'Não informado' },
@@ -59,13 +60,16 @@ function Sources({ claims, open }: { claims: Claim[]; open: (url: string) => voi
   )
 }
 
-function SuggestionCard({ s, apply, open }: { s: Suggestion; apply?: () => void; open: (url: string) => void }) {
+function SuggestionCard({ s, gpu, apply, open }: { s: Suggestion; gpu: GpuReq | null; apply?: () => void; open: (url: string) => void }) {
   const state = STATE[s.state]
   return (
     <li className="rounded-sm border border-line p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-[14px] font-medium text-fg">{s.title}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-[14px] font-medium text-fg">{s.title}</p>
+            <HardwareBadge scope={s.hardwareScope} user={gpu} />
+          </div>
           <code className="mt-0.5 block text-[12px] break-all text-fg-3">{s.key.id}</code>
         </div>
         {apply && (
@@ -84,9 +88,6 @@ function SuggestionCard({ s, apply, open }: { s: Suggestion; apply?: () => void;
         <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
           {s.compatibility === 'compatible' ? 'Compatível' : 'Compatibilidade desconhecida'}
         </Pill>
-        <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
-          {gpuLabel(s.gpuVendor)}
-        </Pill>
       </div>
       <p className="mt-3 text-[13px] text-fg-2">{s.reason}</p>
       <p className="mt-1 text-[12.5px] text-fg-3">{s.compatibilityDetail}</p>
@@ -97,10 +98,11 @@ function SuggestionCard({ s, apply, open }: { s: Suggestion; apply?: () => void;
   )
 }
 
-function ExcludedRow({ e }: { e: Excluded }) {
+function ExcludedRow({ e, gpu }: { e: Excluded; gpu: GpuReq | null }) {
   return (
     <li className="text-[13px] text-fg-2">
-      <span className="text-fg">{e.title}</span>
+      <span className="mr-2 text-fg">{e.title}</span>
+      {e.hardwareScope !== 'unknown' && <HardwareBadge scope={e.hardwareScope} user={gpu} />}
       <code className="ml-2 text-[12px] break-all text-fg-3">{e.key.id}</code>
       <span className="block text-fg-3">{e.reason}</span>
     </li>
@@ -191,7 +193,7 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
           {fixes.length > 0 && (
             <ul className="mt-4 space-y-3" aria-label="Sugestões">
               {fixes.map((s) => (
-                <SuggestionCard key={s.key.id} s={s} apply={applyOf(s)} open={open} />
+                <SuggestionCard key={s.key.id} s={s} gpu={result.context.gpuVendor} apply={applyOf(s)} open={open} />
               ))}
             </ul>
           )}
@@ -202,7 +204,7 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
               <p className="mt-0.5 text-[12.5px] text-fg-3">Melhoram a imagem. Não corrigem falhas.</p>
               <ul className="mt-3 space-y-3" aria-label="Melhorias opcionais">
                 {improvements.map((s) => (
-                  <SuggestionCard key={s.key.id} s={s} apply={applyOf(s)} open={open} />
+                  <SuggestionCard key={s.key.id} s={s} gpu={result.context.gpuVendor} apply={applyOf(s)} open={open} />
                 ))}
               </ul>
             </div>
@@ -212,7 +214,7 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
             <Disclosure title={`Em revisão (${result.inReview.length})`} className="mt-5" titleClassName="text-[14px] font-medium text-fg">
               <ul className="mt-3 space-y-3" aria-label="Em revisão">
                 {result.inReview.map((s) => (
-                  <SuggestionCard key={s.key.id} s={s} open={open} />
+                  <SuggestionCard key={s.key.id} s={s} gpu={result.context.gpuVendor} open={open} />
                 ))}
               </ul>
             </Disclosure>
@@ -222,7 +224,7 @@ export function DiagnosisSection({ appId, title, onAct }: { appId: string; title
             <Disclosure title={`Não sugeridas (${result.excluded.length})`} className="mt-4" titleClassName="text-[14px] font-medium text-fg">
               <ul className="mt-3 space-y-2">
                 {result.excluded.map((e) => (
-                  <ExcludedRow key={e.key.id} e={e} />
+                  <ExcludedRow key={e.key.id} e={e} gpu={result.context.gpuVendor} />
                 ))}
               </ul>
             </Disclosure>

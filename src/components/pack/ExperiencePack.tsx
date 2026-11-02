@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Pill } from '@/components/ui/Status'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { type ApplyTarget } from '@/components/fix/ApplyFixDialog'
-import { gpuLabel } from '@/components/fix/HardwareContext'
+import { HardwareBadge, hardwareBadge } from '@/components/fix/HardwareContext'
 import { OperationHistory } from '@/components/fix/OperationHistory'
 import { Mascot } from '@/mascot/Mascot'
 import { getExperiencePack } from '@/services/smartPacks'
@@ -15,7 +15,7 @@ import { useFixEngine } from '@/state/fixEngine'
 import { useFixReports } from '@/state/fixes'
 import { useToast } from '@/state/store'
 import { fmtRelative } from '@/lib/format'
-import type { ProviderStatus } from '@/types/fixes'
+import type { GpuReq, ProviderStatus } from '@/types/fixes'
 import type { ExperiencePack as Pack, LeftOut, LeftOutKind, PackAction } from '@/types/smartPacks'
 import { cn } from '@/lib/cn'
 
@@ -147,7 +147,7 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3 text-[12.5px] text-fg-2">{gpuSummary(selected)}</p>
+                <p className="mt-3 text-[12.5px] text-fg-2">{hardwareSummary(selected, pack.leftOut, report.context.gpuVendor)}</p>
               </>
             ) : (
               <p className="mt-2 max-w-2xl text-[14px] text-fg-2">
@@ -196,7 +196,7 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
                 <p className="mt-1 text-[12px] text-fg-3">Desmarque uma ação para tirá-la do pacote. Cada ação já foi validada sozinha e em conjunto.</p>
                 <ul className="mt-3 space-y-2">
                   {pack.actions.map((a) => (
-                    <ActionRow key={a.recipeId} a={a} onToggle={() => toggle(a.recipeId)} onOpen={open} />
+                    <ActionRow key={a.recipeId} a={a} gpu={report.context.gpuVendor} onToggle={() => toggle(a.recipeId)} onOpen={open} />
                   ))}
                 </ul>
                 {pack.compatibility.length > 0 && (
@@ -215,7 +215,7 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
                 )}
               </div>
             )}
-            {pack.leftOut.length > 0 && <LeftOutList items={pack.leftOut} />}
+            {pack.leftOut.length > 0 && <LeftOutList items={pack.leftOut} gpu={report.context.gpuVendor} />}
             <div>
               <h3 className="flex items-center gap-2 text-[13px] font-semibold text-fg">
                 <ShieldCheck className="size-3.5 text-accent" aria-hidden /> Backup e desfazer
@@ -236,14 +236,19 @@ export function ExperiencePackSection({ appId, title, onAct }: { appId: string; 
   )
 }
 
-/** Resumo visível sem abrir os detalhes, onde fica o aviso de cada ação. */
-function gpuSummary(actions: PackAction[]) {
+/** Resumo visível sem abrir os detalhes, onde fica o selo de cada ação. */
+function hardwareSummary(actions: PackAction[], leftOut: LeftOut[], gpu: GpuReq | null) {
   const counts = new Map<string, number>()
-  for (const a of actions) counts.set(gpuLabel(a.gpuVendor), (counts.get(gpuLabel(a.gpuVendor)) ?? 0) + 1)
+  const add = (label: string, n: number) => counts.set(label, (counts.get(label) ?? 0) + n)
+  for (const a of actions) add(hardwareBadge(a.hardwareScope, gpu).label, 1)
+  for (const l of leftOut) {
+    const badge = hardwareBadge(l.hardwareScope, gpu)
+    if (badge.mismatch) add(`Fora do pacote · ${badge.label}`, l.count)
+  }
   return [...counts].map(([label, count]) => `${label} (${count})`).join(' · ')
 }
 
-function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => void; onOpen: (url: string) => void }) {
+function ActionRow({ a, gpu, onToggle, onOpen }: { a: PackAction; gpu: GpuReq | null; onToggle: () => void; onOpen: (url: string) => void }) {
   return (
     <li className={cn('rounded-md border border-line bg-bg px-4 py-3', !a.selected && 'opacity-55')}>
       <div className="flex items-start gap-3">
@@ -252,6 +257,9 @@ function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => voi
           <p className="text-[13.5px] font-medium text-fg">
             {a.title} <span className="font-normal text-fg-3">· {a.area}</span>
           </p>
+          <div className="mt-1">
+            <HardwareBadge scope={a.hardwareScope} user={gpu} />
+          </div>
           {a.effects[0] && <p className="mt-0.5 text-[12.5px] text-fg-2">{a.effects[0]}</p>}
           <p className="mt-1.5 flex flex-wrap gap-1.5">
             {a.changes.map((c) => (
@@ -260,8 +268,7 @@ function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => voi
               </code>
             ))}
           </p>
-          <p className="mt-1.5 text-[12px] text-fg-2">{gpuLabel(a.gpuVendor)}</p>
-          <p className="mt-1 text-[12px] text-fg-3">
+          <p className="mt-1.5 text-[12px] text-fg-3">
             {a.evidenceNote}
             {(a.positive > 0 || a.negative > 0) && ` · ${a.positive} relato(s) dizem que resolveu, ${a.negative} que não`}
           </p>
@@ -284,7 +291,7 @@ function ActionRow({ a, onToggle, onOpen }: { a: PackAction; onToggle: () => voi
 }
 
 /** O que ficou fora, agrupado pelo motivo: dez relatos iguais são uma linha. */
-function LeftOutList({ items }: { items: LeftOut[] }) {
+function LeftOutList({ items, gpu }: { items: LeftOut[]; gpu: GpuReq | null }) {
   const groups = Object.entries(LEFT_OUT)
     .map(([kind, label]) => ({ kind, label, rows: items.filter((i) => i.kind === kind) }))
     .filter((g) => g.rows.length)
@@ -300,7 +307,8 @@ function LeftOutList({ items }: { items: LeftOut[] }) {
               {g.rows.map((r) => (
                 <li key={`${r.title}|${r.changes.join()}|${r.reason}`}>
                   <span className="text-fg-2">{r.changes.length ? r.changes.join(' ') : r.title}</span>
-                  {r.count > 1 && ` ×${r.count}`} — {r.reason}
+                  {r.count > 1 && ` ×${r.count}`} — {r.reason}{' '}
+                  {hardwareBadge(r.hardwareScope, gpu).mismatch && <HardwareBadge scope={r.hardwareScope} user={gpu} />}
                 </li>
               ))}
             </ul>

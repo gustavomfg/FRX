@@ -1,6 +1,6 @@
 /** Smart Packs — espelho de `src-tauri/src/smart_packs/models.rs`. */
 import type { Availability, DynStatus, EvidenceLevel, GamePerformanceEvidence, PlanStatus, Purpose, RecipeAction, Risk, Trust } from './fixEngine'
-import type { ArtifactCandidate, GpuReq } from './fixes'
+import type { ArtifactCandidate, GpuReq, HardwareScope } from './fixes'
 import type { HardwareRequirements } from './steam'
 
 export type PackKind = 'baseline' | 'single' | 'combination'
@@ -199,8 +199,7 @@ export interface PackAction {
   risk: Risk
   evidence: EvidenceLevel
   evidenceNote: string
-  /** Fabricante exigido pela receita ou pelas variáveis. `null` não prova que vale em qualquer GPU. */
-  gpuVendor: GpuReq | null
+  hardwareScope: HardwareScope
   positive: number
   negative: number
   sources: { label: string; url: string }[]
@@ -212,6 +211,7 @@ export interface LeftOut {
   reason: string
   kind: LeftOutKind
   changes: string[]
+  hardwareScope: HardwareScope
   count: number
 }
 

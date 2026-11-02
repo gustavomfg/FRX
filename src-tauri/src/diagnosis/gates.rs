@@ -72,17 +72,6 @@ pub fn already_in_options(key: &ConfigKey, ctx: &DiagnosisContext) -> bool {
     any && key.items.iter().all(|i| i.kind == "env")
 }
 
-/// Fabricante exigido pelas próprias variáveis, quando a tabela o conhece.
-pub fn required_vendor(key: &ConfigKey) -> Option<GpuReq> {
-    env_items(key)
-        .find_map(|(k, v)| {
-            knowledge(k, v)
-                .and_then(|known| known.gpu)
-                .or(vendor_bound(k))
-        })
-        .or(touches_dlss_upgrade(key).then_some(GpuReq::Nvidia))
-}
-
 pub fn vendor_conflict(key: &ConfigKey, ctx: &DiagnosisContext) -> Option<String> {
     let current = ctx.gpu_vendor?;
     env_items(key)
