@@ -13,6 +13,8 @@ pub mod pyscan;
 pub mod reports;
 pub mod tweaks;
 
+use std::collections::HashMap;
+
 use crate::cache::{Cache, Entry};
 use crate::net::Fetcher;
 use crate::steam::models::CompatTool;
@@ -38,7 +40,52 @@ pub fn valid_app_id(id: &str) -> bool {
     crate::art::valid_app_id(id)
 }
 
-fn sort_findings(f: &mut [FixFinding]) {
+/// Pertinência calculada por `ai::ranker`, com o mesmo embedder lexical usado sem
+/// modelo. Não há sintoma nesta busca, então esse termo do score fica zerado. Só
+/// ordena: nunca muda a confiança da descoberta.
+fn relevance_by_finding(
+    findings: &[FixFinding],
+    query: &crate::ai::models::ResearchQuery,
+) -> HashMap<String, f32> {
+    use crate::ai::models::{Candidate, SourceKind};
+    let now = crate::time::now_unix();
+    findings
+        .iter()
+        .map(|f| {
+            let source = match (f.kind, f.sources.first().map(|s| s.provider)) {
+                (FindingKind::Protonfix, _) => SourceKind::Umu,
+                (FindingKind::ReleaseNote, _) => SourceKind::ReleaseNotes,
+                (_, Some(ProviderId::Reddit)) => SourceKind::Reddit,
+                _ => SourceKind::GithubComment,
+            };
+            let snippets: Vec<&str> = f
+                .sources
+                .iter()
+                .filter_map(|s| s.snippet.as_deref())
+                .collect();
+            let candidate = Candidate {
+                source,
+                url: f.sources.first().map(|s| s.url.clone()).unwrap_or_default(),
+                title: f.title.clone(),
+                snippet: f.description.clone(),
+                raw_text: snippets.join("\n"),
+                published_at: f.published_at.clone(),
+            };
+            let score = crate::ai::ranker::rank(
+                query,
+                &[candidate],
+                &crate::ai::embedder::LexicalEmbedder,
+                now,
+            )
+            .ok()
+            .and_then(|scored| scored.first().map(|s| s.relevance))
+            .unwrap_or(0.0);
+            (f.id.clone(), score)
+        })
+        .collect()
+}
+
+fn sort_findings(f: &mut [FixFinding], relevance: &HashMap<String, f32>) {
     let kind_rank = |k: FindingKind| match k {
         FindingKind::Protonfix => 0,
         FindingKind::ReleaseNote => 1,
@@ -54,6 +101,10 @@ fn sort_findings(f: &mut [FixFinding]) {
     f.sort_by(|a, b| {
         hardware_rank(a.compatibility)
             .cmp(&hardware_rank(b.compatibility))
+            .then_with(|| {
+                let score = |x: &FixFinding| relevance.get(&x.id).copied().unwrap_or(0.0);
+                score(b).total_cmp(&score(a))
+            })
             .then(a.confidence.cmp(&b.confidence))
             .then(kind_rank(a.kind).cmp(&kind_rank(b.kind)))
             .then(b.evidence.positive.cmp(&a.evidence.positive))
@@ -104,7 +155,22 @@ pub async fn search<F: Fetcher>(
     for f in &mut findings {
         compat::assess(f, &hw);
     }
-    sort_findings(&mut findings);
+    let research = crate::ai::models::ResearchQuery {
+        symptom: String::new(),
+        appid: req.app_id.parse().unwrap_or(0),
+        system: crate::ai::models::SystemSnapshot {
+            gpus: hw.gpus.clone(),
+            primary_gpu: hw.primary.clone(),
+            vulkan_drivers: vec![],
+            mesa_version: None,
+        },
+        game: crate::ai::models::GameInfo {
+            name: name.clone(),
+            proton_tool: tool.as_ref().map(|t| short_tool_name(&t.display_name)),
+        },
+    };
+    let relevance = relevance_by_finding(&findings, &research);
+    sort_findings(&mut findings, &relevance);
 
     let providers = vec![
         umu.status,
@@ -363,9 +429,58 @@ mod tests {
             finding("unknown", Compatibility::Unknown, Confidence::Verified),
             finding("match", Compatibility::Compatible, Confidence::Unverified),
         ];
-        sort_findings(&mut list);
+        sort_findings(&mut list, &HashMap::new());
         let ids: Vec<&str> = list.iter().map(|f| f.id.as_str()).collect();
         assert_eq!(ids, ["match", "unknown", "wrong-gpu"]);
+    }
+
+    #[test]
+    fn ranker_orders_findings_inside_the_same_hardware_tier() {
+        let finding = |id: &str, snippet: &str| {
+            let mut f = providers::umu::build_finding(
+                &GameQuery {
+                    app_id: "200260".into(),
+                    name: "fixture".into(),
+                    retrieved_at: "fixture".into(),
+                    tool: None,
+                },
+                "gamefixes-steam/200260.py",
+                "def main():\n    pass",
+                None,
+            );
+            f.id = id.into();
+            f.kind = FindingKind::Tweak;
+            f.compatibility = Compatibility::Unknown;
+            f.confidence = Confidence::Verified;
+            f.published_at = None;
+            f.sources[0].snippet = Some(snippet.into());
+            f
+        };
+        let primary: crate::system::GpuInfo = serde_json::from_value(serde_json::json!({
+            "vendor": "nvidia", "vendorId": "0", "deviceId": "0", "name": "NVIDIA GeForce RTX 4060",
+            "driver": null, "driverVersion": null, "bootVga": true
+        }))
+        .unwrap();
+        let query = crate::ai::models::ResearchQuery {
+            symptom: String::new(),
+            appid: 200260,
+            system: crate::ai::models::SystemSnapshot {
+                gpus: vec![],
+                primary_gpu: Some(primary),
+                vulkan_drivers: vec![],
+                mesa_version: None,
+            },
+            game: Default::default(),
+        };
+        let mut list = vec![
+            finding("radeon", "works on my Radeon RX 7800 XT"),
+            finding("plain", "worked for me"),
+            finding("rtx", "works on my RTX 4060"),
+        ];
+        let relevance = relevance_by_finding(&list, &query);
+        sort_findings(&mut list, &relevance);
+        let ids: Vec<&str> = list.iter().map(|f| f.id.as_str()).collect();
+        assert_eq!(ids, ["rtx", "plain", "radeon"]);
     }
 
     #[tokio::test]
