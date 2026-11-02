@@ -6,6 +6,7 @@
 //! A descoberta continua somente leitura e nenhum script de terceiros é
 //! executado; só o Fix Engine escreve, e apenas o que o plano confirmado diz.
 
+pub mod ai;
 mod art;
 mod cache;
 mod commands;
