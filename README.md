@@ -115,6 +115,7 @@ In the release build, the interface (`dist/`) is **embedded in the binary** and 
 | `cancel_fix_operation` | Cancels the preparation/download before the writing phase; does not abandon a transaction while it is writing |
 | `list_fix_operations`, `get_fix_operation`, `get_applied_fixes`, `verify_fix_operation` | History, actual status checked on disk and manual steps |
 | `prepare_fix_rollback`, `rollback_fix` | Rollback preview and execution |
+| `research_fix`, | Pesquisa candidatos para um sintoma + hardware (Semana 1: mocks, sem rede)|
 
 - **TypeScript:** `src/services/{games,fixes,fixEngine,performance,native,platform,opener}.ts` calls these commands with `@tauri-apps/api/core`. The states are in `src/state/{library,fixes,fixEngine,performance}.tsx`; capture continues when navigating between pages, and Fix Engine progress arrives via event `fix-engine://progress`.
 - **Types:** Rust models are mirrored in `src/types/{steam,fixes,fixEngine,performance}.ts`.
@@ -269,7 +270,7 @@ Tauri 2 (Rust) · React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · 
 ## Structure
 
 ```
-src-tauri/src/
+src-tauri/src/       
   commands/                Tauri commands: app, games, system, fixes, fix_engine, performance
   fix_engine/              catalog, security (allowlist), planner, files, confined (FD-based destinations),
                            artifacts (download/staging), journal, models — application and rollback
@@ -305,6 +306,8 @@ src/
   hooks/                   useGameArt
   test/                    fixtures and IPC bridge integration tests (Vitest + mockIPC)
   types/                   domain types
+  
+  ai/                       ranker, embedder, models, sumarização futura
 ```
 
 ## Visual identity

@@ -530,6 +530,13 @@ completos antes de polaridade, com revisão independente e nova aceitação.
 [avaliador](../research/frx_ai/v6/evaluate.py),
 [reparo de offsets](../research/frx_ai/v6/snapshot/offset-repair.json).
 
+**Aplicação dos achados (30/10/2026).** As descobertas D-002 (recuperação
+especializada), D-008 (execução ≠ sugestão ≠ resultado) e D-010 (candidatos
+completos limitam o classificador) fundamentaram o escopo do módulo de busca do
+aplicativo (`docs/AI-SEARCH.md`). O módulo usa apenas o recuperador e não
+emprega nenhum modelo de interpretação. A pesquisa de interpretação continua
+experimental e desconectada do Fix Engine; nada em `ai/` reabre v1–v6.
+
 <a id="lab-v7"></a>
 ### FRX AI v7 — descoberta de candidatos e raciocínio diagnóstico
 
