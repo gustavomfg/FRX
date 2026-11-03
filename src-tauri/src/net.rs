@@ -15,7 +15,7 @@ use reqwest::Url;
 pub const USER_AGENT: &str = concat!(
     "FRX/",
     env!("CARGO_PKG_VERSION"),
-    " (Linux game compatibility helper; read-only)"
+    " (Linux laptop hardware helper; read-only)"
 );
 
 pub const ALLOWED_HOSTS: &[&str] = &[
@@ -28,6 +28,7 @@ pub const ALLOWED_HOSTS: &[&str] = &[
     "steamcdn-a.akamaihd.net",
     "www.reddit.com",
     "bugs.winehq.org",
+    "wiki.archlinux.org",
 ];
 
 #[derive(Debug, Clone)]

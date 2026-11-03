@@ -2,7 +2,7 @@ import { openUrl } from '@tauri-apps/plugin-opener'
 import { isTauri } from './platform'
 
 /** Domínios que a interface pode abrir no navegador (espelha a capability do Tauri). */
-const ALLOWED = ['github.com', 'raw.githubusercontent.com', 'www.protondb.com', 'store.steampowered.com', 'steamdb.info', 'openwinecomponents.org']
+const ALLOWED = ['github.com', 'raw.githubusercontent.com', 'www.protondb.com', 'store.steampowered.com', 'steamdb.info', 'openwinecomponents.org', 'wiki.archlinux.org']
 
 export function isSafeExternalUrl(url: string) {
   try {

@@ -2,7 +2,11 @@
 //! busca e devolve descobertas + situação. Adicionar uma fonte nova é criar
 //! um módulo aqui e chamá-lo em `fixes::search`.
 
+pub mod arch_wiki;
 pub mod artifacts;
+// Esqueleto do escopo de laptops: ainda sem chamador fora dos testes.
+#[allow(dead_code)]
+pub mod fwupd;
 pub mod github;
 pub mod protondb;
 // Desativado em `fixes::search`: só os testes chamam a busca. Ver o módulo.
@@ -39,6 +43,28 @@ pub struct GameQuery {
     pub retrieved_at: String,
 }
 
+/// Laptop alvo dos provedores de hardware (`arch_wiki`, `fwupd`).
+#[derive(Debug, Clone, Default)]
+pub struct LaptopQuery {
+    pub identity: Option<crate::system::LaptopIdentity>,
+}
+
+#[cfg(test)]
+impl LaptopQuery {
+    /// Laptop fictício para testes: nunca corresponde a um modelo real.
+    pub fn fictional() -> Self {
+        Self {
+            identity: Some(crate::system::LaptopIdentity {
+                vendor: Some("Acme Computers".into()),
+                model: Some("Acme Book 14 (AB14-2026)".into()),
+                board_name: Some("AB14-MB".into()),
+                product_version: None,
+                display_name: Some("Acme Book 14 (AB14-2026)".into()),
+            }),
+        }
+    }
+}
+
 pub fn catalog() -> Vec<ProviderInfo> {
     vec![
         ProviderInfo {
@@ -66,6 +92,8 @@ pub fn catalog() -> Vec<ProviderInfo> {
         reddit::info(),
         winehq::info(),
         steam_guides::info(),
+        arch_wiki::info(),
+        fwupd::info(),
     ]
 }
 

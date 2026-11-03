@@ -68,6 +68,8 @@ pub enum ProviderId {
     Reddit,
     Winehq,
     SteamGuides,
+    ArchWiki,
+    Fwupd,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Hash)]

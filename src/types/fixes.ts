@@ -11,7 +11,7 @@ export type AnalysisState = 'parsed' | 'partial' | 'not-verified'
 /** Espelha `HardwareScope`. `any` exige variável conhecida; `unknown` é a fonte sem informação. */
 export type HardwareScope = 'nvidia' | 'amd' | 'intel' | 'any' | 'unknown'
 
-export type ProviderId = 'umu-protonfixes' | 'umu-database' | 'github' | 'protondb' | 'reddit' | 'winehq' | 'steam-guides'
+export type ProviderId = 'umu-protonfixes' | 'umu-database' | 'github' | 'protondb' | 'reddit' | 'winehq' | 'steam-guides' | 'arch-wiki' | 'fwupd'
 export type ProviderState = 'ok' | 'cached' | 'stale' | 'no-data' | 'unavailable' | 'rate-limited' | 'disabled'
 export type GpuReq = 'nvidia' | 'amd' | 'intel'
 
