@@ -69,6 +69,9 @@ pub fn run() {
             commands::app::ping,
             commands::system::get_system_profile,
             commands::system::identify_laptop,
+            commands::hardware::search_hardware_fixes,
+            commands::hardware::prepare_system_fix,
+            commands::hardware::apply_system_fix,
             #[cfg(debug_assertions)]
             commands::dev_laptop::set_dev_laptop,
             commands::games::scan_installed_games,

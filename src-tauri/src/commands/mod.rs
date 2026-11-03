@@ -13,6 +13,7 @@ pub mod diagnosis;
 pub mod fix_engine;
 pub mod fixes;
 pub mod games;
+pub mod hardware;
 pub mod performance;
 pub mod smart_packs;
 pub mod system;
