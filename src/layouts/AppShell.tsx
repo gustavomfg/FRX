@@ -6,9 +6,6 @@ import { CommandPalette } from './CommandPalette'
 import { Toaster } from '@/components/ui/Toasts'
 import { NAV } from '@/app/routes'
 import { useMotionAttribute } from '@/state/motion'
-import { useDispatch, useSettings } from '@/state/store'
-import { useLibrary } from '@/state/library'
-import { games } from '@/data/games'
 
 function useNarrow(breakpoint = 1100) {
   const [narrow, setNarrow] = useState(() => window.innerWidth < breakpoint)
@@ -27,22 +24,6 @@ export function AppShell() {
   const navigate = useNavigate()
   const main = useRef<HTMLElement>(null)
   const [palette, setPalette] = useState(false)
-  const { scanOnStartup } = useSettings()
-  const { mode } = useLibrary()
-  const dispatch = useDispatch()
-
-  // "Verificar a biblioteca ao abrir" — varredura simulada, uma vez por sessão.
-  const scanned = useRef(false)
-  useEffect(() => {
-    // No modo real a varredura é feita pelo LibraryProvider; o aviso simulado só existe na demo.
-    if (mode !== 'demo' || !scanOnStartup || scanned.current) return
-    const t = setTimeout(() => {
-      scanned.current = true
-      dispatch({ type: 'toast', toast: { tone: 'info', title: 'Biblioteca verificada', body: `${games.length} jogos encontrados · simulado` } })
-    }, 1200)
-    return () => clearTimeout(t)
-  }, [mode, scanOnStartup, dispatch])
-
   useEffect(() => {
     main.current?.scrollTo({ top: 0 })
   }, [location.pathname])
@@ -53,9 +34,10 @@ export function AppShell() {
         e.preventDefault()
         setPalette((p) => !p)
       }
-      if (e.altKey && /^[1-5]$/.test(e.key)) {
+      const item = e.altKey ? NAV[Number(e.key) - 1] : undefined
+      if (item) {
         e.preventDefault()
-        navigate(NAV[Number(e.key) - 1].to)
+        navigate(item.to)
       }
     }
     window.addEventListener('keydown', onKey)
