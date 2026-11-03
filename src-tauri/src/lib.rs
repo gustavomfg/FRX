@@ -68,6 +68,9 @@ pub fn run() {
             commands::app::app_info,
             commands::app::ping,
             commands::system::get_system_profile,
+            commands::system::identify_laptop,
+            #[cfg(debug_assertions)]
+            commands::dev_laptop::set_dev_laptop,
             commands::games::scan_installed_games,
             commands::games::get_installed_games,
             commands::games::get_game_art,

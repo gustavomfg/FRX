@@ -3,10 +3,12 @@
 //! sem ferramentas exclusivas de fabricante e sem privilégios.
 
 pub mod context;
+pub mod dmi;
 pub mod hardware;
 
 use serde::Serialize;
 
+pub use dmi::{identify_laptop, LaptopIdentity};
 pub use hardware::{GpuInfo, GpuVendor};
 
 #[derive(Debug, Clone, Serialize)]
