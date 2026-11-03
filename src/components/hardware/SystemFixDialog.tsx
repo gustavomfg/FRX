@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArchiveRestore, BookOpen, ClipboardCopy, ExternalLink, FileCode2, RefreshCw, RotateCcw, ShieldAlert, TerminalSquare, TriangleAlert } from 'lucide-react'
+import { ArchiveRestore, BookOpen, ClipboardCopy, ExternalLink, FileCode2, RefreshCw, RotateCcw, ShieldAlert, TerminalSquare, TriangleAlert, X } from 'lucide-react'
 import { Dialog } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { Pill } from '@/components/ui/Status'
@@ -91,6 +91,31 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
     }
   }
 
+  /**
+   * Cancela uma aplicação que espera o comando. Se o arquivo do FRX já está
+   * em /etc (o comando rodou), cancelar vira desfazer: mostra a prévia dele.
+   */
+  const [cancelling, setCancelling] = useState(false)
+  const cancel = async () => {
+    if (!op) return
+    setCancelling(true)
+    try {
+      const p = await prepareFixRollback(op.id)
+      if (p.changes.length > 0) {
+        setPlan(null)
+        setRb(p)
+        setPhase('review')
+        toast({ tone: 'info', title: 'O arquivo já está em /etc', body: 'Cancelar agora é desfazer: revise o comando abaixo.' })
+      } else {
+        finish(await rollbackFix(p))
+      }
+    } catch (e) {
+      toast({ tone: 'error', title: 'Não foi possível cancelar', body: errorMessage(e) })
+    } finally {
+      setCancelling(false)
+    }
+  }
+
   const verify = async () => {
     if (!op) return
     setVerifying(true)
@@ -112,7 +137,9 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
   const manualPlan = plan?.mode === 'manual' || rb?.mode === 'manual'
 
   const title =
-    target.kind === 'apply' ? 'Aplicar correção' : target.kind === 'rollback' ? 'Desfazer correção' : op?.pending?.kind === 'rollback' ? 'Desfazer: passo no terminal' : 'Aplicar: passo no terminal'
+    rb && target.kind !== 'rollback'
+      ? 'Desfazer correção'
+      : target.kind === 'apply' ? 'Aplicar correção' : target.kind === 'rollback' ? 'Desfazer correção' : op?.pending?.kind === 'rollback' ? 'Desfazer: passo no terminal' : 'Aplicar: passo no terminal'
   const subject = plan?.recipeTitle ?? (target.kind !== 'apply' ? target.operation.recipeTitle : '')
 
   const footer =
@@ -130,7 +157,12 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
         <Button variant="ghost" onClick={onClose}>
           Fechar e conferir depois
         </Button>
-        <Button variant="primary" loading={verifying} icon={<RefreshCw className="size-4" />} onClick={verify}>
+        {op?.pending?.kind === 'apply' && (
+          <Button variant="outline" loading={cancelling} disabled={verifying} icon={<X className="size-4" />} onClick={cancel}>
+            Cancelar
+          </Button>
+        )}
+        <Button variant="primary" loading={verifying} disabled={cancelling} icon={<RefreshCw className="size-4" />} onClick={verify}>
           Já rodei — conferir
         </Button>
       </>

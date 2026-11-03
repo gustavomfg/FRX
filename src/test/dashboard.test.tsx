@@ -266,4 +266,26 @@ describe('Dashboard', () => {
     expect(calls.find((c) => c.cmd === 'set_dev_laptop')?.args).toEqual({ presetId: 'framework-13' })
     expect(calls.filter((c) => c.cmd === 'identify_laptop').length).toBeGreaterThan(1)
   })
+
+  it('o diálogo aguardando o comando tem “Cancelar”, que cancela sem tocar no sistema', async () => {
+    act(() => root.render(<App />))
+    await flush()
+    const audio = [...el.querySelectorAll('button[role="radio"]')].find((b) => b.textContent?.includes('Áudio'))!
+    act(() => (audio as HTMLButtonElement).click())
+    await flush()
+    act(() => [...el.querySelectorAll('button')].find((b) => b.textContent === 'Aplicar correção')!.click())
+    await flush()
+    const dialog = () => document.body.querySelector('[role="dialog"]')!
+    act(() => (dialog().querySelector('input[type="checkbox"]') as HTMLInputElement).click())
+    act(() => [...dialog().querySelectorAll('button')].find((b) => b.textContent?.includes('Fazer backup e preparar arquivo'))!.click())
+    await flush()
+    const footer = [...dialog().querySelectorAll('button')].map((b) => b.textContent)
+    const i = footer.indexOf('Cancelar')
+    expect(i).toBeGreaterThan(-1)
+    expect(footer[i + 1]).toContain('Já rodei — conferir')
+    act(() => [...dialog().querySelectorAll('button')].find((b) => b.textContent === 'Cancelar')!.click())
+    await flush()
+    expect(calls.find((c) => c.cmd === 'rollback_fix')?.args).toEqual({ operationId: 'op-1', fingerprint: 'rb-1' })
+    expect(dialog().textContent).toContain('Cancelada antes de ser aplicada; nada foi alterado.')
+  })
 })
