@@ -83,6 +83,11 @@ export function SuggestionCard({
                     <TriangleAlert className="size-3" aria-hidden /> A fonte impõe condições: leia antes de aplicar.
                   </p>
                 )}
+                {a.action.type === 'add_kernel_parameters' && (
+                  <p className="mt-1 text-[12px] text-fg-3">
+                    Risco alto: altera /etc/default/grub. O comando só sobrescreve o arquivo se ele não tiver mudado desde a prévia.
+                  </p>
+                )}
               </div>
               {apply && (
                 <Button size="sm" variant="primary" icon={<Wrench className="size-3.5" />} onClick={() => apply(a)}>

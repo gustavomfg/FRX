@@ -490,15 +490,39 @@ pub fn staged_dir(engine_root: &Path, op_id: &str) -> PathBuf {
     engine_root.join("system-staged").join(op_id)
 }
 
-/// Comandos de instalação de um arquivo preparado. Só exibidos ao usuário.
-pub fn install_commands(staged: &Path, path: &str, mode: u32, post: &[String]) -> Vec<String> {
-    let mut cmds = vec![format!(
-        "sudo install -m {mode:04o} -o root -g root -- {} {}",
-        sh_quote(&staged.to_string_lossy()),
-        sh_quote(path)
-    )];
+/// Conferência feita **pelo próprio comando**, como root e depois da senha:
+/// o destino precisa ter exatamente o hash que o FRX leu. É o único ponto que
+/// fecha a janela entre mostrar o comando e o usuário rodá-lo — o FRX não
+/// executa o comando, então não pode conferir nesse instante.
+/// `$1` = hash esperado, `$2` = destino, `$3` = arquivo de origem.
+const GUARD: &str = r#"echo "$1  $2" | sha256sum --check --status || { echo "FRX: $2 mudou desde a prévia; nada foi alterado. Refaça a prévia no FRX." >&2; exit 1; };"#;
+
+/// Instala `staged` em `path`. Com `expected`, o destino existente só é
+/// sobrescrito se ainda tiver esse hash; sem ele (arquivo novo do FRX), é
+/// um `install` simples. Só exibido ao usuário; o FRX nunca executa.
+pub fn install_commands(
+    staged: &Path,
+    path: &str,
+    mode: u32,
+    expected: Option<&str>,
+    post: &[String],
+) -> Vec<String> {
+    let src = sh_quote(&staged.to_string_lossy());
+    let install = format!("install -m {mode:04o} -o root -g root --");
+    let mut cmds = vec![match expected {
+        Some(sha) => format!(
+            "sudo sh -c '{GUARD} {install} \"$3\" \"$2\"' frx {sha} {} {src}",
+            sh_quote(path)
+        ),
+        None => format!("sudo {install} {src} {}", sh_quote(path)),
+    }];
     cmds.extend(post.iter().cloned());
     cmds
+}
+
+/// Remove `path` só se ainda tiver o hash do que o FRX escreveu.
+pub fn remove_command(path: &str, expected: &str) -> String {
+    format!("sudo sh -c '{GUARD} rm -- \"$2\"' frx {expected} {}", sh_quote(path))
 }
 
 // ── Fix Engine ───────────────────────────────────────────────────────────
@@ -513,6 +537,9 @@ use super::models::{
 use super::planner::PLAN_TTL_SECS;
 use super::{is_system_op, open_game_file, step_sha, FixEngine, RollbackWrites};
 use crate::time::{now_iso, now_unix};
+
+/// Recusa na confirmação quando o destino mudou depois da prévia.
+pub const FILE_CHANGED: &str = "O arquivo foi alterado desde a prévia. Refaça a prévia para garantir que a alteração não seja perdida. Nada foi alterado.";
 
 const MANUAL_NOTE: &str = "Gravar em /etc exige root. O FRX não usa sudo: ele faz o backup, prepara o arquivo numa pasta privada e mostra o comando para você rodar no terminal. Depois, confere o resultado em /etc.";
 
@@ -556,6 +583,14 @@ impl FixEngine {
             }
         }
 
+        if let (Some(sha), PlanStatus::Ready) = (&r.before_sha, status) {
+            checks.push(check(
+                "Arquivo existente",
+                CheckState::Ok,
+                format!("Lido agora (SHA-256 {}…). O comando só sobrescreve {} se ele ainda tiver exatamente este conteúdo.", &sha[..12], r.path),
+            ));
+        }
+
         let staged = staged_dir(&self.root, plan_id).join(r.path.rsplit('/').next().unwrap_or("arquivo"));
         let mode = Target::open_system(&self.system_root, &r.path, None)?
             .mode()?
@@ -564,7 +599,10 @@ impl FixEngine {
         if status == PlanStatus::Ready && manual {
             status = PlanStatus::RequiresManualStep;
             checks.push(check("Permissão", CheckState::Warn, MANUAL_NOTE));
-            manual_line = Some(install_commands(&staged, &r.path, mode, &r.post_apply).join(" && "));
+            manual_line = Some(
+                install_commands(&staged, &r.path, mode, r.before_sha.as_deref(), &r.post_apply)
+                    .join(" && "),
+            );
         }
         let exec_mode = match status {
             PlanStatus::Ready => Some(ExecMode::Automatic),
@@ -671,7 +709,7 @@ impl FixEngine {
         }
         let (plan, step) = self.system_plan(&req, plan_id)?;
         if plan.fingerprint != stored.fingerprint {
-            return Err("O arquivo mudou desde a prévia. Nada foi alterado; revise a correção de novo.".into());
+            return Err(FILE_CHANGED.into());
         }
         if !plan.executable() {
             return Err(plan.reasons.first().cloned().unwrap_or_else(|| "Esta correção não pode ser aplicada agora.".into()));
@@ -804,7 +842,7 @@ impl FixEngine {
                     op.message = Some(format!("{path} ainda está como antes. Rode o comando no terminal e confira de novo."));
                     self.journal.save(&op)?;
                 } else {
-                    op.message = Some(format!("{path} não corresponde nem ao original nem ao arquivo preparado. Confira o arquivo antes de continuar; o backup foi preservado."));
+                    op.message = Some(format!("{path} não corresponde nem ao original nem ao arquivo preparado: ele mudou depois da prévia (o comando do FRX recusa sobrescrever nesse caso). Cancele esta correção e refaça a prévia; o backup foi preservado."));
                     self.journal.save(&op)?;
                 }
             }
@@ -863,13 +901,16 @@ impl FixEngine {
                     },
                 });
                 commands.extend(pre_rollback.iter().cloned());
+                // Só desfaz se o arquivo ainda for exatamente o que o FRX escreveu.
+                let after = rec.after_sha.as_deref().unwrap_or_default();
                 match backup {
-                    Some(b) if b.existed => commands.extend(install_commands(&b.path, path, b.mode.unwrap_or(0o644), &[])),
-                    _ => commands.push(format!("sudo rm -- {}", sh_quote(path))),
+                    Some(b) if b.existed => commands.extend(install_commands(&b.path, path, b.mode.unwrap_or(0o644), Some(after), &[])),
+                    _ => commands.push(remove_command(path, after)),
                 }
                 commands.extend(post_rollback.iter().cloned());
                 writes.push(Some(vec![]));
-            } else if backup.is_some_and(|b| cur == b.sha256) || (backup.is_none() && pending_apply) {
+            } else if pending_apply || backup.is_some_and(|b| cur == b.sha256) {
+                // Antes do comando (ou se ele recusou), nada do FRX está no disco: cancelar não mexe no arquivo.
                 writes.push(None);
             } else {
                 status = PlanStatus::Conflict;
@@ -1039,6 +1080,7 @@ mod tests {
             Path::new("/home/a b/it's/frx-x.conf"),
             "/etc/modprobe.d/frx-x.conf",
             0o644,
+            None,
             &[],
         );
         assert_eq!(
@@ -1146,7 +1188,9 @@ mod tests {
         // Desfazer também é manual: comando de remoção e conferência.
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert_eq!(rb.status, PlanStatus::RequiresManualStep);
-        assert_eq!(rb.manual_line.as_deref(), Some("sudo rm -- '/etc/modprobe.d/frx-snd-hda-intel.conf'"));
+        let rm = rb.manual_line.clone().unwrap();
+        assert!(rm.starts_with("sudo sh -c '"), "{rm}");
+        assert!(rm.ends_with(&format!(" rm -- \"$2\"' frx {} '/etc/modprobe.d/frx-snd-hda-intel.conf'", sha256_hex(staged_text.as_bytes()))), "{rm}");
         let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert!(file.exists(), "o FRX não remove sozinho");
@@ -1183,21 +1227,151 @@ mod tests {
         assert_eq!(std::fs::read_to_string(&file).unwrap(), "# editado pelo usuário\n");
     }
 
+    const GRUB: &str = "# config\nGRUB_TIMEOUT=5\nGRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"\n";
+
+    fn suspend() -> SystemFixRequest {
+        req(SystemAction::AddKernelParameters { params: vec!["nvme.noacpi=1".into()] })
+    }
+
     #[test]
-    fn grub_is_restored_byte_for_byte_from_the_backup() {
+    fn grub_edited_between_preview_and_confirmation_is_refused() {
+        let e = env(true);
+        let grub = e.sys.join("etc/default/grub");
+        std::fs::write(&grub, GRUB).unwrap();
+        let plan = e.engine.prepare_system(suspend()).unwrap();
+        assert_eq!(plan.status, PlanStatus::RequiresManualStep);
+        // Outro programa edita o grub enquanto a prévia está aberta.
+        let edited = GRUB.replace("GRUB_TIMEOUT=5", "GRUB_TIMEOUT=10");
+        std::fs::write(&grub, &edited).unwrap();
+        let err = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap_err();
+        assert_eq!(err, FILE_CHANGED);
+        assert_eq!(std::fs::read_to_string(&grub).unwrap(), edited, "a edição externa foi preservada");
+        assert!(!e.engine.root().join("system-staged").exists(), "nenhum arquivo preparado");
+        assert!(e.engine.operations(Some(SYSTEM_APP_ID)).is_empty(), "nenhum comando liberado");
+        // Refazer a prévia lê o arquivo novo e mantém a edição externa.
+        let again = e.engine.prepare_system(suspend()).unwrap();
+        assert!(again.changes[0].after.as_deref().unwrap().contains("nvme.noacpi=1"));
+    }
+
+    #[test]
+    fn same_hash_releases_a_guarded_install_and_the_line_is_verified() {
+        let e = env(true);
+        let grub = e.sys.join("etc/default/grub");
+        std::fs::write(&grub, GRUB).unwrap();
+        let plan = e.engine.prepare_system(suspend()).unwrap();
+        assert_eq!(plan.status, PlanStatus::RequiresManualStep, "{:?}", plan.reasons);
+        assert_eq!(plan.risk, Risk::High);
+        let line = plan.manual_line.clone().unwrap();
+        let original_sha = sha256_hex(GRUB.as_bytes());
+        assert!(line.starts_with("sudo sh -c 'echo \"$1  $2\" | sha256sum --check --status ||"), "{line}");
+        assert!(line.contains(&format!("' frx {original_sha} '/etc/default/grub' '")), "{line}");
+        assert!(line.ends_with(" && sudo grub-mkconfig -o /boot/grub/grub.cfg"), "{line}");
+        assert!(!line.contains("sed"), "sem sed -i");
+
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        assert_eq!(op.state, OpState::RequiresManualStep);
+        assert_eq!(std::fs::read_to_string(&grub).unwrap(), GRUB, "o FRX não grava o grub");
+        let staged = std::fs::read_to_string(staged_dir(e.engine.root(), &op.id).join("grub")).unwrap();
+        assert_eq!(staged, GRUB.replace("\"loglevel=3 quiet\"", "\"loglevel=3 quiet nvme.noacpi=1\""), "só a linha muda");
+
+        // O usuário roda o comando (simulado) e o FRX confere o hash final.
+        std::fs::write(&grub, &staged).unwrap();
+        let op = e.engine.verify(&op.id, &noop).unwrap();
+        assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+
+        // Desfazer: restaura o backup só se o grub ainda for o que o FRX escreveu.
+        let rb = e.engine.prepare_rollback(&op.id).unwrap();
+        let undo = rb.manual_line.clone().unwrap();
+        assert!(undo.contains(&format!("' frx {} '/etc/default/grub' '", sha256_hex(staged.as_bytes()))), "{undo}");
+        let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        let backup = op.steps[0].backup.clone().unwrap();
+        assert_eq!(std::fs::read_to_string(&backup.path).unwrap(), GRUB);
+        std::fs::write(&grub, GRUB).unwrap();
+        assert_eq!(e.engine.verify(&op.id, &noop).unwrap().state, OpState::RolledBack);
+    }
+
+    #[test]
+    fn rollback_refuses_when_grub_is_no_longer_what_frx_wrote() {
         let e = env(false);
         let grub = e.sys.join("etc/default/grub");
-        let original = "# config\nGRUB_TIMEOUT=5\nGRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"\n";
-        std::fs::write(&grub, original).unwrap();
-        let r = req(SystemAction::AddKernelParameters { params: vec!["nvme.noacpi=1".into()] });
-        let plan = e.engine.prepare_system(r).unwrap();
-        assert_eq!(plan.risk, Risk::High);
+        std::fs::write(&grub, GRUB).unwrap();
+        let plan = e.engine.prepare_system(suspend()).unwrap();
         let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
-        assert!(std::fs::read_to_string(&grub).unwrap().contains("\"loglevel=3 quiet nvme.noacpi=1\""));
+        let mut after = std::fs::read_to_string(&grub).unwrap();
+        after.push_str("GRUB_DISABLE_OS_PROBER=false\n");
+        std::fs::write(&grub, &after).unwrap();
+        let rb = e.engine.prepare_rollback(&op.id).unwrap();
+        assert_eq!(rb.status, PlanStatus::Conflict);
+        assert!(e.engine.rollback(&op.id, &rb.fingerprint, &noop).is_err());
+        assert_eq!(std::fs::read_to_string(&grub).unwrap(), after);
+    }
+
+    #[test]
+    fn a_pending_grub_apply_can_be_cancelled_after_the_command_refused() {
+        let e = env(true);
+        let grub = e.sys.join("etc/default/grub");
+        std::fs::write(&grub, GRUB).unwrap();
+        let plan = e.engine.prepare_system(suspend()).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        // O grub mudou depois do comando aparecer; o comando recusaria.
+        std::fs::write(&grub, "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"\n").unwrap();
+        let op = e.engine.verify(&op.id, &noop).unwrap();
+        assert!(op.message.unwrap().contains("Cancele esta correção e refaça a prévia"));
+        let rb = e.engine.prepare_rollback(&op.id).unwrap();
+        assert!(rb.changes.is_empty(), "{:?}", rb.reasons);
+        assert_eq!(e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state, OpState::Failed);
+        assert_eq!(std::fs::read_to_string(&grub).unwrap(), "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"\n");
+    }
+
+    #[test]
+    fn grub_is_restored_byte_for_byte_with_a_fake_root() {
+        let e = env(false);
+        let grub = e.sys.join("etc/default/grub");
+        std::fs::write(&grub, GRUB).unwrap();
+        let plan = e.engine.prepare_system(suspend()).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
-        assert_eq!(std::fs::read_to_string(&grub).unwrap(), original);
+        assert_eq!(std::fs::read_to_string(&grub).unwrap(), GRUB);
+    }
+
+    /// Roda o comando gerado num shell de verdade (sem `sudo`).
+    fn run_without_sudo(cmd: &str) -> std::process::Output {
+        let script = cmd.strip_prefix("sudo ").expect("comando começa com sudo");
+        std::process::Command::new("sh").arg("-c").arg(script).output().unwrap()
+    }
+
+    #[test]
+    fn the_guard_runs_in_a_real_shell_and_refuses_a_changed_file() {
+        let tmp = tempfile::tempdir().unwrap();
+        let target = tmp.path().join("it's a file.conf");
+        std::fs::write(&target, "conteúdo do FRX\n").unwrap();
+        let sha = sha256_hex(b"conteudo do FRX\n"); // hash de outra versão
+        let out = run_without_sudo(&remove_command(&target.to_string_lossy(), &sha));
+        assert!(!out.status.success());
+        assert!(String::from_utf8_lossy(&out.stderr).contains("mudou desde a prévia; nada foi alterado"));
+        assert!(target.exists(), "arquivo alterado não é removido");
+
+        let sha = sha256_hex("conteúdo do FRX\n".as_bytes());
+        let out = run_without_sudo(&remove_command(&target.to_string_lossy(), &sha));
+        assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+        assert!(!target.exists(), "com o hash certo, o comando age");
+
+        // install: a guarda aborta antes de tocar no destino.
+        let dst = tmp.path().join("grub");
+        let src = tmp.path().join("staged grub");
+        std::fs::write(&dst, "editado por outro programa\n").unwrap();
+        std::fs::write(&src, "versão do FRX\n").unwrap();
+        let cmd = &install_commands(&src, &dst.to_string_lossy(), 0o644, Some(&sha256_hex(b"original\n")), &[])[0];
+        let out = run_without_sudo(cmd);
+        assert!(!out.status.success());
+        assert_eq!(std::fs::read_to_string(&dst).unwrap(), "editado por outro programa\n");
+        // Com o hash certo a guarda passa (o install falha só por não ser root aqui).
+        let cmd = &install_commands(&src, &dst.to_string_lossy(), 0o644, Some(&sha256_hex(b"editado por outro programa\n")), &[])[0];
+        let out = run_without_sudo(cmd);
+        assert!(!String::from_utf8_lossy(&out.stderr).contains("mudou desde a prévia"));
     }
 
     #[test]
@@ -1232,6 +1406,52 @@ mod tests {
         // Cancelar antes do comando: nada a desfazer no sistema.
         let rb = engine.prepare_rollback(&op.id).unwrap();
         assert_eq!(engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state, OpState::Failed);
+    }
+
+    /// Busca real (Framework 13, Suspensão) → prévia com grub fictício e com o
+    /// `/` real. `cargo test -- --ignored framework_suspend_live --nocapture`
+    #[tokio::test]
+    #[ignore = "rede e /etc real"]
+    async fn framework_suspend_live() {
+        use crate::fixes::providers::arch_wiki::{search, HardwareSymptom};
+        let tmp = tempfile::tempdir().unwrap();
+        let cache = crate::cache::Cache::new(tmp.path());
+        let st = crate::fixes::http::EngineState::default();
+        let f = crate::net::ReqwestFetcher::new().unwrap();
+        let ctx = crate::fixes::http::Ctx { fetcher: &f, cache: &cache, state: &st, ttl_secs: 3600, force: true };
+        let q = crate::fixes::providers::LaptopQuery {
+            identity: Some(crate::system::LaptopIdentity {
+                vendor: Some("Framework".into()),
+                model: Some("Laptop (13th Gen Intel Core)".into()),
+                board_name: None,
+                product_version: None,
+                display_name: Some("Framework Laptop 13".into()),
+            }),
+        };
+        let r = search(&ctx, &q, HardwareSymptom::Suspend).await;
+        let (s, a) = r.suggestions.iter().find_map(|s| s.actions.first().map(|a| (s, a))).expect("ação");
+        println!("seção: {:?} · {} · condicional={}", s.section, a.snippet, a.conditional);
+        let request = SystemFixRequest {
+            action: a.action.clone(),
+            title: a.snippet.clone(),
+            context: a.context.clone(),
+            source_label: "Arch Wiki".into(),
+            source_url: s.url.clone(),
+            laptop: "Framework Laptop 13".into(),
+        };
+        // Máquina com GRUB (raiz fictícia, modo manual como no sistema real).
+        let e = env(true);
+        std::fs::write(e.sys.join("etc/default/grub"), GRUB).unwrap();
+        let plan = e.engine.prepare_system(request.clone()).unwrap();
+        println!("com grub: {:?}\n  {}", plan.status, plan.manual_line.clone().unwrap_or_default());
+        assert_eq!(plan.status, PlanStatus::RequiresManualStep);
+        // Esta máquina, sem /etc/default/grub.
+        let real = FixEngine::with(tmp.path().join("data"), Catalog::bundled(), PathBuf::from("/proc"));
+        let plan = real.prepare_system(request).unwrap();
+        println!("/ real: {:?} · {:?}", plan.status, plan.reasons);
+        if !Path::new("/etc/default/grub").exists() {
+            assert_eq!(plan.status, PlanStatus::Incompatible);
+        }
     }
 }
 

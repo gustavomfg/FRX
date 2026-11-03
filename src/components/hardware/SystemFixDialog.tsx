@@ -139,7 +139,7 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
         <Button variant="ghost" onClick={onClose}>
           Fechar
         </Button>
-        <Button onClick={load}>Tentar de novo</Button>
+        <Button onClick={load}>{target.kind === 'apply' ? 'Refazer a prévia' : 'Tentar de novo'}</Button>
       </>
     ) : phase === 'done' ? (
       <Button variant="primary" onClick={onClose}>

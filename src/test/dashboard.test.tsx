@@ -30,6 +30,14 @@ const ACTION = {
   conditional: true,
 }
 
+const KERNEL = {
+  id: 'k1',
+  action: { type: 'add_kernel_parameters' as const, params: ['nvme.noacpi=1'] },
+  snippet: 'nvme.noacpi=1',
+  context: 'If resume fails, try putting nvme.noacpi=1 in your kernel parameters.',
+  conditional: true,
+}
+
 const PATH = '/etc/modprobe.d/frx-snd-hda-intel.conf'
 const LINE = `sudo install -m 0644 -o root -g root -- '/home/u/.local/share/io.frx.FRX/fix-engine/system-staged/op-1/frx-snd-hda-intel.conf' '${PATH}'`
 
@@ -102,7 +110,7 @@ const report = (symptom: string): HardwareReport => ({
       url: 'https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9)#Audio',
       excerpt: 'This laptop requires Sound Open Firmware.',
       fit: 'model',
-      actions: [ACTION],
+      actions: [ACTION, KERNEL],
     },
     {
       id: 'b',
@@ -200,7 +208,14 @@ describe('Dashboard', () => {
     const audio = [...el.querySelectorAll('button[role="radio"]')].find((b) => b.textContent?.includes('Áudio'))!
     act(() => (audio as HTMLButtonElement).click())
     await flush()
-    const apply = [...el.querySelectorAll('button')].find((b) => b.textContent === 'Aplicar correção')!
+    const buttons = [...el.querySelectorAll('button')].filter((b) => b.textContent === 'Aplicar correção')
+    expect(buttons).toHaveLength(2)
+    const [apply, kernel] = buttons
+    // Parâmetro do kernel: aplicável, com o aviso de risco e da conferência de hash.
+    expect(el.textContent).toContain('nvme.noacpi=1')
+    expect(el.textContent).toContain('O comando só sobrescreve o arquivo se ele não tiver mudado desde a prévia.')
+    expect(kernel.disabled).toBe(false)
+    expect(apply.disabled).toBe(false)
     expect(el.textContent).toContain('options snd_hda_intel model=dell-headset-multi')
     expect(el.textContent).toContain('A fonte impõe condições')
     act(() => apply.click())
