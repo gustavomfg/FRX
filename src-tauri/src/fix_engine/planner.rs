@@ -1123,6 +1123,8 @@ pub fn validate_storage(computed: &mut Computed, engine_root: &Path) {
         let target = match step {
             Step::LaunchOptions { config, .. } => config,
             Step::GameFile { target, .. } => target,
+            // Planos de sistema verificam o destino no próprio `system`.
+            Step::SystemFile { .. } => continue,
         };
         let Some(parent) = target.parent() else {
             continue;

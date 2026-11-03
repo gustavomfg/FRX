@@ -37,6 +37,15 @@ pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
         primary: profile.primary_gpu,
     };
     let tool = game.compatibility.tool.as_ref();
+    #[allow(unused_mut)]
+    let mut findings = cache
+        .get::<FixReport>("fixes", app_id)
+        .map(|e| e.data)
+        .filter(|r| r.app_id == app_id)
+        .map(|r| r.findings)
+        .unwrap_or_default();
+    #[cfg(debug_assertions)]
+    findings.extend(super::dev_fixture::findings(app_id));
     Ok(GameCtx {
         performance_conditions,
         app_id: game.app_id.clone(),
@@ -49,16 +58,11 @@ pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
         tool_includes_protonfixes: tool.is_some_and(|t| t.includes_protonfixes),
         gpu: hw.primary_req(),
         driver: hw.primary.as_ref().and_then(|g| g.driver_version.clone()),
-        findings: cache
-            .get::<FixReport>("fixes", app_id)
-            .map(|e| e.data)
-            .filter(|r| r.app_id == app_id)
-            .map(|r| r.findings)
-            .unwrap_or_default(),
+        findings,
     })
 }
 
-async fn blocking<T: Send + 'static>(
+pub(crate) async fn blocking<T: Send + 'static>(
     f: impl FnOnce() -> Result<T, String> + Send + 'static,
 ) -> Result<T, String> {
     tauri::async_runtime::spawn_blocking(f)
@@ -66,11 +70,11 @@ async fn blocking<T: Send + 'static>(
         .map_err(|e| e.to_string())?
 }
 
-fn engine(ctx: &AppCtx) -> Arc<FixEngine> {
+pub(crate) fn engine(ctx: &AppCtx) -> Arc<FixEngine> {
     ctx.engine.clone()
 }
 
-fn emitter(app: AppHandle) -> impl Fn(&Operation) {
+pub(crate) fn emitter(app: AppHandle) -> impl Fn(&Operation) {
     move |op: &Operation| {
         let _ = app.emit(PROGRESS_EVENT, op);
     }

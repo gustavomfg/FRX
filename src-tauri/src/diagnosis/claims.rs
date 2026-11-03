@@ -2,7 +2,7 @@
 //! `fixes::reports`, e guarda o trecho literal. Nunca extrai ação do texto.
 
 use super::models::{Claim, ClaimKind, ConfigKey};
-use crate::fixes::models::{FindingKind, FindingSource, FixFinding};
+use crate::fixes::models::{ArtifactTrust, FindingKind, FindingSource, FixFinding};
 use crate::fixes::reports::{analyze, Outcome};
 
 fn options(key: &ConfigKey) -> Vec<&str> {
@@ -44,7 +44,12 @@ fn claim_for(source: &FindingSource, key: &ConfigKey, verified: bool) -> Claim {
 /// para atribuir a uma fonte específica.
 pub fn extract(f: &FixFinding, key: &ConfigKey, app_id: &str) -> (Vec<Claim>, bool) {
     let verified = f.scope.matches_game(app_id);
-    let documented = matches!(f.kind, FindingKind::Protonfix | FindingKind::ReleaseNote);
+    // A release do publicador reconhecido, com destino e hash para este AppID,
+    // é declaração do mantenedor, como uma nota de release.
+    let documented = matches!(f.kind, FindingKind::Protonfix | FindingKind::ReleaseNote)
+        || f.artifacts
+            .iter()
+            .any(|a| a.trust == ArtifactTrust::OriginAndIntegrity && a.scope.matches_game(app_id));
     let mut claims: Vec<Claim> = f
         .sources
         .iter()

@@ -3,10 +3,17 @@
 
 pub mod ai;
 pub mod app;
+/// Só em build de debug: fixture de DLL para testar a interface.
+#[cfg(debug_assertions)]
+pub mod dev_fixture;
+/// Só em build de debug: laptop simulado para ver o fluxo de hardware.
+#[cfg(debug_assertions)]
+pub mod dev_laptop;
 pub mod diagnosis;
 pub mod fix_engine;
 pub mod fixes;
 pub mod games;
+pub mod hardware;
 pub mod performance;
 pub mod smart_packs;
 pub mod system;

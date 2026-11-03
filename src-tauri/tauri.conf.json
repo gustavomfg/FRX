@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "FRX",
+        "title": "Hardware Fixer",
         "width": 1440,
         "height": 900,
         "minWidth": 1024,
@@ -46,9 +46,9 @@
       "deb",
       "rpm"
     ],
-    "category": "Game",
-    "shortDescription": "Play. Fix. Repeat.",
-    "longDescription": "FRX reúne diagnóstico, pesquisa de soluções e correções suportadas de jogos Windows no Linux. Integra Steam, Proton, Smart Packs e Performance Lab, com prévia, confirmação, backup e rollback. Recursos sem evidência suficiente permanecem não verificados.",
+    "category": "Utility",
+    "shortDescription": "Hardware Fixer para laptops Linux.",
+    "longDescription": "Hardware Fixer identifica o modelo do laptop e reúne diagnóstico e correções para Wi-Fi, áudio, touchpad, suspensão e firmware no Linux, com prévia, confirmação, backup e rollback. Recursos sem evidência suficiente permanecem não verificados.",
     "publisher": "FRX",
     "copyright": "© 2026 FRX",
     "icon": [
@@ -67,7 +67,7 @@
         "bundleMediaFramework": false
       },
       "deb": {
-        "section": "games"
+        "section": "utils"
       },
       "rpm": {
         "release": "1"

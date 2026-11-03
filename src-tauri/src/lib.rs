@@ -42,8 +42,12 @@ pub fn run() {
             let fetcher = net::ReqwestFetcher::new().map_err(|e| format!("cliente HTTP: {e}"))?;
             let data_dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&data_dir)?;
-            let engine =
-                std::sync::Arc::new(fix_engine::FixEngine::new(fix_engine::data_root(&data_dir)));
+            let engine = fix_engine::FixEngine::new(fix_engine::data_root(&data_dir));
+            #[cfg(debug_assertions)]
+            let engine = engine.with_artifact_transport(std::sync::Arc::new(
+                commands::dev_fixture::DevTransport::default(),
+            ));
+            let engine = std::sync::Arc::new(engine);
             let perf = commands::performance::PerfCtx {
                 store: performance::persistence::Store::new(data_dir.join("benchmarks")),
                 data_dir,
@@ -64,6 +68,12 @@ pub fn run() {
             commands::app::app_info,
             commands::app::ping,
             commands::system::get_system_profile,
+            commands::system::identify_laptop,
+            commands::hardware::search_hardware_fixes,
+            commands::hardware::prepare_system_fix,
+            commands::hardware::apply_system_fix,
+            #[cfg(debug_assertions)]
+            commands::dev_laptop::set_dev_laptop,
             commands::games::scan_installed_games,
             commands::games::get_installed_games,
             commands::games::get_game_art,
@@ -91,6 +101,8 @@ pub fn run() {
             commands::fix_engine::game_technologies,
             commands::ai::research_fix,
             commands::diagnosis::diagnose_game,
+            #[cfg(debug_assertions)]
+            commands::dev_fixture::inject_dev_fixture_dll,
             commands::smart_packs::get_experience_pack,
             commands::smart_packs::evaluate_benchmark_session,
             commands::fix_engine::prepare_fix_plan,

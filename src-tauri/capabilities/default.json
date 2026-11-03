@@ -33,6 +33,9 @@
         },
         {
           "url": "https://www.nvidia.com/en-us/geforce/technologies/dlss/*"
+        },
+        {
+          "url": "https://wiki.archlinux.org/title/*"
         }
       ]
     },

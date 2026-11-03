@@ -2,11 +2,9 @@ import { NavLink } from 'react-router-dom'
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { NAV } from '@/app/routes'
 import { Logo } from '@/components/brand/Logo'
-import { DemoTag } from '@/components/ui/Status'
 import { Kbd } from '@/components/ui/Controls'
 import { useDispatch, useSettings } from '@/state/store'
-import { systemInfo } from '@/data/system'
-import { useLibrary } from '@/state/library'
+import { laptopName, useHardware } from '@/state/hardware'
 import { SourceTag } from '@/components/game/LibraryNotices'
 import { cn } from '@/lib/cn'
 import { APP_VERSION } from '@/services/platform'
@@ -15,20 +13,13 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
   const settings = useSettings()
   const dispatch = useDispatch()
   const compact = narrow || settings.compactSidebar
-  const { mode, system } = useLibrary()
-  const real = mode === 'real'
+  const { identity, system } = useHardware()
   const gpu = system?.primaryGpu
-  const sysRows: [string, string][] = real
-    ? [
-        ['GPU', gpu?.name ?? gpu?.vendor.toUpperCase() ?? '—'],
-        ['Driver', gpu ? [gpu.driver, gpu.driverVersion].filter(Boolean).join(' ') || '—' : '—'],
-        ['Kernel', system?.kernel ?? '—'],
-      ]
-    : [
-        ['GPU', systemInfo.gpu],
-        ['Driver', systemInfo.driver.split(' (')[0]],
-        ['Proton', systemInfo.defaultProton],
-      ]
+  const sysRows: [string, string][] = [
+    ['Modelo', laptopName(identity) ?? '—'],
+    ['GPU', gpu?.name ?? gpu?.vendor.toUpperCase() ?? '—'],
+    ['Kernel', system?.kernel ?? '—'],
+  ]
 
   return (
     <aside
@@ -39,7 +30,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
     >
       <div className={cn('flex h-16 items-center', compact ? 'justify-center' : 'justify-between px-5')}>
         <Logo compact={compact} />
-        {!compact && (real ? <SourceTag>{`v${APP_VERSION.split('.').slice(0, 2).join('.')}`}</SourceTag> : <DemoTag />)}
+        {!compact && <SourceTag>{`v${APP_VERSION.split('.').slice(0, 2).join('.')}`}</SourceTag>}
       </div>
 
       <nav aria-label="Principal" className={cn('mt-3 flex flex-col gap-0.5', compact ? 'px-2.5' : 'px-3')}>
@@ -83,7 +74,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
       <div className="mt-auto">
         {!compact && (
           <div className="mx-5 mb-4 border-t border-line pt-4">
-            <div className="eyebrow mb-2.5">{real ? 'Sistema' : 'Sistema · demo'}</div>
+            <div className="eyebrow mb-2.5">Sistema</div>
             <dl className="space-y-1 text-[12px]">
               {sysRows.map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-2">

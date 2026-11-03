@@ -1,18 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { CornerDownLeft, Search, Wrench } from 'lucide-react'
+import { CornerDownLeft, Search } from 'lucide-react'
 import { NAV } from '@/app/routes'
-import { useLibrary } from '@/state/library'
-import { CoverImage } from '@/components/game/CoverImage'
-import { fixPacks } from '@/data/fixpacks'
-import { GameArt } from '@/components/game/GameArt'
+import { SYMPTOMS } from '@/components/hardware/symptoms'
 import { Kbd } from '@/components/ui/Controls'
 import { cn } from '@/lib/cn'
 
 interface Entry {
   id: string
-  group: 'Páginas' | 'Jogos' | 'Fix Packs'
+  group: 'Páginas' | 'Sintomas'
   label: string
   hint?: string
   to: string
@@ -24,33 +21,18 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const [index, setIndex] = useState(0)
   const navigate = useNavigate()
   const input = useRef<HTMLInputElement>(null)
-  const { games, mode } = useLibrary()
 
   const all = useMemo<Entry[]>(
     () => [
       ...NAV.map((n) => ({ id: n.to, group: 'Páginas' as const, label: n.label, hint: `Alt ${n.shortcut}`, to: n.to, icon: <n.icon className="size-4 text-fg-3" /> })),
-      ...games.map((g) => ({
-        id: g.id,
-        group: 'Jogos' as const,
-        label: g.title,
-        hint: g.protonVersion,
-        to: `/biblioteca/${g.id}`,
-        icon: (
-          <span className="block size-5 overflow-hidden rounded-[4px]">
-            {g.origin === 'steam' ? <CoverImage game={g} kind="header" variant="thumb" /> : <GameArt art={g.cover} variant="thumb" />}
-          </span>
-        ),
-      })),
-      ...(mode === 'demo'
-        ? fixPacks.map((f) => ({ id: f.id, group: 'Fix Packs' as const, label: f.name, hint: games.find((g) => g.id === f.gameId)?.title, to: `/biblioteca/${encodeURIComponent(f.gameId)}?secao=smart&pack=${encodeURIComponent(f.id)}`, icon: <Wrench className="size-4 text-fg-3" /> }))
-        : []),
+      ...SYMPTOMS.map((s) => ({ id: `sintoma-${s.id}`, group: 'Sintomas' as const, label: s.label, hint: s.hint, to: `/?sintoma=${s.id}`, icon: <s.icon className="size-4 text-fg-3" /> })),
     ],
-    [games, mode],
+    [],
   )
 
   const results = useMemo(() => {
     const s = q.trim().toLowerCase()
-    const list = s ? all.filter((e) => e.label.toLowerCase().includes(s) || e.hint?.toLowerCase().includes(s)) : all.filter((e) => e.group !== 'Fix Packs')
+    const list = s ? all.filter((e) => e.label.toLowerCase().includes(s) || e.hint?.toLowerCase().includes(s)) : all
     return list.slice(0, 12)
   }, [q, all])
 
@@ -106,7 +88,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
                 ref={input}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Ir para página, jogo ou correção…"
+                placeholder="Ir para página ou sintoma…"
                 className="h-12 flex-1 bg-transparent text-[15px] text-fg placeholder:text-fg-3 focus:outline-none"
                 role="combobox"
                 aria-expanded="true"

@@ -14,8 +14,6 @@ import { platform } from '@/services/platform'
 import { useAppInfo } from '@/services/useAppInfo'
 import { isTauri } from '@/services/platform'
 import { clearFixCache, getCacheSize, getFixProviders } from '@/services/fixes'
-import { useLibrary } from '@/state/library'
-import { useFixReports } from '@/state/fixes'
 import type { ProviderInfo } from '@/types/fixes'
 import type { Settings } from '@/types'
 import { cn } from '@/lib/cn'
@@ -35,12 +33,11 @@ const THEMES = [
 
 const POSES: { pose: Pose; label: string }[] = [
   { pose: 'wave', label: 'Início' },
-  { pose: 'rest', label: 'Biblioteca' },
   { pose: 'inspect', label: 'Diagnóstico' },
   { pose: 'fix', label: 'Correções' },
-  { pose: 'observe', label: 'Performance' },
-  { pose: 'celebrate', label: 'Melhora' },
-  { pose: 'worried', label: 'Regressão' },
+  { pose: 'celebrate', label: 'Resolvido' },
+  { pose: 'worried', label: 'Falha' },
+  { pose: 'confused', label: 'Sem resultado' },
 ]
 
 export function SettingsPage() {
@@ -51,7 +48,7 @@ export function SettingsPage() {
   const effective = useMotion()
   const set = (patch: Partial<Settings>) => dispatch({ type: 'settings', patch })
   const info = useAppInfo()
-  const realMode = useLibrary().mode === 'real'
+  const realMode = isTauri()
 
   return (
     <Page narrow>
@@ -165,8 +162,6 @@ export function SettingsPage() {
       </Section>
 
       <Section title="Geral">
-        <Toggle label="Verificar a biblioteca ao abrir" description="Procura jogos novos ou removidos ao iniciar o FRX." checked={s.scanOnStartup} onChange={(v) => set({ scanOnStartup: v })} />
-        <Divider />
         <Toggle
           label="Confirmar antes de aplicar correções"
           description={realMode ? 'No app desktop, o Fix Engine sempre pede confirmação depois da prévia. Esta opção vale para a demonstração.' : 'Mostra um passo extra de confirmação com o resumo do backup.'}
@@ -212,15 +207,15 @@ export function SettingsPage() {
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-display text-[22px] font-bold tracking-[-0.04em]">FRX</span>
+              <span className="font-display text-[22px] font-bold tracking-[-0.04em]">Hardware Fixer</span>
               <span className="font-mono text-[12px] text-fg-3">{platform.version}</span>
-              {realMode ? <SourceTag>Fix Engine</SourceTag> : <DemoTag>Modo demonstrativo</DemoTag>}
+              {realMode ? <SourceTag>Fix Engine</SourceTag> : <DemoTag>Navegador</DemoTag>}
             </div>
-            <p className="mt-0.5 font-pixel text-[10px] tracking-[0.08em] text-accent uppercase">Play. Fix. Repeat.</p>
+            <p className="mt-0.5 font-pixel text-[10px] tracking-[0.08em] text-accent uppercase">Detect. Fix. Repeat.</p>
             <p className="mt-3 text-[13.5px] text-fg-2">
               {realMode
-                ? 'Gerenciador de compatibilidade e otimização de jogos para Linux. Esta versão detecta seus jogos da Steam, pesquisa correções conhecidas em fontes públicas, mede o desempenho com o MangoHud e aplica receitas revisadas com prévia, backup e rollback. Nada muda sem sua confirmação.'
-                : 'Gerenciador de compatibilidade e otimização de jogos para Linux. Este é o modo demonstrativo: jogos, sistema, problemas, correções e medições são fictícios.'}
+                ? 'Diagnóstico de hardware para laptops Linux. Identifica o modelo pelo DMI e pesquisa soluções na Arch Wiki para Wi-Fi, áudio, touchpad, suspensão e firmware. Nada muda sem sua confirmação.'
+                : 'Diagnóstico de hardware para laptops Linux. No navegador não há acesso ao sistema: abra o app desktop para ler o seu laptop.'}
             </p>
             {info && (
               <p className="mt-3 text-[12.5px] text-fg-3">
@@ -235,14 +230,12 @@ export function SettingsPage() {
             <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[12.5px] text-fg-3">
               {(realMode
                 ? [
-                    'Lê bibliotecas e manifestos da Steam sem alterá-los',
-                    'Não modifica prefixos, opções de inicialização nem jogos',
-                    'Scripts de terceiros nunca são executados',
-                    'Fontes: UMU-Protonfixes, UMU Database e GitHub',
-                    'Benchmarks reais: importação e captura assistida com MangoHud',
+                    'Lê o DMI sem privilégios (sem número de série)',
+                    'Comandos citados nas fontes nunca são executados',
+                    'Fonte: Arch Wiki (GFDL 1.3+), com link para a página',
                     'Cache local em ~/.cache/io.frx.FRX',
                   ]
-                : ['Nenhum arquivo é lido ou alterado', 'Nenhum download é feito', 'Nenhum comando é executado', 'Benchmarks são gerados por simulação', 'Fontes (ProtonDB, GitHub…) são ilustrativas', 'Apenas preferências ficam salvas']
+                : ['Nenhum arquivo é lido ou alterado', 'Nenhum comando é executado', 'Apenas preferências ficam salvas']
               ).map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="size-1 bg-fg-3" aria-hidden />
@@ -309,33 +302,28 @@ function Divider() {
   return <div className="h-px bg-line" aria-hidden />
 }
 
+/** Fontes do escopo de hardware; as de jogos seguem no backend, fora da interface. */
+const HARDWARE_PROVIDERS: ProviderInfo['id'][] = ['arch-wiki', 'fwupd']
+
 function DataSection() {
   const s = useSettings()
   const dispatch = useDispatch()
   const toast = useToast()
-  const { mode } = useLibrary()
-  const fixes = useFixReports()
   const [providers, setProviders] = useState<ProviderInfo[]>([])
   const [size, setSize] = useState<number | null>(null)
   const native = isTauri()
 
   useEffect(() => {
     if (!native) return
-    getFixProviders().then(setProviders).catch(() => {})
+    getFixProviders()
+      .then((all) => setProviders(all.filter((p) => HARDWARE_PROVIDERS.includes(p.id))))
+      .catch(() => {})
     getCacheSize().then(setSize).catch(() => {})
   }, [native])
 
   return (
-    <Section title="Dados e fontes" description="Onde o FRX busca jogos e correções, e quanto tempo guarda as respostas.">
-      <Toggle
-        label="Usar dados demonstrativos"
-        description={native ? 'Troca a biblioteca real da Steam pela biblioteca fictícia, para testes. Os dois conjuntos nunca se misturam.' : 'No navegador o FRX sempre usa a demonstração.'}
-        checked={mode === 'demo'}
-        disabled={!native}
-        onChange={(v) => dispatch({ type: 'settings', patch: { useDemoData: v } })}
-      />
-      <Divider />
-      <Row label="Validade do cache de correções" description="Depois desse prazo, os resultados aparecem como desatualizados até uma nova pesquisa.">
+    <Section title="Dados e fontes" description="Onde o Hardware Fixer busca soluções, e quanto tempo guarda as respostas.">
+      <Row label="Validade do cache de pesquisas" description="Depois desse prazo, os resultados aparecem como desatualizados até uma nova pesquisa.">
         <Select
           label="Validade do cache"
           hideLabel
@@ -351,20 +339,19 @@ function DataSection() {
       </Row>
       {native && (
         <>
-          <Row label="Cache local" description={size == null ? 'Calculando…' : `${(size / 1024 / 1024).toFixed(1)} MB em capas, biblioteca e respostas das fontes.`}>
+          <Row label="Cache local" description={size == null ? 'Calculando…' : `${(size / 1024 / 1024).toFixed(1)} MB em respostas das fontes.`}>
             <Button
               size="sm"
               variant="outline"
               icon={<Trash2 className="size-3.5" />}
               onClick={() =>
                 clearFixCache()
-                  .then(() => fixes.reload())
                   .then(() => getCacheSize().then(setSize))
-                  .then(() => toast({ tone: 'info', title: 'Cache de correções limpo', body: 'As próximas pesquisas consultam as fontes de novo.' }))
+                  .then(() => toast({ tone: 'info', title: 'Cache de pesquisas limpo', body: 'As próximas pesquisas consultam as fontes de novo.' }))
                   .catch((e) => toast({ tone: 'error', title: 'Não foi possível limpar o cache', body: String(e?.message ?? e) }))
               }
             >
-              Limpar correções em cache
+              Limpar pesquisas em cache
             </Button>
           </Row>
           <div>

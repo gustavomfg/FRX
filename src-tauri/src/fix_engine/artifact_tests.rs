@@ -1012,3 +1012,56 @@ fn tar_with_links_devices_traversal_duplicates_or_bad_pax_is_refused_whole() {
         .unwrap_err()
         .contains("todos os arquivos"));
 }
+
+// ── Fixture de desenvolvimento (só debug) ────────────────────────────────
+
+#[cfg(debug_assertions)]
+#[test]
+fn dev_fixture_dll_runs_the_real_flow_from_diagnosis_to_rollback() {
+    use crate::commands::dev_fixture::{self, DevTransport, DESTINATION};
+    let fx = fixture();
+    let mut engine = fx.engine();
+    engine.artifact_transport = Arc::new(DevTransport::default());
+    dev_fixture::inject_dev_fixture_dll(APP.into()).unwrap();
+    let g = GameCtx {
+        findings: dev_fixture::findings(APP),
+        ..fx.game()
+    };
+    let input = crate::diagnosis::assemble::input(
+        &engine,
+        &g,
+        crate::diagnosis::models::Symptom::Unspecified,
+        None,
+        None,
+        vec![],
+    )
+    .unwrap();
+    let result = crate::diagnosis::diagnose(input);
+    let s = result
+        .suggestions
+        .iter()
+        .find(|s| s.third_party_binary)
+        .unwrap_or_else(|| panic!("{:?}", result.in_review.iter().map(|s| (&s.reason, s.confidence, &s.claims)).collect::<Vec<_>>()));
+    assert_eq!(s.state, crate::diagnosis::models::SuggestionState::Applicable, "{}", s.reason);
+    let id = s.recipe_id.clone().unwrap();
+
+    let plan = engine.prepare(&id, &g).unwrap();
+    assert_eq!(plan.status, PlanStatus::Ready, "{:?}", plan.reasons);
+    assert!(plan.requires_explicit_user_consent);
+    assert!(engine
+        .apply_with_consent(&plan.plan_id, &plan.fingerprint, None, &g, &noop)
+        .is_err());
+    let target = fx.library.join(DESTINATION);
+    assert!(!target.exists());
+    let op = engine
+        .apply_with_consent(&plan.plan_id, &plan.fingerprint, Some(&plan.fingerprint), &g, &noop)
+        .unwrap();
+    assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
+    assert_eq!(std::fs::read(&target).unwrap(), dev_fixture::dummy_dll());
+    let rb = engine.prepare_rollback(&op.id).unwrap();
+    assert_eq!(
+        engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state,
+        OpState::RolledBack
+    );
+    assert!(!target.exists());
+}

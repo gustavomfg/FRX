@@ -943,6 +943,28 @@ mod third_party_binary {
     }
 
     #[test]
+    fn a_verified_publisher_artifact_is_documented_and_not_dropped_as_no_action() {
+        let (mut f, v) = env_finding("a", "PROTON_HEAP_DELAY_FREE=1", "Release with a DLL.");
+        f.actions.clear();
+        f.artifacts = vec![dll_artifact()];
+        let c = mapping::candidate(&v, &f, APP);
+        assert_ne!(c.mapping, Mapping::NoAction);
+        assert!(c.claims.iter().all(|c| c.kind == ClaimKind::Documented));
+
+        let mut partial = f.clone();
+        partial.artifacts[0].trust = ArtifactTrust::Partial;
+        let c = mapping::candidate(&v, &partial, APP);
+        assert!(c.claims.iter().all(|c| c.kind != ClaimKind::Documented));
+
+        let mut nothing = f.clone();
+        nothing.artifacts.clear();
+        assert_eq!(
+            mapping::candidate(&v, &nothing, APP).mapping,
+            Mapping::NoAction
+        );
+    }
+
+    #[test]
     fn a_suggestion_that_carries_a_dll_is_flagged_for_the_card() {
         let (mut f, v) = env_finding("a", "PROTON_HEAP_DELAY_FREE=1", FIXED);
         f.artifacts = vec![dll_artifact()];
