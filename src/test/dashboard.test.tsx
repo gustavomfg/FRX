@@ -28,6 +28,7 @@ const ACTION = {
   snippet: 'options snd_hda_intel model=dell-headset-multi',
   context: 'If the headset jack does not work, set the model.',
   conditional: true,
+  check: null,
 }
 
 const KERNEL = {
@@ -36,6 +37,8 @@ const KERNEL = {
   snippet: 'nvme.noacpi=1',
   context: 'If resume fails, try putting nvme.noacpi=1 in your kernel parameters.',
   conditional: true,
+  // Checagem leve num desktop sem GRUB (o caso do ASRock).
+  check: { applicable: false, detail: 'Este sistema não usa GRUB (não há /etc/default/grub). Adicione o parâmetro pela configuração do seu carregador de boot.' },
 }
 
 const PATH = '/etc/modprobe.d/frx-snd-hda-intel.conf'
@@ -86,7 +89,7 @@ const op = (state: Operation['state'], pending: Operation['pending']): Operation
   updatedAt: '',
   appliedAt: null,
   rolledBackAt: null,
-  message: state === 'applied' ? `Confirmado em ${PATH}.` : 'Rode o comando com sudo.',
+  message: state === 'applied' ? `Confirmado em ${PATH}.` : state === 'failed' ? 'Cancelada antes de ser aplicada; nada foi alterado.' : 'Rode o comando com sudo.',
   pending,
   events: [],
   recipeTrust: 'generated',
@@ -161,6 +164,10 @@ describe('Dashboard', () => {
           return op('requires-manual-step', { kind: 'apply', line: LINE })
         case 'verify_fix_operation':
           return op('applied', null)
+        case 'prepare_fix_rollback':
+          return { operationId: 'op-1', fingerprint: 'rb-1', status: 'ready', mode: 'automatic', reasons: ['O comando ainda não foi rodado; cancelar não altera nada no sistema.'], changes: [], manualLine: null, steamRunning: false, gameRunning: false }
+        case 'rollback_fix':
+          return op('failed', null)
         default:
           return null
       }
@@ -211,10 +218,13 @@ describe('Dashboard', () => {
     const buttons = [...el.querySelectorAll('button')].filter((b) => b.textContent === 'Aplicar correção')
     expect(buttons).toHaveLength(2)
     const [apply, kernel] = buttons
-    // Parâmetro do kernel: aplicável, com o aviso de risco e da conferência de hash.
+    // Parâmetro do kernel sem GRUB: instrução visível, incompatível já no card.
     expect(el.textContent).toContain('nvme.noacpi=1')
-    expect(el.textContent).toContain('O comando só sobrescreve o arquivo se ele não tiver mudado desde a prévia.')
-    expect(kernel.disabled).toBe(false)
+    expect(el.textContent).toContain('Incompatível · Este sistema não usa GRUB')
+    expect(kernel.disabled).toBe(true)
+    act(() => kernel.click())
+    await flush()
+    expect(calls.some((c) => c.cmd === 'prepare_system_fix')).toBe(false)
     expect(apply.disabled).toBe(false)
     expect(el.textContent).toContain('options snd_hda_intel model=dell-headset-multi')
     expect(el.textContent).toContain('A fonte impõe condições')

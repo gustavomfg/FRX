@@ -139,6 +139,9 @@ pub struct WikiAction {
     pub context: String,
     /// A frase impõe condições ("só em Intel", "se…"): o usuário precisa ler.
     pub conditional: bool,
+    /// Checagem leve do sistema, preenchida pelo comando de busca (o provedor
+    /// não lê o `/etc`). `None` = sem checagem prévia para este tipo de ação.
+    pub check: Option<crate::fix_engine::system::QuickCheck>,
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
@@ -510,6 +513,7 @@ fn actions(body: &str) -> Vec<WikiAction> {
             action,
             snippet,
             context,
+            check: None,
         });
     };
     let mut lines = CodeLines { in_block: false };

@@ -2,6 +2,7 @@ import { BookOpen, ExternalLink, TriangleAlert, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { Pill } from '@/components/ui/Status'
+import { PLAN_STATUS } from '@/components/fix/engineMeta'
 import type { Fit, Support, SystemAction, WikiAction, WikiSuggestion } from '@/types/hardware'
 
 const NEUTRAL = { color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' }
@@ -83,14 +84,22 @@ export function SuggestionCard({
                     <TriangleAlert className="size-3" aria-hidden /> A fonte impõe condições: leia antes de aplicar.
                   </p>
                 )}
-                {a.action.type === 'add_kernel_parameters' && (
+                {a.check && <QuickCheckLine check={a.check} />}
+                {a.action.type === 'add_kernel_parameters' && a.check?.applicable !== false && (
                   <p className="mt-1 text-[12px] text-fg-3">
                     Risco alto: altera /etc/default/grub. O comando só sobrescreve o arquivo se ele não tiver mudado desde a prévia.
                   </p>
                 )}
               </div>
               {apply && (
-                <Button size="sm" variant="primary" icon={<Wrench className="size-3.5" />} onClick={() => apply(a)}>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  icon={<Wrench className="size-3.5" />}
+                  disabled={a.check?.applicable === false}
+                  title={a.check?.applicable === false ? a.check.detail : undefined}
+                  onClick={() => apply(a)}
+                >
                   Aplicar correção
                 </Button>
               )}
@@ -99,5 +108,28 @@ export function SuggestionCard({
         </ul>
       )}
     </li>
+  )
+}
+
+/** Resultado da checagem leve da busca: o status no card, antes da prévia. */
+function QuickCheckLine({ check }: { check: { applicable: boolean; detail: string } }) {
+  if (check.applicable) {
+    const meta = PLAN_STATUS['requires-manual-step']
+    return (
+      <p className="mt-1.5">
+        <Pill color={meta.color} soft={meta.soft} title={check.detail}>
+          {meta.label}
+        </Pill>
+      </p>
+    )
+  }
+  const meta = PLAN_STATUS.incompatible
+  return (
+    <div className="mt-1.5">
+      <Pill color={meta.color} soft={meta.soft}>
+        {meta.label} · Este sistema não usa GRUB
+      </Pill>
+      <p className="mt-1 text-[12px] text-fg-3">{check.detail}</p>
+    </div>
   )
 }

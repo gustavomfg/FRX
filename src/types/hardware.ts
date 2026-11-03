@@ -50,6 +50,8 @@ export interface WikiAction {
   context: string
   /** A frase impõe condições ("só em Intel", "se…"). */
   conditional: boolean
+  /** Checagem leve feita na busca (hoje: GRUB existe?). `null` = sem checagem prévia. */
+  check: { applicable: boolean; detail: string } | null
 }
 
 /** Rust: `commands/hardware.rs` (`HardwareReport`). */

@@ -216,6 +216,36 @@ fn header(req: &SystemFixRequest) -> String {
     format!("# Gerado pelo FRX Hardware Fixer. Fonte: {url}\n# Para desfazer, use o FRX ou remova este arquivo.\n")
 }
 
+const NO_GRUB: &str = "Este sistema não usa GRUB (não há /etc/default/grub). Adicione o parâmetro pela configuração do seu carregador de boot.";
+
+/// Resultado da checagem leve mostrada no card, antes de qualquer prévia.
+#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct QuickCheck {
+    pub applicable: bool,
+    pub detail: String,
+}
+
+/// Checagem leve, sem prévia: só existência de arquivo, sem ler conteúdo
+/// nem calcular hash. Hoje só para parâmetros do kernel (precisa de GRUB);
+/// a verificação completa continua na prévia.
+pub fn quick_check(system_root: &Path, action: &SystemAction) -> Option<QuickCheck> {
+    match action {
+        SystemAction::AddKernelParameters { .. } => Some(if system_root.join("etc/default/grub").is_file() {
+            QuickCheck {
+                applicable: true,
+                detail: "/etc/default/grub encontrado. A prévia confere o conteúdo antes de liberar o comando.".into(),
+            }
+        } else {
+            QuickCheck {
+                applicable: false,
+                detail: NO_GRUB.into(),
+            }
+        }),
+        _ => None,
+    }
+}
+
 /// Calcula o conteúdo novo e o estado do plano para a raiz de sistema dada.
 pub fn render(system_root: &Path, req: &SystemFixRequest) -> Result<Rendered, String> {
     req.action.validate()?;
@@ -285,7 +315,7 @@ pub fn render(system_root: &Path, req: &SystemFixRequest) -> Result<Rendered, St
                     &path,
                     target.identity.clone(),
                     checks,
-                    "Este sistema não usa GRUB (não há /etc/default/grub). Adicione o parâmetro pela configuração do seu carregador de boot.",
+                    NO_GRUB,
                 ));
             };
             match add_kernel_params(text, params) {
@@ -544,6 +574,11 @@ pub const FILE_CHANGED: &str = "O arquivo foi alterado desde a prévia. Refaça 
 const MANUAL_NOTE: &str = "Gravar em /etc exige root. O FRX não usa sudo: ele faz o backup, prepara o arquivo numa pasta privada e mostra o comando para você rodar no terminal. Depois, confere o resultado em /etc.";
 
 impl FixEngine {
+    /// Checagem leve de uma ação contra a raiz de sistema deste núcleo.
+    pub fn quick_check(&self, action: &SystemAction) -> Option<QuickCheck> {
+        quick_check(&self.system_root, action)
+    }
+
     /// Modo manual sempre que a raiz é o sistema real.
     fn system_manual(&self) -> bool {
         // Na raiz real o modo automático não existe, seja qual for a configuração.
@@ -1447,11 +1482,26 @@ mod tests {
         assert_eq!(plan.status, PlanStatus::RequiresManualStep);
         // Esta máquina, sem /etc/default/grub.
         let real = FixEngine::with(tmp.path().join("data"), Catalog::bundled(), PathBuf::from("/proc"));
-        let plan = real.prepare_system(request).unwrap();
+        let plan = real.prepare_system(request.clone()).unwrap();
         println!("/ real: {:?} · {:?}", plan.status, plan.reasons);
+        let check = real.quick_check(&request.action).unwrap();
+        println!("checagem leve no / real: {check:?}");
         if !Path::new("/etc/default/grub").exists() {
             assert_eq!(plan.status, PlanStatus::Incompatible);
+            assert!(!check.applicable);
         }
     }
-}
 
+    #[test]
+    fn quick_check_only_looks_for_grub_and_only_for_kernel_params() {
+        let root = sysroot();
+        let kernel = SystemAction::AddKernelParameters { params: vec!["nvme.noacpi=1".into()] };
+        let c = quick_check(root.path(), &kernel).unwrap();
+        assert!(!c.applicable);
+        assert!(c.detail.starts_with("Este sistema não usa GRUB"));
+        std::fs::write(root.path().join("etc/default/grub"), "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"\n").unwrap();
+        assert!(quick_check(root.path(), &kernel).unwrap().applicable);
+        let modprobe = SystemAction::AddModprobeOption { module: "iwlwifi".into(), options: vec!["disable_11ax=Y".into()] };
+        assert_eq!(quick_check(root.path(), &modprobe), None, "modprobe/systemd não mudam");
+    }
+}

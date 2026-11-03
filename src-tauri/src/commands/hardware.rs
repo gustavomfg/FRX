@@ -68,7 +68,12 @@ pub async fn search_hardware_fixes(
         .await
         .map_err(|e| e.to_string())?;
     let retrieved_at = now_iso();
-    let wiki = search(&ctx, info.identity.clone(), args.symptom, args.force, args.max_age_hours).await;
+    let mut wiki = search(&ctx, info.identity.clone(), args.symptom, args.force, args.max_age_hours).await;
+    // Checagem leve (existência de arquivo) para o card; a prévia confere o resto.
+    let engine = engine(&ctx);
+    for action in wiki.suggestions.iter_mut().flat_map(|s| s.actions.iter_mut()) {
+        action.check = engine.quick_check(&action.action);
+    }
     Ok(HardwareReport {
         identity: info.identity,
         simulated: info.simulated,
