@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.5.0",
   "type": "module",
-  "description": "FRX — Play. Fix. Repeat. Diagnóstico, compatibilidade e resolução de problemas de jogos Windows no Linux.",
+  "description": "Hardware Fixer (FRX) — diagnóstico e correções de hardware para laptops Linux, com prévia, backup e desfazer.",
   "scripts": {
     "dev": "tauri dev",
     "dev:web": "vite",
