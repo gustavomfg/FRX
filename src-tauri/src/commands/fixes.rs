@@ -14,7 +14,7 @@ pub struct SearchArgs {
     pub max_age_hours: u64,
 }
 
-fn ttl(hours: u64) -> u64 {
+pub(crate) fn ttl(hours: u64) -> u64 {
     hours.clamp(1, 24 * 30) * 3600
 }
 

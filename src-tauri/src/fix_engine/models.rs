@@ -252,6 +252,8 @@ pub struct Check {
 pub enum ChangeKind {
     LaunchOptions,
     GameFile,
+    /// Arquivo da allowlist de sistema (`/etc/modprobe.d`, `/etc/systemd/system`, `/etc/default/grub`).
+    SystemFile,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -359,13 +361,33 @@ pub enum Step {
         #[serde(skip)]
         binary: Vec<u8>,
     },
+    /// Arquivo de sistema da allowlist do `confined`. Com a raiz real (`/`),
+    /// quem grava é o usuário com `sudo`; o FRX só confere o hash.
+    #[serde(rename_all = "camelCase")]
+    SystemFile {
+        /// Raiz do sistema: `/` em produção, pasta temporária nos testes.
+        system_root: PathBuf,
+        /// Caminho absoluto exibido (`/etc/modprobe.d/frx-x.conf`).
+        path: String,
+        target: PathBuf,
+        identity: Option<super::confined::FileIdentity>,
+        before_sha: Option<String>,
+        content: String,
+        /// Comandos exibidos (nunca executados pelo FRX).
+        #[serde(default)]
+        post_apply: Vec<String>,
+        #[serde(default)]
+        pre_rollback: Vec<String>,
+        #[serde(default)]
+        post_rollback: Vec<String>,
+    },
 }
 
 impl Step {
     pub fn target(&self) -> &std::path::Path {
         match self {
             Step::LaunchOptions { config, .. } => config,
-            Step::GameFile { target, .. } => target,
+            Step::GameFile { target, .. } | Step::SystemFile { target, .. } => target,
         }
     }
 }

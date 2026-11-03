@@ -94,7 +94,7 @@ export interface Check {
 }
 
 export interface PlannedChange {
-  kind: 'launch-options' | 'game-file'
+  kind: 'launch-options' | 'game-file' | 'system-file'
   target: string
   before: string | null
   after: string | null

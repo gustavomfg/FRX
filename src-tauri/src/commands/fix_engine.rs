@@ -62,7 +62,7 @@ pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
     })
 }
 
-async fn blocking<T: Send + 'static>(
+pub(crate) async fn blocking<T: Send + 'static>(
     f: impl FnOnce() -> Result<T, String> + Send + 'static,
 ) -> Result<T, String> {
     tauri::async_runtime::spawn_blocking(f)
@@ -70,11 +70,11 @@ async fn blocking<T: Send + 'static>(
         .map_err(|e| e.to_string())?
 }
 
-fn engine(ctx: &AppCtx) -> Arc<FixEngine> {
+pub(crate) fn engine(ctx: &AppCtx) -> Arc<FixEngine> {
     ctx.engine.clone()
 }
 
-fn emitter(app: AppHandle) -> impl Fn(&Operation) {
+pub(crate) fn emitter(app: AppHandle) -> impl Fn(&Operation) {
     move |op: &Operation| {
         let _ = app.emit(PROGRESS_EVENT, op);
     }

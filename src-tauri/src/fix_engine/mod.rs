@@ -24,6 +24,7 @@ pub mod journal;
 pub mod models;
 pub mod planner;
 pub mod security;
+pub mod system;
 
 #[cfg(test)]
 mod tests;
@@ -44,7 +45,7 @@ use models::*;
 use planner::{launch_target_label, Computed};
 
 /// Conteúdo novo de cada passo do rollback (`None` = nada a gravar).
-type RollbackWrites = Vec<Option<Vec<u8>>>;
+pub(crate) type RollbackWrites = Vec<Option<Vec<u8>>>;
 
 pub const PROGRESS_EVENT: &str = "fix-engine://progress";
 
@@ -55,6 +56,13 @@ pub struct FixEngine {
     registry: Registry,
     proc_root: PathBuf,
     plans: Mutex<HashMap<String, (FixPlan, Vec<Step>)>>,
+    /// Prévias de correções de sistema, com o pedido já resolvido no núcleo.
+    system_plans: Mutex<HashMap<String, (FixPlan, system::SystemFixRequest)>>,
+    /// Raiz do sistema. Sempre `/` fora dos testes: com ela o FRX não grava
+    /// em `/etc`, só prepara o arquivo e mostra o comando `sudo`.
+    system_root: PathBuf,
+    /// Testes: modo manual com raiz fictícia, para simular o `sudo install`.
+    system_force_manual: bool,
     /// Uma operação de escrita por vez (aplicação ou rollback).
     exec: Mutex<()>,
     artifact_transport: Arc<dyn artifacts::Transport>,
@@ -96,6 +104,9 @@ impl FixEngine {
             registry,
             proc_root,
             plans: Mutex::default(),
+            system_plans: Mutex::default(),
+            system_root: PathBuf::from("/"),
+            system_force_manual: false,
             exec: Mutex::new(()),
             artifact_transport: Arc::new(artifacts::HttpsTransport),
             artifact_cancel: Mutex::new(None),
@@ -110,6 +121,15 @@ impl FixEngine {
     #[cfg(debug_assertions)]
     pub fn with_artifact_transport(mut self, transport: Arc<dyn artifacts::Transport>) -> Self {
         self.artifact_transport = transport;
+        self
+    }
+
+    /// Raiz de sistema fictícia: o núcleo grava nela sozinho (modo automático),
+    /// para testar aplicação, verificação e rollback sem `sudo`.
+    #[cfg(test)]
+    pub fn with_system_root(mut self, root: PathBuf, manual: bool) -> Self {
+        self.system_root = root;
+        self.system_force_manual = manual;
         self
     }
 
@@ -848,12 +868,19 @@ impl FixEngine {
                     .unwrap_or_default()
             );
             let b = match &rec.step {
-                Step::GameFile { .. } => open_game_file(&rec.step)?.backup(&dir, &name)?,
+                Step::GameFile { .. } | Step::SystemFile { .. } => {
+                    open_game_file(&rec.step)?.backup(&dir, &name)?
+                }
                 _ => files::backup(&target, &dir, &name)?,
             };
             if let Step::GameFile { before_sha, .. } = &rec.step {
                 if b.sha256 != *before_sha {
                     return Err("CONFLITO: arquivo do jogo mudou desde a prévia.".into());
+                }
+            }
+            if let Step::SystemFile { before_sha, path, .. } = &rec.step {
+                if b.sha256 != *before_sha {
+                    return Err(format!("CONFLITO: {path} mudou desde a prévia."));
                 }
             }
             if let Step::LaunchOptions { file_sha, .. } = &rec.step {
@@ -870,21 +897,26 @@ impl FixEngine {
         self.journal
             .transition(op, OpState::Applying, "Gravando as alterações.")?;
         emit(op);
-        if processes::game_running(&self.proc_root, &op.app_id) {
+        // Correções de sistema não dependem da Steam nem de um jogo fechado.
+        let system = is_system_op(op);
+        if !system && processes::game_running(&self.proc_root, &op.app_id) {
             return Err("CONFLITO: o jogo foi aberto durante a aplicação.".into());
         }
-        if processes::steam_running(&self.proc_root) {
+        if !system && processes::steam_running(&self.proc_root) {
             return Err("CONFLITO: a Steam foi aberta durante a aplicação.".into());
         }
         for i in 0..op.steps.len() {
-            if processes::steam_running(&self.proc_root)
-                || processes::game_running(&self.proc_root, &op.app_id)
+            if !system
+                && (processes::steam_running(&self.proc_root)
+                    || processes::game_running(&self.proc_root, &op.app_id))
             {
                 return Err("CONFLITO: Steam ou jogo foram abertos durante a transação; nenhuma etapa adicional foi executada.".into());
             }
             op.steps[i].after_sha = Some(match &op.steps[i].step {
                 Step::GameFile { dll: Some(d), .. } => d.expected_sha256.clone(),
-                Step::GameFile { content, .. } => sha256_hex(content.as_bytes()),
+                Step::GameFile { content, .. } | Step::SystemFile { content, .. } => {
+                    sha256_hex(content.as_bytes())
+                }
                 Step::LaunchOptions {
                     config,
                     app_id,
@@ -905,7 +937,7 @@ impl FixEngine {
             op.steps[i].after_sha = Some(after_sha);
             op.steps[i].status = StepStatus::Written;
             self.journal.save(op)?;
-            if matches!(op.steps[i].step, Step::GameFile { .. }) {
+            if matches!(op.steps[i].step, Step::GameFile { .. } | Step::SystemFile { .. }) {
                 emit(op);
             }
         }
@@ -923,7 +955,11 @@ impl FixEngine {
         self.journal.transition(
             op,
             OpState::Applied,
-            "Aplicada e verificada. Vale a partir da próxima vez que o jogo abrir.",
+            if system {
+                "Aplicada e verificada no disco."
+            } else {
+                "Aplicada e verificada. Vale a partir da próxima vez que o jogo abrir."
+            },
         )?;
         emit(op);
         Ok(())
@@ -931,6 +967,7 @@ impl FixEngine {
 
     /// Restaura do backup o que foi gravado — só se ninguém mexeu depois.
     fn undo_written(&self, op: &mut Operation) -> Result<(), String> {
+        let system = is_system_op(op);
         for rec in op.steps.iter_mut().rev() {
             if !matches!(
                 rec.status,
@@ -938,8 +975,9 @@ impl FixEngine {
             ) {
                 continue;
             }
-            if processes::steam_running(&self.proc_root)
-                || processes::game_running(&self.proc_root, &op.app_id)
+            if !system
+                && (processes::steam_running(&self.proc_root)
+                    || processes::game_running(&self.proc_root, &op.app_id))
             {
                 return Err("Steam ou jogo estão abertos; o backup foi preservado e a recuperação aguarda seu encerramento.".into());
             }
@@ -957,10 +995,11 @@ impl FixEngine {
                 ));
             }
             match &rec.step {
-                Step::GameFile { .. } => open_game_file(&rec.step)?.restore(
-                    rec.backup.as_ref().ok_or("backup ausente")?,
-                    rec.after_sha.as_deref(),
-                )?,
+                Step::GameFile { .. } | Step::SystemFile { .. } => open_game_file(&rec.step)?
+                    .restore(
+                        rec.backup.as_ref().ok_or("backup ausente")?,
+                        rec.after_sha.as_deref(),
+                    )?,
                 _ => files::restore(rec.backup.as_ref().ok_or("backup ausente")?, &target)?,
             }
             rec.status = StepStatus::Reverted;
@@ -977,6 +1016,9 @@ impl FixEngine {
         if op.manual_recovery_required {
             emit(&op);
             return Ok(op);
+        }
+        if is_system_op(&op) {
+            return self.verify_system(op, emit);
         }
         let presence = presence(&op)?;
         match (op.state, op.pending.as_ref().map(|p| p.kind)) {
@@ -1064,6 +1106,9 @@ impl FixEngine {
                 .is_some_and(|p| p.kind == PendingKind::Apply);
         if !matches!(op.state, OpState::Applied | OpState::RecoveryRequired) && !pending_apply {
             return Err("Só correções aplicadas (ou em recuperação) podem ser desfeitas.".into());
+        }
+        if is_system_op(op) {
+            return self.system_rollback_plan(op, pending_apply);
         }
         let steam_running = processes::steam_running(&self.proc_root);
         let game_running = processes::game_running(&self.proc_root, &op.app_id);
@@ -1154,6 +1199,9 @@ impl FixEngine {
                             writes.push(None);
                         }
                     }
+                }
+                Step::SystemFile { .. } => {
+                    return Err("Passo de sistema fora do fluxo de sistema.".into())
                 }
                 Step::GameFile {
                     target,
@@ -1262,7 +1310,12 @@ impl FixEngine {
                     kind: PendingKind::Rollback,
                     line: plan.manual_line.unwrap_or_default(),
                 });
-                self.journal.transition(&mut op, OpState::RequiresManualStep, "Aguardando você colar a linha sem a correção nas opções de inicialização. O FRX confere depois.")?;
+                let message = if is_system_op(&op) {
+                    "Aguardando você rodar os comandos com sudo para desfazer. O FRX confere o arquivo depois."
+                } else {
+                    "Aguardando você colar a linha sem a correção nas opções de inicialização. O FRX confere depois."
+                };
+                self.journal.transition(&mut op, OpState::RequiresManualStep, message)?;
                 emit(&op);
                 return Ok(op);
             }
@@ -1270,6 +1323,9 @@ impl FixEngine {
         }
         if op.state == OpState::RequiresManualStep && plan.changes.is_empty() {
             op.pending = None;
+            if is_system_op(&op) && journal::valid_op_id(&op.id) {
+                let _ = std::fs::remove_dir_all(system::staged_dir(&self.root, &op.id));
+            }
             self.journal.transition(
                 &mut op,
                 OpState::Failed,
@@ -1287,9 +1343,11 @@ impl FixEngine {
         // backup and all earlier recovery copies remain available.
         let rollback_attempt = new_op_id();
         let result = (|| -> Result<(), String> {
+            let system = is_system_op(&op);
             for (i, bytes) in writes.into_iter().enumerate() {
-                if processes::steam_running(&self.proc_root)
-                    || processes::game_running(&self.proc_root, &op.app_id)
+                if !system
+                    && (processes::steam_running(&self.proc_root)
+                        || processes::game_running(&self.proc_root, &op.app_id))
                 {
                     return Err("CONFLITO: Steam ou jogo foram abertos durante o rollback; nenhuma etapa adicional foi executada.".into());
                 }
@@ -1300,14 +1358,15 @@ impl FixEngine {
                 let target = op.steps[i].step.target().to_path_buf();
                 let name = format!("rollback-{rollback_attempt}-{i}");
                 op.steps[i].rollback_backup = Some(match &op.steps[i].step {
-                    Step::GameFile { .. } => {
+                    Step::GameFile { .. } | Step::SystemFile { .. } => {
                         open_game_file(&op.steps[i].step)?.backup(&dir, &name)?
                     }
                     _ => files::backup(&target, &dir, &name)?,
                 });
                 self.journal.save(&op)?;
-                if processes::steam_running(&self.proc_root)
-                    || processes::game_running(&self.proc_root, &op.app_id)
+                if !system
+                    && (processes::steam_running(&self.proc_root)
+                        || processes::game_running(&self.proc_root, &op.app_id))
                 {
                     return Err("CONFLITO: Steam ou jogo foram abertos durante o backup do rollback; nenhuma etapa adicional foi executada.".into());
                 }
@@ -1329,7 +1388,7 @@ impl FixEngine {
                             return Err("A verificação do rollback falhou.".into());
                         }
                     }
-                    Step::GameFile { .. } => {
+                    Step::GameFile { .. } | Step::SystemFile { .. } => {
                         open_game_file(&op.steps[i].step)?.restore(
                             op.steps[i].backup.as_ref().ok_or("backup ausente")?,
                             op.steps[i].after_sha.as_deref(),
@@ -1450,6 +1509,19 @@ fn write_step(step: &Step) -> Result<String, String> {
             opened.write(bytes, before_sha.as_deref(), 0o644)?;
             Ok(sha256_hex(bytes))
         }
+        Step::SystemFile {
+            before_sha,
+            content,
+            path,
+            ..
+        } => {
+            let opened = open_game_file(step)?;
+            if opened.sha()? != *before_sha {
+                return Err(format!("CONFLITO: {path} foi alterado por outro programa."));
+            }
+            opened.write(content.as_bytes(), before_sha.as_deref(), 0o644)?;
+            Ok(sha256_hex(content.as_bytes()))
+        }
     }
 }
 
@@ -1475,15 +1547,25 @@ fn verify_written(rec: &StepRecord) -> Result<(), String> {
 
 fn step_sha(step: &Step) -> Result<Option<String>, String> {
     match step {
-        Step::GameFile { .. } => open_game_file(step)?.sha(),
+        Step::GameFile { .. } | Step::SystemFile { .. } => open_game_file(step)?.sha(),
         Step::LaunchOptions { config, .. } => sha256_file(config),
     }
 }
 
 const CONSENT_REQUIRED: &str = "Esta correção instala uma DLL de terceiros e exige sua confirmação explícita na prévia. Nada foi alterado.";
 
-/// Abre o destino de um passo com o limite do tipo dele: configuração ou DLL.
+/// Abre o destino de um passo com o limite do tipo dele: configuração, DLL
+/// ou arquivo de sistema da allowlist.
 fn open_game_file(step: &Step) -> Result<confined::Target, String> {
+    if let Step::SystemFile {
+        system_root,
+        path,
+        identity,
+        ..
+    } = step
+    {
+        return confined::Target::open_system(system_root, path, identity.as_ref());
+    }
     let Step::GameFile {
         root,
         rel,
@@ -1546,7 +1628,7 @@ fn presence(op: &Operation) -> Result<Presence, String> {
                     }
                 }
             }
-            Step::GameFile { .. } => {
+            Step::GameFile { .. } | Step::SystemFile { .. } => {
                 total += 1;
                 if step_sha(&rec.step)? == rec.after_sha && rec.after_sha.is_some() {
                     found += 1;
@@ -1567,6 +1649,13 @@ fn effective(op: &Operation) -> (Effective, String) {
         Ok(_) => (Effective::Drifted, "A configuração foi alterada fora do FRX depois da aplicação; a correção não está mais completa.".into()),
         Err(e) => (Effective::Unknown, e),
     }
+}
+
+/// Operação de sistema: todos os passos são arquivos da allowlist de sistema.
+fn is_system_op(op: &Operation) -> bool {
+    op.app_id == system::SYSTEM_APP_ID
+        && !op.steps.is_empty()
+        && op.steps.iter().all(|s| matches!(s.step, Step::SystemFile { .. }))
 }
 
 pub fn data_root(app_data: &Path) -> PathBuf {

@@ -1,5 +1,16 @@
-//! Game-file I/O pinned to directory descriptors. Archive names and network
+//! File I/O pinned to directory descriptors. Archive names and network
 //! data never become filesystem paths; the authorized destination is explicit.
+//!
+//! Two kinds of root are accepted:
+//! - the game folder (`steamapps/common/<jogo>`), via [`Target::open`] and
+//!   [`Target::open_binary`];
+//! - a closed allowlist of system files ([`SYSTEM_PATHS`]), via
+//!   [`Target::open_system`]. No other path under `/etc` (or anywhere else on
+//!   the system) can be opened for writing.
+//!
+//! Both go through the same pinning: every directory component is opened
+//! with `O_NOFOLLOW`, the file must be regular with a single link, and writes
+//! are atomic renames inside the pinned parent.
 
 use std::ffi::CString;
 use std::fs::{File, OpenOptions};
@@ -19,6 +30,51 @@ pub const MAX_CONFIG: usize = 256 * 1024;
 pub const MAX_BINARY: usize = 64 * 1024 * 1024;
 pub const PREFIX_REFUSED: &str =
     "O FRX não altera prefixos do Proton (compatdata/ ou pfx/): só a pasta do jogo, em steamapps/common.";
+/// Arquivos de sistema são texto curto; nada perto disso é legítimo.
+pub const MAX_SYSTEM: usize = 64 * 1024;
+pub const SYSTEM_REFUSED: &str = "O FRX só altera arquivos de sistema permitidos: /etc/modprobe.d/frx-*.conf, /etc/systemd/system/frx-*.service e /etc/default/grub.";
+
+/// Allowlist fechada de destinos de sistema: diretório, prefixo e sufixo
+/// exigidos do nome. `None` no prefixo = arquivo exato (o nome inteiro está
+/// em `suffix`). Arquivos criados pelo FRX levam `frx-` no nome, então nunca
+/// colidem com arquivos de pacotes ou do usuário.
+pub const SYSTEM_PATHS: &[(&str, Option<&str>, &str)] = &[
+    ("etc/modprobe.d", Some("frx-"), ".conf"),
+    ("etc/systemd/system", Some("frx-"), ".service"),
+    ("etc/default", None, "grub"),
+];
+
+/// Valida um caminho absoluto de sistema contra a allowlist. Devolve o
+/// diretório (relativo à raiz do sistema) e o nome do arquivo.
+pub fn check_system_path(abs: &str) -> Result<(&'static str, String), String> {
+    let rel = abs.strip_prefix('/').ok_or(SYSTEM_REFUSED)?;
+    let (dir, name) = rel.rsplit_once('/').ok_or(SYSTEM_REFUSED)?;
+    let ok_name = |n: &str| {
+        !n.is_empty()
+            && n.len() <= 64
+            && n
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-' || b == b'.')
+            && !n.starts_with('.')
+            && !n.contains("..")
+    };
+    for (allowed, prefix, suffix) in SYSTEM_PATHS {
+        if dir != *allowed || !ok_name(name) {
+            continue;
+        }
+        let matches = match prefix {
+            None => name == *suffix,
+            Some(p) => name
+                .strip_prefix(p)
+                .and_then(|n| n.strip_suffix(suffix))
+                .is_some_and(|stem| !stem.is_empty() && !stem.contains('.')),
+        };
+        if matches {
+            return Ok((allowed, name.to_owned()));
+        }
+    }
+    Err(SYSTEM_REFUSED.into())
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -69,6 +125,22 @@ impl Target {
         Self::open_limited(root, rel, expected, MAX_BINARY)
     }
 
+    /// Arquivo de sistema da allowlist ([`SYSTEM_PATHS`]). `system_root` é a
+    /// raiz do sistema: `/` em produção, uma pasta temporária nos testes.
+    /// `abs` é o caminho como o usuário o vê (`/etc/modprobe.d/frx-x.conf`).
+    pub fn open_system(
+        system_root: &Path,
+        abs: &str,
+        expected: Option<&FileIdentity>,
+    ) -> Result<Self, String> {
+        if !system_root.is_absolute() {
+            return Err("A raiz do sistema deve ser absoluta.".into());
+        }
+        let (dir, name) = check_system_path(abs)?;
+        Self::open_pinned(system_root, &format!("{dir}/{name}"), expected, MAX_SYSTEM)
+            .map_err(|e| e.replace("diretório do jogo", "diretório do sistema"))
+    }
+
     fn open_limited(
         root: &Path,
         rel: &str,
@@ -87,6 +159,17 @@ impl Target {
         }) {
             return Err(PREFIX_REFUSED.into());
         }
+        Self::open_pinned(root, rel, expected, limit)
+    }
+
+    /// Abre `root/rel` componente a componente com `O_NOFOLLOW`. Quem chama
+    /// já validou `root` e `rel` para o seu tipo de destino.
+    fn open_pinned(
+        root: &Path,
+        rel: &str,
+        expected: Option<&FileIdentity>,
+        limit: usize,
+    ) -> Result<Self, String> {
         let mut dir = File::open("/").map_err(|e| e.to_string())?;
         for c in root.components() {
             match c {
@@ -94,7 +177,7 @@ impl Target {
                 Component::Normal(name) => dir = directory_at(&dir, name)?,
                 _ => {
                     return Err(
-                        "A raiz do jogo deve ser absoluta, sem atalhos ou traversal.".into(),
+                        "A raiz deve ser absoluta, sem atalhos ou traversal.".into(),
                     )
                 }
             }
@@ -167,7 +250,7 @@ impl Target {
         Ok(self.read()?.as_deref().map(sha256_hex))
     }
 
-    fn mode(&self) -> Result<Option<u32>, String> {
+    pub fn mode(&self) -> Result<Option<u32>, String> {
         let fd = unsafe {
             libc::openat(
                 self.parent.as_raw_fd(),
@@ -563,5 +646,126 @@ mod compatdata_tests {
         std::fs::create_dir_all(&prefix).unwrap();
         std::os::unix::fs::symlink(&prefix, game.join("atalho")).unwrap();
         assert!(refused(&game, "atalho/x.ini").contains("link simbólico"));
+    }
+}
+
+#[cfg(test)]
+mod system_tests {
+    use super::*;
+
+    /// Raiz de sistema fictícia com os três diretórios permitidos.
+    fn sysroot() -> tempfile::TempDir {
+        let tmp = tempfile::tempdir().unwrap();
+        for d in ["etc/modprobe.d", "etc/systemd/system", "etc/default"] {
+            std::fs::create_dir_all(tmp.path().join(d)).unwrap();
+        }
+        tmp
+    }
+
+    #[test]
+    fn only_the_allowlisted_system_paths_are_accepted() {
+        for ok in [
+            "/etc/modprobe.d/frx-audio.conf",
+            "/etc/modprobe.d/frx-snd-hda-intel.conf",
+            "/etc/systemd/system/frx-iwlwifi-sleep.service",
+            "/etc/default/grub",
+        ] {
+            assert!(check_system_path(ok).is_ok(), "{ok}");
+        }
+        for bad in [
+            "/etc/passwd",
+            "/etc/shadow",
+            "/etc/sudoers.d/frx-x.conf",
+            "/etc/modprobe.d/alsa.conf",          // sem frx-: arquivo de outro dono
+            "/etc/modprobe.d/frx-.conf",          // sem nome
+            "/etc/modprobe.d/frx-a.conf.bak",     // sufixo errado
+            "/etc/modprobe.d/frx-a.b.conf",       // ponto extra
+            "/etc/modprobe.d/../shadow",
+            "/etc/modprobe.d/../modprobe.d/frx-a.conf",
+            "/etc/modprobe.d//frx-a.conf",
+            "/etc/modprobe.d/sub/frx-a.conf",
+            "/etc/systemd/system/frx-a.timer",
+            "/etc/systemd/system/multi-user.target.wants/frx-a.service",
+            "/etc/default/grub.d",
+            "/etc/default/frx-grub",
+            "/usr/lib/modprobe.d/frx-a.conf",
+            "etc/modprobe.d/frx-a.conf",          // relativo
+            "/etc/modprobe.d/FRX-A.conf",         // maiúsculas
+            "/etc/modprobe.d/frx-a b.conf",
+            "/etc/modprobe.d/frx-a\nb.conf",
+        ] {
+            assert_eq!(check_system_path(bad).err().as_deref(), Some(SYSTEM_REFUSED), "{bad}");
+        }
+    }
+
+    #[test]
+    fn writes_restores_and_removes_inside_the_fake_system_root() {
+        let root = sysroot();
+        let t = Target::open_system(root.path(), "/etc/modprobe.d/frx-audio.conf", None).unwrap();
+        assert_eq!(t.read().unwrap(), None);
+        let backup_dir = root.path().join("backup");
+        let b = t.backup(&backup_dir, "0").unwrap();
+        assert!(!b.existed);
+        t.write(b"options snd_hda_intel model=dell-headset-multi\n", None, 0o644).unwrap();
+        let written = t.sha().unwrap();
+        assert!(written.is_some());
+        let mode = std::fs::metadata(root.path().join("etc/modprobe.d/frx-audio.conf"))
+            .unwrap()
+            .permissions()
+            .mode();
+        assert_eq!(mode & 0o777, 0o644);
+        // O rollback de um arquivo criado pelo FRX o remove.
+        t.restore(&b, written.as_deref()).unwrap();
+        assert!(!root.path().join("etc/modprobe.d/frx-audio.conf").exists());
+        // Nada além do destino foi criado no diretório.
+        assert_eq!(std::fs::read_dir(root.path().join("etc/modprobe.d")).unwrap().count(), 0);
+    }
+
+    #[test]
+    fn symlinks_and_hard_links_are_refused_in_system_paths() {
+        let root = sysroot();
+        let outside = tempfile::tempdir().unwrap();
+        // Diretório permitido trocado por link simbólico.
+        std::fs::remove_dir(root.path().join("etc/systemd/system")).unwrap();
+        std::os::unix::fs::symlink(outside.path(), root.path().join("etc/systemd/system")).unwrap();
+        let e = Target::open_system(root.path(), "/etc/systemd/system/frx-a.service", None)
+            .err()
+            .unwrap();
+        assert!(e.contains("link simbólico"), "{e}");
+        // Arquivo permitido que é link simbólico para fora.
+        std::fs::write(outside.path().join("passwd"), "root:x:0:0").unwrap();
+        std::os::unix::fs::symlink(outside.path().join("passwd"), root.path().join("etc/default/grub")).unwrap();
+        let e = Target::open_system(root.path(), "/etc/default/grub", None).err().unwrap();
+        assert!(e.contains("link simbólico"), "{e}");
+        // Hard link: o conteúdo seria compartilhado com outro arquivo.
+        std::fs::hard_link(
+            outside.path().join("passwd"),
+            root.path().join("etc/modprobe.d/frx-x.conf"),
+        )
+        .unwrap();
+        let e = Target::open_system(root.path(), "/etc/modprobe.d/frx-x.conf", None)
+            .err()
+            .unwrap();
+        assert!(e.contains("hard link"), "{e}");
+        assert_eq!(std::fs::read_to_string(outside.path().join("passwd")).unwrap(), "root:x:0:0");
+    }
+
+    #[test]
+    fn a_relative_system_root_is_refused() {
+        assert!(Target::open_system(Path::new("tmp"), "/etc/default/grub", None).is_err());
+    }
+
+    #[test]
+    fn identity_change_between_preview_and_write_is_a_conflict() {
+        let root = sysroot();
+        let t = Target::open_system(root.path(), "/etc/modprobe.d/frx-a.conf", None).unwrap();
+        let id = t.identity.clone();
+        // O diretório antigo continua existindo: o inode novo é garantidamente outro.
+        std::fs::rename(root.path().join("etc/modprobe.d"), root.path().join("etc/old")).unwrap();
+        std::fs::create_dir(root.path().join("etc/modprobe.d")).unwrap();
+        let e = Target::open_system(root.path(), "/etc/modprobe.d/frx-a.conf", Some(&id))
+            .err()
+            .unwrap();
+        assert!(e.starts_with("CONFLITO"), "{e}");
     }
 }
