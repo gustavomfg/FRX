@@ -22,8 +22,8 @@ use super::confined::{self, Target};
 use super::files::sha256_hex;
 use super::models::{Check, CheckState, ChangeKind, PlanStatus, PlannedChange, Risk};
 
-/// `appId` das operações de sistema no diário (não é um AppID da Steam).
-pub const SYSTEM_APP_ID: &str = "system";
+/// Prazo de uma prévia antes de ser descartada (segundos).
+pub const PLAN_TTL_SECS: u64 = 600;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(tag = "type", rename_all = "snake_case", deny_unknown_fields)]
@@ -561,11 +561,10 @@ use std::sync::TryLockError;
 
 use super::journal::{new_op_id, valid_op_id};
 use super::models::{
-    BackupRef, ExecMode, FixPlan, OpState, Operation, Pending, PendingKind, Purpose,
-    RecipeSource, RollbackPlan, Step, StepRecord, StepStatus, Trust, JOURNAL_SCHEMA,
+    BackupRef, ExecMode, FixPlan, OpState, Operation, Pending, PendingKind, RollbackPlan,
+    SourceLink, Step, StepRecord, StepStatus, JOURNAL_SCHEMA,
 };
-use super::planner::PLAN_TTL_SECS;
-use super::{is_system_op, open_game_file, step_sha, FixEngine, RollbackWrites};
+use super::{open_step, step_sha, FixEngine};
 use crate::time::{now_iso, now_unix};
 
 /// Recusa na confirmação quando o destino mudou depois da prévia.
@@ -606,15 +605,14 @@ impl FixEngine {
         // Outra operação do FRX já cuida deste arquivo.
         if status == PlanStatus::Ready {
             let holder = self.journal.list().into_iter().find(|o| {
-                is_system_op(o)
-                    && (o.holds_changes()
-                        || (o.state == OpState::RequiresManualStep
-                            && o.pending.as_ref().is_some_and(|p| p.kind == PendingKind::Apply)))
-                    && o.steps.iter().any(|s| matches!(&s.step, Step::SystemFile { path, .. } if *path == r.path))
+                (o.holds_changes()
+                    || (o.state == OpState::RequiresManualStep
+                        && o.pending.as_ref().is_some_and(|p| p.kind == PendingKind::Apply)))
+                    && o.steps.iter().any(|s| s.step.path == r.path)
             });
             if let Some(o) = holder {
                 status = PlanStatus::Conflict;
-                reasons.push(format!("A correção “{}” já cuida de {}. Desfaça-a antes de aplicar esta.", o.recipe_title, r.path));
+                reasons.push(format!("A correção “{}” já cuida de {}. Desfaça-a antes de aplicar esta.", o.title, r.path));
             }
         }
 
@@ -660,24 +658,11 @@ impl FixEngine {
             Some(_) => format!("Antes de mudar, o FRX guarda uma cópia verificada de {}. Desfazer restaura essa cópia.", r.path),
             None => format!("{} ainda não existe. Desfazer remove o arquivo criado.", r.path),
         });
-        let kind = match &req.action {
-            SystemAction::AddModprobeOption { .. } => "modprobe",
-            SystemAction::AddSystemdService { .. } => "systemd",
-            SystemAction::AddKernelParameters { .. } => "kernel-params",
-        };
         let plan = FixPlan {
-            requires_explicit_user_consent: false,
-            artifacts: vec![],
-            environment: None,
-            hardware_match: None,
-            performance_warnings: vec![],
             plan_id: plan_id.to_owned(),
             fingerprint,
-            recipe_id: format!("system.{kind}.{}", req.action.key()),
-            recipe_version: "1".into(),
-            recipe_title: req.title.clone(),
-            app_id: SYSTEM_APP_ID.into(),
-            game_name: req.laptop.clone(),
+            title: req.title.clone(),
+            laptop: req.laptop.clone(),
             status,
             mode: exec_mode,
             reasons,
@@ -685,26 +670,18 @@ impl FixEngine {
             changes: vec![r.change.clone()],
             manual_line,
             backup_note,
-            steam_running: false,
-            game_running: false,
             risk: req.action.risk(),
-            purpose: Purpose::Compatibility,
-            trust: Trust::Generated,
             effects: vec![req.context.clone()],
             side_effects: r.side_effects.clone(),
-            sources: vec![RecipeSource {
+            sources: vec![SourceLink {
                 label: req.source_label.clone(),
                 url: req.source_url.clone(),
             }],
-            generated: None,
-            pack: None,
-            created_at: now_iso(),
             expires_at: now_unix() + PLAN_TTL_SECS,
         };
-        let step = Step::SystemFile {
+        let step = Step {
             system_root: self.system_root.clone(),
             path: r.path.clone(),
-            target: PathBuf::from(&r.path),
             identity: r.identity.clone(),
             before_sha: r.before_sha.clone(),
             content: r.content.clone(),
@@ -721,7 +698,6 @@ impl FixEngine {
         &self,
         plan_id: &str,
         fingerprint: &str,
-        emit: &dyn Fn(&Operation),
     ) -> Result<Operation, String> {
         let _guard = match self.exec.try_lock() {
             Ok(g) => g,
@@ -751,18 +727,11 @@ impl FixEngine {
         }
         let now = now_iso();
         let mut op = Operation {
-            requires_explicit_user_consent: false,
-            manual_recovery_required: false,
-            artifacts: vec![],
-            artifact_progress: None,
-            recipe_fingerprint: Some(plan.fingerprint.clone()),
             schema: JOURNAL_SCHEMA,
             id: plan_id.to_owned(),
-            recipe_id: plan.recipe_id.clone(),
-            recipe_version: plan.recipe_version.clone(),
-            recipe_title: plan.recipe_title.clone(),
-            app_id: SYSTEM_APP_ID.into(),
-            game_name: req.laptop.clone(),
+            title: plan.title.clone(),
+            laptop: req.laptop.clone(),
+            manual_recovery_required: false,
             state: OpState::Checking,
             mode: plan.mode.unwrap_or(ExecMode::Manual),
             steps: vec![StepRecord {
@@ -780,24 +749,19 @@ impl FixEngine {
             message: None,
             pending: None,
             events: vec![],
-            recipe_trust: Some(Trust::Generated),
-            finding_ids: vec![],
         };
         if op.mode == ExecMode::Automatic {
             self.journal.transition(&mut op, OpState::Checking, "Plano confirmado; conferindo o estado atual.")?;
-            emit(&op);
-            self.run_apply(&mut op, emit);
+            self.run_apply(&mut op);
             return Ok(op);
         }
 
         // Manual: backup verificado e arquivo preparado. Nada em /etc muda aqui.
         self.journal.transition(&mut op, OpState::BackingUp, "Criando backup verificado.")?;
-        emit(&op);
         if let Err(e) = self.stage_system(&mut op) {
             let _ = std::fs::remove_dir_all(staged_dir(&self.root, &op.id));
             let state = if e.starts_with("CONFLITO:") { OpState::Conflict } else { OpState::Failed };
             self.journal.transition(&mut op, state, format!("{} Nenhum arquivo do sistema foi alterado.", e.trim_start_matches("CONFLITO:").trim()))?;
-            emit(&op);
             return Ok(op);
         }
         op.pending = Some(Pending {
@@ -805,7 +769,6 @@ impl FixEngine {
             line: plan.manual_line.unwrap_or_default(),
         });
         self.journal.transition(&mut op, OpState::RequiresManualStep, "Backup feito e arquivo preparado. Rode o comando com sudo no terminal; a correção só conta como aplicada depois que o FRX conferir o arquivo em /etc.")?;
-        emit(&op);
         Ok(op)
     }
 
@@ -815,11 +778,9 @@ impl FixEngine {
         super::files::private_dir(&self.root.join("system-staged"))?;
         super::files::private_dir(&staged_root)?;
         for (i, rec) in op.steps.iter_mut().enumerate() {
-            let Step::SystemFile { path, before_sha, content, .. } = &rec.step else {
-                return Err("Passo inesperado.".into());
-            };
+            let Step { path, before_sha, content, .. } = &rec.step;
             let name = path.rsplit('/').next().unwrap_or("arquivo").to_owned();
-            let backup: BackupRef = open_game_file(&rec.step)?.backup(&dir, &format!("{i}-{name}"))?;
+            let backup: BackupRef = open_step(&rec.step)?.backup(&dir, &format!("{i}-{name}"))?;
             if backup.sha256 != *before_sha {
                 return Err(format!("CONFLITO: {path} mudou desde a prévia."));
             }
@@ -848,15 +809,12 @@ impl FixEngine {
     }
 
     /// Confere em `/etc` o passo manual (aplicar ou desfazer).
-    pub(super) fn verify_system(&self, mut op: Operation, emit: &dyn Fn(&Operation)) -> Result<Operation, String> {
+    pub(super) fn verify_system(&self, mut op: Operation) -> Result<Operation, String> {
         let mut current = Vec::new();
         for rec in &op.steps {
             current.push(step_sha(&rec.step)?);
         }
-        let path = op.steps.iter().find_map(|s| match &s.step {
-            Step::SystemFile { path, .. } => Some(path.clone()),
-            _ => None,
-        }).unwrap_or_default();
+        let path = op.steps.first().map(|s| s.step.path.clone()).unwrap_or_default();
         let all_after = op.steps.iter().zip(&current).all(|(s, c)| s.after_sha.is_some() && *c == s.after_sha);
         let all_original = op.steps.iter().zip(&current).all(|(s, c)| {
             s.backup.as_ref().is_some_and(|b| *c == b.sha256)
@@ -897,7 +855,6 @@ impl FixEngine {
             }
             _ => return Err("Esta operação não tem nada a conferir.".into()),
         }
-        emit(&op);
         Ok(op)
     }
 
@@ -907,7 +864,7 @@ impl FixEngine {
         &self,
         op: &Operation,
         pending_apply: bool,
-    ) -> Result<(RollbackPlan, RollbackWrites), String> {
+    ) -> Result<(RollbackPlan, Vec<bool>), String> {
         let manual = self.system_manual();
         let mut reasons = Vec::new();
         let mut changes = Vec::new();
@@ -916,9 +873,7 @@ impl FixEngine {
         let mut status = PlanStatus::Ready;
         let mut fp: Vec<String> = vec![op.id.clone(), format!("{:?}", op.state)];
         for rec in &op.steps {
-            let Step::SystemFile { path, pre_rollback, post_rollback, .. } = &rec.step else {
-                return Err("Passo inesperado.".into());
-            };
+            let Step { path, pre_rollback, post_rollback, .. } = &rec.step;
             let cur = step_sha(&rec.step)?;
             fp.push(cur.clone().unwrap_or_default());
             let backup = rec.backup.as_ref();
@@ -943,14 +898,14 @@ impl FixEngine {
                     _ => commands.push(remove_command(path, after)),
                 }
                 commands.extend(post_rollback.iter().cloned());
-                writes.push(Some(vec![]));
+                writes.push(true);
             } else if pending_apply || backup.is_some_and(|b| cur == b.sha256) {
                 // Antes do comando (ou se ele recusou), nada do FRX está no disco: cancelar não mexe no arquivo.
-                writes.push(None);
+                writes.push(false);
             } else {
                 status = PlanStatus::Conflict;
                 reasons.push(format!("{path} foi alterado depois da aplicação; o FRX não o substitui pelo backup antigo."));
-                writes.push(None);
+                writes.push(false);
             }
         }
         let mut manual_line = None;
@@ -981,8 +936,6 @@ impl FixEngine {
                 reasons,
                 changes,
                 manual_line,
-                steam_running: false,
-                game_running: false,
             },
             writes,
         ))
@@ -1126,8 +1079,6 @@ mod tests {
 
     // ── Fix Engine com raiz de sistema fictícia ─────────────────────────
 
-    use crate::fix_engine::catalog::Catalog;
-
     struct Env {
         _tmp: tempfile::TempDir,
         sys: PathBuf,
@@ -1140,13 +1091,7 @@ mod tests {
         for d in ["etc/modprobe.d", "etc/systemd/system", "etc/default"] {
             std::fs::create_dir_all(sys.join(d)).unwrap();
         }
-        // /proc fictício com a Steam aberta: correções de sistema não dependem dela.
-        let proc_root = tmp.path().join("proc");
-        std::fs::create_dir_all(proc_root.join("4242")).unwrap();
-        std::fs::write(proc_root.join("4242/comm"), "steam\n").unwrap();
-        std::fs::write(proc_root.join("4242/cmdline"), "/usr/bin/steam\0").unwrap();
-        let engine = FixEngine::with(tmp.path().join("data"), Catalog::bundled(), proc_root)
-            .with_system_root(sys.clone(), manual);
+        let engine = FixEngine::new(tmp.path().join("data")).with_system_root(sys.clone(), manual);
         Env { _tmp: tmp, sys, engine }
     }
 
@@ -1157,7 +1102,6 @@ mod tests {
         })
     }
 
-    fn noop(_: &Operation) {}
 
     #[test]
     fn modprobe_option_is_applied_verified_and_rolled_back_with_a_fake_root() {
@@ -1168,20 +1112,20 @@ mod tests {
         assert_eq!(plan.mode, Some(ExecMode::Automatic));
         assert!(!file.exists(), "a prévia não escreve");
 
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
         let text = std::fs::read_to_string(&file).unwrap();
         assert!(text.ends_with("options snd_hda_intel model=dell-headset-multi\n"));
         assert!(op.steps[0].backup.as_ref().is_some_and(|b| !b.existed));
         // A mesma prévia não pode ser usada duas vezes.
-        assert!(e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).is_err());
+        assert!(e.engine.apply_system(&plan.plan_id, &plan.fingerprint).is_err());
         // Aplicar de novo: o núcleo reconhece que já está aplicado.
         assert_eq!(e.engine.prepare_system(audio()).unwrap().status, PlanStatus::AlreadyApplied);
 
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert_eq!(rb.status, PlanStatus::Ready, "{:?}", rb.reasons);
         assert_eq!(rb.changes[0].summary, "remove /etc/modprobe.d/frx-snd-hda-intel.conf, criado pelo FRX");
-        let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        let op = e.engine.rollback(&op.id, &rb.fingerprint).unwrap();
         assert_eq!(op.state, OpState::RolledBack, "{:?}", op.message);
         assert!(!file.exists());
         assert_eq!(std::fs::read_dir(e.sys.join("etc/modprobe.d")).unwrap().count(), 0, "nenhum resto no diretório");
@@ -1197,26 +1141,26 @@ mod tests {
         assert!(line.starts_with("sudo install -m 0644 -o root -g root -- '"), "{line}");
         assert!(line.ends_with("'/etc/modprobe.d/frx-snd-hda-intel.conf'"), "{line}");
 
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert!(!file.exists(), "o FRX nunca grava no sistema em modo manual");
         let staged = staged_dir(e.engine.root(), &op.id).join("frx-snd-hda-intel.conf");
         let staged_text = std::fs::read_to_string(&staged).unwrap();
 
         // Antes do comando: a conferência não aceita.
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert!(op.message.unwrap().contains("ainda está como antes"));
 
         // Arquivo adulterado depois da prévia: não conta como aplicado.
         std::fs::write(&file, "options snd_hda_intel model=outra\n").unwrap();
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         std::fs::remove_file(&file).unwrap();
 
         // O usuário roda o `sudo install` (simulado com uma cópia).
         std::fs::write(&file, &staged_text).unwrap();
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
         assert!(!staged.exists(), "o arquivo preparado é removido depois de conferido");
 
@@ -1226,11 +1170,11 @@ mod tests {
         let rm = rb.manual_line.clone().unwrap();
         assert!(rm.starts_with("sudo sh -c '"), "{rm}");
         assert!(rm.ends_with(&format!(" rm -- \"$2\"' frx {} '/etc/modprobe.d/frx-snd-hda-intel.conf'", sha256_hex(staged_text.as_bytes()))), "{rm}");
-        let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        let op = e.engine.rollback(&op.id, &rb.fingerprint).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert!(file.exists(), "o FRX não remove sozinho");
         std::fs::remove_file(&file).unwrap();
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert_eq!(op.state, OpState::RolledBack, "{:?}", op.message);
     }
 
@@ -1238,12 +1182,12 @@ mod tests {
     fn a_pending_manual_apply_can_be_cancelled_without_touching_the_system() {
         let e = env(true);
         let plan = e.engine.prepare_system(audio()).unwrap();
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         // Enquanto pendente, outra prévia do mesmo arquivo é conflito.
         assert_eq!(e.engine.prepare_system(audio()).unwrap().status, PlanStatus::Conflict);
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert!(rb.changes.is_empty());
-        let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        let op = e.engine.rollback(&op.id, &rb.fingerprint).unwrap();
         assert_eq!(op.state, OpState::Failed);
         assert!(!staged_dir(e.engine.root(), &op.id).exists());
         assert_eq!(e.engine.prepare_system(audio()).unwrap().status, PlanStatus::RequiresManualStep);
@@ -1253,12 +1197,12 @@ mod tests {
     fn rollback_refuses_to_replace_a_file_changed_after_apply() {
         let e = env(false);
         let plan = e.engine.prepare_system(audio()).unwrap();
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         let file = e.sys.join("etc/modprobe.d/frx-snd-hda-intel.conf");
         std::fs::write(&file, "# editado pelo usuário\n").unwrap();
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert_eq!(rb.status, PlanStatus::Conflict);
-        assert!(e.engine.rollback(&op.id, &rb.fingerprint, &noop).is_err());
+        assert!(e.engine.rollback(&op.id, &rb.fingerprint).is_err());
         assert_eq!(std::fs::read_to_string(&file).unwrap(), "# editado pelo usuário\n");
     }
 
@@ -1278,11 +1222,11 @@ mod tests {
         // Outro programa edita o grub enquanto a prévia está aberta.
         let edited = GRUB.replace("GRUB_TIMEOUT=5", "GRUB_TIMEOUT=10");
         std::fs::write(&grub, &edited).unwrap();
-        let err = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap_err();
+        let err = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap_err();
         assert_eq!(err, FILE_CHANGED);
         assert_eq!(std::fs::read_to_string(&grub).unwrap(), edited, "a edição externa foi preservada");
         assert!(!e.engine.root().join("system-staged").exists(), "nenhum arquivo preparado");
-        assert!(e.engine.operations(Some(SYSTEM_APP_ID)).is_empty(), "nenhum comando liberado");
+        assert!(e.engine.operations().is_empty(), "nenhum comando liberado");
         // Refazer a prévia lê o arquivo novo e mantém a edição externa.
         let again = e.engine.prepare_system(suspend()).unwrap();
         assert!(again.changes[0].after.as_deref().unwrap().contains("nvme.noacpi=1"));
@@ -1303,7 +1247,7 @@ mod tests {
         assert!(line.ends_with(" && sudo grub-mkconfig -o /boot/grub/grub.cfg"), "{line}");
         assert!(!line.contains("sed"), "sem sed -i");
 
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert_eq!(std::fs::read_to_string(&grub).unwrap(), GRUB, "o FRX não grava o grub");
         let staged = std::fs::read_to_string(staged_dir(e.engine.root(), &op.id).join("grub")).unwrap();
@@ -1311,18 +1255,18 @@ mod tests {
 
         // O usuário roda o comando (simulado) e o FRX confere o hash final.
         std::fs::write(&grub, &staged).unwrap();
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
 
         // Desfazer: restaura o backup só se o grub ainda for o que o FRX escreveu.
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         let undo = rb.manual_line.clone().unwrap();
         assert!(undo.contains(&format!("' frx {} '/etc/default/grub' '", sha256_hex(staged.as_bytes()))), "{undo}");
-        let op = e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        let op = e.engine.rollback(&op.id, &rb.fingerprint).unwrap();
         let backup = op.steps[0].backup.clone().unwrap();
         assert_eq!(std::fs::read_to_string(&backup.path).unwrap(), GRUB);
         std::fs::write(&grub, GRUB).unwrap();
-        assert_eq!(e.engine.verify(&op.id, &noop).unwrap().state, OpState::RolledBack);
+        assert_eq!(e.engine.verify(&op.id).unwrap().state, OpState::RolledBack);
     }
 
     #[test]
@@ -1331,14 +1275,14 @@ mod tests {
         let grub = e.sys.join("etc/default/grub");
         std::fs::write(&grub, GRUB).unwrap();
         let plan = e.engine.prepare_system(suspend()).unwrap();
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
         let mut after = std::fs::read_to_string(&grub).unwrap();
         after.push_str("GRUB_DISABLE_OS_PROBER=false\n");
         std::fs::write(&grub, &after).unwrap();
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert_eq!(rb.status, PlanStatus::Conflict);
-        assert!(e.engine.rollback(&op.id, &rb.fingerprint, &noop).is_err());
+        assert!(e.engine.rollback(&op.id, &rb.fingerprint).is_err());
         assert_eq!(std::fs::read_to_string(&grub).unwrap(), after);
     }
 
@@ -1348,14 +1292,14 @@ mod tests {
         let grub = e.sys.join("etc/default/grub");
         std::fs::write(&grub, GRUB).unwrap();
         let plan = e.engine.prepare_system(suspend()).unwrap();
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         // O grub mudou depois do comando aparecer; o comando recusaria.
         std::fs::write(&grub, "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"\n").unwrap();
-        let op = e.engine.verify(&op.id, &noop).unwrap();
+        let op = e.engine.verify(&op.id).unwrap();
         assert!(op.message.unwrap().contains("Cancele esta correção e refaça a prévia"));
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
         assert!(rb.changes.is_empty(), "{:?}", rb.reasons);
-        assert_eq!(e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state, OpState::Failed);
+        assert_eq!(e.engine.rollback(&op.id, &rb.fingerprint).unwrap().state, OpState::Failed);
         assert_eq!(std::fs::read_to_string(&grub).unwrap(), "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"\n");
     }
 
@@ -1365,10 +1309,10 @@ mod tests {
         let grub = e.sys.join("etc/default/grub");
         std::fs::write(&grub, GRUB).unwrap();
         let plan = e.engine.prepare_system(suspend()).unwrap();
-        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = e.engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::Applied, "{:?}", op.message);
         let rb = e.engine.prepare_rollback(&op.id).unwrap();
-        e.engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap();
+        e.engine.rollback(&op.id, &rb.fingerprint).unwrap();
         assert_eq!(std::fs::read_to_string(&grub).unwrap(), GRUB);
     }
 
@@ -1415,7 +1359,7 @@ mod tests {
         let plan = e.engine.prepare_system(audio()).unwrap();
         let file = e.sys.join("etc/modprobe.d/frx-snd-hda-intel.conf");
         std::fs::write(&file, "options outro x=1\n").unwrap();
-        assert!(e.engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).is_err());
+        assert!(e.engine.apply_system(&plan.plan_id, &plan.fingerprint).is_err());
         assert_eq!(std::fs::read_to_string(&file).unwrap(), "options outro x=1\n");
     }
 
@@ -1424,7 +1368,7 @@ mod tests {
     #[ignore = "lê o /etc real"]
     fn real_root_is_always_manual_and_never_writes_etc() {
         let tmp = tempfile::tempdir().unwrap();
-        let engine = FixEngine::with(tmp.path().join("data"), Catalog::bundled(), PathBuf::from("/proc"));
+        let engine = FixEngine::new(tmp.path().join("data"));
         let r = req(SystemAction::AddModprobeOption {
             module: "frx_teste_inexistente".into(),
             options: vec!["x=1".into()],
@@ -1434,13 +1378,13 @@ mod tests {
         let plan = engine.prepare_system(r).unwrap();
         assert_eq!(plan.status, PlanStatus::RequiresManualStep, "{:?}", plan.reasons);
         assert_eq!(plan.mode, Some(ExecMode::Manual));
-        let op = engine.apply_system(&plan.plan_id, &plan.fingerprint, &noop).unwrap();
+        let op = engine.apply_system(&plan.plan_id, &plan.fingerprint).unwrap();
         assert_eq!(op.state, OpState::RequiresManualStep);
         assert!(!path.exists(), "o FRX não grava em /etc");
         println!("{}", op.pending.unwrap().line);
         // Cancelar antes do comando: nada a desfazer no sistema.
         let rb = engine.prepare_rollback(&op.id).unwrap();
-        assert_eq!(engine.rollback(&op.id, &rb.fingerprint, &noop).unwrap().state, OpState::Failed);
+        assert_eq!(engine.rollback(&op.id, &rb.fingerprint).unwrap().state, OpState::Failed);
     }
 
     /// Busca real (Framework 13, Suspensão) → prévia com grub fictício e com o
@@ -1481,7 +1425,7 @@ mod tests {
         println!("com grub: {:?}\n  {}", plan.status, plan.manual_line.clone().unwrap_or_default());
         assert_eq!(plan.status, PlanStatus::RequiresManualStep);
         // Esta máquina, sem /etc/default/grub.
-        let real = FixEngine::with(tmp.path().join("data"), Catalog::bundled(), PathBuf::from("/proc"));
+        let real = FixEngine::new(tmp.path().join("data"));
         let plan = real.prepare_system(request.clone()).unwrap();
         println!("/ real: {:?} · {:?}", plan.status, plan.reasons);
         let check = real.quick_check(&request.action).unwrap();

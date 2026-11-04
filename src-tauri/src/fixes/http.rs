@@ -182,7 +182,7 @@ mod tests {
     use crate::net::mock::MockFetcher;
     use crate::net::{HttpResponse, NetError};
 
-    const URL: &str = "https://raw.githubusercontent.com/o/r/master/a.py";
+    const URL: &str = "https://wiki.archlinux.org/title/A";
 
     fn ctx<'a>(
         f: &'a MockFetcher,
@@ -239,7 +239,7 @@ mod tests {
             .get(HttpRequest::new(URL, "*/*", 1000), None, 3600)
             .await;
         assert_eq!((r.origin, r.body), (Origin::Network, None));
-        let other = "https://raw.githubusercontent.com/o/r/master/b.py";
+        let other = "https://wiki.archlinux.org/title/B";
         f.fail(other, NetError::Offline("x".into()));
         let r = ctx(&f, &cache, &st, false)
             .get(HttpRequest::new(other, "*/*", 1000), None, 3600)
@@ -253,7 +253,7 @@ mod tests {
         let cache = Cache::new(tmp.path());
         let st = EngineState::default();
         let f = MockFetcher::default();
-        let api = "https://api.github.com/search/issues?q=1";
+        let api = "https://wiki.archlinux.org/api.php?action=query";
         f.on_response(
             api,
             HttpResponse {

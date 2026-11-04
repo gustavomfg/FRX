@@ -1,4 +1,4 @@
-//! Comandos gerais do app (informações e teste da ponte IPC).
+//! Comandos gerais do app (informações do sistema para a tela de ajustes).
 //!
 //! Somente leitura.
 
@@ -10,8 +10,6 @@ pub struct AppInfo {
     name: String,
     version: String,
     tauri_version: &'static str,
-    /// "demo" enquanto o back-end real não existir.
-    mode: &'static str,
     os: &'static str,
     arch: &'static str,
     kernel: Option<String>,
@@ -27,7 +25,6 @@ pub fn app_info(app: tauri::AppHandle) -> AppInfo {
         name: pkg.name.clone(),
         version: pkg.version.to_string(),
         tauri_version: tauri::VERSION,
-        mode: "demo",
         os: std::env::consts::OS,
         arch: std::env::consts::ARCH,
         kernel: read_trimmed("/proc/sys/kernel/osrelease"),
@@ -35,12 +32,6 @@ pub fn app_info(app: tauri::AppHandle) -> AppInfo {
         session: std::env::var("XDG_SESSION_TYPE").ok(),
         desktop: std::env::var("XDG_CURRENT_DESKTOP").ok(),
     }
-}
-
-/// Verificação simples de ida e volta da ponte IPC.
-#[tauri::command]
-pub fn ping(message: String) -> String {
-    format!("pong: {message}")
 }
 
 fn read_trimmed(path: &str) -> Option<String> {

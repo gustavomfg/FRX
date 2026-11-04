@@ -1,16 +1,11 @@
-//! File I/O pinned to directory descriptors. Archive names and network
-//! data never become filesystem paths; the authorized destination is explicit.
+//! File I/O for system files, pinned to directory descriptors. Only a closed
+//! allowlist of system files ([`SYSTEM_PATHS`]) can be opened, via
+//! [`Target::open_system`]. No other path under `/etc` (or anywhere else on
+//! the system) can be opened for writing.
 //!
-//! Two kinds of root are accepted:
-//! - the game folder (`steamapps/common/<jogo>`), via [`Target::open`] and
-//!   [`Target::open_binary`];
-//! - a closed allowlist of system files ([`SYSTEM_PATHS`]), via
-//!   [`Target::open_system`]. No other path under `/etc` (or anywhere else on
-//!   the system) can be opened for writing.
-//!
-//! Both go through the same pinning: every directory component is opened
-//! with `O_NOFOLLOW`, the file must be regular with a single link, and writes
-//! are atomic renames inside the pinned parent.
+//! Every directory component is opened with `O_NOFOLLOW`, the file must be a
+//! regular file with a single link, and writes are atomic renames inside the
+//! pinned parent.
 
 use std::ffi::CString;
 use std::fs::{File, OpenOptions};
@@ -22,14 +17,8 @@ use std::path::{Component, Path};
 
 use serde::{Deserialize, Serialize};
 
-use super::{files::sha256_hex, models::BackupRef, security};
+use super::{files::sha256_hex, models::BackupRef};
 
-pub const MAX_CONFIG: usize = 256 * 1024;
-/// DLLs de jogo passam de 8 MiB (a do DLSS tem dezenas). O limite vale para
-/// leitura, backup e escrita de um alvo aberto com `open_binary`.
-pub const MAX_BINARY: usize = 64 * 1024 * 1024;
-pub const PREFIX_REFUSED: &str =
-    "O FRX não altera prefixos do Proton (compatdata/ ou pfx/): só a pasta do jogo, em steamapps/common.";
 /// Arquivos de sistema são texto curto; nada perto disso é legítimo.
 pub const MAX_SYSTEM: usize = 64 * 1024;
 pub const SYSTEM_REFUSED: &str = "O FRX só altera arquivos de sistema permitidos: /etc/modprobe.d/frx-*.conf, /etc/systemd/system/frx-*.service e /etc/default/grub.";
@@ -112,19 +101,6 @@ fn directory_at(parent: &File, name: &std::ffi::OsStr) -> Result<File, String> {
 }
 
 impl Target {
-    pub fn open(root: &Path, rel: &str, expected: Option<&FileIdentity>) -> Result<Self, String> {
-        Self::open_limited(root, rel, expected, MAX_CONFIG)
-    }
-
-    /// Mesmo confinamento de `open`, com o limite de tamanho de uma DLL.
-    pub fn open_binary(
-        root: &Path,
-        rel: &str,
-        expected: Option<&FileIdentity>,
-    ) -> Result<Self, String> {
-        Self::open_limited(root, rel, expected, MAX_BINARY)
-    }
-
     /// Arquivo de sistema da allowlist ([`SYSTEM_PATHS`]). `system_root` é a
     /// raiz do sistema: `/` em produção, uma pasta temporária nos testes.
     /// `abs` é o caminho como o usuário o vê (`/etc/modprobe.d/frx-x.conf`).
@@ -138,28 +114,6 @@ impl Target {
         }
         let (dir, name) = check_system_path(abs)?;
         Self::open_pinned(system_root, &format!("{dir}/{name}"), expected, MAX_SYSTEM)
-            .map_err(|e| e.replace("diretório do jogo", "diretório do sistema"))
-    }
-
-    fn open_limited(
-        root: &Path,
-        rel: &str,
-        expected: Option<&FileIdentity>,
-        limit: usize,
-    ) -> Result<Self, String> {
-        security::check_game_root(root)?;
-        if limit == MAX_BINARY {
-            security::check_dll_rel_path(rel)?;
-        } else {
-            security::check_rel_path(rel)?;
-        }
-        if Path::new(rel).components().any(|c| {
-            let c = c.as_os_str();
-            c.eq_ignore_ascii_case("compatdata") || c.eq_ignore_ascii_case("pfx")
-        }) {
-            return Err(PREFIX_REFUSED.into());
-        }
-        Self::open_pinned(root, rel, expected, limit)
     }
 
     /// Abre `root/rel` componente a componente com `O_NOFOLLOW`. Quem chama
@@ -201,7 +155,7 @@ impl Target {
             parent_ino: meta.ino(),
         };
         if expected.is_some_and(|e| *e != identity) {
-            return Err("CONFLITO: o diretório do jogo mudou desde a prévia.".into());
+            return Err("CONFLITO: o diretório do sistema mudou desde a prévia.".into());
         }
         let name = CString::new(path.file_name().ok_or("Destino sem nome")?.as_bytes())
             .map_err(|_| "Caminho inválido")?;
@@ -538,118 +492,6 @@ impl Target {
 }
 
 #[cfg(test)]
-mod compatdata_tests {
-    use super::*;
-
-    fn library() -> (tempfile::TempDir, std::path::PathBuf) {
-        let tmp = tempfile::tempdir().unwrap();
-        let game = tmp.path().join("steamapps/common/Jogo");
-        std::fs::create_dir_all(&game).unwrap();
-        (tmp, game)
-    }
-
-    fn refused(root: &Path, rel: &str) -> String {
-        match Target::open(root, rel, None) {
-            Ok(_) => panic!("deveria recusar {rel} em {}", root.display()),
-            Err(e) => e,
-        }
-    }
-
-    #[test]
-    fn the_game_folder_is_still_accepted() {
-        let (_tmp, game) = library();
-        assert!(Target::open(&game, "settings.ini", None).is_ok());
-    }
-
-    #[test]
-    fn compatdata_roots_are_refused_with_a_clear_message() {
-        let (tmp, game) = library();
-        for root in [
-            tmp.path().join("steamapps/compatdata/200260"),
-            tmp.path().join("steamapps/compatdata/200260/pfx"),
-            tmp.path()
-                .join("steamapps/compatdata/200260/pfx/drive_c/windows/system32"),
-            game.join("../../compatdata/200260/pfx"),
-        ] {
-            std::fs::create_dir_all(tmp.path().join("steamapps/compatdata/200260/pfx")).unwrap();
-            assert!(
-                refused(&root, "settings.ini").contains("compatdata/"),
-                "{root:?}"
-            );
-        }
-    }
-
-    #[test]
-    fn a_relative_path_cannot_name_or_climb_to_compatdata() {
-        let (_tmp, game) = library();
-        for rel in ["compatdata/200260/pfx/x.ini", "CompatData/x.ini"] {
-            assert!(refused(&game, rel).contains("compatdata/"), "{rel}");
-        }
-        assert!(refused(&game, "../../compatdata/x.ini").contains("sem “..”"));
-    }
-
-    #[test]
-    fn writing_into_compatdata_or_pfx_fails_with_the_prefix_message() {
-        let (tmp, game) = library();
-        let prefix = tmp.path().join("steamapps/compatdata/200260/pfx");
-        std::fs::create_dir_all(prefix.join("drive_c")).unwrap();
-        std::fs::create_dir_all(game.join("pfx")).unwrap();
-        let attempts: [(&Path, &str); 6] = [
-            (&prefix, "user.reg.ini"),
-            (&prefix, "drive_c/d3d11.dll"),
-            (&game, "pfx/d3d11.dll"),
-            (&game, "PFX/settings.ini"),
-            (&game, "compatdata/200260/pfx/d3d11.dll"),
-            (&prefix.join("drive_c"), "d3d11.dll"),
-        ];
-        for (root, rel) in attempts {
-            let errors = [
-                Target::open(root, rel, None).err(),
-                Target::open_binary(root, rel, None).err(),
-            ];
-            let at = format!("{rel} em {}", root.display());
-            assert!(errors.iter().all(Option::is_some), "{at}");
-            assert!(
-                errors.iter().flatten().any(|e| e == PREFIX_REFUSED),
-                "{at}: {errors:?}"
-            );
-        }
-        // Nada foi criado no prefixo nem na pasta do jogo.
-        assert!(std::fs::read_dir(prefix.join("drive_c"))
-            .unwrap()
-            .next()
-            .is_none());
-        assert!(std::fs::read_dir(game.join("pfx"))
-            .unwrap()
-            .next()
-            .is_none());
-        // Com a extensão certa, o prefixo é a razão da recusa nos dois tipos.
-        assert_eq!(
-            Target::open_binary(&game, "pfx/d3d11.dll", None)
-                .err()
-                .as_deref(),
-            Some(PREFIX_REFUSED)
-        );
-        assert_eq!(
-            Target::open(&game, "pfx/settings.ini", None)
-                .err()
-                .as_deref(),
-            Some(PREFIX_REFUSED)
-        );
-        assert!(PREFIX_REFUSED.starts_with("O FRX não altera prefixos do Proton"));
-    }
-
-    #[test]
-    fn a_symlink_inside_the_game_cannot_reach_the_prefix() {
-        let (tmp, game) = library();
-        let prefix = tmp.path().join("steamapps/compatdata/200260/pfx");
-        std::fs::create_dir_all(&prefix).unwrap();
-        std::os::unix::fs::symlink(&prefix, game.join("atalho")).unwrap();
-        assert!(refused(&game, "atalho/x.ini").contains("link simbólico"));
-    }
-}
-
-#[cfg(test)]
 mod system_tests {
     use super::*;
 
@@ -767,5 +609,48 @@ mod system_tests {
             .err()
             .unwrap();
         assert!(e.starts_with("CONFLITO"), "{e}");
+    }
+
+    #[test]
+    fn a_change_made_after_the_check_is_never_overwritten() {
+        let root = sysroot();
+        let file = root.path().join("etc/modprobe.d/frx-a.conf");
+        std::fs::write(&file, "orig\n").unwrap();
+        let t = Target::open_system(root.path(), "/etc/modprobe.d/frx-a.conf", None).unwrap();
+        let before = sha256_hex(b"orig\n");
+        let race_path = file.clone();
+        let e = t
+            .write_with_race(b"novo\n", Some(&before), move || {
+                std::fs::write(&race_path, "outro\n").unwrap()
+            })
+            .unwrap_err();
+        assert!(e.starts_with("CONFLITO"), "{e}");
+        assert_eq!(std::fs::read_to_string(&file).unwrap(), "outro\n", "a alteração externa fica");
+    }
+
+    #[test]
+    fn a_race_during_restore_preserves_the_concurrent_content() {
+        let root = sysroot();
+        let dir = root.path().join("etc/modprobe.d");
+        let file = dir.join("frx-a.conf");
+        std::fs::write(&file, "orig\n").unwrap();
+        let t = Target::open_system(root.path(), "/etc/modprobe.d/frx-a.conf", None).unwrap();
+        let before = sha256_hex(b"orig\n");
+        let (race_path, restore_path) = (file.clone(), file.clone());
+        let e = t
+            .write_with_two_races(
+                b"novo\n",
+                Some(&before),
+                move || std::fs::write(&race_path, "outro\n").unwrap(),
+                move || std::fs::write(&restore_path, "terceiro\n").unwrap(),
+            )
+            .unwrap_err();
+        assert!(e.starts_with("RECUPERAÇÃO"), "{e}");
+        assert_eq!(std::fs::read_to_string(&file).unwrap(), "outro\n");
+        let preserved = std::fs::read_dir(&dir)
+            .unwrap()
+            .flatten()
+            .any(|entry| std::fs::read_to_string(entry.path()).is_ok_and(|s| s == "terceiro\n"));
+        assert!(preserved, "o conteúdo concorrente não pode ser descartado");
     }
 }

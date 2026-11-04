@@ -1,66 +1,14 @@
-//! Comandos do Fix Engine. A interface só envia identificadores (receita,
-//! jogo, plano, operação) e a impressão digital da prévia; caminhos, valores
-//! e passos são sempre recalculados no núcleo.
+//! Comandos do Fix Engine. A interface só envia identificadores (operação e
+//! plano) e a impressão digital da prévia; caminhos, valores e passos são
+//! sempre recalculados no núcleo.
 
 use std::sync::Arc;
 
-use tauri::{AppHandle, Emitter, State};
+use tauri::State;
 
 use super::AppCtx;
-use crate::cache::Cache;
-
-use crate::fix_engine::models::*;
-use crate::fix_engine::{FixEngine, PROGRESS_EVENT};
-use crate::fixes::compat::HardwareContext;
-use crate::fixes::models::FixReport;
-use crate::steam::{self, discovery::DiscoveryEnv, models::ScanResult};
-
-/// Estado real do jogo, com uma varredura nova (a do cache pode estar velha),
-/// e as descobertas da última pesquisa guardadas pelo próprio núcleo.
-pub(crate) fn game_ctx(cache: &Cache, app_id: &str) -> Result<GameCtx, String> {
-    if !crate::art::valid_app_id(app_id) {
-        return Err("AppID inválido".into());
-    }
-    let scan: ScanResult = steam::scan(&DiscoveryEnv::from_process(), None);
-    let game = scan
-        .games
-        .into_iter()
-        .find(|g| g.app_id == app_id)
-        .ok_or("Jogo não encontrado na biblioteca da Steam.")?;
-    let profile = crate::system::profile();
-    let mut conditions =
-        super::performance::conditions_from_profile(&profile, game.compatibility.tool.as_ref());
-    conditions.game_build_id = game.build_id.clone();
-    let performance_conditions = Some(conditions);
-    let hw = HardwareContext {
-        gpus: profile.gpus,
-        primary: profile.primary_gpu,
-    };
-    let tool = game.compatibility.tool.as_ref();
-    #[allow(unused_mut)]
-    let mut findings = cache
-        .get::<FixReport>("fixes", app_id)
-        .map(|e| e.data)
-        .filter(|r| r.app_id == app_id)
-        .map(|r| r.findings)
-        .unwrap_or_default();
-    #[cfg(debug_assertions)]
-    findings.extend(super::dev_fixture::findings(app_id));
-    Ok(GameCtx {
-        performance_conditions,
-        app_id: game.app_id.clone(),
-        name: game.name.clone(),
-        steam_root: Some(game.steam_install.clone().into()),
-        install_path: game.install_path.clone().map(Into::into),
-        uses_proton: game.compatibility.uses_proton,
-        tool_name: tool.map(|t| crate::fixes::short_tool_name(&t.display_name)),
-        tool_path: tool.and_then(|t| t.install_path.clone()).map(Into::into),
-        tool_includes_protonfixes: tool.is_some_and(|t| t.includes_protonfixes),
-        gpu: hw.primary_req(),
-        driver: hw.primary.as_ref().and_then(|g| g.driver_version.clone()),
-        findings,
-    })
-}
+use crate::fix_engine::models::{Operation, RollbackPlan};
+use crate::fix_engine::FixEngine;
 
 pub(crate) async fn blocking<T: Send + 'static>(
     f: impl FnOnce() -> Result<T, String> + Send + 'static,
@@ -74,99 +22,14 @@ pub(crate) fn engine(ctx: &AppCtx) -> Arc<FixEngine> {
     ctx.engine.clone()
 }
 
-pub(crate) fn emitter(app: AppHandle) -> impl Fn(&Operation) {
-    move |op: &Operation| {
-        let _ = app.emit(PROGRESS_EVENT, op);
-    }
-}
-
+/// Operações registradas no diário, mais recentes primeiro.
 #[tauri::command]
-pub fn get_fix_engine_status(ctx: State<'_, AppCtx>) -> EngineStatus {
-    ctx.engine.status()
-}
-
-#[tauri::command]
-pub fn cancel_fix_operation(ctx: State<'_, AppCtx>, operation_id: String) -> bool {
-    ctx.engine.cancel_artifact_operation(&operation_id)
-}
-
-/// Prévia (dry-run): o que mudaria, onde, e se dá para aplicar agora.
-#[tauri::command]
-pub async fn prepare_fix_plan(
-    ctx: State<'_, AppCtx>,
-    recipe_id: String,
-    app_id: String,
-    expected_fingerprint: Option<String>,
-) -> Result<FixPlan, String> {
-    let (e, cache) = (engine(&ctx), ctx.cache.clone());
-    blocking(move || {
-        let game = game_ctx(&cache, &app_id)?;
-        let plan = e.prepare(&recipe_id, &game).map_err(|error| {
-            if expected_fingerprint.is_some() {
-                format!("A descoberta ou seus requisitos mudaram desde a listagem. Reavalie as correções deste jogo. Detalhe: {error}")
-            } else { error }
-        })?;
-        validate_listing(&plan, expected_fingerprint.as_deref())?;
-        Ok(plan)
-    }).await
-}
-
-pub(crate) fn validate_listing(plan: &FixPlan, expected: Option<&str>) -> Result<(), String> {
-    if expected.is_some_and(|expected| expected != plan.fingerprint) {
-        return Err(format!("A fonte, o ambiente ou os arquivos mudaram desde a listagem; nenhuma alteração foi aplicada. Reavalie as correções para obter a prévia atual. {}", plan.reasons.join(" ")));
-    }
-    Ok(())
-}
-
-#[tauri::command]
-pub async fn apply_fix_plan(
-    app: AppHandle,
-    ctx: State<'_, AppCtx>,
-    plan_id: String,
-    fingerprint: String,
-    app_id: String,
-    // Fingerprint da prévia em que o usuário marcou a confirmação da DLL.
-    binary_consent: Option<String>,
-) -> Result<Operation, String> {
-    let (e, cache) = (engine(&ctx), ctx.cache.clone());
-    blocking(move || {
-        e.apply_with_consent(
-            &plan_id,
-            &fingerprint,
-            binary_consent.as_deref(),
-            &game_ctx(&cache, &app_id)?,
-            &emitter(app),
-        )
-    })
-    .await
-}
-
-#[tauri::command]
-pub fn get_fix_operation(
-    ctx: State<'_, AppCtx>,
-    operation_id: String,
-) -> Result<Operation, String> {
-    ctx.engine.operation(&operation_id)
-}
-
-#[tauri::command]
-pub async fn list_fix_operations(
-    ctx: State<'_, AppCtx>,
-    app_id: Option<String>,
-) -> Result<Vec<Operation>, String> {
+pub async fn list_fix_operations(ctx: State<'_, AppCtx>) -> Result<Vec<Operation>, String> {
     let e = engine(&ctx);
-    blocking(move || Ok(e.operations(app_id.as_deref()))).await
+    blocking(move || Ok(e.operations())).await
 }
 
-#[tauri::command]
-pub async fn get_applied_fixes(
-    ctx: State<'_, AppCtx>,
-    app_id: Option<String>,
-) -> Result<Vec<AppliedFix>, String> {
-    let e = engine(&ctx);
-    blocking(move || Ok(e.applied(app_id.as_deref()))).await
-}
-
+/// Prévia do desfazer: o que será removido ou restaurado.
 #[tauri::command]
 pub async fn prepare_fix_rollback(
     ctx: State<'_, AppCtx>,
@@ -176,43 +39,23 @@ pub async fn prepare_fix_rollback(
     blocking(move || e.prepare_rollback(&operation_id)).await
 }
 
+/// Desfaz a operação. Também cancela uma prévia que ainda não foi aplicada.
 #[tauri::command]
 pub async fn rollback_fix(
-    app: AppHandle,
     ctx: State<'_, AppCtx>,
     operation_id: String,
     fingerprint: String,
 ) -> Result<Operation, String> {
     let e = engine(&ctx);
-    blocking(move || e.rollback(&operation_id, &fingerprint, &emitter(app))).await
+    blocking(move || e.rollback(&operation_id, &fingerprint)).await
 }
 
-/// Confere no disco um passo manual (linha colada na Steam) ou uma operação interrompida.
+/// Confere no disco um passo manual (linha colada no terminal) ou uma operação interrompida.
 #[tauri::command]
 pub async fn verify_fix_operation(
-    app: AppHandle,
     ctx: State<'_, AppCtx>,
     operation_id: String,
 ) -> Result<Operation, String> {
     let e = engine(&ctx);
-    blocking(move || e.verify(&operation_id, &emitter(app))).await
-}
-
-/// Tecnologias que a instalação do jogo traz (DLSS, frame generation, PhysX…).
-fn technologies_of(game: &GameCtx) -> Vec<&'static str> {
-    game.install_path
-        .as_deref()
-        .map(crate::fix_engine::environment::installed_technologies)
-        .unwrap_or_default()
-}
-
-/// Tecnologias gráficas que a instalação do jogo traz. Vazio se não houver instalação.
-#[tauri::command]
-pub fn game_technologies(ctx: State<'_, AppCtx>, app_id: String) -> Vec<String> {
-    if !crate::art::valid_app_id(&app_id) {
-        return vec![];
-    }
-    game_ctx(&ctx.cache, &app_id)
-        .map(|g| technologies_of(&g).into_iter().map(str::to_owned).collect())
-        .unwrap_or_default()
+    blocking(move || e.verify(&operation_id)).await
 }

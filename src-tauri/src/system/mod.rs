@@ -2,14 +2,13 @@
 //! arquivos padrão (`/etc/os-release`, `pci.ids`). Sem comandos externos,
 //! sem ferramentas exclusivas de fabricante e sem privilégios.
 
-pub mod context;
 pub mod dmi;
 pub mod hardware;
 
 use serde::Serialize;
 
 pub use dmi::{identify_laptop, LaptopIdentity};
-pub use hardware::{GpuInfo, GpuVendor};
+pub use hardware::GpuInfo;
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -24,7 +23,7 @@ pub struct SystemProfile {
     pub cpu_threads: Option<usize>,
     pub ram_bytes: Option<u64>,
     pub gpus: Vec<GpuInfo>,
-    /// GPU que provavelmente roda os jogos (dedicada ou a de boot).
+    /// GPU principal: dedicada quando houver, senão a de boot.
     pub primary_gpu: Option<GpuInfo>,
     pub vulkan_drivers: Vec<String>,
 }

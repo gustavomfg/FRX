@@ -1,23 +1,16 @@
-//! Camada nativa do FRX.
+//! Camada nativa do FRX (Hardware Fixer).
 //!
-//! Detecta jogos da Steam, pesquisa correções conhecidas em fontes públicas,
-//! registra benchmarks reais com o MangoHud e aplica correções **revisadas**
-//! do catálogo local pelo Fix Engine (prévia, backup, verificação, rollback).
-//! A descoberta continua somente leitura e nenhum script de terceiros é
-//! executado; só o Fix Engine escreve, e apenas o que o plano confirmado diz.
+//! Lê a identidade do laptop pelo DMI, pesquisa instruções na Arch Wiki e
+//! aplica as reconhecidas pelo Fix Engine (prévia, backup, verificação,
+//! desfazer). Só o Fix Engine escreve, e apenas o que o plano confirmado diz.
+//! Fora de testes, ele não grava em `/etc`: prepara o arquivo e mostra o
+//! comando `sudo` para o próprio usuário rodar.
 
-pub mod ai;
-mod art;
 mod cache;
 mod commands;
-mod diagnosis;
 mod fix_engine;
 mod fixes;
 mod net;
-mod performance;
-mod resolution;
-mod smart_packs;
-mod steam;
 mod system;
 mod time;
 
@@ -30,12 +23,6 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_dialog::init())
-        .on_window_event(|window, event| {
-            if matches!(event, tauri::WindowEvent::CloseRequested { .. }) {
-                window.state::<AppCtx>().perf.capture.shutdown();
-            }
-        })
         .setup(|app| {
             let cache_dir = app.path().app_cache_dir()?;
             std::fs::create_dir_all(&cache_dir)?;
@@ -43,73 +30,27 @@ pub fn run() {
             let data_dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&data_dir)?;
             let engine = fix_engine::FixEngine::new(fix_engine::data_root(&data_dir));
-            #[cfg(debug_assertions)]
-            let engine = engine.with_artifact_transport(std::sync::Arc::new(
-                commands::dev_fixture::DevTransport::default(),
-            ));
-            let engine = std::sync::Arc::new(engine);
-            let perf = commands::performance::PerfCtx {
-                store: performance::persistence::Store::new(data_dir.join("benchmarks")),
-                data_dir,
-                capture: Default::default(),
-            };
             app.manage(AppCtx {
                 cache: cache::Cache::new(cache_dir),
                 fetcher,
-                scan_lock: Default::default(),
-                fixes: Default::default(),
-                perf,
-                engine,
+                limits: Default::default(),
+                engine: std::sync::Arc::new(engine),
             });
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
-            commands::fix_engine::cancel_fix_operation,
             commands::app::app_info,
-            commands::app::ping,
             commands::system::get_system_profile,
             commands::system::identify_laptop,
             commands::hardware::search_hardware_fixes,
             commands::hardware::prepare_system_fix,
             commands::hardware::apply_system_fix,
+            commands::hardware::get_fix_providers,
+            commands::hardware::get_cache_size,
+            commands::hardware::clear_fix_cache,
             #[cfg(debug_assertions)]
             commands::dev_laptop::set_dev_laptop,
-            commands::games::scan_installed_games,
-            commands::games::get_installed_games,
-            commands::games::get_game_art,
-            commands::fixes::search_game_fixes,
-            commands::fixes::get_cached_fix_reports,
-            commands::fixes::get_fix_providers,
-            commands::fixes::clear_fix_cache,
-            commands::fixes::get_cache_size,
-            commands::performance::detect_mangohud,
-            commands::performance::import_benchmark,
-            commands::performance::list_benchmark_sessions,
-            commands::performance::get_benchmark_session,
-            commands::performance::compare_benchmark_sessions,
-            commands::performance::update_benchmark_session,
-            commands::performance::delete_benchmark_session,
-            commands::performance::export_benchmark_session,
-            commands::performance::get_capture_status,
-            commands::performance::prepare_benchmark,
-            commands::performance::start_capture,
-            commands::performance::capture_logging,
-            commands::performance::finish_capture,
-            commands::performance::cancel_capture,
-            commands::performance::reset_capture,
-            commands::fix_engine::get_fix_engine_status,
-            commands::fix_engine::game_technologies,
-            commands::ai::research_fix,
-            commands::diagnosis::diagnose_game,
-            #[cfg(debug_assertions)]
-            commands::dev_fixture::inject_dev_fixture_dll,
-            commands::smart_packs::get_experience_pack,
-            commands::smart_packs::evaluate_benchmark_session,
-            commands::fix_engine::prepare_fix_plan,
-            commands::fix_engine::apply_fix_plan,
-            commands::fix_engine::get_fix_operation,
             commands::fix_engine::list_fix_operations,
-            commands::fix_engine::get_applied_fixes,
             commands::fix_engine::prepare_fix_rollback,
             commands::fix_engine::rollback_fix,
             commands::fix_engine::verify_fix_operation,

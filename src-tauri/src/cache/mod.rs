@@ -1,8 +1,7 @@
 //! Cache local em arquivos JSON (um arquivo por chave, escrita atômica).
 //!
-//! Estrutura: `<app_cache_dir>/<namespace>/<chave>.json`. Guarda apenas o
-//! necessário — metadados de jogos e respostas públicas das fontes — nunca
-//! tokens ou dados pessoais.
+//! Estrutura: `<app_cache_dir>/<namespace>/<chave>.json`. Guarda só respostas
+//! públicas das fontes (Arch Wiki), nunca dados pessoais.
 
 use std::path::{Path, PathBuf};
 
@@ -44,7 +43,7 @@ pub struct Cache {
 }
 
 /// Namespaces permitidos — evita que uma chave vinda de fora escolha o diretório.
-pub const NAMESPACES: &[&str] = &["library", "fixes", "providers", "art"];
+pub const NAMESPACES: &[&str] = &["providers"];
 
 pub fn sanitize(key: &str) -> String {
     let s: String = key
@@ -98,24 +97,6 @@ impl Cache {
         std::fs::rename(tmp, path)
     }
 
-    /// Lista as entradas de um namespace (ignora arquivos corrompidos).
-    pub fn list<T: DeserializeOwned>(&self, ns: &str) -> Vec<(String, Entry<T>)> {
-        let Ok(rd) = std::fs::read_dir(self.ns_dir(ns)) else {
-            return vec![];
-        };
-        rd.flatten()
-            .filter_map(|e| {
-                let name = e
-                    .file_name()
-                    .to_string_lossy()
-                    .strip_suffix(".json")?
-                    .to_owned();
-                let entry = serde_json::from_slice(&std::fs::read(e.path()).ok()?).ok()?;
-                Some((name, entry))
-            })
-            .collect()
-    }
-
     pub fn clear(&self, ns: Option<&str>) -> std::io::Result<()> {
         let targets: Vec<PathBuf> = match ns {
             Some(n) => vec![self.ns_dir(n)],
@@ -152,21 +133,22 @@ mod tests {
     use super::*;
 
     #[test]
-    fn put_get_and_expiry() {
+    fn put_get_expiry_and_clear() {
         let tmp = tempfile::tempdir().unwrap();
         let c = Cache::new(tmp.path());
         let mut e = Entry::new(vec![1, 2, 3], Some("\"abc\"".into()));
-        c.put("fixes", "200260", &e).unwrap();
-        let back: Entry<Vec<i32>> = c.get("fixes", "200260").unwrap();
+        c.put("providers", "pagina", &e).unwrap();
+        let back: Entry<Vec<i32>> = c.get("providers", "pagina").unwrap();
         assert_eq!(back.data, vec![1, 2, 3]);
         assert_eq!(back.etag.as_deref(), Some("\"abc\""));
         assert!(back.is_fresh(60));
         e.fetched_at = now_unix() - 3600;
         assert!(!e.is_fresh(60));
         assert!(e.is_fresh(7200));
-        assert_eq!(c.list::<Vec<i32>>("fixes").len(), 1);
-        c.clear(Some("fixes")).unwrap();
-        assert!(c.get::<Vec<i32>>("fixes", "200260").is_none());
+        assert!(c.size_bytes() > 0);
+        c.clear(None).unwrap();
+        assert!(c.get::<Vec<i32>>("providers", "pagina").is_none());
+        assert_eq!(c.size_bytes(), 0);
     }
 
     #[test]
@@ -175,7 +157,7 @@ mod tests {
         assert_eq!(sanitize(""), "_");
         let tmp = tempfile::tempdir().unwrap();
         let c = Cache::new(tmp.path().join("c"));
-        c.put("fixes", "../../fora", &Entry::new(1, None)).unwrap();
+        c.put("providers", "../../fora", &Entry::new(1, None)).unwrap();
         assert!(!tmp.path().join("fora.json").exists());
     }
 
@@ -183,9 +165,8 @@ mod tests {
     fn corrupted_entries_are_ignored() {
         let tmp = tempfile::tempdir().unwrap();
         let c = Cache::new(tmp.path());
-        std::fs::create_dir_all(c.ns_dir("fixes")).unwrap();
-        std::fs::write(c.ns_dir("fixes").join("x.json"), "{lixo").unwrap();
-        assert!(c.get::<i32>("fixes", "x").is_none());
-        assert!(c.list::<i32>("fixes").is_empty());
+        std::fs::create_dir_all(c.ns_dir("providers")).unwrap();
+        std::fs::write(c.ns_dir("providers").join("x.json"), "{lixo").unwrap();
+        assert!(c.get::<i32>("providers", "x").is_none());
     }
 }
