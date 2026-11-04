@@ -1,0 +1,62 @@
+name: Release
+
+# Runs when a version tag such as v0.5.0 is pushed. The release is created as a
+# draft: review the artifacts and the notes, then publish it on GitHub.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    name: Build AppImage, deb and rpm
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install WebKitGTK, Tauri build dependencies and packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libssl-dev \
+            libxdo-dev \
+            libfuse2 \
+            patchelf \
+            rpm \
+            build-essential \
+            curl \
+            wget \
+            file
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Build and create draft release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Hardware Fixer ${{ github.ref_name }}"
+          releaseBody: |
+            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md) for what changed.
+
+            Install with the AppImage (any distribution), the `.deb` (Debian, Ubuntu, Mint) or the `.rpm` (Fedora, openSUSE). Arch users can build the native package with `npm run build:arch`.
+          releaseDraft: true
+          prerelease: false
