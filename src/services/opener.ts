@@ -1,13 +1,11 @@
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { isTauri } from './platform'
 
-/** Domínios que a interface pode abrir no navegador (espelha a capability do Tauri). */
-const ALLOWED = ['github.com', 'raw.githubusercontent.com', 'www.protondb.com', 'store.steampowered.com', 'steamdb.info', 'openwinecomponents.org', 'wiki.archlinux.org']
-
+/** Só as páginas da Arch Wiki citadas nas sugestões (espelha a capability `opener:allow-open-url`). */
 export function isSafeExternalUrl(url: string) {
   try {
     const u = new URL(url)
-    return u.protocol === 'https:' && (ALLOWED.includes(u.hostname) || (u.hostname === 'www.nvidia.com' && u.pathname.startsWith('/en-us/geforce/technologies/dlss/'))) && !u.username && !u.password && !u.port
+    return u.protocol === 'https:' && u.hostname === 'wiki.archlinux.org' && u.pathname.startsWith('/title/') && !u.username && !u.password && !u.port
   } catch {
     return false
   }

@@ -4,17 +4,15 @@ import { Page } from '@/layouts/Page'
 import { Segmented, Select, Toggle } from '@/components/ui/Controls'
 import { Button } from '@/components/ui/Button'
 import { DemoTag } from '@/components/ui/Status'
-import { SourceTag } from '@/components/game/LibraryNotices'
 import { Logo } from '@/components/brand/Logo'
 import { Mascot } from '@/mascot/Mascot'
 import type { Pose } from '@/mascot/sprites'
 import { useDispatch, useSettings, useToast } from '@/state/store'
 import { useMotion, useSystemReducedMotion } from '@/state/motion'
-import { platform } from '@/services/platform'
+import { APP_VERSION, isTauri } from '@/services/platform'
 import { useAppInfo } from '@/services/useAppInfo'
-import { isTauri } from '@/services/platform'
-import { clearFixCache, getCacheSize, getFixProviders } from '@/services/fixes'
-import type { ProviderInfo } from '@/types/fixes'
+import { clearFixCache, getCacheSize, getFixProviders } from '@/services/hardware'
+import type { ProviderInfo } from '@/types/hardware'
 import type { Settings } from '@/types'
 import { cn } from '@/lib/cn'
 
@@ -162,40 +160,7 @@ export function SettingsPage() {
       </Section>
 
       <Section title="Geral">
-        <Toggle
-          label="Confirmar antes de aplicar correções"
-          description={realMode ? 'No app desktop, o Fix Engine sempre pede confirmação depois da prévia. Esta opção vale para a demonstração.' : 'Mostra um passo extra de confirmação com o resumo do backup.'}
-          checked={s.confirmBeforeApply}
-          onChange={(v) => set({ confirmBeforeApply: v })}
-        />
-        <Divider />
         <Toggle label="Barra lateral compacta" description="Mostra apenas ícones. Também é ativada automaticamente em janelas estreitas." checked={s.compactSidebar} onChange={(v) => set({ compactSidebar: v })} />
-        <Divider />
-        <Row label="Manter backups por" description={realMode ? 'O Fix Engine guarda o backup de cada operação enquanto ela estiver no histórico, para o rollback continuar possível. Esta opção vale para a demonstração.' : undefined}>
-          <Select
-            label="Retenção de backups"
-            hideLabel
-            value={String(s.backupRetentionDays) as '7' | '30' | '90'}
-            onChange={(v) => set({ backupRetentionDays: Number(v) as Settings['backupRetentionDays'] })}
-            options={[
-              { value: '7', label: '7 dias' },
-              { value: '30', label: '30 dias' },
-              { value: '90', label: '90 dias' },
-            ]}
-          />
-        </Row>
-        <Row label="Unidade de temperatura">
-          <Segmented<Settings['tempUnit']>
-            label="Unidade de temperatura"
-            size="sm"
-            value={s.tempUnit}
-            onChange={(v) => set({ tempUnit: v })}
-            options={[
-              { value: 'C', label: '°C' },
-              { value: 'F', label: '°F' },
-            ]}
-          />
-        </Row>
       </Section>
 
       <DataSection />
@@ -208,8 +173,8 @@ export function SettingsPage() {
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <span className="font-display text-[22px] font-bold tracking-[-0.04em]">Hardware Fixer</span>
-              <span className="font-mono text-[12px] text-fg-3">{platform.version}</span>
-              {realMode ? <SourceTag>Fix Engine</SourceTag> : <DemoTag>Navegador</DemoTag>}
+              <span className="font-mono text-[12px] text-fg-3">{APP_VERSION}</span>
+              {!realMode && <DemoTag>Navegador</DemoTag>}
             </div>
             <p className="mt-0.5 font-pixel text-[10px] tracking-[0.08em] text-accent uppercase">Detect. Fix. Repeat.</p>
             <p className="mt-3 text-[13.5px] text-fg-2">
@@ -255,17 +220,6 @@ export function SettingsPage() {
               >
                 Restaurar preferências
               </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                icon={<Trash2 className="size-3.5" />}
-                onClick={() => {
-                  dispatch({ type: 'resetDemo' })
-                  toast({ tone: 'info', title: 'Dados da demonstração reiniciados', body: 'Correções, histórico e benchmarks voltaram ao estado inicial.' })
-                }}
-              >
-                Reiniciar dados da demo
-              </Button>
             </div>
           </div>
         </div>
@@ -298,13 +252,6 @@ function Row({ label, description, children }: { label: string; description?: Re
   )
 }
 
-function Divider() {
-  return <div className="h-px bg-line" aria-hidden />
-}
-
-/** Fontes do escopo de hardware; as de jogos seguem no backend, fora da interface. */
-const HARDWARE_PROVIDERS: ProviderInfo['id'][] = ['arch-wiki', 'fwupd']
-
 function DataSection() {
   const s = useSettings()
   const dispatch = useDispatch()
@@ -316,7 +263,7 @@ function DataSection() {
   useEffect(() => {
     if (!native) return
     getFixProviders()
-      .then((all) => setProviders(all.filter((p) => HARDWARE_PROVIDERS.includes(p.id))))
+      .then(setProviders)
       .catch(() => {})
     getCacheSize().then(setSize).catch(() => {})
   }, [native])

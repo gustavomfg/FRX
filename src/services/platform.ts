@@ -1,12 +1,9 @@
 import { invoke, isTauri as tauriDetected } from '@tauri-apps/api/core'
 
 /**
- * Ponte de plataforma entre a interface e a camada nativa (Rust/Tauri).
- *
- * Dentro do app desktop, as chamadas vão para os comandos definidos em
- * `src-tauri/src/commands.rs`. No navegador (`npm run dev:web`), um
- * substituto demonstrativo responde no lugar, para que a interface continue
- * funcionando sem o Tauri.
+ * Ponte de plataforma: detecta o app desktop e expõe as informações do app.
+ * No navegador (`npm run dev:web`) não há camada nativa; as chamadas avisam
+ * que o recurso é do app desktop.
  */
 
 export const isTauri = () => tauriDetected()
@@ -15,7 +12,6 @@ export interface AppInfo {
   name: string
   version: string
   tauriVersion: string | null
-  mode: 'demo' | 'native'
   runtime: 'tauri' | 'browser'
   os: string
   arch: string
@@ -31,7 +27,6 @@ const browserInfo: AppInfo = {
   name: 'FRX',
   version: APP_VERSION,
   tauriVersion: null,
-  mode: 'demo',
   runtime: 'browser',
   os: 'navegador',
   arch: '—',
@@ -52,14 +47,4 @@ export function getAppInfo(): Promise<AppInfo> {
       : Promise.resolve(browserInfo)
   }
   return cached
-}
-
-/** Teste de ida e volta da ponte IPC. */
-export function ping(message: string) {
-  return isTauri() ? invoke<string>('ping', { message }) : Promise.resolve(`pong: ${message} (navegador)`)
-}
-
-export const platform = {
-  mode: 'demo' as const,
-  version: APP_VERSION,
 }

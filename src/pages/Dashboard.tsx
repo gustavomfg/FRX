@@ -9,7 +9,7 @@ import { Pill } from '@/components/ui/Status'
 import { SuggestionCard, SUPPORT } from '@/components/hardware/SuggestionCard'
 import { isSymptom, SYMPTOMS } from '@/components/hardware/symptoms'
 import { SystemFixDialog, type SystemFixTarget } from '@/components/hardware/SystemFixDialog'
-import { OP_STATE } from '@/components/fix/engineMeta'
+import { OP_STATE } from '@/components/hardware/engineMeta'
 import { searchHardwareFixes, setDevLaptop } from '@/services/hardware'
 import { listFixOperations } from '@/services/fixEngine'
 import { isTauri } from '@/services/platform'
@@ -210,7 +210,7 @@ function SystemFixes({ version, onOpen }: { version: number; onOpen: (t: SystemF
   const [ops, setOps] = useState<Operation[]>([])
   const load = useCallback(() => {
     if (!isTauri()) return
-    listFixOperations('system')
+    listFixOperations()
       .then((all) => setOps(all.filter((o) => ['requires-manual-step', 'applied', 'recovery-required', 'conflict'].includes(o.state))))
       .catch(() => setOps([]))
   }, [])
@@ -228,9 +228,9 @@ function SystemFixes({ version, onOpen }: { version: number; onOpen: (t: SystemF
           return (
             <li key={o.id} className="flex flex-wrap items-center gap-3 px-4 py-3">
               <div className="min-w-0 flex-1">
-                <p className="truncate font-mono text-[12.5px] text-fg">{o.recipeTitle}</p>
+                <p className="truncate font-mono text-[12.5px] text-fg">{o.title}</p>
                 <p className="mt-0.5 text-[12px] text-fg-3">
-                  {o.gameName}
+                  {o.laptop}
                   {o.message ? ` · ${o.message}` : ''}
                 </p>
               </div>

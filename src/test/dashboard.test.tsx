@@ -47,11 +47,8 @@ const LINE = `sudo install -m 0644 -o root -g root -- '/home/u/.local/share/io.f
 const plan: FixPlan = {
   planId: 'op-1',
   fingerprint: 'fp-1',
-  recipeId: 'system.modprobe.b0c311d42e52',
-  recipeVersion: '1',
-  recipeTitle: 'Audio: options snd_hda_intel model=dell-headset-multi',
-  appId: 'system',
-  gameName: 'ThinkPad X1 Carbon Gen 9',
+  title: 'Audio: options snd_hda_intel model=dell-headset-multi',
+  laptop: 'ThinkPad X1 Carbon Gen 9',
   status: 'requires-manual-step',
   mode: 'manual',
   reasons: [],
@@ -59,41 +56,30 @@ const plan: FixPlan = {
   changes: [{ kind: 'system-file', target: PATH, before: null, after: '# Gerado pelo FRX\noptions snd_hda_intel model=dell-headset-multi\n', summary: `cria ${PATH}` }],
   manualLine: LINE,
   backupNote: `${PATH} ainda não existe. Desfazer remove o arquivo criado.`,
-  steamRunning: false,
-  gameRunning: false,
   risk: 'moderate',
-  purpose: 'compatibility',
-  trust: 'generated',
   effects: [ACTION.context],
   sideEffects: ['Vale depois de reiniciar.'],
   sources: [{ label: 'Arch Wiki · Lenovo ThinkPad X1 Carbon (Gen 9) › Audio', url: 'https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_9)#Audio' }],
-  generated: null,
-  pack: null,
-  createdAt: '2026-11-03T00:00:00Z',
   expiresAt: 4102444800,
 }
 
 const op = (state: Operation['state'], pending: Operation['pending']): Operation => ({
   schema: 1,
   id: 'op-1',
-  recipeId: plan.recipeId,
-  recipeVersion: '1',
-  recipeTitle: plan.recipeTitle,
-  appId: 'system',
-  gameName: plan.gameName,
+  title: plan.title,
+  laptop: plan.laptop,
+  manualRecoveryRequired: false,
   state,
   mode: 'manual',
   steps: [],
   planFingerprint: 'fp-1',
-  createdAt: '',
-  updatedAt: '',
+  createdAt: '2026-11-03T00:00:00Z',
+  updatedAt: '2026-11-03T00:00:00Z',
   appliedAt: null,
   rolledBackAt: null,
   message: state === 'applied' ? `Confirmado em ${PATH}.` : state === 'failed' ? 'Cancelada antes de ser aplicada; nada foi alterado.' : 'Rode o comando com sudo.',
   pending,
   events: [],
-  recipeTrust: 'generated',
-  findingIds: [],
 })
 
 const report = (symptom: string): HardwareReport => ({
@@ -165,7 +151,7 @@ describe('Dashboard', () => {
         case 'verify_fix_operation':
           return op('applied', null)
         case 'prepare_fix_rollback':
-          return { operationId: 'op-1', fingerprint: 'rb-1', status: 'ready', mode: 'automatic', reasons: ['O comando ainda não foi rodado; cancelar não altera nada no sistema.'], changes: [], manualLine: null, steamRunning: false, gameRunning: false }
+          return { operationId: 'op-1', fingerprint: 'rb-1', status: 'ready', mode: 'automatic', reasons: ['O comando ainda não foi rodado; cancelar não altera nada no sistema.'], changes: [], manualLine: null }
         case 'rollback_fix':
           return op('failed', null)
         default:
@@ -183,16 +169,13 @@ describe('Dashboard', () => {
     clearMocks()
   })
 
-  it('mostra modelo, GPU e kernel lidos do sistema e nunca toca nas telas de jogos', async () => {
+  it('mostra modelo, GPU e kernel lidos do sistema', async () => {
     act(() => root.render(<App />))
     await flush()
     expect(el.textContent).toContain('Seu sistema:')
     expect(el.textContent).toContain('ThinkPad X1 Carbon Gen 9')
     expect(el.textContent).toContain('Iris Xe Graphics')
     expect(el.textContent).toContain('Linux 6.18.2-cachyos')
-    expect(calls.map((c) => c.cmd)).not.toContain('scan_installed_games')
-    expect(el.textContent).not.toContain('Biblioteca')
-    expect(el.textContent).not.toContain('Performance Lab')
   })
 
   it('clicar em um sintoma pesquisa e mostra os cartões com o selo do modelo', async () => {

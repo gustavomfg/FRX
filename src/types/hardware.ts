@@ -1,6 +1,4 @@
-import type { ProviderStatus } from './fixes'
-
-/** Rust: `src-tauri/src/system/dmi.rs` (`LaptopIdentity`). */
+/** Rust: `system/dmi.rs` (`LaptopIdentity`), com `simulated` vindo de `identify_laptop`. */
 export interface LaptopIdentity {
   vendor: string | null
   model: string | null
@@ -12,6 +10,36 @@ export interface LaptopIdentity {
   simulated?: boolean
 }
 
+/** Rust: `system/mod.rs` (`SystemProfile`). */
+export interface SystemProfile {
+  distro: string | null
+  distroId: string | null
+  kernel: string | null
+  arch: string
+  sessionType: string | null
+  desktop: string | null
+  cpu: string | null
+  cpuThreads: number | null
+  ramBytes: number | null
+  gpus: GpuInfo[]
+  primaryGpu: GpuInfo | null
+  vulkanDrivers: string[]
+}
+
+/** Rust: `system/hardware.rs` (`GpuInfo`). */
+export interface GpuInfo {
+  pciAddress: string | null
+  gpuFamily: string | null
+  vramBytes: number | null
+  vendor: 'nvidia' | 'amd' | 'intel' | 'other'
+  vendorId: string
+  deviceId: string
+  name: string | null
+  driver: string | null
+  driverVersion: string | null
+  bootVga: boolean
+}
+
 /** Rust: `HardwareSymptom` em `fixes/providers/arch_wiki.rs`. */
 export type HardwareSymptom = 'wifi' | 'audio' | 'touchpad' | 'suspend' | 'firmware'
 
@@ -20,6 +48,28 @@ export type Fit = 'model' | 'general'
 
 /** Coluna "Working?" da tabela de hardware da página do modelo. */
 export type Support = 'works' | 'partial' | 'broken' | 'unknown'
+
+/** Rust: `fixes/models.rs` (`ProviderId`, `ProviderState`, `ProviderStatus`, `ProviderInfo`). */
+export type ProviderId = 'arch-wiki'
+
+export type ProviderState = 'ok' | 'cached' | 'stale' | 'no-data' | 'unavailable' | 'rate-limited'
+
+export interface ProviderStatus {
+  id: ProviderId
+  name: string
+  state: ProviderState
+  message: string | null
+  fetchedAt: string | null
+  resetAt: string | null
+}
+
+export interface ProviderInfo {
+  id: ProviderId
+  name: string
+  enabled: boolean
+  description: string
+  reason: string | null
+}
 
 export interface WikiSuggestion {
   id: string

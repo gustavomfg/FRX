@@ -114,25 +114,3 @@ export function Kbd({ children }: { children: ReactNode }) {
   return <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-[4px] border border-line-2 bg-raised px-1 font-mono text-[10.5px] text-fg-2">{children}</kbd>
 }
 
-export function SectionHeader({ eyebrow, title, action, className, id }: { eyebrow?: string; title: ReactNode; action?: ReactNode; className?: string; id?: string }) {
-  return (
-    <div className={cn('mb-4 flex items-end justify-between gap-4', className)}>
-      <div>
-        {eyebrow && <div className="eyebrow mb-2">{eyebrow}</div>}
-        <h2 id={id} className="font-display text-[19px] font-semibold tracking-[-0.02em] text-fg">
-          {title}
-        </h2>
-      </div>
-      {action}
-    </div>
-  )
-}
-
-export function Meter({ value, max = 100, color = 'var(--frx-text)', label, className }: { value: number; max?: number; color?: string; label: string; className?: string }) {
-  const pct = Math.max(0, Math.min(100, (value / max) * 100))
-  return (
-    <div className={cn('h-1.5 w-full overflow-hidden rounded-full bg-line-2', className)} role="meter" aria-label={label} aria-valuenow={Math.round(value)} aria-valuemin={0} aria-valuemax={max}>
-      <div className="h-full rounded-full transition-[width] duration-(--frx-dur-slow) ease-frx" style={{ width: `${pct}%`, background: color }} />
-    </div>
-  )
-}
