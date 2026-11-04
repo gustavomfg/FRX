@@ -1,213 +1,21 @@
-//! Modelos do Fix Engine (espelhados em `src/types/fixEngine.ts`).
-//!
-//! Achado (`FixFinding`) → receita (revisada do catálogo local ou gerada pelo
-//! `dynamic`) → plano → operação aplicada. Só receitas `reviewed` e
-//! `generated` (validadas pelo núcleo) viram planos executáveis.
+//! Modelos do Fix Engine para correções de sistema: prévia, operação, passos
+//! do diário e rollback. Todo passo é um arquivo da allowlist de `confined`.
 
 use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 
-use super::dynamic::{provenance::Provenance, EvidenceLevel};
-use crate::fixes::models::{Category, FixFinding, GpuReq};
+use super::confined::FileIdentity;
 
-pub const RECIPE_SCHEMA: u32 = 1;
 pub const JOURNAL_SCHEMA: u32 = 1;
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "kebab-case")]
-pub enum Trust {
-    /// Visto em alguma fonte; nunca vira receita sozinho.
-    Discovered,
-    /// Escrito como receita, mas ainda não revisado: não executa.
-    Candidate,
-    /// Revisado e incluído no catálogo do FRX: pode virar plano.
-    Reviewed,
-    /// Formato ou ação que o FRX não sabe aplicar com segurança.
-    Unsupported,
-    /// Retirado do catálogo (problema conhecido).
-    Revoked,
-    /// Gerada pelo FRX a partir de uma descoberta, com ações do conjunto
-    /// restrito e validação do núcleo. Não foi revisada por pessoas.
-    Generated,
-    /// Smart Pack: composição de receitas revisadas/geradas, aplicada como
-    /// uma única operação (um backup, uma gravação, um rollback).
-    Pack,
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "kebab-case")]
-pub enum Purpose {
-    Diagnostic,
-    Compatibility,
-    Performance,
-    /// Melhoria opcional de imagem (upscalers mais novos, por exemplo).
-    Quality,
-}
-
+/// Risco de uma ação, mostrado no cartão e na prévia.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[serde(rename_all = "kebab-case")]
 pub enum Risk {
     Low,
     Moderate,
     High,
-}
-
-/// Ações **declarativas** — o conjunto é fechado. Não existe ação de comando,
-/// script ou caminho absoluto: tudo o que uma receita pode fazer está aqui.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(tag = "type", rename_all = "snake_case", deny_unknown_fields)]
-pub enum RecipeAction {
-    /// `KEY=valor` no começo das opções de inicialização (allowlist em `security`).
-    SetLaunchEnv { key: String, value: String },
-    /// Argumentos do jogo depois de `%command%`.
-    AddLaunchArgs { args: Vec<String> },
-    /// Arquivo de texto relativo à pasta de instalação do jogo.
-    WriteGameFile { path: String, content: String },
-    /// Download/staging/verification are mandatory parts of this one action.
-    InstallArtifact {
-        artifact: Box<crate::fixes::models::ArtifactCandidate>,
-    },
-    /// Typed, bounded DXVK configuration merge; never arbitrary file content.
-    SetDxvkOption {
-        path: String,
-        key: String,
-        value: String,
-    },
-    /// Literal edits of an exact known original. Never regex or executable code.
-    PatchKnownConfig {
-        path: String,
-        #[serde(rename = "expectedSha256")]
-        expected_sha256: String,
-        replacements: Vec<ConfigReplacement>,
-    },
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct ConfigReplacement {
-    pub find: String,
-    pub replace: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub struct Scope {
-    /// Vazio = qualquer jogo.
-    pub app_ids: Vec<String>,
-    pub requires_proton: bool,
-    pub gpu_vendor: Option<GpuReq>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct RecipeSource {
-    pub label: String,
-    pub url: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct Review {
-    pub by: String,
-    pub at: String,
-    pub notes: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub struct Recipe {
-    #[serde(default)]
-    pub hardware: crate::system::context::HardwareRequirements,
-    pub schema: u32,
-    pub id: String,
-    pub version: String,
-    pub trust: Trust,
-    pub title: String,
-    pub summary: String,
-    pub description: String,
-    pub category: Category,
-    pub purpose: Purpose,
-    pub risk: Risk,
-    pub scope: Scope,
-    pub actions: Vec<RecipeAction>,
-    #[serde(default)]
-    pub already_included_by_protonfixes: bool,
-    #[serde(default)]
-    pub conflicts_with: Vec<String>,
-    /// Chaves de achados relacionados (`env:KEY=valor`, `sync:esync:off`…).
-    #[serde(default)]
-    pub related_keys: Vec<String>,
-    #[serde(default)]
-    pub effects: Vec<String>,
-    #[serde(default)]
-    pub side_effects: Vec<String>,
-    pub sources: Vec<RecipeSource>,
-    pub review: Option<Review>,
-    /// Só em receitas geradas; o catálogo recusa receitas com este campo.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub generated: Option<GeneratedInfo>,
-    /// Só em Smart Packs compostos; o catálogo recusa receitas com este campo.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub pack: Option<PackInfo>,
-}
-
-/// Receita que compõe um Smart Pack, com a versão e a impressão digital
-/// (SHA-256 da receita) usadas na composição.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub struct PackMember {
-    pub recipe_id: String,
-    pub version: String,
-    pub fingerprint: String,
-    pub trust: Trust,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub struct PackInfo {
-    pub members: Vec<PackMember>,
-    pub goal: String,
-}
-
-/// Origem de uma receita gerada: de qual descoberta, com que evidência e por
-/// qual versão do gerador e das regras.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub struct GeneratedInfo {
-    /// Ausente em registros antigos: preservados, mas não executáveis sem reanálise.
-    #[serde(default)]
-    pub game_app_id: Option<String>,
-    #[serde(default)]
-    pub performance_evidence: super::dynamic::GamePerformanceEvidence,
-    pub generator_version: String,
-    pub rules_version: String,
-    pub interpreter: String,
-    pub finding_ids: Vec<String>,
-    pub evidence: EvidenceLevel,
-    pub evidence_note: String,
-    pub provenance: Vec<Provenance>,
-    pub discovered_at: Option<String>,
-}
-
-impl Recipe {
-    pub fn performance_warnings(&self) -> Vec<String> {
-        super::dynamic::compatibility::performance_warnings(self.actions.iter().filter_map(|a| {
-            match a {
-                RecipeAction::SetLaunchEnv { key, value } => Some((key.as_str(), value.as_str())),
-                _ => None,
-            }
-        }))
-    }
-    pub fn env_keys(&self) -> Vec<&str> {
-        self.actions
-            .iter()
-            .filter_map(|a| match a {
-                RecipeAction::SetLaunchEnv { key, .. } => Some(key.as_str()),
-                _ => None,
-            })
-            .collect()
-    }
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -218,16 +26,14 @@ pub enum PlanStatus {
     Conflict,
     Incompatible,
     AlreadyApplied,
-    AlreadyIncluded,
-    NotExecutable,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum ExecMode {
-    /// O FRX grava o arquivo (Steam fechada).
+    /// O FRX grava o arquivo sozinho (só com uma raiz de sistema fictícia).
     Automatic,
-    /// O usuário cola a linha na Steam; o FRX só confere depois.
+    /// O FRX prepara o arquivo e mostra o comando `sudo` para o usuário rodar.
     Manual,
 }
 
@@ -250,8 +56,6 @@ pub struct Check {
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum ChangeKind {
-    LaunchOptions,
-    GameFile,
     /// Arquivo da allowlist de sistema (`/etc/modprobe.d`, `/etc/systemd/system`, `/etc/default/grub`).
     SystemFile,
 }
@@ -267,47 +71,35 @@ pub struct PlannedChange {
     pub summary: String,
 }
 
+/// Origem exibida no cartão: o trecho da Arch Wiki de onde veio a instrução.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct SourceLink {
+    pub label: String,
+    pub url: String,
+}
+
 /// Prévia calculada pelo núcleo. A interface só devolve `planId` + `fingerprint`.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FixPlan {
-    /// Há DLL de terceiros: `apply` recusa sem a confirmação ligada ao `fingerprint`.
-    #[serde(default)]
-    pub requires_explicit_user_consent: bool,
-    #[serde(default)]
-    pub artifacts: Vec<crate::fixes::models::ArtifactCandidate>,
-    #[serde(default)]
-    pub environment: Option<crate::system::context::EnvironmentContext>,
-    #[serde(default)]
-    pub hardware_match: Option<crate::system::context::HardwareMatch>,
-    #[serde(default)]
-    pub performance_warnings: Vec<String>,
     pub plan_id: String,
     pub fingerprint: String,
-    pub recipe_id: String,
-    pub recipe_version: String,
-    pub recipe_title: String,
-    pub app_id: String,
-    pub game_name: String,
+    pub title: String,
+    /// Nome do laptop para o qual a prévia foi feita.
+    #[serde(alias = "gameName")]
+    pub laptop: String,
     pub status: PlanStatus,
     pub mode: Option<ExecMode>,
     pub reasons: Vec<String>,
     pub checks: Vec<Check>,
     pub changes: Vec<PlannedChange>,
-    /// Linha para colar na Steam quando o modo é manual.
+    /// Comando `sudo` (ou sequência) para o modo manual.
     pub manual_line: Option<String>,
     pub backup_note: Option<String>,
-    pub steam_running: bool,
-    pub game_running: bool,
     pub risk: Risk,
-    pub purpose: Purpose,
-    pub trust: Trust,
     pub effects: Vec<String>,
     pub side_effects: Vec<String>,
-    pub sources: Vec<RecipeSource>,
-    pub generated: Option<GeneratedInfo>,
-    pub pack: Option<PackInfo>,
-    pub created_at: String,
+    pub sources: Vec<SourceLink>,
     pub expires_at: u64,
 }
 
@@ -320,85 +112,30 @@ impl FixPlan {
     }
 }
 
-/// Mudança na variável feita pelo FRX — o bastante para desfazer só ela.
+/// Arquivo de sistema de um passo, já validado. Vai para o diário.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct EnvWrite {
-    pub key: String,
-    pub written: String,
-    pub previous: Option<String>,
-}
-
-/// Passo concreto e já validado de um plano (vai para o diário).
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(tag = "type", rename_all = "kebab-case")]
-pub enum Step {
-    #[serde(rename_all = "camelCase")]
-    LaunchOptions {
-        config: PathBuf,
-        app_id: String,
-        file_sha: String,
-        before: Option<String>,
-        after: String,
-        env: Vec<EnvWrite>,
-        args: Vec<String>,
-    },
-    #[serde(rename_all = "camelCase")]
-    GameFile {
-        #[serde(default)]
-        artifact: Option<Box<crate::fixes::models::ArtifactCandidate>>,
-        #[serde(default)]
-        identity: Option<super::confined::FileIdentity>,
-        root: PathBuf,
-        rel: String,
-        target: PathBuf,
-        before_sha: Option<String>,
-        content: String,
-        /// DLL deste destino. O diário guarda só o hash: os bytes verificados
-        /// ficam em `binary`, em memória, entre o staging e a escrita.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        dll: Option<crate::fixes::models::DllArtifact>,
-        #[serde(skip)]
-        binary: Vec<u8>,
-    },
-    /// Arquivo de sistema da allowlist do `confined`. Com a raiz real (`/`),
-    /// quem grava é o usuário com `sudo`; o FRX só confere o hash.
-    #[serde(rename_all = "camelCase")]
-    SystemFile {
-        /// Raiz do sistema: `/` em produção, pasta temporária nos testes.
-        system_root: PathBuf,
-        /// Caminho absoluto exibido (`/etc/modprobe.d/frx-x.conf`).
-        path: String,
-        target: PathBuf,
-        identity: Option<super::confined::FileIdentity>,
-        before_sha: Option<String>,
-        content: String,
-        /// Comandos exibidos (nunca executados pelo FRX).
-        #[serde(default)]
-        post_apply: Vec<String>,
-        #[serde(default)]
-        pre_rollback: Vec<String>,
-        #[serde(default)]
-        post_rollback: Vec<String>,
-    },
-}
-
-impl Step {
-    pub fn target(&self) -> &std::path::Path {
-        match self {
-            Step::LaunchOptions { config, .. } => config,
-            Step::GameFile { target, .. } | Step::SystemFile { target, .. } => target,
-        }
-    }
+pub struct Step {
+    /// Raiz do sistema: `/` em produção, pasta temporária nos testes.
+    pub system_root: PathBuf,
+    /// Caminho absoluto exibido (`/etc/modprobe.d/frx-x.conf`).
+    pub path: String,
+    pub identity: Option<FileIdentity>,
+    pub before_sha: Option<String>,
+    pub content: String,
+    /// Comandos exibidos (nunca executados pelo FRX).
+    #[serde(default)]
+    pub post_apply: Vec<String>,
+    #[serde(default)]
+    pub pre_rollback: Vec<String>,
+    #[serde(default)]
+    pub post_rollback: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum OpState {
     Checking,
-    Downloading,
-    VerifyingArtifacts,
-    Cancelled,
     BackingUp,
     Applying,
     Verifying,
@@ -417,8 +154,6 @@ impl OpState {
         matches!(
             self,
             OpState::Checking
-                | OpState::Downloading
-                | OpState::VerifyingArtifacts
                 | OpState::BackingUp
                 | OpState::Applying
                 | OpState::Verifying
@@ -475,7 +210,7 @@ pub enum PendingKind {
     Rollback,
 }
 
-/// Passo manual esperado do usuário (colar a linha na Steam).
+/// Passo manual esperado do usuário (rodar o comando com `sudo`).
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Pending {
@@ -486,29 +221,18 @@ pub struct Pending {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Operation {
-    /// Registro de que o usuário confirmou a instalação de uma DLL. O bloqueio
-    /// fica em `FixEngine::apply_with_consent`, antes de qualquer download.
-    #[serde(default)]
-    pub requires_explicit_user_consent: bool,
+    pub schema: u32,
+    pub id: String,
+    /// Título da correção (antes `recipeTitle`).
+    #[serde(default, alias = "recipeTitle")]
+    pub title: String,
+    /// Nome do laptop (antes `gameName`).
+    #[serde(default, alias = "gameName")]
+    pub laptop: String,
     /// Concurrent content retained outside the normal backup sequence needs
     /// manual review; presence checks alone must never dismiss that state.
     #[serde(default)]
     pub manual_recovery_required: bool,
-    #[serde(default)]
-    pub artifacts: Vec<crate::fixes::models::ArtifactCandidate>,
-    #[serde(default)]
-    pub artifact_progress: Option<ArtifactProgress>,
-    /// Receita exata utilizada. Ausente em operações legadas; nunca inferida
-    /// retroativamente a partir do catálogo atual.
-    #[serde(default)]
-    pub recipe_fingerprint: Option<String>,
-    pub schema: u32,
-    pub id: String,
-    pub recipe_id: String,
-    pub recipe_version: String,
-    pub recipe_title: String,
-    pub app_id: String,
-    pub game_name: String,
     pub state: OpState,
     pub mode: ExecMode,
     pub steps: Vec<StepRecord>,
@@ -520,30 +244,10 @@ pub struct Operation {
     pub message: Option<String>,
     pub pending: Option<Pending>,
     pub events: Vec<OpEvent>,
-    /// Ausente em operações antigas (v0.4.0: sempre receitas do catálogo).
-    #[serde(default)]
-    pub recipe_trust: Option<Trust>,
-    #[serde(default)]
-    pub finding_ids: Vec<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ArtifactProgress {
-    pub downloaded_bytes: u64,
-    pub total_bytes: Option<u64>,
-    pub asset_name: String,
 }
 
 impl Operation {
-    pub fn env_writes(&self) -> impl Iterator<Item = &EnvWrite> {
-        self.steps.iter().flat_map(|s| match &s.step {
-            Step::LaunchOptions { env, .. } => env.as_slice(),
-            _ => &[],
-        })
-    }
-
-    /// A operação ocupa as chaves/arquivos dela (para detectar conflitos entre receitas).
+    /// A operação ocupa os arquivos dela (para detectar conflitos entre correções).
     pub fn holds_changes(&self) -> bool {
         matches!(self.state, OpState::Applied | OpState::RecoveryRequired)
             || (self.state == OpState::RequiresManualStep
@@ -552,42 +256,6 @@ impl Operation {
                     .as_ref()
                     .is_some_and(|p| p.kind == PendingKind::Rollback))
     }
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "kebab-case")]
-pub enum Effective {
-    /// A configuração real ainda tem o que o FRX gravou.
-    Active,
-    /// Algo removeu ou mudou a configuração depois da aplicação.
-    Drifted,
-    /// Não foi possível ler o estado real agora.
-    Unknown,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AppliedFix {
-    pub operation_id: String,
-    pub recipe_id: String,
-    pub recipe_version: String,
-    pub recipe_title: String,
-    pub app_id: String,
-    pub game_name: String,
-    pub applied_at: Option<String>,
-    pub mode: ExecMode,
-    pub effective: Effective,
-    pub detail: String,
-}
-
-/// Referência guardada nas sessões do Performance Lab.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct ActiveFixRef {
-    pub recipe_id: String,
-    pub recipe_version: String,
-    pub operation_id: String,
-    pub title: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -600,53 +268,4 @@ pub struct RollbackPlan {
     pub reasons: Vec<String>,
     pub changes: Vec<PlannedChange>,
     pub manual_line: Option<String>,
-    pub steam_running: bool,
-    pub game_running: bool,
-}
-
-/// O que uma receita costuma fazer com desempenho ou funcionamento.
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
-#[serde(rename_all = "kebab-case")]
-pub enum Outlook {
-    /// Resolve uma falta documentada (componente ausente, CUDA para PhysX).
-    Helps,
-    /// Depende do jogo e da máquina: pode ajudar ou atrapalhar.
-    Uncertain,
-    /// Costuma reduzir desempenho ou recursos do jogo.
-    MayHurt,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EngineStatus {
-    pub catalog_version: String,
-    pub catalog_sha256: String,
-    pub recipes: usize,
-    pub reviewed: usize,
-    pub issues: Vec<String>,
-    pub recovery_required: usize,
-    pub pending_manual: usize,
-    pub busy: bool,
-    pub data_dir: String,
-}
-
-/// Contexto do jogo montado pelos comandos (biblioteca + hardware).
-#[derive(Debug, Clone, Default)]
-pub struct GameCtx {
-    /// Perfil observado agora. Nunca substitui metadados de capturas antigas.
-    pub performance_conditions: Option<crate::performance::models::Conditions>,
-    pub app_id: String,
-    pub name: String,
-    pub steam_root: Option<PathBuf>,
-    pub install_path: Option<PathBuf>,
-    pub uses_proton: Option<bool>,
-    pub tool_name: Option<String>,
-    /// Pasta da ferramenta de compatibilidade (Proton) selecionada.
-    pub tool_path: Option<PathBuf>,
-    pub tool_includes_protonfixes: bool,
-    pub gpu: Option<GpuReq>,
-    /// Versão do driver da GPU principal (para reavaliar receitas geradas).
-    pub driver: Option<String>,
-    /// Descobertas do cache do núcleo — nunca vindas da interface.
-    pub findings: Vec<FixFinding>,
 }

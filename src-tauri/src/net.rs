@@ -2,8 +2,7 @@
 //!
 //! - só HTTPS e só para uma lista fechada de hosts (inclusive em redirecionamentos);
 //! - tempo limite e tamanho máximo de resposta;
-//! - User-Agent identificado;
-//! - token do GitHub opcional, lido de `FRX_GITHUB_TOKEN` apenas no Rust.
+//! - User-Agent identificado.
 //!
 //! O trait [`Fetcher`] permite substituir a rede por respostas falsas nos testes.
 
@@ -18,18 +17,7 @@ pub const USER_AGENT: &str = concat!(
     " (Linux laptop hardware helper; read-only)"
 );
 
-pub const ALLOWED_HOSTS: &[&str] = &[
-    "api.github.com",
-    "raw.githubusercontent.com",
-    "github.com",
-    "shared.akamai.steamstatic.com",
-    "cdn.cloudflare.steamstatic.com",
-    "cdn.akamai.steamstatic.com",
-    "steamcdn-a.akamaihd.net",
-    "www.reddit.com",
-    "bugs.winehq.org",
-    "wiki.archlinux.org",
-];
+pub const ALLOWED_HOSTS: &[&str] = &["wiki.archlinux.org"];
 
 #[derive(Debug, Clone)]
 pub struct HttpRequest {
@@ -104,7 +92,6 @@ pub fn is_allowed(url: &str) -> bool {
 
 pub struct ReqwestFetcher {
     client: reqwest::Client,
-    github_token: Option<String>,
 }
 
 impl ReqwestFetcher {
@@ -124,14 +111,7 @@ impl ReqwestFetcher {
             .https_only(true)
             .build()
             .map_err(|e| e.to_string())?;
-        let github_token = std::env::var("FRX_GITHUB_TOKEN")
-            .ok()
-            .map(|t| t.trim().to_owned())
-            .filter(|t| !t.is_empty());
-        Ok(Self {
-            client,
-            github_token,
-        })
+        Ok(Self { client })
     }
 }
 
@@ -150,12 +130,6 @@ impl Fetcher for ReqwestFetcher {
             .header(reqwest::header::ACCEPT, req.accept);
         if let Some(tag) = &req.etag {
             rb = rb.header(reqwest::header::IF_NONE_MATCH, tag);
-        }
-        if req.url.starts_with("https://api.github.com/") {
-            rb = rb.header("X-GitHub-Api-Version", "2022-11-28");
-            if let Some(t) = &self.github_token {
-                rb = rb.bearer_auth(t);
-            }
         }
         let mut resp = rb.send().await.map_err(map_err)?;
         let h = resp.headers().clone();
@@ -266,18 +240,12 @@ mod tests {
 
     #[test]
     fn only_https_allowlisted_hosts() {
-        assert!(is_allowed("https://api.github.com/search/issues?q=1"));
-        assert!(is_allowed("https://raw.githubusercontent.com/a/b/c.py"));
-        assert!(is_allowed(
-            "https://www.reddit.com/r/linux_gaming/search.json"
-        ));
-        assert!(is_allowed("https://bugs.winehq.org/rest/bug?id=1"));
-        assert!(!is_allowed("http://bugs.winehq.org/"));
-        assert!(!is_allowed("https://old.reddit.com/"));
-        assert!(!is_allowed("http://api.github.com/"));
+        assert!(is_allowed("https://wiki.archlinux.org/api.php?action=query"));
+        assert!(!is_allowed("http://wiki.archlinux.org/"));
+        assert!(!is_allowed("https://api.github.com/"));
         assert!(!is_allowed("https://evil.example.com/"));
-        assert!(!is_allowed("https://api.github.com.evil.com/"));
-        assert!(!is_allowed("https://user@api.github.com/"));
+        assert!(!is_allowed("https://wiki.archlinux.org.evil.com/"));
+        assert!(!is_allowed("https://user@wiki.archlinux.org/"));
         assert!(!is_allowed("file:///etc/passwd"));
         assert!(!is_allowed("não é url"));
     }

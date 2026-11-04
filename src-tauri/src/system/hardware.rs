@@ -215,7 +215,7 @@ pub fn gpus(drm: &Path, ids: &PciIds) -> Vec<GpuInfo> {
     out
 }
 
-/// A GPU mais provável para jogos: NVIDIA/AMD dedicada antes da integrada.
+/// GPU principal: NVIDIA com driver carregado, depois AMD dedicada, depois a de boot.
 pub fn primary(gpus: &[GpuInfo]) -> Option<&GpuInfo> {
     gpus.iter()
         .find(|g| g.vendor == GpuVendor::Nvidia && g.driver.as_deref() == Some("nvidia"))

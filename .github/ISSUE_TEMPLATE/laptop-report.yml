@@ -1,0 +1,68 @@
+name: Laptop report
+description: Tell us how Hardware Fixer behaved on your laptop (detection, wiki match, a fix that worked or did not)
+labels: ["laptop-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing! Reports on real hardware decide which models work well.
+        Please don't paste serial numbers or UUIDs. Hardware Fixer never reads them.
+
+  - type: input
+    id: model
+    attributes:
+      label: Laptop model
+      description: As shown on the home screen (for example "Framework Laptop 13" or "ThinkPad X1 Carbon Gen 9")
+    validations:
+      required: true
+
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution and kernel
+      placeholder: "CachyOS, kernel 6.17.4"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Hardware Fixer version
+      placeholder: "0.5.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: Symptom
+      options:
+        - Wi-Fi
+        - Áudio
+        - Touchpad
+        - Suspensão
+        - Firmware
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: What happened after the fix?
+      options:
+        - It worked
+        - It did not help
+        - It made things worse
+        - I did not apply it
+        - The app did not find a fix for my laptop
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: The instruction shown in the app (or the wiki section), what you ran, and what you saw. Paste the output of `journalctl -k` or `dmesg` only if it helps, with secrets removed.
+    validations:
+      required: false

@@ -1,12 +1,12 @@
 [Desktop Entry]
 Type=Application
-Name=FRX
-GenericName=Gerenciador de compatibilidade de jogos
-Comment=Play. Fix. Repeat.
+Name=Hardware Fixer
+GenericName=Correções de hardware para laptops
+Comment=Wi-Fi, áudio, touchpad, suspensão e firmware, com prévia, backup e desfazer
 Exec=frx
 Icon=frx
 Terminal=false
-Categories=Game;Utility;
-Keywords=proton;wine;steam;jogos;games;compatibilidade;
+Categories=Settings;HardwareSettings;
+Keywords=laptop;hardware;wifi;audio;touchpad;suspend;firmware;driver;arch;
 StartupWMClass=frx
 StartupNotify=true

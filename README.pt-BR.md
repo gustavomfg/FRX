@@ -8,11 +8,29 @@
 
 [English](README.md)
 
+[![CI](https://github.com/gustavomfg/FRX/actions/workflows/ci.yml/badge.svg)](https://github.com/gustavomfg/FRX/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/gustavomfg/FRX)](https://github.com/gustavomfg/FRX/releases) [![Licença: MIT](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
+
 **Hardware Fixer** é um app desktop para **consertar hardware de laptops Linux**: Wi-Fi, áudio, touchpad, suspensão e firmware. Ele identifica o modelo do laptop pelo DMI, pesquisa soluções na **Arch Wiki** para aquele modelo e, quando a página traz uma instrução clara (uma opção de módulo, um parâmetro do kernel), mostra uma prévia exata da mudança em `/etc`, com backup e desfazer.
 
 > **O FRX nunca roda `sudo`.** Para mexer em `/etc`, ele faz o backup, prepara o arquivo numa pasta privada e mostra o comando para você rodar no terminal. O comando confere, como root, que o arquivo não mudou desde a prévia antes de sobrescrever. Depois, o FRX confere o hash do resultado em `/etc`. O mesmo vale para desfazer.
 
-O projeto nasceu como um gerenciador de correções de jogos (FRX — *Play. Fix. Repeat.*). O motor em Rust — Fix Engine, provedores, cache, detecção do sistema — foi mantido e agora atende ao hardware. As telas de jogos continuam no repositório, mas fora das rotas (ver [Legado](#legado-jogos)).
+<p align="center">
+  <img src="docs/assets/hardware-dashboard.png" alt="Hardware Fixer num ThinkPad X1 Carbon Gen 9 mostrando uma correção de áudio da Arch Wiki, com prévia e avisos (dados de exemplo)">
+</p>
+
+## Instalação
+
+Baixe a versão mais recente na [página de releases](https://github.com/gustavomfg/FRX/releases). Cada release tem três pacotes:
+
+| Pacote | Para |
+| --- | --- |
+| `.AppImage` | Qualquer distribuição. Torne o arquivo executável (`chmod +x`) e rode. |
+| `.deb` | Debian, Ubuntu, Linux Mint e derivados: `sudo apt install ./<arquivo>.deb` |
+| `.rpm` | Fedora, openSUSE e derivados: `sudo dnf install ./<arquivo>.rpm` |
+
+**Arch Linux, CachyOS, EndeavourOS, Manjaro:** gere o pacote nativo a partir do repositório (ver [Como executar](#como-executar)): `npm run build:arch` e depois `sudo pacman -U packaging/arch/frx-bin-*.pkg.tar.zst`.
+
+> **Status: versão inicial (0.5).** O que o app consegue corrigir depende do que a Arch Wiki documenta para o seu modelo. Se ele não achar correção para o seu laptop, ou se uma correção ajudar (ou não), abra um [relato de laptop](https://github.com/gustavomfg/FRX/issues/new?template=laptop-report.yml).
 
 ## Como funciona
 
@@ -95,30 +113,28 @@ Só em build de debug, a tela inicial mostra **"Injetar laptop de teste (dev)"**
 | `get_system_profile` | Distribuição, kernel, sessão, CPU, RAM, GPUs e drivers |
 | `search_hardware_fixes` | Busca na Arch Wiki para um sintoma, com a checagem leve de cada ação |
 | `prepare_system_fix`, `apply_system_fix` | Prévia de uma instrução e confirmação (só IDs e a impressão digital da prévia) |
-| `list_fix_operations`, `get_fix_operation`, `verify_fix_operation` | Histórico e conferência no disco |
+| `list_fix_operations`, `verify_fix_operation` | Histórico e conferência no disco |
 | `prepare_fix_rollback`, `rollback_fix` | Prévia e execução do desfazer (ou cancelamento de uma correção pendente) |
 | `get_fix_providers`, `clear_fix_cache`, `get_cache_size` | Fontes e cache |
 | `set_dev_laptop` | Só em debug: laptop de teste |
-| `app_info`, `ping` | Informações do app e teste da ponte |
-
-Os comandos de jogos (Steam, Performance Lab, Smart Packs) continuam registrados, sem uso na interface atual.
+| `app_info` | Informações do app e do sistema para a tela de ajustes |
 
 ## Estrutura
 
 ```
 src-tauri/src/
-  system/                  dmi (identidade do laptop), hardware (GPUs), context
-  fixes/providers/         arch_wiki (busca + parser de instruções), fwupd (esqueleto, desativado);
-                           legado de jogos: umu, github, artifacts, protondb, reddit, winehq, steam_guides
+  system/                  dmi (identidade do laptop), hardware (GPUs e drivers)
+  fixes/                   http (cache, limites de requisição, ETag), models, providers/arch_wiki (busca + parser de instruções)
   fix_engine/              confined (allowlist e escrita presa a descritores), system (ações de sistema,
-                           prévia, comandos com guarda), journal, files, models — aplicação e rollback
-  commands/                hardware, system, fix_engine, dev_laptop (debug) e os comandos legados
+                           prévia, comandos com guarda), journal, files, models: aplicação e rollback
+  commands/                hardware, system, fix_engine, app, dev_laptop (debug)
+  net.rs, cache/, time.rs  cliente HTTPS com lista fechada de hosts, cache, utilitários de tempo
 src/
-  pages/Dashboard.tsx      sistema, sintomas, resultados e "Correções no sistema"
-  components/hardware/     SuggestionCard, SystemFixDialog, sintomas
+  pages/                   Dashboard (sistema, sintomas, resultados), Settings, NotFound
+  components/hardware/     SuggestionCard, SystemFixDialog, ChecksList, sintomas
   state/hardware.tsx       identidade do laptop e perfil do sistema
-  services/hardware.ts     chamadas da ponte
-  design/tokens.css  mascot/   identidade visual e o Pim
+  services/                native (ponte IPC), hardware, fixEngine
+  design/tokens.css, mascot/   identidade visual e o Pim
 ```
 
 ## Identidade visual e acessibilidade
@@ -128,6 +144,9 @@ src/
 - Intensidade de animação **Completa / Suave / Desligada**, respeitando `prefers-reduced-motion`. Foco visível, diálogos com foco preso, `aria-live` nos resultados; status nunca dependem só de cor.
 - Atalhos: `Ctrl + K` (páginas e sintomas), `Alt + 1/2` (Início, Configurações), `Esc` (fecha diálogos, exceto durante uma operação).
 
-## Legado (jogos)
+## Contribuição, segurança e licença
 
-O código do FRX para jogos (biblioteca da Steam, Performance Lab com MangoHud, Smart Packs, receitas de jogos, provedores UMU/GitHub) continua no repositório e nos testes, mas não está nas rotas da interface. A documentação dessa fase está em [`docs/`](docs/) (por exemplo [`FIX-ENGINE.md`](docs/FIX-ENGINE.md) e [`DIAGNOSIS.md`](docs/DIAGNOSIS.md)) e no histórico do git.
+- [CONTRIBUTING.md](CONTRIBUTING.md): preparação do ambiente, as verificações que o CI roda e as regras que protegem o `/etc` (em inglês).
+- [SECURITY.md](SECURITY.md): como relatar uma vulnerabilidade em privado (em inglês).
+- [CHANGELOG.md](CHANGELOG.md): o que mudou em cada versão.
+- Licença [MIT](LICENSE). O texto da Arch Wiki mostrado no app é GFDL 1.3+ e mantém a licença própria, com link para a página de origem.

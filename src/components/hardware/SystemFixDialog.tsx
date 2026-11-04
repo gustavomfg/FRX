@@ -3,8 +3,8 @@ import { ArchiveRestore, BookOpen, ClipboardCopy, ExternalLink, FileCode2, Refre
 import { Dialog } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { Pill } from '@/components/ui/Status'
-import { ChecksList } from '@/components/fix/ApplyFixDialog'
-import { OP_STATE, PLAN_STATUS, RISK } from '@/components/fix/engineMeta'
+import { ChecksList } from './ChecksList'
+import { OP_STATE, PLAN_STATUS, RISK } from '@/components/hardware/engineMeta'
 import { applySystemFix, prepareSystemFix } from '@/services/hardware'
 import { prepareFixRollback, rollbackFix, verifyFixOperation } from '@/services/fixEngine'
 import { errorMessage } from '@/services/native'
@@ -140,7 +140,7 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
     rb && target.kind !== 'rollback'
       ? 'Desfazer correção'
       : target.kind === 'apply' ? 'Aplicar correção' : target.kind === 'rollback' ? 'Desfazer correção' : op?.pending?.kind === 'rollback' ? 'Desfazer: passo no terminal' : 'Aplicar: passo no terminal'
-  const subject = plan?.recipeTitle ?? (target.kind !== 'apply' ? target.operation.recipeTitle : '')
+  const subject = plan?.title ?? (target.kind !== 'apply' ? target.operation.title : '')
 
   const footer =
     phase === 'review' ? (
@@ -199,7 +199,7 @@ function Scoped({ target, onClose, onChanged }: { target: SystemFixTarget; onClo
               {RISK[plan.risk].label}
             </Pill>
             <Pill color="var(--frx-text-2)" soft="var(--frx-raised)">
-              {plan.gameName}
+              {plan.laptop}
             </Pill>
           </div>
 

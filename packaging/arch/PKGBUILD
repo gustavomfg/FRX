@@ -8,10 +8,10 @@
 pkgname=frx-bin
 pkgver=0.5.0
 pkgrel=1
-pkgdesc="FRX — Play. Fix. Repeat. Gerenciador de compatibilidade de jogos no Linux"
+pkgdesc="Hardware Fixer — diagnóstico e correções de hardware para laptops Linux"
 arch=('x86_64')
 url="https://github.com/gustavomfg/FRX"
-license=('LicenseRef-proprietary')
+license=('MIT')
 depends=('webkit2gtk-4.1' 'gtk3' 'hicolor-icon-theme')
 provides=('frx')
 conflicts=('frx')

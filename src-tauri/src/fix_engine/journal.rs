@@ -21,8 +21,17 @@ pub fn valid_op_id(id: &str) -> bool {
         && id[3..].bytes().all(|b| b.is_ascii_hexdigit() || b == b'-')
 }
 
+/// Identificador novo: nanossegundos, PID e contador (hex). Único no processo
+/// e entre execuções, e aceito por [`valid_op_id`].
 pub fn new_op_id() -> String {
-    format!("op-{}", &crate::performance::persistence::new_id()[2..])
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static COUNTER: AtomicU64 = AtomicU64::new(0);
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos())
+        .unwrap_or(0);
+    let c = COUNTER.fetch_add(1, Ordering::Relaxed);
+    format!("op-{:x}-{:x}", nanos, (std::process::id() as u64) << 16 | (c & 0xffff))
 }
 
 impl Journal {

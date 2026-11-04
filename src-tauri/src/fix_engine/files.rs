@@ -1,6 +1,7 @@
-//! Operações de arquivo do Fix Engine: hash, backup verificado, escrita
-//! atômica preservando permissões e espaço livre. Nada aqui segue links
-//! simbólicos no destino nem usa diretórios temporários previsíveis.
+//! Operações de arquivo do Fix Engine: hash, escrita atômica do diário,
+//! diretórios privados e espaço livre. Nada aqui segue links simbólicos no
+//! destino nem usa diretórios temporários previsíveis. Os arquivos de sistema
+//! (`/etc`) passam por `confined`, não por aqui.
 
 use std::fs::{self, File, OpenOptions};
 use std::io::Write;
@@ -8,8 +9,6 @@ use std::os::unix::fs::{OpenOptionsExt, PermissionsExt};
 use std::path::{Path, PathBuf};
 
 use sha2::{Digest, Sha256};
-
-use super::models::BackupRef;
 
 pub fn sha256_hex(bytes: &[u8]) -> String {
     let d = Sha256::digest(bytes);
@@ -50,58 +49,6 @@ fn refuse_symlink(p: &Path) -> Result<(), String> {
         Ok(m) if !m.is_file() => Err(format!("{} não é um arquivo comum.", p.display())),
         _ => Ok(()),
     }
-}
-
-/// Copia `src` para `dir/name` e confere o hash da cópia. Se `src` não
-/// existir, registra a ausência (o rollback então remove o arquivo criado).
-pub fn backup(src: &Path, dir: &Path, name: &str) -> Result<BackupRef, String> {
-    refuse_symlink(src)?;
-    private_dir(dir)?;
-    let dest = dir.join(name);
-    let bytes = match fs::read(src) {
-        Ok(b) => b,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-            return Ok(BackupRef {
-                path: dest,
-                existed: false,
-                sha256: None,
-                size: 0,
-                mode: None,
-            });
-        }
-        Err(e) => {
-            return Err(format!(
-                "Backup falhou: não foi possível ler {}: {e}",
-                src.display()
-            ))
-        }
-    };
-    let mode = fs::metadata(src)
-        .map(|m| m.permissions().mode() & 0o7777)
-        .ok();
-    if free_space(dir).is_some_and(|f| f < bytes.len() as u64 * 2 + 1024 * 1024) {
-        return Err("Espaço insuficiente para o backup.".into());
-    }
-    let mut f = OpenOptions::new()
-        .write(true)
-        .create_new(true)
-        .mode(0o600)
-        .open(&dest)
-        .map_err(|e| format!("Backup falhou: {e}"))?;
-    f.write_all(&bytes)
-        .and_then(|_| f.sync_all())
-        .map_err(|e| format!("Backup falhou: {e}"))?;
-    let expected = sha256_hex(&bytes);
-    if sha256_file(&dest)?.as_deref() != Some(expected.as_str()) {
-        return Err("Backup falhou: a cópia não confere com o original.".into());
-    }
-    Ok(BackupRef {
-        path: dest,
-        existed: true,
-        sha256: Some(expected),
-        size: bytes.len() as u64,
-        mode,
-    })
 }
 
 /// Escrita atômica: arquivo temporário exclusivo no mesmo diretório,
@@ -147,23 +94,6 @@ fn tmp_path(dir: &Path, name: &str) -> PathBuf {
     dir.join(format!(".{name}.frx-{}-{nanos:x}.tmp", std::process::id()))
 }
 
-/// Restaura o conteúdo do backup (ou remove o arquivo, se ele não existia).
-pub fn restore(backup: &BackupRef, target: &Path) -> Result<(), String> {
-    if !backup.existed {
-        refuse_symlink(target)?;
-        return match fs::remove_file(target) {
-            Ok(()) => Ok(()),
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
-            Err(e) => Err(e.to_string()),
-        };
-    }
-    let bytes = fs::read(&backup.path).map_err(|e| format!("Backup ilegível: {e}"))?;
-    if backup.sha256.as_deref() != Some(sha256_hex(&bytes).as_str()) {
-        return Err("O backup foi alterado e não confere com o hash registrado.".into());
-    }
-    atomic_write(target, &bytes, backup.mode.unwrap_or(0o644))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -171,7 +101,7 @@ mod tests {
     #[test]
     fn atomic_write_preserves_mode_and_refuses_symlinks() {
         let tmp = tempfile::tempdir().unwrap();
-        let f = tmp.path().join("a.vdf");
+        let f = tmp.path().join("a.json");
         fs::write(&f, "old").unwrap();
         fs::set_permissions(&f, fs::Permissions::from_mode(0o640)).unwrap();
         atomic_write(&f, b"new", 0o644).unwrap();
@@ -182,40 +112,9 @@ mod tests {
         );
         // Nenhum temporário sobrando.
         assert_eq!(fs::read_dir(tmp.path()).unwrap().count(), 1);
-        let link = tmp.path().join("link.vdf");
+        let link = tmp.path().join("link.json");
         std::os::unix::fs::symlink(&f, &link).unwrap();
         assert!(atomic_write(&link, b"x", 0o644).is_err());
         assert_eq!(fs::read_to_string(&f).unwrap(), "new");
-    }
-
-    #[test]
-    fn backup_and_restore_roundtrip() {
-        let tmp = tempfile::tempdir().unwrap();
-        let f = tmp.path().join("cfg.ini");
-        fs::write(&f, "a=1").unwrap();
-        let b = backup(&f, &tmp.path().join("bk"), "0-cfg.ini").unwrap();
-        assert!(b.existed && b.size == 3);
-        assert_eq!(
-            fs::metadata(tmp.path().join("bk"))
-                .unwrap()
-                .permissions()
-                .mode()
-                & 0o777,
-            0o700
-        );
-        fs::write(&f, "a=2").unwrap();
-        restore(&b, &f).unwrap();
-        assert_eq!(fs::read_to_string(&f).unwrap(), "a=1");
-        // Backup adulterado não é usado.
-        fs::write(&b.path, "zzz").unwrap();
-        assert!(restore(&b, &f).is_err());
-        // Arquivo ausente: o rollback remove o que foi criado.
-        let n = tmp.path().join("novo.ini");
-        let b2 = backup(&n, &tmp.path().join("bk"), "1-novo.ini").unwrap();
-        assert!(!b2.existed);
-        fs::write(&n, "x").unwrap();
-        restore(&b2, &n).unwrap();
-        assert!(!n.exists());
-        assert!(free_space(tmp.path()).unwrap() > 0);
     }
 }

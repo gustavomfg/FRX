@@ -2,7 +2,7 @@ import { BookOpen, ExternalLink, TriangleAlert, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Disclosure } from '@/components/ui/Disclosure'
 import { Pill } from '@/components/ui/Status'
-import { PLAN_STATUS } from '@/components/fix/engineMeta'
+import { PLAN_STATUS } from '@/components/hardware/engineMeta'
 import type { Fit, Support, SystemAction, WikiAction, WikiSuggestion } from '@/types/hardware'
 
 const NEUTRAL = { color: 'var(--frx-text-2)', soft: 'var(--frx-raised)' }

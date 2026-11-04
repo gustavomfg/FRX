@@ -5,7 +5,6 @@ import { Logo } from '@/components/brand/Logo'
 import { Kbd } from '@/components/ui/Controls'
 import { useDispatch, useSettings } from '@/state/store'
 import { laptopName, useHardware } from '@/state/hardware'
-import { SourceTag } from '@/components/game/LibraryNotices'
 import { cn } from '@/lib/cn'
 import { APP_VERSION } from '@/services/platform'
 
@@ -30,7 +29,7 @@ export function Sidebar({ narrow }: { narrow: boolean }) {
     >
       <div className={cn('flex h-16 items-center', compact ? 'justify-center' : 'justify-between px-5')}>
         <Logo compact={compact} />
-        {!compact && <SourceTag>{`v${APP_VERSION.split('.').slice(0, 2).join('.')}`}</SourceTag>}
+        {!compact && <span className="font-mono text-[11px] text-fg-3">{`v${APP_VERSION.split('.').slice(0, 2).join('.')}`}</span>}
       </div>
 
       <nav aria-label="Principal" className={cn('mt-3 flex flex-col gap-0.5', compact ? 'px-2.5' : 'px-3')}>

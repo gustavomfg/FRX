@@ -6,18 +6,24 @@
 //! ação ele mesmo.
 
 use serde::{Deserialize, Serialize};
-use tauri::{AppHandle, State};
+use tauri::State;
 
-use super::fix_engine::{blocking, emitter, engine};
+use super::fix_engine::{blocking, engine};
 use super::system::effective_identity;
 use super::AppCtx;
 use crate::fix_engine::models::{FixPlan, Operation};
 use crate::fix_engine::system::SystemFixRequest;
 use crate::fixes::http::Ctx;
+use crate::fixes::models::ProviderInfo;
 use crate::fixes::providers::arch_wiki::{self, HardwareSymptom, WikiSearch};
-use crate::fixes::providers::LaptopQuery;
+use crate::fixes::providers::{self, LaptopQuery};
 use crate::system::LaptopIdentity;
 use crate::time::now_iso;
+
+/// Validade do cache, em horas: entre 1 hora e 30 dias.
+fn ttl(hours: u64) -> u64 {
+    hours.clamp(1, 24 * 30) * 3600
+}
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -49,8 +55,8 @@ async fn search(
     let http = Ctx {
         fetcher: &ctx.fetcher,
         cache: &ctx.cache,
-        state: &ctx.fixes,
-        ttl_secs: super::fixes::ttl(max_age_hours),
+        state: &ctx.limits,
+        ttl_secs: ttl(max_age_hours),
         force,
     };
     let query = LaptopQuery {
@@ -68,7 +74,14 @@ pub async fn search_hardware_fixes(
         .await
         .map_err(|e| e.to_string())?;
     let retrieved_at = now_iso();
-    let mut wiki = search(&ctx, info.identity.clone(), args.symptom, args.force, args.max_age_hours).await;
+    let mut wiki = search(
+        &ctx,
+        info.identity.clone(),
+        args.symptom,
+        args.force,
+        args.max_age_hours,
+    )
+    .await;
     // Checagem leve (existência de arquivo) para o card; a prévia confere o resto.
     let engine = engine(&ctx);
     for action in wiki.suggestions.iter_mut().flat_map(|s| s.actions.iter_mut()) {
@@ -120,11 +133,15 @@ pub async fn prepare_system_fix(
         .cloned()
         .ok_or(GONE)?;
     let where_ = suggestion.section.as_deref().unwrap_or(&suggestion.page);
+    let source = suggestion.section.as_ref().map_or_else(
+        || suggestion.page.clone(),
+        |s| format!("{} › {s}", suggestion.page),
+    );
     let req = SystemFixRequest {
         action: found.action,
         title: format!("{where_}: {}", found.snippet),
         context: found.context,
-        source_label: format!("Arch Wiki · {}", suggestion.section.as_ref().map_or(suggestion.page.clone(), |s| format!("{} › {s}", suggestion.page))),
+        source_label: format!("Arch Wiki · {source}"),
         source_url: suggestion.url,
         laptop,
     };
@@ -136,11 +153,28 @@ pub async fn prepare_system_fix(
 /// backup feito, arquivo preparado e o comando `sudo` para o usuário rodar.
 #[tauri::command]
 pub async fn apply_system_fix(
-    app: AppHandle,
     ctx: State<'_, AppCtx>,
     plan_id: String,
     fingerprint: String,
 ) -> Result<Operation, String> {
     let e = engine(&ctx);
-    blocking(move || e.apply_system(&plan_id, &fingerprint, &emitter(app))).await
+    blocking(move || e.apply_system(&plan_id, &fingerprint)).await
+}
+
+/// Fontes consultadas, para a tela de ajustes.
+#[tauri::command]
+pub fn get_fix_providers() -> Vec<ProviderInfo> {
+    providers::catalog()
+}
+
+/// Tamanho do cache local de respostas, em bytes.
+#[tauri::command]
+pub fn get_cache_size(ctx: State<'_, AppCtx>) -> u64 {
+    ctx.cache.size_bytes()
+}
+
+/// Apaga as respostas em cache. A próxima busca volta à fonte.
+#[tauri::command]
+pub fn clear_fix_cache(ctx: State<'_, AppCtx>) -> Result<(), String> {
+    ctx.cache.clear(None).map_err(|e| e.to_string())
 }

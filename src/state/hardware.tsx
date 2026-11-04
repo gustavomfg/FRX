@@ -1,8 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { getSystemProfile, identifyLaptop } from '@/services/hardware'
 import { errorMessage } from '@/services/native'
-import type { LaptopIdentity } from '@/types/hardware'
-import type { SystemProfile } from '@/types/steam'
+import type { LaptopIdentity, SystemProfile } from '@/types/hardware'
 
 interface HardwareState {
   identity: LaptopIdentity | null
